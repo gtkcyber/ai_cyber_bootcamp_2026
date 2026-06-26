@@ -1,0 +1,201 @@
+query,label,length,num_keywords,has_comment,num_quotes,num_semicolons,has_union,has_exec,has_sleep,injection_type
+SELECT * FROM customers WHERE email = 'alice' AND password = '8996'; --'; EXEC sp_MSForEachTable 'DROP TABLE ?';,injection,112,6,True,7,3,False,True,False,data manipulation
+SELECT * FROM logs WHERE action = 'login' AND user_id = 3 OR (SELECT COUNT(*) FROM users) > 0; --,injection,97,7,True,2,1,False,False,False,other
+SELECT COUNT(*) FROM orders WHERE product_id = 72;,safe,50,3,False,0,1,False,False,False,none
+DELETE FROM sessions WHERE user_id = 16;,safe,40,3,False,0,1,False,False,False,none
+SELECT * FROM products WHERE id = 43;,safe,37,3,False,0,1,False,False,False,none
+SELECT * FROM orders WHERE user_id = 18 AND status = 'shipped' OR '' = '';,injection,74,5,False,6,1,False,False,False,other
+SELECT * FROM users WHERE username = 'alice' AND password = '5997' OR 'x'='x';,injection,78,5,False,8,1,False,False,False,other
+SELECT * FROM users WHERE username = 'carol' AND password = '2464';,safe,67,4,False,4,1,False,False,False,none
+SELECT * FROM orders WHERE user_id = 24 AND status = 'shipped' OR '' = '';,injection,74,5,False,6,1,False,False,False,other
+SELECT * FROM users WHERE username = 'alice' AND password = '9546';,safe,67,4,False,4,1,False,False,False,none
+"INSERT INTO logs (event, user_id) VALUES ('login', 24);",safe,55,1,False,2,1,False,False,False,none
+SELECT * FROM logs WHERE action = 'login' AND user_id = 31 OR (SELECT COUNT(*) FROM users) > 0; --,injection,98,7,True,2,1,False,False,False,other
+SELECT * FROM logs WHERE action = 'login' AND user_id = 7 OR (SELECT COUNT(*) FROM users) > 0; --,injection,97,7,True,2,1,False,False,False,other
+SELECT * FROM customers WHERE email = 'carol' AND password = '3548'; --'; EXEC sp_MSForEachTable 'DROP TABLE ?';,injection,112,6,True,7,3,False,True,False,data manipulation
+SELECT COUNT(*) FROM orders WHERE product_id = 56;,safe,50,3,False,0,1,False,False,False,none
+SELECT * FROM employees WHERE department = 'hr';,safe,48,3,False,2,1,False,False,False,none
+SELECT * FROM login WHERE username = 'bob' AND password = ''; EXEC xp_cmdshell('dir'); --,injection,89,5,True,6,2,False,True,False,code execution
+UPDATE users SET last_login = NOW() WHERE id = 39;,safe,50,2,False,0,1,False,False,False,none
+UPDATE inventory SET stock = stock - 1 WHERE product_id = 34;,safe,61,2,False,0,1,False,False,False,none
+SELECT * FROM orders WHERE user_id = 19 AND status = 'shipped' OR '' = '';,injection,74,5,False,6,1,False,False,False,other
+SELECT email FROM customers WHERE customer_id = 46;,safe,51,3,False,0,1,False,False,False,none
+SELECT * FROM customers WHERE email = 'bob' AND password = '8007'; --'; EXEC sp_MSForEachTable 'DROP TABLE ?';,injection,110,6,True,7,3,False,True,False,data manipulation
+UPDATE users SET last_login = NOW() WHERE id = 9;,safe,49,2,False,0,1,False,False,False,none
+SELECT COUNT(*) FROM orders WHERE product_id = 17;,safe,50,3,False,0,1,False,False,False,none
+SELECT * FROM users WHERE username = 'bob'; DROP TABLE users; --,injection,64,4,True,2,2,False,False,False,data manipulation
+SELECT * FROM login WHERE username = 'guest' AND password = ''; EXEC xp_cmdshell('dir'); --,injection,91,5,True,6,2,False,True,False,code execution
+SELECT * FROM employees WHERE department = 'engineering';,safe,57,3,False,2,1,False,False,False,none
+"INSERT INTO logs (event, user_id) VALUES ('login', 14);",safe,55,1,False,2,1,False,False,False,none
+SELECT COUNT(*) FROM orders WHERE product_id = 79;,safe,50,3,False,0,1,False,False,False,none
+SELECT * FROM customers WHERE email = 'guest' AND password = '9158'; --'; EXEC sp_MSForEachTable 'DROP TABLE ?';,injection,112,6,True,7,3,False,True,False,data manipulation
+SELECT * FROM login WHERE username = 'carol' AND password = ''; EXEC xp_cmdshell('dir'); --,injection,91,5,True,6,2,False,True,False,code execution
+SELECT * FROM employees WHERE department = 'marketing' OR EXISTS(SELECT * FROM admin);,injection,86,7,False,2,1,False,False,False,subquery
+SELECT * FROM employees WHERE department = 'engineering';,safe,57,3,False,2,1,False,False,False,none
+DELETE FROM sessions WHERE user_id = 38;,safe,40,3,False,0,1,False,False,False,none
+"SELECT * FROM accounts WHERE account_name = '' OR 1=CONVERT(INT, (SELECT password FROM users WHERE username = 'admin')); --",injection,123,7,True,4,1,False,False,False,other
+SELECT * FROM users WHERE username = 'carol' AND password = '5845';,safe,67,4,False,4,1,False,False,False,none
+SELECT * FROM sessions WHERE session_id = 'guest'; WAITFOR DELAY '00:00:05'; --,injection,79,4,True,4,2,False,False,True,time-based
+DELETE FROM temp_data WHERE created_at < NOW() - INTERVAL '7 days';,safe,67,3,False,2,1,False,False,False,none
+DELETE FROM sessions WHERE user_id = 27;,safe,40,3,False,0,1,False,False,False,none
+SELECT email FROM customers WHERE customer_id = 28;,safe,51,3,False,0,1,False,False,False,none
+UPDATE users SET last_login = NOW() WHERE id = 41;,safe,50,2,False,0,1,False,False,False,none
+"SELECT * FROM payments WHERE card_number = '1234' OR ASCII(SUBSTRING((SELECT TOP 1 password FROM users),1,1)) > 64; --",injection,118,6,True,2,1,False,False,False,other
+SELECT * FROM login WHERE username = 'bob' AND password = ''; EXEC xp_cmdshell('dir'); --,injection,89,5,True,6,2,False,True,False,code execution
+SELECT * FROM users WHERE username = 'carol' AND password = '8342' OR 'x'='x';,injection,78,5,False,8,1,False,False,False,other
+DELETE FROM sessions WHERE user_id = 38;,safe,40,3,False,0,1,False,False,False,none
+"INSERT INTO logs (event, user_id) VALUES ('login', 11);",safe,55,1,False,2,1,False,False,False,none
+"SELECT * FROM payments WHERE card_number = '1234' OR ASCII(SUBSTRING((SELECT TOP 1 password FROM users),1,1)) > 64; --",injection,118,6,True,2,1,False,False,False,other
+SELECT * FROM users WHERE username = 'bob' AND password = '2306' OR 'x'='x';,injection,76,5,False,8,1,False,False,False,other
+UPDATE users SET last_login = NOW() WHERE id = 6;,safe,49,2,False,0,1,False,False,False,none
+"SELECT * FROM accounts WHERE account_name = '' OR 1=CONVERT(INT, (SELECT password FROM users WHERE username = 'admin')); --",injection,123,7,True,4,1,False,False,False,other
+SELECT * FROM sessions WHERE session_id = 'admin'; WAITFOR DELAY '00:00:05'; --,injection,79,4,True,4,2,False,False,True,time-based
+SELECT * FROM customers WHERE email = 'bob' AND password = '7787'; --'; EXEC sp_MSForEachTable 'DROP TABLE ?';,injection,110,6,True,7,3,False,True,False,data manipulation
+SELECT * FROM logs WHERE action = 'login' AND user_id = 44 OR (SELECT COUNT(*) FROM users) > 0; --,injection,98,7,True,2,1,False,False,False,other
+UPDATE inventory SET stock = stock - 1 WHERE product_id = 67;,safe,61,2,False,0,1,False,False,False,none
+SELECT * FROM employees WHERE department = 'hr' OR EXISTS(SELECT * FROM admin);,injection,79,7,False,2,1,False,False,False,subquery
+DELETE FROM temp_data WHERE created_at < NOW() - INTERVAL '7 days';,safe,67,3,False,2,1,False,False,False,none
+SELECT COUNT(*) FROM orders WHERE product_id = 15;,safe,50,3,False,0,1,False,False,False,none
+SELECT email FROM customers WHERE customer_id = 29;,safe,51,3,False,0,1,False,False,False,none
+SELECT * FROM login WHERE username = 'carol' AND password = ''; EXEC xp_cmdshell('dir'); --,injection,91,5,True,6,2,False,True,False,code execution
+SELECT * FROM orders WHERE user_id = 14 AND status = 'shipped' OR '' = '';,injection,74,5,False,6,1,False,False,False,other
+DELETE FROM temp_data WHERE created_at < NOW() - INTERVAL '7 days';,safe,67,3,False,2,1,False,False,False,none
+SELECT * FROM sessions WHERE session_id = 'guest'; WAITFOR DELAY '00:00:05'; --,injection,79,4,True,4,2,False,False,True,time-based
+UPDATE inventory SET stock = stock - 1 WHERE product_id = 12;,safe,61,2,False,0,1,False,False,False,none
+SELECT email FROM customers WHERE customer_id = 49;,safe,51,3,False,0,1,False,False,False,none
+SELECT email FROM customers WHERE customer_id = 2;,safe,50,3,False,0,1,False,False,False,none
+DELETE FROM sessions WHERE user_id = 19;,safe,40,3,False,0,1,False,False,False,none
+"SELECT * FROM accounts WHERE account_name = '' OR 1=CONVERT(INT, (SELECT password FROM users WHERE username = 'admin')); --",injection,123,7,True,4,1,False,False,False,other
+"SELECT * FROM payments WHERE card_number = '1234' OR ASCII(SUBSTRING((SELECT TOP 1 password FROM users),1,1)) > 64; --",injection,118,6,True,2,1,False,False,False,other
+DELETE FROM sessions WHERE user_id = 25;,safe,40,3,False,0,1,False,False,False,none
+SELECT * FROM logs WHERE action = 'login' AND user_id = 20 OR (SELECT COUNT(*) FROM users) > 0; --,injection,98,7,True,2,1,False,False,False,other
+SELECT COUNT(*) FROM orders WHERE product_id = 8;,safe,49,3,False,0,1,False,False,False,none
+SELECT * FROM employees WHERE department = 'engineering' OR EXISTS(SELECT * FROM admin);,injection,88,7,False,2,1,False,False,False,subquery
+SELECT * FROM sessions WHERE session_id = 'bob'; WAITFOR DELAY '00:00:05'; --,injection,77,4,True,4,2,False,False,True,time-based
+SELECT * FROM logs WHERE action = 'login' AND user_id = 50 OR (SELECT COUNT(*) FROM users) > 0; --,injection,98,7,True,2,1,False,False,False,other
+SELECT email FROM customers WHERE customer_id = 30;,safe,51,3,False,0,1,False,False,False,none
+"INSERT INTO logs (event, user_id) VALUES ('login', 50);",safe,55,1,False,2,1,False,False,False,none
+SELECT * FROM orders WHERE user_id = 43 AND status = 'shipped' OR '' = '';,injection,74,5,False,6,1,False,False,False,other
+"SELECT * FROM payments WHERE card_number = '1234' OR ASCII(SUBSTRING((SELECT TOP 1 password FROM users),1,1)) > 64; --",injection,118,6,True,2,1,False,False,False,other
+SELECT email FROM customers WHERE customer_id = 19;,safe,51,3,False,0,1,False,False,False,none
+SELECT * FROM products WHERE id = 65;,safe,37,3,False,0,1,False,False,False,none
+SELECT * FROM sessions WHERE session_id = 'guest'; WAITFOR DELAY '00:00:05'; --,injection,79,4,True,4,2,False,False,True,time-based
+UPDATE inventory SET stock = stock - 1 WHERE product_id = 83;,safe,61,2,False,0,1,False,False,False,none
+SELECT * FROM logs WHERE action = 'login' AND user_id = 42 OR (SELECT COUNT(*) FROM users) > 0; --,injection,98,7,True,2,1,False,False,False,other
+"SELECT * FROM payments WHERE card_number = '1234' OR ASCII(SUBSTRING((SELECT TOP 1 password FROM users),1,1)) > 64; --",injection,118,6,True,2,1,False,False,False,other
+SELECT * FROM users WHERE username = 'admin'; DROP TABLE users; --,injection,66,4,True,2,2,False,False,False,data manipulation
+SELECT * FROM users WHERE username = 'carol' AND password = '7356';,safe,67,4,False,4,1,False,False,False,none
+"INSERT INTO logs (event, user_id) VALUES ('login', 3);",safe,54,1,False,2,1,False,False,False,none
+SELECT * FROM users WHERE username = 'carol' AND password = '1635' OR 'x'='x';,injection,78,5,False,8,1,False,False,False,other
+"SELECT * FROM payments WHERE card_number = '1234' OR ASCII(SUBSTRING((SELECT TOP 1 password FROM users),1,1)) > 64; --",injection,118,6,True,2,1,False,False,False,other
+SELECT * FROM employees WHERE department = 'sales';,safe,51,3,False,2,1,False,False,False,none
+UPDATE inventory SET stock = stock - 1 WHERE product_id = 58;,safe,61,2,False,0,1,False,False,False,none
+SELECT * FROM users WHERE username = 'admin'; DROP TABLE users; --,injection,66,4,True,2,2,False,False,False,data manipulation
+"SELECT * FROM accounts WHERE account_name = '' OR 1=CONVERT(INT, (SELECT password FROM users WHERE username = 'admin')); --",injection,123,7,True,4,1,False,False,False,other
+SELECT email FROM customers WHERE customer_id = 43;,safe,51,3,False,0,1,False,False,False,none
+SELECT * FROM login WHERE username = 'admin' AND password = ''; EXEC xp_cmdshell('dir'); --,injection,91,5,True,6,2,False,True,False,code execution
+SELECT * FROM users WHERE username = 'admin'; DROP TABLE users; --,injection,66,4,True,2,2,False,False,False,data manipulation
+SELECT * FROM employees WHERE department = 'marketing' OR EXISTS(SELECT * FROM admin);,injection,86,7,False,2,1,False,False,False,subquery
+"SELECT * FROM payments WHERE card_number = '1234' OR ASCII(SUBSTRING((SELECT TOP 1 password FROM users),1,1)) > 64; --",injection,118,6,True,2,1,False,False,False,other
+SELECT * FROM login WHERE username = 'carol' AND password = ''; EXEC xp_cmdshell('dir'); --,injection,91,5,True,6,2,False,True,False,code execution
+SELECT * FROM sessions WHERE session_id = 'carol'; WAITFOR DELAY '00:00:05'; --,injection,79,4,True,4,2,False,False,True,time-based
+SELECT * FROM orders WHERE user_id = 24 AND status = 'shipped' OR '' = '';,injection,74,5,False,6,1,False,False,False,other
+SELECT * FROM users WHERE username = 'admin' AND password = '6809';,safe,67,4,False,4,1,False,False,False,none
+DELETE FROM sessions WHERE user_id = 20;,safe,40,3,False,0,1,False,False,False,none
+SELECT * FROM users WHERE username = 'bob' AND password = '3873' OR 'x'='x';,injection,76,5,False,8,1,False,False,False,other
+SELECT * FROM employees WHERE department = 'support' OR EXISTS(SELECT * FROM admin);,injection,84,7,False,2,1,False,False,False,subquery
+SELECT * FROM employees WHERE department = 'marketing';,safe,55,3,False,2,1,False,False,False,none
+SELECT * FROM login WHERE username = 'carol' AND password = ''; EXEC xp_cmdshell('dir'); --,injection,91,5,True,6,2,False,True,False,code execution
+DELETE FROM temp_data WHERE created_at < NOW() - INTERVAL '7 days';,safe,67,3,False,2,1,False,False,False,none
+SELECT COUNT(*) FROM orders WHERE product_id = 70;,safe,50,3,False,0,1,False,False,False,none
+SELECT email FROM customers WHERE customer_id = 49;,safe,51,3,False,0,1,False,False,False,none
+UPDATE inventory SET stock = stock - 1 WHERE product_id = 53;,safe,61,2,False,0,1,False,False,False,none
+SELECT * FROM users WHERE username = 'carol'; DROP TABLE users; --,injection,66,4,True,2,2,False,False,False,data manipulation
+DELETE FROM temp_data WHERE created_at < NOW() - INTERVAL '7 days';,safe,67,3,False,2,1,False,False,False,none
+UPDATE inventory SET stock = stock - 1 WHERE product_id = 90;,safe,61,2,False,0,1,False,False,False,none
+SELECT * FROM logs WHERE action = 'login' AND user_id = 30 OR (SELECT COUNT(*) FROM users) > 0; --,injection,98,7,True,2,1,False,False,False,other
+SELECT COUNT(*) FROM orders WHERE product_id = 86;,safe,50,3,False,0,1,False,False,False,none
+SELECT * FROM users WHERE username = 'alice' AND password = '9828' OR 'x'='x';,injection,78,5,False,8,1,False,False,False,other
+UPDATE users SET last_login = NOW() WHERE id = 9;,safe,49,2,False,0,1,False,False,False,none
+SELECT * FROM employees WHERE department = 'hr' OR EXISTS(SELECT * FROM admin);,injection,79,7,False,2,1,False,False,False,subquery
+"SELECT * FROM accounts WHERE account_name = '' OR 1=CONVERT(INT, (SELECT password FROM users WHERE username = 'admin')); --",injection,123,7,True,4,1,False,False,False,other
+"SELECT * FROM accounts WHERE account_name = '' OR 1=CONVERT(INT, (SELECT password FROM users WHERE username = 'admin')); --",injection,123,7,True,4,1,False,False,False,other
+"INSERT INTO logs (event, user_id) VALUES ('login', 22);",safe,55,1,False,2,1,False,False,False,none
+SELECT * FROM products WHERE id = 84;,safe,37,3,False,0,1,False,False,False,none
+SELECT * FROM customers WHERE email = 'bob' AND password = '3549'; --'; EXEC sp_MSForEachTable 'DROP TABLE ?';,injection,110,6,True,7,3,False,True,False,data manipulation
+SELECT COUNT(*) FROM orders WHERE product_id = 67;,safe,50,3,False,0,1,False,False,False,none
+DELETE FROM temp_data WHERE created_at < NOW() - INTERVAL '7 days';,safe,67,3,False,2,1,False,False,False,none
+SELECT * FROM login WHERE username = 'carol' AND password = ''; EXEC xp_cmdshell('dir'); --,injection,91,5,True,6,2,False,True,False,code execution
+"INSERT INTO logs (event, user_id) VALUES ('login', 1);",safe,54,1,False,2,1,False,False,False,none
+SELECT * FROM employees WHERE department = 'marketing' OR EXISTS(SELECT * FROM admin);,injection,86,7,False,2,1,False,False,False,subquery
+UPDATE inventory SET stock = stock - 1 WHERE product_id = 26;,safe,61,2,False,0,1,False,False,False,none
+SELECT * FROM products WHERE id = 1;,safe,36,3,False,0,1,False,False,False,none
+DELETE FROM temp_data WHERE created_at < NOW() - INTERVAL '7 days';,safe,67,3,False,2,1,False,False,False,none
+SELECT * FROM customers WHERE email = 'guest' AND password = '8883'; --'; EXEC sp_MSForEachTable 'DROP TABLE ?';,injection,112,6,True,7,3,False,True,False,data manipulation
+SELECT * FROM users WHERE username = 'alice'; DROP TABLE users; --,injection,66,4,True,2,2,False,False,False,data manipulation
+SELECT * FROM employees WHERE department = 'marketing';,safe,55,3,False,2,1,False,False,False,none
+SELECT * FROM sessions WHERE session_id = 'carol'; WAITFOR DELAY '00:00:05'; --,injection,79,4,True,4,2,False,False,True,time-based
+SELECT * FROM sessions WHERE session_id = 'carol'; WAITFOR DELAY '00:00:05'; --,injection,79,4,True,4,2,False,False,True,time-based
+SELECT * FROM users WHERE username = 'carol' AND password = '1255';,safe,67,4,False,4,1,False,False,False,none
+SELECT * FROM users WHERE username = 'guest'; DROP TABLE users; --,injection,66,4,True,2,2,False,False,False,data manipulation
+"SELECT * FROM payments WHERE card_number = '1234' OR ASCII(SUBSTRING((SELECT TOP 1 password FROM users),1,1)) > 64; --",injection,118,6,True,2,1,False,False,False,other
+SELECT * FROM employees WHERE department = 'marketing' OR EXISTS(SELECT * FROM admin);,injection,86,7,False,2,1,False,False,False,subquery
+"INSERT INTO logs (event, user_id) VALUES ('login', 15);",safe,55,1,False,2,1,False,False,False,none
+SELECT * FROM customers WHERE email = 'bob' AND password = '6794'; --'; EXEC sp_MSForEachTable 'DROP TABLE ?';,injection,110,6,True,7,3,False,True,False,data manipulation
+SELECT * FROM products WHERE id = 35;,safe,37,3,False,0,1,False,False,False,none
+SELECT * FROM customers WHERE email = 'admin' AND password = '8657'; --'; EXEC sp_MSForEachTable 'DROP TABLE ?';,injection,112,6,True,7,3,False,True,False,data manipulation
+DELETE FROM temp_data WHERE created_at < NOW() - INTERVAL '7 days';,safe,67,3,False,2,1,False,False,False,none
+SELECT * FROM users WHERE username = 'admin'; DROP TABLE users; --,injection,66,4,True,2,2,False,False,False,data manipulation
+UPDATE users SET last_login = NOW() WHERE id = 27;,safe,50,2,False,0,1,False,False,False,none
+SELECT * FROM products WHERE id = 11;,safe,37,3,False,0,1,False,False,False,none
+DELETE FROM temp_data WHERE created_at < NOW() - INTERVAL '7 days';,safe,67,3,False,2,1,False,False,False,none
+SELECT * FROM users WHERE username = 'carol' AND password = '8671';,safe,67,4,False,4,1,False,False,False,none
+"SELECT * FROM accounts WHERE account_name = '' OR 1=CONVERT(INT, (SELECT password FROM users WHERE username = 'admin')); --",injection,123,7,True,4,1,False,False,False,other
+SELECT * FROM employees WHERE department = 'engineering';,safe,57,3,False,2,1,False,False,False,none
+SELECT * FROM users WHERE username = 'alice' AND password = '7748';,safe,67,4,False,4,1,False,False,False,none
+SELECT * FROM users WHERE username = 'carol' AND password = '8894';,safe,67,4,False,4,1,False,False,False,none
+SELECT * FROM orders WHERE user_id = 38 AND status = 'shipped' OR '' = '';,injection,74,5,False,6,1,False,False,False,other
+"SELECT * FROM payments WHERE card_number = '1234' OR ASCII(SUBSTRING((SELECT TOP 1 password FROM users),1,1)) > 64; --",injection,118,6,True,2,1,False,False,False,other
+DELETE FROM sessions WHERE user_id = 19;,safe,40,3,False,0,1,False,False,False,none
+SELECT * FROM employees WHERE department = 'sales';,safe,51,3,False,2,1,False,False,False,none
+SELECT * FROM employees WHERE department = 'hr';,safe,48,3,False,2,1,False,False,False,none
+"SELECT * FROM payments WHERE card_number = '1234' OR ASCII(SUBSTRING((SELECT TOP 1 password FROM users),1,1)) > 64; --",injection,118,6,True,2,1,False,False,False,other
+SELECT * FROM sessions WHERE session_id = 'carol'; WAITFOR DELAY '00:00:05'; --,injection,79,4,True,4,2,False,False,True,time-based
+SELECT * FROM login WHERE username = 'carol' AND password = ''; EXEC xp_cmdshell('dir'); --,injection,91,5,True,6,2,False,True,False,code execution
+DELETE FROM sessions WHERE user_id = 10;,safe,40,3,False,0,1,False,False,False,none
+UPDATE inventory SET stock = stock - 1 WHERE product_id = 38;,safe,61,2,False,0,1,False,False,False,none
+SELECT * FROM employees WHERE department = 'hr' OR EXISTS(SELECT * FROM admin);,injection,79,7,False,2,1,False,False,False,subquery
+UPDATE inventory SET stock = stock - 1 WHERE product_id = 12;,safe,61,2,False,0,1,False,False,False,none
+SELECT * FROM users WHERE username = 'carol' AND password = '4434' OR 'x'='x';,injection,78,5,False,8,1,False,False,False,other
+SELECT * FROM users WHERE username = 'admin' AND password = '8017' OR 'x'='x';,injection,78,5,False,8,1,False,False,False,other
+UPDATE users SET last_login = NOW() WHERE id = 41;,safe,50,2,False,0,1,False,False,False,none
+SELECT * FROM users WHERE username = 'bob' AND password = '4628';,safe,65,4,False,4,1,False,False,False,none
+SELECT * FROM products WHERE id = 40;,safe,37,3,False,0,1,False,False,False,none
+"INSERT INTO logs (event, user_id) VALUES ('login', 2);",safe,54,1,False,2,1,False,False,False,none
+SELECT * FROM orders WHERE user_id = 28 AND status = 'shipped' OR '' = '';,injection,74,5,False,6,1,False,False,False,other
+SELECT * FROM orders WHERE user_id = 32 AND status = 'shipped' OR '' = '';,injection,74,5,False,6,1,False,False,False,other
+SELECT * FROM logs WHERE action = 'login' AND user_id = 19 OR (SELECT COUNT(*) FROM users) > 0; --,injection,98,7,True,2,1,False,False,False,other
+SELECT * FROM users WHERE username = 'alice'; DROP TABLE users; --,injection,66,4,True,2,2,False,False,False,data manipulation
+SELECT * FROM employees WHERE department = 'engineering' OR EXISTS(SELECT * FROM admin);,injection,88,7,False,2,1,False,False,False,subquery
+SELECT * FROM products WHERE id = 20;,safe,37,3,False,0,1,False,False,False,none
+UPDATE users SET last_login = NOW() WHERE id = 11;,safe,50,2,False,0,1,False,False,False,none
+SELECT * FROM customers WHERE email = 'bob' AND password = '5245'; --'; EXEC sp_MSForEachTable 'DROP TABLE ?';,injection,110,6,True,7,3,False,True,False,data manipulation
+SELECT * FROM orders WHERE user_id = 10 AND status = 'shipped' OR '' = '';,injection,74,5,False,6,1,False,False,False,other
+DELETE FROM temp_data WHERE created_at < NOW() - INTERVAL '7 days';,safe,67,3,False,2,1,False,False,False,none
+"SELECT * FROM accounts WHERE account_name = '' OR 1=CONVERT(INT, (SELECT password FROM users WHERE username = 'admin')); --",injection,123,7,True,4,1,False,False,False,other
+"SELECT * FROM accounts WHERE account_name = '' OR 1=CONVERT(INT, (SELECT password FROM users WHERE username = 'admin')); --",injection,123,7,True,4,1,False,False,False,other
+DELETE FROM sessions WHERE user_id = 31;,safe,40,3,False,0,1,False,False,False,none
+SELECT COUNT(*) FROM orders WHERE product_id = 32;,safe,50,3,False,0,1,False,False,False,none
+"INSERT INTO logs (event, user_id) VALUES ('login', 8);",safe,54,1,False,2,1,False,False,False,none
+SELECT * FROM sessions WHERE session_id = 'carol'; WAITFOR DELAY '00:00:05'; --,injection,79,4,True,4,2,False,False,True,time-based
+SELECT * FROM products WHERE id = 98;,safe,37,3,False,0,1,False,False,False,none
+SELECT * FROM users WHERE username = 'carol'; DROP TABLE users; --,injection,66,4,True,2,2,False,False,False,data manipulation
+"SELECT * FROM accounts WHERE account_name = '' OR 1=CONVERT(INT, (SELECT password FROM users WHERE username = 'admin')); --",injection,123,7,True,4,1,False,False,False,other
+SELECT email FROM customers WHERE customer_id = 49;,safe,51,3,False,0,1,False,False,False,none
+SELECT * FROM users WHERE username = 'guest' AND password = '6659' OR 'x'='x';,injection,78,5,False,8,1,False,False,False,other
+UPDATE users SET last_login = NOW() WHERE id = 21;,safe,50,2,False,0,1,False,False,False,none
+SELECT * FROM products WHERE id = 59;,safe,37,3,False,0,1,False,False,False,none
+SELECT * FROM logs WHERE action = 'login' AND user_id = 50 OR (SELECT COUNT(*) FROM users) > 0; --,injection,98,7,True,2,1,False,False,False,other
+UPDATE users SET last_login = NOW() WHERE id = 40;,safe,50,2,False,0,1,False,False,False,none
+SELECT * FROM employees WHERE department = 'sales';,safe,51,3,False,2,1,False,False,False,none
+SELECT * FROM users WHERE username = 'admin' AND password = '4149' OR 'x'='x';,injection,78,5,False,8,1,False,False,False,other
