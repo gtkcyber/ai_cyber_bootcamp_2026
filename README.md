@@ -12,6 +12,7 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 
 ## Labs
 * [Worksheet 1.1 - Vectorized Data Structures](notebooks/Worksheet%201.1%20-%20Vectorized%20Data%20Structures.ipynb)
+* [Worksheet 2.2 - Interactive Visualizations](notebooks/Worksheet%202.1%20-%20Interactive%20Visualizations.py)
 
 ### Recommended Readings
    - [Python for Data Analysis](http://shop.oreilly.com/product/0636920023784.do)
