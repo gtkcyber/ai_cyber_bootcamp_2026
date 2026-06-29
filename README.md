@@ -8,10 +8,17 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 ### Instructors
 
 - Charles Givre - Data Scientist:  charles.givre@gtkcyber.com
+- Curtis Lambert - Instructor & Data Scientist: curtis@gtkcyber.com
+- Ajay Pillai - Instructor & Data Scientist: ajay@gtkcyber.com
 - Summer Rankin - Instructor & Data Scientist: summer@gtkcyber.com
+- Tim Swagger - Instructor & Sr. Software Engineer: tim@gtkcyber.com
+
+#### Teaching Assistant
+- Hannah Hesselberg - Teaching Assistant: hannah@gtkcyber.com
 
 ## Labs
 * [Worksheet 1.1 - Vectorized Data Structures](notebooks/Worksheet%201.1%20-%20Vectorized%20Data%20Structures.ipynb)
+* [Worksheet 2.1 - Data Visualization](notebooks/Worksheet%202.1%20-%20Data%20Visualization.ipynb) 
 * [Worksheet 2.2 - Interactive Visualizations](notebooks/Worksheet%202.1%20-%20Interactive%20Visualizations.py)
 
 ### Recommended Readings
