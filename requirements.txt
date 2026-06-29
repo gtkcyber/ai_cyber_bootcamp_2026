@@ -3,3 +3,4 @@ ipaddress
 apachelogs
 user-agents
 streamlit
+matplotlib
