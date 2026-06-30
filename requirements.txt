@@ -1,6 +1,10 @@
 pandas
+pandas-stubs
 ipaddress
 apachelogs
 user-agents
 streamlit
 matplotlib
+seaborn
+setuptools
+scikit-learn
