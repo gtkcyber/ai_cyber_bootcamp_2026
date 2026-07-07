@@ -17,3 +17,4 @@ uvicorn
 xgboost
 ipywidgets
 tpot
+pmdarima
