@@ -8,3 +8,9 @@ matplotlib
 seaborn
 setuptools
 scikit-learn
+lime
+shap
+pydotplus
+fastapi
+fastapi[standard]
+uvicorn
