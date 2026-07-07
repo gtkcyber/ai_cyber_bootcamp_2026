@@ -6,7 +6,7 @@ user-agents
 streamlit
 matplotlib
 seaborn
-setuptools
+setuptools<82
 scikit-learn
 lime
 shap
@@ -14,3 +14,6 @@ pydotplus
 fastapi
 fastapi[standard]
 uvicorn
+xgboost
+ipywidgets
+tpot
