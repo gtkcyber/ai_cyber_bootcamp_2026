@@ -1,8 +1,10 @@
 from fastapi import FastAPI, Query
 from pydantic import BaseModel
-import pandas as pd
 import numpy as np
 import re
+
+# Run this file with the following command:
+# uvicorn ml_api_example:app --reload
 
 # You'll need a full path (not a relative path) to your data here...
 DATA_HOME = "/Users/charlesgivre/Documents/CG_Consulting/gtk_cyber/ai_cyber_bootcamp/data"

@@ -228,3 +228,6 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+/answers/mlflow.db
+/answers/mlruns/
+*.db
