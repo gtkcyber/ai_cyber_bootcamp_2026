@@ -21,3 +21,8 @@ pmdarima
 statsmodels
 prophet
 plotly
+torch
+torchvision
+adversarial-robustness-toolbox
+keras
+tensorflow
