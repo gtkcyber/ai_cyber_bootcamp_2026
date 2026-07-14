@@ -24,6 +24,11 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 * [Worksheet 4.1 - DGA Detection using Supervised Learning](notebooks/Worksheet%204.1%20-%20DGA%20Detection%20using%20Supervised%20Learning.ipynb)
 * [Worksheet 4.2 - Tuning your Classifier](notebooks/Worksheet%204.2%20-%20Tuning%20your%20Classifier.ipynb)
 * [Worksheet 4.3 - Automate it All!](notebooks/Worksheet%204.3%20-%20Automate%20it%20All%21.ipynb)
+* [Worksheet 5.1 - Clustering](notebooks/Worksheet%205.1%20-%20Clustering.ipynb)
+* [Worksheet 6.1 - Anomaly Detection](notebooks/Worksheet%206.1%20-%20Anomaly%20Detection.ipynb)
+* [Worksheet 7.1 - Deep Learning CNN Fingerprints](notebooks/Worksheet%207.1%20-%20Deep%20learning%20CNN%20Fingerprints.ipynb)
+* [Worksheet 7.2 - Deep Learning RNN URL](notebooks/Worksheet%207.2%20-%20Deep%20Learning%20RNN%20URL.ipynb)
+* [Worksheet 8.1 - Attacking AI](notebooks/Worksheet%208.1%20-%20Attacking%20AI.ipynb)
 
 ### Recommended Readings
    - [Python for Data Analysis](http://shop.oreilly.com/product/0636920023784.do)
