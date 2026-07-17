@@ -26,3 +26,4 @@ torchvision
 adversarial-robustness-toolbox
 keras
 tensorflow
+sentence-transformers
