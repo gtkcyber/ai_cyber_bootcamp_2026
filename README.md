@@ -28,7 +28,7 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 * [Worksheet 6.1 - Anomaly Detection](notebooks/Worksheet%206.1%20-%20Anomaly%20Detection.ipynb)
 * [Worksheet 7.1 - Deep Learning CNN Fingerprints](notebooks/Worksheet%207.1%20-%20Deep%20learning%20CNN%20Fingerprints.ipynb)
 * [Worksheet 7.2 - Deep Learning RNN URL](notebooks/Worksheet%207.2%20-%20Deep%20Learning%20RNN%20URL.ipynb)
-* [Worksheet 8.1 - Attacking AI](notebooks/Worksheet%208.1%20-%20Attacking%20AI.ipynb)
+* [Worksheet_8.1_Attacking_AI](notebooks/Worksheet_8.1_Attacking_AI.ipynb)
 
 ### Recommended Readings
    - [Python for Data Analysis](http://shop.oreilly.com/product/0636920023784.do)
