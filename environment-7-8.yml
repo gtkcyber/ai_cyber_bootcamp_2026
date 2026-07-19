@@ -1,8 +1,9 @@
-name: gtk-bh-7-8                                                                                                                         
+name: gtk-bh-ai-7-8
 channels:
   - defaults
   - conda-forge
 dependencies:
+  - pip
   - python=3.13
   - tensorflow
   - keras
