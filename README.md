@@ -26,8 +26,8 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 * [Worksheet 4.3 - Automate it All!](notebooks/Worksheet%204.3%20-%20Automate%20it%20All%21.ipynb)
 * [Worksheet 5.1 - Clustering](notebooks/Worksheet%205.1%20-%20Clustering.ipynb)
 * [Worksheet 6.1 - Anomaly Detection](notebooks/Worksheet%206.1%20-%20Anomaly%20Detection.ipynb)
-* [Worksheet 7.1 - Deep Learning CNN Fingerprints](notebooks/Worksheet%207.1%20-%20Deep%20learning%20CNN%20Fingerprints.ipynb)
-* [Worksheet 7.2 - Deep Learning RNN URL](notebooks/Worksheet%207.2%20-%20Deep%20Learning%20RNN%20URL.ipynb)
+* [Worksheet_7.1_Deep_Learning_CNN_Fingerprints](notebooks/Worksheet_7.1_Deep_Learning_CNN_Fingerprints.ipynb)
+* [Worksheet_7.2_Deep_Learning_RNN_URL](notebooks/Worksheet_7.2_Deep_Learning_RNN_URL.ipynb)
 * [Worksheet 8.1 - Attacking AI](notebooks/Worksheet%208.1%20-%20Attacking%20AI.ipynb)
 
 ### Recommended Readings
