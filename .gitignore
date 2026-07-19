@@ -158,6 +158,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+.claude
 .env
 .envrc
 .venv
@@ -234,3 +235,4 @@ __marimo__/
 data/url_data_mega_deep_learning.csv
 /answers/lstm_URL_Classifier.pt
 *.keras
+/.claude/

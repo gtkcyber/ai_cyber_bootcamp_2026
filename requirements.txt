@@ -27,3 +27,11 @@ adversarial-robustness-toolbox
 keras
 tensorflow
 sentence-transformers
+phonenumbers
+langchain
+langchain-core
+langchain-openai
+langchain-anthropic
+langchain_huggingface
+langchain-community
+pypdf

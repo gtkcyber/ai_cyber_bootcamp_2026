@@ -5,15 +5,17 @@ Streamlit RAG Chat Demo — LangChain + In‑Memory Vector DB (Mac-friendly)
 New in this version
 - Added a **second tab**: “Add Text” for pasting plain text/paragraphs directly into the vector DB
 - Keeps the original “Chat” tab with RAG ON/OFF toggle
-- Still uses **LangChain** + **DocArrayInMemorySearch** (pure in‑memory)
+- Still uses **LangChain** + **InMemoryVectorStore** (pure in‑memory)
 
 Setup
 1) Python 3.10+
-2) pip install -r requirements.txt (see bottom of file)
-3) Export your OpenAI API key (macOS/Linux):
-   export OPENAI_API_KEY=sk-...
+2) pip install streamlit langchain-anthropic langchain-huggingface \
+       langchain-text-splitters langchain-core sentence-transformers python-dotenv
+3) Export your Anthropic API key (macOS/Linux):
+   export ANTHROPIC_API_KEY=sk-ant-...
+   (Embeddings run locally via sentence-transformers — no key needed.)
 4) (Optional) Put .txt/.md/.pdf files into ./docs and click “Rebuild index” — OR just paste text in the “Add Text” tab.
-5) Run: streamlit run streamlit_app.py
+5) Run: streamlit run rag_demo.py
 """
 
 from __future__ import annotations
@@ -26,12 +28,13 @@ from typing import List, Dict, Tuple
 import streamlit as st
 
 # ---- LangChain core components ----
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_anthropic import ChatAnthropic
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import DocArrayInMemorySearch
-from langchain.schema import Document
+from langchain_core.vectorstores import InMemoryVectorStore
+from langchain_core.documents import Document
 
 # Optional PDF support (still supported, but now optional)
 try:
@@ -41,18 +44,18 @@ except Exception:
     HAS_PDF = False
 
 DOCS_DIR = Path("docs")
-DEFAULT_MODEL = os.getenv("RAG_CHAT_MODEL", "gpt-4o-mini")
-EMBED_MODEL = os.getenv("RAG_EMBED_MODEL", "text-embedding-3-small")
+DEFAULT_MODEL = os.getenv("RAG_CHAT_MODEL", "claude-opus-4-8")
+EMBED_MODEL = os.getenv("RAG_EMBED_MODEL", "sentence-transformers/paraphrase-MiniLM-L6-v2")
 
 # --------------------------- Utilities ---------------------------
 
 def require_api_key() -> bool:
-    if os.getenv("OPENAI_KEY") in (None, ""):
-        st.error("OPENAI_KEY is not set. Please set it in your environment and rerun.")
+    if os.getenv("ANTHROPIC_API_KEY") in (None, ""):
+        st.error("ANTHROPIC_API_KEY is not set. Please set it in your environment and rerun.")
         with st.expander("How to set it on macOS/Linux"):
             st.code("""# mac/linux
-env | grep OPENAI_KEY  # optional check
-export OPENAI_KEY=sk-...""", language="bash")
+env | grep ANTHROPIC_API_KEY  # optional check
+export ANTHROPIC_API_KEY=sk-ant-...""", language="bash")
         return False
     return True
 
@@ -97,15 +100,16 @@ def chunk_documents(docs: List[Document], *, chunk_size: int = 2000, chunk_overl
     return splitter.split_documents(docs)
 
 
-def get_embeddings() -> OpenAIEmbeddings:
+def get_embeddings() -> HuggingFaceEmbeddings:
     if "embeddings" not in st.session_state:
-        st.session_state.embeddings = OpenAIEmbeddings(model=EMBED_MODEL, api_key=os.getenv("OPENAI_KEY"))
+        # Local model — no API key, downloads once and caches. Matches the other labs.
+        st.session_state.embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
     return st.session_state.embeddings
 
 
 # --------------------------- Vector Store (in-memory) ---------------------------
 
-def build_vectorstore() -> Tuple[DocArrayInMemorySearch | None, List[Document]]:
+def build_vectorstore() -> Tuple[InMemoryVectorStore | None, List[Document]]:
     """Build from ./docs (if any). Returns (vectorstore, chunks)."""
     base_docs = load_documents()
     if not base_docs:
@@ -113,11 +117,11 @@ def build_vectorstore() -> Tuple[DocArrayInMemorySearch | None, List[Document]]:
         return None, []
 
     chunks = chunk_documents(base_docs)
-    vs = DocArrayInMemorySearch.from_documents(chunks, embedding=get_embeddings())
+    vs = InMemoryVectorStore.from_documents(chunks, embedding=get_embeddings())
     return vs, chunks
 
 
-def get_vectorstore() -> Tuple[DocArrayInMemorySearch | None, List[Document]]:
+def get_vectorstore() -> Tuple[InMemoryVectorStore | None, List[Document]]:
     vs = st.session_state.get("vectorstore")
     chunks = st.session_state.get("chunks", [])
     return vs, chunks
@@ -128,16 +132,16 @@ def add_chunks_to_vectorstore(chunks: List[Document]):
         return
     vs = st.session_state.get("vectorstore")
     if vs is None:
-        st.session_state.vectorstore = DocArrayInMemorySearch.from_documents(chunks, embedding=get_embeddings())
+        st.session_state.vectorstore = InMemoryVectorStore.from_documents(chunks, embedding=get_embeddings())
     else:
-        vs.add_documents(chunks, embedding=get_embeddings())
+        vs.add_documents(chunks)  # uses the embedding the store was built with
     # Track chunks if you want to display them later
     st.session_state.chunks = st.session_state.get("chunks", []) + chunks
 
 
 # --------------------------- RAG Helpers ---------------------------
 
-def retrieve(vs: DocArrayInMemorySearch | None, query: str, k: int) -> List[Document]:
+def retrieve(vs: InMemoryVectorStore | None, query: str, k: int) -> List[Document]:
     if vs is None:
         return []
     return vs.similarity_search(query, k=k)
@@ -164,7 +168,7 @@ qa_prompt = ChatPromptTemplate.from_messages([
 ])
 
 
-def chat_no_rag(llm: ChatOpenAI, history: List[Dict[str, str]], user_prompt: str) -> str:
+def chat_no_rag(llm: ChatAnthropic, history: List[Dict[str, str]], user_prompt: str) -> str:
     messages = [SystemMessage(content=SYS_NO_RAG)]
     for m in history:
         role = m["role"]
@@ -178,7 +182,7 @@ def chat_no_rag(llm: ChatOpenAI, history: List[Dict[str, str]], user_prompt: str
     return resp.content
 
 
-def chat_with_rag(llm: ChatOpenAI, vs: DocArrayInMemorySearch | None, user_prompt: str, k: int) -> Tuple[str, List[Document]]:
+def chat_with_rag(llm: ChatAnthropic, vs: InMemoryVectorStore | None, user_prompt: str, k: int) -> Tuple[str, List[Document]]:
     retrieved = retrieve(vs, user_prompt, k=k)
     context = format_context(retrieved) if retrieved else ""
     chain = qa_prompt | llm
@@ -193,7 +197,7 @@ def init_state():
         st.session_state.messages = []  # [{role, content}]
 
 
-def sidebar(llm: ChatOpenAI) -> Tuple[bool, int]:
+def sidebar(llm: ChatAnthropic) -> Tuple[bool, int]:
     st.sidebar.header("RAG Settings")
     use_rag = st.sidebar.toggle("Use RAG", value=True)
     top_k = st.sidebar.slider("Top-K passages", min_value=2, max_value=10, value=4, step=1)
@@ -218,7 +222,7 @@ def sidebar(llm: ChatOpenAI) -> Tuple[bool, int]:
             st.session_state.chunks = []
             st.success("Cleared in‑memory vector DB.")
 
-    st.sidebar.caption("Docs folder: ./docs  |  Vector DB: in‑memory (DocArray)")
+    st.sidebar.caption("Docs folder: ./docs  |  Vector DB: in‑memory (InMemoryVectorStore)")
     return use_rag, top_k
 
 
@@ -269,7 +273,7 @@ def add_text_tab_ui():
                 st.markdown("---")
 
 
-def chat_tab_ui(llm: ChatOpenAI, use_rag: bool, top_k: int):
+def chat_tab_ui(llm: ChatAnthropic, use_rag: bool, top_k: int):
     # Chat history UI
     for m in st.session_state.messages:
         with st.chat_message(m["role"]):
@@ -307,7 +311,8 @@ def main():
     if not require_api_key():
         st.stop()
 
-    llm = ChatOpenAI(model=DEFAULT_MODEL, temperature=0.2, api_key=os.getenv("OPENAI_KEY"))
+    # ponytail: no temperature — Opus 4.8 rejects it (400). API key read from ANTHROPIC_API_KEY.
+    llm = ChatAnthropic(model=DEFAULT_MODEL, max_tokens=2048)
     init_state()
 
     use_rag, top_k = sidebar(llm)
