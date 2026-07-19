@@ -18,8 +18,8 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 
 ## Labs
 * [Worksheet 1.1 - Vectorized Data Structures](notebooks/Worksheet%201.1%20-%20Vectorized%20Data%20Structures.ipynb)
-* [Worksheet_2.1_Data_Visualization](notebooks/Worksheet_2.1_Data_Visualization.ipynb) 
-* [Worksheet_2.2_Interactive_Visualizations](notebooks/Worksheet_2.2_Interactive_Visualizations.py)
+* [Worksheet 2.1 - Data Visualization](notebooks/Worksheet%202.1%20-%20Data%20Visualization.ipynb) 
+* [Worksheet 2.2 - Interactive Visualizations](notebooks/Worksheet%202.2%20-%20Interactive%20Visualizations.py)
 * [Worksheet 3.1 - Feature Engineering](notebooks/Worksheet%203.1%20-%20Feature%20Engineering.ipynb)
 * [Worksheet 4.1 - DGA Detection using Supervised Learning](notebooks/Worksheet%204.1%20-%20DGA%20Detection%20using%20Supervised%20Learning.ipynb)
 * [Worksheet 4.2 - Tuning your Classifier](notebooks/Worksheet%204.2%20-%20Tuning%20your%20Classifier.ipynb)
