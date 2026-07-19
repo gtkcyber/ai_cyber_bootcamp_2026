@@ -17,3 +17,6 @@ dependencies:
   - statsmodels
   - pmdarima
   - prophet
+  - pip:
+      - apachelogs
+      - user_agents

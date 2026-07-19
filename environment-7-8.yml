@@ -20,5 +20,7 @@ dependencies:
   - ipykernel
   - pillow
   - pydotplus
+  - pip:
+      - adversarial-robustness-toolbox
 
   
