@@ -1,0 +1,23 @@
+name: gtk-bh-7-8                                                                                                                         
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.13
+  - tensorflow
+  - keras
+  - pytorch
+  - pandas
+  - jupyter
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - scipy
+  - statsmodels
+  - pip
+  - ipywidgets
+  - ipykernel
+  - pillow
+  - pydotplus
+
+  
