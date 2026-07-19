@@ -1,0 +1,19 @@
+name: gtk-bh-ai-1-6                                                                                                                          
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - pip
+  - python=3.13
+  - jupyter
+  - pandas
+  - matplotlib
+  - streamlit
+  - seaborn
+  - scikit-learn
+  - lime
+  - shap
+  - pydotplus
+  - statsmodels
+  - pmdarima
+  - prophet
