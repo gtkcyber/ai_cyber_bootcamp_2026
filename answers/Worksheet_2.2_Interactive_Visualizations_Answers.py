@@ -11,7 +11,7 @@ DATA_PATH = '../data'
 
 # Run this python script from the /notebooks directory by entering the following into the terminal
 # cd notebooks
-# streamlit run Workshet_2.2_Interactive_Visualization.py
+# streamlit run Worksheet_2.2_Interactive_Visualization.py
 
 # First read the data into a pandas dataframe
 raw_data = pd.read_csv(f'{DATA_PATH}/dailybots.csv')
