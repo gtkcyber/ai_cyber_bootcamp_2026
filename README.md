@@ -9,26 +9,28 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 
 - Charles Givre - Data Scientist:  charles.givre@gtkcyber.com
 - Curtis Lambert - Instructor & Data Scientist: curtis@gtkcyber.com
-- Ajay Pillai - Instructor & Data Scientist: ajay@gtkcyber.com
-- Summer Rankin - Instructor & Data Scientist: summer@gtkcyber.com
+- Ajay Pillai - Instructor & Neuroscientist: ajay@gtkcyber.com
+- Summer Rankin - Instructor & Solution Architect: summer@gtkcyber.com
 - Tim Swagger - Instructor & Sr. Software Engineer: tim@gtkcyber.com
 
 #### Teaching Assistant
 - Hannah Hesselberg - Teaching Assistant: hannah@gtkcyber.com
 
 ## Labs
-* [Worksheet 1.1 - Vectorized Data Structures](notebooks/Worksheet%201.1%20-%20Vectorized%20Data%20Structures.ipynb)
-* [Worksheet 2.1 - Data Visualization](notebooks/Worksheet%202.1%20-%20Data%20Visualization.ipynb) 
-* [Worksheet 2.2 - Interactive Visualizations](notebooks/Worksheet%202.2%20-%20Interactive%20Visualizations.py)
-* [Worksheet 3.1 - Feature Engineering](notebooks/Worksheet%203.1%20-%20Feature%20Engineering.ipynb)
-* [Worksheet 4.1 - DGA Detection using Supervised Learning](notebooks/Worksheet%204.1%20-%20DGA%20Detection%20using%20Supervised%20Learning.ipynb)
-* [Worksheet 4.2 - Tuning your Classifier](notebooks/Worksheet%204.2%20-%20Tuning%20your%20Classifier.ipynb)
-* [Worksheet 4.3 - Automate it All!](notebooks/Worksheet%204.3%20-%20Automate%20it%20All%21.ipynb)
-* [Worksheet 5.1 - Clustering](notebooks/Worksheet%205.1%20-%20Clustering.ipynb)
-* [Worksheet 6.1 - Anomaly Detection](notebooks/Worksheet%206.1%20-%20Anomaly%20Detection.ipynb)
-* [Worksheet 7.1 - Deep Learning CNN Fingerprints](notebooks/Worksheet%207.1%20-%20Deep%20learning%20CNN%20Fingerprints.ipynb)
-* [Worksheet 7.2 - Deep Learning RNN URL](notebooks/Worksheet%207.2%20-%20Deep%20Learning%20RNN%20URL.ipynb)
-* [Worksheet 8.1 - Attacking AI](notebooks/Worksheet%208.1%20-%20Attacking%20AI.ipynb)
+* [Worksheet 1.1 - Vectorized Data Structures](notebooks/Worksheet_1.1_Vectorized_Data_Structures.ipynb)
+* [Worksheet 2.1 - Data Visualization](notebooks/Worksheet_2.1_Data_Visualization.ipynb) 
+* [Worksheet 2.2 - Interactive Visualizations](notebooks/Worksheet_2.2_Interactive_Visualizations.py)
+* [Worksheet 3.1 - Feature Engineering](notebooks/Worksheet_3.1_Feature_Engineering.ipynb)
+* [Worksheet 4.1 - DGA Detection Using Supervised Learning](notebooks/Worksheet_4.1_DGA_Detection_using_Supervised_Learning.ipynb)
+* [Worksheet 4.2 - Tuning Your Classifier](notebooks/Worksheet_4.2_Tuning_Your_Classifier.ipynb)
+* [Worksheet 4.3 - Automate It All](notebooks/Worksheet_4.3_Automate_It_All.ipynb)
+* [Worksheet 5.1 - Clustering](notebooks/Worksheet_5.1_Clustering.ipynb)
+* [Worksheet 6.1 - Anomaly Detection](notebooks/Worksheet_6.1_Anomaly_Detection.ipynb)
+* [Worksheet 7.1 - Deep Learning CNN Fingerprints](notebooks/Worksheet_7.1_Deep_Learning_CNN_Fingerprints.ipynb)
+* [Worksheet 7.2 - Deep Learning RNN URL](notebooks/Worksheet_7.2_Deep_Learning_RNN_URL.ipynb)
+* [Worksheet 8.1 - Attacking AI](notebooks/Worksheet_8.1_Attacking_AI.ipynb)
+* [Worksheet 9.1 - Classification with Embeddings](notebooks/Worksheet_9.1_Classification_with_Embeddings.ipynb)
+* [Worksheet 9.2 - Unsupervised Learning with Embeddings](notebooks/Worksheet_9.2_Unsupervised_Learning_with_Embeddings.ipynb)
 
 ### Recommended Readings
    - [Python for Data Analysis](http://shop.oreilly.com/product/0636920023784.do)
