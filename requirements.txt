@@ -1,5 +1,6 @@
 pandas
 pandas-stubs
+pyarrow
 ipaddress
 apachelogs
 user-agents
