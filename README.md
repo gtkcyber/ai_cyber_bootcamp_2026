@@ -31,6 +31,10 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 * [Worksheet 8.1 - Attacking AI](notebooks/Worksheet_8.1_Attacking_AI.ipynb)
 * [Worksheet 9.1 - Classification with Embeddings](notebooks/Worksheet_9.1_Classification_with_Embeddings.ipynb)
 * [Worksheet 9.2 - Unsupervised Learning with Embeddings](notebooks/Worksheet_9.2_Unsupervised_Learning_with_Embeddings.ipynb)
+* [Worksheet 9.3 - PyTorch in 20 Minutes](notebooks/Worksheet_9.3_PyTorch_in_20_Minutes.ipynb)
+* [Worksheet 9.4 - Tokenizers and Embeddings](notebooks/Worksheet_9.4_Tokenizers_and_Embeddings.ipynb)
+* [Worksheet 9.5 - Attention and Your First GPT](notebooks/Worksheet_9.5_Attention_and_Your_First_GPT.ipynb)
+* [Worksheet 9.6 - Fine-Tuning and Poisoning](notebooks/Worksheet_9.6_Fine_Tuning_and_Poisoning.ipynb)
 
 ### Recommended Readings
    - [Python for Data Analysis](http://shop.oreilly.com/product/0636920023784.do)

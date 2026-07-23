@@ -36,3 +36,4 @@ langchain-anthropic
 langchain_huggingface
 langchain-community
 pypdf
+tiktoken
