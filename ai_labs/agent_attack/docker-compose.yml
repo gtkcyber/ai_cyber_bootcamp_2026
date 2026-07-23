@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  ai-agent-redteam:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      # AI Provider Settings (override as needed)
+      - AI_PROVIDER=openai
+      - AI_MODEL=gpt-3.5-turbo
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+
+      # Ollama settings (if using local Ollama)
+      - OLLAMA_HOST=http://ollama:11434
+
+      # Security settings
+      - DIFFICULTY_LEVEL=medium
+      - ENABLE_GUARDRAILS=true
+      - ENABLE_CONTENT_FILTERING=true
+      - ENABLE_RESPONSE_VALIDATION=true
+
+      # Database
+      - DATABASE_URL=sqlite:///./data/crm.db
+
+      # Application settings
+      - LOG_LEVEL=INFO
+      - DEBUG=false
+
+    volumes:
+      # Persist database
+      - ./data:/app/data
+      # Mount config file if needed
+      - ./.env:/app/.env:ro
+
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/config"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Include Ollama for local AI
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    profiles:
+      - ollama
+    command: serve
+
+volumes:
+  ollama_data:

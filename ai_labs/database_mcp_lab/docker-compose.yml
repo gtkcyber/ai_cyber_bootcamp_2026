@@ -1,0 +1,31 @@
+services:
+  app:
+    build: ./app
+    ports:
+      - "8501:8501"
+    depends_on:
+      - mcp
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./app:/app        # 👈 live bind entire app folder
+
+  mcp:
+    build: ./mcp
+    depends_on:
+      - db
+    ports:
+      - "9000:9000"
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: demo_db
+      MYSQL_USER: demo
+      MYSQL_PASSWORD: demo123
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
