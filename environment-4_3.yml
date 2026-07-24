@@ -1,0 +1,18 @@
+name: gtk-bh-ai-4_3
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - joblib
+  - ipywidgets
+  - jupyter
+  - pip
+  - setuptools<58
+  - pip:
+    - tpot

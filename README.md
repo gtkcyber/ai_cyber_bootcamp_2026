@@ -1,5 +1,5 @@
 # AI Cyber Bootcamp
-<img src="img/GTK_Logo_Social Icon.jpg" width="175" align="left" >
+<img src="img/GTK_Logo_Social_Icon.jpg" width="175" align="left" >
 
 ### 2026 Trainings Presented by GTK Cyber
 
@@ -35,6 +35,8 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 * [Worksheet 9.4 - Tokenizers and Embeddings](notebooks/Worksheet_9.4_Tokenizers_and_Embeddings.ipynb)
 * [Worksheet 9.5 - Attention and Your First GPT](notebooks/Worksheet_9.5_Attention_and_Your_First_GPT.ipynb)
 * [Worksheet 9.6 - Fine-Tuning and Poisoning](notebooks/Worksheet_9.6_Fine_Tuning_and_Poisoning.ipynb)
+* [Worksheet 10.1 - Programmatic LLM Interaction](notebooks/Worksheet_10.1_Programmatic_LLM_Interaction.ipynb)
+* [Worksheet 10.2 - Classification with LLMs](notebooks/Worksheet_10.2_Classification_with_LLMs.ipynb)
 
 ### Recommended Readings
    - [Python for Data Analysis](http://shop.oreilly.com/product/0636920023784.do)
