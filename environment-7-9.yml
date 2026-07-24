@@ -1,4 +1,4 @@
-name: gtk-bh-ai-7-8
+name: gtk-bh-ai-7-9
 channels:
   - defaults
   - conda-forge
@@ -20,6 +20,7 @@ dependencies:
   - ipykernel
   - pillow
   - pydotplus
+  - sentence-transformers
   - pip:
       - adversarial-robustness-toolbox
 
