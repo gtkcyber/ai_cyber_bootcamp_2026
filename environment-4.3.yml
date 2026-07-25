@@ -1,4 +1,4 @@
-name: gtk-bh-ai-4_3
+name: gtk-bh-ai-4.3
 channels:
   - conda-forge
   - defaults

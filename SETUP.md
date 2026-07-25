@@ -11,7 +11,7 @@ conda env create -f environment-1-6.yml
 
 Conda Environment for Worksheets 7-8
 ```bash
-conda env create -f environment-7-8.yml
+conda env create -f environment-7-9.yml
 ```
 
 

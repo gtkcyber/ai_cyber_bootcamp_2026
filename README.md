@@ -37,6 +37,8 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 * [Worksheet 9.6 - Fine-Tuning and Poisoning](notebooks/Worksheet_9.6_Fine_Tuning_and_Poisoning.ipynb)
 * [Worksheet 10.1 - Programmatic LLM Interaction](notebooks/Worksheet_10.1_Programmatic_LLM_Interaction.ipynb)
 * [Worksheet 10.2 - Classification with LLMs](notebooks/Worksheet_10.2_Classification_with_LLMs.ipynb)
+* [Worksheet 11.1 - AI RAG CVEs](notebooks/Worksheet_11.1_AI_RAG_CVEs.ipynb)
+* [Worksheet 11.2 - Building Agent Tools](notebooks/Worksheet_11.2_Building_Agent_Tools.ipynb)
 
 ### Recommended Readings
    - [Python for Data Analysis](http://shop.oreilly.com/product/0636920023784.do)

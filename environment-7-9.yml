@@ -1,9 +1,8 @@
-name: gtk-bh-ai-7-8
+name: gtk-bh-ai-7-9
 channels:
   - defaults
   - conda-forge
 dependencies:
-  - pip
   - python=3.13
   - tensorflow
   - keras
@@ -20,7 +19,13 @@ dependencies:
   - ipykernel
   - pillow
   - pydotplus
+  - sentence-transformers
   - pip:
       - adversarial-robustness-toolbox
-
-  
+      - langchain
+      - langchain-core
+      - langchain-anthropic
+      - langchain-community
+      - langchain-huggingface
+      - anthropic
+      - python-dotenv
