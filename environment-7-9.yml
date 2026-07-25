@@ -3,7 +3,6 @@ channels:
   - defaults
   - conda-forge
 dependencies:
-  - pip
   - python=3.13
   - tensorflow
   - keras
@@ -23,5 +22,10 @@ dependencies:
   - sentence-transformers
   - pip:
       - adversarial-robustness-toolbox
-
-  
+      - langchain
+      - langchain-core
+      - langchain-anthropic
+      - langchain-community
+      - langchain-huggingface
+      - anthropic
+      - python-dotenv

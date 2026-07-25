@@ -1,0 +1,25 @@
+name: gtk-bh-ai-10-11
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.13
+  - pip
+  - jupyter
+  - ipykernel
+  - ipywidgets
+  - pandas
+  - pillow
+  - pytorch
+  - sentence-transformers
+  - numpy
+  - scipy
+  - scikit-learn
+  - pip:
+      - anthropic
+      - python-dotenv
+      - langchain
+      - langchain-core
+      - langchain-community
+      - langchain-anthropic
+      - langchain-huggingface
