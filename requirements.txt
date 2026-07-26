@@ -28,6 +28,7 @@ adversarial-robustness-toolbox
 keras
 tensorflow
 sentence-transformers
+fastmcp
 phonenumbers
 langchain
 langchain-core
@@ -35,6 +36,8 @@ langchain-openai
 langchain-anthropic
 langchain_huggingface
 langchain-community
+langchain_mcp_adapters
 pypdf
 tiktoken
 anthropic
+mcp
