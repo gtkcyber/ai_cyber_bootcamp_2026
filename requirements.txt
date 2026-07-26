@@ -37,6 +37,8 @@ langchain-anthropic
 langchain_huggingface
 langchain-community
 langchain_mcp_adapters
+langgraph
+langgraph-supervisor
 pypdf
 tiktoken
 anthropic
