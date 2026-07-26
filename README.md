@@ -16,6 +16,10 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 #### Teaching Assistant
 - Hannah Hesselberg - Teaching Assistant: hannah@gtkcyber.com
 
+## Course Setup
+
+Course setup can be found [here](SETUP.md).
+
 ## Labs
 * [Worksheet 1.1 - Vectorized Data Structures](notebooks/Worksheet_1.1_Vectorized_Data_Structures.ipynb)
 * [Worksheet 2.1 - Data Visualization](notebooks/Worksheet_2.1_Data_Visualization.ipynb) 
