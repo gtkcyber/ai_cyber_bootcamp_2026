@@ -188,7 +188,7 @@ conda env create -f environment-7-9.yml
 ```
 
 ```shell
-conda env create -f environment-10-11.yml
+conda env create -f environment-10-13.yml
 ```
 
 ---

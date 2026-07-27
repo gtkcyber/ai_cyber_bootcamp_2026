@@ -43,7 +43,12 @@ Course setup can be found [here](SETUP.md).
 * [Worksheet 10.2 - Classification with LLMs](notebooks/Worksheet_10.2_Classification_with_LLMs.ipynb)
 * [Worksheet 11.1 - AI RAG CVEs](notebooks/Worksheet_11.1_AI_RAG_CVEs.ipynb)
 * [Worksheet 11.2 - Building Agent Tools](notebooks/Worksheet_11.2_Building_Agent_Tools.ipynb)
-
+* [Worksheet 12.1 - Building an MCP Server](notebooks/Worksheet_12.1_Building_an_MCP_Server.ipynb)
+* [Worksheet 13.1 - Single Email Classifier](notebooks/Worksheet_13.1_Single_Email_Classifier.ipynb)
+* [Worksheet 13.2 - Tool Calling Agent](notebooks/Worksheet_13.2_Tool_Calling_Agent.ipynb)
+* [Worksheet 13.3 - Conditional Routing](notebooks/Worksheet_13.3_conditional_routing.ipynb)
+* [Worksheet 13.4 - Human in the Loop](notebooks/Worksheet_13.4_human_in_the_loop.ipynb)
+* [Worksheet 13.5 - Multi-Agent Supervisor](notebooks/Worksheet_13.5_multi_agent_supervisor.ipynb)
 ### Recommended Readings
    - [Python for Data Analysis](http://shop.oreilly.com/product/0636920023784.do)
    - [Data Science for Business](http://shop.oreilly.com/product/0636920028918.do)
