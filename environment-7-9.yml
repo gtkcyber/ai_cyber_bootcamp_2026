@@ -6,7 +6,6 @@ dependencies:
   - python=3.13
   - tensorflow
   - keras
-  - pytorch
   - pandas
   - jupyter
   - matplotlib
@@ -19,7 +18,6 @@ dependencies:
   - ipykernel
   - pillow
   - pydotplus
-  - sentence-transformers
   - pip:
       - adversarial-robustness-toolbox
       - langchain
@@ -29,3 +27,6 @@ dependencies:
       - langchain-huggingface
       - anthropic
       - python-dotenv
+      - torch
+      - torchvision
+      - sentence-transformers

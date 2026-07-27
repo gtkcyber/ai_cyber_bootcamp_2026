@@ -10,8 +10,6 @@ dependencies:
   - ipywidgets
   - pandas
   - pillow
-  - pytorch
-  - sentence-transformers
   - numpy
   - scipy
   - scikit-learn
@@ -24,3 +22,6 @@ dependencies:
       - langchain-anthropic
       - langchain-huggingface
       - langchain-mcp-adapters
+      - torch
+      - torchvision
+      - sentence-transformers
