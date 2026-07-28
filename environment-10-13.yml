@@ -22,6 +22,7 @@ dependencies:
       - langchain-anthropic
       - langchain-huggingface
       - langchain-mcp-adapters
+      - langgraph-supervisor
       - torch
       - torchvision
       - sentence-transformers
