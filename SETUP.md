@@ -195,10 +195,13 @@ conda env create -f environment-10-13.yml
 
 ## Troubleshooting
 
+### Mac
 If you are having problems with lab 4.3 you may need to install XGBoost.
-
 XGBoost (a TPOT dependency) needs `libomp` or importing it fails. Install it once:
 
 ```shell
 brew install libomp
 ```
+
+We have noticed a few issues creating the Conda environments on older Intel Macs running < MacOS 14. You may need to 
+create an empty environment and install the various modules manually.
