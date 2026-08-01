@@ -8,13 +8,13 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 ### Instructors
 
 - Charles Givre - Data Scientist:  charles.givre@gtkcyber.com
-- Curtis Lambert - Instructor & Data Scientist: curtis@gtkcyber.com
 - Ajay Pillai - Instructor & Neuroscientist: ajay@gtkcyber.com
 - Summer Rankin - Instructor & Solution Architect: summer@gtkcyber.com
-- Tim Swagger - Instructor & Sr. Software Engineer: tim@gtkcyber.com
+- Tim Swagger - Instructor & Sr. Software Architect: tim@gtkcyber.com
 
 #### Teaching Assistant
-- Hannah Hesselberg - Teaching Assistant: hannah@gtkcyber.com
+
+- Sam Swagger - Teaching Assistant
 
 ## Course Setup
 
@@ -30,9 +30,10 @@ Course setup can be found [here](SETUP.md).
 * [Worksheet 4.3 - Automate It All](notebooks/Worksheet_4.3_Automate_It_All.ipynb)
 * [Worksheet 5.1 - Clustering](notebooks/Worksheet_5.1_Clustering.ipynb)
 * [Worksheet 6.1 - Anomaly Detection](notebooks/Worksheet_6.1_Anomaly_Detection.ipynb)
-* [Worksheet 7.1 - Deep Learning CNN Fingerprints](notebooks/Worksheet_7.1_Deep_Learning_CNN_Fingerprints.ipynb)
-* [Worksheet 7.2 - Deep Learning RNN URL](notebooks/Worksheet_7.2_Deep_Learning_RNN_URL.ipynb)
-* [Worksheet 8.1 - Attacking AI](notebooks/Worksheet_8.1_Attacking_AI.ipynb)
+* [Worksheet 7.1 - Attacking AI](notebooks/Worksheet_7.1_Attacking_AI.ipynb)
+* [Worksheet 7.2 - FSGM Attack on Image Classifier](notebooks/Worksheet_7.2_FSGM_Attack_on_Image_Classifier.ipynb)
+* [Worksheet 8.1 - Deep Learning CNN Fingerprints](notebooks/Worksheet_8.1_Deep_Learning_CNN_Fingerprints.ipynb)
+* [Worksheet 8.1 - Deep Learning RNN URL](notebooks/Worksheet_8.2_Deep_Learning_RNN_URL.ipynb)
 * [Worksheet 9.1 - Classification with Embeddings](notebooks/Worksheet_9.1_Classification_with_Embeddings.ipynb)
 * [Worksheet 9.2 - Unsupervised Learning with Embeddings](notebooks/Worksheet_9.2_Unsupervised_Learning_with_Embeddings.ipynb)
 * [Worksheet 9.3 - PyTorch in 20 Minutes](notebooks/Worksheet_9.3_PyTorch_in_20_Minutes.ipynb)
