@@ -16,9 +16,14 @@ Make sure to choose the right architecture (e.g., Apple Silicon vs. Intel for Ma
 #### **Windows**
 
 1. Run the downloaded **.exe** file.
-2. Follow the prompts. **Leave "Add Miniconda3 to my PATH" unchecked** to prevent system conflicts. Check "Register Miniconda3 as my default Python."
+2. Follow the prompts.
+   1. Install for "Just Me"
+   2. **Leave "Add Miniconda3 to my PATH" unchecked** to prevent system conflicts.
+   3. Check "Register Miniconda3 as my default Python."
 3. Click **Install**.
 * **To use:** Open the **Anaconda Prompt** from your Start Menu (do not use the standard Command Prompt).
+
+* Be sure to accept the required agreements. Failure to do this will result in conda not running in PyCharm.
 
 #### **macOS**
 
