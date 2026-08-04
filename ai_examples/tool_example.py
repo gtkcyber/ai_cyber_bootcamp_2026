@@ -18,7 +18,8 @@ def get_phone_location(phone_number: str) -> str:
     return location
 
 
-llm = ChatAnthropic(model="claude-haiku-4-5-202510017", temperature=0, api_key=os.getenv("ANTHROPIC_API_KEY"))
+# ponytail: no temperature — Opus 4.8 rejects it (400). Key read from ANTHROPIC_API_KEY.
+llm = ChatAnthropic(model="claude-opus-4-8", max_tokens=1024, api_key=os.getenv("ANTHROPIC_API_KEY"))
 agent = create_react_agent(llm, [get_phone_location])
 
 st.set_page_config(page_title="LangChain + Streamlit", layout="centered")
