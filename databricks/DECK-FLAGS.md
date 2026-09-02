@@ -68,3 +68,9 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p79, p81: terminal examples from a prior year (env "gtk-bh-ai", directory "ads_blackhat_2025").
 - p83: screenshot's worksheet numbering (7.1 CNN, 8.1 Attacking AI) predates the current README.
 - p2: extracted text carries an email and Slack invitation not visible in the render (hidden behind the Miniconda banner).
+
+## 14-red-teaming-ai
+- p15, p16: "Can you spot the prompt injection?" image slides (neon banner, "AI MUSIC MALWARE" thumbnail); the hidden injection is not inferable (UNRESOLVED notes).
+- p42: "Prompt-Injection Dogo" for Dojo; the lab is ai_labs/prompt_injection_lab/workbench.py (Streamlit, OpenAI or Ollama). The other three ai_labs apps are not referenced by any deck.
+- p51: "consulting form McKinsey". p60: injection text starts "ops," (dropped the O).
+- p21, p66, p74: absolute titles ("always", "never"); notes teach the scoped reading.
