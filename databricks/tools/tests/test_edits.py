@@ -7,7 +7,7 @@ import pytest
 TOOLS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLS))
 
-from edits import MODULES, Module, port
+from edits import MODULES, Module, _matches_only, port
 from seam import SEAM_START, EditError, Sub
 
 REPO = TOOLS.parents[1]
@@ -63,3 +63,27 @@ def test_port_reports_a_bad_table_entry(tmp_path):
     m = Module("notebooks/w.ipynb", None, "base", [Sub("NOPE", "nope")], [], [])
     with pytest.raises(EditError):
         port(m, tmp_path, check_only=True)
+
+
+def test_only_selects_the_numbered_module_by_exact_boundary():
+    m = Module("notebooks/Worksheet_1.1_x.ipynb", "answers/Worksheet_1.1_x-Answers.ipynb", "base")
+    assert _matches_only(m, "1.1") is True
+
+
+def test_only_does_not_confuse_1_1_with_11_1():
+    m = Module("notebooks/Worksheet_11.1_x.ipynb", "answers/Worksheet_11.1_x-Answers.ipynb", "base")
+    assert _matches_only(m, "1.1") is False
+
+
+def test_only_selects_a_module_with_no_worksheet_name():
+    m = Module("answers/openai_api_fundamentals_answers.ipynb", None, "llm")
+    assert _matches_only(m, "openai_api_fundamentals") is True
+
+
+def test_only_does_not_select_an_unrelated_module():
+    m = Module("notebooks/Worksheet_1.1_x.ipynb", "answers/Worksheet_1.1_x-Answers.ipynb", "base")
+    assert _matches_only(m, "4.1") is False
+
+
+def test_the_answer_only_module_is_in_the_real_table():
+    assert any(m.answer is None and "Worksheet_" not in m.worksheet for m in MODULES)

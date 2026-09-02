@@ -423,7 +423,9 @@ MODULES: list[Module] = [
         subs=[
             Sub("from langchain_anthropic import ChatAnthropic",
                 "# the chat model comes from make_llm() in the data-loader cell"),
-            Sub('MODEL = "claude-opus-4-8"', "MODEL = COURSE_LLM_MODEL"),
+            # MODEL is dead: make_llm() reads COURSE_LLM_MODEL itself and takes no model
+            # argument, so the local variable was never read after this line.
+            Sub("\n\nMODEL = COURSE_LLM_MODEL\n", "\n"),
             Sub('llm = ChatAnthropic(model=MODEL, api_key=os.getenv("ANTHROPIC_API_KEY"))',
                 "llm = make_llm()"),
             # DATA_HOME + "skills/..." only exists on the volume. SKILLS_HOME (seam.py)
@@ -439,8 +441,11 @@ MODULES: list[Module] = [
         subs=[
             Sub("from langchain_anthropic import ChatAnthropic",
                 "# the chat model comes from make_llm() in the data-loader cell"),
-            Sub('MODEL = "claude-opus-4-8"', "MODEL = COURSE_LLM_MODEL"),
             Sub("llm = ChatAnthropic(model=MODEL)", "llm = make_llm()"),
+            # MODEL is dead: make_llm() reads COURSE_LLM_MODEL itself and takes no model
+            # argument, so the local variable was never read after this line.
+            Sub("MODEL = COURSE_LLM_MODEL\n\n# Find mcp_server.py",
+                "# Find mcp_server.py"),
             Sub('assert SERVER_PATH, "Could not find mcp_server.py — run this from the notebooks/ folder."',
                 'assert SERVER_PATH, ("Could not find mcp_server.py. Locally, run this from "\n'
                 '                     "notebooks/ or answers/. On Databricks it lives beside "\n'
@@ -554,16 +559,35 @@ def port(module: Module, root: Path, check_only: bool) -> list[str]:
     return lines
 
 
+def _matches_only(module: Module, only: str) -> bool:
+    """True if `only` (edits.py --only) selects this module.
+
+    Numbered modules match on "Worksheet_<only>_" against either file, so "1.1"
+    can't accidentally select "Worksheet_11.1_..." (needle requires the exact digit
+    before the dot). A module with no "Worksheet_" name in either path — the one
+    answer notebook with no worksheet counterpart lives under answers/ — falls back
+    to a plain substring match so it can still be selected.
+    """
+    paths = [p for p in (module.worksheet, module.answer) if p]
+    needle = f"Worksheet_{only}_"
+    if any(needle in p for p in paths):
+        return True
+    if not any("Worksheet_" in p for p in paths):
+        return any(only in p for p in paths)
+    return False
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true", help="report only, write nothing")
-    ap.add_argument("--only", help="module number, e.g. 4.1")
+    ap.add_argument("--only", help="module number (e.g. 4.1) or a substring of the "
+                                    "path for a module with no Worksheet_ name")
     args = ap.parse_args()
 
     root = Path(__file__).resolve().parents[2]
     failures = 0
     for module in MODULES:
-        if args.only and f"Worksheet_{args.only}_" not in module.worksheet:
+        if args.only and not _matches_only(module, args.only):
             continue
         try:
             for line in port(module, root, args.check):
