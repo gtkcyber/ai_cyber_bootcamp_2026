@@ -203,7 +203,7 @@
     },
     {
       "page": 34,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 34,
       "text": "GTK Cyber Convolutional Neural Networks"
     },
@@ -251,7 +251,7 @@
     },
     {
       "page": 42,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 41,
       "text": "GTK Cyber Deep Learning for Everyone!"
     },
@@ -263,7 +263,7 @@
     },
     {
       "page": 44,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 43,
       "text": "GTK Cyber Recurrent Neural Networks"
     },
