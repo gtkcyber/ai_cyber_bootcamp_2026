@@ -1,0 +1,68 @@
+/* Tutor panel: drops from the top bar on the right, mirroring #sidebar
+   on the left. Reuses the custom properties defined in app.css. */
+
+#tutor-toggle { margin-left: auto; background: none; border: 1px solid #3c4554; color: var(--text);
+  border-radius: 6px; width: 32px; height: 28px; cursor: pointer; padding: 0;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+#tutor-toggle:hover { border-color: var(--accent); color: var(--accent); }
+#tutor-toggle svg { width: 18px; height: 18px; }
+body:not(.tutor-closed) #tutor-toggle { border-color: var(--accent); color: var(--accent); }
+
+#tutor { position: fixed; z-index: 9; top: var(--topbar-h); right: 0; bottom: 0; width: min(420px, 100vw);
+  background: var(--panel); border-left: 1px solid #333a47; box-shadow: -4px 0 16px rgba(0,0,0,.35);
+  display: flex; flex-direction: column; transition: transform .25s ease; }
+body.tutor-closed #tutor { transform: translateY(calc(-100% - var(--topbar-h))); }
+
+#tutor-header { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid #333a47; flex-shrink: 0; }
+#tutor-scope { flex: 1; min-width: 0; background: var(--bg); color: var(--text); border: 1px solid #3c4554;
+  border-radius: 6px; padding: 5px 6px; font-size: 12px; font-family: inherit; }
+#tutor-header button { background: none; border: 1px solid #3c4554; color: var(--text); border-radius: 6px;
+  padding: 5px 10px; font-size: 12px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+#tutor-header button:hover { border-color: var(--accent); color: var(--accent); }
+
+#tutor-conversations { list-style: none; margin: 0; padding: 4px; max-height: 40%; overflow-y: auto;
+  border-bottom: 1px solid #333a47; flex-shrink: 0; }
+#tutor-conversations li { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 6px;
+  cursor: pointer; font-size: 12px; }
+#tutor-conversations li:hover { background: #2e3644; }
+#tutor-conversations .conv-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#tutor-conversations .conv-time { color: #7a8494; font-size: 11px; flex-shrink: 0; }
+#tutor-conversations .conv-delete { background: none; border: 0; color: #7a8494; cursor: pointer; font-size: 15px;
+  line-height: 1; padding: 0 2px; flex-shrink: 0; }
+#tutor-conversations .conv-delete:hover { color: #e0665a; }
+
+#tutor-thread { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+
+.msg { max-width: 90%; padding: 8px 10px; border-radius: 8px; font-size: 13px; line-height: 1.45; white-space: pre-wrap; word-wrap: break-word; }
+.msg-user { align-self: flex-end; background: rgba(77, 163, 255, .18); border: 1px solid rgba(77, 163, 255, .35); color: var(--text); }
+.msg-assistant { align-self: flex-start; background: #2e3644; color: var(--text); white-space: normal; }
+.msg-system { align-self: center; background: none; border: 1px dashed #3c4554; color: #7a8494; font-size: 12px; }
+.msg-system.msg-error { border-color: #7a3a38; color: #e0665a; }
+
+.msg-body p { margin: 0 0 8px; }
+.msg-body p:last-child { margin-bottom: 0; }
+.msg-body ul, .msg-body ol { margin: 0 0 8px; padding-left: 20px; }
+.msg-body code { background: rgba(255, 255, 255, .08); padding: 1px 4px; border-radius: 4px; font-size: 12px; }
+.msg-body pre { background: rgba(0, 0, 0, .3); padding: 8px; border-radius: 6px; overflow-x: auto; margin: 0 0 8px; }
+.msg-body pre code { background: none; padding: 0; }
+.msg-body a[href] { color: var(--accent); }
+.msg-body a:not([href]) { color: inherit; text-decoration: none; }
+
+.citations { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.citation-chip { background: none; border: 1px solid #3c4554; color: var(--text); border-radius: 999px;
+  padding: 3px 10px; font-size: 11px; cursor: pointer; font-family: inherit; }
+.citation-chip:hover { border-color: var(--accent); color: var(--accent); }
+
+#tutor-context { padding: 6px 12px; font-size: 11px; color: #7a8494; border-top: 1px solid #333a47; flex-shrink: 0; }
+
+#tutor-composer { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid #333a47; flex-shrink: 0; }
+#tutor-input { flex: 1; resize: none; background: var(--bg); color: var(--text); border: 1px solid #3c4554;
+  border-radius: 6px; padding: 8px; font: inherit; font-size: 13px; min-height: 36px; max-height: 120px; }
+#tutor-input:disabled { opacity: .6; }
+#tutor-composer button { align-self: flex-end; background: var(--accent); color: #0b1220; border: 0; border-radius: 6px;
+  padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
+#tutor-composer button:disabled { opacity: .5; cursor: default; }
+
+#tutor-footer { padding: 8px 12px 10px; font-size: 11px; color: #7a8494; border-top: 1px solid #333a47; flex-shrink: 0; }
+
+.citation-chip-plain { cursor: default; }

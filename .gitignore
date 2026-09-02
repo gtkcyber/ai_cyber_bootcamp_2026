@@ -242,3 +242,10 @@ data/url_data_mega_deep_learning.csv
 .venv/
 .worktrees/
 databricks/test-runs/
+
+# app + tooling build artefacts
+__pycache__/
+.pytest_cache/
+.venv/
+databricks/deck-viewer/.venv/
+.databricks/

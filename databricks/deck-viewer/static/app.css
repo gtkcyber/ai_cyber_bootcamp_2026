@@ -1,0 +1,25 @@
+/* Deck-viewer shell: sidebar nav, topbar, iframe viewer.
+   Moved out of app.py's INDEX_HTML unchanged; behaviour and ids match. */
+:root { --sidebar-w: 300px; --topbar-h: 44px; --bg: #1b1f27; --panel: #242a35; --accent: #4da3ff; --text: #e8ebf0; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; overflow: hidden; }
+#sidebar { position: fixed; z-index: 9; top: var(--topbar-h); bottom: 0; left: 0; width: var(--sidebar-w);
+  background: var(--panel); border-right: 1px solid #333a47; box-shadow: 4px 0 16px rgba(0,0,0,.35);
+  display: flex; flex-direction: column; transition: transform .25s ease; }
+body.nav-closed #sidebar { transform: translateY(calc(-100% - var(--topbar-h))); }
+#topbar { position: relative; z-index: 10; }
+#deck-list { list-style: none; margin: 0; padding: 8px; overflow-y: auto; flex: 1; }
+#deck-list li { padding: 10px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; line-height: 1.4; }
+#deck-list li:hover { background: #2e3644; }
+#deck-list li.active { background: var(--accent); color: #0b1220; font-weight: 600; }
+#main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+#topbar { display: flex; align-items: center; gap: 12px; padding: 0 12px; height: var(--topbar-h); flex-shrink: 0; background: var(--panel); border-bottom: 1px solid #333a47; }
+#toggle { background: none; border: 1px solid #3c4554; color: var(--text); border-radius: 6px;
+  width: 32px; height: 28px; cursor: pointer; font-size: 13px; padding: 0; line-height: 1; }
+#toggle:hover { border-color: var(--accent); color: var(--accent); }
+body.nav-closed #toggle::before { content: "\25BE"; }
+#toggle::before { content: "\25B4"; }
+#current { font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#viewer { flex: 1; border: 0; width: 100%; background: #fff; }
+#empty { flex: 1; display: flex; align-items: center; justify-content: center; color: #7a8494; }
+[hidden] { display: none !important; }

@@ -1,0 +1,20 @@
+command: ["gunicorn", "app:app", "--bind", "0.0.0.0:8000", "--workers", "1", "--threads", "8", "--timeout", "180"]
+
+# Environment variables this app reads. Their VALUES live in the bundle's app
+# resource config.env (../../databricks.yml), not here -- one source of
+# per-target values instead of a static file that drifts from it.
+#
+#   DECKS_VOLUME_PATH    decks dir on the app volume
+#   COURSE_TITLE         top-bar title
+#   TUTOR_STATE_PATH     per-user conversation JSON on the app volume
+#   TUTOR_CHAT_ENDPOINT  serving endpoint for chat
+#   TUTOR_SKILLS_PATH    generated tutor-skills tree in workspace files
+#   TUTOR_LABS_PATH      worksheet notebooks in workspace files
+#   TUTOR_ANSWERS_PATH   answer notebooks in workspace files
+#   TUTOR_HOME_LABS_DIR  folder name of a student's own lab copy
+#   TUTOR_DEV_USER       local runs only; never set in the bundle
+#
+# --threads 8 rather than app.run's single-threaded dev server: one tutor answer
+# holds a worker for seconds while the model reasons and calls tools, and must
+# not block the deck routes for everyone else. --timeout 180 because a tool loop
+# with four calls can outlast gunicorn's 30-second default.

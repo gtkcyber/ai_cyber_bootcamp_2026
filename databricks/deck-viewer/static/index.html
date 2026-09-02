@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__COURSE_TITLE__ — Slides</title>
+<link rel="stylesheet" href="/static/app.css">
+<link rel="stylesheet" href="/static/tutor.css">
+</head>
+<body class="nav-closed tutor-closed">
+  <nav id="sidebar">
+    <ul id="deck-list"></ul>
+  </nav>
+  <div id="main">
+    <div id="topbar">
+      <button id="toggle" title="Deck picker" aria-label="Toggle deck picker"></button>
+      <span id="current">__COURSE_TITLE__</span>
+      <button id="tutor-toggle" aria-label="Tutor" title="Tutor">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 1 C13 7 17 11 23 12 C17 13 13 17 12 23 C11 17 7 13 1 12 C7 11 11 7 12 1 Z"/>
+          <path d="M19 2 C19.5 4 20 4.5 22 5 C20 5.5 19.5 6 19 8 C18.5 6 18 5.5 16 5 C18 4.5 18.5 4 19 2 Z"/>
+        </svg>
+      </button>
+    </div>
+    <div id="empty">Loading decks&hellip;</div>
+    <iframe id="viewer" hidden></iframe>
+  </div>
+  <aside id="tutor">
+    <div id="tutor-header">
+      <span id="tutor-title">Tutor</span>
+      <button id="tutor-history" type="button">History</button>
+      <button id="tutor-new" type="button">New</button>
+    </div>
+    <ul id="tutor-conversations" hidden></ul>
+    <div id="tutor-thread"></div>
+    <div id="tutor-context"></div>
+    <div id="tutor-composer">
+      <textarea id="tutor-input" aria-label="Ask the tutor" placeholder="Ask about the course&hellip;" rows="1"></textarea>
+      <button id="tutor-send" type="button">Send</button>
+    </div>
+    <div id="tutor-footer">Answers come from the course decks, labs and the tutor's skill library. Conversations are stored in the course workspace and are visible to the course admin.</div>
+  </aside>
+<script src="/static/vendor/marked.min.js"></script>
+<script src="/static/viewer.js"></script>
+<script src="/static/tutor.js"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+[
+ {
+  "kind": "skill",
+  "name": "course-module-04",
+  "description": "Module 4 of AI Cyber Bootcamp 2026, Supervised Machine Learning.",
+  "path": "course-module-04/SKILL.md"
+ },
+ {
+  "kind": "skill",
+  "name": "ds-evaluate",
+  "description": "Post-model evaluation: metric-to-cost matching under imbalance.",
+  "path": "ds-evaluate/SKILL.md"
+ },
+ {
+  "kind": "reference",
+  "name": "metric-selection",
+  "description": "Match the metric to the cost of each error.",
+  "path": "references/metric-selection.md"
+ }
+]
