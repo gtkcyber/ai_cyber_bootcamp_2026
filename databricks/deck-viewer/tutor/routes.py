@@ -97,13 +97,6 @@ def make_blueprint(library, material, tutor, store, throttle, *, dev_user: str |
         except Busy:
             return jsonify({"message": BUSY_MESSAGE}), 503
 
-        # One Toolbox lives for the life of the process, so its record of what
-        # it served would otherwise accumulate across every question this
-        # worker ever answers and each answer would cite the last one's sources.
-        toolbox = getattr(tutor, "toolbox", None)
-        if toolbox is not None:
-            toolbox.sources.clear()
-
         released = False
 
         def release():

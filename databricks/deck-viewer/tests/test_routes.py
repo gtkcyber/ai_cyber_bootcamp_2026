@@ -30,7 +30,6 @@ class FakeTutor:
                                         tool_calls=["load_skill:ds-evaluate"])
         self._error = error
         self.messages = None
-        self.toolbox = type("Box", (), {"sources": []})()
 
     def answer(self, messages):
         self.messages = messages
@@ -202,12 +201,12 @@ def test_a_tutor_failure_becomes_an_error_frame_not_a_500(tmp_path):
     assert "endpoint down" not in json.dumps(got)  # no internals leak to the student
 
 
-def test_a_second_question_does_not_inherit_the_first_questions_sources(tmp_path):
+def test_the_route_keeps_no_source_state_between_questions(tmp_path):
+    """Sources are collected per answer inside Tutor.answer, not on the route."""
     tutor = FakeTutor()
     client, _ = build(tmp_path, tutor=tutor)
-    tutor.toolbox.sources.append({"kind": "skill", "name": "stale"})
-    frames(chat(client))
-    assert tutor.toolbox.sources == []
+    assert frames(chat(client))["sources"][0] == [{"kind": "skill", "name": "ds-evaluate"}]
+    assert frames(chat(client))["sources"][0] == [{"kind": "skill", "name": "ds-evaluate"}]
 
 
 def test_the_throttle_window_returns_429(tmp_path):

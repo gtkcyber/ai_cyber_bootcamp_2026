@@ -1,5 +1,6 @@
 import json
 import sys
+import threading
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -85,35 +86,41 @@ def test_read_lab_schema_exposes_the_answers_flag():
 # --- the toolbox ---------------------------------------------------------
 
 def test_toolbox_dispatches_load_skill(toolbox):
-    assert "PR-AUC" in toolbox.call("load_skill", {"name": "ds-evaluate"})
+    assert "PR-AUC" in toolbox.call("load_skill", {"name": "ds-evaluate"}, [])
 
 
 def test_toolbox_dispatches_read_lab(toolbox):
-    assert "GridSearchCV" in toolbox.call("read_lab", {"worksheet": "4.2"})
+    assert "GridSearchCV" in toolbox.call("read_lab", {"worksheet": "4.2"}, [])
 
 
 def test_toolbox_dispatches_read_deck_notes(toolbox):
-    assert "Slide 1" in toolbox.call("read_deck_notes", {"deck": "04-supervised-machine-learning"})
+    assert "Slide 1" in toolbox.call("read_deck_notes", {"deck": "04-supervised-machine-learning"}, [])
 
 
 def test_toolbox_turns_a_missing_file_into_a_message_not_an_exception(toolbox):
-    out = toolbox.call("load_skill", {"name": "ds-nope"})
+    out = toolbox.call("load_skill", {"name": "ds-nope"}, [])
     assert "no skill" in out.lower()
 
 
 def test_toolbox_rejects_an_unknown_tool(toolbox):
-    assert "unknown tool" in toolbox.call("rm_rf", {}).lower()
+    assert "unknown tool" in toolbox.call("rm_rf", {}, []).lower()
 
 
 def test_toolbox_handles_a_missing_argument(toolbox):
-    assert "missing" in toolbox.call("load_skill", {}).lower()
+    assert "missing" in toolbox.call("load_skill", {}, []).lower()
 
 
-def test_toolbox_records_what_it_served(toolbox):
-    toolbox.call("load_skill", {"name": "ds-evaluate"})
-    toolbox.call("read_lab", {"worksheet": "4.2"})
-    assert [s["name"] for s in toolbox.sources] == ["ds-evaluate", "4.2"]
-    assert [s["kind"] for s in toolbox.sources] == ["skill", "lab"]
+def test_toolbox_records_what_it_served_in_the_callers_list(toolbox):
+    sources = []
+    toolbox.call("load_skill", {"name": "ds-evaluate"}, sources)
+    toolbox.call("read_lab", {"worksheet": "4.2"}, sources)
+    assert [s["name"] for s in sources] == ["ds-evaluate", "4.2"]
+    assert [s["kind"] for s in sources] == ["skill", "lab"]
+
+
+def test_the_toolbox_keeps_no_source_state_of_its_own(toolbox):
+    toolbox.call("load_skill", {"name": "ds-evaluate"}, [])
+    assert not hasattr(toolbox, "sources")
 
 
 # --- the loop ------------------------------------------------------------
@@ -235,3 +242,46 @@ def test_from_workspace_builds_the_client_without_the_sdk_helper(monkeypatch, to
 def test_source_file_never_calls_the_sdk_helper():
     src = (APP_DIR / "tutor" / "llm.py").read_text(encoding="utf-8")
     assert "get_open_ai_client(" not in src.replace("get_open_ai_client`", "")
+
+
+# --- one collector per answer --------------------------------------------
+
+class InterleavedClient:
+    """One client, two conversations, forced to overlap inside the tool loop.
+
+    Each conversation's first turn asks for its own skill; the barrier holds
+    both threads at the turn after the tool ran, which is the window in which a
+    collector shared by the process mixes the two answers' sources together.
+    """
+
+    def __init__(self, barrier):
+        self.barrier = barrier
+        self.chat = SimpleNamespace(completions=self)
+
+    def create(self, **kwargs):
+        messages = kwargs["messages"]
+        marker = messages[0]["content"]
+        if not any(m["role"] == "tool" for m in messages):
+            skill = "ds-evaluate" if marker == "A" else "course-module-04"
+            return _reply(tool_calls=[_tool_call(marker, "load_skill", {"name": skill})])
+        self.barrier.wait(timeout=5)
+        return _reply(content=f"answer {marker}")
+
+
+def test_two_interleaved_answers_report_disjoint_sources(toolbox):
+    """Two students asking at once must not be handed each other's citations."""
+    tutor = Tutor(InterleavedClient(threading.Barrier(2)),
+                  "databricks-deepseek-v4-flash-0731", toolbox)
+    answers = {}
+
+    def ask(marker):
+        answers[marker] = tutor.answer([{"role": "user", "content": marker}])
+
+    threads = [threading.Thread(target=ask, args=(m,)) for m in ("A", "B")]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join(timeout=10)
+
+    assert answers["A"].sources == [{"kind": "skill", "name": "ds-evaluate"}]
+    assert answers["B"].sources == [{"kind": "skill", "name": "course-module-04"}]
