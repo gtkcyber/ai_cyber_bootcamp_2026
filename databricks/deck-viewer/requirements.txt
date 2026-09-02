@@ -1,4 +1,14 @@
-flask
-gunicorn
-databricks-sdk
-openai
+# Pinned, not floated. tutor/llm.py builds its OpenAI client by hand instead of
+# using databricks-sdk's serving-endpoints helper: that helper imports the httpx
+# package, and openai 3.x depends on httpx's successor package httpx2 and does
+# not install httpx at all, so the helper raises ModuleNotFoundError on a fresh
+# install of these requirements. These four versions are the set the workaround
+# was written against and tested on; a floated resolve changes which versions
+# meet and can silently invalidate it.
+#
+# To move a pin: bump it here, reinstall the venv, run the tests, and re-read
+# the CLIENT note at the top of tutor/llm.py against the new versions.
+flask==3.1.3
+gunicorn==26.2.0
+databricks-sdk==0.133.0
+openai==3.7.0

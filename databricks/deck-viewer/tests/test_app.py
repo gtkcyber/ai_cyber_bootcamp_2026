@@ -1,4 +1,5 @@
 import importlib
+import re
 import sys
 from pathlib import Path
 from types import SimpleNamespace
@@ -151,3 +152,16 @@ def test_the_shell_carries_the_course_title(app_module):
 def test_the_request_body_is_capped_at_64_kb(app_module):
     """Unset, Flask reads a body of any size before a route ever sees it."""
     assert app_module.app.config["MAX_CONTENT_LENGTH"] == 64 * 1024
+
+
+def test_every_app_requirement_is_pinned():
+    """tutor/llm.py hand-builds its OpenAI client because databricks-sdk 0.133's
+    helper imports httpx while openai 3.x installs httpx2 instead. An unpinned
+    resolve changes which versions meet, and that workaround with them."""
+    lines = [ln.strip() for ln in (APP_DIR / "requirements.txt").read_text(
+        encoding="utf-8").splitlines()]
+    pins = [ln for ln in lines if ln and not ln.startswith("#")]
+    assert {ln.split("==")[0].lower() for ln in pins} == {
+        "flask", "gunicorn", "databricks-sdk", "openai"}
+    for pin in pins:
+        assert re.fullmatch(r"[A-Za-z0-9_.-]+==\d+(\.\d+)*", pin), f"{pin!r} is not pinned"
