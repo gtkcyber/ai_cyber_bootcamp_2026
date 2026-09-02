@@ -166,6 +166,36 @@ MODULES: list[Module] = [
         ],
     ),
     Module(
+        "notebooks/Worksheet_8.1_Deep_Learning_CNN_Fingerprints.ipynb",
+        "answers/Worksheet_8.1_Deep_Learning_CNN_Fingerprints-Answers.ipynb",
+        "base",
+        subs=[
+            Sub("DATA_HOME = '../data/fingerprints'", "FINGERPRINTS = DATA_HOME + 'fingerprints'"),
+            Sub('TRAIN_DATA_RAW_PATH = os.path.join(DATA_HOME, "train_data")',
+                'TRAIN_DATA_RAW_PATH = os.path.join(FINGERPRINTS, "train_data")'),
+            Sub('output_dir = os.path.normpath(os.path.join(DATA_HOME, "split_dataset"))',
+                'output_dir = os.path.normpath(os.path.join(WORK_HOME, "split_dataset"))'),
+            Sub('callbacks.ModelCheckpoint("save_at_{epoch}.keras")',
+                'callbacks.ModelCheckpoint(WORK_HOME + "save_at_{epoch}.keras")'),
+            Sub("model_pre_trained.save('fingerprint_model.keras')",
+                "model_pre_trained.save(WORK_HOME + 'fingerprint_model.keras')"),
+            Sub("model = load_model('fingerprint_model.keras')",
+                "model = load_model(WORK_HOME + 'fingerprint_model.keras')"),
+            Sub("1. Go into the ```../data/fingerprints/``` directory and extract the `.zip` "
+                "file. This will result in a `train_data` directory that has a bunch of "
+                "`.bmp` images (our raw data).",
+                "1. The raw images are already extracted for you in the course data "
+                "directory, under `fingerprints/train_data/` — a directory of `.bmp` "
+                "images. (Locally that is `../data/fingerprints/train_data/`; if it is "
+                "not there, extract `fingerprint_train_data.zip` beside it once.)",
+                kind="markdown"),
+        ],
+        ans_only=[
+            Sub('model_tb.save("subjectIDClassifier_1.keras")',
+                'model_tb.save(WORK_HOME + "subjectIDClassifier_1.keras")'),
+        ],
+    ),
+    Module(
         "notebooks/Worksheet_8.2_Deep_Learning_RNN_URL.ipynb",
         "answers/Worksheet_8.2_Deep_Learning_RNN_URL-Answers.ipynb",
         "base",
