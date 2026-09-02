@@ -332,3 +332,107 @@ def note_html(body):
         else:
             blocks.append(f"<p>{_inline(' '.join(lines))}</p>")
     return "\n".join(blocks)
+
+
+# -------------------------------------------------------------------- emit
+#
+# The skeleton is the reference course's deck head and tail with the markdown
+# textarea replaced by literal sections, because these slides are images and
+# there is no markdown to parse. Reveal, its theme and its plugins stay pinned
+# to 5.2.1 on the CDN, and the markdown plugin stays loaded because deck.js's
+# default plugin list names it.
+COURSE_NAME = "AI Cyber Bootcamp 2026"
+
+SKELETON = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, \
+maximum-scale=1.0, user-scalable=no">
+  <title>{title}</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+{sections}
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>
+"""
+
+ALT_LIMIT = 180
+
+
+def _alt_text(page):
+    """The words on the page, for a reader who cannot see it.
+
+    The note is the real explanation, but a screen reader in slide mode never
+    reaches the note, so the slide's own text is the best alt available.
+    """
+    text = " ".join(page.get("text", "").split())[:ALT_LIMIT]
+    return html.escape(text or f"Slide {page['page']}", quote=True)
+
+
+def _section(stages, note):
+    """One reveal slide: the group's pages stacked, then the note.
+
+    The group's first page is the base layer and each later stage is a
+    fragment above it, so one keypress per stage replays the build and the
+    finished page ends up on top. Reading mode strips the fragment class but
+    not the stacking order, so it shows the finished page. data-page carries
+    the PDF page number of the finished page, which is what the deployed
+    app's tutor reads to know which page is on screen.
+    """
+    layers = []
+    for index, page in enumerate(stages):
+        css_class = "page" if index == 0 else "page fragment"
+        layers.append(f'      <img class="{css_class}" '
+                      f'src="pages/p{page["page"]:03d}.webp" '
+                      f'alt="{_alt_text(page)}">')
+    body = "\n".join(layers)
+    rendered = (f'<p class="unresolved">{UNRESOLVED}</p>'
+                if note.strip() == UNRESOLVED else note_html(note))
+    aside = (f'    <aside class="notes">\n      {rendered}\n    </aside>\n'
+             if rendered else "")
+    final_page = stages[-1]["page"]
+    return (f'  <section data-page="{final_page}">\n'
+            f'    <div class="page-stack">\n{body}\n    </div>\n'
+            f"{aside}"
+            f"  </section>")
+
+
+def emit_deck(root, slug, title, pages, notes):
+    """Write decks/<slug>/index.html. Returns the path."""
+    by_group = {}
+    for page in pages:
+        by_group.setdefault(page["group"], []).append(page)
+
+    sections = []
+    for gid in sorted(by_group):
+        stages = sorted(by_group[gid], key=lambda p: p["page"])
+        sections.append(_section(stages, notes.get(stages[-1]["page"], "")))
+
+    path = Path(root) / "decks" / slug / "index.html"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        SKELETON.format(title=f"{COURSE_NAME} &mdash; {title}",
+                        sections="\n".join(sections)),
+        encoding="utf-8")
+    return path
