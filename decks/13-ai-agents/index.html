@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Module 13: AI Agents</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="Module 13: All About AI Agents Charles S. Givre CISSP">
+    </div>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber Putting it all together: Agents">
+    </div>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber • Autonomous agents are, by their nature, vulnerable to prompt injection attacks. • As with tools, when implementing features that call functions, always ask yourself wha">
+    </div>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber Dangers of AI Agents • In July 2025, &quot;vibe coder&quot; Jason Lemkin was using an AI tool Replit to build an application. • After 8 days of vibe coding, the AI Agent in Replit ">
+    </div>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber Dangers of AI Agents https://www.reddit.com/r/ChatGPT/comments/1m4lsso/replit_ai_went_rogue_deleted_a_companys_entire/">
+    </div>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber What are Agents? • AI Agents expand on tools by adding follow on actions and memory. • Agentic architecture allows AI models to execute actions and then take follow on ac">
+    </div>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber Components of AI Agents • Inputs: The information which the agent receives from the environment. This can be images, media or text. • Goal or Reward Function: The goal is">
+    </div>
+  </section>
+  <section data-page="8">
+    <div class="page-stack">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber NVIDIA AI Agent Autonomy Level 1 • Level 1 represents a linear chain of calls where the output of one call or tool is conveyed to the next step in a deterministic manner ">
+    </div>
+  </section>
+  <section data-page="9">
+    <div class="page-stack">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber NVIDIA AI Agent Autonomy Level 2 • Level 2 the output from the AI model may be sent along different paths through the workflow in a data dependent manner. Every execution">
+    </div>
+  </section>
+  <section data-page="10">
+    <div class="page-stack">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber NVIDIA AI Agent Autonomy Level 3 • Level 3 the number of potential execution paths grows exponentially. • It is generally not possible to enumerate all possible paths. ht">
+    </div>
+  </section>
+  <section data-page="11">
+    <div class="page-stack">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber Reason and Act (ReAct)">
+    </div>
+  </section>
+  <section data-page="12">
+    <div class="page-stack">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber ReAct Steps 1. Observe the environment. 2. Interpret the environment with a thought. 3. Decide on an action. 4. Act on the environment. 5. Repeat steps 1–4 until you find">
+    </div>
+  </section>
+  <section data-page="13">
+    <div class="page-stack">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber Create a ReAct Prompt You can easily create a ReAct-style prompt by using the preceding thought loop while also providing the LLM with several inputs such as: • {question">
+    </div>
+  </section>
+  <section data-page="14">
+    <div class="page-stack">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber Example ReAct Prompt You will attempt to solve the problem of finding the answer to a question. Use chain-of-thought reasoning to solve through the problem, using the fol">
+    </div>
+  </section>
+  <section data-page="15">
+    <div class="page-stack">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Agents vs. Workflows • Not every LLM application is an agent. • A workflow follows a fixed path that you design in code. • An agent lets the model decide the path: which ">
+    </div>
+  </section>
+  <section data-page="16">
+    <div class="page-stack">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber The Spectrum • Single prompt: one call, one answer. • Chain: a fixed sequence of calls you wire together. • Router: the model picks one of several predefined branches. • ">
+    </div>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber When to Use an Agent • The task is open-ended and the steps are not known in advance. • The number of steps varies from one input to the next. • The work benefits from to">
+    </div>
+  </section>
+  <section data-page="18">
+    <div class="page-stack">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber When NOT to Use an Agent • The task is deterministic and the steps never change. Use a workflow. • Latency or cost is tightly constrained. • Mistakes are expensive and th">
+    </div>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber The Cost of Autonomy • Every loop iteration is another model call: more tokens, latency, and money. • Agents can take unexpected paths and call tools in unexpected orders">
+    </div>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber Beyond ReAct: Memory • A capable agent needs memory as well as a reasoning loop. • Short-term memory: the conversation and tool results in the context window. Fast but bo">
+    </div>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber Planning &amp; Decomposition • Hard problems get easier when broken into sub-tasks. • A planning step outlines the sub-tasks before any action is taken. • Plan-and-Execute: b">
+    </div>
+  </section>
+  <section data-page="22">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber Reflection &amp; Self-Critique • An agent can review its own work before finishing. • Reflection: the model critiques its draft and tries again. • This catches errors, missed">
+    </div>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber Agent Patterns Compared • ReAct: interleave reasoning and tool calls in one loop. Simple and flexible. • Plan-and-Execute: plan all steps up front, then run them. More pr">
+    </div>
+  </section>
+  <section data-page="24">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber Agent Frameworks Beyond LangGraph • LangGraph / LangChain: graph-based, stateful, fine-grained control. What this lab uses. • LlamaIndex Workflows: event-driven steps wit">
+    </div>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber Do You Even Need a Framework? • Anthropic&#x27;s guidance: start with the model&#x27;s own tool-calling loop, no framework. • A framework adds abstraction, dependencies, and lock-i">
+    </div>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber Visual &amp; Low-Code Agent Builders • Flowise: open-source drag-and-drop, built on LangChain and LangGraph. • Langflow: visual flow builder, Python-extensible, MIT licensed.">
+    </div>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber The Agent Threat Model • An agent is an LLM with hands: it can read data and take actions. • That combination expands the attack surface well beyond a chatbot. • The core">
+    </div>
+  </section>
+  <section data-page="28">
+    <div class="page-stack">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber The Lethal Trifecta • Three capabilities are dangerous when combined in one agent: • Access to private data. • Exposure to untrusted content such as emails, web pages, an">
+    </div>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Excessive Agency &amp; Tool Poisoning • Excessive agency: granting more tools or permissions than the task needs. • A hijacked agent will use every capability you gave it. • ">
+    </div>
+  </section>
+  <section data-page="30">
+    <div class="page-stack">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber OWASP LLM Top 10 (Agent- Relevant) • LLM01 Prompt Injection: attacker text overrides your instructions. • LLM02 Insecure Output Handling: agent output trusted without val">
+    </div>
+  </section>
+  <section data-page="31">
+    <div class="page-stack">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber Mitigations &amp; Guardrails • Least privilege: give each tool the narrowest scope possible. • Human in the loop: require approval for risky or irreversible actions. • Sandbo">
+    </div>
+  </section>
+  <section data-page="32">
+    <div class="page-stack">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber Where Agents Fit in Security Ops • Alert triage: enrich and classify SOC alerts, then escalate the real ones. • Phishing and email analysis: the lab you are about to buil">
+    </div>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber Evaluating an Agent • You cannot improve what you do not measure. • Task success rate: did it reach the correct outcome? • Tool-call accuracy: the right tools with the ri">
+    </div>
+  </section>
+  <section data-page="34">
+    <div class="page-stack">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber Future Learning • LangChain Evaluators: Useful for comparing models. • Document Chunking/Splitting • Advanced Pydantic Usage • Model Fine Tuning">
+    </div>
+  </section>
+  <section data-page="35">
+    <div class="page-stack">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+  <section data-page="36">
+    <div class="page-stack">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber The Long Lab: Building an Agent">
+    </div>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber The Agentic Lab • For this lab, you will be building a progressively more sophisticated agent to detect phishing emails. • We have provided mock tools for you to use. For">
+    </div>
+  </section>
+  <section data-page="38">
+    <div class="page-stack">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Building an AI Agent • The objective is to create an AI Agent to identify Phishing emails. • How should we do this?">
+    </div>
+  </section>
+  <section data-page="39">
+    <div class="page-stack">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Building an AI Agent: Part 1 • The goal for part 1 is to build a simple agent which will simply render a verdict as to whether an email is phishing or not. • We are going">
+    </div>
+  </section>
+  <section data-page="40">
+    <div class="page-stack">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber The State Graph • The state graph is the flow of steps which an agent will take. • The nodes are the &quot;workers&quot; and should perform exactly one function. • The state is the">
+    </div>
+  </section>
+  <section data-page="41">
+    <div class="page-stack">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Structured Output Schema You will also need a Pydantic structure for the final output as shown below. class LoginClassification(BaseModel): &quot;&quot;&quot;Structured output for suspi">
+    </div>
+  </section>
+  <section data-page="42">
+    <div class="page-stack">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber The State Graph • State Graphs are defined as TypedDicts as shown below. • The fields will vary depending on your specific use case. class LoginState(TypedDict): &quot;&quot;&quot;State">
+    </div>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber Initialize the LLM To use an agent, we need the output in a specific format, so we&#x27;ll initialize the LLM using the method with_structured_output() and pass it the Pydanti">
+    </div>
+  </section>
+  <section data-page="44">
+    <div class="page-stack">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber Create Nodes Nodes are the workhorses of a LangGraph graph. Each node is a plain Python function that: 1. Receives the current state as its argument 2. Does some work (ca">
+    </div>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber Creating a Node def classify_login(state: LoginState): # Analyze the login event prompt = f&quot;Is this login suspicious? {state[&#x27;login_text&#x27;]}&quot; result = structured_llm.invok">
+    </div>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber Assembling the Graph Now we assemble our nodes into a StateGraph. The process is: 1. Create a StateGraph with our state schema 2. Add nodes -- register each function by n">
+    </div>
+  </section>
+  <section data-page="47">
+    <div class="page-stack">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber Assembling the Graph # Create the graph workflow = StateGraph(LoginState) # Add nodes workflow.add_node(&quot;classify_login&quot;, classify_login) workflow.add_node(&quot;format_decisi">
+    </div>
+  </section>
+  <section data-page="48">
+    <div class="page-stack">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber Run It! result = graph.invoke({ &quot;login&quot;: events[0], &quot;login_text&quot;: &quot;&quot;, &quot;classification&quot;: None, &quot;verdict_report&quot;: None, }) print(result[&quot;verdict_report&quot;])">
+    </div>
+  </section>
+  <section data-page="49">
+    <div class="page-stack">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber Please complete Phishing Lab Part 1">
+    </div>
+  </section>
+  <section data-page="50">
+    <div class="page-stack">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber Lab Please complete Lab 13.1: Single Email Classifier">
+    </div>
+  </section>
+  <section data-page="51">
+    <div class="page-stack">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber Part 2: Adding Tools">
+    </div>
+  </section>
+  <section data-page="52">
+    <div class="page-stack">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber Part 2: Adding Tools • Initial agent was not very smart... it just read the email and made a determination. • Let&#x27;s make it better and enrich the available information wi">
+    </div>
+  </section>
+  <section data-page="53">
+    <div class="page-stack">
+      <img class="page" src="pages/p053.webp" alt="GTK Cyber Message Based State In Lab 1, our state was a simple TypedDict with fields like login, classification, and confidence. That works for a straight-line pipeline, but a tool">
+    </div>
+  </section>
+  <section data-page="54">
+    <div class="page-stack">
+      <img class="page" src="pages/p054.webp" alt="GTK Cyber Tools Our agent has access to three security investigation tools, already implemented in utils/mock_tools.py. Each is decorated with LangChain&#x27;s @tool decorator, which: 1">
+    </div>
+  </section>
+  <section data-page="55">
+    <div class="page-stack">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Tools • For our next lab, we provide you with three simulated tools: • check_geo_velocity • check_device_reputation • check_login_velocity">
+    </div>
+  </section>
+  <section data-page="56">
+    <div class="page-stack">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber Tools # Convenience list for binding to LLMs ATO_TOOLS = [check_geo_velocity, check_device_reputation, check_login_velocity] @tool def check_geo_velocity( user_id: str, c">
+    </div>
+  </section>
+  <section data-page="57">
+    <div class="page-stack">
+      <img class="page" src="pages/p057.webp" alt="GTK Cyber Bind Tools to LLM llm = ChatAnthropic(model=&quot;claude-opus-4-8&quot;, temperature=0) llm_with_tools = llm.bind_tools(ATO_TOOLS)">
+    </div>
+  </section>
+  <section data-page="58">
+    <div class="page-stack">
+      <img class="page" src="pages/p058.webp" alt="GTK Cyber Investigator Node The investigator is the central node in our graph. Each time it runs, it: 1. Takes the current message history from state. 2. Ensures a system prompt is">
+    </div>
+  </section>
+  <section data-page="59">
+    <div class="page-stack">
+      <img class="page" src="pages/p059.webp" alt="GTK Cyber Conditional Routing Two more pieces complete the ReAct loop: ToolNode ToolNode is a LangGraph prebuilt that automatically: • Reads the tool_calls from the last AI message">
+    </div>
+  </section>
+  <section data-page="60">
+    <div class="page-stack">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber Building the Loop The ReAct (Reason + Act) pattern is a loop: 1. Reason: The investigator (LLM) looks at the evidence so far and decides what to do. 2. Act: If the LLM wa">
+    </div>
+  </section>
+  <section data-page="61">
+    <div class="page-stack">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Building the Loop workflow = StateGraph(InvestigationState) # Add nodes workflow.add_node(&quot;investigator&quot;, investigator) workflow.add_node(&quot;execute_tools&quot;, tool_node) # Ad">
+    </div>
+  </section>
+  <section data-page="62">
+    <div class="page-stack">
+      <img class="page" src="pages/p062.webp" alt="GTK Cyber Lab Please complete Lab 13.2: Tool Calling Agent">
+    </div>
+  </section>
+  <section data-page="63">
+    <div class="page-stack">
+      <img class="page" src="pages/p063.webp" alt="GTK Cyber Part 3: Conditional Routing">
+    </div>
+  </section>
+  <section data-page="64">
+    <div class="page-stack">
+      <img class="page" src="pages/p064.webp" alt="GTK Cyber Conditional Routing • In Part 2, we created an agent that called external tools in all cases. • This is not efficient as there are some login events which do not warrant ">
+    </div>
+  </section>
+  <section data-page="65">
+    <div class="page-stack">
+      <img class="page" src="pages/p065.webp" alt="GTK Cyber Conditional Routing • We need to keep track of the results from state to state. This is known as state enrichment. • The investigation_notes field here will store the res">
+    </div>
+  </section>
+  <section data-page="66">
+    <div class="page-stack">
+      <img class="page" src="pages/p066.webp" alt="GTK Cyber Conditional Routing A routing function is a plain Python function that: • Takes the current graph state as input • Returns a string that names which node to go to next Wh">
+    </div>
+  </section>
+  <section data-page="67">
+    <div class="page-stack">
+      <img class="page" src="pages/p067.webp" alt="GTK Cyber The Analysis Path • For our example, we are going to define three paths. • Note that not all paths call an LLM and not all paths call tools. • You will need to create a n">
+    </div>
+  </section>
+  <section data-page="68">
+    <div class="page-stack">
+      <img class="page" src="pages/p068.webp" alt="GTK Cyber The Analysis Path">
+    </div>
+  </section>
+  <section data-page="69">
+    <div class="page-stack">
+      <img class="page" src="pages/p069.webp" alt="GTK Cyber The Analysis Path workflow.add_conditional_edges( &quot;initial_triage&quot;, route_by_risk, { &quot;deep_investigation&quot;: &quot;deep_investigation&quot;, &quot;light_review&quot;: &quot;light_review&quot;, &quot;fast_pas">
+    </div>
+  </section>
+  <section data-page="70">
+    <div class="page-stack">
+      <img class="page" src="pages/p070.webp" alt="GTK Cyber Lab Please complete Lab 13.3: Conditional Routing">
+    </div>
+  </section>
+  <section data-page="71">
+    <div class="page-stack">
+      <img class="page" src="pages/p071.webp" alt="GTK Cyber Part 4: Human in the Loop">
+    </div>
+  </section>
+  <section data-page="72">
+    <div class="page-stack">
+      <img class="page" src="pages/p072.webp" alt="GTK Cyber Human in the Loop • No AI system is perfect. • AI isn&#x27;t always able to make good decisions or know what to do in all cases. For these situations and other potentially haz">
+    </div>
+  </section>
+  <section data-page="73">
+    <div class="page-stack">
+      <img class="page" src="pages/p073.webp" alt="GTK Cyber Human in the Loop: What we will need We will need: • To track the human&#x27;s decision in the state object • A way of interrupting the agentic flow to await human input • A w">
+    </div>
+  </section>
+  <section data-page="74">
+    <div class="page-stack">
+      <img class="page" src="pages/p074.webp" alt="GTK Cyber Interrupting the Graph Flow">
+    </div>
+  </section>
+  <section data-page="75">
+    <div class="page-stack">
+      <img class="page" src="pages/p075.webp" alt="GTK Cyber The Interrupt interrupt(value) When a node calls interrupt(value), the graph pauses execution and returns control to the caller. The value is sent back so the caller (you">
+    </div>
+  </section>
+  <section data-page="76">
+    <div class="page-stack">
+      <img class="page" src="pages/p076.webp" alt="GTK Cyber Resuming the Graph Command(resume=value) To resume a paused graph, you call graph.invoke(Command(resume=value), config=config) with the same thread_id. The value becomes ">
+    </div>
+  </section>
+  <section data-page="77">
+    <div class="page-stack">
+      <img class="page" src="pages/p077.webp" alt="GTK Cyber Preserving State For a graph to pause and resume, it needs to save its state somewhere. LangGraph uses a checkpointer for this. MemorySaver is the simplest checkpointer -">
+    </div>
+  </section>
+  <section data-page="78">
+    <div class="page-stack">
+      <img class="page" src="pages/p078.webp" alt="GTK Cyber Lab Please complete Lab 13.4: Human in the Loop">
+    </div>
+  </section>
+  <section data-page="79">
+    <div class="page-stack">
+      <img class="page" src="pages/p079.webp" alt="GTK Cyber Part 5: Multi-Agent Systems">
+    </div>
+  </section>
+  <section data-page="80">
+    <div class="page-stack">
+      <img class="page" src="pages/p080.webp" alt="GTK Cyber Multi Agent Systems • In the previous examples, we built agents which had rigid, pre- defined paths. • The next evolution introduces when the AI can decide the path and t">
+    </div>
+  </section>
+  <section data-page="81">
+    <div class="page-stack">
+      <img class="page" src="pages/p081.webp" alt="GTK Cyber Multi-Agent Systems">
+    </div>
+  </section>
+  <section data-page="82">
+    <div class="page-stack">
+      <img class="page" src="pages/p082.webp" alt="GTK Cyber Multi Agent Systems In previous labs, we built a single ReAct agent by hand -- defining nodes, routing functions, and tool execution logic ourselves. LangGraph provides c">
+    </div>
+  </section>
+  <section data-page="83">
+    <div class="page-stack">
+      <img class="page" src="pages/p083.webp" alt="GTK Cyber Multi Agent Systems identity_analyst = create_react_agent( model=llm, tools=[check_device_reputation, check_login_velocity], name=&quot;identity_analyst&quot;, prompt=&quot;&quot;&quot;You are an">
+    </div>
+  </section>
+  <section data-page="84">
+    <div class="page-stack">
+      <img class="page" src="pages/p084.webp" alt="GTK Cyber The Supervisor The create_supervisor function from langgraph_supervisor creates an agent that: 1. Receives the initial investigation request (an email to analyze) 2. Deci">
+    </div>
+  </section>
+  <section data-page="85">
+    <div class="page-stack">
+      <img class="page" src="pages/p085.webp" alt="GTK Cyber The Supervisor supervisor = create_supervisor( model=llm, agents=[identity_analyst, geo_network_analyst, behavior_analyst], prompt=&quot;&quot;&quot;You are the SOC Team Lead supervisin">
+    </div>
+  </section>
+  <section data-page="86">
+    <div class="page-stack">
+      <img class="page" src="pages/p086.webp" alt="GTK Cyber Lab Please complete Lab 13.5: Multi Agent Supervisor">
+    </div>
+  </section>
+  <section data-page="87">
+    <div class="page-stack">
+      <img class="page" src="pages/p087.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>

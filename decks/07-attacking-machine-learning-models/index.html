@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Module 7: Attacking Machine Learning Models</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="Module 7 Attacking Machine Learning Models">
+    </div>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber Can you attack a model? YES!!">
+    </div>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber Attack Types • Model Evasion • Poisoning • Membership Inference • Model Extraction / Inversion White box attacks require access to the model, and black box only require a">
+    </div>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber Attack Surface">
+    </div>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber Attack Types">
+    </div>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber Model Evasion">
+    </div>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="8">
+    <div class="page-stack">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber https://gizmodo.com/this-simple-sticker-can-trick-neural-networks-into-thin-1821735479">
+    </div>
+  </section>
+  <section data-page="9">
+    <div class="page-stack">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber An attack caused a model to label this image as a 45mph Speed Limit Sign Ivan Evtimov et al. .&quot;Robust Physical-World Attacks on Deep Learning Models&quot; (2017) =">
+    </div>
+  </section>
+  <section data-page="10">
+    <div class="page-stack">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber An attack caused a model to label this image as a Stop Sign Ivan Evtimov et al. .&quot;Robust Physical-World Attacks on Deep Learning Models&quot; (2017) =">
+    </div>
+  </section>
+  <section data-page="11">
+    <div class="page-stack">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber Altering a Prediction By adding small perturbations to an image, it is possible to completely alter the prediction. Explaining and Harnessing Adversarial Examples, Goodfe">
+    </div>
+  </section>
+  <section data-page="12">
+    <div class="page-stack">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber Altering a Prediction Photos taken on a smartphone and printed out can be altered in this way. Explaining and Harnessing Adversarial Examples, Goodfellow et al., 2014">
+    </div>
+  </section>
+  <section data-page="13">
+    <div class="page-stack">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber Model Evasion Attacks • A model evasion attack is when a model is fed a carefully crafted input, known as an adversarial example, that is designed to be misclassified. • ">
+    </div>
+  </section>
+  <section data-page="14">
+    <div class="page-stack">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 319 (2018)">
+    </div>
+  </section>
+  <section data-page="15">
+    <div class="page-stack">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Functional Extraction">
+    </div>
+  </section>
+  <section data-page="16">
+    <div class="page-stack">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Functional Extraction • Mimicry: the action or art of imitating someone or something http://poofree.com/colorado-rattlesnakes-and-your-furry-friend-duty-free-pets-colorad">
+    </div>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber Functional Extraction: So What? • Having a “copy” of a model to play with allows attackers to better attempt other attack methods • Evasion - Attackers can develop tactic">
+    </div>
+  </section>
+  <section data-page="18">
+    <div class="page-stack">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber Model Inversion &amp; Membership Inference">
+    </div>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber Inversion/Inference Example • A facial recognition model “ W “ is produced using a training procedure “ Y “ and data “ X “. • Model is released to the public for use (whi">
+    </div>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber Inversion/Inference Example https://www.cs.toronto.edu/~toni/Courses/Fairness/Lectures/ML-and-DP-v2.pdf">
+    </div>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber Inversion/Inference So What • Sensitive Information • Credit Card Numbers • Addresses • Survey data https://www.cs.toronto.edu/~toni/Courses/Fairness/Lectures/ML-and-DP-v">
+    </div>
+  </section>
+  <section data-page="22">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber Poisoning">
+    </div>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber Defined • Poisoning Attack: Used with online learning systems. Injecting data to cause a model to modify its decision boundary in a particular direction.">
+    </div>
+  </section>
+  <section data-page="24">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining">
+    </div>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
+    </div>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
+    </div>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
+    </div>
+  </section>
+  <section data-page="28">
+    <div class="page-stack">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
+    </div>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
+    </div>
+  </section>
+  <section data-page="30">
+    <div class="page-stack">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
+    </div>
+  </section>
+  <section data-page="31">
+    <div class="page-stack">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
+    </div>
+  </section>
+  <section data-page="32">
+    <div class="page-stack">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber Poisoning Attacks • Require access to either the predictions or the probabilities for an effective attack • Longer periods between retraining • Periodically analyzing ret">
+    </div>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber Additional Readings • Alexey Kurakin et al. &quot;Adversarial Examples in the Physical World&quot; (2016) • Anish Athalye et al. &quot;Synthesizing Robust Adversarial Examples&quot; (2017) •">
+    </div>
+  </section>
+  <section data-page="34">
+    <div class="page-stack">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+  <section data-page="35">
+    <div class="page-stack">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber The Details...">
+    </div>
+  </section>
+  <section data-page="36">
+    <div class="page-stack">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber Model Evasion">
+    </div>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber Model Evasion Methods • Gradient Based Attacks (White box) • Score Based (Black Box / Score based) • Decision-Based (Only class labels) • Physical World Attacks">
+    </div>
+  </section>
+  <section data-page="38">
+    <div class="page-stack">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Gradient Based Attacks">
+    </div>
+  </section>
+  <section data-page="39">
+    <div class="page-stack">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Gradient Based Attacks • Neural networks learn by adjusting weights in the direction that reduces error. This direction is given by the gradient of the loss function. A g">
+    </div>
+  </section>
+  <section data-page="40">
+    <div class="page-stack">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber Gradient Based Methods Think of the model’s decision boundary (the “line” or “surface” that separates one class from another). • In many regions, the boundary is surprisi">
+    </div>
+  </section>
+  <section data-page="41">
+    <div class="page-stack">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Gradient Based Methods - Crafting the Attack 1. Compute gradient direction: Determine which small changes to the input would most increase the model’s error. 2. Perturb t">
+    </div>
+  </section>
+  <section data-page="42">
+    <div class="page-stack">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber Gradient Based Methods - Crafting the Attack • Single-step (FGSM): One quick jump in the vulnerable direction, fast but less stealthy. • Iterative (Projected Gradient Des">
+    </div>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber Gradient Based Methods https://www.researchgate.net/figure/Illustration-of-adversarial-examples-generated-by-FGSM-PGD-BIM-DeepFool-C-W-GAMA-FW_fig2_375277898">
+    </div>
+  </section>
+  <section data-page="44">
+    <div class="page-stack">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber Gradient Based Methods • Neural networks often rely on narrow statistical cues rather than robust features. • These cues are spread across thousands of input dimensions. ">
+    </div>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber Fast Gradient Sign Method (FSGM) • FSGM is the simplest and fastest gradient based attack. • Instead of carefully optimizing, it takes one big step in the direction a mod">
+    </div>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber FSGM: How It Works • Look at the gradient: The attacker computes how sensitive the model’s prediction is to changes in each input feature. • Choose a direction: For each ">
+    </div>
+  </section>
+  <section data-page="47">
+    <div class="page-stack">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber FSGM: Pros &amp; Cons Advantages of FSGM • Speed: It’s very fast — just one calculation of the gradient. • Effectiveness: Even such a crude attack often works surprisingly we">
+    </div>
+  </section>
+  <section data-page="48">
+    <div class="page-stack">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber Projected Gradient Descent (PGD) PGD is basically FGSM repeated many times, with guardrails. • Instead of one big push (FGSM), PGD takes many small steps in the gradient ">
+    </div>
+  </section>
+  <section data-page="49">
+    <div class="page-stack">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber Projected Gradient Descent (PGD) PGD is basically FGSM repeated many times, with guardrails. • Instead of one big push (FGSM), PGD takes many small steps in the gradient ">
+    </div>
+  </section>
+  <section data-page="50">
+    <div class="page-stack">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber Projected Gradient Descent (PGD) - How It Works 1. Start with the original input. 2. Compute the gradient (the most sensitive direction). 3. Take a small step in that dir">
+    </div>
+  </section>
+  <section data-page="51">
+    <div class="page-stack">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber Projected Gradient Descent (PGD) - Pros &amp; Cons Advantages: • Much stronger than FGSM: Iterations allow the attack to explore the space more effectively. • Robust benchmar">
+    </div>
+  </section>
+  <section data-page="52">
+    <div class="page-stack">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber Carlini &amp; Wagner (C&amp;W) Attack • The C&amp;W attack is an optimization-driven adversarial attack. • Instead of taking one step (FGSM) or many steps (PGD), it solves an optimiz">
+    </div>
+  </section>
+  <section data-page="53">
+    <div class="page-stack">
+      <img class="page" src="pages/p053.webp" alt="GTK Cyber Carlini &amp; Wagner (C&amp;W) Attack: How it Works 1.Start with the original input. 2.Search for the tiniest perturbation that makes the model misclassify. 3.Use optimization te">
+    </div>
+  </section>
+  <section data-page="54">
+    <div class="page-stack">
+      <img class="page" src="pages/p054.webp" alt="GTK Cyber Carlini &amp; Wagner (C&amp;W) Attack: Pros &amp; Cons Advantages: • Extremely subtle: Perturbations are often imperceptible to humans, even when magnified. • Highly effective: Bypas">
+    </div>
+  </section>
+  <section data-page="55">
+    <div class="page-stack">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Score Based Attacks">
+    </div>
+  </section>
+  <section data-page="56">
+    <div class="page-stack">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber Score Based Attacks • Score-based attacks apply when an attacker doesn’t have full access to the model’s parameters (no gradients), but does see output probabilities or c">
+    </div>
+  </section>
+  <section data-page="57">
+    <div class="page-stack">
+      <img class="page" src="pages/p057.webp" alt="GTK Cyber Score Based Attacks: How They Work 1. Query the model with an input. 2. Slightly perturb features (like a pixel, word, or tabular field). 3. Record the output scores for ">
+    </div>
+  </section>
+  <section data-page="58">
+    <div class="page-stack">
+      <img class="page" src="pages/p058.webp" alt="GTK Cyber Score Based Attacks: Methods Zeroth-Order Optimization (ZOO): • Estimates gradients with finite differences (probe each feature one at a time). • Accurate, but very query">
+    </div>
+  </section>
+  <section data-page="59">
+    <div class="page-stack">
+      <img class="page" src="pages/p059.webp" alt="GTK Cyber Score Based Attacks: Pros &amp; Cons Pros • Works in black-box settings (no access to model internals). • Effective against commercial APIs that return probabilities (e.g., i">
+    </div>
+  </section>
+  <section data-page="60">
+    <div class="page-stack">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber Zeroth Order Optimization (ZOO) • ZOO is a score-based adversarial attack. It’s designed for black-box settings where the attacker: • Cannot see the model’s architecture ">
+    </div>
+  </section>
+  <section data-page="61">
+    <div class="page-stack">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Zeroth Order Optimization (ZOO) • ZOO reconstructs gradients indirectly by probing the model’s outputs. 1. Take the original input. 2. Nudge one feature slightly (say, br">
+    </div>
+  </section>
+  <section data-page="62">
+    <div class="page-stack">
+      <img class="page" src="pages/p062.webp" alt="GTK Cyber Zeroth Order Optimization (ZOO): How it works 1. Pick a feature (pixel, word embedding dimension, tabular value). 2. Apply a tiny perturbation and query the model again. ">
+    </div>
+  </section>
+  <section data-page="63">
+    <div class="page-stack">
+      <img class="page" src="pages/p063.webp" alt="GTK Cyber Zeroth Order Optimization (ZOO): Pros: • Black-box ready: Needs only query access, not model internals. • Generalizable: Works on any model type, as long as it returns sc">
+    </div>
+  </section>
+  <section data-page="64">
+    <div class="page-stack">
+      <img class="page" src="pages/p064.webp" alt="GTK Cyber Natural Evolution Strategies (NES) • NES is a score-based black-box attack like ZOO, but it’s designed to be much more efficient. • Instead of probing every feature one b">
+    </div>
+  </section>
+  <section data-page="65">
+    <div class="page-stack">
+      <img class="page" src="pages/p065.webp" alt="GTK Cyber Natural Evolution Strategies (NES) NES borrows from evolutionary algorithms: • Imagine generating a “population” of random perturbations (noise vectors). • Apply them to ">
+    </div>
+  </section>
+  <section data-page="66">
+    <div class="page-stack">
+      <img class="page" src="pages/p066.webp" alt="GTK Cyber Natural Evolution Strategies (NES): How it works 1. Start with a clean input. 2. Sample a batch of random noise vectors from a distribution (like Gaussian noise). 3. Pert">
+    </div>
+  </section>
+  <section data-page="67">
+    <div class="page-stack">
+      <img class="page" src="pages/p067.webp" alt="GTK Cyber Natural Evolution Strategies (NES): Pros &amp; Cons Pros: • Much more efficient than ZOO: Requires far fewer queries. • Scales to high dimensions: Works even on large images ">
+    </div>
+  </section>
+  <section data-page="68">
+    <div class="page-stack">
+      <img class="page" src="pages/p068.webp" alt="GTK Cyber Decision Based Methods">
+    </div>
+  </section>
+  <section data-page="69">
+    <div class="page-stack">
+      <img class="page" src="pages/p069.webp" alt="GTK Cyber Decision Based Methods Since gradients and scores are unavailable, the attacker instead focuses on finding the decision boundary itself. • Start with an input that is alr">
+    </div>
+  </section>
+  <section data-page="70">
+    <div class="page-stack">
+      <img class="page" src="pages/p070.webp" alt="GTK Cyber Decision Based Attacks Boundary Attack • Start with a heavily perturbed adversarial input (e.g., pure noise classified incorrectly). • Gradually reduce the perturbation w">
+    </div>
+  </section>
+  <section data-page="71">
+    <div class="page-stack">
+      <img class="page" src="pages/p071.webp" alt="GTK Cyber Decision Based Attacks • Most restrictive setting: Work even when the defender hides probabilities. • Powerful against hardened APIs: Many commercial systems only return ">
+    </div>
+  </section>
+  <section data-page="72">
+    <div class="page-stack">
+      <img class="page" src="pages/p072.webp" alt="GTK Cyber Decision Based Attacks Pros: • True black-box: Needs nothing but predicted labels. • Applicable to real-world APIs that reveal no confidence scores. • Can produce very su">
+    </div>
+  </section>
+  <section data-page="73">
+    <div class="page-stack">
+      <img class="page" src="pages/p073.webp" alt="GTK Cyber Boundary Attack">
+    </div>
+  </section>
+  <section data-page="74">
+    <div class="page-stack">
+      <img class="page" src="pages/p074.webp" alt="GTK Cyber Boundary Attack The Boundary Attack is a decision-based adversarial method. • It assumes the attacker only has access to final labels (no scores, no gradients). • The att">
+    </div>
+  </section>
+  <section data-page="75">
+    <div class="page-stack">
+      <img class="page" src="pages/p075.webp" alt="GTK Cyber Boundary Attack: How it Works 1. Initialization: Find any input the model misclassifies. This might look nothing like the original data. 2. Iterative refinement: • Move t">
+    </div>
+  </section>
+  <section data-page="76">
+    <div class="page-stack">
+      <img class="page" src="pages/p076.webp" alt="GTK Cyber Boundary Attack: How it Works Pros • True black-box: Needs only class labels. • General-purpose: Works across domains (images, audio, tabular). • Produces subtle adversar">
+    </div>
+  </section>
+  <section data-page="77">
+    <div class="page-stack">
+      <img class="page" src="pages/p077.webp" alt="GTK Cyber HopSkipJump (HSJ)">
+    </div>
+  </section>
+  <section data-page="78">
+    <div class="page-stack">
+      <img class="page" src="pages/p078.webp" alt="GTK Cyber HopSkipJump (HSJ) Attack • HopSkipJump is a decision-based adversarial attack designed to be much more efficient than Boundary Attack. • Like Boundary Attack, it only nee">
+    </div>
+  </section>
+  <section data-page="79">
+    <div class="page-stack">
+      <img class="page" src="pages/p079.webp" alt="GTK Cyber HopSkipJump (HSJ): How it works 1. Initialization: Start with any adversarial input (misclassified by the model). 2. Binary search: Draw a line between the original input">
+    </div>
+  </section>
+  <section data-page="80">
+    <div class="page-stack">
+      <img class="page" src="pages/p080.webp" alt="GTK Cyber HopSkipJump (HSJ): Pros &amp; Cons Pros • True black-box: Needs only predicted class labels. • Much more query-efficient than Boundary Attack. • Produces high-quality adversa">
+    </div>
+  </section>
+  <section data-page="81">
+    <div class="page-stack">
+      <img class="page" src="pages/p081.webp" alt="GTK Cyber Implementation">
+    </div>
+  </section>
+  <section data-page="82">
+    <div class="page-stack">
+      <img class="page" src="pages/p082.webp" alt="GTK Cyber Introducing ART • The Adversarial Robustness Toolbox (ART) is a collection of automated tools for attacking and defending ML models. • It&#x27;s like Metasploit for adversaria">
+    </div>
+  </section>
+  <section data-page="83">
+    <div class="page-stack">
+      <img class="page" src="pages/p083.webp" alt="GTK Cyber Attacking a Model with ART • Wrap your model in an ART estimator (e.g. PyTorchClassifier, SklearnClassifier, KerasClassifier) — this exposes gradients, loss, and predict(">
+    </div>
+  </section>
+  <section data-page="84">
+    <div class="page-stack">
+      <img class="page" src="pages/p084.webp" alt="GTK Cyber White-Box: FGSM and PGD from art.estimators.classification import PyTorchClassifier from art.attacks.evasion import FastGradientMethod, ProjectedGradientDescent # Wrap th">
+    </div>
+  </section>
+  <section data-page="85">
+    <div class="page-stack">
+      <img class="page" src="pages/p085.webp" alt="GTK Cyber Black-Box: HSJ and Boundary from art.estimators.classification import BlackBoxClassifier from art.attacks.evasion import HopSkipJump, BoundaryAttack # Black box: ART only">
+    </div>
+  </section>
+  <section data-page="86">
+    <div class="page-stack">
+      <img class="page" src="pages/p086.webp" alt="GTK Cyber Poisoning and Backdoors from art.attacks.poisoning import PoisoningAttackBackdoor from art.attacks.poisoning.perturbations import add_pattern_bd # Backdoor: stamp a trigg">
+    </div>
+  </section>
+  <section data-page="87">
+    <div class="page-stack">
+      <img class="page" src="pages/p087.webp" alt="GTK Cyber Other Adversarial Frameworks • There are a few other frameworks which can automate hacking ML models, or at least see how vulnerable a model is to adversarial attacks. • ">
+    </div>
+  </section>
+  <section data-page="88">
+    <div class="page-stack">
+      <img class="page" src="pages/p088.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 7.1: Attacking AI">
+    </div>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>

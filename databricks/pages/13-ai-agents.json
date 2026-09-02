@@ -1,0 +1,529 @@
+{
+  "slug": "13-ai-agents",
+  "pdf": "Module 13 - AI Agents.pdf",
+  "page_count": 87,
+  "pages": [
+    {
+      "page": 1,
+      "kind": "slide",
+      "group": 1,
+      "text": "Module 13: All About AI Agents Charles S. Givre CISSP"
+    },
+    {
+      "page": 2,
+      "kind": "slide",
+      "group": 2,
+      "text": "GTK Cyber Putting it all together: Agents"
+    },
+    {
+      "page": 3,
+      "kind": "slide",
+      "group": 3,
+      "text": "GTK Cyber • Autonomous agents are, by their nature, vulnerable to prompt injection attacks. • As with tools, when implementing features that call functions, always ask yourself what could happen if this \"goes rogue\"? • Agents can be VERY destructive and unpredictable. Use with caution. • This is especially true if your AI bot is connected to internal data sources or proprietary resources. DANGER"
+    },
+    {
+      "page": 4,
+      "kind": "slide",
+      "group": 4,
+      "text": "GTK Cyber Dangers of AI Agents • In July 2025, \"vibe coder\" Jason Lemkin was using an AI tool Replit to build an application. • After 8 days of vibe coding, the AI Agent in Replit deleted his production database and \"lied\" about it. • On the plus side, the AI eventually apologized. ;-) https://www.pcmag.com/news/vibe-coding-fiasco-replite-ai-agent-goes-rogue-deletes-company-database"
+    },
+    {
+      "page": 5,
+      "kind": "slide",
+      "group": 5,
+      "text": "GTK Cyber Dangers of AI Agents https://www.reddit.com/r/ChatGPT/comments/1m4lsso/replit_ai_went_rogue_deleted_a_companys_entire/"
+    },
+    {
+      "page": 6,
+      "kind": "slide",
+      "group": 6,
+      "text": "GTK Cyber What are Agents? • AI Agents expand on tools by adding follow on actions and memory. • Agentic architecture allows AI models to execute actions and then take follow on actions if the model chooses to. • Agents will loop through a series of actions until it runs out of actions or a stopping criteria is reached."
+    },
+    {
+      "page": 7,
+      "kind": "slide",
+      "group": 7,
+      "text": "GTK Cyber Components of AI Agents • Inputs: The information which the agent receives from the environment. This can be images, media or text. • Goal or Reward Function: The goal is the agent's objective or end state. Some agents use a reward based setting and the agent's goal is to maximize the reward. • Actions: A list of actions available to the model."
+    },
+    {
+      "page": 8,
+      "kind": "slide",
+      "group": 8,
+      "text": "GTK Cyber NVIDIA AI Agent Autonomy Level 1 • Level 1 represents a linear chain of calls where the output of one call or tool is conveyed to the next step in a deterministic manner https://developer.nvidia.com/blog/agentic-autonomy-levels-and-security/ Output"
+    },
+    {
+      "page": 9,
+      "kind": "slide",
+      "group": 9,
+      "text": "GTK Cyber NVIDIA AI Agent Autonomy Level 2 • Level 2 the output from the AI model may be sent along different paths through the workflow in a data dependent manner. Every execution path can still be traced. • Paths form a directed acyclic graph. https://developer.nvidia.com/blog/agentic-autonomy-levels-and-security/ Output"
+    },
+    {
+      "page": 10,
+      "kind": "slide",
+      "group": 10,
+      "text": "GTK Cyber NVIDIA AI Agent Autonomy Level 3 • Level 3 the number of potential execution paths grows exponentially. • It is generally not possible to enumerate all possible paths. https://developer.nvidia.com/blog/agentic-autonomy-levels-and-security/ Output"
+    },
+    {
+      "page": 11,
+      "kind": "slide",
+      "group": 11,
+      "text": "GTK Cyber Reason and Act (ReAct)"
+    },
+    {
+      "page": 12,
+      "kind": "slide",
+      "group": 12,
+      "text": "GTK Cyber ReAct Steps 1. Observe the environment. 2. Interpret the environment with a thought. 3. Decide on an action. 4. Act on the environment. 5. Repeat steps 1–4 until you find a solution or you’ve done too many iterations (the solution is “I’ve found the answer”)."
+    },
+    {
+      "page": 13,
+      "kind": "slide",
+      "group": 13,
+      "text": "GTK Cyber Create a ReAct Prompt You can easily create a ReAct-style prompt by using the preceding thought loop while also providing the LLM with several inputs such as: • {question}: The query that you want answered. • {tools}: These refer to functions that can be used to accomplish a step within the overall task. It is common practice to include a list of tools where each tool is a Python function, a name, and a description of the function and its purpose."
+    },
+    {
+      "page": 14,
+      "kind": "slide",
+      "group": 14,
+      "text": "GTK Cyber Example ReAct Prompt You will attempt to solve the problem of finding the answer to a question. Use chain-of-thought reasoning to solve through the problem, using the following pattern: 1. Observe the original question: original_question: original_problem_text 2. Create an observation with the following pattern: observation: observation_text 3. Create a thought based on the observation with the following pattern: thought: thought_text 4. Use tools to act on the thought with the following pattern: action: tool_name action_input: tool_input Do not guess or assume the tool results. Instead, provide a structured output that includes the action and action_input. You have access to the following tools: {tools}. original_problem: {question} Based on the provided tool result either provide the next observation, action, action_input, or the final answer if available. If you are providing the final answer, you must return the following pattern: \"I've found the answer: final_answer\""
+    },
+    {
+      "page": 15,
+      "kind": "slide",
+      "group": 15,
+      "text": "GTK Cyber Agents vs. Workflows • Not every LLM application is an agent. • A workflow follows a fixed path that you design in code. • An agent lets the model decide the path: which steps to run, which tools to call, and when to stop. • The more the model controls the flow, the more agentic the system."
+    },
+    {
+      "page": 16,
+      "kind": "slide",
+      "group": 16,
+      "text": "GTK Cyber The Spectrum • Single prompt: one call, one answer. • Chain: a fixed sequence of calls you wire together. • Router: the model picks one of several predefined branches. • Agent: the model plans and loops, choosing actions until the goal is met. • Rule of thumb: use the least agentic option that solves the problem."
+    },
+    {
+      "page": 17,
+      "kind": "slide",
+      "group": 17,
+      "text": "GTK Cyber When to Use an Agent • The task is open-ended and the steps are not known in advance. • The number of steps varies from one input to the next. • The work benefits from tools and iterative reasoning. • A better answer is worth the extra cost and latency."
+    },
+    {
+      "page": 18,
+      "kind": "slide",
+      "group": 18,
+      "text": "GTK Cyber When NOT to Use an Agent • The task is deterministic and the steps never change. Use a workflow. • Latency or cost is tightly constrained. • Mistakes are expensive and the agent can take real-world actions. • A single well-crafted prompt already gives a reliable answer."
+    },
+    {
+      "page": 19,
+      "kind": "slide",
+      "group": 19,
+      "text": "GTK Cyber The Cost of Autonomy • Every loop iteration is another model call: more tokens, latency, and money. • Agents can take unexpected paths and call tools in unexpected orders. • Runs are not reproducible, so debugging is harder. • Always set an iteration limit and log every step."
+    },
+    {
+      "page": 20,
+      "kind": "slide",
+      "group": 20,
+      "text": "GTK Cyber Beyond ReAct: Memory • A capable agent needs memory as well as a reasoning loop. • Short-term memory: the conversation and tool results in the context window. Fast but bounded. • Long-term memory: facts and past cases stored outside the model and retrieved when relevant. • Together they keep an agent coherent within a task and useful across tasks."
+    },
+    {
+      "page": 21,
+      "kind": "slide",
+      "group": 21,
+      "text": "GTK Cyber Planning & Decomposition • Hard problems get easier when broken into sub-tasks. • A planning step outlines the sub-tasks before any action is taken. • Plan-and-Execute: build the full plan first, then work each step. • Plans can be revised as new evidence arrives."
+    },
+    {
+      "page": 22,
+      "kind": "slide",
+      "group": 22,
+      "text": "GTK Cyber Reflection & Self-Critique • An agent can review its own work before finishing. • Reflection: the model critiques its draft and tries again. • This catches errors, missed evidence, and weak reasoning. • Reflexion adds memory of past mistakes so the agent improves over attempts. • The trade-off is more calls and higher cost."
+    },
+    {
+      "page": 23,
+      "kind": "slide",
+      "group": 23,
+      "text": "GTK Cyber Agent Patterns Compared • ReAct: interleave reasoning and tool calls in one loop. Simple and flexible. • Plan-and-Execute: plan all steps up front, then run them. More predictable. • Reflexion: act, critique, remember, retry. Highest quality and highest cost. • Start with ReAct. Add planning and reflection only when the task demands it."
+    },
+    {
+      "page": 24,
+      "kind": "slide",
+      "group": 24,
+      "text": "GTK Cyber Agent Frameworks Beyond LangGraph • LangGraph / LangChain: graph-based, stateful, fine-grained control. What this lab uses. • LlamaIndex Workflows: event-driven steps with strong retrieval and RAG heritage. • CrewAI: role-based crews of agents. The fastest way to stand up a multi-agent team. • Microsoft AutoGen (AG2): conversational multi-agent, popular in research. • OpenAI Agents SDK: lightweight and model-flexible, with built-in handoffs and guardrails. • Pydantic AI: type-safe and Pythonic, from the Pydantic team. • Hugging Face smolagents: minimal agents that write code to act."
+    },
+    {
+      "page": 25,
+      "kind": "slide",
+      "group": 25,
+      "text": "GTK Cyber Do You Even Need a Framework? • Anthropic's guidance: start with the model's own tool-calling loop, no framework. • A framework adds abstraction, dependencies, and lock-in you may not need. • Reach for one when you need multi-agent orchestration, durable state, or streaming. • MCP is a standard, not a framework: it makes tools portable across agents. • Whatever you pick, keep the underlying prompts and tool calls visible."
+    },
+    {
+      "page": 26,
+      "kind": "slide",
+      "group": 26,
+      "text": "GTK Cyber Visual & Low-Code Agent Builders • Flowise: open-source drag-and-drop, built on LangChain and LangGraph. • Langflow: visual flow builder, Python-extensible, MIT licensed. • Dify: self-hostable LLM app platform with visual agents and RAG. • n8n: automation canvas with AI agent nodes; self-hostable. • AutoGen Studio: low-code GUI on top of Microsoft AutoGen. • Rivet: open-source node-graph IDE for building and debugging agents. • Great for prototyping. Graduate to code for testing and production."
+    },
+    {
+      "page": 27,
+      "kind": "slide",
+      "group": 27,
+      "text": "GTK Cyber The Agent Threat Model • An agent is an LLM with hands: it can read data and take actions. • That combination expands the attack surface well beyond a chatbot. • The core risk: untrusted input can hijack the agent's decisions. • Attackers target the prompt, the tools, and the data the agent touches."
+    },
+    {
+      "page": 28,
+      "kind": "slide",
+      "group": 28,
+      "text": "GTK Cyber The Lethal Trifecta • Three capabilities are dangerous when combined in one agent: • Access to private data. • Exposure to untrusted content such as emails, web pages, and documents. • The ability to communicate to the outside world. • Any two are usually safe. All three lets injected instructions steal your data. • Break the trifecta by removing one leg for sensitive agents."
+    },
+    {
+      "page": 29,
+      "kind": "slide",
+      "group": 29,
+      "text": "GTK Cyber Excessive Agency & Tool Poisoning • Excessive agency: granting more tools or permissions than the task needs. • A hijacked agent will use every capability you gave it. • Tool poisoning: a compromised tool returns content crafted to manipulate the agent. • Confused deputy: the agent acts for an attacker using its own privileges. • Principle: least privilege for tools, the same as for users."
+    },
+    {
+      "page": 30,
+      "kind": "slide",
+      "group": 30,
+      "text": "GTK Cyber OWASP LLM Top 10 (Agent- Relevant) • LLM01 Prompt Injection: attacker text overrides your instructions. • LLM02 Insecure Output Handling: agent output trusted without validation. • LLM06 Excessive Agency: too much autonomy or permission. • LLM08 Vector and Embedding weaknesses: poisoned retrieval. • Design as if any input could be adversarial."
+    },
+    {
+      "page": 31,
+      "kind": "slide",
+      "group": 31,
+      "text": "GTK Cyber Mitigations & Guardrails • Least privilege: give each tool the narrowest scope possible. • Human in the loop: require approval for risky or irreversible actions. • Sandboxing: run tools with limited access and no standing secrets. • Allow-lists: constrain URLs, commands, and recipients. • Validate outputs before they reach a shell, database, or send action. • Log the full trajectory for audit and response."
+    },
+    {
+      "page": 32,
+      "kind": "slide",
+      "group": 32,
+      "text": "GTK Cyber Where Agents Fit in Security Ops • Alert triage: enrich and classify SOC alerts, then escalate the real ones. • Phishing and email analysis: the lab you are about to build. • Threat intel enrichment: gather reputation, WHOIS, and CVE context. • Incident response: collect evidence and draft a timeline. • Agents assist analysts. They do not replace human judgment."
+    },
+    {
+      "page": 33,
+      "kind": "slide",
+      "group": 33,
+      "text": "GTK Cyber Evaluating an Agent • You cannot improve what you do not measure. • Task success rate: did it reach the correct outcome? • Tool-call accuracy: the right tools with the right arguments? • Trajectory quality: were the steps sound or just lucky? • Cost and latency per task: tokens, tool calls, and time. • Evaluate on a labeled set, the same way you would test a classifier."
+    },
+    {
+      "page": 34,
+      "kind": "slide",
+      "group": 34,
+      "text": "GTK Cyber Future Learning • LangChain Evaluators: Useful for comparing models. • Document Chunking/Splitting • Advanced Pydantic Usage • Model Fine Tuning"
+    },
+    {
+      "page": 35,
+      "kind": "slide",
+      "group": 35,
+      "text": "GTK Cyber Questions?"
+    },
+    {
+      "page": 36,
+      "kind": "unsure",
+      "group": 36,
+      "text": "GTK Cyber The Long Lab: Building an Agent"
+    },
+    {
+      "page": 37,
+      "kind": "slide",
+      "group": 37,
+      "text": "GTK Cyber The Agentic Lab • For this lab, you will be building a progressively more sophisticated agent to detect phishing emails. • We have provided mock tools for you to use. For a real world use case, you could replace the mock tools with actual code. • You would obviously have to connect your model to an actual email inbox which we are simulating for this exercise."
+    },
+    {
+      "page": 38,
+      "kind": "slide",
+      "group": 38,
+      "text": "GTK Cyber Building an AI Agent • The objective is to create an AI Agent to identify Phishing emails. • How should we do this?"
+    },
+    {
+      "page": 39,
+      "kind": "slide",
+      "group": 39,
+      "text": "GTK Cyber Building an AI Agent: Part 1 • The goal for part 1 is to build a simple agent which will simply render a verdict as to whether an email is phishing or not. • We are going to add some unnecessary complexity which will become more necessary as we progress: The State Graph"
+    },
+    {
+      "page": 40,
+      "kind": "slide",
+      "group": 40,
+      "text": "GTK Cyber The State Graph • The state graph is the flow of steps which an agent will take. • The nodes are the \"workers\" and should perform exactly one function. • The state is the data which is shared from node to node. • It is updated every time a node completes an action."
+    },
+    {
+      "page": 41,
+      "kind": "slide",
+      "group": 41,
+      "text": "GTK Cyber Structured Output Schema You will also need a Pydantic structure for the final output as shown below. class LoginClassification(BaseModel): \"\"\"Structured output for suspicious login classification.\"\"\" verdict: str = Field( description=\"Verdict: 'compromised', 'suspicious', or 'normal'\" ) confidence: float = Field( description=\"Confidence score between 0.0 and 1.0\", ge=0.0, le=1.0, ) reasoning: str = Field( description=\"Brief explanation of why this classification was chosen\" ) indicators: list[str] = Field( description=\"Specific risk indicators found (or why it appears normal)\", default_factory=list, )"
+    },
+    {
+      "page": 42,
+      "kind": "slide",
+      "group": 42,
+      "text": "GTK Cyber The State Graph • State Graphs are defined as TypedDicts as shown below. • The fields will vary depending on your specific use case. class LoginState(TypedDict): \"\"\"State that flows through our analysis graph.\"\"\" login: dict # Raw login event login_text: str # Formatted event for the LLM classification: Optional[dict] # Structured classification result verdict_report: Optional[str] # Final formatted report"
+    },
+    {
+      "page": 43,
+      "kind": "slide",
+      "group": 43,
+      "text": "GTK Cyber Initialize the LLM To use an agent, we need the output in a specific format, so we'll initialize the LLM using the method with_structured_output() and pass it the Pydantic schema we defined earlier. llm = ChatAnthropic(model=\"claude-opus-4-8\", temperature=0) structured_llm = llm.with_structured_output(LoginClassification)"
+    },
+    {
+      "page": 44,
+      "kind": "slide",
+      "group": 44,
+      "text": "GTK Cyber Create Nodes Nodes are the workhorses of a LangGraph graph. Each node is a plain Python function that: 1. Receives the current state as its argument 2. Does some work (call an LLM, transform data, look something up) 3. Returns a dictionary of state updates • LangGraph automatically merges the returned dictionary into the current state. • A good design principle: each node should do one thing well."
+    },
+    {
+      "page": 45,
+      "kind": "slide",
+      "group": 45,
+      "text": "GTK Cyber Creating a Node def classify_login(state: LoginState): # Analyze the login event prompt = f\"Is this login suspicious? {state['login_text']}\" result = structured_llm.invoke(prompt) return { \"classification\": result.model_dump(), }"
+    },
+    {
+      "page": 46,
+      "kind": "slide",
+      "group": 46,
+      "text": "GTK Cyber Assembling the Graph Now we assemble our nodes into a StateGraph. The process is: 1. Create a StateGraph with our state schema 2. Add nodes -- register each function by name 3. Add edges -- define the flow between nodes 4. Compile -- validate the graph and produce a runnable object LangGraph provides two special sentinels: • START -- the entry point of the graph • END -- the exit point of the graph Once compiled, the graph object is callable -- you can .invoke() it with an initial state."
+    },
+    {
+      "page": 47,
+      "kind": "slide",
+      "group": 47,
+      "text": "GTK Cyber Assembling the Graph # Create the graph workflow = StateGraph(LoginState) # Add nodes workflow.add_node(\"classify_login\", classify_login) workflow.add_node(\"format_decision\", format_decision) # Add edges: START -> classify -> format -> END workflow.add_edge(START, \"classify_login\") workflow.add_edge(\"classify_login\", \"format_decision\") workflow.add_edge(\"format_decision\", END) # Compile graph = workflow.compile()"
+    },
+    {
+      "page": 48,
+      "kind": "slide",
+      "group": 48,
+      "text": "GTK Cyber Run It! result = graph.invoke({ \"login\": events[0], \"login_text\": \"\", \"classification\": None, \"verdict_report\": None, }) print(result[\"verdict_report\"])"
+    },
+    {
+      "page": 49,
+      "kind": "slide",
+      "group": 49,
+      "text": "GTK Cyber Please complete Phishing Lab Part 1"
+    },
+    {
+      "page": 50,
+      "kind": "slide",
+      "group": 50,
+      "text": "GTK Cyber Lab Please complete Lab 13.1: Single Email Classifier"
+    },
+    {
+      "page": 51,
+      "kind": "unsure",
+      "group": 51,
+      "text": "GTK Cyber Part 2: Adding Tools"
+    },
+    {
+      "page": 52,
+      "kind": "slide",
+      "group": 52,
+      "text": "GTK Cyber Part 2: Adding Tools • Initial agent was not very smart... it just read the email and made a determination. • Let's make it better and enrich the available information with some tool calls."
+    },
+    {
+      "page": 53,
+      "kind": "slide",
+      "group": 53,
+      "text": "GTK Cyber Message Based State In Lab 1, our state was a simple TypedDict with fields like login, classification, and confidence. That works for a straight-line pipeline, but a tool- calling agent needs something richer: a message history. Why messages? The LLM sends a message requesting a tool call (\"I'd like to check this IP's geo-velocity\"). The tool runs and its result is appended as a tool message. The LLM sees the full conversation, reasons about the result, and may call another tool or give its final answer. LangGraph provides add_messages -- a reducer that ensures new messages are appended to the list rather than replacing it. This is the key difference from a plain list type annotation. from langgraph.graph.message import add_messages from typing import Annotated class InvestigationState(TypedDict): messages: Annotated[list, add_messages] # append-only message list"
+    },
+    {
+      "page": 54,
+      "kind": "slide",
+      "group": 54,
+      "text": "GTK Cyber Tools Our agent has access to three security investigation tools, already implemented in utils/mock_tools.py. Each is decorated with LangChain's @tool decorator, which: 1. Registers the function as a tool the LLM can call. 2. Uses the docstring to tell the LLM what the tool does and when to use it. 3. Automatically generates an args schema from the function signature so the LLM knows what arguments to provide."
+    },
+    {
+      "page": 55,
+      "kind": "slide",
+      "group": 55,
+      "text": "GTK Cyber Tools • For our next lab, we provide you with three simulated tools: • check_geo_velocity • check_device_reputation • check_login_velocity"
+    },
+    {
+      "page": 56,
+      "kind": "slide",
+      "group": 56,
+      "text": "GTK Cyber Tools # Convenience list for binding to LLMs ATO_TOOLS = [check_geo_velocity, check_device_reputation, check_login_velocity] @tool def check_geo_velocity( user_id: str, current_ip: str, current_geo: str, ) -> str: \"\"\"Detect impossible travel by comparing this login to the user's recent logins. Args: user_id: The account being accessed. current_ip: Source IP of the current login attempt. current_geo: Geolocation (city, country) of the current login. Returns: A summary of the geo-velocity analysis (e.g. impossible travel detected). \"\"\""
+    },
+    {
+      "page": 57,
+      "kind": "slide",
+      "group": 57,
+      "text": "GTK Cyber Bind Tools to LLM llm = ChatAnthropic(model=\"claude-opus-4-8\", temperature=0) llm_with_tools = llm.bind_tools(ATO_TOOLS)"
+    },
+    {
+      "page": 58,
+      "kind": "slide",
+      "group": 58,
+      "text": "GTK Cyber Investigator Node The investigator is the central node in our graph. Each time it runs, it: 1. Takes the current message history from state. 2. Ensures a system prompt is present (telling the LLM how to behave). 3. Sends the messages to the LLM. 4. Returns the LLM's response (which gets appended to the message list). The LLM's response will be one of two things: • Tool calls: The LLM wants to gather more evidence (e.g., check a URL). The response's tool_calls field will be populated. • Text response: The LLM has gathered enough evidence and is providing its final verdict. The content field will contain the analysis."
+    },
+    {
+      "page": 59,
+      "kind": "slide",
+      "group": 59,
+      "text": "GTK Cyber Conditional Routing Two more pieces complete the ReAct loop: ToolNode ToolNode is a LangGraph prebuilt that automatically: • Reads the tool_calls from the last AI message • Executes each requested tool • Returns the results as ToolMessage objects (appended to state) Conditional Routing (should_continue) After the investigator runs, we need to decide: • If the LLM requested tool calls -> route to execute_tools (the ToolNode) • If the LLM gave a final text answer -> route to END"
+    },
+    {
+      "page": 60,
+      "kind": "slide",
+      "group": 60,
+      "text": "GTK Cyber Building the Loop The ReAct (Reason + Act) pattern is a loop: 1. Reason: The investigator (LLM) looks at the evidence so far and decides what to do. 2. Act: If the LLM wants more info, it calls a tool. The tool result is added to the conversation. 3. Repeat: The LLM sees the tool result, reasons again, and may call another tool or finalize. START -> investigator -> [should_continue?] | tool_calls? YES -> execute_tools -> investigator (loop back) | tool_calls? NO -> END The agent keeps looping until the LLM decides it has enough evidence and provides a final text response."
+    },
+    {
+      "page": 61,
+      "kind": "slide",
+      "group": 61,
+      "text": "GTK Cyber Building the Loop workflow = StateGraph(InvestigationState) # Add nodes workflow.add_node(\"investigator\", investigator) workflow.add_node(\"execute_tools\", tool_node) # Add edges workflow.add_edge(START, \"investigator\") workflow.add_conditional_edges( \"investigator\", should_continue, {\"execute_tools\": \"execute_tools\", END: END}, ) workflow.add_edge(\"execute_tools\", \"investigator\")"
+    },
+    {
+      "page": 62,
+      "kind": "slide",
+      "group": 62,
+      "text": "GTK Cyber Lab Please complete Lab 13.2: Tool Calling Agent"
+    },
+    {
+      "page": 63,
+      "kind": "unsure",
+      "group": 63,
+      "text": "GTK Cyber Part 3: Conditional Routing"
+    },
+    {
+      "page": 64,
+      "kind": "slide",
+      "group": 64,
+      "text": "GTK Cyber Conditional Routing • In Part 2, we created an agent that called external tools in all cases. • This is not efficient as there are some login events which do not warrant a full investigation."
+    },
+    {
+      "page": 65,
+      "kind": "slide",
+      "group": 65,
+      "text": "GTK Cyber Conditional Routing • We need to keep track of the results from state to state. This is known as state enrichment. • The investigation_notes field here will store the results of tool calls."
+    },
+    {
+      "page": 66,
+      "kind": "slide",
+      "group": 66,
+      "text": "GTK Cyber Conditional Routing A routing function is a plain Python function that: • Takes the current graph state as input • Returns a string that names which node to go to next When you call add_conditional_edges(), you provide: • The source node (where the routing happens after) • The **routing function** (decides which path) • A **mapping dict** that maps return values to node names workflow.add_conditional_edges( \"initial_triage\", # After this node... route_by_risk, # ...call this function... { # ...and map its return value to a node: \"deep_investigation\": \"deep_investigation\", \"light_review\": \"light_review\", \"fast_pass\": \"fast_pass\", } ) • The routing function itself is simple. It just reads a value from state and returns a string. • All the intelligence is in the triage node that *sets* that value."
+    },
+    {
+      "page": 67,
+      "kind": "slide",
+      "group": 67,
+      "text": "GTK Cyber The Analysis Path • For our example, we are going to define three paths. • Note that not all paths call an LLM and not all paths call tools. • You will need to create a node for each path."
+    },
+    {
+      "page": 68,
+      "kind": "slide",
+      "group": 68,
+      "text": "GTK Cyber The Analysis Path"
+    },
+    {
+      "page": 69,
+      "kind": "slide",
+      "group": 69,
+      "text": "GTK Cyber The Analysis Path workflow.add_conditional_edges( \"initial_triage\", route_by_risk, { \"deep_investigation\": \"deep_investigation\", \"light_review\": \"light_review\", \"fast_pass\": \"fast_pass\", }, )"
+    },
+    {
+      "page": 70,
+      "kind": "slide",
+      "group": 70,
+      "text": "GTK Cyber Lab Please complete Lab 13.3: Conditional Routing"
+    },
+    {
+      "page": 71,
+      "kind": "slide",
+      "group": 71,
+      "text": "GTK Cyber Part 4: Human in the Loop"
+    },
+    {
+      "page": 72,
+      "kind": "slide",
+      "group": 72,
+      "text": "GTK Cyber Human in the Loop • No AI system is perfect. • AI isn't always able to make good decisions or know what to do in all cases. For these situations and other potentially hazardous or risky situations, inserting a human in the loop can be a valuable answer."
+    },
+    {
+      "page": 73,
+      "kind": "slide",
+      "group": 73,
+      "text": "GTK Cyber Human in the Loop: What we will need We will need: • To track the human's decision in the state object • A way of interrupting the agentic flow to await human input • A way of resuming the flow once the human has provided input • A way of preserving the state while we wait"
+    },
+    {
+      "page": 74,
+      "kind": "slide",
+      "group": 74,
+      "text": "GTK Cyber Interrupting the Graph Flow"
+    },
+    {
+      "page": 75,
+      "kind": "slide",
+      "group": 75,
+      "text": "GTK Cyber The Interrupt interrupt(value) When a node calls interrupt(value), the graph pauses execution and returns control to the caller. The value is sent back so the caller (your notebook, API server, etc.) can display it to the human analyst. The graph's state is saved by the checkpointer. def human_review(state): review_info = {\"verdict\": state[\"verdict\"], \"confidence\": state[\"confidence\"]} decision = interrupt(review_info) # <-- PAUSES HERE return {\"analyst_decision\": decision}"
+    },
+    {
+      "page": 76,
+      "kind": "slide",
+      "group": 76,
+      "text": "GTK Cyber Resuming the Graph Command(resume=value) To resume a paused graph, you call graph.invoke(Command(resume=value), config=config) with the same thread_id. The value becomes the return value of the interrupt() call inside the paused node, and execution continues from where it stopped. # Analyst makes a decision result = graph.invoke( Command(resume={\"action\": \"approve\"}), config={\"configurable\": {\"thread_id\": \"investigation-001\"}}, )"
+    },
+    {
+      "page": 77,
+      "kind": "slide",
+      "group": 77,
+      "text": "GTK Cyber Preserving State For a graph to pause and resume, it needs to save its state somewhere. LangGraph uses a checkpointer for this. MemorySaver is the simplest checkpointer -- it stores graph state in Python memory (a dictionary). This is perfect for development and testing. In production, you would use a persistent backend like SqliteSaver or PostgresSaver. Key ideas: • Each graph execution is identified by a thread_id (a string you choose) • The checkpointer saves the state at each step, so the graph can resume exactly where it left off • Different thread_id values are completely independent -- like separate browser tabs checkpointer = MemorySaver() graph = workflow.compile(checkpointer=checkpointer) # Each invocation needs a thread_id config = {\"configurable\": {\"thread_id\": \"investigation-001\"}} result = graph.invoke(initial_state, config=config)"
+    },
+    {
+      "page": 78,
+      "kind": "slide",
+      "group": 78,
+      "text": "GTK Cyber Lab Please complete Lab 13.4: Human in the Loop"
+    },
+    {
+      "page": 79,
+      "kind": "slide",
+      "group": 79,
+      "text": "GTK Cyber Part 5: Multi-Agent Systems"
+    },
+    {
+      "page": 80,
+      "kind": "slide",
+      "group": 80,
+      "text": "GTK Cyber Multi Agent Systems • In the previous examples, we built agents which had rigid, pre- defined paths. • The next evolution introduces when the AI can decide the path and the steps taken. • To do this, we'll need a supervisor and more react agents."
+    },
+    {
+      "page": 81,
+      "kind": "slide",
+      "group": 81,
+      "text": "GTK Cyber Multi-Agent Systems"
+    },
+    {
+      "page": 82,
+      "kind": "slide",
+      "group": 82,
+      "text": "GTK Cyber Multi Agent Systems In previous labs, we built a single ReAct agent by hand -- defining nodes, routing functions, and tool execution logic ourselves. LangGraph provides create_react_agent as a prebuilt shortcut that packages all of that into a single function call. create_react_agent takes: • model: The LLM to use • tools: A list of tools the agent can call (can be empty if the agent relies on LLM reasoning alone) • name: A unique identifier used by the supervisor for delegation • prompt: A system prompt that defines the agent's specialty and behavior It returns a fully functional ReAct agent with: • A tool-calling loop (reason -> act -> observe -> repeat) • Automatic tool execution • Message-based state management Each specialist agent is a self-contained expert -- it knows its domain, has the right tools, and can work independently. The supervisor doesn't need to know how each agent works, only what each agent specializes in."
+    },
+    {
+      "page": 83,
+      "kind": "slide",
+      "group": 83,
+      "text": "GTK Cyber Multi Agent Systems identity_analyst = create_react_agent( model=llm, tools=[check_device_reputation, check_login_velocity], name=\"identity_analyst\", prompt=\"\"\"You are an Identity Analyst specializing in account and session verification. Your job is to: 1. Check the device reputation for this login using the device reputation tool 2. Review login velocity and MFA history using the login velocity tool 3. Assess whether the session looks like the legitimate account owner 4. Look for signs of credential stuffing or session hijacking Provide a detailed analysis of your findings. Be specific about what you found and what it means for whether the account is compromised.\"\"\", )"
+    },
+    {
+      "page": 84,
+      "kind": "slide",
+      "group": 84,
+      "text": "GTK Cyber The Supervisor The create_supervisor function from langgraph_supervisor creates an agent that: 1. Receives the initial investigation request (an email to analyze) 2. Decides which specialist(s) to consult based on the email content 3. Delegates work by sending messages to specialist agents 4. Receives specialist reports back 5. Synthesizes all findings into a final verdict Key parameters: • agents: The list of specialist agents the supervisor can delegate to • prompt: Instructions that tell the supervisor how to manage the team • output_mode: Controls what the final output includes: ▪ \"full_history\" -- returns the complete message trace (useful for debugging and observing handoffs) ▪ \"last_message\" -- returns only the supervisor's final summary The supervisor is itself an LLM-powered agent. It uses tool calls internally to \"hand off\" to specialists -- each specialist appears as a callable tool from the supervisor's perspective. This is the multi-agent handoff pattern."
+    },
+    {
+      "page": 85,
+      "kind": "slide",
+      "group": 85,
+      "text": "GTK Cyber The Supervisor supervisor = create_supervisor( model=llm, agents=[identity_analyst, geo_network_analyst, behavior_analyst], prompt=\"\"\"You are the SOC Team Lead supervising a team of account-security analysts. Your team: - identity_analyst: Checks device reputation, login velocity, and MFA history - geo_network_analyst: Checks geo-velocity / impossible travel and source IP reputation - behavior_analyst: Analyzes the session's actions for anomalous behavior For each login investigation: 1. Review the login event and determine which specialists to consult 2. Delegate to the relevant specialists (you may consult multiple) 3. After receiving their reports, synthesize the findings 4. Provide a final verdict: 'compromised', 'suspicious', or 'normal' 5. Include confidence level and key evidence from your team Always consult at least 2 specialists for a thorough investigation. For logins from new locations, always consult the geo_network_analyst. For unusual devices, always consult the identity_analyst.\"\"\", output_mode=\"full_history\", ) # Compile the supervisor into a runnable graph graph = supervisor.compile()"
+    },
+    {
+      "page": 86,
+      "kind": "slide",
+      "group": 86,
+      "text": "GTK Cyber Lab Please complete Lab 13.5: Multi Agent Supervisor"
+    },
+    {
+      "page": 87,
+      "kind": "slide",
+      "group": 87,
+      "text": "GTK Cyber Questions?"
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Module 12: Model Context Protocol</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="GTK Cyber Module 12: The Model Context Protocol (MCP) Charles S. Givre CISSP">
+    </div>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber Why MCP?">
+    </div>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber Where We Left Off • In Module 11 we will built tools by hand-writing functions with the @tool decorator and binding them to a single LLM client. • Every tool lived inside">
+    </div>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber The M x N Problem • AI applications need to connect to many external systems: files, databases, APIs, ticketing systems. • Without a standard, each application builds cus">
+    </div>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber The MCP Idea • MCP defines one standard protocol for connecting AI applications to external systems. • Build a system once as an MCP server and any MCP-aware application ">
+    </div>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber What is MCP? • An open protocol introduced by Anthropic in late 2024 and now broadly adopted across the industry. • Built on JSON-RPC 2.0 messages. • Standardizes how app">
+    </div>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber MCP Architecture">
+    </div>
+  </section>
+  <section data-page="8">
+    <div class="page-stack">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber Three Roles • Host: the AI application the user interacts with, such as Claude Desktop, an IDE, or your agent. • Client: lives inside the host and maintains a one-to-one ">
+    </div>
+  </section>
+  <section data-page="9">
+    <div class="page-stack">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber How the Pieces Fit">
+    </div>
+  </section>
+  <section data-page="10">
+    <div class="page-stack">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber How They Connect • The host creates one client for every server it wants to use. • Each client speaks MCP to exactly one server. • Servers can run locally on the same mac">
+    </div>
+  </section>
+  <section data-page="11">
+    <div class="page-stack">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber Transports • MCP messages travel over a transport layer. • stdio: the server runs as a local subprocess and communicates over standard input and output. Best for local to">
+    </div>
+  </section>
+  <section data-page="12">
+    <div class="page-stack">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber Connection Lifecycle • Initialize: client and server exchange protocol versions. • Capability negotiation: each side declares what it supports. • Operate: the client list">
+    </div>
+  </section>
+  <section data-page="13">
+    <div class="page-stack">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber What a Server Exposes">
+    </div>
+  </section>
+  <section data-page="14">
+    <div class="page-stack">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber Three Primitives • An MCP server can expose three kinds of capability. • Tools: actions the model can invoke. • Resources: data the application can read for context. • Pr">
+    </div>
+  </section>
+  <section data-page="15">
+    <div class="page-stack">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Tools (Model-Controlled) • Functions the LLM can choose to call, just like the tools from Module 11. • Each tool has a name, a description, and an input schema. • The mod">
+    </div>
+  </section>
+  <section data-page="16">
+    <div class="page-stack">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Resources (Application-Controlled) • Read-only data the host can pull in for context. • Addressed by a URI, for example file:///logs/today.log or db://users/ 42. • The ap">
+    </div>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber Prompts (User-Controlled) • Reusable prompt templates the server offers to the user. • Often surfaced as slash commands or menu items in the host. • The user chooses when">
+    </div>
+  </section>
+  <section data-page="18">
+    <div class="page-stack">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber Client Capabilities (Briefly) • Servers can also ask the client for things. • Sampling: the server asks the host&#x27;s LLM to generate text for it. • Roots: the host tells th">
+    </div>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber Building an MCP Server">
+    </div>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber Lab Please complete MCP Lab: https://ai.gtkcyber.com/mcp-lab">
+    </div>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber The Python SDK • The official MCP package provides FastMCP, a high-level way to build servers. • Decorators turn plain Python functions into MCP tools, resources, and pro">
+    </div>
+  </section>
+  <section data-page="22">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber Define a Server and a Tool from mcp.server.fastmcp import FastMCP mcp = FastMCP(&quot;security-tools&quot;) @mcp.tool() def check_url_reputation(url: str) -&gt; str: &quot;&quot;&quot;Look up a URL ">
+    </div>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber Expose a Resource @mcp.resource(&quot;ioc://blocklist&quot;) def get_blocklist() -&gt; str: &quot;&quot;&quot;Return the current IOC blocklist.&quot;&quot;&quot; return &quot; &quot;.join(load_known_bad_domains())">
+    </div>
+  </section>
+  <section data-page="24">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber Offer a Prompt @mcp.prompt() def phishing_report(sender: str) -&gt; str: &quot;&quot;&quot;Template for a phishing incident report.&quot;&quot;&quot; return f&quot;Draft an incident report for a phishing emai">
+    </div>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber Run the Server if __name__ == &quot;__main__&quot;: mcp.run() # stdio transport by default">
+    </div>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber The MCP Inspector • A browser-based tool for testing a server without an agent. • Lists the server&#x27;s tools, resources, and prompts. • Lets you call each one by hand and s">
+    </div>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber MCP Inspector">
+    </div>
+  </section>
+  <section data-page="28">
+    <div class="page-stack">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber Lab Try out the MCP Inspector on the server notebooks/mcp_server.py. mcp dev &lt;filename&gt;">
+    </div>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Connecting a Server">
+    </div>
+  </section>
+  <section data-page="30">
+    <div class="page-stack">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber How Hosts Connect • A host is configured with a list of servers to launch. • Configuration is usually a small JSON block naming the command to run. • The host starts each">
+    </div>
+  </section>
+  <section data-page="31">
+    <div class="page-stack">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber Server Configuration { &quot;mcpServers&quot;: { &quot;security-tools&quot;: { &quot;command&quot;: &quot;python&quot;, &quot;args&quot;: [&quot;mcp_server.py&quot;] } } }">
+    </div>
+  </section>
+  <section data-page="32">
+    <div class="page-stack">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber Using MCP From Your Agent • The langchain-mcp-adapters package loads an MCP server&#x27;s tools as LangChain tools. • You hand those tools to create_agent exactly like before.">
+    </div>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber Load MCP Tools Into an Agent from langchain_mcp_adapters.client import MultiServerMCPClient from langchain.agents import create_agent from langchain_anthropic import Chat">
+    </div>
+  </section>
+  <section data-page="34">
+    <div class="page-stack">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber MCP and Security">
+    </div>
+  </section>
+  <section data-page="35">
+    <div class="page-stack">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber A Bigger Attack Surface • MCP makes it easy to plug external code into your agent. • That convenience is also a risk. • Every server you connect is code you are trusting ">
+    </div>
+  </section>
+  <section data-page="36">
+    <div class="page-stack">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber Key Risks • Untrusted servers: installing a server means running someone else&#x27;s code. • Tool poisoning: a tool description crafted to manipulate the model. • Prompt injec">
+    </div>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber Basic Defenses • Vet and pin the servers you use, and prefer official or open-source ones. • Give each server the least access it needs to do its job. • Keep a human in t">
+    </div>
+  </section>
+  <section data-page="38">
+    <div class="page-stack">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber The MCP Tax • MCP is convenient, but that convenience has a running cost often called the &quot;MCP tax&quot;. • Every connected server&#x27;s tool definitions (names, descriptions, and">
+    </div>
+  </section>
+  <section data-page="39">
+    <div class="page-stack">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Paying Less Tax • Connect only the servers a task actually needs rather than everything at once. • Expose a small set of high-value tools instead of dozens of narrow ones">
+    </div>
+  </section>
+  <section data-page="40">
+    <div class="page-stack">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber MCP or Hand-Rolled Tools? • Hand-rolled tools from Module 11 are simplest when tools live in one app and you own them. • MCP shines when you want to reuse tools across ap">
+    </div>
+  </section>
+  <section data-page="41">
+    <div class="page-stack">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber The MCP Ecosystem • A growing catalog of ready-made servers already exists. • Filesystem, GitHub, Slack, databases, and many security tools. • You can often connect an ex">
+    </div>
+  </section>
+  <section data-page="42">
+    <div class="page-stack">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber Bleeding Edge: AI Enabled Payments">
+    </div>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber Paying for It: Agent Payments • As agents call more tools and APIs, they increasingly need to pay for them without a human in the loop. • x402 (Coinbase, now Linux Founda">
+    </div>
+  </section>
+  <section data-page="44">
+    <div class="page-stack">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber Agent Payments: Security Implications • Giving an agent a wallet turns a prompt injection into a way to spend real money, so treat payment as a high-risk action. • x402 r">
+    </div>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber Key Takeaways • MCP is one standard protocol for connecting agents to tools, turning M x N custom integrations into M + N. • A host runs one client per server, and each s">
+    </div>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+  <section data-page="47">
+    <div class="page-stack">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber Lab Please complete Lab 12.1: Building an MCP Server">
+    </div>
+  </section>
+  <section data-page="48">
+    <div class="page-stack">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber The Lab: Build an MCP Server">
+    </div>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>

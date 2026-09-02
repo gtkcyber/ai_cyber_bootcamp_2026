@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Module 5: Unsupervised Learning</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="GTK Cyber Module 5: Unsupervised Learning">
+    </div>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Category No No Predic9on, Inference Pre">
+    </div>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber Supervised Machine Learning Process Getting / Cleaning Data Preprocessing/ Feature Engineering Training Data Build Model Evaluate Model Advanced Feature Selection Testing">
+    </div>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber Unsupervised Machine Learning Process Getting / Cleaning Data Preprocessing/ Feature Engineering Build Model Evaluate Model Advanced Feature Selection DATA">
+    </div>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber Unsupervised Clustering Algorithm 1. Select Features 2. Calculate a distance measure 3. Apply a clustering algorithm 4. Validate?">
+    </div>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber Clustering… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber Clustering… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+  </section>
+  <section data-page="8">
+    <div class="page-stack">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber Clustering… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+  </section>
+  <section data-page="9">
+    <div class="page-stack">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber K-Means Before starting, pick the number of clusters, K 1. Pick K random centroids within data range 2. Assign each data point to the nearest centroid 3. Move centroid to">
+    </div>
+  </section>
+  <section data-page="10">
+    <div class="page-stack">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber Step 1: Pick 3 random centroids within data range ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+  </section>
+  <section data-page="11">
+    <div class="page-stack">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+  </section>
+  <section data-page="12">
+    <div class="page-stack">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (1) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+  </section>
+  <section data-page="13">
+    <div class="page-stack">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (2) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+  </section>
+  <section data-page="14">
+    <div class="page-stack">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (2) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+  </section>
+  <section data-page="15">
+    <div class="page-stack">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (3) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+  </section>
+  <section data-page="16">
+    <div class="page-stack">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (3) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (4) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+  </section>
+  <section data-page="18">
+    <div class="page-stack">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (4) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (5) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (5) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (5) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber K-Means: Got a problem with it? Before starting, pick the number of clusters, K 1. Pick K random centroids within data range 2. Assign each data point to the nearest cent">
+      <img class="page fragment" src="pages/p023.webp" alt="GTK Cyber K-Means: Got a problem with it? Before starting, pick the number of clusters, K 1. Pick K random centroids within data range 2. Assign each data point to the nearest cent">
+    </div>
+  </section>
+  <section data-page="24">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber How many clusters? ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber Random Start… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber Random Start… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber Random Start… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+  </section>
+  <section data-page="28">
+    <div class="page-stack">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber K-Means “…it’s too easy to throw k-means on your data, and nevertheless get a result out (that is pretty much random, but you won&#x27;t notice).” — Anony-Mousse http://stats.">
+    </div>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Which one is correct? A B">
+    </div>
+  </section>
+  <section data-page="30">
+    <div class="page-stack">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber Which one is correct? BOTH">
+    </div>
+  </section>
+  <section data-page="31">
+    <div class="page-stack">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber Pain of optimization…Being stuck at sub- optimal local minimum… Initial guess matters! Same outcome cannot be guaranteed">
+    </div>
+  </section>
+  <section data-page="32">
+    <div class="page-stack">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber #Import from Scikit-learn from sklearn.cluster import KMeans kmeans = KMeans(n_clusters=2) kmeans.fit(data) centroids = kmeans.cluster_centers_ labels = kmeans.labels_f K">
+    </div>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber The Dataset sns.pairplot(data)">
+    </div>
+  </section>
+  <section data-page="34">
+    <div class="page-stack">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber K-Means Clustering kmeans = KMeans(n_clusters=2) kmeans.fit(data)">
+    </div>
+  </section>
+  <section data-page="35">
+    <div class="page-stack">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber K-Means Clustering sns.pairplot(data, hue=&quot;kmeans_2&quot;) Labels">
+    </div>
+  </section>
+  <section data-page="36">
+    <div class="page-stack">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber K-Means Clustering plt.scatter(&lt;cluster_centers&gt;,&lt;col_2&gt;, linewidths=3, marker=&#x27;x&#x27;, s=200, c=&#x27;black&#x27;)">
+    </div>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber K-Means is affected by the scale of every feature.">
+    </div>
+  </section>
+  <section data-page="38">
+    <div class="page-stack">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Feature Scaling For k-means clustering, features must be scaled to the same ranges of values to contribute &quot;equally&quot; to the euclidean distance calculation. Each row is tr">
+    </div>
+  </section>
+  <section data-page="39">
+    <div class="page-stack">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Feature Scaling # center and scale the data scaler = StandardScaler() raw_data_scaled = scaler.fit_transform( &lt;data&gt; ) data_scaled = pd.DataFrame( raw_data_scaled, column">
+    </div>
+  </section>
+  <section data-page="40">
+    <div class="page-stack">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber Feature Scaling # K-means on scaled data km = KMeans( n_clusters=2 ) km.fit( &lt;scaled_data&gt; )">
+    </div>
+  </section>
+  <section data-page="41">
+    <div class="page-stack">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Feature Scaling Scaled Features Unscaled Features">
+    </div>
+  </section>
+  <section data-page="42">
+    <div class="page-stack">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber More Clusters km3 = KMeans(n_clusters=3) km3.fit(scaled_data)">
+    </div>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber Outlier Detection clf = svm.OneClassSVM( tol=0.001, nu=0.1) clf.fit(X) target_pred_outliers=clf.predict(X) Delete n% of “outlier data”, here ~10% http://scikit-learn.org/">
+    </div>
+  </section>
+  <section data-page="44">
+    <div class="page-stack">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber Evaluating your Model The Silhouette Coefficient is a common metric for evaluating clustering &quot;performance&quot; in situations when the &quot;true&quot; cluster assignments are not know">
+    </div>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber Evaluating your Model k_range = range(2,16) scores = [] for k in k_range: km_ss = KMeans(n_clusters=k, random_state=1) km_ss.fit(iris_data_scaled) scores.append(silhouett">
+    </div>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber Evaluating your Model Best number of clusters">
+    </div>
+  </section>
+  <section data-page="47">
+    <div class="page-stack">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber Evaluating your Model from yellowbrick.cluster import KElbowVisualizer visualizer = KElbowVisualizer(KMeans(), k=(4,12)) visualizer.fit(X) visualizer.poof()">
+    </div>
+  </section>
+  <section data-page="48">
+    <div class="page-stack">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber Evaluating your Model from yellowbrick.cluster import SilhouetteVisualizer model = MiniBatchKMeans(6) visualizer = SilhouetteVisualizer(model) visualizer.fit(X) visualize">
+    </div>
+  </section>
+  <section data-page="49">
+    <div class="page-stack">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber In Class Exercise Please complete Worksheet 5.1: Clustering">
+    </div>
+  </section>
+  <section data-page="51">
+    <div class="page-stack">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber Other uses of unsupervised learning: Dimensionality Reduction">
+      <img class="page fragment" src="pages/p051.webp" alt="GTK Cyber Other uses of unsupervised learning: Dimensionality Reduction • Dimensionality reduction reduces the number of features in a dataset without losing the information in a d">
+    </div>
+  </section>
+  <section data-page="52">
+    <div class="page-stack">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber Other uses of unsupervised learning: Dimensionality Reduction • PCA attempts to combine the highly correlated features and represent this data with a smaller number of li">
+    </div>
+  </section>
+  <section data-page="53">
+    <div class="page-stack">
+      <img class="page" src="pages/p053.webp" alt="GTK Cyber PCA Example from sklearn.decomposition import PCA n_components = 784 whiten = False pca = PCA(n_components=n_components, whiten=whiten) features_train_PCA = pca.fit_trans">
+    </div>
+  </section>
+  <section data-page="54">
+    <div class="page-stack">
+      <img class="page" src="pages/p054.webp" alt="GTK Cyber PCA Example Variance Captured by First 10 Principal Components: [0.48876238] Variance Captured by First 20 Principal Components: [0.64398025] Variance Captured by First 5">
+    </div>
+  </section>
+  <section data-page="55">
+    <div class="page-stack">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>

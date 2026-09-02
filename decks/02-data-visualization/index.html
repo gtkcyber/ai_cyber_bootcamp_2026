@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Module 2: Data Visualization</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="GTK Cyber Module 2: A Little Data Visualization">
+    </div>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber 0 2 4 6 8 A B C D 5 5 5 5 2.5 1.8 3.75 2 5.25 5.75 6.25 7">
+    </div>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber https://www.theautopian.com/fewer-buyers-are-open-to-electric-vehicles-than-they-were-just-two-years-ago-survey/">
+    </div>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber A Brief Interlude: Why Never to Use a Pie Chart">
+    </div>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="8">
+    <div class="page-stack">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber 7% 8% 10% 11% 29% 35%">
+    </div>
+  </section>
+  <section data-page="9">
+    <div class="page-stack">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber 7% 8% 10% 11% 29% 35%">
+    </div>
+  </section>
+  <section data-page="10">
+    <div class="page-stack">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber 7% 8% 10% 11% 29% 35%">
+    </div>
+  </section>
+  <section data-page="11">
+    <div class="page-stack">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="12">
+    <div class="page-stack">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="13">
+    <div class="page-stack">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber 3D Pie Charts are BAD! h8p://themendozaline.org/post/113828947026/3d-pie-charts-are-lie-charts">
+    </div>
+  </section>
+  <section data-page="14">
+    <div class="page-stack">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber https://datadrivensecurity.info/blog/posts/2014/Jun/marx-ports/">
+    </div>
+  </section>
+  <section data-page="15">
+    <div class="page-stack">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Data Visualization in Python">
+    </div>
+  </section>
+  <section data-page="16">
+    <div class="page-stack">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Python Visualization Libraries • Matplotlib: “Lowest” level visualization library. Very powerful, but little abstraction • Pandas/Pyplot: Easier, but requires transformat">
+    </div>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber import pandas as pd import matplotlib.pyplot as plt import numpy as np import seaborn as sns %matplotlib inline">
+    </div>
+  </section>
+  <section data-page="18">
+    <div class="page-stack">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber data = pd.Series( [3,4,6,7,5,8,2 ]) graph = data.plot()">
+    </div>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber barchart = data.plot( kind=&quot;bar&quot; )">
+    </div>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber piechart = data.plot( kind=&quot;pie&quot; )">
+    </div>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber import seaborn as sns">
+    </div>
+  </section>
+  <section data-page="22">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber df = pd.DataFrame(np.random.randint( 0,100,size=(100, 4)), columns=list(&#x27;ABCD&#x27;)) df[&#x27;category&#x27;] = df[&#x27;C&#x27;] % 3 sns.scatterplot(x=df[&#x27;A&#x27;], y=df[&#x27;B&#x27;], data=df)">
+    </div>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber sns.scatterplot(x=df[&#x27;A&#x27;], y=df[&#x27;B&#x27;], style=df[&#x27;category&#x27;])">
+    </div>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber sns.scatterplot(x=df[&#x27;A&#x27;], y=df[&#x27;B&#x27;], hue=df[&#x27;D&#x27;])">
+      <img class="page fragment" src="pages/p025.webp" alt="GTK Cyber sns.scatterplot(x=df[&#x27;A&#x27;], y=df[&#x27;B&#x27;], size=df[&#x27;C&#x27;], hue=df[&#x27;D&#x27;])">
+    </div>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber ax = sns.distplot(&lt;data&gt;)">
+    </div>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber g = sns.pairplot(&lt;data&gt;, hue=&quot;&lt;target&gt;&quot;)">
+    </div>
+  </section>
+  <section data-page="28">
+    <div class="page-stack">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber ax = sns.regplot(x=&quot;total_bill&quot;, y=&quot;tip&quot;, data=tips)">
+    </div>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber g = sns.lmplot(x=&quot;total_bill&quot;, y=&quot;tip&quot;, hue=&quot;smoker&quot;, data=tips)">
+    </div>
+  </section>
+  <section data-page="30">
+    <div class="page-stack">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber g = sns.FacetGrid(tips, col=&quot;time&quot;, row=&quot;smoker&quot;) &gt;&gt;&gt; g = g.map(plt.hist, &quot;total_bill&quot;)">
+    </div>
+  </section>
+  <section data-page="31">
+    <div class="page-stack">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber scatterPlot.get_figure().savefig( &quot;scatterPlot.png&quot; )">
+    </div>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber Customizing your Charts">
+      <img class="page fragment" src="pages/p033.webp" alt="GTK Cyber Customizing your Charts https://pbpython.com/effective-matplotlib.html">
+    </div>
+  </section>
+  <section data-page="34">
+    <div class="page-stack">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber Customizing your Charts • Axes: Axes represent an individual plot or chart. • Figure: This is the final complete image and may contain 1 or more axes.">
+    </div>
+  </section>
+  <section data-page="35">
+    <div class="page-stack">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber Customizing your Charts • Matplotlib has both an object-oriented and state- based interface. This can be confusing when you look up answers on Stack Overflow. • Use basic">
+    </div>
+  </section>
+  <section data-page="36">
+    <div class="page-stack">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber Customizing your Charts fig, ax = plt.subplots() df.plot(..., ax=ax) This method gets you access to the figure and axes.">
+    </div>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber Customizing your Charts • Axes: Long list of possible options to configure your chart: https:// matplotlib.org/3.1.0/api/axes_api.html#the-axes-class">
+    </div>
+  </section>
+  <section data-page="38">
+    <div class="page-stack">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Add Axis Labels https://pbpython.com/effective-matplotlib.html fig, ax = plt.subplots() df.plot(kind=&#x27;barh&#x27;, ax=ax) ax.set_xlim([-10000, 140000]) ax.set_xlabel(&#x27;Total Rev">
+    </div>
+  </section>
+  <section data-page="39">
+    <div class="page-stack">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Add Annotations https://pbpython.com/effective-matplotlib.html fig, ax = plt.subplots() df.plot(kind=&#x27;barh&#x27;, ax=ax) avg = df[&#x27;Sales&#x27;].mean() ax.axvline(x=avg, color=&#x27;b&#x27;, ">
+    </div>
+  </section>
+  <section data-page="40">
+    <div class="page-stack">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber Subplots https://pbpython.com/effective-matplotlib.html fig, (ax0, ax1) = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(7, 4)) df.plot(kind=&#x27;barh&#x27;, ax=ax0) ax0.set">
+    </div>
+  </section>
+  <section data-page="41">
+    <div class="page-stack">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Lab Please take 30 min to complete Worksheet 2.1: Data Visualization">
+    </div>
+  </section>
+  <section data-page="42">
+    <div class="page-stack">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber Interactive Visualizations">
+    </div>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber Interactive Notebooks • There are many modules and tools out there for making Jupyter notebooks interactive. • Ipywidgets, plotly, altair... others.. • Difficult to share">
+    </div>
+  </section>
+  <section data-page="44">
+    <div class="page-stack">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber Introducing Streamlit">
+    </div>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber Introducing Streamlit • Streamlit is a framework for building interactive, data-driven applications in Python. • Streamlit allows you to quickly and easily create interac">
+    </div>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber You don&#x27;t run Streamlit in Jupyter">
+    </div>
+  </section>
+  <section data-page="47">
+    <div class="page-stack">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber Starting a Streamlit Application • You must write your code in a standard python file. • When you are ready to launch, simply execute the following command. It will launc">
+    </div>
+  </section>
+  <section data-page="48">
+    <div class="page-stack">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber Basic Streamlit Concepts import streamlit as st import pandas as pd # Display some text... st.markdown(&quot;&quot;&quot;# Basic Application This basic application will demonstrate how ">
+    </div>
+  </section>
+  <section data-page="49">
+    <div class="page-stack">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="50">
+    <div class="page-stack">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber Presenting Data with Streamlit • You can see from the previous example how easy it is to present data using Streamlit • Complete charting docs are available here: https:/">
+    </div>
+  </section>
+  <section data-page="51">
+    <div class="page-stack">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber Laying Out Your Application • Streamlit has a variety of layout components including tabs, pages, containers, expanders, popovers, modal dialogues and more. • Complete li">
+    </div>
+  </section>
+  <section data-page="52">
+    <div class="page-stack">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber Laying Out Your Data # Create the tabs chart_tab, table_tab = st.tabs([&quot;Chart&quot;, &quot;Data&quot;]) # Display the line chart with chart_tab: st.area_chart(line_chart_data) # Display">
+    </div>
+  </section>
+  <section data-page="53">
+    <div class="page-stack">
+      <img class="page" src="pages/p053.webp" alt="GTK Cyber Laying Out Your Data">
+    </div>
+  </section>
+  <section data-page="54">
+    <div class="page-stack">
+      <img class="page" src="pages/p054.webp" alt="GTK Cyber Laying Out Your Data">
+    </div>
+  </section>
+  <section data-page="55">
+    <div class="page-stack">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Taking Input from a User • Streamlit has a large collection of input widgets available here: https:// docs.streamlit.io/develop/api-reference/widgets • When the input ele">
+    </div>
+  </section>
+  <section data-page="56">
+    <div class="page-stack">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber Building AI Applications with Streamlit • Streamlit has a chat_input and chat_message widget which are built for interacting with LLMs. • Full docs are available here: ht">
+    </div>
+  </section>
+  <section data-page="57">
+    <div class="page-stack">
+      <img class="page" src="pages/p057.webp" alt="GTK Cyber Building AI Applications with Streamlit">
+    </div>
+  </section>
+  <section data-page="58">
+    <div class="page-stack">
+      <img class="page" src="pages/p058.webp" alt="GTK Cyber Building AI Applications with Streamlit client = OpenAI(api_key=os.getenv(&quot;OPENAI_KEY&quot;)) st.session_state[&quot;openai_model&quot;] = &quot;gpt-3.5-turbo&quot; if &quot;messages&quot; not in st.sessio">
+    </div>
+  </section>
+  <section data-page="59">
+    <div class="page-stack">
+      <img class="page" src="pages/p059.webp" alt="GTK Cyber Building AI Applications with Streamlit if prompt := st.chat_input(&quot;What is up?&quot;): st.session_state.messages.append({&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: prompt}) with st.chat_mess">
+    </div>
+  </section>
+  <section data-page="60">
+    <div class="page-stack">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+  <section data-page="61">
+    <div class="page-stack">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Lab Please take 30 min to complete Worksheet 2.2 Interactive Visualizations (Not in Jupyter)">
+    </div>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Module 10: Prompt Engineering</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="Module 10: Prompt Engineering Charles S. Givre CISSP">
+    </div>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber Outline • Part 1: Introduction and Theory: How Generative Models Work • Part 2: Prompt Engineering: How to get the most out of Generative Models • Part 3: Architecture: H">
+    </div>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber Outline • Best Strategies for Prompting • Meta Prompting • Prompting programmatically">
+    </div>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber Notes • For this module, we will be using Anthropic models. • The principles cross over to any LLM workflow. • You will need an API key from OpenAI for these exercises. •">
+    </div>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber Accessing your API Token import os from dotenv import load_dotenv # Loads the .env file. load_dotenv() # Get the specific environment variable. ANTHROPIC_API_KEY = os.env">
+    </div>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber Please try these examples as we go along.">
+    </div>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber Prompt Engineering">
+    </div>
+  </section>
+  <section data-page="8">
+    <div class="page-stack">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber Is it really a skill?">
+    </div>
+  </section>
+  <section data-page="9">
+    <div class="page-stack">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber Prompting Programatically is Different than Chatting with a chatbot.">
+    </div>
+  </section>
+  <section data-page="10">
+    <div class="page-stack">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber How is it Different? • You need output in a consumable format--usually JSON. • For programmatic usage, output has to be consistent, so you will need much more error check">
+    </div>
+  </section>
+  <section data-page="11">
+    <div class="page-stack">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber Interacting with OpenAI Programmatically • OpenAI has a module (openai) which makes API calls easier. • It supports both chat-like interactions and one-shot interactions.">
+    </div>
+  </section>
+  <section data-page="12">
+    <div class="page-stack">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber Interacting with Anthropic Models Programmatically • Anthropic also has a module (anthropic) which makes API calls easier. • It supports both chat-like interactions and o">
+    </div>
+  </section>
+  <section data-page="13">
+    <div class="page-stack">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber Interacting with Anthropic Programmatically - Uploading Files • Interacting with files import base64 import anthropic client = anthropic.Anthropic() # ANTHROPIC_API_KEY f">
+    </div>
+  </section>
+  <section data-page="14">
+    <div class="page-stack">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber Interacting with Huggingface Models • HuggingFace also has a module to facilitate interacting with models on HuggingFace. (https://github.com/huggingface/transformers) • ">
+    </div>
+  </section>
+  <section data-page="15">
+    <div class="page-stack">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Tuning Parameters">
+    </div>
+  </section>
+  <section data-page="16">
+    <div class="page-stack">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber LLM Parameters • Temperature: controls the randomness of the responses. Ranges from 0-1. Higher temperature will yield more &quot;creative&quot; responses, where as a temperature o">
+    </div>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber LLM Parameters • Max Tokens: The maximum length in tokens of the output. Prevents overly long responses, however it can lead to truncated responses as well. • Frequency P">
+    </div>
+  </section>
+  <section data-page="18">
+    <div class="page-stack">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber System vs. User Message • The system message or prompt is a prompt which defines how the LLM will behave. • The system message is sent with every single call to the LLM. ">
+    </div>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber Principles of Effective Prompt Engineering">
+    </div>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber Basics: What doesn&#x27;t work • Vagueness • Unspecific output formats • Not providing examples • Assuming facts not &quot;on the record&quot;">
+    </div>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber Tip 1: Set the Stage Start by setting the stage and tell the model explicitly who and where it is. For example: Here is a sample of trouble tickets: Or: You are a helpful">
+    </div>
+  </section>
+  <section data-page="22">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber Tip 2: Assume Nothing • GenAI works best when you provide all the information in the prompt. This lends itself to use cases such as summarizing data, or generating someth">
+    </div>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber Tip 3: Specify your Output Format • The best way to get consistent output is to explicitly tell the model how you want your output. For example: Output the results as a p">
+    </div>
+  </section>
+  <section data-page="24">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber Tip 4: Be Positive! • Affirmative commands work better than negative commands. For example: Do not include categories A and B. vs. Only include categories C, D.">
+    </div>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber Be Positive • Models tend to respond better to positive commands than negative commands. For example:">
+    </div>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber Tip 5: Be Direct! • AI is not your friend. You don&#x27;t have to say please and thank you. • In your prompts, be direct and specific. Do this: Categorize the following linux ">
+    </div>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber Tip 6: Provide Examples • LLMs will perform significantly better if you can provide examples of what you are looking for. • In classification contexts, this is known as f">
+    </div>
+  </section>
+  <section data-page="28">
+    <div class="page-stack">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber Tip 7: Tell It What To Do When It Doesn&#x27;t Know What To Do • Language models may hallucinate if they don&#x27;t know what to do. • You can reduce the chances of hallucinations ">
+    </div>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Basics for Prompt Engineering">
+    </div>
+  </section>
+  <section data-page="30">
+    <div class="page-stack">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber Basic Components of a Prompt • Directive: An explicit, unambiguous instruction of what you want the model to do. • Examples: Examples will help the model provide better r">
+    </div>
+  </section>
+  <section data-page="31">
+    <div class="page-stack">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber Order Matters • Since LLMs are designed to predict the next token based on sequences, rearranging the order so that it makes sense to the model can improve the results. •">
+    </div>
+  </section>
+  <section data-page="32">
+    <div class="page-stack">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber Role Matters">
+    </div>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber Role Matters">
+    </div>
+  </section>
+  <section data-page="34">
+    <div class="page-stack">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber Zero Shot / Few Shot • Most prompting you have probably done is zero shot where you just ask a model to do something. • Few shot learning is where you provide examples fo">
+    </div>
+  </section>
+  <section data-page="35">
+    <div class="page-stack">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber Zero Shot / Few Shot You are an automated security bot which will assess whether a command line command is potentially risky or not. You must only output either: very ris">
+    </div>
+  </section>
+  <section data-page="36">
+    <div class="page-stack">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber Few Shot Examples">
+    </div>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber Few Shot Examples">
+    </div>
+  </section>
+  <section data-page="38">
+    <div class="page-stack">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Few Shot Examples">
+    </div>
+  </section>
+  <section data-page="39">
+    <div class="page-stack">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Few Shot Examples">
+    </div>
+  </section>
+  <section data-page="40">
+    <div class="page-stack">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber Defining Output Format • When writing prompts for programmatic use, it is vital that the model returns output in the exact format you are expecting and that your code can">
+    </div>
+  </section>
+  <section data-page="41">
+    <div class="page-stack">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Defining Output Format • If you want the model to output JSON, be sure to include examples in the prompt. PROMPT = &quot;&quot;&quot; You will be given a product name. Your job is to fi">
+    </div>
+  </section>
+  <section data-page="42">
+    <div class="page-stack">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber Lab Please complete Worksheet 10.1: Programmatic Interaction with LLMs">
+    </div>
+  </section>
+  <section data-page="44">
+    <div class="page-stack">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber Advanced Prompting">
+    </div>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber Advanced Prompting • Chain of Thought • Meta Prompting / Prompt Chaining • Data Analysis and Classification with LLMs">
+    </div>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber Advanced Prompting Techniques • These techniques go beyond simple &quot;ask ChatGPT&quot;. • They are meant to be used programmatically, or in the context of building AI Agents. • ">
+    </div>
+  </section>
+  <section data-page="47">
+    <div class="page-stack">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber Chain of Thought • Chain of Thought (CoT) is a prompting technique which enhances the reasoning of LLMs by breaking problems down into logical steps, a chain of thought, ">
+    </div>
+  </section>
+  <section data-page="48">
+    <div class="page-stack">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber Key Concept of CoT is that by providing a few examples where the reasoning process is shown, the LLM will include reasoning steps in its responses, which often results in">
+    </div>
+  </section>
+  <section data-page="49">
+    <div class="page-stack">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber How CoT Works • Decompose the problem: CoT prompts guide the model to break down a complex question into manageable steps. • Guide with Exemplars: CoT uses examples that ">
+    </div>
+  </section>
+  <section data-page="50">
+    <div class="page-stack">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber Chain of Thought • While CoT does cause a model to echo the reasoning involved in solving problems, it is important to note that LLMs do not actually &quot;think&quot;. • There is ">
+    </div>
+  </section>
+  <section data-page="51">
+    <div class="page-stack">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber Chain of Thought Example Scenario: The EDR platform detects a PowerShell script being executed on a user workstation, and it’s obfuscated. Think step by step: 1. PowerShe">
+    </div>
+  </section>
+  <section data-page="52">
+    <div class="page-stack">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber Zero Shot CoT In a distributed query engine, depending on the query, it can be advantageous to push down operations to the downstream data system. It can also be advantag">
+    </div>
+  </section>
+  <section data-page="53">
+    <div class="page-stack">
+      <img class="page" src="pages/p053.webp" alt="GTK Cyber Using LLMs for Entity Recognition and Data Extraction • You can use an LLM to extract data artifacts from bodies of text. • This approach is very useful when it would be ">
+    </div>
+  </section>
+  <section data-page="54">
+    <div class="page-stack">
+      <img class="page" src="pages/p054.webp" alt="GTK Cyber Meta Prompting">
+    </div>
+  </section>
+  <section data-page="55">
+    <div class="page-stack">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Meta Prompting • Meta prompting is a technique in which one prompt is used to generate additional prompts. • Meta prompting is useful if you are trying to execute a compl">
+    </div>
+  </section>
+  <section data-page="56">
+    <div class="page-stack">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber Meta Prompting">
+    </div>
+  </section>
+  <section data-page="57">
+    <div class="page-stack">
+      <img class="page" src="pages/p057.webp" alt="GTK Cyber Meta Prompting You are a penetration testing bot. Your task is to attempt to perform network reconnaissance on a target system. The input will be the output of a previous">
+    </div>
+  </section>
+  <section data-page="58">
+    <div class="page-stack">
+      <img class="page" src="pages/p058.webp" alt="GTK Cyber Classification with Generative Models">
+    </div>
+  </section>
+  <section data-page="59">
+    <div class="page-stack">
+      <img class="page" src="pages/p059.webp" alt="GTK Cyber Classification with Generative Models • In addition to using generative models to generate text, you can also use them to classify data, much in the same way you built an">
+    </div>
+  </section>
+  <section data-page="60">
+    <div class="page-stack">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber Classification with Generative Models • Generative models are not deterministic so you cannot really validate the results. • Generative models cannot be audited. • Genera">
+    </div>
+  </section>
+  <section data-page="61">
+    <div class="page-stack">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Classification with Generative Models • Generative models can be useful when you don&#x27;t have a lot of training data, or when the classifications are somewhat subjective. •">
+    </div>
+  </section>
+  <section data-page="62">
+    <div class="page-stack">
+      <img class="page" src="pages/p062.webp" alt="GTK Cyber Classification with Generative Models You will be given a product name. Your job is to find the most relevant categories for this product. 1. You must only select categor">
+    </div>
+  </section>
+  <section data-page="63">
+    <div class="page-stack">
+      <img class="page" src="pages/p063.webp" alt="GTK Cyber The Holy Grail of Data Analytics: Just get answers!">
+    </div>
+  </section>
+  <section data-page="64">
+    <div class="page-stack">
+      <img class="page" src="pages/p064.webp" alt="GTK Cyber Or is it?">
+    </div>
+  </section>
+  <section data-page="65">
+    <div class="page-stack">
+      <img class="page" src="pages/p065.webp" alt="GTK Cyber Two Approaches • Use an LLM to generate intermediate code (like SQL) based on a description of your data. • Use an LLM to analyze your data directly.">
+    </div>
+  </section>
+  <section data-page="66">
+    <div class="page-stack">
+      <img class="page" src="pages/p066.webp" alt="GTK Cyber Challenges: Security &amp; Privacy">
+    </div>
+  </section>
+  <section data-page="67">
+    <div class="page-stack">
+      <img class="page" src="pages/p067.webp" alt="GTK Cyber Challenges: Black box responses">
+    </div>
+  </section>
+  <section data-page="68">
+    <div class="page-stack">
+      <img class="page" src="pages/p068.webp" alt="GTK Cyber Challenges: Limitations on data size">
+    </div>
+  </section>
+  <section data-page="69">
+    <div class="page-stack">
+      <img class="page" src="pages/p069.webp" alt="GTK Cyber PandasAI Offers a Convenient Wrapper for EDA import pandas as pd from pandasai import PandasAI from pandasai.llm.openai import OpenAI # Initialize the LLM llm = OpenAI(ap">
+    </div>
+  </section>
+  <section data-page="70">
+    <div class="page-stack">
+      <img class="page" src="pages/p070.webp" alt="GTK Cyber PandasAI: Summarization &gt;&gt;&gt; pandas_ai(df, &quot;What botfams had the most infections?&quot;) botfam ConfickerAB 321373 Ramnit 78753 PushDo 62485 Sality 56600 Bedep 52049">
+    </div>
+  </section>
+  <section data-page="71">
+    <div class="page-stack">
+      <img class="page" src="pages/p071.webp" alt="GTK Cyber PandasAI: Visualization &gt;&gt;&gt; pandas_ai(df, &quot;Make a line chart of infections per day, broken down by botfam.&quot;)">
+    </div>
+  </section>
+  <section data-page="72">
+    <div class="page-stack">
+      <img class="page" src="pages/p072.webp" alt="GTK Cyber PandasAI: Other Functions PandasAI can also: • Clean data: pandas_ai.clean_data(df) • Impute missing values: pandas_ai.impute_missing_values(df) • Generate Features: pand">
+    </div>
+  </section>
+  <section data-page="73">
+    <div class="page-stack">
+      <img class="page" src="pages/p073.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+  <section data-page="74">
+    <div class="page-stack">
+      <img class="page" src="pages/p074.webp" alt="GTK Cyber Lab Please complete Worksheet 10.2: Classification with LLMs">
+    </div>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>

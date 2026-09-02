@@ -1,0 +1,373 @@
+{
+  "slug": "02-data-visualization",
+  "pdf": "Module 2 - Data Visualization.pdf",
+  "page_count": 61,
+  "pages": [
+    {
+      "page": 1,
+      "kind": "slide",
+      "group": 1,
+      "text": "GTK Cyber Module 2: A Little Data Visualization"
+    },
+    {
+      "page": 2,
+      "kind": "slide",
+      "group": 2,
+      "text": "GTK Cyber"
+    },
+    {
+      "page": 3,
+      "kind": "slide",
+      "group": 3,
+      "text": "GTK Cyber 0 2 4 6 8 A B C D 5 5 5 5 2.5 1.8 3.75 2 5.25 5.75 6.25 7"
+    },
+    {
+      "page": 4,
+      "kind": "slide",
+      "group": 4,
+      "text": "GTK Cyber https://www.theautopian.com/fewer-buyers-are-open-to-electric-vehicles-than-they-were-just-two-years-ago-survey/"
+    },
+    {
+      "page": 5,
+      "kind": "slide",
+      "group": 5,
+      "text": "GTK Cyber A Brief Interlude: Why Never to Use a Pie Chart"
+    },
+    {
+      "page": 6,
+      "kind": "slide",
+      "group": 6,
+      "text": "GTK Cyber"
+    },
+    {
+      "page": 7,
+      "kind": "slide",
+      "group": 7,
+      "text": "GTK Cyber"
+    },
+    {
+      "page": 8,
+      "kind": "slide",
+      "group": 8,
+      "text": "GTK Cyber 7% 8% 10% 11% 29% 35%"
+    },
+    {
+      "page": 9,
+      "kind": "slide",
+      "group": 9,
+      "text": "GTK Cyber 7% 8% 10% 11% 29% 35%"
+    },
+    {
+      "page": 10,
+      "kind": "slide",
+      "group": 10,
+      "text": "GTK Cyber 7% 8% 10% 11% 29% 35%"
+    },
+    {
+      "page": 11,
+      "kind": "slide",
+      "group": 11,
+      "text": "GTK Cyber"
+    },
+    {
+      "page": 12,
+      "kind": "slide",
+      "group": 12,
+      "text": "GTK Cyber"
+    },
+    {
+      "page": 13,
+      "kind": "slide",
+      "group": 13,
+      "text": "GTK Cyber 3D Pie Charts are BAD! h8p://themendozaline.org/post/113828947026/3d-pie-charts-are-lie-charts"
+    },
+    {
+      "page": 14,
+      "kind": "slide",
+      "group": 14,
+      "text": "GTK Cyber https://datadrivensecurity.info/blog/posts/2014/Jun/marx-ports/"
+    },
+    {
+      "page": 15,
+      "kind": "slide",
+      "group": 15,
+      "text": "GTK Cyber Data Visualization in Python"
+    },
+    {
+      "page": 16,
+      "kind": "slide",
+      "group": 16,
+      "text": "GTK Cyber Python Visualization Libraries • Matplotlib: “Lowest” level visualization library. Very powerful, but little abstraction • Pandas/Pyplot: Easier, but requires transformation for complex visualizations • Seaborn: Good for advanced statistical visualizations • Altair: New library: declarative statistical visualization library • Plotly / Cufflinks: Make it interactive!"
+    },
+    {
+      "page": 17,
+      "kind": "slide",
+      "group": 17,
+      "text": "GTK Cyber import pandas as pd import matplotlib.pyplot as plt import numpy as np import seaborn as sns %matplotlib inline"
+    },
+    {
+      "page": 18,
+      "kind": "slide",
+      "group": 18,
+      "text": "GTK Cyber data = pd.Series( [3,4,6,7,5,8,2 ]) graph = data.plot()"
+    },
+    {
+      "page": 19,
+      "kind": "slide",
+      "group": 19,
+      "text": "GTK Cyber barchart = data.plot( kind=\"bar\" )"
+    },
+    {
+      "page": 20,
+      "kind": "slide",
+      "group": 20,
+      "text": "GTK Cyber piechart = data.plot( kind=\"pie\" )"
+    },
+    {
+      "page": 21,
+      "kind": "slide",
+      "group": 21,
+      "text": "GTK Cyber import seaborn as sns"
+    },
+    {
+      "page": 22,
+      "kind": "slide",
+      "group": 22,
+      "text": "GTK Cyber df = pd.DataFrame(np.random.randint( 0,100,size=(100, 4)), columns=list('ABCD')) df['category'] = df['C'] % 3 sns.scatterplot(x=df['A'], y=df['B'], data=df)"
+    },
+    {
+      "page": 23,
+      "kind": "slide",
+      "group": 23,
+      "text": "GTK Cyber sns.scatterplot(x=df['A'], y=df['B'], style=df['category'])"
+    },
+    {
+      "page": 24,
+      "kind": "build",
+      "group": 24,
+      "text": "GTK Cyber sns.scatterplot(x=df['A'], y=df['B'], hue=df['D'])"
+    },
+    {
+      "page": 25,
+      "kind": "slide",
+      "group": 24,
+      "text": "GTK Cyber sns.scatterplot(x=df['A'], y=df['B'], size=df['C'], hue=df['D'])"
+    },
+    {
+      "page": 26,
+      "kind": "slide",
+      "group": 25,
+      "text": "GTK Cyber ax = sns.distplot(<data>)"
+    },
+    {
+      "page": 27,
+      "kind": "slide",
+      "group": 26,
+      "text": "GTK Cyber g = sns.pairplot(<data>, hue=\"<target>\")"
+    },
+    {
+      "page": 28,
+      "kind": "unsure",
+      "group": 27,
+      "text": "GTK Cyber ax = sns.regplot(x=\"total_bill\", y=\"tip\", data=tips)"
+    },
+    {
+      "page": 29,
+      "kind": "slide",
+      "group": 28,
+      "text": "GTK Cyber g = sns.lmplot(x=\"total_bill\", y=\"tip\", hue=\"smoker\", data=tips)"
+    },
+    {
+      "page": 30,
+      "kind": "slide",
+      "group": 29,
+      "text": "GTK Cyber g = sns.FacetGrid(tips, col=\"time\", row=\"smoker\") >>> g = g.map(plt.hist, \"total_bill\")"
+    },
+    {
+      "page": 31,
+      "kind": "slide",
+      "group": 30,
+      "text": "GTK Cyber scatterPlot.get_figure().savefig( \"scatterPlot.png\" )"
+    },
+    {
+      "page": 32,
+      "kind": "build",
+      "group": 31,
+      "text": "GTK Cyber Customizing your Charts"
+    },
+    {
+      "page": 33,
+      "kind": "slide",
+      "group": 31,
+      "text": "GTK Cyber Customizing your Charts https://pbpython.com/effective-matplotlib.html"
+    },
+    {
+      "page": 34,
+      "kind": "slide",
+      "group": 32,
+      "text": "GTK Cyber Customizing your Charts • Axes: Axes represent an individual plot or chart. • Figure: This is the final complete image and may contain 1 or more axes."
+    },
+    {
+      "page": 35,
+      "kind": "slide",
+      "group": 33,
+      "text": "GTK Cyber Customizing your Charts • Matplotlib has both an object-oriented and state- based interface. This can be confusing when you look up answers on Stack Overflow. • Use basic pandas plotting for simple plots • Seaborn, YellowBrick and others for more complex visualizations • Use the OO interface in MatPlotLib to customize simple visualizations."
+    },
+    {
+      "page": 36,
+      "kind": "slide",
+      "group": 34,
+      "text": "GTK Cyber Customizing your Charts fig, ax = plt.subplots() df.plot(..., ax=ax) This method gets you access to the figure and axes."
+    },
+    {
+      "page": 37,
+      "kind": "slide",
+      "group": 35,
+      "text": "GTK Cyber Customizing your Charts • Axes: Long list of possible options to configure your chart: https:// matplotlib.org/3.1.0/api/axes_api.html#the-axes-class"
+    },
+    {
+      "page": 38,
+      "kind": "slide",
+      "group": 36,
+      "text": "GTK Cyber Add Axis Labels https://pbpython.com/effective-matplotlib.html fig, ax = plt.subplots() df.plot(kind='barh', ax=ax) ax.set_xlim([-10000, 140000]) ax.set_xlabel('Total Revenue') ax.set_ylabel('Customer');"
+    },
+    {
+      "page": 39,
+      "kind": "slide",
+      "group": 37,
+      "text": "GTK Cyber Add Annotations https://pbpython.com/effective-matplotlib.html fig, ax = plt.subplots() df.plot(kind='barh', ax=ax) avg = df['Sales'].mean() ax.axvline(x=avg, color='b', label='Average', linestyle='--', linewidth=1) for cust in [3, 5, 8]: ax.text(115000, cust, \"New Customer\")"
+    },
+    {
+      "page": 40,
+      "kind": "slide",
+      "group": 38,
+      "text": "GTK Cyber Subplots https://pbpython.com/effective-matplotlib.html fig, (ax0, ax1) = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(7, 4)) df.plot(kind='barh', ax=ax0) ax0.set_xlim([-10000, 140000]) ... df.plot(kind='barh', ax=ax1) avg = df['Purchases'].mean() ax1.set(title='Units', xlabel='Total Units', ylabel='') ax1.axvline(x=avg, color='b', label='Average', linestyle='--', linewidth=1)"
+    },
+    {
+      "page": 41,
+      "kind": "slide",
+      "group": 39,
+      "text": "GTK Cyber Lab Please take 30 min to complete Worksheet 2.1: Data Visualization"
+    },
+    {
+      "page": 42,
+      "kind": "slide",
+      "group": 40,
+      "text": "GTK Cyber Interactive Visualizations"
+    },
+    {
+      "page": 43,
+      "kind": "slide",
+      "group": 41,
+      "text": "GTK Cyber Interactive Notebooks • There are many modules and tools out there for making Jupyter notebooks interactive. • Ipywidgets, plotly, altair... others.. • Difficult to share w/o a hosted environment. • Poor user experience, not suitable for managers or non-technical users."
+    },
+    {
+      "page": 44,
+      "kind": "slide",
+      "group": 42,
+      "text": "GTK Cyber Introducing Streamlit"
+    },
+    {
+      "page": 45,
+      "kind": "slide",
+      "group": 43,
+      "text": "GTK Cyber Introducing Streamlit • Streamlit is a framework for building interactive, data-driven applications in Python. • Streamlit allows you to quickly and easily create interactive dashboards and applications. • Streamlit abstracts all the javascript and other web components so that a data analyst or data scientist can focus on the data and not web components. • Designed to work with AI."
+    },
+    {
+      "page": 46,
+      "kind": "slide",
+      "group": 44,
+      "text": "GTK Cyber You don't run Streamlit in Jupyter"
+    },
+    {
+      "page": 47,
+      "kind": "slide",
+      "group": 45,
+      "text": "GTK Cyber Starting a Streamlit Application • You must write your code in a standard python file. • When you are ready to launch, simply execute the following command. It will launch a web server to host your application. • From the command line, run: streamlit run your_script.py You will be able to access your application at http://localhost:8501 There are various command line options which you can find in the streamlit docs here: https://docs.streamlit.io/"
+    },
+    {
+      "page": 48,
+      "kind": "slide",
+      "group": 46,
+      "text": "GTK Cyber Basic Streamlit Concepts import streamlit as st import pandas as pd # Display some text... st.markdown(\"\"\"# Basic Application This basic application will demonstrate how to display data, both as a table and as a chart.\"\"\" ) # Data ingest skipped for brevity # Display the line chart st.area_chart(line_chart_data) st.dataframe(data, hide_index=True)"
+    },
+    {
+      "page": 49,
+      "kind": "slide",
+      "group": 47,
+      "text": "GTK Cyber"
+    },
+    {
+      "page": 50,
+      "kind": "slide",
+      "group": 48,
+      "text": "GTK Cyber Presenting Data with Streamlit • You can see from the previous example how easy it is to present data using Streamlit • Complete charting docs are available here: https://docs.streamlit.io/ develop/api-reference/charts • Each chart can be customized extensively. • Complete code for the basic example is in the streamlit_examples folder in the course github repo."
+    },
+    {
+      "page": 51,
+      "kind": "slide",
+      "group": 49,
+      "text": "GTK Cyber Laying Out Your Application • Streamlit has a variety of layout components including tabs, pages, containers, expanders, popovers, modal dialogues and more. • Complete list is available here: https://docs.streamlit.io/develop/api- reference/layout • You can use the with notation to create a layout option, then add your streamlit elements in that with block"
+    },
+    {
+      "page": 52,
+      "kind": "slide",
+      "group": 50,
+      "text": "GTK Cyber Laying Out Your Data # Create the tabs chart_tab, table_tab = st.tabs([\"Chart\", \"Data\"]) # Display the line chart with chart_tab: st.area_chart(line_chart_data) # Display the table with table_tab: st.dataframe(raw_data, hide_index=True)"
+    },
+    {
+      "page": 53,
+      "kind": "slide",
+      "group": 51,
+      "text": "GTK Cyber Laying Out Your Data"
+    },
+    {
+      "page": 54,
+      "kind": "slide",
+      "group": 52,
+      "text": "GTK Cyber Laying Out Your Data"
+    },
+    {
+      "page": 55,
+      "kind": "slide",
+      "group": 53,
+      "text": "GTK Cyber Taking Input from a User • Streamlit has a large collection of input widgets available here: https:// docs.streamlit.io/develop/api-reference/widgets • When the input element is updated, it creates an event which causes the page (and data) to be reloaded. • The code below adds a textbox which will collect a value from the user and display it: • Remember to validate user input! name = st.text_input(\"Enter your name\") if len(name) > 0: st.write(f\"Hello, {name}\") •"
+    },
+    {
+      "page": 56,
+      "kind": "slide",
+      "group": 54,
+      "text": "GTK Cyber Building AI Applications with Streamlit • Streamlit has a chat_input and chat_message widget which are built for interacting with LLMs. • Full docs are available here: https://docs.streamlit.io/develop/api- reference/chat/st.chat_input"
+    },
+    {
+      "page": 57,
+      "kind": "slide",
+      "group": 55,
+      "text": "GTK Cyber Building AI Applications with Streamlit"
+    },
+    {
+      "page": 58,
+      "kind": "slide",
+      "group": 56,
+      "text": "GTK Cyber Building AI Applications with Streamlit client = OpenAI(api_key=os.getenv(\"OPENAI_KEY\")) st.session_state[\"openai_model\"] = \"gpt-3.5-turbo\" if \"messages\" not in st.session_state: st.session_state.messages = [] for message in st.session_state.messages: with st.chat_message(message[\"role\"]): st.markdown(message[\"content\"]) response = st.write_stream(stream) st.session_state.messages.append({\"role\": \"assistant\", \"content\": response})"
+    },
+    {
+      "page": 59,
+      "kind": "slide",
+      "group": 57,
+      "text": "GTK Cyber Building AI Applications with Streamlit if prompt := st.chat_input(\"What is up?\"): st.session_state.messages.append({\"role\": \"user\", \"content\": prompt}) with st.chat_message(\"user\"): st.markdown(prompt) with st.chat_message(\"assistant\"): system_message = { \"role\": \"system\", \"content\": \"You are a helpful security bot that provides concise and accurate answers to cybersecurity questions. You may only answer cybersecurity questions.\", } stream = client.chat.completions.create( model=st.session_state[\"openai_model\"], messages=[system_message] + [ {\"role\": m[\"role\"], \"content\": m[\"content\"]} for m in st.session_state.messages ], stream=True, )"
+    },
+    {
+      "page": 60,
+      "kind": "slide",
+      "group": 58,
+      "text": "GTK Cyber Questions?"
+    },
+    {
+      "page": 61,
+      "kind": "slide",
+      "group": 59,
+      "text": "GTK Cyber Lab Please take 30 min to complete Worksheet 2.2 Interactive Visualizations (Not in Jupyter)"
+    }
+  ]
+}

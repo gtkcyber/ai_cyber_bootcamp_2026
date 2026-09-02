@@ -1,0 +1,427 @@
+{
+  "slug": "06-anomaly-detection",
+  "pdf": "Module 6 - Anomaly Detection.pdf",
+  "page_count": 70,
+  "pages": [
+    {
+      "page": 1,
+      "kind": "slide",
+      "group": 1,
+      "text": "Module 6: Anomaly Detection"
+    },
+    {
+      "page": 2,
+      "kind": "slide",
+      "group": 2,
+      "text": "GTK Cyber Agenda for Today • Overview of Techniques for Anomaly Detection • Statistical Techniques • Supervised Techniques • Unsupervised Techniques"
+    },
+    {
+      "page": 3,
+      "kind": "unsure",
+      "group": 3,
+      "text": "GTK Cyber A Problem: Data Validation"
+    },
+    {
+      "page": 4,
+      "kind": "slide",
+      "group": 4,
+      "text": "GTK Cyber A Problem: Data Validation • Charles was working on a problem of ingesting data into a system • We knew what good data looked like, and we wanted to detect bad data to prevent corrupted data from being ingested • The number of columns was large, so we couldn't write rules for each column"
+    },
+    {
+      "page": 5,
+      "kind": "slide",
+      "group": 5,
+      "text": "GTK Cyber Discuss: How you would tackle this problem?"
+    },
+    {
+      "page": 6,
+      "kind": "slide",
+      "group": 6,
+      "text": "GTK Cyber Anomaly Detection is Hard"
+    },
+    {
+      "page": 7,
+      "kind": "slide",
+      "group": 7,
+      "text": "GTK Cyber Anomalous != Bad"
+    },
+    {
+      "page": 8,
+      "kind": "slide",
+      "group": 8,
+      "text": "GTK Cyber “Outliers are not necessarily a bad thing. These are just observations that are not following the same pattern as the other ones. But it can be the case that an outlier is very interesting. For example, if in a biological experiment, a rat is not dead whereas all others are, then it would be very interesting to understand why. This could lead to new scientific discoveries. So, it is important to detect outliers.” – Pierre Lafaye de Micheaux, Author and Statistician"
+    },
+    {
+      "page": 9,
+      "kind": "slide",
+      "group": 9,
+      "text": "GTK Cyber Anomaly = Outlier"
+    },
+    {
+      "page": 10,
+      "kind": "unsure",
+      "group": 10,
+      "text": "GTK Cyber What is an outlier?"
+    },
+    {
+      "page": 11,
+      "kind": "slide",
+      "group": 11,
+      "text": "GTK Cyber An outlier or anomaly is a data point which differs from the rest of the observations in a dataset."
+    },
+    {
+      "page": 12,
+      "kind": "unsure",
+      "group": 12,
+      "text": "GTK Cyber Anomaly Detection != Novelty Detection"
+    },
+    {
+      "page": 13,
+      "kind": "slide",
+      "group": 13,
+      "text": "GTK Cyber Anomaly Detection != Novelty Detection • Anomaly detection involves learning from data that has both inliers and outliers. • Novelty detection involves learning starting with a dataset that does not have outliers"
+    },
+    {
+      "page": 14,
+      "kind": "slide",
+      "group": 14,
+      "text": "GTK Cyber Categories of Anomaly Detection • Forecasting (Supervised Learning) • Statistical Metrics • Unsupervised Techniques • Density Based Methods • Goodness of fit tests"
+    },
+    {
+      "page": 15,
+      "kind": "slide",
+      "group": 15,
+      "text": "GTK Cyber Python Ecosystem • Pandas/SciPy/NumPy: Pandas, SciPy and NumPy can be used for some of the simpler statistical calculations • PyOD: A relatively new module for outlier detection that contains many sophisticated techniques. (https:// pyod.readthedocs.io/en/latest/) • PMDArima: A forecasting module intended to automate many of the tasks involved with ARIMA. (http:// alkaline-ml.com/pmdarima/about.html#about) • Prophet: A forecasting module that provides fast and automated forecasts which can be tuned by hand. (https://facebook.github.io/prophet/) • StatsModels: A Python module that provides classes and functions for the estimation of many different statistical models, as well as for conducting statistical tests, and statistical data exploration. (https:// www.statsmodels.org/stable/index.html) • Scikit-Learn: Scikit-learn actually has several algorithms include the OneClassSVM and IsolationForest • Others..."
+    },
+    {
+      "page": 16,
+      "kind": "slide",
+      "group": 16,
+      "text": "GTK Cyber Anomaly Detection Process Use Known Data to Predict value Compare prediction to actual values and calculate anomaly score. (Distance) If score is within threshold, observation is not an outlier If score is not within threshold, observation is an outlier"
+    },
+    {
+      "page": 17,
+      "kind": "slide",
+      "group": 17,
+      "text": "GTK Cyber Before you start... there are two questions:"
+    },
+    {
+      "page": 18,
+      "kind": "slide",
+      "group": 18,
+      "text": "GTK Cyber Is the dataset univariate or multivariate?"
+    },
+    {
+      "page": 19,
+      "kind": "slide",
+      "group": 19,
+      "text": "GTK Cyber What is the expected distribution of my data, if any?"
+    },
+    {
+      "page": 20,
+      "kind": "slide",
+      "group": 20,
+      "text": "GTK Cyber Simple Statistics"
+    },
+    {
+      "page": 21,
+      "kind": "slide",
+      "group": 21,
+      "text": "GTK Cyber Simple Statistics"
+    },
+    {
+      "page": 22,
+      "kind": "slide",
+      "group": 22,
+      "text": "GTK Cyber Simple Statistics"
+    },
+    {
+      "page": 23,
+      "kind": "unsure",
+      "group": 23,
+      "text": "GTK Cyber Simple Statistics 1 Standard Deviation 2 Standard Deviations"
+    },
+    {
+      "page": 24,
+      "kind": "slide",
+      "group": 24,
+      "text": "GTK Cyber Simple Statistics 167 are outside of 1 deviation 44 are outside of 2 deviations"
+    },
+    {
+      "page": 25,
+      "kind": "build",
+      "group": 25,
+      "text": "GTK Cyber Simple Statistics What if your data isn't distributed normally?"
+    },
+    {
+      "page": 26,
+      "kind": "slide",
+      "group": 25,
+      "text": "GTK Cyber Simple Statistics What if your data isn't distributed normally? 123 Outliers"
+    },
+    {
+      "page": 27,
+      "kind": "slide",
+      "group": 26,
+      "text": "GTK Cyber Mean Absolute Deviation • Mean Absolution Deviation (MAD) is defined as the average of the absolute deviations from a central point. data = pd.Series(<data>) mad = data.mad() https://en.wikipedia.org/wiki/Average_absolute_deviation mad = sum(data_point - column_mean) / n"
+    },
+    {
+      "page": 28,
+      "kind": "build",
+      "group": 27,
+      "text": "GTK Cyber Z-Score measures how many standard deviations an observation is from the mean."
+    },
+    {
+      "page": 29,
+      "kind": "slide",
+      "group": 27,
+      "text": "GTK Cyber Z-Score measures how many standard deviations an observation is from the mean. z_score = (data_point - column_mean) / standard_deviation"
+    },
+    {
+      "page": 30,
+      "kind": "slide",
+      "group": 28,
+      "text": "GTK Cyber #Use SciPy from scipy.stats import zscore df.apply(zscore) #Use Pandas (Only works for all numeric cols) df_zscore = (df - df.mean())/df.std()"
+    },
+    {
+      "page": 31,
+      "kind": "slide",
+      "group": 29,
+      "text": "GTK Cyber Z-Score https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561"
+    },
+    {
+      "page": 32,
+      "kind": "slide",
+      "group": 30,
+      "text": "GTK Cyber Z-Score pros: • It is a very effective method if you can describe the values in the feature space with a gaussian distribution. (Parametric) • The implementation is very easy using pandas and scipy.stats libraries. Z-Score cons: • It is only convenient to use in a low dimensional feature space, in a small to medium sized dataset. • Is not recommended when distributions can not be assumed to be parametric. https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561"
+    },
+    {
+      "page": 33,
+      "kind": "slide",
+      "group": 31,
+      "text": "GTK Cyber What if your data looks like this? https://github.com/oreilly-mlsec/book-resources/blob/master/chapter3/figures/3-01-diurnal-season-trend.png"
+    },
+    {
+      "page": 34,
+      "kind": "slide",
+      "group": 32,
+      "text": "GTK Cyber Forecasting"
+    },
+    {
+      "page": 35,
+      "kind": "slide",
+      "group": 33,
+      "text": "GTK Cyber Forecasting"
+    },
+    {
+      "page": 36,
+      "kind": "slide",
+      "group": 34,
+      "text": "GTK Cyber Forecasting is a supervised learning technique which uses past observations to predict future events."
+    },
+    {
+      "page": 37,
+      "kind": "slide",
+      "group": 35,
+      "text": "GTK Cyber Forecasting is suited for single dimensional, time series data."
+    },
+    {
+      "page": 38,
+      "kind": "slide",
+      "group": 36,
+      "text": "GTK Cyber Terms • Trends: Long term direction of changes in the data • Seasons: Periodic repetitions of patterns in data • Cycles: General changes in the data that have pattern similarities but vary in periodicity"
+    },
+    {
+      "page": 39,
+      "kind": "slide",
+      "group": 37,
+      "text": "GTK Cyber ARIMA Auto Regressive Integrated Moving Average"
+    },
+    {
+      "page": 40,
+      "kind": "slide",
+      "group": 38,
+      "text": "GTK Cyber ARIMA • AR: Autoregression. A model that uses the dependent relationship between an observation and some number of lagged observations. • I: Integrated. The use of differencing of raw observations (e.g. subtracting an observation from an observation at the previous time step) in order to make the time series stationary. • MA: Moving Average. A model that uses the dependency between an observation and a residual error from a moving average model applied to lagged observations."
+    },
+    {
+      "page": 41,
+      "kind": "slide",
+      "group": 39,
+      "text": "GTK Cyber ARIMA The parameters of the ARIMA model are defined as follows: • p: The number of lag observations included in the model, also called the lag order. (ar) • d: The number of times that the raw observations are differenced, also called the degree of differencing. (integ) • q: The size of the moving average window, also called the order of moving average. (ma)"
+    },
+    {
+      "page": 42,
+      "kind": "slide",
+      "group": 40,
+      "text": "GTK Cyber ARIMA import pandas as pd from pmdarima.arima import auto_arima from pmdarima.arima import ADFTest ... # Get data & build model arima_model = auto_arima(df['cpu'], seasonal=True, error_action='ignore') arima_model.summary()"
+    },
+    {
+      "page": 43,
+      "kind": "slide",
+      "group": 41,
+      "text": "GTK Cyber ARIMA"
+    },
+    {
+      "page": 44,
+      "kind": "slide",
+      "group": 42,
+      "text": "GTK Cyber ARIMA Large delta between data and prediction"
+    },
+    {
+      "page": 45,
+      "kind": "slide",
+      "group": 43,
+      "text": "GTK Cyber ARIMA • SARIMA: Seasonal ARIMA can be used for data with seasonally changing data • ARIMAX: Another variation of ARIMA, commonly used for economic forecasting."
+    },
+    {
+      "page": 46,
+      "kind": "slide",
+      "group": 44,
+      "text": "GTK Cyber Questions?"
+    },
+    {
+      "page": 47,
+      "kind": "slide",
+      "group": 45,
+      "text": "GTK Cyber Unsupervised Learning Techniques for Anomaly Detection"
+    },
+    {
+      "page": 48,
+      "kind": "slide",
+      "group": 46,
+      "text": "GTK Cyber"
+    },
+    {
+      "page": 49,
+      "kind": "slide",
+      "group": 47,
+      "text": "GTK Cyber One Class SVM Implementation • The one class SVM can be used for novelty detection by creating one big class. • If the observation is a member of the class, it is not an outlier"
+    },
+    {
+      "page": 50,
+      "kind": "slide",
+      "group": 48,
+      "text": "GTK Cyber One Class SVM Implementation from sklearn import svm # fit the model clf = svm.OneClassSVM(nu=0.1, kernel=\"rbf\", gamma=0.1) clf.fit(X_train) y_pred_train = clf.predict(X_train) https://scikit-learn.org/stable/auto_examples/svm/plot_oneclass.html"
+    },
+    {
+      "page": 51,
+      "kind": "slide",
+      "group": 49,
+      "text": "GTK Cyber One Class SVM Implementation https://scikit-learn.org/stable/auto_examples/svm/plot_oneclass.html"
+    },
+    {
+      "page": 52,
+      "kind": "slide",
+      "group": 50,
+      "text": "GTK Cyber One Class SVM Pros • Useful for high dimensional data sets • Does not require any assumptions about the distribution of the data"
+    },
+    {
+      "page": 53,
+      "kind": "slide",
+      "group": 51,
+      "text": "GTK Cyber One Class SVM Cons • Sensitive to outliers • Best used for novelty detection rather than anomaly detection"
+    },
+    {
+      "page": 54,
+      "kind": "slide",
+      "group": 52,
+      "text": "GTK Cyber Outlier Detection clf = svm.OneClassSVM( tol=0.001, nu=0.1) clf.fit(X) target_pred_outliers=clf.predict(X) Delete n% of “outlier data”, here ~10% http://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html"
+    },
+    {
+      "page": 55,
+      "kind": "slide",
+      "group": 53,
+      "text": "GTK Cyber Isolation forest’s basic principle is that outliers are few and far from the rest of the observations. https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561"
+    },
+    {
+      "page": 56,
+      "kind": "slide",
+      "group": 54,
+      "text": "GTK Cyber https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561"
+    },
+    {
+      "page": 57,
+      "kind": "slide",
+      "group": 55,
+      "text": "GTK Cyber To Build an Isolation Forest • Randomly pick a feature and a random split value between the max and min. • Repeat for all observations in the training set • A prediction is made by traversing the tree and measuring the path length. Shorter paths are likely to be outliers. https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561"
+    },
+    {
+      "page": 58,
+      "kind": "slide",
+      "group": 56,
+      "text": "GTK Cyber Isolation Forest Advantages • There is no need of scaling the values in the feature space. • It is an effective method when value distributions can not be assumed. • It has few parameters, this makes this method fairly robust and easy to optimize. • Scikit-Learn’s implementation is easy to use and the documentation is superb. https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561"
+    },
+    {
+      "page": 59,
+      "kind": "slide",
+      "group": 57,
+      "text": "GTK Cyber Isolation Forest Disadvantages • Visualizing results is complicated. • If not correctly optimized, training time can be very long and computationally expensive. https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561"
+    },
+    {
+      "page": 60,
+      "kind": "slide",
+      "group": 58,
+      "text": "GTK Cyber Isolation Forest Implementation • Scikit Learn Documentation: https://scikit-learn.org/stable/modules/ generated/sklearn.ensemble.IsolationForest.html from sklearn.ensemble import IsolationForest # fit the model clf = IsolationForest(behavior='new', max_samples=100, random_state=rng, contamination='auto') clf.fit(X_train) y_pred_train = clf.predict(X_train) y_pred_test = clf.predict(X_test) y_pred_outliers = clf.predict(X_outliers) https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561"
+    },
+    {
+      "page": 61,
+      "kind": "slide",
+      "group": 59,
+      "text": "GTK Cyber Isolation Forest Implementation https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html"
+    },
+    {
+      "page": 62,
+      "kind": "slide",
+      "group": 60,
+      "text": "GTK Cyber Back to our data validation problem..."
+    },
+    {
+      "page": 63,
+      "kind": "slide",
+      "group": 61,
+      "text": "GTK Cyber What if you could measure how similar a string is to another?"
+    },
+    {
+      "page": 64,
+      "kind": "slide",
+      "group": 62,
+      "text": "GTK Cyber You can..."
+    },
+    {
+      "page": 65,
+      "kind": "slide",
+      "group": 63,
+      "text": "GTK Cyber String Distance Functions • Cosine Similarity: Converts strings to vectors and compares the angles of the two vectors. • Jaccard Distance: Measures the dissimilarity between two sets. • Jaro Distance: A similarity algorithm indicating the percentage of matched characters between two character sequences. The Jaro measure is the weighted sum of percentage of matched characters from each file and transposed characters. • Levenshtein Distance: The number of changes needed to change one sequence into another, where each change is a single character modification (deletion, insertion, substitution)"
+    },
+    {
+      "page": 66,
+      "kind": "slide",
+      "group": 64,
+      "text": "GTK Cyber String Distance Functions • Let's say you have a dataset containing mac addresses in the format XX:XX:XX:XX:XX. • What if you tokenized these a bit, replacing alpha numerics with A and leaving any symbols?"
+    },
+    {
+      "page": 67,
+      "kind": "slide",
+      "group": 65,
+      "text": "GTK Cyber String Distance Functions import pandas as pd import re import Levenshtein good_macs = \"\"\"DB:66:A7:58:0F:2F 38:A2:73:56:42:71 0B:C9:25:F7:E5:C8 1E:DF:B7:F4:D7:61 75:5E:35:61:FA:61 45:FD:F6:68:D0:2B E2:1D:80:04:BB:09 56:A6:05:6B:F1:08 B3:B8:08:FD:36:21 24:06:E6:AD:8D:76 DF:8B:55:C7:71:9C\"\"\".split(\"\\n\") unknown_macs = \"\"\"FC:CF:FF:F8:1A:90 34:0E:03:F0:EE:19 7B:76:5D:5B:8E:FA 76:EE:88:D2:E6:B8 A7:17:2C:EA:79:E1 BB-1E-FB-A3-CE-DF 41:12:FD:84:07:0D A3:43:2A:48:68:3A\"\"\".split(\"\\n\") def tokenize_data(d): return re.sub('\\w', 'A', mac) for mac in unknown_macs: t = tokenize_data(mac) distance = Levenshtein.distance(t, template_token) if distance > 0: print(\"Anomaly found: \", mac, distance) Anomaly found: BB-1E-FB-A3-CE-DF"
+    },
+    {
+      "page": 68,
+      "kind": "slide",
+      "group": 66,
+      "text": "GTK Cyber Questions?"
+    },
+    {
+      "page": 69,
+      "kind": "slide",
+      "group": 67,
+      "text": "GTK Cyber Group Discussion Goal: Domain spoofing in links is a common tactic to fool unsuspecting users into clicking on links. For instance: faceboook.com or рapajohns.com. (That is a Russian Rho, not a P). In your groups, discuss how you might build a model to detect links like this. Let us assume you are given a list of URLs with just domains. 1. What data would you need for this? 2. Which modeling technique(s) would you try? 3. How would you measure success?"
+    },
+    {
+      "page": 70,
+      "kind": "slide",
+      "group": 68,
+      "text": "GTK Cyber In Class Exercise Complete Worksheet 6.1: Anomaly Detection."
+    }
+  ]
+}

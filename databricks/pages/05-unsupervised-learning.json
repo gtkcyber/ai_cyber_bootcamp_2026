@@ -1,0 +1,337 @@
+{
+  "slug": "05-unsupervised-learning",
+  "pdf": "Module 5 - Unsupervised Learning.pdf",
+  "page_count": 55,
+  "pages": [
+    {
+      "page": 1,
+      "kind": "slide",
+      "group": 1,
+      "text": "GTK Cyber Module 5: Unsupervised Learning"
+    },
+    {
+      "page": 2,
+      "kind": "slide",
+      "group": 2,
+      "text": "GTK Cyber Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Category No No Predic9on, Inference Predic9on Nothing proven Recommenders, Similar, anomalous"
+    },
+    {
+      "page": 3,
+      "kind": "slide",
+      "group": 3,
+      "text": "GTK Cyber Supervised Machine Learning Process Getting / Cleaning Data Preprocessing/ Feature Engineering Training Data Build Model Evaluate Model Advanced Feature Selection Testing Data DATA"
+    },
+    {
+      "page": 4,
+      "kind": "slide",
+      "group": 4,
+      "text": "GTK Cyber Unsupervised Machine Learning Process Getting / Cleaning Data Preprocessing/ Feature Engineering Build Model Evaluate Model Advanced Feature Selection DATA"
+    },
+    {
+      "page": 5,
+      "kind": "slide",
+      "group": 5,
+      "text": "GTK Cyber Unsupervised Clustering Algorithm 1. Select Features 2. Calculate a distance measure 3. Apply a clustering algorithm 4. Validate?"
+    },
+    {
+      "page": 6,
+      "kind": "slide",
+      "group": 6,
+      "text": "GTK Cyber Clustering… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 7,
+      "kind": "slide",
+      "group": 7,
+      "text": "GTK Cyber Clustering… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 8,
+      "kind": "slide",
+      "group": 8,
+      "text": "GTK Cyber Clustering… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 9,
+      "kind": "slide",
+      "group": 9,
+      "text": "GTK Cyber K-Means Before starting, pick the number of clusters, K 1. Pick K random centroids within data range 2. Assign each data point to the nearest centroid 3. Move centroid to center of assigned points 4. Repeat steps 2 and 3 until centroid stops shifting"
+    },
+    {
+      "page": 10,
+      "kind": "slide",
+      "group": 10,
+      "text": "GTK Cyber Step 1: Pick 3 random centroids within data range ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 11,
+      "kind": "slide",
+      "group": 11,
+      "text": "GTK Cyber ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ● Step 2: Assign each data point to the nearest centroid (1)"
+    },
+    {
+      "page": 12,
+      "kind": "slide",
+      "group": 12,
+      "text": "GTK Cyber Step 3: Move centroid to center of assigned points (1) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 13,
+      "kind": "slide",
+      "group": 13,
+      "text": "GTK Cyber Step 2: Assign each data point to the nearest centroid (2) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 14,
+      "kind": "slide",
+      "group": 14,
+      "text": "GTK Cyber Step 3: Move centroid to center of assigned points (2) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 15,
+      "kind": "slide",
+      "group": 15,
+      "text": "GTK Cyber Step 2: Assign each data point to the nearest centroid (3) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 16,
+      "kind": "slide",
+      "group": 16,
+      "text": "GTK Cyber Step 3: Move centroid to center of assigned points (3) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 17,
+      "kind": "slide",
+      "group": 17,
+      "text": "GTK Cyber Step 2: Assign each data point to the nearest centroid (4) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 18,
+      "kind": "slide",
+      "group": 18,
+      "text": "GTK Cyber Step 3: Move centroid to center of assigned points (4) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 19,
+      "kind": "slide",
+      "group": 19,
+      "text": "GTK Cyber Step 2: Assign each data point to the nearest centroid (5) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 20,
+      "kind": "slide",
+      "group": 20,
+      "text": "GTK Cyber Step 3: Move centroid to center of assigned points (5) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 21,
+      "kind": "unsure",
+      "group": 21,
+      "text": "GTK Cyber Step 3: Move centroid to center of assigned points (5) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
+    },
+    {
+      "page": 22,
+      "kind": "build",
+      "group": 22,
+      "text": "GTK Cyber K-Means: Got a problem with it? Before starting, pick the number of clusters, K 1. Pick K random centroids within data range 2. Assign each data point to the nearest centroid 3. Move centroid to center of assigned points 4. Repeat steps 2 and 3 until centroid stops shifting"
+    },
+    {
+      "page": 23,
+      "kind": "slide",
+      "group": 22,
+      "text": "GTK Cyber K-Means: Got a problem with it? Before starting, pick the number of clusters, K 1. Pick K random centroids within data range 2. Assign each data point to the nearest centroid 3. Move centroid to center of assigned points 4. Repeat steps 2 and 3 until centroid stops shifting Subjective Sensitive to Scale"
+    },
+    {
+      "page": 24,
+      "kind": "slide",
+      "group": 23,
+      "text": "GTK Cyber How many clusters? ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●"
+    },
+    {
+      "page": 25,
+      "kind": "slide",
+      "group": 24,
+      "text": "GTK Cyber Random Start… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●"
+    },
+    {
+      "page": 26,
+      "kind": "slide",
+      "group": 25,
+      "text": "GTK Cyber Random Start… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●"
+    },
+    {
+      "page": 27,
+      "kind": "slide",
+      "group": 26,
+      "text": "GTK Cyber Random Start… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●"
+    },
+    {
+      "page": 28,
+      "kind": "slide",
+      "group": 27,
+      "text": "GTK Cyber K-Means “…it’s too easy to throw k-means on your data, and nevertheless get a result out (that is pretty much random, but you won't notice).” — Anony-Mousse http://stats.stackexchange.com/questions/133656/how-to-understand-the-drawbacks-of-k-means"
+    },
+    {
+      "page": 29,
+      "kind": "slide",
+      "group": 28,
+      "text": "GTK Cyber Which one is correct? A B"
+    },
+    {
+      "page": 30,
+      "kind": "slide",
+      "group": 29,
+      "text": "GTK Cyber Which one is correct? BOTH"
+    },
+    {
+      "page": 31,
+      "kind": "slide",
+      "group": 30,
+      "text": "GTK Cyber Pain of optimization…Being stuck at sub- optimal local minimum… Initial guess matters! Same outcome cannot be guaranteed"
+    },
+    {
+      "page": 32,
+      "kind": "slide",
+      "group": 31,
+      "text": "GTK Cyber #Import from Scikit-learn from sklearn.cluster import KMeans kmeans = KMeans(n_clusters=2) kmeans.fit(data) centroids = kmeans.cluster_centers_ labels = kmeans.labels_f K-Means in practice (Python version)"
+    },
+    {
+      "page": 33,
+      "kind": "slide",
+      "group": 32,
+      "text": "GTK Cyber The Dataset sns.pairplot(data)"
+    },
+    {
+      "page": 34,
+      "kind": "slide",
+      "group": 33,
+      "text": "GTK Cyber K-Means Clustering kmeans = KMeans(n_clusters=2) kmeans.fit(data)"
+    },
+    {
+      "page": 35,
+      "kind": "slide",
+      "group": 34,
+      "text": "GTK Cyber K-Means Clustering sns.pairplot(data, hue=\"kmeans_2\") Labels"
+    },
+    {
+      "page": 36,
+      "kind": "slide",
+      "group": 35,
+      "text": "GTK Cyber K-Means Clustering plt.scatter(<cluster_centers>,<col_2>, linewidths=3, marker='x', s=200, c='black')"
+    },
+    {
+      "page": 37,
+      "kind": "unsure",
+      "group": 36,
+      "text": "GTK Cyber K-Means is affected by the scale of every feature."
+    },
+    {
+      "page": 38,
+      "kind": "slide",
+      "group": 37,
+      "text": "GTK Cyber Feature Scaling For k-means clustering, features must be scaled to the same ranges of values to contribute \"equally\" to the euclidean distance calculation. Each row is transformed per-column by: • Subtracting from the element in each row the mean for each feature (column) and then taking this value and • Dividing by that feature's (column's) standard deviation."
+    },
+    {
+      "page": 39,
+      "kind": "slide",
+      "group": 38,
+      "text": "GTK Cyber Feature Scaling # center and scale the data scaler = StandardScaler() raw_data_scaled = scaler.fit_transform( <data> ) data_scaled = pd.DataFrame( raw_data_scaled, columns=features )"
+    },
+    {
+      "page": 40,
+      "kind": "slide",
+      "group": 39,
+      "text": "GTK Cyber Feature Scaling # K-means on scaled data km = KMeans( n_clusters=2 ) km.fit( <scaled_data> )"
+    },
+    {
+      "page": 41,
+      "kind": "slide",
+      "group": 40,
+      "text": "GTK Cyber Feature Scaling Scaled Features Unscaled Features"
+    },
+    {
+      "page": 42,
+      "kind": "slide",
+      "group": 41,
+      "text": "GTK Cyber More Clusters km3 = KMeans(n_clusters=3) km3.fit(scaled_data)"
+    },
+    {
+      "page": 43,
+      "kind": "slide",
+      "group": 42,
+      "text": "GTK Cyber Outlier Detection clf = svm.OneClassSVM( tol=0.001, nu=0.1) clf.fit(X) target_pred_outliers=clf.predict(X) Delete n% of “outlier data”, here ~10% http://scikit-learn.org/stable/modules/generated/sklearn.svm.OneClassSVM.html"
+    },
+    {
+      "page": 44,
+      "kind": "slide",
+      "group": 43,
+      "text": "GTK Cyber Evaluating your Model The Silhouette Coefficient is a common metric for evaluating clustering \"performance\" in situations when the \"true\" cluster assignments are not known. b = mean distance to next nearest cluster a = mean distance to other points in cluster silhouette_coeff = (b - a) / max(a,b)"
+    },
+    {
+      "page": 45,
+      "kind": "slide",
+      "group": 44,
+      "text": "GTK Cyber Evaluating your Model k_range = range(2,16) scores = [] for k in k_range: km_ss = KMeans(n_clusters=k, random_state=1) km_ss.fit(iris_data_scaled) scores.append(silhouette_score(<data>, km_ss.labels_))"
+    },
+    {
+      "page": 46,
+      "kind": "slide",
+      "group": 45,
+      "text": "GTK Cyber Evaluating your Model Best number of clusters"
+    },
+    {
+      "page": 47,
+      "kind": "slide",
+      "group": 46,
+      "text": "GTK Cyber Evaluating your Model from yellowbrick.cluster import KElbowVisualizer visualizer = KElbowVisualizer(KMeans(), k=(4,12)) visualizer.fit(X) visualizer.poof()"
+    },
+    {
+      "page": 48,
+      "kind": "slide",
+      "group": 47,
+      "text": "GTK Cyber Evaluating your Model from yellowbrick.cluster import SilhouetteVisualizer model = MiniBatchKMeans(6) visualizer = SilhouetteVisualizer(model) visualizer.fit(X) visualizer.poof()"
+    },
+    {
+      "page": 49,
+      "kind": "slide",
+      "group": 48,
+      "text": "GTK Cyber In Class Exercise Please complete Worksheet 5.1: Clustering"
+    },
+    {
+      "page": 50,
+      "kind": "build",
+      "group": 49,
+      "text": "GTK Cyber Other uses of unsupervised learning: Dimensionality Reduction"
+    },
+    {
+      "page": 51,
+      "kind": "slide",
+      "group": 49,
+      "text": "GTK Cyber Other uses of unsupervised learning: Dimensionality Reduction • Dimensionality reduction reduces the number of features in a dataset without losing the information in a data set • Common technique: Principal Component Analysis (PCA)"
+    },
+    {
+      "page": 52,
+      "kind": "slide",
+      "group": 50,
+      "text": "GTK Cyber Other uses of unsupervised learning: Dimensionality Reduction • PCA attempts to combine the highly correlated features and represent this data with a smaller number of linearly uncorrelated features. • The algorithm keeps performing this correlation reduction, finding the directions of maximum variance in the original high dimensional data and projecting them onto a smaller dimensional space. • These newly derived components are known as principal components."
+    },
+    {
+      "page": 53,
+      "kind": "slide",
+      "group": 51,
+      "text": "GTK Cyber PCA Example from sklearn.decomposition import PCA n_components = 784 whiten = False pca = PCA(n_components=n_components, whiten=whiten) features_train_PCA = pca.fit_transform(features_train_PCA) features_train_PCA = pd.DataFrame(data= features_train_PCA, index=train_index) print(\"Variance Explained by all 784 principal components: \", \\ sum(pca.explained_variance_ratio_)) https://github.com/aapatel09/handson-unsupervised-learning/blob/master/03_dimensionality_reduction.ipynb The variance of all features is 1.0 (everything)"
+    },
+    {
+      "page": 54,
+      "kind": "slide",
+      "group": 52,
+      "text": "GTK Cyber PCA Example Variance Captured by First 10 Principal Components: [0.48876238] Variance Captured by First 20 Principal Components: [0.64398025] Variance Captured by First 50 Principal Components: [0.8248609] Variance Captured by First 100 Principal Components: [0.91465857] Variance Captured by First 200 Principal Components: [0.96650076] Variance Captured by First 300 Principal Components: [0.9862489] https://github.com/aapatel09/handson-unsupervised-learning/blob/master/03_dimensionality_reduction.ipynb Bottom line: 98% of the information is contained in 300 features. You can therefore, reduce the size of your dataset by half, theoretically without significantly reducing performance."
+    },
+    {
+      "page": 55,
+      "kind": "slide",
+      "group": 53,
+      "text": "GTK Cyber Questions?"
+    }
+  ]
+}

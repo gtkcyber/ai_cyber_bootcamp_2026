@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Module 6: Anomaly Detection</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="Module 6: Anomaly Detection">
+    </div>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber Agenda for Today • Overview of Techniques for Anomaly Detection • Statistical Techniques • Supervised Techniques • Unsupervised Techniques">
+    </div>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber A Problem: Data Validation">
+    </div>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber A Problem: Data Validation • Charles was working on a problem of ingesting data into a system • We knew what good data looked like, and we wanted to detect bad data to pr">
+    </div>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber Discuss: How you would tackle this problem?">
+    </div>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber Anomaly Detection is Hard">
+    </div>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber Anomalous != Bad">
+    </div>
+  </section>
+  <section data-page="8">
+    <div class="page-stack">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber “Outliers are not necessarily a bad thing. These are just observations that are not following the same pattern as the other ones. But it can be the case that an outlier i">
+    </div>
+  </section>
+  <section data-page="9">
+    <div class="page-stack">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber Anomaly = Outlier">
+    </div>
+  </section>
+  <section data-page="10">
+    <div class="page-stack">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber What is an outlier?">
+    </div>
+  </section>
+  <section data-page="11">
+    <div class="page-stack">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber An outlier or anomaly is a data point which differs from the rest of the observations in a dataset.">
+    </div>
+  </section>
+  <section data-page="12">
+    <div class="page-stack">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber Anomaly Detection != Novelty Detection">
+    </div>
+  </section>
+  <section data-page="13">
+    <div class="page-stack">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber Anomaly Detection != Novelty Detection • Anomaly detection involves learning from data that has both inliers and outliers. • Novelty detection involves learning starting ">
+    </div>
+  </section>
+  <section data-page="14">
+    <div class="page-stack">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber Categories of Anomaly Detection • Forecasting (Supervised Learning) • Statistical Metrics • Unsupervised Techniques • Density Based Methods • Goodness of fit tests">
+    </div>
+  </section>
+  <section data-page="15">
+    <div class="page-stack">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Python Ecosystem • Pandas/SciPy/NumPy: Pandas, SciPy and NumPy can be used for some of the simpler statistical calculations • PyOD: A relatively new module for outlier de">
+    </div>
+  </section>
+  <section data-page="16">
+    <div class="page-stack">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Anomaly Detection Process Use Known Data to Predict value Compare prediction to actual values and calculate anomaly score. (Distance) If score is within threshold, observ">
+    </div>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber Before you start... there are two questions:">
+    </div>
+  </section>
+  <section data-page="18">
+    <div class="page-stack">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber Is the dataset univariate or multivariate?">
+    </div>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber What is the expected distribution of my data, if any?">
+    </div>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber Simple Statistics">
+    </div>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber Simple Statistics">
+    </div>
+  </section>
+  <section data-page="22">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber Simple Statistics">
+    </div>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber Simple Statistics 1 Standard Deviation 2 Standard Deviations">
+    </div>
+  </section>
+  <section data-page="24">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber Simple Statistics 167 are outside of 1 deviation 44 are outside of 2 deviations">
+    </div>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber Simple Statistics What if your data isn&#x27;t distributed normally?">
+      <img class="page fragment" src="pages/p026.webp" alt="GTK Cyber Simple Statistics What if your data isn&#x27;t distributed normally? 123 Outliers">
+    </div>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber Mean Absolute Deviation • Mean Absolution Deviation (MAD) is defined as the average of the absolute deviations from a central point. data = pd.Series(&lt;data&gt;) mad = data.m">
+    </div>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber Z-Score measures how many standard deviations an observation is from the mean.">
+      <img class="page fragment" src="pages/p029.webp" alt="GTK Cyber Z-Score measures how many standard deviations an observation is from the mean. z_score = (data_point - column_mean) / standard_deviation">
+    </div>
+  </section>
+  <section data-page="30">
+    <div class="page-stack">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber #Use SciPy from scipy.stats import zscore df.apply(zscore) #Use Pandas (Only works for all numeric cols) df_zscore = (df - df.mean())/df.std()">
+    </div>
+  </section>
+  <section data-page="31">
+    <div class="page-stack">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber Z-Score https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561">
+    </div>
+  </section>
+  <section data-page="32">
+    <div class="page-stack">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber Z-Score pros: • It is a very effective method if you can describe the values in the feature space with a gaussian distribution. (Parametric) • The implementation is very ">
+    </div>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber What if your data looks like this? https://github.com/oreilly-mlsec/book-resources/blob/master/chapter3/figures/3-01-diurnal-season-trend.png">
+    </div>
+  </section>
+  <section data-page="34">
+    <div class="page-stack">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber Forecasting">
+    </div>
+  </section>
+  <section data-page="35">
+    <div class="page-stack">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber Forecasting">
+    </div>
+  </section>
+  <section data-page="36">
+    <div class="page-stack">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber Forecasting is a supervised learning technique which uses past observations to predict future events.">
+    </div>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber Forecasting is suited for single dimensional, time series data.">
+    </div>
+  </section>
+  <section data-page="38">
+    <div class="page-stack">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Terms • Trends: Long term direction of changes in the data • Seasons: Periodic repetitions of patterns in data • Cycles: General changes in the data that have pattern sim">
+    </div>
+  </section>
+  <section data-page="39">
+    <div class="page-stack">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber ARIMA Auto Regressive Integrated Moving Average">
+    </div>
+  </section>
+  <section data-page="40">
+    <div class="page-stack">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber ARIMA • AR: Autoregression. A model that uses the dependent relationship between an observation and some number of lagged observations. • I: Integrated. The use of differ">
+    </div>
+  </section>
+  <section data-page="41">
+    <div class="page-stack">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber ARIMA The parameters of the ARIMA model are defined as follows: • p: The number of lag observations included in the model, also called the lag order. (ar) • d: The number">
+    </div>
+  </section>
+  <section data-page="42">
+    <div class="page-stack">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber ARIMA import pandas as pd from pmdarima.arima import auto_arima from pmdarima.arima import ADFTest ... # Get data &amp; build model arima_model = auto_arima(df[&#x27;cpu&#x27;], season">
+    </div>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber ARIMA">
+    </div>
+  </section>
+  <section data-page="44">
+    <div class="page-stack">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber ARIMA Large delta between data and prediction">
+    </div>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber ARIMA • SARIMA: Seasonal ARIMA can be used for data with seasonally changing data • ARIMAX: Another variation of ARIMA, commonly used for economic forecasting.">
+    </div>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+  <section data-page="47">
+    <div class="page-stack">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber Unsupervised Learning Techniques for Anomaly Detection">
+    </div>
+  </section>
+  <section data-page="48">
+    <div class="page-stack">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="49">
+    <div class="page-stack">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber One Class SVM Implementation • The one class SVM can be used for novelty detection by creating one big class. • If the observation is a member of the class, it is not an ">
+    </div>
+  </section>
+  <section data-page="50">
+    <div class="page-stack">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber One Class SVM Implementation from sklearn import svm # fit the model clf = svm.OneClassSVM(nu=0.1, kernel=&quot;rbf&quot;, gamma=0.1) clf.fit(X_train) y_pred_train = clf.predict(X_">
+    </div>
+  </section>
+  <section data-page="51">
+    <div class="page-stack">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber One Class SVM Implementation https://scikit-learn.org/stable/auto_examples/svm/plot_oneclass.html">
+    </div>
+  </section>
+  <section data-page="52">
+    <div class="page-stack">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber One Class SVM Pros • Useful for high dimensional data sets • Does not require any assumptions about the distribution of the data">
+    </div>
+  </section>
+  <section data-page="53">
+    <div class="page-stack">
+      <img class="page" src="pages/p053.webp" alt="GTK Cyber One Class SVM Cons • Sensitive to outliers • Best used for novelty detection rather than anomaly detection">
+    </div>
+  </section>
+  <section data-page="54">
+    <div class="page-stack">
+      <img class="page" src="pages/p054.webp" alt="GTK Cyber Outlier Detection clf = svm.OneClassSVM( tol=0.001, nu=0.1) clf.fit(X) target_pred_outliers=clf.predict(X) Delete n% of “outlier data”, here ~10% http://scikit-learn.org/">
+    </div>
+  </section>
+  <section data-page="55">
+    <div class="page-stack">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Isolation forest’s basic principle is that outliers are few and far from the rest of the observations. https://towardsdatascience.com/a-brief-overview-of-outlier-detectio">
+    </div>
+  </section>
+  <section data-page="56">
+    <div class="page-stack">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561">
+    </div>
+  </section>
+  <section data-page="57">
+    <div class="page-stack">
+      <img class="page" src="pages/p057.webp" alt="GTK Cyber To Build an Isolation Forest • Randomly pick a feature and a random split value between the max and min. • Repeat for all observations in the training set • A prediction ">
+    </div>
+  </section>
+  <section data-page="58">
+    <div class="page-stack">
+      <img class="page" src="pages/p058.webp" alt="GTK Cyber Isolation Forest Advantages • There is no need of scaling the values in the feature space. • It is an effective method when value distributions can not be assumed. • It h">
+    </div>
+  </section>
+  <section data-page="59">
+    <div class="page-stack">
+      <img class="page" src="pages/p059.webp" alt="GTK Cyber Isolation Forest Disadvantages • Visualizing results is complicated. • If not correctly optimized, training time can be very long and computationally expensive. https://t">
+    </div>
+  </section>
+  <section data-page="60">
+    <div class="page-stack">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber Isolation Forest Implementation • Scikit Learn Documentation: https://scikit-learn.org/stable/modules/ generated/sklearn.ensemble.IsolationForest.html from sklearn.ensemb">
+    </div>
+  </section>
+  <section data-page="61">
+    <div class="page-stack">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Isolation Forest Implementation https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html">
+    </div>
+  </section>
+  <section data-page="62">
+    <div class="page-stack">
+      <img class="page" src="pages/p062.webp" alt="GTK Cyber Back to our data validation problem...">
+    </div>
+  </section>
+  <section data-page="63">
+    <div class="page-stack">
+      <img class="page" src="pages/p063.webp" alt="GTK Cyber What if you could measure how similar a string is to another?">
+    </div>
+  </section>
+  <section data-page="64">
+    <div class="page-stack">
+      <img class="page" src="pages/p064.webp" alt="GTK Cyber You can...">
+    </div>
+  </section>
+  <section data-page="65">
+    <div class="page-stack">
+      <img class="page" src="pages/p065.webp" alt="GTK Cyber String Distance Functions • Cosine Similarity: Converts strings to vectors and compares the angles of the two vectors. • Jaccard Distance: Measures the dissimilarity betw">
+    </div>
+  </section>
+  <section data-page="66">
+    <div class="page-stack">
+      <img class="page" src="pages/p066.webp" alt="GTK Cyber String Distance Functions • Let&#x27;s say you have a dataset containing mac addresses in the format XX:XX:XX:XX:XX. • What if you tokenized these a bit, replacing alpha numer">
+    </div>
+  </section>
+  <section data-page="67">
+    <div class="page-stack">
+      <img class="page" src="pages/p067.webp" alt="GTK Cyber String Distance Functions import pandas as pd import re import Levenshtein good_macs = &quot;&quot;&quot;DB:66:A7:58:0F:2F 38:A2:73:56:42:71 0B:C9:25:F7:E5:C8 1E:DF:B7:F4:D7:61 75:5E:35">
+    </div>
+  </section>
+  <section data-page="68">
+    <div class="page-stack">
+      <img class="page" src="pages/p068.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+  <section data-page="69">
+    <div class="page-stack">
+      <img class="page" src="pages/p069.webp" alt="GTK Cyber Group Discussion Goal: Domain spoofing in links is a common tactic to fool unsuspecting users into clicking on links. For instance: faceboook.com or рapajohns.com. (That ">
+    </div>
+  </section>
+  <section data-page="70">
+    <div class="page-stack">
+      <img class="page" src="pages/p070.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 6.1: Anomaly Detection.">
+    </div>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>

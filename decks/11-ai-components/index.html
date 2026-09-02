@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Module 11: AI Components</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="Module 11: AI Architecture - RAG, Chains and Agents Charles S. Givre CISSP">
+    </div>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber Outline • Part 1: Introduction and Theory: How Generative Models Work • Part 2: Prompt Engineering: How to get the most out of Generative Models • Part 3: Architecture: H">
+    </div>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber Module Outline • AI Components • Retrieval Augmented Generation (RAG) • Tools &amp; Skills • LangChain • Building AI Agents">
+    </div>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber Setup • This section has a series of non-code based labs. • The labs are available at https://ai.gtkcyber.com. • Please take 5 minutes and create an account there.">
+    </div>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber Retrieval Augmented Generation (RAG)">
+    </div>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber Big Problem with LLMs: Building an LLM to work with proprietary data.">
+    </div>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber Problems with LLMs • Training takes a long time and is expensive. • It is a practical impossibility to keep models up to date with the latest information, especially for ">
+    </div>
+  </section>
+  <section data-page="8">
+    <div class="page-stack">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber 1. Train a custom model">
+    </div>
+  </section>
+  <section data-page="9">
+    <div class="page-stack">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber 2. Fine Tune a Foundational Model">
+    </div>
+  </section>
+  <section data-page="10">
+    <div class="page-stack">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber Fine Tuning • Fine tuning allows you to tune an existing model for your specific use cases. • Drawbacks are that it can be time consuming and expensive. • You will need a">
+    </div>
+  </section>
+  <section data-page="11">
+    <div class="page-stack">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber RAG to the Rescue!">
+    </div>
+  </section>
+  <section data-page="12">
+    <div class="page-stack">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber What is RAG? • RAG stands for Retrieval Augmented Generation and bridges the gap between static models and dynamic systems. • RAG allows an organization to use AI to gene">
+    </div>
+  </section>
+  <section data-page="13">
+    <div class="page-stack">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber How RAG works User Prompt Retrieve supporting data Vector Database Augment prompt with supporting data. Generate a response with the augmented prompt. Response">
+    </div>
+  </section>
+  <section data-page="14">
+    <div class="page-stack">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber Components of a RAG workflow • Embedding Model: Converts the prompt into embeddings • Vector Database: A live repository which contains live, up to date information for t">
+    </div>
+  </section>
+  <section data-page="15">
+    <div class="page-stack">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Be consistent with your embeddings">
+    </div>
+  </section>
+  <section data-page="16">
+    <div class="page-stack">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber RAG in Cyber • RAG is a great tool for any AI driven applications which involve proprietary or changing information. • Compliance is an excellent use case. • Explaining M">
+    </div>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber Vector Databases • Vector databases are purpose built databases for retrieval of semantically similar vectors. They implement nearest neighbor algorithms. • Popular examp">
+    </div>
+  </section>
+  <section data-page="18">
+    <div class="page-stack">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber Vector Databases • We will be using Chroma for our examples and labs. • Chroma is an OSS vector database which has become quite popular for AI use cases. • Docs available">
+    </div>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber Chroma Basic Usage Chroma organizes data into key/values and is capable of rapid retrieval and efficient storage. import chroma # Create the client chroma_client = chroma">
+    </div>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber Chroma Basic Usage # You can provide an embedding function or have chroma do it. collection.add( ids=[&quot;id1&quot;, &quot;id2&quot;], documents=[ &quot;This is a document about pineapple&quot;, &quot;Th">
+    </div>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber Chroma Basic Usage # Here&#x27;s where the magic happens... results = collection.query( # Chroma will embed this for you query_texts=[&quot;I really like citrus&quot;], n_results=1 # ho">
+    </div>
+  </section>
+  <section data-page="22">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber Building The Prompt for RAG • Once you have relevant documents from the vector database, you still have to craft a prompt that includes the contextual documents from the ">
+    </div>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber RAG Tips • RAG queries can have the advantage of providing sourcing information. Seeing sourcing is a good indicator that an AI application is using a RAG pipeline. • Inp">
+    </div>
+  </section>
+  <section data-page="24">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber Chunking • If you have large documents, you will have to divide them up into chunks. • A good chunking strategy can mean the difference between success and failure for a ">
+    </div>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber Implementing a RAG Pipeline">
+    </div>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber Lab Please complete RAG Lab: https://ai.gtkcyber.com/rag-lab For experimentation purposes in the ai_examples folder there is a tesla_aurora.txt file you can use for the R">
+    </div>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber Privacy Still Matters with RAG • RAG pipelines put the similar documents in the prompt. • If you are using a public model, those documents are being sent to the model own">
+    </div>
+  </section>
+  <section data-page="28">
+    <div class="page-stack">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber Challenges Building AI Applications • Models have different SDKs and constructing pipelines. • As you build out more complex applications, there are an increasing number ">
+    </div>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Introducing LangChain • LangChain is a framework designed to facilitate building AI applications by abstracting the common components, and having a lot of different imple">
+    </div>
+  </section>
+  <section data-page="30">
+    <div class="page-stack">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber LangChain Modules • LangChain features 6 top-level abstractions: • Model I/O: Facilitates inputs/outputs to the model • Retrieval: Retrieving relevant text from a vector ">
+    </div>
+  </section>
+  <section data-page="31">
+    <div class="page-stack">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber LangChain Modules • Agents: Allow chains to make decisions on which tools to use based on high level instructions. • Memory: Saves the state of the application between LL">
+    </div>
+  </section>
+  <section data-page="32">
+    <div class="page-stack">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber LangChain Messages • There are three message abstractions in LangChain: • SystemMessage: This is the message which tells the model how it should behave • HumanMessage: Th">
+    </div>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber LangChain Example 1 Note: All the LangChain examples can be found in the ai_examples folder in the class repo. from langchain_openai.chat_models import ChatOpenAI from la">
+    </div>
+  </section>
+  <section data-page="34">
+    <div class="page-stack">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber LangChain Example 1 {&#x27;additional_kwargs&#x27;: {&#x27;refusal&#x27;: None}, &#x27;content&#x27;: &#x27;Hello there! 🌞\n&#x27; &#x27;```\n&#x27; &#x27; / \\ \n&#x27; &#x27; / _ \\\n&#x27; &#x27; | / \\ |\n&#x27; &#x27; || || _______\n&#x27; &#x27; || || |\\ \\\">
+    </div>
+  </section>
+  <section data-page="35">
+    <div class="page-stack">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber LangChain and Streaming • Generative models generate one token at a a time. To reduce latency, you can stream the results from the model instead of waiting for the entire">
+    </div>
+  </section>
+  <section data-page="36">
+    <div class="page-stack">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber LangChain Prompt Templates • LangChain has a prompt template object which are templates that accept parameters and construct a prompt for the LLM. • LangChain prompt temp">
+    </div>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber LangChain Expression Language (LCEL) • LCEL is a declarative language for building complex runnable AI applications • It&#x27;s the glue that puts all the pieces together. • L">
+    </div>
+  </section>
+  <section data-page="38">
+    <div class="page-stack">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Single LLM Calls do not need LCEL">
+    </div>
+  </section>
+  <section data-page="39">
+    <div class="page-stack">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber LCEL Runnable Sequences • LCEL has two types of runnable objects: RunnableSequence and RunnableParallel • Both can be run synchronously or asynchronously. • You can call ">
+    </div>
+  </section>
+  <section data-page="40">
+    <div class="page-stack">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber LangChain Output Parsers • LangChain has a collection of Output Parsers which can extract structured data from LLM responses. Currently available parsers are: • List Pars">
+    </div>
+  </section>
+  <section data-page="41">
+    <div class="page-stack">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Tangent: Pydantic • Pydantic is a data validation library which you can use to define schemata for complex JSON objects. • The easy way to create Pydantic objects are too">
+    </div>
+  </section>
+  <section data-page="42">
+    <div class="page-stack">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber Using an Output Formatter from langchain_openai.chat_models import ChatOpenAI from langchain_core.prompts import SystemMessagePromptTemplate, ChatPromptTemplate from lang">
+    </div>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber Using an Output Formatter The output should be formatted as a JSON instance that conforms to the JSON schema below. As an example, for the schema {&quot;properties&quot;: {&quot;foo&quot;: {">
+    </div>
+  </section>
+  <section data-page="44">
+    <div class="page-stack">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber Using an Output Formatter chain = chat_prompt | model | json_output_formatter result = chain.invoke({&quot;table&quot;: &quot;users&quot;, &quot;columns&quot;: [...], &quot;format_instructions&quot;: json_outpu">
+    </div>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber Implementing RAG with LangChain">
+    </div>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber RAG Workflow User Prompt Retrieve supporting data Vector Database Augment prompt with supporting data. Generate a response with the augmented prompt. Response">
+    </div>
+  </section>
+  <section data-page="47">
+    <div class="page-stack">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber RAG Steps 1. Create &quot;retriever&quot; connection with document source. 2. Get user prompt 3. Send user prompt to vector database to retrieve context 4. Add context to prompt 5.">
+    </div>
+  </section>
+  <section data-page="48">
+    <div class="page-stack">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber RAG: Creating the Retriever # Connect to the Vector DB db = Chroma.from_documents(docs, embeddings, persist_directory=&quot;chroma_flex_store&quot;) # Create retriever retriever = ">
+    </div>
+  </section>
+  <section data-page="49">
+    <div class="page-stack">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber RAG: LLM &amp; User Prompt llm = ChatOpenAI(model=&quot;gpt-4o&quot;, temperature=0) # Retrieve context from Chroma context_docs = retriever.get_relevant_documents(user_request) contex">
+    </div>
+  </section>
+  <section data-page="50">
+    <div class="page-stack">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber RAG: LLM &amp; User Prompt prompt = f&quot;&quot;&quot; You are an AI assistant with access to the following context: {context_text} User request: {user_request} Write a thoughtful, well-st">
+    </div>
+  </section>
+  <section data-page="51">
+    <div class="page-stack">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber RAG: LLM Response user_request = input(&quot;\nEnter your request (or &#x27;exit&#x27;): &quot;) if user_request.lower() == &quot;exit&quot;: break prompt = rag_prompt(user_request) response = llm.pre">
+    </div>
+  </section>
+  <section data-page="52">
+    <div class="page-stack">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+  <section data-page="53">
+    <div class="page-stack">
+      <img class="page" src="pages/p053.webp" alt="GTK Cyber Lab Please complete Worksheet 11.1: AI and RAG CVEs">
+    </div>
+  </section>
+  <section data-page="54">
+    <div class="page-stack">
+      <img class="page" src="pages/p054.webp" alt="GTK Cyber AI Skills vs. Tools">
+    </div>
+  </section>
+  <section data-page="55">
+    <div class="page-stack">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Why This Distinction Matters • Agents are only as good as what they can DO and what they KNOW how to do • Tools give an agent access to systems: APIs, files, shells • Ski">
+    </div>
+  </section>
+  <section data-page="56">
+    <div class="page-stack">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber What Is a Tool? • A single capability the model can invoke: a function with a name, inputs, and outputs • Examples: read_file, run_sql_query, send_email, http_get • Defin">
+    </div>
+  </section>
+  <section data-page="57">
+    <div class="page-stack">
+      <img class="page" src="pages/p057.webp" alt="GTK Cyber What Is a Skill? • A packaged unit of know-how the agent loads when a task calls for it • Usually a folder: a SKILL.md plus optional scripts, templates, references • Tell">
+    </div>
+  </section>
+  <section data-page="58">
+    <div class="page-stack">
+      <img class="page" src="pages/p058.webp" alt="GTK Cyber Skills vs. Tools, Side by Side • Purpose: a tool grants access; a skill grants expertise • Form: a tool is a typed function; a skill is a folder of instructions • Loading">
+    </div>
+  </section>
+  <section data-page="59">
+    <div class="page-stack">
+      <img class="page" src="pages/p059.webp" alt="GTK Cyber Anatomy of a Skill • A folder named for the skill, containing a SKILL.md • Frontmatter: a name and a description, where the description is the trigger • Body: the instruc">
+    </div>
+  </section>
+  <section data-page="60">
+    <div class="page-stack">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber Example Skill: &#x27;commit-hygiene&#x27; • commit-hygiene/ • SKILL.md • references/conventional-commits.md • --- SKILL.md --- • name: commit-hygiene • description: Use when writin">
+    </div>
+  </section>
+  <section data-page="61">
+    <div class="page-stack">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Cyber Example: &#x27;triage-suspicious- url&#x27; • triage-suspicious-url/ • SKILL.md • references/ioc-format.md • --- SKILL.md --- • name: triage-suspicious-url • description: Use">
+    </div>
+  </section>
+  <section data-page="62">
+    <div class="page-stack">
+      <img class="page" src="pages/p062.webp" alt="GTK Cyber Progressive Disclosure: the Reference File • references/ioc-format.md (opened only at the report step) • # IOC Output Format • One object per indicator. Network values de">
+    </div>
+  </section>
+  <section data-page="63">
+    <div class="page-stack">
+      <img class="page" src="pages/p063.webp" alt="GTK Cyber How a Skill Gets Used • 1. At rest: only the name and description sit in context • 2. Match: the agent sees a task that fits the description • 3. Load: the full SKILL.md ">
+    </div>
+  </section>
+  <section data-page="64">
+    <div class="page-stack">
+      <img class="page" src="pages/p064.webp" alt="GTK Cyber Where to Find Skills • Anthropic Agent Skills docs and the anthropics/skills repo on GitHub • Claude Code plugins and marketplaces, where skills ship inside plugins • The">
+    </div>
+  </section>
+  <section data-page="65">
+    <div class="page-stack">
+      <img class="page" src="pages/p065.webp" alt="GTK Cyber Skill-Writing Tips • Nail the description, since it is the trigger. Say exactly when to use it • Write it for a competent new hire, with concrete, followable steps • Keep">
+    </div>
+  </section>
+  <section data-page="66">
+    <div class="page-stack">
+      <img class="page" src="pages/p066.webp" alt="GTK Cyber Takeaways • Tools give access and skills give expertise, so you want both • A skill is packaged know-how, loaded on demand, in plain language • Progressive disclosure kee">
+    </div>
+  </section>
+  <section data-page="67">
+    <div class="page-stack">
+      <img class="page" src="pages/p067.webp" alt="GTK Cyber Using AI to Execute Code (Tools)">
+    </div>
+  </section>
+  <section data-page="68">
+    <div class="page-stack">
+      <img class="page" src="pages/p068.webp" alt="GTK Cyber • Calling functions from AI is inherently risky, especially if the AI accepts input from untrusted users. • When implementing features that call functions, always ask you">
+    </div>
+  </section>
+  <section data-page="69">
+    <div class="page-stack">
+      <img class="page" src="pages/p069.webp" alt="GTK Cyber Function Calling Workflow User Prompt LLM LLM Output Call Function Response Parse Output The tool will only be called if the model determines it needs to.">
+    </div>
+  </section>
+  <section data-page="70">
+    <div class="page-stack">
+      <img class="page" src="pages/p070.webp" alt="GTK Cyber LangChain Function Calling • With LangChain, you can call functions (tool) to get additional information or perform actions when appropriate. • Not every LLM supports too">
+    </div>
+  </section>
+  <section data-page="71">
+    <div class="page-stack">
+      <img class="page" src="pages/p071.webp" alt="GTK Cyber LangChain calls functions tools.">
+    </div>
+  </section>
+  <section data-page="72">
+    <div class="page-stack">
+      <img class="page" src="pages/p072.webp" alt="GTK Cyber LangChain Tool Calling • Examples include: • Search: (Google, Bing, DuckDuckGo, Others) • Interpreting code: (Azure container apps) • Productivity Tools: (Github, Gmail, ">
+    </div>
+  </section>
+  <section data-page="73">
+    <div class="page-stack">
+      <img class="page" src="pages/p073.webp" alt="GTK Cyber LangChain Pre-built Tool Example # You&#x27;ll need API tokens from GitHub import getpass import os for env_var in [ &quot;GITHUB_APP_ID&quot;, &quot;GITHUB_APP_PRIVATE_KEY&quot;, &quot;GITHUB_REPOSIT">
+    </div>
+  </section>
+  <section data-page="74">
+    <div class="page-stack">
+      <img class="page" src="pages/p074.webp" alt="GTK Cyber LangChain Tool Example from langchain_community.agent_toolkits.github.toolkit import GitHubToolkit from langchain_community.utilities.github import GitHubAPIWrapper # Ins">
+    </div>
+  </section>
+  <section data-page="75">
+    <div class="page-stack">
+      <img class="page" src="pages/p075.webp" alt="GTK Cyber LangChain Tool Example tools = toolkit.get_tools() for tool in tools: print(tool.name) • Get Issues • Get Issue • Comment on Issue • List open pull requests (PRs) • Get P">
+    </div>
+  </section>
+  <section data-page="76">
+    <div class="page-stack">
+      <img class="page" src="pages/p076.webp" alt="GTK Cyber LangChain Tool Example # Create the chat model llm = init_chat_model(&quot;gpt-4o-mini&quot;, model_provider=&quot;openai&quot;) # Create a list of tools tools = [tool for tool in toolkit.ge">
+    </div>
+  </section>
+  <section data-page="77">
+    <div class="page-stack">
+      <img class="page" src="pages/p077.webp" alt="GTK Cyber Discussion: • You are a cybersecurity consultant and a client have an AI model which is connected to a database. • Your task is to advise your client of the risks associa">
+    </div>
+  </section>
+  <section data-page="78">
+    <div class="page-stack">
+      <img class="page" src="pages/p078.webp" alt="GTK Cyber Lab Please complete Tool Usage Lab: https://ai.gtkcyber.com/tool-usage-lab">
+    </div>
+  </section>
+  <section data-page="79">
+    <div class="page-stack">
+      <img class="page" src="pages/p079.webp" alt="GTK Cyber Implementing Tools">
+    </div>
+  </section>
+  <section data-page="80">
+    <div class="page-stack">
+      <img class="page" src="pages/p080.webp" alt="GTK Cyber LangChain Custom Tool Example • You can also create AI tools with your own custom functions. • Tool Creation: Use the @tool decorator to create a tool. A tool is an assoc">
+    </div>
+  </section>
+  <section data-page="81">
+    <div class="page-stack">
+      <img class="page" src="pages/p081.webp" alt="GTK Cyber LangChain Tool Creation from langchain.tools import Tool @tool def my_tool(input: str) -&gt; str: # Do something... return input[::-1]">
+    </div>
+  </section>
+  <section data-page="82">
+    <div class="page-stack">
+      <img class="page" src="pages/p082.webp" alt="GTK Cyber LangChain Tool Binding # Create the ChatGPT model llm = ChatOpenAI(model=&quot;gpt-4&quot;, temperature=0, api_key=os.getenv(&quot;OPENAI_KEY&quot;)) # Wrap your custom tool in LangChain&#x27;s T">
+    </div>
+  </section>
+  <section data-page="83">
+    <div class="page-stack">
+      <img class="page" src="pages/p083.webp" alt="GTK Cyber Tool Calling / Execution response = agent.run(prompt) # The model will decide whether to call the tool or not based on the user input.">
+    </div>
+  </section>
+  <section data-page="84">
+    <div class="page-stack">
+      <img class="page" src="pages/p084.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+  <section data-page="85">
+    <div class="page-stack">
+      <img class="page" src="pages/p085.webp" alt="GTK Cyber Lab Please complete Lab 11.2: Tool Usage">
+    </div>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Module 8: Deep Learning</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="GTK Cyber Module 8 Deep Learning">
+    </div>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber Why?">
+    </div>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber ( S o u r ce : Xav i e r G i r o - o - N i e to) Computer vision took a quantum leap in 2012 with AlexNet • 1000 object classes • Images • 1.2 Million to train • 100K to ">
+    </div>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber Why? https://www.researchgate.net/figure/Winner-results-of-the-ImageNet-large-scale-visual-recognition-challenge-LSVRC-of-the_fig7_324476862">
+    </div>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber What is Deep Learning? Hand-crafted Features Trainable Classifier Traditional Computer Vision Low-level Features Trainable Classifier Mid-level Features High-level Featur">
+    </div>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber What is Deep Learning? https://towardsdatascience.com/cousins-of-artificial-intelligence-dda4edc27b55 In today&#x27;s context a subset of the field of AI">
+    </div>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber Recap of learning architectures Category 1: • Here you know what the answer should look like. There is a teacher-signal, a gold standard, labeled-data that you are compar">
+    </div>
+  </section>
+  <section data-page="8">
+    <div class="page-stack">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber Neural Networks">
+    </div>
+  </section>
+  <section data-page="9">
+    <div class="page-stack">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber The Biological Neuron Input (from other neurons) Output (to other neurons) h t t p s : //e n . w i k i p e d i a . o r g / w i k i / N e u r o n">
+    </div>
+  </section>
+  <section data-page="10">
+    <div class="page-stack">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber The Artificial Neuron">
+    </div>
+  </section>
+  <section data-page="11">
+    <div class="page-stack">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber The Artificial Neuron Encapsulates three main aspects of a biological neuron • Primarily a threshold element (‘firing’) • Nonlinear response (i.e. thresholding is not a s">
+    </div>
+  </section>
+  <section data-page="12">
+    <div class="page-stack">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber Perceptron Has: 1.Inputs (x1 x2 x3) 2.Weights, w (1,-0,75,0.25) 3.Combination/integration function: Typically summation (sum) 4.Activation function (threshold function, h">
+    </div>
+  </section>
+  <section data-page="13">
+    <div class="page-stack">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber Perceptron Bias Weights Combination function Activation function Output The neurons and network architectures varies in terms or the parameters (b,w), combination functio">
+    </div>
+  </section>
+  <section data-page="14">
+    <div class="page-stack">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber Multi-layer Perceptron h t t p s : / / w w w . c c . g a t e c h . e d u / ~ s a n 3 7 / p o s t / d l h c - f n n /">
+    </div>
+  </section>
+  <section data-page="15">
+    <div class="page-stack">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Basic operation of a neural network Initialize with random weights Observations 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Present a training pattern">
+    </div>
+  </section>
+  <section data-page="16">
+    <div class="page-stack">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Neural Network Demo https://playground.tensorflow.org/">
+    </div>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber Recap: Supervised Learning Observations are items about which we want to predict something. Also referred to as inputs. Targets are labels corresponding to an observation">
+    </div>
+  </section>
+  <section data-page="18">
+    <div class="page-stack">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber Recap: Supervised Learning The general supervised modeling paradigm involves training the model on existing labeled data set and then applying it to new data to make pred">
+    </div>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber Finding the right parameters Observations 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Compare to target, calculate Error 0.8 1.4 2.7 1.9 Error = .8 – ">
+    </div>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber Finding the right parameters: Loss function Minimizing Cost: e.g., Least mean squares algorithm We want to choose θ so as to minimize J(θ). Start with initial guess for θ">
+    </div>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber Finding the right parameters: Gradient Descent Example trajectory using batch gradient descent. Ellipses are contours of our loss function: Once the batch gradient descen">
+    </div>
+  </section>
+  <section data-page="22">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber Finding the right parameters: Gradient Descent Update against each example as you go through the training set. Takes a more zig-zag path to minimum, but gets their faster">
+    </div>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber Finding the right parameters efficiently: Backpropagation Finding gradients is a computationally intensive process It used to be complicated and difficult, but in 1986 Ru">
+    </div>
+  </section>
+  <section data-page="24">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber Finding the right parameters efficiently: Backpropagation The backpropagation algorithm for a single training input Go from output towards input hence: backpropagation Ba">
+    </div>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber Efficient Backprop with Computational Graphs Consider an expression as follows: A computational graph turns an equation or mathematical expression into a series of sequen">
+    </div>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber Backpropagation: Computational Graphs Perspective. 𝑔= (𝑥+ 𝑦) ∗𝑧 Forward pass for: x=1,y=3,z=−3 use the value of x = 1 and y = 3, to get p = 4 Go from left to right, forwa">
+    </div>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber Backpropagation: Computational Graphs Perspective. 27 Computation at each graph node in 2 stages: Stage 1: Forward pass Stage 2: Backward pass">
+    </div>
+  </section>
+  <section data-page="28">
+    <div class="page-stack">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber Neural Networks: Architectures">
+    </div>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Neural Network Architecture: • One input node per pixel. • Two hidden layers • One output layer • Nodes in one layer is only connected to nodes in next layer (feed forwar">
+    </div>
+  </section>
+  <section data-page="30">
+    <div class="page-stack">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber ….. 1 63 1 63 Each hidden unit has pattern of connection/weights that abstracts a certain aspect of the input. They act as self-organized pattern detectors. 7 7 e.g. This">
+    </div>
+  </section>
+  <section data-page="31">
+    <div class="page-stack">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber ANNs: Layers What type of feature are recognized by the groups of units or layers ? Vertical lines Small Circles Horizontal lines Basic features detected by initial layer">
+    </div>
+  </section>
+  <section data-page="32">
+    <div class="page-stack">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber ANNs: Feature Detection in Layers What type of feature are recognized by the units ? ….. 63 . . . . . . Higher order features detected by subsequent layers Initial layer ">
+    </div>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber Deep Neural Networks: Two Architectures • We’ll work on two types of networks • Convolutional neural networks (CNNs) • Mostly used for images and static data • Recurrent ">
+    </div>
+  </section>
+  <section data-page="34">
+    <div class="page-stack">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber Convolutional Neural Networks">
+    </div>
+  </section>
+  <section data-page="35">
+    <div class="page-stack">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber Convolutional Neural Networks (CNNs) Handling hi-dimensional patterns in CNNs: Two main ideas 1. Filter the high-dimensional information in space. a) Information squeezin">
+    </div>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber 36 1. Filter the high-dimensional information in space: Convolution + Pooling i. Convolution (feature extraction) + Convolution Example: CNNs Idea 1 : Handling hi-dimensi">
+      <img class="page fragment" src="pages/p037.webp" alt="GTK Cyber 37 1. Filter the high-dimensional information in space: Convolution + Pooling i. Convolution (feature extraction) + Convolution Example: CNNs Idea 1 : Handling hi-dimensi">
+    </div>
+  </section>
+  <section data-page="38">
+    <div class="page-stack">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber ii. Pooling (reduce information further). a) Filter the output of the convolution further. b) Typically uses a spatial kernel that calculates maximum or average 1. Filter">
+    </div>
+  </section>
+  <section data-page="39">
+    <div class="page-stack">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Handling hi-dimensional patterns in CNNs: Idea 2 Start with image, filter (convolution, pooling), then feed that to a fully connected (FC or dense) neural net. This can b">
+    </div>
+  </section>
+  <section data-page="40">
+    <div class="page-stack">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber Convolutional Neural Architecture https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural- networks-the-eli5-way-3bd2b1164a53 https://medium.com/@cur">
+    </div>
+  </section>
+  <section data-page="41">
+    <div class="page-stack">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 8.1: Deep Learning CNN Fingerprints">
+    </div>
+  </section>
+  <section data-page="42">
+    <div class="page-stack">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber Deep Learning for Everyone!">
+    </div>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber Terminology Deep Learning is performed in an iterative fashion! This means only part of all training data is used at a time. • Batch Size: number of training examples in ">
+    </div>
+  </section>
+  <section data-page="44">
+    <div class="page-stack">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber Recurrent Neural Networks">
+    </div>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber 45 Data sequences and data in time So far, we have been dealing with data that is temporally/sequentially invariant. i.e. no specific relationship in time But many data a">
+    </div>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber Recurrent neural networks (RNNs) Recurrent neural networks (RNNs) are a class of neural networks that have both feedforward and feedback connections. Feedforward Neural N">
+    </div>
+  </section>
+  <section data-page="47">
+    <div class="page-stack">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber y H X We can create an “unfolded” feedforward version of basic RNN • Each step/loop can be thought of as “memory” of the network (by modifying the weights). Memory is mea">
+    </div>
+  </section>
+  <section data-page="48">
+    <div class="page-stack">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber y H X Basic RNN • In a basic RNN each layer and unit is made up of artificial neuron with one activation function e.g. tanh • Each node processes its input and passes the">
+    </div>
+  </section>
+  <section data-page="49">
+    <div class="page-stack">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber 49 Long short-term memory (LSTM) LSTMs utilize for gates: 1. Forget gate: decides what information should be thrown away or kept from previous step. 2. Input gate: decide">
+    </div>
+  </section>
+  <section data-page="50">
+    <div class="page-stack">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 8.2: Deep Learning RNN URL">
+    </div>
+  </section>
+  <section data-page="51">
+    <div class="page-stack">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber Deep Learning Takeaways • Deep learning isn’t magic • The size of our datasets is what’s really magic • Certain problems and problem areas are perfect for deep learning •">
+    </div>
+  </section>
+  <section data-page="52">
+    <div class="page-stack">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>

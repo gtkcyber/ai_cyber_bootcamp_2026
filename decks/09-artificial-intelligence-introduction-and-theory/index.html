@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Module 9: Artificial Intelligence Introduction and Theory</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="Artificial Intelligence: The Part You&#x27;ve All Been Waiting For Charles S. Givre CISSP">
+    </div>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber What&#x27;s New?">
+    </div>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber Accessibility &amp; Availability">
+    </div>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber Ease of Use">
+    </div>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber One of the first successful examples of transfer learning.">
+    </div>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber LLMs are multi-purpose models">
+    </div>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber LLMs are multimodal">
+    </div>
+  </section>
+  <section data-page="8">
+    <div class="page-stack">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="9">
+    <div class="page-stack">
+      <img class="page" src="pages/p009.webp" alt="Module 9: AI Part 1: Introduction and Theory">
+    </div>
+  </section>
+  <section data-page="10">
+    <div class="page-stack">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber Outline • Part 1: Introduction and Theory: How Generative Models Work • Part 2: Prompt Engineering: How to get the most out of LLMs • Part 3: AI Architecture: Components ">
+    </div>
+  </section>
+  <section data-page="11">
+    <div class="page-stack">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber Part 1: Introduction &amp; Theory Images from Hands on Large Language Models by Jay Alammar &amp; Maarten Grootendorst">
+    </div>
+  </section>
+  <section data-page="12">
+    <div class="page-stack">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber Objectives • Understand the concepts of tokenization and embeddings. • Understand how a large language model works. • Understand the distinction between deterministic and">
+    </div>
+  </section>
+  <section data-page="13">
+    <div class="page-stack">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber What LLMs Are Out There? In addition to ChatGPT, there are many other OSS and commercial LLMs available: • Gemeni by Google (https://gemeni.google.com/) • LLaMA by Meta (">
+    </div>
+  </section>
+  <section data-page="14">
+    <div class="page-stack">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber How we got where we are. • 2000: Bag of Words • 2013: Word2Vec • 2017: Attention is all you need • 2018: BERT &amp; GPT • 2019: GPT 2 • 2020: GPT-3 • 2023: ChatGPT • Chaos en">
+    </div>
+  </section>
+  <section data-page="15">
+    <div class="page-stack">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber What Can We Do with Language Models?">
+    </div>
+  </section>
+  <section data-page="16">
+    <div class="page-stack">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Key Differences • Note that language models are more generalizable than &quot;classical&quot; machine learning models. • Language models accept input in the form of plain text and ">
+    </div>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber Bag of Words • Bag of words splits words into tokens, usually with whitespace.">
+    </div>
+  </section>
+  <section data-page="18">
+    <div class="page-stack">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber Bag of Words • After splitting, bag of words creates a vocabulary of unique words then counts individual words.">
+    </div>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber What Can You Do with a Bag of Words? • Topic modeling • Classifying Text (Many security uses here... ) • Text Clustering But there are problems... • High frequency words ">
+    </div>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber Introducing TF-IDF • TF-IDF stands for Term Frequency - Inverse Document Frequency and effectively rescales the frequency of words by how often they appear in the corpus ">
+    </div>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber TF-IDF in Python from sklearn.feature_extraction.text import TfidfVectorizer from sklearn.naive_bayes import MultinomialNB from sklearn.pipeline import make_pipeline from">
+    </div>
+  </section>
+  <section data-page="22">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber Introducing Word2Vec • Bag of Words treats words as nothing more than counts of frequencies and ignores the actual meaning of the words. • Word2Vec is a technique which r">
+    </div>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber Word2Vec Words with closer semantic meaning are closer to each other.">
+    </div>
+  </section>
+  <section data-page="24">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber Word2Vec">
+    </div>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber Word2Vec • Bag of Words creates embeddings at the document level, whereas word2vec creates embeddings at the word level.">
+    </div>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber Key Concept: Embeddings • Embeddings are a numeric representation of text. • They consist of a list of numbers. • The numbers themselves aren&#x27;t important but comparing th">
+    </div>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber Using Embeddings for Classification">
+    </div>
+  </section>
+  <section data-page="28">
+    <div class="page-stack">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber Embeddings as Features • You can use an embedding model to create a &quot;feature set&quot; which you can then use to train a traditional classifier. • The embedding model is froze">
+    </div>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Embeddings as Features from sentence_transformers import SentenceTransformer # Imports omitted for brevity # Load embedding model model = SentenceTransformer(&#x27;paraphrase-">
+    </div>
+  </section>
+  <section data-page="30">
+    <div class="page-stack">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 9.1: Classification with Embeddings">
+    </div>
+  </section>
+  <section data-page="31">
+    <div class="page-stack">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber What if you don&#x27;t have labelled data?">
+    </div>
+  </section>
+  <section data-page="32">
+    <div class="page-stack">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber Classifying Unlabeled Data • You can also use embeddings to classify unlabeled data. • To do so: you describe the labels, and then create embeddings for the those descrip">
+    </div>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber Classifying Unlabeled Data • You can also use embeddings to classify unlabeled data. • To do so: you describe the labels, and then create embeddings for the those descrip">
+    </div>
+  </section>
+  <section data-page="34">
+    <div class="page-stack">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber Classifying Unlabeled Data # Imports omitted from sklearn.metrics.pairwise import cosine_similarity # Create embeddings for labels label_embeddings = model.encode([&quot;A pos">
+    </div>
+  </section>
+  <section data-page="35">
+    <div class="page-stack">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 9.2: Unsupervised Learning with Embeddings">
+    </div>
+  </section>
+  <section data-page="36">
+    <div class="page-stack">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber Pay ATTENTION!">
+    </div>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber Key Concept: Attention! • In 2014 the concept of attention was introduced which made a dramatic improvement in word2vec performance. • Attention allows a model to focus o">
+    </div>
+  </section>
+  <section data-page="38">
+    <div class="page-stack">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Translation with Word2Vec • Word2Vec creates static downloadable representations of words. • The previously mentioned RNNs are used to encode and decode text. • Each step">
+    </div>
+  </section>
+  <section data-page="39">
+    <div class="page-stack">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Transformers">
+    </div>
+  </section>
+  <section data-page="40">
+    <div class="page-stack">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber Transformers • In 2017, researchers at Google published a paper Attention is All You Need (https://arxiv.org/abs/1706.03762) which proposed a new architecture paradigm fo">
+    </div>
+  </section>
+  <section data-page="41">
+    <div class="page-stack">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Key Concept: Transformers">
+    </div>
+  </section>
+  <section data-page="42">
+    <div class="page-stack">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber Transfomers: Encoding">
+    </div>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber Decoding with Transformers">
+    </div>
+  </section>
+  <section data-page="44">
+    <div class="page-stack">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber Introducing BERT • BERT stands for Bidirectional Encoder Representations from Transformers. • BERT is an encoder-only architecture which is used for representing language">
+    </div>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber BERT • BERT based models are very effective for transfer learning. • Training BERT based models is complex and costly, however there are many pre-trained models which can">
+    </div>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber What is Generative Artificial Intelligence? • Generative Artificial Intelligence (GenAI) is a relatively new form of artificial intelligence which generates output such a">
+    </div>
+  </section>
+  <section data-page="47">
+    <div class="page-stack">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber Generative Models • Also in 2018, decoder only models were developed for generative tasks. • GPT--Generative Pretrained Tranformers were born. • GPT-1, trained on 7k book">
+    </div>
+  </section>
+  <section data-page="48">
+    <div class="page-stack">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber How Large Are They? • GPT-3, released in 2020 has 175 billion parameters and is approximately 800 GB in size. Trained on ~500 billion tokens. • Using 1024 GPUs, GPT-3 was">
+    </div>
+  </section>
+  <section data-page="49">
+    <div class="page-stack">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber Key Concept: Context Window • The context window is the maximum number of tokens the model can process.">
+    </div>
+  </section>
+  <section data-page="50">
+    <div class="page-stack">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber What Models Are Out There?">
+    </div>
+  </section>
+  <section data-page="51">
+    <div class="page-stack">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber Deployment Models There are three ways of deploying an LLM: • API calls to shared model: OpenAI uses this approach. • API calls to forked model: More enterprise-oriented ">
+    </div>
+  </section>
+  <section data-page="52">
+    <div class="page-stack">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber The Next Labs • The next few labs will walk you through the process of building a basic LLM. • The goal is for you to understand the mechanics of how these pieces work an">
+    </div>
+  </section>
+  <section data-page="53">
+    <div class="page-stack">
+      <img class="page" src="pages/p053.webp" alt="GTK Cyber A Note About GPUs • To do any &quot;real&quot; work with LLMs you will reach a point very quickly where you need a GPU to process the data in a timely manner. • As you will see, ma">
+    </div>
+  </section>
+  <section data-page="54">
+    <div class="page-stack">
+      <img class="page" src="pages/p054.webp" alt="GTK Cyber Tokens">
+    </div>
+  </section>
+  <section data-page="55">
+    <div class="page-stack">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Key Concept: Tokens • For modern AI systems, you don&#x27;t send raw text to the model, you send tokens. • Tokens are used for both model input and output. • Tokens are about ">
+    </div>
+  </section>
+  <section data-page="56">
+    <div class="page-stack">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber Demo • https://platform.openai.com/tokenizer">
+    </div>
+  </section>
+  <section data-page="57">
+    <div class="page-stack">
+      <img class="page" src="pages/p057.webp" alt="GTK Cyber Token Pricing • AI Model Companies charge you for token inputs and outputs. • You are also charged a reduced rate for cache hits and writes. • As a strategy, modeling com">
+    </div>
+  </section>
+  <section data-page="58">
+    <div class="page-stack">
+      <img class="page" src="pages/p058.webp" alt="GTK Cyber Tozenization Methods • There are three main methods of tokenizing language: Byte-Pair Encoding (BPE), WordPiece and SentencePiece. • The GPT series of models uses BPE">
+    </div>
+  </section>
+  <section data-page="59">
+    <div class="page-stack">
+      <img class="page" src="pages/p059.webp" alt="GTK Cyber More Tokenization Tokenizing the phrase: &quot;Don&#x27;t you love 🤗 Transformers? We sure do.&quot; Method 1: Splitting by spaces: [&quot;Don&#x27;t&quot;, &quot;you&quot;, &quot;love&quot;, &quot;🤗&quot;, &quot;Transformers?&quot;, &quot;We&quot;, ">
+    </div>
+  </section>
+  <section data-page="60">
+    <div class="page-stack">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber More Tokenization Tokenizing the phrase: &quot;Don&#x27;t you love 🤗 Transformers? We sure do.&quot; Method 2: Splitting by spaces with punctuation: [&quot;Don&quot;, &quot;&#x27;&quot;, &quot;t&quot;, &quot;you&quot;, &quot;love&quot;, &quot;🤗&quot;">
+    </div>
+  </section>
+  <section data-page="61">
+    <div class="page-stack">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Subword Tokenization Tokenizing the phrase: &quot;Don&#x27;t you love 🤗 Transformers? We sure do.&quot; Method 3: Subword Tokenization: [&#x27;don&#x27;,&quot;&#x27;&quot;,&#x27;t&#x27;,&#x27;you&#x27;,&#x27;love&#x27;,&#x27;[UNK]&#x27;,&#x27;transformers">
+    </div>
+  </section>
+  <section data-page="62">
+    <div class="page-stack">
+      <img class="page" src="pages/p062.webp" alt="GTK Cyber Subword Tokenization Tokenizing the phrase: &quot;Don&#x27;t you love 🤗 Transformers? We sure do.&quot; from transformers import XLNetTokenizer xlnet_tokenizer = XLNetTokenizer.from_pre">
+    </div>
+  </section>
+  <section data-page="63">
+    <div class="page-stack">
+      <img class="page" src="pages/p063.webp" alt="GTK Cyber BPE Tokenization The GPT series of models use BPE tokenization. The algorithm for training a BPE tokenizer is: • Start off with initial set of tokens (e.g. single charact">
+    </div>
+  </section>
+  <section data-page="64">
+    <div class="page-stack">
+      <img class="page" src="pages/p064.webp" alt="GTK Cyber BPE Tokenization import tiktoken # To get the tokenizer corresponding to a specific model in the OpenAI API: enc = tiktoken.encoding_for_model(&quot;gpt-4o&quot;) # Tokenize the te">
+    </div>
+  </section>
+  <section data-page="65">
+    <div class="page-stack">
+      <img class="page" src="pages/p065.webp" alt="GTK Cyber TikToken Resources • https://github.com/openai/tiktoken • https://github.com/openai/openai-cookbook/blob/main/examples/ How_to_count_tokens_with_tiktoken.ipynb">
+    </div>
+  </section>
+  <section data-page="66">
+    <div class="page-stack">
+      <img class="page" src="pages/p066.webp" alt="GTK Cyber Denial of Wallet">
+    </div>
+  </section>
+  <section data-page="67">
+    <div class="page-stack">
+      <img class="page" src="pages/p067.webp" alt="GTK Cyber Denial of Wallet Attacks • Denial of Wallet (DOW) attacks are a variant of a Denial of Service (DOS) attack where the attacker&#x27;s goal isn&#x27;t to disable a service, but rath">
+    </div>
+  </section>
+  <section data-page="68">
+    <div class="page-stack">
+      <img class="page" src="pages/p068.webp" alt="GTK Cyber Denial of Wallet Attacks Consider the following use case: You have a customer facing application which responds to customer reviews posted on Amazon about your products. ">
+    </div>
+  </section>
+  <section data-page="69">
+    <div class="page-stack">
+      <img class="page" src="pages/p069.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="70">
+    <div class="page-stack">
+      <img class="page" src="pages/p070.webp" alt="GTK Cyber 634 Tokens!!">
+    </div>
+  </section>
+  <section data-page="71">
+    <div class="page-stack">
+      <img class="page" src="pages/p071.webp" alt="GTK Cyber Measuring Prompt Length • When building AI driven applications you should log the input and output length to monitor for DOW attacks. Here&#x27;s how: import tiktoken # To get">
+    </div>
+  </section>
+  <section data-page="72">
+    <div class="page-stack">
+      <img class="page" src="pages/p072.webp" alt="GTK Cyber Limiting Maximum Output Tokens • Most AI SDKs will have a parameter to limit the maximum output tokens. • Once you understand your use case, setting this parameter to a r">
+    </div>
+  </section>
+  <section data-page="73">
+    <div class="page-stack">
+      <img class="page" src="pages/p073.webp" alt="GTK Cyber LLM Workflow Input Text Tokens Token Embeddings LLM Output Tokens Output Text">
+    </div>
+  </section>
+  <section data-page="74">
+    <div class="page-stack">
+      <img class="page" src="pages/p074.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 9.4: Tokenizers &amp; Embeddings If you&#x27;re not familiar with PyTorch, Try worksheet 9.3 PyTorch in 20 Minutes first">
+    </div>
+  </section>
+  <section data-page="75">
+    <div class="page-stack">
+      <img class="page" src="pages/p075.webp" alt="GTK Cyber Generating Text • LLMs generate text one token at a time, rather than generating the whole text. • Each new output token is added onto the end of the prompt and fed back ">
+    </div>
+  </section>
+  <section data-page="76">
+    <div class="page-stack">
+      <img class="page" src="pages/p076.webp" alt="GTK Cyber Generating Text • After each pass, the model calculates the probability distribution for the next token. • One method is to use the token with the highest probability. Th">
+    </div>
+  </section>
+  <section data-page="77">
+    <div class="page-stack">
+      <img class="page" src="pages/p077.webp" alt="GTK Cyber The Attention Layer • The attention layer adds additional information to the embeddings by adding positional information. • For instance, in the sentence: I gave the book">
+    </div>
+  </section>
+  <section data-page="78">
+    <div class="page-stack">
+      <img class="page" src="pages/p078.webp" alt="GTK Cyber The Attention Layer • Attention multiplies the inputs to create three new matrices: queries, keys and values. • To calculate relevance, multiply the query vector of the c">
+    </div>
+  </section>
+  <section data-page="79">
+    <div class="page-stack">
+      <img class="page" src="pages/p079.webp" alt="GTK Cyber Generating Text">
+    </div>
+  </section>
+  <section data-page="80">
+    <div class="page-stack">
+      <img class="page" src="pages/p080.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 9.5: Attention and Your First GPT">
+    </div>
+  </section>
+  <section data-page="81">
+    <div class="page-stack">
+      <img class="page" src="pages/p081.webp" alt="GTK Cyber A Question...">
+    </div>
+  </section>
+  <section data-page="82">
+    <div class="page-stack">
+      <img class="page" src="pages/p082.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="83">
+    <div class="page-stack">
+      <img class="page" src="pages/p083.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="84">
+    <div class="page-stack">
+      <img class="page" src="pages/p084.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="85">
+    <div class="page-stack">
+      <img class="page" src="pages/p085.webp" alt="GTK Cyber Hallucination: When an LLM gives confident but wrong responses.">
+    </div>
+  </section>
+  <section data-page="86">
+    <div class="page-stack">
+      <img class="page" src="pages/p086.webp" alt="GTK Cyber Hallucinations • Transformer based models work by making a prediction about what the most likely sequence of tokens will follow an input prompt. • Hallucinations are when">
+    </div>
+  </section>
+  <section data-page="87">
+    <div class="page-stack">
+      <img class="page" src="pages/p087.webp" alt="GTK Cyber Hallucinations https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence) This article does not exist.">
+    </div>
+  </section>
+  <section data-page="88">
+    <div class="page-stack">
+      <img class="page" src="pages/p088.webp" alt="GTK Cyber Hallucinations • In June 2023, two lawyers were caught having submitted a legal brief written by ChatGPT. • The brief contained fake quotes and citations. • Attorney Stev">
+    </div>
+  </section>
+  <section data-page="89">
+    <div class="page-stack">
+      <img class="page" src="pages/p089.webp" alt="GTK Cyber Legal Hallucinations Continue... • In July 2025, two attorneys representing MyPillow CEO were ordered to pay $3000 after they filed a brief with 30 hallucinated citations">
+    </div>
+  </section>
+  <section data-page="90">
+    <div class="page-stack">
+      <img class="page" src="pages/p090.webp" alt="GTK Cyber Legal Hallucinations Continue • There is a database of AI Hallucination Cases. • https://www.damiencharlotin.com/hallucinations/ • At the time of writing, it has over 178">
+    </div>
+  </section>
+  <section data-page="91">
+    <div class="page-stack">
+      <img class="page" src="pages/p091.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="92">
+    <div class="page-stack">
+      <img class="page" src="pages/p092.webp" alt="GTK Cyber">
+    </div>
+  </section>
+  <section data-page="93">
+    <div class="page-stack">
+      <img class="page" src="pages/p093.webp" alt="GTK Cyber Hallucinations may seem funny, until you realize people are using LLMs to look up facts.">
+    </div>
+  </section>
+  <section data-page="94">
+    <div class="page-stack">
+      <img class="page" src="pages/p094.webp" alt="GTK Cyber LLMs do not have &quot;common sense&quot;">
+    </div>
+  </section>
+  <section data-page="95">
+    <div class="page-stack">
+      <img class="page" src="pages/p095.webp" alt="GTK Cyber Key Concepts: Deterministic and Non-Deterministic • Deterministic systems will always return the same result given the same input. • Non-Deterministic systems is not guar">
+    </div>
+  </section>
+  <section data-page="96">
+    <div class="page-stack">
+      <img class="page" src="pages/p096.webp" alt="GTK Cyber Deterministic vs. Non- Deterministic • AI is expensive and if you have deterministic workflows, LLMs are probably the most expensive and slowest way to achieve that goal.">
+    </div>
+  </section>
+  <section data-page="97">
+    <div class="page-stack">
+      <img class="page" src="pages/p097.webp" alt="GTK Cyber LLMs are by their nature non- deterministic.">
+    </div>
+  </section>
+  <section data-page="98">
+    <div class="page-stack">
+      <img class="page" src="pages/p098.webp" alt="GTK Cyber Classification with Generative Models • It is entirely possible to use a generative model to classify data simply with prompting. • You can craft prompts which will do so">
+    </div>
+  </section>
+  <section data-page="99">
+    <div class="page-stack">
+      <img class="page" src="pages/p099.webp" alt="GTK Cyber Demo https://calculator.gtkcyber.com">
+    </div>
+  </section>
+  <section data-page="100">
+    <div class="page-stack">
+      <img class="page" src="pages/p100.webp" alt="GTK Cyber Which Model to Choose? • Not so simple. There are nearly 100k models on HuggingFace. • Some are general, some are task-specific. • Options include using a task-specific m">
+    </div>
+  </section>
+  <section data-page="101">
+    <div class="page-stack">
+      <img class="page" src="pages/p101.webp" alt="GTK Cyber • Models are code and code can be malicious. • Researchers have successfully uploaded malicious models to HuggingFace. • Malicious models have been found there as well. W">
+    </div>
+  </section>
+  <section data-page="102">
+    <div class="page-stack">
+      <img class="page" src="pages/p102.webp" alt="GTK Cyber Questions?">
+    </div>
+  </section>
+  <section data-page="103">
+    <div class="page-stack">
+      <img class="page" src="pages/p103.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 9.6: Fine Tuning and Poisoning">
+    </div>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>
