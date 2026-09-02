@@ -40,3 +40,87 @@ def test_seam_text_composes():
     assert combined.rstrip().endswith(SEAM_END)
     assert combined.count(SEAM_START) == 1
     assert combined.count(SEAM_END) == 1
+
+
+import nbformat
+import pytest
+
+from seam import EditError, Sub, apply_subs, upsert_seam
+
+
+def _nb(sources):
+    nb = nbformat.v4.new_notebook()
+    for kind, src in sources:
+        nb.cells.append(
+            nbformat.v4.new_code_cell(src) if kind == "code"
+            else nbformat.v4.new_markdown_cell(src)
+        )
+    return nb
+
+
+def test_seam_goes_after_a_leading_markdown_title():
+    nb = _nb([("markdown", "# Worksheet 3.1"), ("code", "import pandas as pd")])
+    assert upsert_seam(nb, with_llm=False) is True
+    assert nb.cells[0].cell_type == "markdown"
+    assert nb.cells[1].source.startswith(SEAM_START)
+    assert nb.cells[2].source == "import pandas as pd"
+
+
+def test_seam_goes_first_when_the_notebook_opens_with_code():
+    nb = _nb([("code", "import pandas as pd")])
+    upsert_seam(nb, with_llm=False)
+    assert nb.cells[0].source.startswith(SEAM_START)
+
+
+def test_upsert_is_idempotent():
+    nb = _nb([("markdown", "# t"), ("code", "x = 1")])
+    upsert_seam(nb, with_llm=False)
+    before = [c.source for c in nb.cells]
+    assert upsert_seam(nb, with_llm=False) is False
+    assert [c.source for c in nb.cells] == before
+    assert sum(SEAM_START in c.source for c in nb.cells) == 1
+
+
+def test_upsert_replaces_an_outdated_seam():
+    nb = _nb([("markdown", "# t"), ("code", "x = 1")])
+    upsert_seam(nb, with_llm=False)
+    assert upsert_seam(nb, with_llm=True) is True
+    assert sum(SEAM_START in c.source for c in nb.cells) == 1
+    assert "def make_llm(" in nb.cells[1].source
+
+
+def test_two_seam_cells_is_a_hard_failure():
+    nb = _nb([("code", SEAM_BASE), ("code", SEAM_BASE)])
+    with pytest.raises(EditError, match="2 seam cells"):
+        upsert_seam(nb, with_llm=False)
+
+
+def test_apply_subs_rewrites_exactly_once():
+    nb = _nb([("code", "df = pd.read_csv(f'{DATA_HOME}/a.csv')")])
+    n = apply_subs(nb, [Sub("f'{DATA_HOME}/a.csv'", "f'{DATA_HOME}a.csv'")])
+    assert n == 1
+    assert nb.cells[0].source == "df = pd.read_csv(f'{DATA_HOME}a.csv')"
+
+
+def test_apply_subs_is_idempotent_when_already_applied():
+    nb = _nb([("code", "df = pd.read_csv(f'{DATA_HOME}a.csv')")])
+    assert apply_subs(nb, [Sub("f'{DATA_HOME}/a.csv'", "f'{DATA_HOME}a.csv'")]) == 0
+
+
+def test_unknown_shape_fails_loudly():
+    nb = _nb([("code", "df = pd.read_csv('somewhere/else.csv')")])
+    with pytest.raises(EditError, match="found 0 times, new text found 0 times"):
+        apply_subs(nb, [Sub("f'{DATA_HOME}/a.csv'", "f'{DATA_HOME}a.csv'")])
+
+
+def test_wrong_count_fails_loudly():
+    nb = _nb([("code", "a = X\nb = X")])
+    with pytest.raises(EditError, match="expected 1"):
+        apply_subs(nb, [Sub("X", "Y")])
+
+
+def test_markdown_subs_only_touch_markdown_cells():
+    nb = _nb([("markdown", "see ../data/x.zip"), ("code", "p = '../data/x.zip'")])
+    apply_subs(nb, [Sub("../data/x.zip", "the volume", kind="markdown")])
+    assert nb.cells[0].source == "see the volume"
+    assert nb.cells[1].source == "p = '../data/x.zip'"

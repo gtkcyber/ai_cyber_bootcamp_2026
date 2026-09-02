@@ -72,3 +72,80 @@ SEAM_LLM = f"{SEAM_START}\n{_BODY}{_LLM_BODY}{SEAM_END}\n"
 def seam_text(with_llm: bool = False) -> str:
     """The seam cell source for one notebook."""
     return SEAM_LLM if with_llm else SEAM_BASE
+
+
+from dataclasses import dataclass
+
+import nbformat
+
+
+class EditError(Exception):
+    """A notebook did not have the shape the substitution table says it has."""
+
+
+@dataclass(frozen=True)
+class Sub:
+    """One exact substitution. `count` is how many times `old` must appear."""
+
+    old: str
+    new: str
+    count: int = 1
+    kind: str = "code"  # "code" or "markdown"
+
+
+def load(path):
+    with open(path, encoding="utf-8") as fh:
+        return nbformat.read(fh, as_version=4)
+
+
+def save(path, nb):
+    with open(path, "w", encoding="utf-8") as fh:
+        nbformat.write(nb, fh)
+
+
+def _seam_indices(nb):
+    return [i for i, c in enumerate(nb.cells)
+            if c.cell_type == "code" and SEAM_START in c.source]
+
+
+def upsert_seam(nb, with_llm: bool = False) -> bool:
+    """Insert the seam cell, or replace an outdated one. True if the notebook changed."""
+    wanted = seam_text(with_llm)
+    found = _seam_indices(nb)
+    if len(found) > 1:
+        raise EditError(f"{len(found)} seam cells in one notebook: indices {found}")
+    if found:
+        cell = nb.cells[found[0]]
+        if cell.source == wanted:
+            return False
+        cell.source = wanted
+        return True
+    # Insert after a leading run of markdown (the title block), else at the top.
+    at = 0
+    while at < len(nb.cells) and nb.cells[at].cell_type == "markdown":
+        at += 1
+    nb.cells.insert(at, nbformat.v4.new_code_cell(wanted))
+    return True
+
+
+def apply_subs(nb, subs) -> int:
+    """Apply each Sub across the notebook. Idempotent; any surprise is an EditError."""
+    applied = 0
+    for sub in subs:
+        cells = [c for c in nb.cells if c.cell_type == sub.kind]
+        hits = sum(c.source.count(sub.old) for c in cells)
+        if hits == 0:
+            already = sum(c.source.count(sub.new) for c in cells)
+            if already >= sub.count:
+                continue  # already applied — idempotent re-run
+            raise EditError(
+                f"old text {sub.old!r} found 0 times, new text found "
+                f"{already} times (expected {sub.count})"
+            )
+        if hits != sub.count:
+            raise EditError(f"old text {sub.old!r} found {hits} times, expected {sub.count}")
+        for c in cells:
+            if sub.old in c.source:
+                c.source = c.source.replace(sub.old, sub.new)
+        applied += 1
+    return applied
