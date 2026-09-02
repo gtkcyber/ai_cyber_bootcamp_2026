@@ -155,6 +155,17 @@ MODULES: list[Module] = [
         ],
     ),
     Module(
+        "notebooks/Worksheet_7.2_FSGM_Attack_on_Image_Classifier.ipynb",
+        "answers/Worksheet_7.2_FSGM_Attack_on_Image_Classifier-Answers.ipynb",
+        "base",
+        subs=[
+            Sub('train_full = datasets.CIFAR10("./data", train=True, download=True, transform=transform)',
+                'train_full = datasets.CIFAR10(WORK_HOME + "cifar10", train=True, download=True, transform=transform)'),
+            Sub('test_full  = datasets.CIFAR10("./data", train=False, download=True, transform=transform)',
+                'test_full  = datasets.CIFAR10(WORK_HOME + "cifar10", train=False, download=True, transform=transform)'),
+        ],
+    ),
+    Module(
         "notebooks/Worksheet_8.2_Deep_Learning_RNN_URL.ipynb",
         "answers/Worksheet_8.2_Deep_Learning_RNN_URL-Answers.ipynb",
         "base",
