@@ -129,10 +129,16 @@ def upsert_seam(nb, with_llm: bool = False) -> bool:
 
 
 def apply_subs(nb, subs) -> int:
-    """Apply each Sub across the notebook. Idempotent; any surprise is an EditError."""
+    """Apply each Sub across the notebook. Idempotent; any surprise is an EditError.
+
+    The seam cell is excluded from every scan: it is a protected unit written only by
+    upsert_seam, and the LLM seam's own make_llm() fallback branch contains the literal
+    text `from langchain_anthropic import ChatAnthropic`, which would otherwise double-
+    count (and, worse, get rewritten) alongside a notebook's own matching import line.
+    """
     applied = 0
     for sub in subs:
-        cells = [c for c in nb.cells if c.cell_type == sub.kind]
+        cells = [c for c in nb.cells if c.cell_type == sub.kind and SEAM_START not in c.source]
         hits = sum(c.source.count(sub.old) for c in cells)
         if hits == 0:
             already = sum(c.source.count(sub.new) for c in cells)

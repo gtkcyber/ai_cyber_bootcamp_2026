@@ -124,3 +124,15 @@ def test_markdown_subs_only_touch_markdown_cells():
     apply_subs(nb, [Sub("../data/x.zip", "the volume", kind="markdown")])
     assert nb.cells[0].source == "see the volume"
     assert nb.cells[1].source == "p = '../data/x.zip'"
+
+
+def test_apply_subs_ignores_the_seam_cells_own_text():
+    # SEAM_LLM's make_llm() fallback branch itself contains the literal text
+    # "from langchain_anthropic import ChatAnthropic" — apply_subs must not count or
+    # rewrite that occurrence, only the notebook's own import line.
+    nb = _nb([("code", SEAM_LLM),
+              ("code", "from langchain_anthropic import ChatAnthropic\nllm = ChatAnthropic(model=X)")])
+    n = apply_subs(nb, [Sub("from langchain_anthropic import ChatAnthropic", "# swapped")])
+    assert n == 1
+    assert "from langchain_anthropic import ChatAnthropic" in nb.cells[0].source  # seam untouched
+    assert nb.cells[1].source == "# swapped\nllm = ChatAnthropic(model=X)"

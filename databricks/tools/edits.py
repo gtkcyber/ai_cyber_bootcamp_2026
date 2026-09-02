@@ -215,6 +215,251 @@ MODULES: list[Module] = [
             Sub('open("../data/cyber_corpus.txt")', 'open(DATA_HOME + "cyber_corpus.txt")'),
         ],
     ),
+    # --- Module 10: the anthropic SDK becomes make_client() over the OpenAI SDK ---
+    Module(
+        "notebooks/Worksheet_10.1_Programmatic_LLM_Interaction.ipynb",
+        "answers/Worksheet_10.1_Programmatic_LLM_Interaction-Answers.ipynb",
+        "llm",
+        subs=[
+            Sub("import anthropic",
+                "# the chat client comes from make_client() in the data-loader cell"),
+            Sub("client = anthropic.Anthropic()   # reads ANTHROPIC_API_KEY from the environment",
+                "client = make_client()           # Anthropic locally, the course endpoint on Databricks"),
+            Sub('MODEL = "claude-opus-4-8"        # the model we\'ll call throughout',
+                "MODEL = COURSE_LLM_MODEL         # the model we'll call throughout"),
+            Sub('pd.read_csv("../data/cpu-train-b.csv", parse_dates=["datetime"])',
+                'pd.read_csv(DATA_HOME + "cpu-train-b.csv", parse_dates=["datetime"])'),
+            Sub('pd.read_csv("../data/cpu-test-b.csv",  parse_dates=["datetime"])',
+                'pd.read_csv(DATA_HOME + "cpu-test-b.csv",  parse_dates=["datetime"])'),
+            Sub('Image(filename="../data/vehicles/suv.jpg", width=500)',
+                'Image(filename=DATA_HOME + "vehicles/suv.jpg", width=500)'),
+            Sub('to_base64("../data/vehicles/suv.jpg")',
+                'to_base64(DATA_HOME + "vehicles/suv.jpg")'),
+            Sub("client.messages.create(", "client.chat.completions.create(", count=1,
+                kind="markdown"),
+            Sub("response.content[0].text", "response.choices[0].message.content", count=1,
+                kind="markdown"),
+        ],
+        ws_only=[
+            # Vision call site: the default text endpoint can't take images, so this one
+            # call passes COURSE_LLM_VISION_MODEL instead of MODEL. Matched by the call's
+            # shape (4-space indent, multi-line content list), not by provider name, so it
+            # applies whether the old or new client-method name precedes it.
+            Sub('    model=MODEL,\n'
+                '    max_tokens=1024,\n'
+                '    messages=[\n'
+                '        {\n'
+                '            "role": "user",\n'
+                '            "content": [\n',
+                '    model=COURSE_LLM_VISION_MODEL,\n'
+                '    max_tokens=1024,\n'
+                '    messages=[\n'
+                '        {\n'
+                '            "role": "user",\n'
+                '            "content": [\n'),
+            Sub("client.messages.create(", "client.chat.completions.create(", count=2),
+            Sub("response.content[0].text", "response.choices[0].message.content", count=2),
+            Sub('                # TODO: an image block ->\n'
+                '                #   {"type": "image",\n'
+                '                #    "source": {"type": "base64", "media_type": "image/jpeg", "data": img_b64}}\n'
+                '                # TODO: a text block ->\n'
+                '                #   {"type": "text", "text": EXTRACT_PROMPT}',
+                '                # TODO: an image block ->\n'
+                '                #   {"type": "image_url",\n'
+                '                #    "image_url": {"url": f"data:image/jpeg;base64,{img_b64}"}}\n'
+                '                # TODO: a text block ->\n'
+                '                #   {"type": "text", "text": EXTRACT_PROMPT}'),
+        ],
+        ans_only=[
+            Sub('    model=MODEL,\n'
+                '    max_tokens=1024,\n'
+                '    messages=[\n'
+                '        {\n'
+                '            "role": "user",\n'
+                '            "content": [\n',
+                '    model=COURSE_LLM_VISION_MODEL,\n'
+                '    max_tokens=1024,\n'
+                '    messages=[\n'
+                '        {\n'
+                '            "role": "user",\n'
+                '            "content": [\n',
+                count=2),
+            Sub("client.messages.create(", "client.chat.completions.create(", count=3),
+            Sub("response.content[0].text", "response.choices[0].message.content", count=3),
+            Sub('Image(filename="../data/vehicles/pickup.jpg", width=500)',
+                'Image(filename=DATA_HOME + "vehicles/pickup.jpg", width=500)'),
+            Sub('to_base64("../data/vehicles/pickup.jpg")',
+                'to_base64(DATA_HOME + "vehicles/pickup.jpg")'),
+            Sub('                {\n'
+                '                    "type": "image",\n'
+                '                    "source": {\n'
+                '                        "type": "base64",\n'
+                '                        "media_type": "image/jpeg",\n'
+                '                        "data": img_b64,\n'
+                '                    },\n'
+                '                },',
+                '                {\n'
+                '                    "type": "image_url",\n'
+                '                    "image_url": {\n'
+                '                        "url": f"data:image/jpeg;base64,{img_b64}",\n'
+                '                    },\n'
+                '                },'),
+            Sub('                {"type": "image",\n'
+                '                 "source": {"type": "base64", "media_type": "image/jpeg", "data": img_b64}},',
+                '                {"type": "image_url",\n'
+                '                 "image_url": {"url": f"data:image/jpeg;base64,{img_b64}"}},'),
+        ],
+    ),
+    Module(
+        "notebooks/Worksheet_10.2_Classification_with_LLMs.ipynb",
+        "answers/Worksheet_10.2_Classification_with_LLMs-Answers.ipynb",
+        "llm",
+        subs=[
+            Sub("import anthropic",
+                "# the chat client comes from make_client() in the data-loader cell"),
+            Sub("client = anthropic.Anthropic()   # reads ANTHROPIC_API_KEY from the environment",
+                "client = make_client()           # Anthropic locally, the course endpoint on Databricks"),
+            Sub('MODEL = "claude-opus-4-8"        # the model we\'ll call throughout',
+                "MODEL = COURSE_LLM_MODEL         # the model we'll call throughout"),
+            Sub("response = client.messages.create(", "response = client.chat.completions.create("),
+            Sub('if response.stop_reason == "max_tokens":',
+                'if response.choices[0].finish_reason == "length":'),
+            Sub("return response.content[0].text", "return response.choices[0].message.content"),
+            Sub('with open("../data/cli_commands.txt") as f:',
+                'with open(DATA_HOME + "cli_commands.txt") as f:'),
+        ],
+    ),
+    # --- Modules 11-13: ChatAnthropic(...) becomes make_llm(...) ---
+    Module(
+        "notebooks/Worksheet_11.1_AI_RAG_CVEs.ipynb",
+        "answers/Worksheet_11.1_AI_RAG_CVEs-Answers.ipynb",
+        "llm",
+        subs=[
+            Sub("from langchain_anthropic import ChatAnthropic",
+                "# the chat model comes from make_llm() in the data-loader cell"),
+            Sub("DATA_HOME = '../data/'", FROM_SEAM),
+        ],
+        ws_only=[
+            Sub("# 3. TODO: create the Claude chat model. Use the model id from the lab conventions.\n"
+                "llm = ChatAnthropic(model=____, max_tokens=1024)",
+                "# 3. The chat model comes from make_llm(): Claude locally, the course endpoint\n"
+                "#    on Databricks. You only choose the generation settings.\n"
+                "llm = make_llm(max_tokens=1024)"),
+        ],
+        ans_only=[
+            Sub('llm = ChatAnthropic(model="claude-opus-4-8", max_tokens=1024)',
+                "llm = make_llm(max_tokens=1024)"),
+            Sub("#    Reads ANTHROPIC_API_KEY from the environment (loaded from .env above).",
+                "#    make_llm() picks the client: Anthropic locally, the course endpoint on Databricks."),
+        ],
+    ),
+    Module(
+        "notebooks/Worksheet_11.2_Building_Agent_Tools.ipynb",
+        "answers/Worksheet_11.2_Building_Agent_Tools-Answers.ipynb",
+        "llm",
+        subs=[
+            Sub("from langchain_anthropic import ChatAnthropic",
+                "# the chat model comes from make_llm() in the data-loader cell"),
+            Sub('MODEL = "claude-opus-4-8"', "MODEL = COURSE_LLM_MODEL"),
+            Sub('llm = ChatAnthropic(model=MODEL, api_key=os.getenv("ANTHROPIC_API_KEY"))',
+                "llm = make_llm()"),
+            Sub('print(Path("../ai_examples/skills/triage-suspicious-url/SKILL.md").read_text())',
+                'print(Path(DATA_HOME + "skills/triage-suspicious-url/SKILL.md").read_text())'),
+        ],
+    ),
+    Module(
+        "notebooks/Worksheet_12.1_Building_an_MCP_Server.ipynb",
+        "answers/Worksheet_12.1_Building_an_MCP_Server-Answers.ipynb",
+        "llm",
+        subs=[
+            Sub("from langchain_anthropic import ChatAnthropic",
+                "# the chat model comes from make_llm() in the data-loader cell"),
+            Sub('MODEL = "claude-opus-4-8"', "MODEL = COURSE_LLM_MODEL"),
+            Sub("llm = ChatAnthropic(model=MODEL)", "llm = make_llm()"),
+        ],
+    ),
+    Module(
+        "notebooks/Worksheet_13.1_Single_Email_Classifier.ipynb",
+        "answers/Worksheet_13.1_Single_Email_Classifier-Answers.ipynb",
+        "llm",
+        subs=[
+            Sub("from langchain_anthropic import ChatAnthropic",
+                "# the chat model comes from make_llm() in the data-loader cell"),
+            Sub('assert os.getenv("ANTHROPIC_API_KEY"), "Please set ANTHROPIC_API_KEY in your .env file"',
+                'assert ON_DATABRICKS or os.getenv("ANTHROPIC_API_KEY"), '
+                '"Please set ANTHROPIC_API_KEY in your .env file"'),
+            Sub('llm = ChatAnthropic(model="claude-opus-4-8", max_tokens=4096)',
+                "llm = make_llm(max_tokens=4096)"),
+        ],
+    ),
+    Module(
+        "notebooks/Worksheet_13.2_Tool_Calling_Agent.ipynb",
+        "answers/Worksheet_13.2_Tool_Calling_Agent-Answers.ipynb",
+        "llm",
+        subs=[
+            Sub("from langchain_anthropic import ChatAnthropic",
+                "# the chat model comes from make_llm() in the data-loader cell"),
+            Sub('assert os.getenv("ANTHROPIC_API_KEY"), '
+                '"ANTHROPIC_API_KEY not found! Create a .env file with your key."',
+                'assert ON_DATABRICKS or os.getenv("ANTHROPIC_API_KEY"), '
+                '"ANTHROPIC_API_KEY not found! Create a .env file with your key."'),
+            Sub('llm = ChatAnthropic(model="claude-opus-4-8", max_tokens=4096)',
+                "llm = make_llm(max_tokens=4096)"),
+        ],
+    ),
+    Module(
+        "notebooks/Worksheet_13.3_Conditional_Routing.ipynb",
+        "answers/Worksheet_13.3_Conditional_Routing-Answers.ipynb",
+        "llm",
+        subs=[
+            Sub("from langchain_anthropic import ChatAnthropic",
+                "# the chat model comes from make_llm() in the data-loader cell"),
+            Sub('assert os.getenv("ANTHROPIC_API_KEY"), "Please set ANTHROPIC_API_KEY in your .env file"',
+                'assert ON_DATABRICKS or os.getenv("ANTHROPIC_API_KEY"), '
+                '"Please set ANTHROPIC_API_KEY in your .env file"'),
+            Sub('llm = ChatAnthropic(model="claude-opus-4-8", max_tokens=4096)',
+                "llm = make_llm(max_tokens=4096)"),
+        ],
+    ),
+    Module(
+        "notebooks/Worksheet_13.4_human_in_the_loop.ipynb",
+        "answers/Worksheet_13.4_Human_in_The_Loop-Answers.ipynb",
+        "llm",
+        subs=[
+            Sub("from langchain_anthropic import ChatAnthropic",
+                "# the chat model comes from make_llm() in the data-loader cell"),
+            Sub('assert os.getenv("ANTHROPIC_API_KEY"), "Please set ANTHROPIC_API_KEY in your .env file"',
+                'assert ON_DATABRICKS or os.getenv("ANTHROPIC_API_KEY"), '
+                '"Please set ANTHROPIC_API_KEY in your .env file"'),
+            Sub('llm = ChatAnthropic(model="claude-opus-4-8", max_tokens=4096)',
+                "llm = make_llm(max_tokens=4096)"),
+        ],
+    ),
+    Module(
+        "notebooks/Worksheet_13.5_multi_agent_supervisor.ipynb",
+        "answers/Worksheet_13.5_Multi_Agent_Supervisor-Answers.ipynb",
+        "llm",
+        subs=[
+            Sub("from langchain_anthropic import ChatAnthropic",
+                "# the chat model comes from make_llm() in the data-loader cell"),
+            Sub('assert os.getenv("ANTHROPIC_API_KEY"), '
+                '"ANTHROPIC_API_KEY not found! Create a .env file with your key."',
+                'assert ON_DATABRICKS or os.getenv("ANTHROPIC_API_KEY"), '
+                '"ANTHROPIC_API_KEY not found! Create a .env file with your key."'),
+            Sub('llm = ChatAnthropic(model="claude-opus-4-8", max_tokens=4096)',
+                "llm = make_llm(max_tokens=4096)"),
+        ],
+    ),
+    # The one answer notebook with no worksheet. It already uses the OpenAI SDK.
+    Module(
+        "answers/openai_api_fundamentals_answers.ipynb",
+        None,
+        "llm",
+        subs=[
+            Sub("client = OpenAI()", "client = make_client()"),
+            Sub('image_path = "../data/car2.jpg"', 'image_path = DATA_HOME + "car2.jpg"'),
+        ],
+    ),
 ]
 
 
