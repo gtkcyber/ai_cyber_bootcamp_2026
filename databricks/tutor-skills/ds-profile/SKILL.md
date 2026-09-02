@@ -26,7 +26,7 @@ is `ds-clean`'s. Full depth, worked examples, and citations live in
   typing → missingness → cardinality/uniqueness → duplicate-by-field-
   equivalence signal → univariate distributions → outlier signal →
   additivity classification — not a re-teaching of EDA generally:
-  `references/eda-protocol.md`.
+  `references/ds-profile.eda-protocol.md`.
 - **Grouping-variable identification** — clustered / repeated-measures /
   hierarchical data-structure identification. Laird & Ware, "Random-Effects
   Models for Longitudinal Data," Biometrics 38, 1982 —
@@ -39,7 +39,7 @@ is `ds-clean`'s. Full depth, worked examples, and citations live in
   invalidates standard-error estimates (too small). Identifies the keys —
   patient, account, device, session — that make rows non-iid, derived from
   `ds-data-models`' grain contract (Interpret), never re-derived here:
-  `references/grouping-variables.md`.
+  `references/ds-profile.grouping-variables.md`.
 
 ## Gates
 

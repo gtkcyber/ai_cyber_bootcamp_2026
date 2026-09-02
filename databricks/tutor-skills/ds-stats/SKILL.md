@@ -23,14 +23,14 @@ is protocol only.
   https://www.tandfonline.com/doi/full/10.1080/00031305.2016.1154108 : a
   conclusion "should not be based only on whether a p-value passes a
   specific threshold" — threshold-worship is the named failure mode. See
-  `references/subfields.md#hypothesis-testing`.
+  `references/ds-stats.subfields.md#hypothesis-testing`.
 - **Power analysis** — trigger: a sample-size or power question, before a
   design commits or after a null result needs interpreting. Cohen, "A Power
   Primer," *Psychological Bulletin* 112(1), 1992 —
   https://www2.psych.ubc.ca/~schaller/528Readings/Cohen1992.pdf : the
   d = .2/.5/.8 conventions are defaults for when no comparable prior
   literature exists, not universal targets. See
-  `references/subfields.md#power-analysis`.
+  `references/ds-stats.subfields.md#power-analysis`.
 - **Randomized experiment design (A/B, peeking, sequential/adaptive
   stopping)** — trigger: a randomized rollout is being designed, or results
   checked before the pre-declared horizon. Always-valid / anytime-valid
@@ -39,7 +39,7 @@ is protocol only.
   unreliable" under continuous monitoring with adaptive stopping; always-
   valid methods must be adopted deliberately, not retrofitted. Peeking
   gate: see Gates, below. See
-  `references/subfields.md#randomized-experiment-design`.
+  `references/ds-stats.subfields.md#randomized-experiment-design`.
 - **Multiple comparisons** — trigger: more than one test, metric, or
   variant evaluated in the same analysis. FDR control. Benjamini &
   Hochberg, "Controlling the False Discovery Rate," *JRSS B* 57(1), 1995 —
@@ -47,7 +47,7 @@ is protocol only.
   a weaker guarantee than family-wise error rate control, assuming
   independence or positive dependence — violated by correlated tests
   without a corrected variant. See
-  `references/subfields.md#multiple-comparisons`.
+  `references/ds-stats.subfields.md#multiple-comparisons`.
 - **Effect sizes** — trigger: a significance claim ships without a
   magnitude. Lakens, "Calculating and Reporting Effect Sizes," *Frontiers
   in Psychology* 4:863, 2013 —
@@ -55,7 +55,7 @@ is protocol only.
   overstates effect size in small samples (use ω² for cross-study
   comparison); benchmarks don't transfer to designs with covariates or
   repeated measures without adjustment. See
-  `references/subfields.md#effect-sizes`.
+  `references/ds-stats.subfields.md#effect-sizes`.
 - **Survival analysis** — trigger: outcome is time-to-event with
   censoring. Product-limit (Kaplan–Meier) estimator. Kaplan & Meier,
   "Nonparametric Estimation from Incomplete Observations," *JASA* 53,
@@ -63,7 +63,7 @@ is protocol only.
   non-informative censoring — dropout correlated with prognosis silently
   biases the curve; a censored observation treated as an event or as
   event-free is wrong either way, and differently wrong. See
-  `references/subfields.md#survival-analysis`.
+  `references/ds-stats.subfields.md#survival-analysis`.
 - **Design-based inference from complex samples** — trigger: data comes
   from a stratified, clustered, or weighted sample rather than iid draws.
   Calibration estimation / survey weighting and raking. Deville &
@@ -72,7 +72,7 @@ is protocol only.
   corrects for known covariate imbalance, not unmeasured non-response;
   clustered-sample variance still needs a design-consistent estimator,
   never an iid formula. See
-  `references/subfields.md#design-based-inference-complex-samples`.
+  `references/ds-stats.subfields.md#design-based-inference-complex-samples`.
 
 |---|---|---|
 | Hypothesis testing | quick-answer | conditional-on-data:significance-question |

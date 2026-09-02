@@ -160,7 +160,7 @@ def test_build_data_science_writes_router_37_subskills_and_kept_references(tmp_p
     skills = [e for e in entries if e["kind"] == "skill"]
     refs = [e for e in entries if e["kind"] == "reference"]
     assert len(skills) == 38, "router + 37 subskills"
-    assert {e["name"] for e in refs} == set(KEEP_REFERENCES)
+    assert set(KEEP_REFERENCES) <= {e["name"] for e in refs}
     assert (tmp_path / "data-science" / "SKILL.md").is_file()
     assert (tmp_path / "ds-domain-cyber" / "SKILL.md").is_file()
     for e in entries:
@@ -181,9 +181,55 @@ def test_no_generated_file_mentions_a_run_record(tmp_path):
 
 
 def test_the_index_of_descriptions_fits_a_prompt(tmp_path):
-    entries = build_data_science(SRC, tmp_path)
+    """Only listed entries ride in the system prompt, so only they are counted."""
+    entries = [e for e in build_data_science(SRC, tmp_path) if e["listed"]]
     total = sum(len(e["name"]) + len(e["description"]) for e in entries)
     assert total < 20_000, f"index is {total} bytes; trim DESCRIPTION_MAX_CHARS"
+
+
+# --- references ----------------------------------------------------------
+
+def _pointers(text):
+    return set(re.findall(r"references/([A-Za-z0-9._-]+)\.md", text))
+
+
+def test_every_reference_pointer_in_a_generated_skill_resolves(tmp_path):
+    """A skill that cites a reference the tree does not carry is a dead end."""
+    entries = build_data_science(SRC, tmp_path)
+    names = {e["name"] for e in entries if e["kind"] == "reference"}
+    dangling = set()
+    for path in tmp_path.rglob("*.md"):
+        for pointer in _pointers(path.read_text(encoding="utf-8")):
+            if pointer not in names or not (tmp_path / "references" / f"{pointer}.md").is_file():
+                dangling.add((path.name, pointer))
+    assert dangling == set()
+
+
+def test_a_per_subskill_reference_is_namespaced_by_its_skill(tmp_path):
+    entries = build_data_science(SRC, tmp_path)
+    by_name = {e["name"]: e for e in entries}
+    assert "ds-evaluate.metric-cost-and-slices" in by_name
+    assert (tmp_path / "references" / "ds-evaluate.metric-cost-and-slices.md").is_file()
+
+
+def test_the_same_reference_name_under_two_skills_stays_two_documents(tmp_path):
+    """ds-stats and ds-uncertainty both own a subfields.md."""
+    names = {e["name"] for e in build_data_science(SRC, tmp_path)}
+    assert {"ds-stats.subfields", "ds-uncertainty.subfields"} <= names
+
+
+def test_a_reference_cited_only_by_another_reference_is_copied_too(tmp_path):
+    """metric-selection.md cites ds-evaluate's metric-cost-and-slices."""
+    build_data_science(SRC, tmp_path)
+    text = (tmp_path / "references" / "metric-selection.md").read_text(encoding="utf-8")
+    assert "ds-evaluate.metric-cost-and-slices" in text
+
+
+def test_only_the_general_references_are_listed_in_the_prompt(tmp_path):
+    entries = build_data_science(SRC, tmp_path)
+    listed = {e["name"] for e in entries if e["kind"] == "reference" and e["listed"]}
+    assert listed == set(KEEP_REFERENCES)
+    assert all(e["listed"] for e in entries if e["kind"] == "skill")
 
 
 def test_the_source_tree_is_not_modified(tmp_path):
@@ -265,7 +311,8 @@ def test_main_writes_index_json_covering_every_skill(tmp_path):
     assert "ds-domain-cyber" in names
     assert "course-module-09" in names
     assert len([e for e in index if e["kind"] == "skill"]) == 38 + 16
-    assert len([e for e in index if e["kind"] == "reference"]) == 6
+    assert set(KEEP_REFERENCES) <= names
+    assert len([e for e in index if e["listed"]]) == 38 + 16 + len(KEEP_REFERENCES)
     for e in index:
         assert (tmp_path / e["path"]).is_file()
 

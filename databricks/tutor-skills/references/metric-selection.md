@@ -4,7 +4,7 @@ Lookup table, not a tutorial. Per-task-shape primary metric(s), the
 one-line failure mode each carries, and the mechanics owner. The
 *procedure* for choosing among a task shape's metrics (imbalance
 quantification, PR-vs-ROC selection, picking one headline metric) is
-`ds-evaluate`'s (`references/metric-cost-and-slices.md#metric-cost` in
+`ds-evaluate`'s (`references/ds-evaluate.metric-cost-and-slices.md#metric-cost` in
 that skill) — this file is the catalog that procedure and every family
 skill point into, not a restatement of it.
 
@@ -73,6 +73,6 @@ Every metric above states its estimator and spread (holdout / k-fold /
 bootstrap; fold range, CI, or multi-seed range) alongside the point value —
 a bare point estimate fails `ds-evaluate`'s stability subfield regardless of
 which row supplied the metric
-(`references/metric-cost-and-slices.md#stability` in that skill). Slice-
+(`references/ds-evaluate.metric-cost-and-slices.md#stability` in that skill). Slice-
 wise breakdowns (by group and group intersections) apply on top of any row's
 chosen metric, not instead of it.

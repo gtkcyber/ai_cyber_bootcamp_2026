@@ -18,14 +18,14 @@ examples, and citations live in `references/`. This file is protocol only.
   https://www.usenix.org/system/files/conference/nsdi17/nsdi17-crankshaw.pdf;
   Baylor et al., "TFX," KDD 2017 —
   https://research.google/pubs/tfx-a-tensorflow-based-production-scale-machine-learning-platform/.
-  See `references/deployment-mechanics.md#serving`.
+  See `references/ds-mlops.deployment-mechanics.md#serving`.
 - **Model registry and versioning** — LITERATURE-THIN, no seminal paper.
   Sculley et al., "Hidden Technical Debt in ML Systems," NeurIPS 2015 —
   https://research.google/pubs/hidden-technical-debt-in-machine-learning-systems/ :
   pin weights + data version + config/code version together — versioning
   the artifact alone while data/config drift silently is the named failure.
   Registers `ds-model`'s model-card iterations (`model.model_card`,
-  pointer, never re-derived). See `references/deployment-mechanics.md#registry`.
+  pointer, never re-derived). See `references/ds-mlops.deployment-mechanics.md#registry`.
 - **Feature stores** — trigger: features must compute once and serve
   consistently to training and serving paths. Uber, "Meet Michelangelo" —
   https://www.uber.com/us/en/blog/michelangelo-machine-learning-platform/;
@@ -33,30 +33,30 @@ examples, and citations live in `references/`. This file is protocol only.
   https://cloud.google.com/blog/products/ai-machine-learning/introducing-feast-an-open-source-feature-store-for-machine-learning.
   Point-in-time-correct joins and batch/online consistency are the hard
   problem. Feature *semantics* stay `ds-features`'; this owns only the
-  serving-side store. See `references/deployment-mechanics.md#feature-stores`.
+  serving-side store. See `references/ds-mlops.deployment-mechanics.md#feature-stores`.
 - **Training-serving skew / parity testing** — trigger: online predictions
   diverge from offline evaluation. Zinkevich, "Rules of Machine Learning" —
   https://developers.google.com/machine-learning/guides/rules-of-ml.
   Distinguish feature-computation discrepancy, time-based drift, and
   feedback loops — conflating them produces the wrong fix. See
-  `references/deployment-mechanics.md#skew`.
+  `references/ds-mlops.deployment-mechanics.md#skew`.
 - **Progressive rollout (shadow, canary) and rollback** — trigger: a new
   version replaces one already serving traffic. "Shadow deployment vs.
   canary release of ML models" —
   https://www.qwak.com/post/shadow-deployment-vs-canary-release-of-machine-learning-models :
   shadow → staged-traffic canary → full rollout, rollback on regression.
   Shadow can't validate outcomes dependent on the model's own action (e.g.
-  CTR) — canary is required there. See `references/deployment-mechanics.md#rollout`.
+  CTR) — canary is required there. See `references/ds-mlops.deployment-mechanics.md#rollout`.
 - **CI/CD** — trigger: how model/pipeline changes ship safely and
   repeatably. Sato, Wider, Windheuser, "Continuous Delivery for Machine
   Learning," ThoughtWorks 2019 — https://martinfowler.com/articles/cd4ml.html :
   CD4ML, 8 components across data/model/code axes; CI on code alone while
-  model/data ship out-of-band isn't CD4ML. See `references/deployment-mechanics.md#cicd`.
+  model/data ship out-of-band isn't CD4ML. See `references/ds-mlops.deployment-mechanics.md#cicd`.
 - **Model compression for edge** — trigger: a footprint/latency constraint
   rules out the full-size model. Han, Mao, Dally, "Deep Compression," ICLR
   2016 — https://arxiv.org/abs/1510.00149 : prune→quantize→Huffman stack,
   they don't substitute; skipping fine-tuning/QAT after pruning collapses
-  accuracy. See `references/deployment-mechanics.md#compression`.
+  accuracy. See `references/ds-mlops.deployment-mechanics.md#compression`.
 - **Monitoring — performance, schema/contract, coverage, provenance drift**
   — trigger: a model/analytic artifact is serving. Caveness, Zinkevich,
   Polyzotis et al., "TensorFlow Data Validation," SIGMOD 2020 —
@@ -69,7 +69,7 @@ examples, and citations live in `references/`. This file is protocol only.
   are LITERATURE-THIN — same TFX anchor, practice guidance for these two
   dimensions. Adversarial/ intentional drift is domain-overlay delta —
   general form only, here. See
-  `references/monitoring-and-retraining.md#monitoring`.
+  `references/ds-mlops.monitoring-and-retraining.md#monitoring`.
 - **Retraining triggers** — LITERATURE-THIN. Pham et al., "Time to
   Retrain? Detecting Concept Drifts in ML Systems," 2024 —
   https://arxiv.org/abs/2410.09190 : blind (scheduled) vs. informed
@@ -77,7 +77,7 @@ examples, and citations live in `references/`. This file is protocol only.
   delayed-label feedback loop or it's a blind trigger in disguise.
   Quantitative values read `ds-evaluate`'s `scorecard` thresholds (pointer,
   never restated) and must pass a tier-scaled `ds-verify` before firing.
-  See `references/monitoring-and-retraining.md#retraining`.
+  See `references/ds-mlops.monitoring-and-retraining.md#retraining`.
 - **Federated learning and secure aggregation** — trigger: training/serving
   must not centralize raw client data. McMahan et al., "Communication-
   Efficient Learning of Deep Networks from Decentralized Data," AISTATS
@@ -87,7 +87,7 @@ examples, and citations live in `references/`. This file is protocol only.
   guarantee; secure aggregation is a separate layer and doesn't prevent
   gradient-inversion on individual updates. Owns deployment/training
   *architecture*; training mechanics stay `ds-deep-learning`'s. See
-  `references/deployment-mechanics.md#federated`.
+  `references/ds-mlops.deployment-mechanics.md#federated`.
 - **Non-model production analytics** — LITERATURE-THIN, practitioner-only
   by design. Stancil, "The missing piece of the modern data stack," 2021 —
   https://benn.substack.com/p/metrics-layer : the metrics-layer only solves
@@ -95,7 +95,7 @@ examples, and citations live in `references/`. This file is protocol only.
   letting any tool recompute locally reproduces the drift it's meant to
   prevent. Covers metric-definition versioning, recurring-report
   freshness/reconciliation, dashboard contract monitoring. See
-  `references/monitoring-and-retraining.md#non-model-analytics`.
+  `references/ds-mlops.monitoring-and-retraining.md#non-model-analytics`.
 
 | Subfield | Participation |
 |---|---|

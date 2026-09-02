@@ -21,13 +21,13 @@ description: "Post-hoc explanation of a fixed, already-trained model and feature
   KernelSHAP, DeepSHAP. Edges: exact computation is exponential in feature
   count; approximations assume feature independence and misattribute
   under correlation — see when-explanations-lie. See
-  `references/attribution-methods.md#shap`.
+  `references/ds-explain.attribution-methods.md#shap`.
 - **Permutation importance** — trigger: "permutation importance," "which
   features matter globally," "importance for interpretation" (feature set
   fixed — not a pruning question). participation:
   `conditional-on-data:global-importance-requested`. Fisher, Rudin &
   Dominici, JMLR 20, 2019, https://arxiv.org/abs/1801.01489 (Model Class
-  Reliance). See `references/attribution-methods.md#permutation-importance`.
+  Reliance). See `references/ds-explain.attribution-methods.md#permutation-importance`.
 - **PDP/ICE** — trigger: "how does the prediction change with this
   feature," "partial dependence," "individual conditional expectation."
   participation: `conditional-on-data:marginal-relationship-requested`.
@@ -36,21 +36,21 @@ description: "Post-hoc explanation of a fixed, already-trained model and feature
   https://scikit-learn.org/stable/modules/partial_dependence.html. Edges:
   marginalizes assuming feature independence — correlated features force
   evaluation at unrealistic combinations, per when-explanations-lie. See
-  `references/attribution-methods.md#pdp-ice`.
+  `references/ds-explain.attribution-methods.md#pdp-ice`.
 - **Global vs local (LIME)** — trigger: "explain this one prediction"
   (local) vs. "explain the model overall" (global); "no SHAP support for
   this model class." participation:
   `conditional-on-data:local-explanation-requested`. Ribeiro, Singh &
   Guestrin, KDD 2016, https://arxiv.org/abs/1602.04938. Edges: local
   fidelity does not guarantee explanation stability under small
-  perturbations. See `references/attribution-methods.md#global-vs-local`.
+  perturbations. See `references/ds-explain.attribution-methods.md#global-vs-local`.
 - **When explanations lie** — trigger: fires whenever this skill composes
   at all, regardless of which other subfield fired. participation:
   `mandatory`. Hooker, Mentch & Zhou, 2019,
   https://arxiv.org/abs/1905.03151. Covers correlated features, interaction
   masking, off-manifold evaluation. **No explanation ships without this
   subfield's checks recorded** — see `## Gates`. See
-  `references/caveats-and-dl-interpretability.md#when-explanations-lie`.
+  `references/ds-explain.caveats-and-dl-interpretability.md#when-explanations-lie`.
 - **Deep-learning interpretability bundle** — trigger: "explain this neural
   net's prediction," "saliency map," "what is the model attending to," "does
   this concept activate the model." participation:
@@ -58,7 +58,7 @@ description: "Post-hoc explanation of a fixed, already-trained model and feature
   2013/2014, https://arxiv.org/abs/1312.6034 (saliency); Sundararajan, Taly
   & Yan, ICML 2017, https://arxiv.org/abs/1703.01365 (integrated gradients);
   Kim et al., ICML 2018, https://arxiv.org/abs/1711.11279 (TCAV). See
-  `references/caveats-and-dl-interpretability.md#dl-interpretability`.
+  `references/ds-explain.caveats-and-dl-interpretability.md#dl-interpretability`.
 
 ## Selection tree
 

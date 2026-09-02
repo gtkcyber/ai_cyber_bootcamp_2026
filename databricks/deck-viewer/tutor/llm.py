@@ -72,12 +72,17 @@ TOOL_SCHEMAS = [
         "type": "function",
         "function": {
             "name": "read_reference",
-            "description": "Read one reference document from the tutor's library, e.g. metric-selection.",
+            "description": (
+                "Read one reference document from the tutor's library, e.g. metric-selection. "
+                "A skill body cites its own references by name; those are readable too even "
+                "though the index does not list them."),
             "parameters": {
                 "type": "object",
                 "properties": {
                     "name": {"type": "string",
-                             "description": "Exact reference name from the index."},
+                             "description": ("Exact reference name, either from the index or "
+                                             "as cited by a skill you loaded, e.g. "
+                                             "ds-evaluate.metric-cost-and-slices.")},
                 },
                 "required": ["name"],
             },

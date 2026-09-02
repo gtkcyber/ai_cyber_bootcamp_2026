@@ -3,18 +3,28 @@
   "kind": "skill",
   "name": "course-module-04",
   "description": "Module 4 of AI Cyber Bootcamp 2026, Supervised Machine Learning.",
-  "path": "course-module-04/SKILL.md"
+  "path": "course-module-04/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-evaluate",
   "description": "Post-model evaluation: metric-to-cost matching under imbalance.",
-  "path": "ds-evaluate/SKILL.md"
+  "path": "ds-evaluate/SKILL.md",
+  "listed": true
  },
  {
   "kind": "reference",
   "name": "metric-selection",
   "description": "Match the metric to the cost of each error.",
-  "path": "references/metric-selection.md"
+  "path": "references/metric-selection.md",
+  "listed": true
+ },
+ {
+  "kind": "reference",
+  "name": "ds-evaluate.metric-cost-and-slices",
+  "description": "Price a false positive against a false negative.",
+  "path": "references/ds-evaluate.metric-cost-and-slices.md",
+  "listed": false
  }
 ]

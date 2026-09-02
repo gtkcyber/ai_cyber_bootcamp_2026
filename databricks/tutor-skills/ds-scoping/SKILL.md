@@ -16,21 +16,21 @@ is protocol only.
   analysis, `metric`, and `baseline`; select task type (classification,
   regression, similarity, clustering, link prediction, causal). This
   translation is ad hoc in the literature — don't imply a settled procedure.
-  See `references/framing-and-proxy.md#framing`.
+  See `references/ds-scoping.framing-and-proxy.md#framing`.
 - **Proxy statement** — name the construct, its operationalization, and the
   gap between them (`proxy_statement`): "churn" = 30-day inactivity; "fraud"
   = chargeback filed. Never treat the label as identical to the construct.
-  See `references/framing-and-proxy.md#proxy`.
+  See `references/ds-scoping.framing-and-proxy.md#proxy`.
 - **Split design** — the initial holdout/split (`split_design`), decided
   before profiling or modeling, not derived from convenience once data is in
   hand. Doctrine principle taught once in `references/doctrine-leakage.md`;
   this skill's delta is timing (before Observe/Interpret run, and strictly
   before any target-relationship exploration). See
-  `references/split-design.md`.
+  `references/ds-scoping.split-design.md`.
 - If the ask implies a randomized experiment (not just a predictive task),
   consult `ds-stats` for power/randomization-unit/interference design — that
   method is `ds-stats`'s, this subfield only flags the need. See
-  `references/kill-check.md`.
+  `references/ds-scoping.kill-check.md`.
 
 ## Gates
 

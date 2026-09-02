@@ -3,360 +3,924 @@
   "kind": "reference",
   "name": "doctrine-leakage",
   "description": "Stated once, here. Every skill states only its delta from this and links",
-  "path": "references/doctrine-leakage.md"
+  "path": "references/doctrine-leakage.md",
+  "listed": true
  },
  {
   "kind": "reference",
   "name": "doctrine-repro-provenance",
   "description": "The agent programs the analysis; it never pulls raw data in bulk into its",
-  "path": "references/doctrine-repro-provenance.md"
+  "path": "references/doctrine-repro-provenance.md",
+  "listed": true
  },
  {
   "kind": "reference",
   "name": "doctrine-scale-cost",
   "description": "Escalate only as far as the data forces:",
-  "path": "references/doctrine-scale-cost.md"
+  "path": "references/doctrine-scale-cost.md",
+  "listed": true
+ },
+ {
+  "kind": "reference",
+  "name": "ds-causal.effect-application",
+  "description": "Full depth and worked examples for `ds-causal`'s three application-facing",
+  "path": "references/ds-causal.effect-application.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-causal.identification-strategies",
+  "description": "Full depth and worked examples for `ds-causal`'s adjustment- and",
+  "path": "references/ds-causal.identification-strategies.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-causal.instruments-and-discipline",
+  "description": "Continues `references/ds-causal.identification-strategies.md`: instrumental",
+  "path": "references/ds-causal.instruments-and-discipline.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-clean.assertion-suite-and-ledger",
+  "description": "Feature scaling/normalization (min-max rescaling, z-score standardization —",
+  "path": "references/ds-clean.assertion-suite-and-ledger.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-clean.missingness-and-outliers",
+  "description": "**Protocol:** for every field with null/absent values feeding a downstream",
+  "path": "references/ds-clean.missingness-and-outliers.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-clean.privacy-transforms",
+  "description": "The design's stated boundary: the *decision* that data must be protected,",
+  "path": "references/ds-clean.privacy-transforms.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-communicate.narrative-uncertainty-charts",
+  "description": "**Literature name**: **narrative visualization** (HCI/InfoVis) / statistical",
+  "path": "references/ds-communicate.narrative-uncertainty-charts.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-communicate.structure-and-limitations",
+  "description": "**Literature name**: **Pyramid Principle** (Minto) / **BLUF** (bottom line",
+  "path": "references/ds-communicate.structure-and-limitations.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-data-models.disciplines",
+  "description": "The nine `ds-data-models` disciplines. Each section: what it does, why it's",
+  "path": "references/ds-data-models.disciplines.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-data-models.elicitation-protocol",
+  "description": "Applies whenever `Identify`/`Research` come up empty (no findable spec,",
+  "path": "references/ds-data-models.elicitation-protocol.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-data-models.standards-index",
+  "description": "Purpose: (1) a starting index of the standards this discipline set runs into",
+  "path": "references/ds-data-models.standards-index.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-deep-learning.architecture-selection",
+  "description": "**The live empirical debate, not a settled decision rule.** Grinsztajn,",
+  "path": "references/ds-deep-learning.architecture-selection.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-deep-learning.generative-and-rl",
+  "description": "Three architecture families, one shared evaluation pitfall.",
+  "path": "references/ds-deep-learning.generative-and-rl.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-deep-learning.representation-and-training",
+  "description": "Embeddings, autoencoders, self-supervised pretraining, and transfer/",
+  "path": "references/ds-deep-learning.representation-and-training.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-entity-resolution.linkage-mechanics",
+  "description": "Worked depth for the five re-entrant subfields. `SKILL.md` carries the",
+  "path": "references/ds-entity-resolution.linkage-mechanics.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-evaluate.comparison-and-shift",
+  "description": "Depth for the comparison, dataset-shift-diagnosis, and robustness/",
+  "path": "references/ds-evaluate.comparison-and-shift.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-evaluate.metric-cost-and-slices",
+  "description": "Depth for the metric-selection, slice-wise, and stability subfields.",
+  "path": "references/ds-evaluate.metric-cost-and-slices.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-evaluate.threshold-and-reconciliation",
+  "description": "Depth for the cost-sensitive-threshold and deployment-population-",
+  "path": "references/ds-evaluate.threshold-and-reconciliation.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-explain.attribution-methods",
+  "description": "Worked depth for the four attribution/interpretation subfields. `SKILL.md`",
+  "path": "references/ds-explain.attribution-methods.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-explain.caveats-and-dl-interpretability",
+  "description": "Worked depth for the mandatory caveats subfield and the deep-learning",
+  "path": "references/ds-explain.caveats-and-dl-interpretability.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-features.aggregation-leakage-selection",
+  "description": "Two ingredients: automated construction, and point-in-time correctness.",
+  "path": "references/ds-features.aggregation-leakage-selection.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-features.encodings-scaling-interactions",
+  "description": "Depth for the three transform-mechanics subfields that aren't primarily",
+  "path": "references/ds-features.encodings-scaling-interactions.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-gather.acquisition-and-instrumentation",
+  "description": "Depth for the four \"getting data in\" subfields. SKILL.md carries the",
+  "path": "references/ds-gather.acquisition-and-instrumentation.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-gather.extraction-sampling-selection",
+  "description": "Depth for the three \"getting data right\" subfields. SKILL.md carries the",
+  "path": "references/ds-gather.extraction-sampling-selection.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-gather.joins-and-contracts",
+  "description": "Depth for the artifact-level gates: the `data_contract` schema shape, the",
+  "path": "references/ds-gather.joins-and-contracts.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-graph.construction-and-structural-metrics",
+  "description": "**Literature name**: no consolidated decision-criterion literature exists.",
+  "path": "references/ds-graph.construction-and-structural-metrics.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-graph.prediction-and-representation",
+  "description": "**Literature name**: the link prediction problem.",
+  "path": "references/ds-graph.prediction-and-representation.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-impact.decommissioning",
+  "description": "**LITERATURE-THIN, explicit.** No established literature name or",
+  "path": "references/ds-impact.decommissioning.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-impact.experiment-designs-and-attribution",
+  "description": "Two distinct literatures share a common trigger: the smallest unit that can",
+  "path": "references/ds-impact.experiment-designs-and-attribution.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-impact.realized-outcome-and-reconciliation",
+  "description": "**Literature name**: Online Controlled Experiments (OCE).",
+  "path": "references/ds-impact.realized-outcome-and-reconciliation.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-labeling.acquisition-and-agreement",
+  "description": "Depth for label acquisition strategy and inter-annotator agreement.",
+  "path": "references/ds-labeling.acquisition-and-agreement.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-labeling.noise-pu-and-model-assisted",
+  "description": "Depth for the three subfields concerned with what happens when labels are",
+  "path": "references/ds-labeling.noise-pu-and-model-assisted.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-labeling.weak-supervision-and-active-learning",
+  "description": "Depth for the two labeling-strategy subfields that decide *what gets",
+  "path": "references/ds-labeling.weak-supervision-and-active-learning.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-llm-systems.hallucination-and-eval-construction",
+  "description": "**Hallucination is not one failure mode.** Ji et al., \"Survey of",
+  "path": "references/ds-llm-systems.hallucination-and-eval-construction.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-llm-systems.pipeline-and-judge-eval",
+  "description": "**Holistic Evaluation of Language Models (HELM)**: Liang et al., 2022 —",
+  "path": "references/ds-llm-systems.pipeline-and-judge-eval.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-llm-systems.selection-and-rag",
+  "description": "**No settled selection theory — this is empirical, per task, not a",
+  "path": "references/ds-llm-systems.selection-and-rag.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-method-composition.composition-patterns",
+  "description": "Worked examples and full citation context for `SKILL.md`'s Subfields.",
+  "path": "references/ds-method-composition.composition-patterns.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-method-composition.guardrail-cascades",
+  "description": "Worked example and full citation context for `SKILL.md`'s",
+  "path": "references/ds-method-composition.guardrail-cascades.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-mlops.deployment-mechanics",
+  "description": "Depth and worked examples for the \"how do I ship it\" subfields. `SKILL.md`",
+  "path": "references/ds-mlops.deployment-mechanics.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-mlops.monitoring-and-retraining",
+  "description": "Depth and worked examples for the \"is it still working\" subfields.",
+  "path": "references/ds-mlops.monitoring-and-retraining.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-model.baseline-tuning-cv",
+  "description": "**Claim to avoid**: \"the gradient-boosted model beats logistic regression,",
+  "path": "references/ds-model.baseline-tuning-cv.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-model.imbalance-calibration-curve",
+  "description": "Krawczyk (2016) surveys three competing intervention families — resampling",
+  "path": "references/ds-model.imbalance-calibration-curve.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-model.selection-economics",
+  "description": "**Status**: LITERATURE-THIN. No single established field name covers this",
+  "path": "references/ds-model.selection-economics.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-optimize.combinatorial-and-queueing",
+  "description": "Full depth and citations for LP/IP, scheduling-and-routing,",
+  "path": "references/ds-optimize.combinatorial-and-queueing.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-optimize.sequential-and-decision-policies",
+  "description": "Full depth and citations for simulation-optimization, sequential decisions",
+  "path": "references/ds-optimize.sequential-and-decision-policies.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-perception.classical-dsp",
+  "description": "Cooley & Tukey, \"An Algorithm for the Machine Calculation of Complex",
+  "path": "references/ds-perception.classical-dsp.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-perception.modality-preprocessing",
+  "description": "**LITERATURE-THIN.** No settled academic literature names \"modality",
+  "path": "references/ds-perception.modality-preprocessing.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-perception.pretrained-family-selection",
+  "description": "LeCun, Bottou, Bengio & Haffner, \"Gradient-Based Learning Applied to",
+  "path": "references/ds-perception.pretrained-family-selection.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-pipelines.orchestration-and-refresh",
+  "description": "Depth for the first four subfields: scheduling/DAG orchestration, the",
+  "path": "references/ds-pipelines.orchestration-and-refresh.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-pipelines.testing-and-integrity",
+  "description": "Depth for the two artifact-bearing subfields: property/golden-row testing",
+  "path": "references/ds-pipelines.testing-and-integrity.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-pipelines.warehouse-and-time",
+  "description": "Depth for the three time/grain-sensitive subfields: dimensional modeling,",
+  "path": "references/ds-pipelines.warehouse-and-time.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-profile.eda-protocol",
+  "description": "This file is `ds-profile`'s delta: the order to compute in, and what each",
+  "path": "references/ds-profile.eda-protocol.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-profile.grouping-variables",
+  "description": "Rows that share a real-world unit — the same patient across visits, the",
+  "path": "references/ds-profile.grouping-variables.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-ranking.bias-and-attribution",
+  "description": "Full depth and citations for position/presentation bias, off-policy/",
+  "path": "references/ds-ranking.bias-and-attribution.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-ranking.ranking-and-retrieval",
+  "description": "Full depth and citations for learning-to-rank, retrieval/search relevance,",
+  "path": "references/ds-ranking.ranking-and-retrieval.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-ranking.recommendation-methods",
+  "description": "Full depth and citations for collaborative filtering/matrix factorization,",
+  "path": "references/ds-ranking.recommendation-methods.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-scoping.framing-and-proxy",
+  "description": "**Literature name**: no single established academic term. Industry calls it",
+  "path": "references/ds-scoping.framing-and-proxy.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-scoping.kill-check",
+  "description": "One artifact (`kill_check`), four axes. All four are judged together — a",
+  "path": "references/ds-scoping.kill-check.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-scoping.split-design",
+  "description": "`ds-model` refines the scheme (CV design choice) but never widens what this",
+  "path": "references/ds-scoping.split-design.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-simulation.monte-carlo-and-bootstrap",
+  "description": "Depth for the two resampling/simulation subfields. SKILL.md carries the",
+  "path": "references/ds-simulation.monte-carlo-and-bootstrap.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-simulation.synthetic-and-privacy-generation",
+  "description": "Depth for the five generation subfields. SKILL.md carries the protocol;",
+  "path": "references/ds-simulation.synthetic-and-privacy-generation.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-stats.subfields",
+  "description": "The seven `ds-stats` subfields. Each section: literature name, canonical",
+  "path": "references/ds-stats.subfields.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-supervised.classification-regression-methods",
+  "description": "Full depth and citations for the GLM, GBM, and multi-class/multi-label",
+  "path": "references/ds-supervised.classification-regression-methods.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-supervised.ordinal-quantile-online",
+  "description": "Full depth and citations for the three subfields covering ordered targets,",
+  "path": "references/ds-supervised.ordinal-quantile-online.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-text.classic-nlp-methods",
+  "description": "Full depth and citations for the four foundational classic-NLP subfields.",
+  "path": "references/ds-text.classic-nlp-methods.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-text.entity-similarity-and-escalation",
+  "description": "Full depth and citations for the extraction/matching subfields and the",
+  "path": "references/ds-text.entity-similarity-and-escalation.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-uncertainty.subfields",
+  "description": "The seven `ds-uncertainty` subfields. Each section: literature name,",
+  "path": "references/ds-uncertainty.subfields.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-unsupervised.anomaly-and-density",
+  "description": "Full depth and citations for the anomaly-as-the-task and density-estimation",
+  "path": "references/ds-unsupervised.anomaly-and-density.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-unsupervised.clustering-and-validation",
+  "description": "Full depth and citations for the clustering subfield and the stability",
+  "path": "references/ds-unsupervised.clustering-and-validation.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-unsupervised.dimensionality-reduction",
+  "description": "Full depth and citations for the DR subfield. `SKILL.md` states triggers",
+  "path": "references/ds-unsupervised.dimensionality-reduction.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-verify.audit-checks",
+  "description": "Depth for `ds-verify`'s four non-reproduction subfields — all tier-floored",
+  "path": "references/ds-verify.audit-checks.md",
+  "listed": false
+ },
+ {
+  "kind": "reference",
+  "name": "ds-verify.reproduction-protocol",
+  "description": "Depth for `ds-verify`'s core gate: what \"second path\" means, how the",
+  "path": "references/ds-verify.reproduction-protocol.md",
+  "listed": false
  },
  {
   "kind": "reference",
   "name": "encoding-chooser",
   "description": "Routing table, not mechanics. Cardinality × model family × leakage risk →",
-  "path": "references/encoding-chooser.md"
+  "path": "references/encoding-chooser.md",
+  "listed": true
  },
  {
   "kind": "reference",
   "name": "imputation-tree",
   "description": "Routing table, not mechanics. Mechanism hypothesis (Rubin's MCAR/MAR/MNAR,",
-  "path": "references/imputation-tree.md"
+  "path": "references/imputation-tree.md",
+  "listed": true
  },
  {
   "kind": "reference",
   "name": "metric-selection",
   "description": "Lookup table, not a tutorial. Per-task-shape primary metric(s), the",
-  "path": "references/metric-selection.md"
+  "path": "references/metric-selection.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-00",
   "description": "Module 0 of AI Cyber Bootcamp 2026, Introduction: What the bootcamp covers and how it is laid out: five days from pandas through classical machine learning to LLM agents, every lab a security problem. How the worksheets, the answer notebooks and the shared course data fit together, and what a student is expected to be…",
-  "path": "course-module-00/SKILL.md"
+  "path": "course-module-00/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-01",
   "description": "Module 1 of AI Cyber Bootcamp 2026, Exploratory Data Analysis: Pandas Series and DataFrames as vectorized structures: why a vectorized operation beats a Python loop over rows, boolean masking and .loc/.iloc indexing, groupby and aggregation, and reading semi-structured security telemetry — a botnet-activity CSV and a…",
-  "path": "course-module-01/SKILL.md"
+  "path": "course-module-01/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-02",
   "description": "Module 2 of AI Cyber Bootcamp 2026, Data Visualization: Choosing a chart for the question: distributions, comparisons over time, and relationships between two variables, plus the traps that make a security chart lie (unlabelled axes, a truncated y-axis, an aggregation that hides the outlier you were looking for).…",
-  "path": "course-module-02/SKILL.md"
+  "path": "course-module-02/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-03",
   "description": "Module 3 of AI Cyber Bootcamp 2026, Feature Engineering: Turning raw domain names into features a classifier can use: length, Shannon entropy, vowel and digit ratios, n-gram frequency against an English corpus, and dictionary-word membership. Why a feature has to be computable at scoring time, and why a feature that…",
-  "path": "course-module-03/SKILL.md"
+  "path": "course-module-03/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-04",
   "description": "Module 4 of AI Cyber Bootcamp 2026, Supervised Machine Learning: Training and judging a DGA classifier: train/test splits, decision trees and random forests, cross-validation, and hyperparameter search in 4.2. Which metric to read under class imbalance and what a confusion matrix costs a SOC in false positives. 4.3…",
-  "path": "course-module-04/SKILL.md"
+  "path": "course-module-04/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-05",
   "description": "Module 5 of AI Cyber Bootcamp 2026, Unsupervised Learning: Clustering the same domain features without labels: k-means, hierarchical clustering and reading a dendrogram, choosing k by elbow and silhouette, and how feature scaling changes every distance in the problem. Interpreting a cluster is the hard part — a tight…",
-  "path": "course-module-05/SKILL.md"
+  "path": "course-module-05/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-06",
   "description": "Module 6 of AI Cyber Bootcamp 2026, Anomaly Detection: Anomalies in a CPU-utilisation time series: seasonal decomposition, forecasting with ARIMA through pmdarima's auto-fit and with Prophet, and flagging a point by the size of its residual against the forecast. Why the base rate makes anomaly detection an alerting…",
-  "path": "course-module-06/SKILL.md"
+  "path": "course-module-06/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-07",
   "description": "Module 7 of AI Cyber Bootcamp 2026, Attacking Machine Learning Models: Attacking the models the earlier modules built. 7.1 evades the saved DGA decision tree by moving a domain across the boundary in feature space. 7.2 runs a fast gradient sign method attack on an image classifier, showing how a perturbation invisible…",
-  "path": "course-module-07/SKILL.md"
+  "path": "course-module-07/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-08",
   "description": "Module 8 of AI Cyber Bootcamp 2026, Deep Learning: Two architectures against two shapes of data: a convolutional network over fingerprint images, and a recurrent network over URL character sequences. Layers, activations, loss and optimiser; batch size and epochs; and reading a training curve for overfitting. Why a…",
-  "path": "course-module-08/SKILL.md"
+  "path": "course-module-08/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-09",
   "description": "Module 9 of AI Cyber Bootcamp 2026, Artificial Intelligence Introduction and Theory: The path from embeddings to a transformer. 9.1 and 9.2 classify and cluster SQL-injection payloads with sentence embeddings. 9.3 is PyTorch mechanics: tensors, autograd, a training loop. 9.4 builds a byte-pair tokenizer. 9.5…",
-  "path": "course-module-09/SKILL.md"
+  "path": "course-module-09/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-10",
   "description": "Module 10 of AI Cyber Bootcamp 2026, Prompt Engineering: Calling an LLM from code rather than a chat box: system versus user messages, temperature and max tokens, few-shot examples, asking for structured output you can parse, and passing an image. 10.2 uses the model as a classifier over security text and compares it…",
-  "path": "course-module-10/SKILL.md"
+  "path": "course-module-10/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-11",
   "description": "Module 11 of AI Cyber Bootcamp 2026, AI Components: The pieces an LLM application is assembled from. 11.1 builds retrieval-augmented generation over an NVD vulnerability export: chunking, embedding, a vector store, and a prompt that cites what it retrieved. 11.2 writes tools an agent can call — a schema, a docstring…",
-  "path": "course-module-11/SKILL.md"
+  "path": "course-module-11/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-12",
   "description": "Module 12 of AI Cyber Bootcamp 2026, Model Context Protocol: Model Context Protocol as the interface between a model and the tools it can reach: what a server exposes (tools, resources, prompts), how a client discovers them, and the stdio transport the worksheet's server runs over. Why a protocol beats a bespoke tool…",
-  "path": "course-module-12/SKILL.md"
+  "path": "course-module-12/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-13",
   "description": "Module 13 of AI Cyber Bootcamp 2026, AI Agents: Agents as state graphs in LangGraph, built up over five worksheets: a single-node email classifier, an agent that calls tools in a loop, conditional routing on the state, an interrupt that puts a human in the loop before an action commits, and a supervisor delegating to…",
-  "path": "course-module-13/SKILL.md"
+  "path": "course-module-13/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-14",
   "description": "Module 14 of AI Cyber Bootcamp 2026, Red Teaming AI: Testing an AI system the way an attacker would: prompt injection through content the model reads, jailbreaks against the system prompt, exfiltration through an agent's tools, and supply-chain risk in models and datasets. Discussion module with no lab in the repo…",
-  "path": "course-module-14/SKILL.md"
+  "path": "course-module-14/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "course-module-15",
   "description": "Module 15 of AI Cyber Bootcamp 2026, Final Project: The capstone: build and evaluate an agent that probes OWASP Juice Shop. The scaffold lives in final_project/ — an agent package with HTTP and recon tools, an eval harness and a scoring script, a design-document template, a write-up template and a rubric. It runs…",
-  "path": "course-module-15/SKILL.md"
+  "path": "course-module-15/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "data-science",
   "description": "Guidance for any data science, analytics, statistics, or machine learning task: exploratory analysis, model building/evaluation, experiment design, forecasting, clustering, anomaly detection, recommendation/ranking, NLP, vision, graph analysis, optimization/decisioning, causal inference, production ML/analytics…",
-  "path": "data-science/SKILL.md"
+  "path": "data-science/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-analytics",
   "description": "Descriptive/product analytics and the metric layer: metric definition and lineage, grain and additivity in analytics practice, sessionization, cohorts, funnels, retention curves, segmentation validity, decomposition/driver analysis, dashboard and KPI-alert design. Owns \"what to alert on\"; detection mechanics are…",
-  "path": "ds-analytics/SKILL.md"
+  "path": "ds-analytics/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-causal",
   "description": "Observational/quasi- experimental identification: DAGs and confounding, matching, difference-in-differences, instrumental variables, uplift/treatment-effect heterogeneity, off-policy/counterfactual evaluation, attribution modeling, collider/selection stratification, and the umbrella discipline of naming an…",
-  "path": "ds-causal/SKILL.md"
+  "path": "ds-causal/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-clean",
   "description": "Missingness, outlier, and dedup policy with logged rationale; normalization into a validation assertion suite that seeds ds-mlops monitoring; anonymization/masking transform mechanics (suppression, generalization, k-anonymity-style binning, hashing) with utility-loss measurement — executes a made privacy decision…",
-  "path": "ds-clean/SKILL.md"
+  "path": "ds-clean/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-communicate",
   "description": "Turns findings into the audience-tiered report: findings→narrative structure, honest uncertainty language, chart-type selection, and executive-summary/BLUF discipline, including the mandatory honest-limitations section.",
-  "path": "ds-communicate/SKILL.md"
+  "path": "ds-communicate/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-data-models",
   "description": "Schema, standard, and semantic intelligence for any dataset: fingerprints, researches, elicits, and interprets data models on the fly, including operational-event semantics, collection coverage, and field trust provenance.",
-  "path": "ds-data-models/SKILL.md"
+  "path": "ds-data-models/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-deep-learning",
   "description": "Neural-network method family: when a neural approach beats classical (Grinsztajn tabular result), architecture selection by data shape (geometric deep learning), representation learning (embeddings, autoencoders, self-supervised, transfer/fine-tuning), training mechanics (regularization, schedules, early stopping…",
-  "path": "ds-deep-learning/SKILL.md"
+  "path": "ds-deep-learning/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-domain-cyber",
   "description": "Domain overlay for security-telemetry tasks (intrusion/malware detection, alert triage, identity/access disambiguation, threat-graph analysis): states only the cyber-specific deltas on imbalance, adversarial drift, label scarcity, base-rate-driven alert cost, adversary-influenced identity keys, and graph-heavy framing…",
-  "path": "ds-domain-cyber/SKILL.md"
+  "path": "ds-domain-cyber/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-domain-finance",
   "description": "Domain overlay for finance tasks (return/price forecasting and strategy backtesting, credit-risk/default modeling, financial-statement/fundamentals analysis, market/portfolio risk estimation): states only the finance-specific deltas on non-stationarity severity, backtest overfitting, survivorship and look-ahead bias…",
-  "path": "ds-domain-finance/SKILL.md"
+  "path": "ds-domain-finance/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-domain-healthcare",
   "description": "Domain overlay for clinical/EHR/claims tasks (readmission and deterioration risk, comparative-effectiveness and treatment-effect analysis, survival/ time-to-event outcomes, diagnostic/screening classification): states only the healthcare-specific deltas on censoring conventions, treatment-effect identification…",
-  "path": "ds-domain-healthcare/SKILL.md"
+  "path": "ds-domain-healthcare/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-domain-marketing",
   "description": "Domain overlay for marketing/growth tasks (churn, customer lifetime value, uplift-targeted campaigns, multi-touch attribution): states only the marketing-specific deltas on assignment-unit interference, holdout economics, churn/LTV label conventions, uplift's dependence on a valid holdout, and attribution's…",
-  "path": "ds-domain-marketing/SKILL.md"
+  "path": "ds-domain-marketing/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-entity-resolution",
   "description": "Record-level identity linkage: blocking, fuzzy/probabilistic matching (Fellegi-Sunter), transitive-closure blowup on pairwise-match clustering, identity-graph (cluster-level) evaluation, and identity keys with temporal validity (DHCP/NAT/recycled-account churn — a join key valid at time T is not valid at T+1).",
-  "path": "ds-entity-resolution/SKILL.md"
+  "path": "ds-entity-resolution/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-evaluate",
   "description": "Post-model evaluation intelligence: metric↔business-cost matching under imbalance, slice-wise error analysis, stability, comparison-with-uncertainty (applying the chosen CV scheme), dataset-shift diagnosis, robustness/adversarial evaluation, cost-sensitive operating-point selection, and deployment-population…",
-  "path": "ds-evaluate/SKILL.md"
+  "path": "ds-evaluate/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-explain",
   "description": "Post-hoc explanation of a fixed, already-trained model and feature set: SHAP, permutation importance, PDP/ICE, global-vs-local framing (LIME), mandatory when-explanations-lie caveats (correlated features, interaction masking, off-manifold evaluation), and the deep-learning interpretability bundle (saliency, integrated…",
-  "path": "ds-explain/SKILL.md"
+  "path": "ds-explain/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-features",
   "description": "Feature engineering and the leak-safe transform pipeline: encodings, scaling, aggregation/window features, interactions, leak-safe target encoding, feature selection (pruning). Owns the fit-on-train-only pipeline-object mandate.",
-  "path": "ds-features/SKILL.md"
+  "path": "ds-features/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-gather",
   "description": "Acquisition and selection-into-the-dataset intelligence: API/database/file/stream acquisition, web scraping, instrumentation/telemetry design, survey instrument design, unstructured-document extraction, sampling design, survivorship/selection-bias accounting, and multi-source join gates (same-semantics + cardinality)…",
-  "path": "ds-gather/SKILL.md"
+  "path": "ds-gather/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-geospatial",
   "description": "Geospatial method family: spatial autocorrelation (Moran's I / LISA), CRS and projection traps, spatial joins, spatial CV (spatial-leakage delta), point/raster/polygon data models, and geo feature engineering. Owns the split/validation scheme whenever composed with another family on spatially autocorrelated data…",
-  "path": "ds-geospatial/SKILL.md"
+  "path": "ds-geospatial/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-graph",
   "description": "Graph/network method family: constructing a graph from tabular data, centrality, community detection, link prediction, graph embeddings/GNN framing, and the decision of when graph framing beats a tabular join-then-aggregate representation.",
-  "path": "ds-graph/SKILL.md"
+  "path": "ds-graph/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-impact",
   "description": "Realized-outcome measurement after deployment: did the business metric move, by how much, reconciled against the ds-scoping task card; value attribution (associative vs. causal); decommissioning and model sunset. Fires the mandatory impact→scoping back-edge when realized outcome contradicts the intended effect.",
-  "path": "ds-impact/SKILL.md"
+  "path": "ds-impact/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-labeling",
   "description": "Label acquisition and quality intelligence for supervised targets: acquisition strategy, inter-annotator agreement, weak supervision, active learning, label delay/noise, implicit-negative and PU-learning gating, and model-assisted labeling strategy/audit (regardless of which model does the labeling).",
-  "path": "ds-labeling/SKILL.md"
+  "path": "ds-labeling/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-llm-systems",
   "description": "LLM-systems method family: when an LLM beats a classical model (selection economics pointer, not a settled rule), retrieval-augmented systems and their evaluation (RAG, retrieval vs. generation faithfulness), prompt/ pipeline-level evaluation (HELM-class multi-axis), LLM-as-judge design/ calibration/agreement…",
-  "path": "ds-llm-systems/SKILL.md"
+  "path": "ds-llm-systems/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-method-composition",
   "description": "The method-composition hook: any skill consults this before escalating to external research when it hits its own limit (\"imputation too crude,\" \"single detector too weak,\" \"LLM output untrusted\"). Pattern grammar — model-as-imputer, model-as-feature-extractor, residual-as-signal, detector ensembles/voting…",
-  "path": "ds-method-composition/SKILL.md"
+  "path": "ds-method-composition/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-mlops",
   "description": "Production track for models and analytics: serving architecture (batch/online/streaming), model registry/versioning, feature stores, training-serving skew, progressive rollout and rollback, CI/CD, edge compression, production monitoring (performance/schema/coverage/provenance drift), retraining triggers, federated…",
-  "path": "ds-mlops/SKILL.md"
+  "path": "ds-mlops/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-model",
   "description": "Method-agnostic model- selection doctrine: baseline-first escalation ladder, tuning protocol, cross-validation design choice, class-imbalance intervention decision, calibration, learning-curve/data-sufficiency method, and selection economics (cost as a selection input, not an afterthought).",
-  "path": "ds-model/SKILL.md"
+  "path": "ds-model/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-optimize",
   "description": "Optimization/decisioning method family: given a model of the world (predicted or simulated), choose the action that maximizes the objective under constraints. LP/IP, scheduling and routing, assignment/matching, queueing theory, optimal stopping, inventory/newsvendor, simulation-optimization, sequential decisions…",
-  "path": "ds-optimize/SKILL.md"
+  "path": "ds-optimize/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-perception",
   "description": "Image/audio/video/sensor method family: classical DSP (FFT, filtering, spectrograms, peak detection) on a classical-first ladder through CNN framing; owns modality preprocessing and which-pretrained-family-fits-this-modality (fine-tuning and training: `ds-deep-learning`).",
-  "path": "ds-perception/SKILL.md"
+  "path": "ds-perception/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-pipelines",
   "description": "Orchestration and warehouse-delivery intelligence for data already acquired: DAG orchestration/scheduling, incremental vs full refresh, backfills and idempotency, partitioning and storage formats, warehouse/dimensional modeling, late-arriving and restated records, point-in-time reconstruction, analysis-code…",
-  "path": "ds-pipelines/SKILL.md"
+  "path": "ds-pipelines/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-profile",
   "description": "Structured EDA protocol producing a findings doc: distributions, missingness, typing, cardinality, duplicate-by-field-equivalence and outlier signal (flagged, not fixed), additivity classification, and grouping-variable identification (the keys — patient, account, device, session — that make rows non-iid). All…",
-  "path": "ds-profile/SKILL.md"
+  "path": "ds-profile/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-ranking",
   "description": "Ranking and recommendation method/goal family: collaborative filtering/matrix factorization, cold start, implicit feedback; learning-to-rank; retrieval/search relevance; ranking evaluation (NDCG/MAP/MRR); position and presentation bias; off-policy/counterfactual evaluation application (identification: `ds-causal`)…",
-  "path": "ds-ranking/SKILL.md"
+  "path": "ds-ranking/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-scoping",
   "description": "Turns a question into a task card — target, unit of analysis, metric + baseline, proxy statement, intended scoring population, initial holdout/split design, feasibility kill-check.",
-  "path": "ds-scoping/SKILL.md"
+  "path": "ds-scoping/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-simulation",
   "description": "Monte Carlo and bootstrap resampling machinery; synthetic data generation with property-preservation validation; SMOTE-class imbalance-augmentation mechanics; differentially-private synthesis, re-identification risk measurement, and privacy-utility tradeoff evaluation. Executes and evaluates privacy decisions, never…",
-  "path": "ds-simulation/SKILL.md"
+  "path": "ds-simulation/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-stats",
   "description": "Composes alongside any phase whenever a design or significance question surfaces, not just at its nominal lifecycle position.",
-  "path": "ds-stats/SKILL.md"
+  "path": "ds-stats/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-supervised",
   "description": "Classification and regression method/goal family: generalized linear models through gradient-boosted trees on a baseline-first escalation ladder; multi-class/multi-label classification, ordinal regression, quantile regression; classical online-learning training mechanics.",
-  "path": "ds-supervised/SKILL.md"
+  "path": "ds-supervised/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-text",
   "description": "Text method/goal family: classic NLP first — tokenization, TF-IDF/BoW, n-grams, topic modeling, NER, string similarity, log/regex parsing — escalating to embeddings/ transformers only when justified; small-corpus regimes a declared edge.",
-  "path": "ds-text/SKILL.md"
+  "path": "ds-text/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-timeseries",
   "description": "Time-series method family: forecasting, decomposition, stationarity, backtesting protocol, temporal cross-validation (performance-estimation method selection), the temporal delta on data leakage, and temporal/contextual anomaly detection. Owns the split/validation scheme whenever composed with another family on…",
-  "path": "ds-timeseries/SKILL.md"
+  "path": "ds-timeseries/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-uncertainty",
   "description": "Probabilistic modeling and interval discipline: hierarchical/mixed-effects models, Bayesian workflow and MCMC diagnostics, prediction intervals, conformal prediction, multiple imputation under missingness, tail/extreme-value estimation, and uncertainty propagation into decisions. Owns every interval's…",
-  "path": "ds-uncertainty/SKILL.md"
+  "path": "ds-uncertainty/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-unsupervised",
   "description": "Unsupervised method/goal family: clustering (k-choice, label-free validation), dimensionality reduction for structure discovery, anomaly-as-the-task (detector families, validation without labels), density estimation.",
-  "path": "ds-unsupervised/SKILL.md"
+  "path": "ds-unsupervised/SKILL.md",
+  "listed": true
  },
  {
   "kind": "skill",
   "name": "ds-verify",
   "description": "Mandatory verification gate before any artifact leaves the run: independent second-path reproduction of every quantitative claim, magnitude/sanity checks, join fan-out/denominator/attrition/double-filter audit, alternative-explanation survival, falsifiability.",
-  "path": "ds-verify/SKILL.md"
+  "path": "ds-verify/SKILL.md",
+  "listed": true
  }
 ]

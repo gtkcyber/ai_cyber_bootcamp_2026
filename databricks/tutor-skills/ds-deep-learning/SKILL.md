@@ -18,7 +18,7 @@ file is protocol only.
   tabular data specifically, never extrapolated to image/audio/text/graph,
   where the opposite holds. Feeds `ds-model`'s selection economics, never
   overrides it. See
-  `references/architecture-selection.md#when-neural-beats-classical`.
+  `references/ds-deep-learning.architecture-selection.md#when-neural-beats-classical`.
 - **Architecture selection by data shape** — trigger: neural approach
   selected/framed on image/audio/video/sensor/sequence/set/graph-shaped
   data. Canonical methods: CNN (grid), Transformer (sequence/set), GNN
@@ -28,7 +28,7 @@ file is protocol only.
   case. A prior, not a guarantee — a CNN's translation-equivariance can be
   wrong for non-grid-aligned sensors. Pretrained-family fit for a
   perception modality is `ds-perception`'s framing call. See
-  `references/architecture-selection.md#architecture-selection-by-data-shape`.
+  `references/ds-deep-learning.architecture-selection.md#architecture-selection-by-data-shape`.
 - **Representation learning** — trigger: "need an embedding/pretrained
   representation," "should we self-supervise," "does this transfer."
   Canonical methods: autoencoders, self-supervised contrastive
@@ -38,7 +38,7 @@ file is protocol only.
   layer- and task-distance-dependent, not binary — validate per use case,
   never assume). Consuming an embedding downstream as a feature is
   `ds-method-composition`'s. See
-  `references/representation-and-training.md#representation-learning`.
+  `references/ds-deep-learning.representation-and-training.md#representation-learning`.
 - **Training mechanics** — trigger: "not converging/overfitting," "what
   regularization/schedule/early-stopping," "compress this model," "update
   online." Canonical methods: dropout, cyclical LR schedules, early
@@ -49,7 +49,7 @@ file is protocol only.
   wrong one is a wrong-mechanism error, not a tuning error. Co-owned with
   `ds-supervised` for online/incremental mechanics; when/why to compress
   is `ds-mlops`'s. See
-  `references/representation-and-training.md#training-mechanics`.
+  `references/ds-deep-learning.representation-and-training.md#training-mechanics`.
 - **Generative modeling (non-text)** — trigger: "generate new
   images/audio/samples," "build a GAN/diffusion/VAE," "evaluate generated
   quality." Canonical methods: GANs, VAEs, diffusion; FID-class evaluation
@@ -58,7 +58,7 @@ file is protocol only.
   statistics, not perceptual quality; mode collapse can hide behind a low
   score — report mode-coverage separately, never a bare FID). Text-
   generative evaluation is `ds-llm-systems`'s. See
-  `references/generative-and-rl.md#generative-modeling`.
+  `references/ds-deep-learning.generative-and-rl.md#generative-modeling`.
 - **Deep-RL training mechanics** — trigger: "train/stabilize this deep-RL
   policy" — reward framing already done in `ds-optimize`. Canonical
   methods: DQN (experience replay + target network), PPO (clipped
@@ -66,7 +66,7 @@ file is protocol only.
   Schulman et al. 2017, https://arxiv.org/abs/1707.06347. Training-
   mechanics results, not problem-framing results — a well-converged run
   against a misspecified reward is a stable failure, not a success. See
-  `references/generative-and-rl.md#deep-rl-training-mechanics`.
+  `references/ds-deep-learning.generative-and-rl.md#deep-rl-training-mechanics`.
 
 |---|---|---|---|
 | When neural beats classical | quick-answer | 1 | mandatory |

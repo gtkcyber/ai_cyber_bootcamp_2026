@@ -54,6 +54,17 @@ KEEP_REFERENCES = (
 )
 
 
+# The five top-level references that are agent-orchestration machinery. They are
+# never copied, and every citation to one is expected to have gone with the line
+# that carried it -- one surviving means DROP_LINE_RES has a gap, which is a
+# build failure rather than something to paper over.
+DROP_REFERENCES = ("concept-ownership", "dispatch-table", "ledger-spec", "loop-backs", "tiers")
+
+
+class DanglingReferenceError(Exception):
+    """A body cites a reference the build cannot resolve, or must not copy."""
+
+
 class LeakageError(Exception):
     """A cleaned description still contains agent-orchestration vocabulary.
 
@@ -381,6 +392,94 @@ def strip_body(body: str, *, is_router: bool) -> str:
     return _tidy(body)
 
 
+# --- references ----------------------------------------------------------
+
+# `references/foo.md`, or the owner-qualified `ds-data-models/references/foo.md`
+# the suite uses when one skill cites another's reference.
+_REFERENCE_CITATION_RE = re.compile(r"(?:([a-z][\w-]*)/)?references/([A-Za-z0-9._-]+)\.md")
+
+
+class _ReferenceLibrary:
+    """Resolve every cited reference to one indexed name, and copy what is cited.
+
+    The suite keeps eleven references at the top level and 73 more inside the
+    subskills that own them, and two skills can own a file of the same name
+    (`subfields.md` sits under both ds-stats and ds-uncertainty). So a
+    per-subskill reference is indexed as `<skill>.<stem>`, a top-level one as
+    `<stem>`, and every citation in a generated body is rewritten to the name it
+    resolved to -- which is exactly the name `read_reference` takes. Copying
+    only the six general references, as this script first did, left the other
+    sixty-odd pointers dead on arrival.
+
+    Only those six ride in the system prompt (`listed`). The rest are leaves of
+    one skill, met by name inside the body that cites them; listing all of them
+    would cost more prompt than the skills themselves.
+    """
+
+    def __init__(self, src: Path):
+        self.src = src
+        self.sources: dict[str, Path] = {}
+
+    def _candidates(self, owner: str, qualifier: str | None, stem: str):
+        subskills = self.src / "subskills"
+        if qualifier:
+            yield f"{qualifier}.{stem}", subskills / qualifier / "references" / f"{stem}.md"
+            return
+        if owner:
+            yield f"{owner}.{stem}", subskills / owner / "references" / f"{stem}.md"
+        yield stem, self.src / "references" / f"{stem}.md"
+        # A top-level reference cites a subskill's leaf by its bare name, which
+        # is only unambiguous when exactly one subskill owns that name.
+        elsewhere = sorted(subskills.glob(f"*/references/{stem}.md"))
+        if len(elsewhere) == 1:
+            yield f"{elsewhere[0].parent.parent.name}.{stem}", elsewhere[0]
+
+    def rewrite(self, text: str, owner: str) -> str:
+        """Point every citation in `text` at an indexed name, queueing the file."""
+        def replace(match: re.Match) -> str:
+            qualifier, stem = match.group(1), match.group(2)
+            if stem in DROP_REFERENCES:
+                raise DanglingReferenceError(
+                    f"{owner or 'a reference'} still cites {stem!r}, which is machinery "
+                    "this build drops -- the line carrying it should have gone too")
+            for name, path in self._candidates(owner, qualifier, stem):
+                if path.is_file():
+                    self.sources.setdefault(name, path)
+                    return f"references/{name}.md"
+            raise DanglingReferenceError(
+                f"{owner or 'a reference'} cites {match.group(0)!r}, which the source "
+                "suite does not have under that name")
+        return _REFERENCE_CITATION_RE.sub(replace, text)
+
+    def emit(self, dest: Path) -> list[dict]:
+        """Write every queued reference, and everything they cite in turn."""
+        for name in KEEP_REFERENCES:
+            self.sources.setdefault(name, self.src / "references" / f"{name}.md")
+        out_dir = dest / "references"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        entries: list[dict] = []
+        written: set[str] = set()
+        while True:
+            pending = sorted(set(self.sources) - written)
+            if not pending:
+                return entries
+            for name in pending:
+                written.add(name)
+                path = self.sources[name]
+                owner = (path.parent.parent.name
+                         if path.parent.parent.parent.name == "subskills" else "")
+                text = self.rewrite(_tidy(_drop_lines(path.read_text(encoding="utf-8"))), owner)
+                (out_dir / f"{name}.md").write_text(text, encoding="utf-8")
+                first = next((ln.strip() for ln in text.splitlines()
+                              if ln.strip() and not ln.startswith("#")), name)
+                entries.append({
+                    "kind": "reference", "name": name,
+                    "description": first[:DESCRIPTION_MAX_CHARS],
+                    "path": f"references/{name}.md",
+                    "listed": name in KEEP_REFERENCES,
+                })
+
+
 # --- frontmatter I/O -----------------------------------------------------
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -429,18 +528,20 @@ def render_skill(name: str, description: str, body: str) -> str:
 # --- the data-science half ----------------------------------------------
 
 def build_data_science(src: Path, dest: Path) -> list[dict]:
-    """Write the stripped router, subskills and kept references. Returns index entries."""
+    """Write the stripped router, subskills and every cited reference."""
     entries: list[dict] = []
+    references = _ReferenceLibrary(src)
 
     def emit_skill(name: str, text: str, *, is_router: bool) -> None:
         meta, body = split_frontmatter(text)
         description = clean_description(meta["description"])
-        out_body = strip_body(body, is_router=is_router)
+        out_body = references.rewrite(strip_body(body, is_router=is_router), name)
         rel = f"{name}/SKILL.md"
         path = dest / rel
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(render_skill(name, description, out_body), encoding="utf-8")
-        entries.append({"kind": "skill", "name": name, "description": description, "path": rel})
+        entries.append({"kind": "skill", "name": name, "description": description,
+                        "path": rel, "listed": True})
 
     emit_skill("data-science", (src / "SKILL.md").read_text(encoding="utf-8"), is_router=True)
 
@@ -449,20 +550,7 @@ def build_data_science(src: Path, dest: Path) -> list[dict]:
         if skill_md.is_file():
             emit_skill(skill_dir.name, skill_md.read_text(encoding="utf-8"), is_router=False)
 
-    ref_dir = dest / "references"
-    ref_dir.mkdir(parents=True, exist_ok=True)
-    for name in KEEP_REFERENCES:
-        text = (src / "references" / f"{name}.md").read_text(encoding="utf-8")
-        text = _tidy(_drop_lines(text))
-        (ref_dir / f"{name}.md").write_text(text, encoding="utf-8")
-        first = next((ln.strip() for ln in text.splitlines() if ln.strip() and not ln.startswith("#")), name)
-        entries.append({
-            "kind": "reference", "name": name,
-            "description": first[:DESCRIPTION_MAX_CHARS],
-            "path": f"references/{name}.md",
-        })
-
-    return entries
+    return entries + references.emit(dest)
 
 
 # --- the course half -----------------------------------------------------
@@ -747,7 +835,8 @@ def build_course_modules(dest: Path) -> list[dict]:
         rel = f"{name}/SKILL.md"
         (dest / name).mkdir(parents=True, exist_ok=True)
         (dest / rel).write_text(render_skill(name, description, body), encoding="utf-8")
-        entries.append({"kind": "skill", "name": name, "description": description, "path": rel})
+        entries.append({"kind": "skill", "name": name, "description": description,
+                        "path": rel, "listed": True})
     return entries
 
 
@@ -770,9 +859,10 @@ def main(argv=None) -> int:
 
     skills = sum(1 for e in entries if e["kind"] == "skill")
     refs = len(entries) - skills
-    index_bytes = sum(len(e["name"]) + len(e["description"]) for e in entries)
+    listed = [e for e in entries if e["listed"]]
+    index_bytes = sum(len(e["name"]) + len(e["description"]) for e in listed)
     print(f"wrote {skills} skills and {refs} references to {args.dest}")
-    print(f"index: {index_bytes} bytes of names and descriptions")
+    print(f"prompt index: {len(listed)} entries, {index_bytes} bytes of names and descriptions")
     return 0
 
 

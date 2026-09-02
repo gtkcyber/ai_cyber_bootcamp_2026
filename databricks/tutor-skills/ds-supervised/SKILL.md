@@ -20,7 +20,7 @@ citations, and failure modes: `references/`; this file is protocol only.
   multinomial-logit, Poisson/Gamma regression, regularized variants.
   Edges: link misspecification is a variance-structure error, not a
   fit-quality one — escalate to a distributional diagnostic, not a bigger
-  model. See `references/classification-regression-methods.md#glm`.
+  model. See `references/ds-supervised.classification-regression-methods.md#glm`.
 - **GBM** — trigger: "gradient boosting," or the GLM baseline underperforms
   with a comparably-tuned candidate on record. participation: `mandatory`
   (the family's default tabular workhorse rung). Canonical methods:
@@ -28,7 +28,7 @@ citations, and failure modes: `references/`; this file is protocol only.
   subsampling. Edges: escalation past GBM is `ds-deep-learning`'s, not a
   deeper method here — requires data-shape or benchmark evidence, not just
   "still not good enough." See
-  `references/classification-regression-methods.md#gbm`.
+  `references/ds-supervised.classification-regression-methods.md#gbm`.
 - **Multi-class / multi-label classification** — trigger: label cardinality
   above two, or an instance holding more than one label simultaneously.
   participation: `conditional-on-data:multiclass-or-multilabel`. Canonical
@@ -36,26 +36,26 @@ citations, and failure modes: `references/`; this file is protocol only.
   (multi-class); binary relevance, classifier chains, label-powerset
   (multi-label). Edges: don't infer multi-class vs. multi-label from label
   count alone — check co-occurrence first. See
-  `references/classification-regression-methods.md#multiclass-multilabel`.
+  `references/ds-supervised.classification-regression-methods.md#multiclass-multilabel`.
 - **Ordinal regression** — trigger: target is an ordered categorical
   (severity scale, rating, Likert item), not nominal or continuous.
   participation: `conditional-on-data:ordinal-target`. Canonical methods:
   proportional-odds / cumulative-link models. Edges: don't silently reduce
   to plain-integer regression or nominal classification — either is a
-  stated tradeoff. See `references/ordinal-quantile-online.md#ordinal`.
+  stated tradeoff. See `references/ds-supervised.ordinal-quantile-online.md#ordinal`.
 - **Quantile regression** — trigger: the ask names a specific quantile of
   the target (P90 demand, a lower/upper bound), not a general uncertainty
   statement. participation: `conditional-on-data:named-quantile-requested`.
   Canonical methods: linear quantile regression (pinball loss),
   quantile-loss GBM. Edges: general interval coverage (not a named
   quantile) routes to `ds-uncertainty`. See
-  `references/ordinal-quantile-online.md#quantile`.
+  `references/ds-supervised.ordinal-quantile-online.md#quantile`.
 - **Online-learning training mechanics** — trigger: training runs
   incrementally against a stream, candidate model class is classical
   (non-deep). participation:
   `conditional-on-data:streaming-or-incremental-training`. Canonical
   methods: SGD-trained linear/logistic models, online GLM fitting. See
-  `references/ordinal-quantile-online.md#online-learning`.
+  `references/ds-supervised.ordinal-quantile-online.md#online-learning`.
 
 ## Selection tree
 
@@ -74,7 +74,7 @@ citations, and failure modes: `references/`; this file is protocol only.
    response's distributional family (identity/logit/multinomial-logit/log
    link as the target demands) — the ladder's first rung, motivated by the
    same tuning-parity finding `ds-model`'s baseline-first-ladder gate
-   enforces (`references/classification-regression-methods.md#ladder`).
+   enforces (`references/ds-supervised.classification-regression-methods.md#ladder`).
    Escalate to GBM only once that baseline is on record with comparable
    tuning effort. This family's ladder stops at GBM — escalating further is
    `ds-deep-learning`'s subfield, requiring data-shape or benchmark
@@ -118,7 +118,7 @@ rank metrics, not plain accuracy).
 ## Gates
 
 - Every GLM fit records its link function and response family — an
-  unstated link fails (`references/classification-regression-methods.md#glm`).
+  unstated link fails (`references/ds-supervised.classification-regression-methods.md#glm`).
 - Multi-class-vs-multi-label is recorded explicitly, never inferred
   silently from label cardinality.
 - An ordinal target modeled via proportional-odds records whether

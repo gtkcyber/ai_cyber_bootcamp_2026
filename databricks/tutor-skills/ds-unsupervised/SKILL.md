@@ -21,7 +21,7 @@ this file is protocol only.
   agglomerative, DBSCAN, Gaussian mixture models. Edges: an internal
   index's optimum is not label-free ground truth — it encodes a geometric
   assumption about cluster shape (see Gates). See
-  `references/clustering-and-validation.md#clustering`.
+  `references/ds-unsupervised.clustering-and-validation.md#clustering`.
 - **Dimensionality reduction (structure discovery)** — trigger: "visualize
   this in 2D/3D," "find the low-dimensional structure," a manifold-learning
   ask that is *not* feeding a downstream model. participation:
@@ -32,7 +32,7 @@ this file is protocol only.
   downstream model, not for human/structure inspection, is
   `ds-deep-learning`'s representation-learning subfield — the boundary is
   *who consumes the output*, not the algorithm. See
-  `references/dimensionality-reduction.md#dr`.
+  `references/ds-unsupervised.dimensionality-reduction.md#dr`.
 - **Anomaly-as-the-task (detector families, validation without labels)** —
   trigger: "find the unusual/rare instances" as the deliverable itself — not
   a data-cleaning step, not a temporal-context question, not production
@@ -41,7 +41,7 @@ this file is protocol only.
   (Chandola et al.'s taxonomy). Edges: a detector's own score distribution
   is never self-validating (see Gates); disagreement between detector
   families reflects different normality assumptions, not one detector being
-  wrong. See `references/anomaly-and-density.md#anomaly`.
+  wrong. See `references/ds-unsupervised.anomaly-and-density.md#anomaly`.
 - **Density estimation** — trigger: "estimate the underlying distribution,"
   a task that needs the density itself (as a deliverable, or as an input
   to a density-based anomaly score). participation:
@@ -49,7 +49,7 @@ this file is protocol only.
   kernel density estimation (KDE), bandwidth-selection rules. Edges:
   bandwidth choice dominates estimate quality more than kernel shape;
   >3-4 dimensions degrades sharply and needs explicit justification, not a
-  default. See `references/anomaly-and-density.md#density`.
+  default. See `references/ds-unsupervised.anomaly-and-density.md#density`.
 
 ## Selection tree
 
@@ -59,7 +59,7 @@ this file is protocol only.
    **Clustering**. *k* stated up front by the ask? Fit directly. *k* must
    be chosen from the data? → internal-index selection (state the index's
    geometric bias) plus a stability check across resamples/parameter
-   perturbations (`references/clustering-and-validation.md#stability`) —
+   perturbations (`references/ds-unsupervised.clustering-and-validation.md#stability`) —
    neither alone is label-free ground truth.
 3. Deliverable is a low-dimensional map for a human to inspect, not an input
    to another model? → **Dimensionality reduction**.

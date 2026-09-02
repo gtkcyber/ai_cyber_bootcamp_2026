@@ -18,7 +18,7 @@ file is protocol only.
   https://arxiv.org/abs/1709.05584 : graph framing earns its cost only when
   relational structure *between* examples carries signal a
   join-then-aggregate tabular representation would miss. See
-  `references/construction-and-structural-metrics.md#framing-decision`.
+  `references/ds-graph.construction-and-structural-metrics.md#framing-decision`.
 - **Graph construction from tabular data** — trigger: rows/tables exist,
   no graph object yet. **LITERATURE-THIN**: practitioner-level, not
   surveyed. PyTorch Geometric, "Heterogeneous Graph Learning" —
@@ -26,7 +26,7 @@ file is protocol only.
   : constructing node/edge tables into a graph object. Edge-construction
   choices are modeling decisions, not a neutral transform — every edge
   type cites its Attest register `attest_id` (Gates). See
-  `references/construction-and-structural-metrics.md#construction`.
+  `references/ds-graph.construction-and-structural-metrics.md#construction`.
 - **Centrality** — trigger: "which nodes matter / are most important /
   influential." Newman, "The Structure and Function of Complex Networks" —
   https://arxiv.org/abs/cond-mat/0303516 ; Brandes, "A Faster Algorithm for
@@ -34,20 +34,20 @@ file is protocol only.
   (author-hosted PDF; title/authorship not independently re-extracted).
   Degree, betweenness, closeness, eigenvector each encode a different
   notion of importance — name which one. See
-  `references/construction-and-structural-metrics.md#centrality`.
+  `references/ds-graph.construction-and-structural-metrics.md#centrality`.
 - **Community detection** — trigger: "communities / segments / clusters in
   the network." Fortunato, "Community Detection in Graphs" —
   https://arxiv.org/abs/0906.0612 : "very hard and not yet satisfactorily
   solved." No single ground-truth objective — name the operationalization
   (e.g. modularity maximization). See
-  `references/construction-and-structural-metrics.md#community`.
+  `references/ds-graph.construction-and-structural-metrics.md#community`.
 - **Link prediction** — trigger: "predict future/missing edges."
   Liben-Nowell & Kleinberg, "The Link Prediction Problem for Social
   Networks" — https://www.cs.cornell.edu/home/kleinber/link-pred.pdf
   (author-hosted PDF; title/authorship not independently re-extracted).
   Proximity-based predictors assume future links correlate with current
   structural proximity — fails under structural change. See
-  `references/prediction-and-representation.md#link-prediction`.
+  `references/ds-graph.prediction-and-representation.md#link-prediction`.
 - **Graph embeddings/GNN framing** — trigger: "node classification /
   embedding features / GNN." Hamilton, Ying, Leskovec (as above,
   https://arxiv.org/abs/1709.05584); Kipf & Welling, "Semi-Supervised
@@ -55,7 +55,7 @@ file is protocol only.
   https://arxiv.org/abs/1609.02907 . This subfield owns the framing choice
   (transductive vs. inductive, which embedding family fits); training
   mechanics are `ds-deep-learning`'s (Edges). See
-  `references/prediction-and-representation.md#embeddings`.
+  `references/ds-graph.prediction-and-representation.md#embeddings`.
 
 |---|---|---|---|
 | When graph framing beats tabular | quick-answer | 1 | mandatory |

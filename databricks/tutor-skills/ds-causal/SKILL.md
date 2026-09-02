@@ -32,7 +32,7 @@ association reported as causation without this citation fails at
   silently reclassifies confounder vs. collider vs. mediator; adjusting for
   a collider is the opposite-direction error from missing a confounder
   (see collider/selection stratification). See
-  `references/identification-strategies.md#dags-and-confounding`.
+  `references/ds-causal.identification-strategies.md#dags-and-confounding`.
 - **Matching** — trigger: a comparison group exists on observed
   covariates, no natural experiment. Propensity-score matching. Rosenbaum
   & Rubin, *Biometrika* 70(1), 1983 —
@@ -40,7 +40,7 @@ association reported as causation without this citation fails at
   removes bias from *observed* confounders only, under unconfoundedness —
   cannot address hidden confounders; balance diagnostics give no evidence
   for the untestable unconfoundedness assumption itself. See
-  `references/identification-strategies.md#matching`.
+  `references/ds-causal.identification-strategies.md#matching`.
 - **Difference-in-differences** — trigger: repeated before/after
   observations, panel or repeated cross-section. DiD with staggered
   timing. Callaway & Sant'Anna — https://arxiv.org/abs/1803.09015 : rests
@@ -48,7 +48,7 @@ association reported as causation without this citation fails at
   classic two-way-fixed-effects DiD is contaminated by "forbidden
   comparisons" between already- and later-treated units — group-time
   estimators are the fix, not an optional refinement. See
-  `references/identification-strategies.md#difference-in-differences`.
+  `references/ds-causal.identification-strategies.md#difference-in-differences`.
 - **Instrumental variables** — trigger: a candidate shifts treatment but
   plausibly not the outcome directly. IV under potential outcomes.
   Angrist, Imbens & Rubin, NBER t0136 —
@@ -57,7 +57,7 @@ association reported as causation without this citation fails at
   Average Treatment Effect (LATE) for compliers only, not the population
   ATE; a weak instrument inflates variance/small-sample bias even when
   technically valid. See
-  `references/instruments-and-discipline.md#instrumental-variables`.
+  `references/ds-causal.instruments-and-discipline.md#instrumental-variables`.
 - **Uplift/treatment-effect heterogeneity** — trigger: who benefits, not
   just the average effect. Causal trees and forests. Athey & Imbens —
   https://arxiv.org/abs/1504.01132 : "honest" estimation splits the sample
@@ -65,7 +65,7 @@ association reported as causation without this citation fails at
   effect within it — one sample for both overstates precision and can
   manufacture spurious heterogeneity; still inherits the base estimator's
   identification assumption. See
-  `references/effect-application.md#uplift-and-heterogeneity`.
+  `references/ds-causal.effect-application.md#uplift-and-heterogeneity`.
 - **Off-policy/counterfactual evaluation** — trigger: evaluate a
   policy/ranking against logged data from a different policy. Doubly
   robust estimation. Dudík, Langford & Li, ICML 2011 —
@@ -73,7 +73,7 @@ association reported as causation without this citation fails at
   the logging-propensity model is correctly specified, not both — but poor
   overlap (near-zero logged propensities) blows up variance regardless.
   Ranking application: `ds-ranking`. See
-  `references/effect-application.md#off-policy-evaluation`.
+  `references/ds-causal.effect-application.md#off-policy-evaluation`.
 - **Attribution modeling** — trigger: credit for an outcome split across
   touchpoints/channels. Causally motivated multi-touch attribution.
   Dalessandro et al., ADKDD 2012 —
@@ -82,7 +82,7 @@ association reported as causation without this citation fails at
   to variable-importance measures precisely when the causal assumptions
   are violated — a stated approximation must be labeled association, not
   causal credit. Position-effect application: `ds-ranking`. See
-  `references/effect-application.md#attribution-modeling`.
+  `references/ds-causal.effect-application.md#attribution-modeling`.
 - **Collider/selection stratification** — trigger: a stratification
   candidate is a common *effect* of treatment and outcome, or `ds-gather`
   flagged selection-into-the-dataset. Collider (selection) bias. Cole,
@@ -91,7 +91,7 @@ association reported as causation without this citation fails at
   precedes both exposure and outcome; a collider is a common effect,
   posterior to both — conditioning on it induces a spurious association
   where none existed, the opposite fix from confounder adjustment. See
-  `references/instruments-and-discipline.md#collider-and-selection-stratification`.
+  `references/ds-causal.instruments-and-discipline.md#collider-and-selection-stratification`.
 - **Identification without randomization** (umbrella discipline) —
   trigger: any of the above fired, or a causal claim is about to ship. No
   single field term; the identification-strategy literature spanning
@@ -101,7 +101,7 @@ association reported as causation without this citation fails at
   discipline is naming that specific assumption (unconfoundedness,
   exclusion restriction, parallel trends) rather than asserting "we
   controlled for confounders" generically. See
-  `references/instruments-and-discipline.md#identification-without-randomization`.
+  `references/ds-causal.instruments-and-discipline.md#identification-without-randomization`.
 
 No fixed load-order rank — composes at the citing skill's position, per the
 named entry points above.

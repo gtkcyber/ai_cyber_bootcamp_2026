@@ -21,8 +21,8 @@ Load order is per-subfield, not one skill-level value: the generation
 cluster triggers alongside `ds-clean`'s data-prep slot, imbalance
 augmentation alongside `ds-model`'s intervention decision, MC/bootstrap
 alongside `ds-stats`/`ds-uncertainty`'s inferential-machinery slot. Full
-citations: `references/monte-carlo-and-bootstrap.md`,
-`references/synthetic-and-privacy-generation.md`.
+citations: `references/ds-simulation.monte-carlo-and-bootstrap.md`,
+`references/ds-simulation.synthetic-and-privacy-generation.md`.
 
 - Canonical methods (examples, not exhaustive): Monte Carlo integration/
   expectation estimation; MCMC (Metropolis algorithm, 1953) when sampling an

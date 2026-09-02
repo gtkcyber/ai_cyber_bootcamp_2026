@@ -20,7 +20,7 @@ is protocol only.
   https://experimentguide.com/ : randomization integrity/SUTVA, sample-ratio
   mismatch as a trust check, statistical vs. practical significance — don't
   conflate a pre/post observational comparison with a controlled experiment.
-  See `references/realized-outcome-and-reconciliation.md#realized-outcome`.
+  See `references/ds-impact.realized-outcome-and-reconciliation.md#realized-outcome`.
 - **Geo-test / switchback experiment designs** — two distinct literatures.
   Trigger: unit-level randomization isn't available (a market/region or a
   time-slice is the smallest randomizable unit). Vaver & Koehler, "Measuring
@@ -30,7 +30,7 @@ is protocol only.
   Zhao, "Design and Analysis of Switchback Experiments," Management Science
   — https://arxiv.org/abs/2009.00148 (switchback, assumes bounded/known
   carryover). See
-  `references/experiment-designs-and-attribution.md#geo-switchback`.
+  `references/ds-impact.experiment-designs-and-attribution.md#geo-switchback`.
 - **Value attribution** — multi-touch attribution (MTA) vs. incrementality.
   Trigger: value/credit must be assigned across multiple touchpoints or
   channels. Dalessandro, Perlich, Stitelman, Provost, "Causally Motivated
@@ -44,7 +44,7 @@ is protocol only.
   this skill doesn't own: observational/quasi-experimental →
   `ds-causal`'s `identification_statement`; a holdout already exists →
   `ds-stats`'s `design_analysis_memo`. See
-  `references/experiment-designs-and-attribution.md#attribution`.
+  `references/ds-impact.experiment-designs-and-attribution.md#attribution`.
 - **Decommissioning and model sunset** — **LITERATURE-THIN**: no established
   literature name for retirement methodology. Nearest academic anchor,
   Sculley et al., "Hidden Technical Debt in Machine Learning Systems,"
@@ -54,7 +54,7 @@ is protocol only.
   practice protocol, not literature. Trigger: a sunset review is requested
   (sustained under-performance vs. cost, the framing invalidated by an
   `impact → scoping` firing, or a replacement already shipped). See
-  `references/decommissioning.md`.
+  `references/ds-impact.decommissioning.md`.
 
 | Subfield | Participation |
 |---|---|

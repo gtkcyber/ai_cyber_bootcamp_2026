@@ -17,7 +17,7 @@ examples, and citations live in `references/`; this file is protocol only.
   Language Tasks," EMNLP 2008 — https://aclanthology.org/D08-1027 :
   redundant non-expert labels, aggregated, can match expert quality — a
   single-annotator pass cannot claim this without redundancy plus an
-  aggregation method. See `references/acquisition-and-agreement.md#acquisition`.
+  aggregation method. See `references/ds-labeling.acquisition-and-agreement.md#acquisition`.
 - **Annotation quality and inter-annotator agreement** — trigger: 2+
   annotators (human or model) labeled overlapping items. Cohen, "A
   Coefficient of Agreement for Nominal Scales," 1960 (existence:
@@ -27,28 +27,28 @@ examples, and citations live in `references/`; this file is protocol only.
   Krippendorff's Alpha-Reliability" —
   https://www.asc.upenn.edu/sites/default/files/2021-03/Computing%20Krippendorff's%20Alpha-Reliability.pdf
   — **Krippendorff's alpha**, any rater count/measurement level/missing
-  data. See `references/acquisition-and-agreement.md#agreement`.
+  data. See `references/ds-labeling.acquisition-and-agreement.md#agreement`.
 - **Weak supervision** — trigger: labels come (in whole or part) from
   programmatic heuristics rather than direct annotation. Ratner et al.,
   "Snorkel: Rapid Training Data Creation with Weak Supervision," VLDB
   11(3), 2017 — https://arxiv.org/pdf/1711.10160 : labeling functions
   combined via a generative model that denoises them without ground truth,
   assuming conditional independence (or explicitly modeled correlation)
-  across functions. See `references/weak-supervision-and-active-learning.md#weak-supervision`.
+  across functions. See `references/ds-labeling.weak-supervision-and-active-learning.md#weak-supervision`.
 - **Active learning** — trigger: labeling budget is constrained and items
   can be prioritized before labeling. Settles, "Active Learning Literature
   Survey," UW-Madison CS TR 1648 —
   https://burrsettles.com/pub/settles.activelearning.pdf : query-selection
   strategies (uncertainty sampling, query-by-committee, expected model
   change/error reduction). See
-  `references/weak-supervision-and-active-learning.md#active-learning`.
+  `references/ds-labeling.weak-supervision-and-active-learning.md#active-learning`.
 - **Label delay and noise** — trigger: labels arrive late relative to
   prediction time, or are known/suspected noisy. Song et al., "Learning
   from Noisy Labels with Deep Neural Networks: A Survey," IEEE TNNLS 2022 —
   https://arxiv.org/pdf/2007.08199 : deep nets memorize noisy labels given
   capacity/epochs; noise is usually class-conditional or
   instance-dependent, not uniform. See
-  `references/noise-pu-and-model-assisted.md#noise`.
+  `references/ds-labeling.noise-pu-and-model-assisted.md#noise`.
 - **Implicit negatives and PU learning** — trigger: the only observed
   labels are positives and everything else is unlabeled, not confirmed
   negative. Elkan & Noto, "Learning Classifiers from Only Positive and
@@ -58,12 +58,12 @@ examples, and citations live in `references/`; this file is protocol only.
   "Learning from Positive and Unlabeled Data: A Survey," Machine Learning
   109, 2020 — https://arxiv.org/pdf/1811.04820 : the non-SCAR case, where
   calibration breaks. See
-  `references/noise-pu-and-model-assisted.md#pu-learning`.
+  `references/ds-labeling.noise-pu-and-model-assisted.md#pu-learning`.
 - Desmond et al., "Semi-Automated Data Labeling," PMLR v133, 2020 —
   http://proceedings.mlr.press/v133/desmond21a/desmond21a.pdf : model
   suggests, human reviews, high-confidence items auto-label, iterating as
   the model improves from corrections. See
-  `references/noise-pu-and-model-assisted.md#model-assisted`.
+  `references/ds-labeling.noise-pu-and-model-assisted.md#model-assisted`.
 
 |---|---|---|
 | Label acquisition strategy | quick-answer | mandatory |

@@ -19,35 +19,35 @@ this file is protocol only.
   Overview" — https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/overview.html :
   scheduler/DAG-processor/executor model. DAG orchestration guarantees
   execution *order*, not data correctness. See
-  `references/orchestration-and-refresh.md#orchestration`.
+  `references/ds-pipelines.orchestration-and-refresh.md#orchestration`.
 - **Incremental vs full refresh** — trigger: any pipeline composes; every
   refresh strategy is a decision, even "always full refresh." dbt,
   "Configure incremental models" —
   https://docs.getdbt.com/docs/build/incremental-models : insert/merge/
   delete+insert strategies. A fixed lookback window silently drops
   late-arriving changes past the window — reconcile with periodic full
-  refresh. See `references/orchestration-and-refresh.md#incremental-vs-full`.
+  refresh. See `references/ds-pipelines.orchestration-and-refresh.md#incremental-vs-full`.
 - **Backfills and idempotency** — trigger: reprocesses historical data or
   must tolerate re-runs. Beauchemin, "Functional Data Engineering — a
   modern paradigm for batch data processing" —
   https://maximebeauchemin.medium.com/functional-data-engineering-a-modern-paradigm-for-batch-data-processing-2327ec32c42a :
   overwrite whole partitions rather than UPDATE/DELETE/APPEND. Idempotency
   is deliberate design, not automatic. See
-  `references/orchestration-and-refresh.md#backfills-idempotency`.
+  `references/ds-pipelines.orchestration-and-refresh.md#backfills-idempotency`.
 - **Partitioning and storage formats** — trigger: writes to partitioned or
   columnar storage. Melnik et al., "Dremel: Interactive Analysis of
   Web-Scale Datasets," VLDB 2010 —
   https://sfu-db.github.io/dbsystems/Lectures/Dremel.pdf : columnar-
   nested-data algorithm Parquet implements. Partition pruning only works
   if query predicates align with the physical partition key. See
-  `references/orchestration-and-refresh.md#partitioning-storage`.
+  `references/ds-pipelines.orchestration-and-refresh.md#partitioning-storage`.
 - **Warehouse/dimensional modeling** — trigger: delivers into a
   fact/dimension warehouse schema. Kimball Group, "Fact Tables and
   Dimension Tables" — https://www.kimballgroup.com/2003/01/fact-tables-and-dimension-tables/ :
   facts as measurement events at atomic grain; conformed dimensions as
   reuse. Grain must be declared before design — cite `ds-data-models`'
   grain contract (Interpret), never re-derive. See
-  `references/warehouse-and-time.md#dimensional-modeling`.
+  `references/ds-pipelines.warehouse-and-time.md#dimensional-modeling`.
 - **Late-arriving and restated records** — trigger: source data revises or
   arrives after initial load. Kimball Group, "Slowly Changing Dimensions" —
   https://www.kimballgroup.com/2008/08/slowly-changing-dimensions/ :
@@ -55,12 +55,12 @@ this file is protocol only.
   Kimball Group material, not that page). Active-row identification uses
   date-range validity, not a "current-record" flag, or historical joins
   mis-join against the wrong dimension version. See
-  `references/warehouse-and-time.md#late-arriving`.
+  `references/ds-pipelines.warehouse-and-time.md#late-arriving`.
 - **Point-in-time reconstruction** — trigger: feature/label construction
   needs an as-of-correct view across time. Feast docs, "Point-in-time joins"
   — https://docs.feast.dev/getting-started/concepts/point-in-time-joins :
   retrieves the latest feature value at-or-before the event timestamp. See
-  `references/warehouse-and-time.md#point-in-time`.
+  `references/ds-pipelines.warehouse-and-time.md#point-in-time`.
 - **Analysis-code correctness (property tests, golden-row regression,
   idempotency tests)** — trigger: any pipeline composes; every transform
   needs a checkable correctness claim. Claessen & Hughes, "QuickCheck: A
@@ -71,7 +71,7 @@ this file is protocol only.
   compares output against a stored "approved" reference. A golden file
   blindly re-approved on diff becomes a no-op. Artifact-bearing: writes
   `transform_test_suite`. See
-  `references/testing-and-integrity.md#analysis-code-correctness`.
+  `references/ds-pipelines.testing-and-integrity.md#analysis-code-correctness`.
 - **Training-data integrity checks (poisoning surface)** — trigger: training
   data sourced from external, crowd-sourced, or user-influenced channels.
   Biggio & Roli, "Wild Patterns: Ten Years After the Rise of Adversarial
@@ -80,7 +80,7 @@ this file is protocol only.
   test-time (evasion) attacks are distinct. Flags the surface at
   pipeline-delivery only; labeling strategy/quality response is
   `ds-labeling`'s. See
-  `references/testing-and-integrity.md#training-data-integrity`.
+  `references/ds-pipelines.testing-and-integrity.md#training-data-integrity`.
 
 |---|---|---|
 | Orchestration (DAGs, scheduling) | analysis | conditional-on-data:scheduled-orchestration |

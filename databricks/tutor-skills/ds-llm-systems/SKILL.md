@@ -19,7 +19,7 @@ file is protocol only.
   foundation model across many systems concentrates failure into a single
   point of failure. No settled theory; validate empirically per task.
   Feeds `ds-model`'s selection economics, never overrides it. See
-  `references/selection-and-rag.md#when-an-llm-beats-a-classical-model`.
+  `references/ds-llm-systems.selection-and-rag.md#when-an-llm-beats-a-classical-model`.
 - **Retrieval-augmented systems and their evaluation** — trigger: "build/
   evaluate a RAG system," "is the retrieval or the generation wrong."
   Lewis et al., NeurIPS 2020, https://arxiv.org/abs/2005.11401 (RAG
@@ -30,7 +30,7 @@ file is protocol only.
   an LLM judge for ground truth, risking circularity if the judge shares
   the generator's blind spots (see LLM-as-judge, below). Retrieval/search
   relevance mechanics themselves are `ds-ranking`'s. See
-  `references/selection-and-rag.md#retrieval-augmented-systems`.
+  `references/ds-llm-systems.selection-and-rag.md#retrieval-augmented-systems`.
 - **Prompt/pipeline-level evaluation** — trigger: "evaluate this LLM
   pipeline holistically," "compare these prompts/pipelines." Liang et al.,
   "HELM," 2022 — https://arxiv.org/abs/2211.09110 : 7 metrics (accuracy,
@@ -38,7 +38,7 @@ file is protocol only.
   core scenarios; prior norm evaluated models on average across only
   17.9% of them. A single-metric leaderboard number hides real
   multi-metric tradeoffs. See
-  `references/pipeline-and-judge-eval.md#prompt-pipeline-level-evaluation`.
+  `references/ds-llm-systems.pipeline-and-judge-eval.md#prompt-pipeline-level-evaluation`.
 - **LLM-as-judge design, calibration, agreement** — trigger: "use an LLM
   to score/judge outputs," "automate this eval with a model." Zheng et
   al., NeurIPS 2023 — https://arxiv.org/abs/2306.05685 : documents
@@ -46,7 +46,7 @@ file is protocol only.
   ability. Biases must be actively corrected, not assumed neutral —
   self-enhancement bias favors outputs stylistically similar to the
   judge's own family, silently inflating same-family generator scores.
-  See `references/pipeline-and-judge-eval.md#llm-as-judge`.
+  See `references/ds-llm-systems.pipeline-and-judge-eval.md#llm-as-judge`.
 - **Hallucination/grounding measurement** — trigger: "check for
   hallucination," "measure factual grounding." Ji et al., ACM Comp. Surv.
   2023 — https://arxiv.org/abs/2202.03629; Min et al., "FActScore," EMNLP
@@ -55,7 +55,7 @@ file is protocol only.
   distinct failure modes needing distinct detection — not one taxonomy.
   FActScore's atomic-fact decomposition itself carries parsing/annotation
   subjectivity, reported, not treated as ground truth. See
-  `references/hallucination-and-eval-construction.md#hallucination-grounding-measurement`.
+  `references/ds-llm-systems.hallucination-and-eval-construction.md#hallucination-grounding-measurement`.
 - **Generative eval-set construction** — trigger: "need eval data for
   this LLM task," "build a benchmark for this pipeline." Wang et al.,
   "Self-Instruct," ACL 2023 — https://arxiv.org/abs/2212.10560; Kiela et
@@ -65,7 +65,7 @@ file is protocol only.
   Dynabench's human-and-model-in-the-loop adversarial creation avoids
   saturation but shifts the target distribution each round, complicating
   longitudinal score comparison. See
-  `references/hallucination-and-eval-construction.md#generative-eval-set-construction`.
+  `references/ds-llm-systems.hallucination-and-eval-construction.md#generative-eval-set-construction`.
 
 |---|---|---|---|
 | When an LLM beats a classical model | quick-answer | 1 | mandatory |

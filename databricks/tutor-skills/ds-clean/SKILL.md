@@ -23,7 +23,7 @@ protocol only.
   claim "MAR confirmed." Point-estimate imputation methods (mean/median/
   mode, model-based) are in scope; multiple imputation for inferential use
   is `ds-uncertainty`'s (see Edges). See
-  `references/missingness-and-outliers.md#missingness`.
+  `references/ds-clean.missingness-and-outliers.md#missingness`.
 - Trigger: profiling flags extreme/implausible values that are data defects,
   not the analytic target itself. Chandola, Banerjee, Kumar, "Anomaly
   Detection: A Survey," ACM Computing Surveys 41(3), 2009 —
@@ -31,7 +31,7 @@ protocol only.
   : canonical taxonomy by assumption about "normal" (distance-based,
   density-based, statistical, classification-based). Outlier ≠ error —
   handling policy must be justified per case, never applied as ground truth.
-  See `references/missingness-and-outliers.md#outliers`.
+  See `references/ds-clean.missingness-and-outliers.md#outliers`.
 - **Dedup** — entity resolution / record linkage / deduplication
   literature. Trigger: candidate duplicate records (the same real-world
   entity represented more than once). Christen, *Data Matching*, Springer
@@ -43,7 +43,7 @@ protocol only.
   (Attest-equivalence, below) and the merge/remove policy plus rationale.
   Naive all-pairs comparison is quadratic; exact-match dedup is not
   fuzzy/probabilistic matching, which needs an explicit threshold decision.
-  See `references/missingness-and-outliers.md#dedup`.
+  See `references/ds-clean.missingness-and-outliers.md#dedup`.
 - **Normalization → validation assertion suite** — feature scaling/
   normalization is established practice with no single seminal paper;
   "Feature scaling" — https://en.wikipedia.org/wiki/Feature_scaling :
@@ -51,7 +51,7 @@ protocol only.
   methods need it. This subfield's real job is compiling every action taken
   across the other five subfields into the `assertion_suite` — the artifact
   that seeds `ds-mlops` monitoring. See
-  `references/assertion-suite-and-ledger.md`.
+  `references/ds-clean.assertion-suite-and-ledger.md`.
 - **Anonymization/masking transform mechanics** — **k-anonymity** (Sweeney);
   differential privacy as the modern successor concept. Trigger: an
   upstream privacy decision names a protection standard to meet — this
@@ -66,7 +66,7 @@ protocol only.
   bounded output-indistinguishability, the modern alternative to syntactic
   privacy. k-anonymity bounds re-identification only via the *named*
   quasi-identifier set — it doesn't bound attribute disclosure and doesn't
-  compose across releases. See `references/privacy-transforms.md#mechanics`.
+  compose across releases. See `references/ds-clean.privacy-transforms.md#mechanics`.
 - **Utility-loss measurement** — privacy-utility tradeoff literature.
   Trigger: any anonymization/masking transform applied (pairs with the
   subfield above). Brickell & Shmatikov, "The Cost of Privacy: Destruction
@@ -77,7 +77,7 @@ protocol only.
   measure both re-identification risk and downstream task performance,
   compare curves, never single numbers; never report "utility preserved"
   without naming the specific downstream task/metric. See
-  `references/privacy-transforms.md#utility-loss`.
+  `references/ds-clean.privacy-transforms.md#utility-loss`.
 
 |---|---|---|
 | Missingness handling | quick-answer | conditional-on-data:missing-values-present |

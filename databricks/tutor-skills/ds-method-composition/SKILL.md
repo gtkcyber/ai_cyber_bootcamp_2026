@@ -25,7 +25,7 @@ downstream split consuming its output).
   https://www.jstatsoft.org/article/view/v045i03 . Fit train-only,
   provenance degrades to `derived`, uncertainty propagates forward rather
   than collapsing to a point estimate (`ds-uncertainty`, Rubin's rules).
-  See `references/composition-patterns.md#model-as-imputer`.
+  See `references/ds-method-composition.composition-patterns.md#model-as-imputer`.
 - **Model-as-feature-extractor (stacking)** — trigger: "single model too
   weak," a model's own output (graph measure, cluster ID, embedding,
   forecast, base-model prediction) proposed as a feature into another
@@ -33,21 +33,21 @@ downstream split consuming its output).
   http://machine-learning.martinsewell.com/ensembles/stacking/Wolpert1992.pdf .
   Combiner trains only on out-of-fold level-0 predictions — in-sample
   predictions teach it to trust whichever base model overfit hardest. See
-  `references/composition-patterns.md#model-as-feature-extractor`.
+  `references/ds-method-composition.composition-patterns.md#model-as-feature-extractor`.
 - **Residual-as-signal** — trigger: an expected-behavior model's forecast
   error, not its output, proposed as an anomaly/drift feature. Vallis,
   Hochenbaum, Kejariwal, "Automatic Anomaly Detection in the Cloud," 2017
   — https://arxiv.org/abs/1704.07706 . The residual is only as meaningful
   as the expected-behavior model's own assumptions — mis-specified
   seasonality/trend biases the "anomaly" flags. See
-  `references/composition-patterns.md#residual-as-signal`.
+  `references/ds-method-composition.composition-patterns.md#residual-as-signal`.
 - **Detector ensembles / voting** — trigger: "single detector too weak,"
   no ground truth to validate a combination rule. Zimek, Campello, Sander,
   "Ensembles for Unsupervised Outlier Detection," 2014 —
   https://www.kdd.org/exploration_files/V15-01-02-Zimek.pdf . Diversity
   helps only if member errors aren't correlated — not automatic when
   detectors share a feature space. See
-  `references/composition-patterns.md#detector-ensembles`.
+  `references/ds-method-composition.composition-patterns.md#detector-ensembles`.
 - **Model-as-verifier / guardrail cascade** — trigger: "LLM output
   untrusted" — a cheap classic check gates an expensive generative
   model's output. Chen, Zaharia, Zou, "FrugalGPT," 2023 —
@@ -57,7 +57,7 @@ downstream split consuming its output).
   Safety depends entirely on the cheap stage recognizing its own
   uncertainty — a miscalibrated stage silently passes wrong answers
   through; state the escalation criterion explicitly (`## Gates`). See
-  `references/guardrail-cascades.md#model-as-verifier`.
+  `references/ds-method-composition.guardrail-cascades.md#model-as-verifier`.
 - Pointer only.
 
 ## Selection tree

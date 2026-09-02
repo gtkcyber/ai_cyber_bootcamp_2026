@@ -19,13 +19,13 @@ protocol only.
   untuned baseline is not evidence the complexity was necessary. Lipton &
   Steinhardt, "Troubling Trends in Machine Learning Scholarship" —
   https://arxiv.org/abs/1807.03341. See
-  `references/baseline-tuning-cv.md#baseline`.
+  `references/ds-model.baseline-tuning-cv.md#baseline`.
 - **Tuning protocol** — hyperparameter optimization; random search
   matches/beats grid search in far less compute since few hyperparameters
   matter per dataset — grid search is not a safe default. Bergstra &
   Bengio, "Random Search for Hyper-Parameter Optimization," JMLR 13 —
   https://jmlr.org/papers/v13/bergstra12a.html. See
-  `references/baseline-tuning-cv.md#tuning`.
+  `references/ds-model.baseline-tuning-cv.md#tuning`.
 - **CV design choice (grouped/blocked CV)** — plain k-fold on grouped or
   temporal rows leaks and inflates scores even when correlation isn't
   visible in residuals. Roberts et al., "Cross-validation strategies for
@@ -34,14 +34,14 @@ protocol only.
   "Cross-validation" —
   https://scikit-learn.org/stable/modules/cross_validation.html
   (`GroupKFold`, `TimeSeriesSplit`). Refines, never widens, `ds-scoping`'s
-  `split_design`. See `references/baseline-tuning-cv.md#cv-design`.
+  `split_design`. See `references/ds-model.baseline-tuning-cv.md#cv-design`.
 - **Imbalance intervention decision** — resampling isn't automatically the
   right fix; threshold/output adjustment competes and can outperform it;
   accuracy is misleading under imbalance regardless of intervention.
   Krawczyk, "Learning from imbalanced data: open challenges and future
   directions," Progress in Artificial Intelligence —
   https://link.springer.com/article/10.1007/s13748-016-0094-0. See
-  `references/imbalance-calibration-curve.md#imbalance`.
+  `references/ds-model.imbalance-calibration-curve.md#imbalance`.
 - **Calibration** — accuracy and calibration are orthogonal; Platt/isotonic
   are binary-only; must calibrate on held-out data, never train. Platt,
   "Probabilistic Outputs for SVMs" —
@@ -52,14 +52,14 @@ protocol only.
   Guo et al., "On Calibration of Modern Neural Networks," ICML 2017 —
   https://proceedings.mlr.press/v70/guo17a/guo17a.pdf (modern NNs are
   systematically overconfident; temperature scaling fixes it). See
-  `references/imbalance-calibration-curve.md#calibration`.
+  `references/ds-model.imbalance-calibration-curve.md#calibration`.
 - **Learning-curve/data-sufficiency method** — curves are noisy, can be
   non-monotonic at small N; extrapolation assumes a parametric (e.g.
   power-law) form not guaranteed to hold. Mohr & van Rijn, "Learning Curves
   for Decision Making in Supervised Machine Learning: A Survey" —
   https://arxiv.org/abs/2201.12150. Owns the *method*; `ds-scoping`'s
   kill-check only judges whether to attempt, never computes the curve. See
-  `references/imbalance-calibration-curve.md#learning-curve`.
+  `references/ds-model.imbalance-calibration-curve.md#learning-curve`.
 - **Selection economics** — LITERATURE-THIN: no single established name;
   nearest concepts "cost-sensitive learning" and "Pareto-optimal model
   selection" (the latter not consolidated) — present as practice guidance,
@@ -71,7 +71,7 @@ protocol only.
   stops when the gain stops paying for itself. Cost/latency are selection
   *inputs*, not applied post-hoc — `doctrine-scale-cost.md`'s threshold,
   read from `ds-scoping`'s `kill_check`, never restated here. See
-  `references/selection-economics.md`.
+  `references/ds-model.selection-economics.md`.
 
 | Subfield | Participation |
 |---|---|

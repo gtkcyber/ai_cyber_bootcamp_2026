@@ -21,7 +21,7 @@ Full depth and citations live in `references/`; this file is protocol only.
   http://vis.stanford.edu/files/2010-Narrative-InfoVis.pdf : author-driven
   vs. reader-driven structure is a real tradeoff, not a universal ranking —
   narrative structures interpretation, it doesn't decorate it. See
-  `references/narrative-uncertainty-charts.md#narrative`.
+  `references/ds-communicate.narrative-uncertainty-charts.md#narrative`.
 - **Honest uncertainty language** — **uncertainty communication /
   calibrated confidence language**. Trigger: any report is authored at all.
   Mastrandrea et al., "Guidance Note ... on Consistent Treatment of
@@ -30,21 +30,21 @@ Full depth and citations live in `references/`; this file is protocol only.
   confidence (evidence/agreement quality) and likelihood (a calibrated
   probability scale) answer different questions — don't blend them, and
   don't imply numeric precision when only qualitative confidence was
-  assessed. See `references/narrative-uncertainty-charts.md#uncertainty`.
+  assessed. See `references/ds-communicate.narrative-uncertainty-charts.md#uncertainty`.
 - **Chart-type selection** — no brief citation: this subfield has no
   literature entry of its own. Trigger: the deliverable includes a
   chart/figure. Mark/palette/layout mechanics are out of scope (use the
   runtime's charting facility); this subfield's own delta is choosing a chart *type* by
   the data relationship being shown (trend, comparison, distribution, part-
   to-whole, correlation), never by tool or stack preference. See
-  `references/narrative-uncertainty-charts.md#charts`.
+  `references/ds-communicate.narrative-uncertainty-charts.md#charts`.
 - **Executive-summary discipline** — **Pyramid Principle** (Minto) /
   **BLUF**. Trigger: any report is authored at all. Minto, *The Minto
   Pyramid Principle* — https://www.barbaraminto.com/ ; Army Regulation
   25-50 — https://armypubs.army.mil/epubs/DR_pubs/DR_a/ARN42124-AR_25-50-007-WEB-13.pdf
   : lead with the governing finding, structure support top-down beneath it —
   "lead with the finding" must never mean "omit caveats." See
-  `references/structure-and-limitations.md#discipline`.
+  `references/ds-communicate.structure-and-limitations.md#discipline`.
 
 |---|---|---|
 | Findings→narrative | quick-answer | mandatory |

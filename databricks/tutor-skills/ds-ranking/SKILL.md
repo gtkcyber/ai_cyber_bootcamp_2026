@@ -17,55 +17,55 @@ citations: `references/`; this file is protocol only.
   `conditional-on-data:user-item-interaction-matrix`. Methods: latent-
   factor SVD-style MF, regularized MF with bias terms. Edges: sparse
   history is cold start, not an MF fix. See
-  `references/recommendation-methods.md#cf-mf`.
+  `references/ds-ranking.recommendation-methods.md#cf-mf`.
 - **Cold start** — trigger: new/near-zero-history user or item. tier:
   `analysis`. participation: `conditional-on-data:cold-start-user-or-item`.
   Methods: content-based fallback, hybrid CF+content, exploration bootstrap
   (policy: `ds-optimize`). Edges: "wait for more data" restates the
-  problem. See `references/recommendation-methods.md#cold-start`.
+  problem. See `references/ds-ranking.recommendation-methods.md#cold-start`.
 - **Implicit feedback** — trigger: behavioral signal (clicks, views,
   dwell), not an explicit rating. tier: `analysis`. participation:
   `conditional-on-data:implicit-signal-only`. Methods: confidence-weighted
   implicit MF, all-pairs training. Edges: implicit-feedback trap gate,
   below — absence is not a confirmed negative. See
-  `references/recommendation-methods.md#implicit-feedback`.
+  `references/ds-ranking.recommendation-methods.md#implicit-feedback`.
 - **Learning-to-rank** — trigger: orders a candidate list; a score alone
   is not this subfield. tier: `analysis`. participation:
   `conditional-on-data:ranked-candidate-list`. Methods: pairwise (RankNet),
   gradient-shaped listwise (LambdaRank), boosted-tree (LambdaMART). Edges:
   heuristic approximation — no exact-optimization claim. See
-  `references/ranking-and-retrieval.md#ltr`.
+  `references/ds-ranking.ranking-and-retrieval.md#ltr`.
 - **Retrieval/search relevance** — trigger: candidate set must be found
   from a corpus against a query, not just reordered. tier: `analysis`.
   participation: `conditional-on-data:query-document-retrieval`. Methods:
   vector-space/probabilistic relevance (classical), dense/embedding
   retrieval (on diagnosed vocabulary mismatch). Edges: an LLM-based
   encoder crosses into `ds-llm-systems` (Pairings). See
-  `references/ranking-and-retrieval.md#retrieval`.
+  `references/ds-ranking.ranking-and-retrieval.md#retrieval`.
 - **Ranking evaluation (NDCG/MAP/MRR)** — trigger: any ranked output needs
   a quality metric. tier: `quick-answer`. participation: `mandatory`.
   Methods: NDCG, MAP, MRR, Precision@k/Recall@k. Edges: metric matches
   relevance-judgment shape (graded vs. binary) — a default pick is a
-  silent choice. See `references/ranking-and-retrieval.md#evaluation`.
+  silent choice. See `references/ds-ranking.ranking-and-retrieval.md#evaluation`.
 - **Position and presentation bias** — trigger: training/eval data is
   logged production clicks/impressions, not neutral judgments. tier:
   `analysis`. participation: `conditional-on-data:logged-click-data`.
   Methods: cascade/examination position-bias models, interleaving. Edges:
   this is a gate, below, not an optional caveat. See
-  `references/bias-and-attribution.md#position-bias`.
+  `references/ds-ranking.bias-and-attribution.md#position-bias`.
 - **Off-policy/counterfactual evaluation application** — trigger: would a
   *new* policy outperform the *logged* one, evaluated on its logs. tier:
   `analysis`. participation:
   `conditional-on-data:policy-change-evaluated-on-logs`. Methods:
   replay-based offline evaluation. See
-  `references/bias-and-attribution.md#ope`.
+  `references/ds-ranking.bias-and-attribution.md#ope`.
 - **Attribution application with `ds-causal`** — trigger: which position/
   touchpoint "caused" a conversion. tier: `analysis`. participation:
   `conditional-on-data:credit-assignment-requested`. Methods:
   causally-motivated attribution reframing (vs. rule-based credit-split).
   Edges: logged impressions aren't randomized — pair with `ds-causal`
   before calling output "causal lift." See
-  `references/bias-and-attribution.md#attribution`.
+  `references/ds-ranking.bias-and-attribution.md#attribution`.
 
 ## Selection tree
 

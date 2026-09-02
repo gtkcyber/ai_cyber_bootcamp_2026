@@ -2,8 +2,8 @@
 
 Routing table, not mechanics. Cardinality × model family × leakage risk →
 encoding class and its owner. Mechanics for every row live in `ds-features`
-(`references/encodings-scaling-interactions.md#encodings` and
-`references/aggregation-leakage-selection.md#leak-safe-target-encoding`) — this file
+(`references/ds-features.encodings-scaling-interactions.md#encodings` and
+`references/ds-features.aggregation-leakage-selection.md#leak-safe-target-encoding`) — this file
 only routes to the right one.
 
 ## Cardinality × model family → encoding

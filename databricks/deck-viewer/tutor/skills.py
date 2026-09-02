@@ -64,9 +64,16 @@ class SkillLibrary:
         return cls(files, root, entries)
 
     def index(self) -> list[dict]:
-        """Name, kind and description of everything loadable. Goes in the prompt."""
+        """Name, kind and description of everything the system prompt lists.
+
+        Not everything loadable: a reference that belongs to one skill is
+        `listed: false`, because the model meets its name inside the skill body
+        that cites it, and listing all seventy-odd of them would cost more
+        prompt than the skills themselves. `read_reference` still loads them.
+        An entry with no flag is listed, which is what an older index means.
+        """
         return [{"kind": e["kind"], "name": e["name"], "description": e["description"]}
-                for e in self._entries]
+                for e in self._entries if e.get("listed", True)]
 
     def _read_uncached(self, path: str) -> str:
         return self.files.read(f"{self.root}/{path}").decode("utf-8", "replace")

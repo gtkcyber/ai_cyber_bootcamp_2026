@@ -5,7 +5,7 @@ description: "Probabilistic modeling and interval discipline: hierarchical/mixed
 
 # ds-uncertainty
 
-Full depth and citations: `references/subfields.md`.
+Full depth and citations: `references/ds-uncertainty.subfields.md`.
 
 **Core discipline, gated below:** every interval this skill produces or
 reviews states its **type** (confidence / credible / prediction /

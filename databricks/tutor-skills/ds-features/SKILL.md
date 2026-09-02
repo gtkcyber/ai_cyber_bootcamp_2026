@@ -30,7 +30,7 @@ where stateful, fit logic in the `pipeline_object`.
   target/mean scheme on a high-cardinality field hands off to Leak-safe
   target encoding below, not resolved here; a learned embedding produced
   by a composed model is `ds-method-composition`'s composition, not a
-  plain encoding. See `references/encodings-scaling-interactions.md#encodings`.
+  plain encoding. See `references/ds-features.encodings-scaling-interactions.md#encodings`.
 - **Scaling** — feature scaling for scale-sensitive downstream methods
   (distance-based, gradient-based, regularized-linear). Trigger: a
   composed family/model that is scale-sensitive (the family skill states
@@ -40,7 +40,7 @@ where stateful, fit logic in the `pipeline_object`.
   under outliers. Edges: fit-on-train-only mechanics for the scaler is
   the general pipeline-object mandate (Gates), not a separate concern
   here; whether an outlier is a data defect to remove is `ds-clean`'s
-  call. See `references/encodings-scaling-interactions.md#scaling`.
+  call. See `references/ds-features.encodings-scaling-interactions.md#scaling`.
 - **Aggregation/window features** — automated aggregate construction over
   relational or temporal data. Trigger: the source has a group-by key (grain
   narrower than the modeling row) or a time axis. Kanter & Veeramachaneni,
@@ -49,7 +49,7 @@ where stateful, fit logic in the `pipeline_object`.
   https://docs.feast.dev/getting-started/concepts/point-in-time-joins : join
   only feature values timestamped ≤ event time. Additivity classification
   (Gates) runs before any aggregation-derived feature ships. See
-  `references/aggregation-leakage-selection.md#aggregation`.
+  `references/ds-features.aggregation-leakage-selection.md#aggregation`.
 - **Interactions** — explicit interaction/polynomial terms across two or
   more features. Trigger: domain knowledge or a diagnostic (not run by
   default) suggests a non-additive combination matters. LITERATURE-THIN:
@@ -60,7 +60,7 @@ where stateful, fit logic in the `pipeline_object`.
   Edges: degree/feature-count blow-up is a compute-cost matter
   (`doctrine-scale-cost.md`, pointer); treat as practice guidance, not a
   settled discovery method. See
-  `references/encodings-scaling-interactions.md#interactions`.
+  `references/ds-features.encodings-scaling-interactions.md#interactions`.
 - **Leak-safe target encoding** — out-of-fold/ordered target statistics
   for a target/mean encoding on a high-cardinality categorical. Trigger:
   Encodings selected a target/mean scheme for a high-cardinality field.
@@ -74,7 +74,7 @@ where stateful, fit logic in the `pipeline_object`.
   leakage — only an out-of-fold/ordered scheme does; the general
   fit-on-train-only mandate (Gates) is necessary but not sufficient here,
   this subfield's delta is the in-fold leak specifically. See
-  `references/aggregation-leakage-selection.md#target-encoding`.
+  `references/ds-features.aggregation-leakage-selection.md#target-encoding`.
 - **Feature selection (pruning, not attribution)** — filter/wrapper/
   embedded selection to finalize the candidate set before `ds-model`.
   Trigger: mandatory — every composition of this skill ends with a pruning
@@ -82,7 +82,7 @@ where stateful, fit logic in the `pipeline_object`.
   and Feature Selection," JMLR —
   https://www.jmlr.org/papers/special/feature03.html : seminal filter/
   wrapper/embedded taxonomy. See
-  `references/aggregation-leakage-selection.md#selection`.
+  `references/ds-features.aggregation-leakage-selection.md#selection`.
 
 | Subfield | Participation |
 |---|---|

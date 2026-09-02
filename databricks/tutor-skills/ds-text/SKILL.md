@@ -13,35 +13,35 @@ Full depth, citations, failure modes: `references/`; protocol only here.
 
 - Canonical methods: word-level splitting, subword/BPE segmentation,
   character-level. Edges: granularity is task- and language-dependent, never
-  a default. See `references/classic-nlp-methods.md#tokenization`.
+  a default. See `references/ds-text.classic-nlp-methods.md#tokenization`.
 - Canonical methods: bag-of-words counts, TF-IDF weighting, cosine
   similarity. Edges: word order is discarded entirely; IDF weights are
   unstable on a small or topically skewed corpus. See
-  `references/classic-nlp-methods.md#tfidf-bow`.
+  `references/ds-text.classic-nlp-methods.md#tfidf-bow`.
 - Canonical methods: n-gram counting with smoothing (Laplace, Kneser-Ney).
   Edges: a fixed-order Markov assumption; unsmoothed unseen n-grams zero out
   any sequence containing them. See
-  `references/classic-nlp-methods.md#n-grams`.
+  `references/ds-text.classic-nlp-methods.md#n-grams`.
 - Canonical methods: Latent Dirichlet Allocation. Edges: bag-of-words
   exchangeability, topic count *K* fixed a priori, topics assumed
-  independent. See `references/classic-nlp-methods.md#topic-modeling`.
+  independent. See `references/ds-text.classic-nlp-methods.md#topic-modeling`.
 - Canonical methods: sequence-labeling NER against a stated
   entity-type/boundary convention. Edges: convention-specific, doesn't
   generalize across domains without re-annotation. See
-  `references/entity-similarity-and-escalation.md#ner`.
+  `references/ds-text.entity-similarity-and-escalation.md#ner`.
 - Canonical methods: Jaro-Winkler and edit-distance comparator family.
   Edges: not semantic similarity; thresholds are dataset-specific; linkage
   decisions are `ds-entity-resolution`'s. See
-  `references/entity-similarity-and-escalation.md#string-similarity`.
+  `references/ds-text.entity-similarity-and-escalation.md#string-similarity`.
 - Canonical methods: template-mining and regex-based log parsers. Edges:
   accuracy is format-regularity-dependent, doesn't transfer without
   re-tuning. See
-  `references/entity-similarity-and-escalation.md#log-regex-parsing`.
+  `references/ds-text.entity-similarity-and-escalation.md#log-regex-parsing`.
 - Canonical methods: word2vec-class embeddings, Transformer encoders,
   BERT-class pretrained representations. Edges: this family frames
   whether/when to escalate; training once escalated is `ds-deep-learning`'s.
   See
-  `references/entity-similarity-and-escalation.md#embeddings-transformers`.
+  `references/ds-text.entity-similarity-and-escalation.md#embeddings-transformers`.
 
 ## Selection tree
 

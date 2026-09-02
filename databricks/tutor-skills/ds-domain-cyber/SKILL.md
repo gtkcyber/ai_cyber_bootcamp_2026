@@ -95,7 +95,7 @@ Seeds for `ds-data-models` Research, not ceilings — confirm producer
 version/dialect against the actual feed before relying on any entry.
 OCSF, Splunk CIM, ECS, the Public Suffix List, and User-Agent/RFC 9110 are
 already researched, fetched, and pinned in
-`ds-data-models/references/standards-index.md` — cited there, not re-fetched.
+`references/ds-data-models.standards-index.md` — cited there, not re-fetched.
 
 - **STIX** — OASIS threat-intelligence exchange language/serialization
   (current: 2.1). Producer: oasis-open.github.io/cti-documentation.

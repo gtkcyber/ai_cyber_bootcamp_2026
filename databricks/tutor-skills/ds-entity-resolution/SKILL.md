@@ -29,7 +29,7 @@ composition point where its trigger condition arises. All are
   choosing which fields *can* serve as a block key is `ds-data-models`'
   Interpret; this subfield owns only the blocking scheme and its
   recall-ceiling consequence. See
-  `references/linkage-mechanics.md#blocking`.
+  `references/ds-entity-resolution.linkage-mechanics.md#blocking`.
 - Fellegi & Sunter, "A Theory for Record Linkage," *JASA* 64(328), 1969 —
   http://www2.stat.duke.edu/~rcs46/linkage/presentations/01-baiLi_FelleigSunter1969.pdf
   : link/possible-link/non-link decision rule, optimal only under
@@ -43,7 +43,7 @@ composition point where its trigger condition arises. All are
   dataset-specific, never universal. Edges: schema/field-level mapping is
   `ds-data-models`' Translate — this subfield owns only the record-level
   match decision once fields are known-comparable. See
-  `references/linkage-mechanics.md#fuzzy-matching`.
+  `references/ds-entity-resolution.linkage-mechanics.md#fuzzy-matching`.
 - Topic anchored by Getoor & Machanavajjhala, "Entity Resolution: Theory,
   Practice & Open Challenges," VLDB 2012 tutorial —
   https://www.vldb.org/pvldb/vol5/p2018_lisegetoor_vldb2012.pdf (the
@@ -55,13 +55,13 @@ composition point where its trigger condition arises. All are
   algorithm, not just the matcher, bounds how far one bad edge propagates.
   Canonical methods: correlation clustering, connected-
   components-with-threshold, hierarchical merge with a cut criterion. See
-  `references/linkage-mechanics.md#transitive-closure`.
+  `references/ds-entity-resolution.linkage-mechanics.md#transitive-closure`.
 - Same topic anchor as above (standard ER practice, not quoted from the
   tutorial abstract) — cluster (identity-graph) evaluation is distinct from
   pairwise evaluation: a matcher can score well pairwise while still
   producing badly merged or split clusters. Report the metric matching
   what's actually evaluated — see Gates. See
-  `references/linkage-mechanics.md#cluster-evaluation`.
+  `references/ds-entity-resolution.linkage-mechanics.md#cluster-evaluation`.
 - Kimball Group, "Slowly Changing Dimensions" —
   https://www.kimballgroup.com/2008/08/slowly-changing-dimensions/ : Type 2
   SCD's date-range validity window is the mechanism this subfield adapts — a
@@ -69,7 +69,7 @@ composition point where its trigger condition arises. All are
   reassignable identifier without a validity window silently attributes
   activity to the wrong entity once recycled; the join must be qualified by
   "at time T," never by the identifier alone. See
-  `references/linkage-mechanics.md#temporal-validity`.
+  `references/ds-entity-resolution.linkage-mechanics.md#temporal-validity`.
 
 ## Selection tree
 

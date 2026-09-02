@@ -18,14 +18,14 @@ not build the model. Full depth, citations, and failure modes:
   `conditional-on-data:resource-allocation-with-linear-constraints`.
   Canonical methods: simplex/interior-point (LP relaxation), branch-and-
   bound/branch-and-cut (IP). Edges: check the integrality gap before
-  rounding a relaxation. See `references/combinatorial-and-queueing.md#lp-ip`.
+  rounding a relaxation. See `references/ds-optimize.combinatorial-and-queueing.md#lp-ip`.
 - **Scheduling and routing** — trigger: "sequence/assign jobs to
   resources over time" or "route vehicles/visits." participation:
   `conditional-on-data:scheduling-or-routing-problem`. Canonical methods:
   job-shop scheduling, vehicle routing (exact for small instances,
   heuristic beyond). Edges: state exact vs. heuristic and the accepted
   optimality gap. See
-  `references/combinatorial-and-queueing.md#scheduling-routing`.
+  `references/ds-optimize.combinatorial-and-queueing.md#scheduling-routing`.
 - **Assignment/matching** — trigger: one-to-one (or many-to-many) pairing
   of two sets under a cost/value matrix. participation:
   `conditional-on-data:one-to-one-or-many-to-many-matching`. Canonical
@@ -33,40 +33,40 @@ not build the model. Full depth, citations, and failure modes:
   required for many-to-many/capacitated. Edges: record-identity matching
   ("is this the same real-world entity") is `ds-entity-resolution`'s, not
   this subfield's. See
-  `references/combinatorial-and-queueing.md#assignment-matching`.
+  `references/ds-optimize.combinatorial-and-queueing.md#assignment-matching`.
 - **Queueing theory** — trigger: sizing/predicting behavior of a service
   system with arrivals, servers, and capacity. participation:
   `conditional-on-data:service-system-with-arrivals-and-capacity`.
   Canonical methods: M/M/1, M/M/c, Little's law. Edges: steady-state
   formulas don't cover a transient/bursty arrival regime. See
-  `references/combinatorial-and-queueing.md#queueing-theory`.
+  `references/ds-optimize.combinatorial-and-queueing.md#queueing-theory`.
 - **Optimal stopping** — trigger: a sequential accept/reject decision with
   no recall of a passed-over option (interview/secretary-shaped).
   participation: `conditional-on-data:sequential-accept-reject-decision`.
   Canonical methods: the classical 1/e stopping rule and its relaxations.
   Edges: the classical result requires fixed known N, random order,
   relative-rank-only, no recall — state which assumption the real decision
-  relaxes. See `references/combinatorial-and-queueing.md#optimal-stopping`.
+  relaxes. See `references/ds-optimize.combinatorial-and-queueing.md#optimal-stopping`.
 - **Inventory/newsvendor** — trigger: a single-period stock/order-quantity
   decision under uncertain demand. participation:
   `conditional-on-data:stock-decision-under-uncertain-demand`. Canonical
   methods: critical-fractile solution (overage vs. underage cost). Edges:
   the whole demand distribution is the input, not its point forecast — see
   prediction→decision bridge. See
-  `references/combinatorial-and-queueing.md#inventory-newsvendor`.
+  `references/ds-optimize.combinatorial-and-queueing.md#inventory-newsvendor`.
 - **Simulation-optimization** — trigger: the objective has no closed form
   and is only evaluable by running a simulation. participation:
   `conditional-on-data:objective-only-evaluable-by-simulation`. Canonical
   methods: replication-budgeted search loops. Edges: replication/sampling
   mechanics are `ds-simulation`'s; this subfield owns the search loop that
   consumes them. See
-  `references/sequential-and-decision-policies.md#simulation-optimization`.
+  `references/ds-optimize.sequential-and-decision-policies.md#simulation-optimization`.
 - **Sequential decisions (bandit/RL framing)** — trigger: repeated action
   selection with feedback per round, an explore/exploit tradeoff.
   participation:
   `conditional-on-data:repeated-action-selection-with-feedback`. Canonical
   methods: regret-minimizing bandit algorithms. See
-  `references/sequential-and-decision-policies.md#sequential-decisions`.
+  `references/ds-optimize.sequential-and-decision-policies.md#sequential-decisions`.
 - **Heuristics/metaheuristics** — trigger: the problem is NP-hard at the
   actual instance scale and no exact solver finishes in budget.
   participation:
@@ -74,20 +74,20 @@ not build the model. Full depth, citations, and failure modes:
   Canonical methods: simulated annealing, tabu search, evolutionary
   algorithms. Edges: no built-in optimality guarantee — validate against a
   bound or a smaller exact instance. See
-  `references/sequential-and-decision-policies.md#heuristics-metaheuristics`.
+  `references/ds-optimize.sequential-and-decision-policies.md#heuristics-metaheuristics`.
 - **Multi-action/constrained decision policies** — trigger: more than two
   actions, or multiple simultaneous constraints (incl. a stated risk/safety
   metric). participation:
   `conditional-on-data:multiple-actions-or-constraints`. Canonical methods:
   constrained-policy families per the stated risk formalization. See
-  `references/sequential-and-decision-policies.md#multi-action-constrained-policies`.
+  `references/ds-optimize.sequential-and-decision-policies.md#multi-action-constrained-policies`.
 - **Prediction→decision bridge** — trigger: any subfield above consumes a
   predicted or simulated value as objective input. participation:
   `mandatory` (fires whenever this family composes at all). Canonical
   methods: Smart Predict-then-Optimize (decision-error training). Edges:
   this is a check, not an escalation path — it fires inline wherever a
   point estimate feeds an objective. See
-  `references/sequential-and-decision-policies.md#prediction-decision-bridge`.
+  `references/ds-optimize.sequential-and-decision-policies.md#prediction-decision-bridge`.
 
 |---|---|---|---|
 | LP/IP | analysis | no | conditional-on-data:resource-allocation-with-linear-constraints |

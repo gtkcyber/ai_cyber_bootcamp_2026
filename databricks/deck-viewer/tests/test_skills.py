@@ -59,6 +59,17 @@ def test_load_skill_on_an_unknown_name_names_the_close_ones(library):
     assert "ds-evaluate" in str(e.value)
 
 
+def test_index_omits_a_reference_that_belongs_to_one_skill(library):
+    names = {e["name"] for e in library.index()}
+    assert "metric-selection" in names
+    assert "ds-evaluate.metric-cost-and-slices" not in names
+
+
+def test_read_reference_loads_an_unlisted_reference(library):
+    """The model meets the name inside the skill that cites it, not in the index."""
+    assert "false positive" in library.read_reference("ds-evaluate.metric-cost-and-slices")
+
+
 def test_read_reference_returns_the_file(library):
     assert "Match the metric" in library.read_reference("metric-selection")
 

@@ -20,13 +20,13 @@ examples, and citations live in `references/`; this file is protocol only.
   extraction, conforming, delivery are distinct disciplines — don't present
   ETL as one linear pipeline. Stops at extraction; conforming/delivery into
   a warehouse is `ds-pipelines`'. See
-  `references/acquisition-and-instrumentation.md#acquisition`.
+  `references/ds-gather.acquisition-and-instrumentation.md#acquisition`.
 - **Web scraping** — trigger: source has no API/export, only a rendered
   page. "Web Scraping Techniques and Applications: A Literature Review" —
   https://publications.scrs.in/uploads/final_menuscript/863dc5628ae9215e611c22943d061742.pdf :
   scraping is not ethically/legally neutral by default — ToS/robots.txt
   compliance and reproducibility documentation are part of the discipline.
-  See `references/acquisition-and-instrumentation.md#scraping`.
+  See `references/ds-gather.acquisition-and-instrumentation.md#scraping`.
 - **Instrumentation/telemetry design** — trigger: task asks what to log
   for a new product/system surface. **LITERATURE-THIN**: no established
   academic name for product-event instrumentation design. Nearest,
@@ -35,7 +35,7 @@ examples, and citations live in `references/`; this file is protocol only.
   the "arbitrarily wide structured event" as the telemetry unit — written
   for systems/production observability, not product event-taxonomy design;
   treat as practice guidance, not settled literature. See
-  `references/acquisition-and-instrumentation.md#instrumentation`.
+  `references/ds-gather.acquisition-and-instrumentation.md#instrumentation`.
 - **Survey/questionnaire instrument design** — trigger: task requires
   fielding a new survey rather than reading existing data. **Total Design
   Method (TDM)** — "Utilizing the Total Design Method in medicine" —
@@ -43,7 +43,7 @@ examples, and citations live in `references/`; this file is protocol only.
   social-exchange method for response quality/non-response bias only —
   question-wording bias (leading questions, social desirability) is a
   distinct concern this citation does not cover. See
-  `references/acquisition-and-instrumentation.md#survey`.
+  `references/ds-gather.acquisition-and-instrumentation.md#survey`.
 - **Unstructured-document extraction (OCR, PDF/table parsing, layout)** —
   trigger: source is a document corpus, not a table. **Document layout
   analysis** / **table extraction**. "PdfTable: A Unified Toolkit for
@@ -52,13 +52,13 @@ examples, and citations live in `references/`; this file is protocol only.
   nested tables). Stops at "text and structure extracted"; downstream
   modeling of that content (embeddings, classification) is `ds-text` /
   `ds-perception`, never this skill's concern. See
-  `references/extraction-sampling-selection.md#extraction`.
+  `references/ds-gather.extraction-sampling-selection.md#extraction`.
 - **Sampling design** — trigger: source is larger than what will be used,
   a frame/stratification/weighting decision needed before pulling. Kish,
   *Survey Sampling* — https://www.wiley.com/en-ae/Survey+Sampling-p-9780471109495 :
   foundational stratified/cluster/PPS design. More data is not a
   substitute for a valid frame. See
-  `references/extraction-sampling-selection.md#sampling`.
+  `references/ds-gather.extraction-sampling-selection.md#sampling`.
 - **Selection into the dataset (survivorship/selection bias)** — trigger:
   the acquisition process itself excludes population members
   (survivorship, opt-in, retention/outage effects). Heckman, "Sample
@@ -67,7 +67,7 @@ examples, and citations live in `references/`; this file is protocol only.
   specification error, not fixable by more data or cleaning. Names the
   mechanism (writes `sampling_bias_note`); identification consequences for
   an effect estimate are `ds-causal`'s, never derived here. See
-  `references/extraction-sampling-selection.md#selection-bias`.
+  `references/ds-gather.extraction-sampling-selection.md#selection-bias`.
 - **Multi-source joining** — trigger: any join, at ingest or anywhere
   downstream. Fellegi & Sunter, "A Theory for Record Linkage," JASA 64,
   1969 — http://www2.stat.duke.edu/~rcs46/linkage/presentations/01-baiLi_FelleigSunter1969.pdf :
@@ -79,7 +79,7 @@ examples, and citations live in `references/`; this file is protocol only.
   `ds-entity-resolution`'s — the gate cites both, redoes neither. **Applies
   at any join site in the pipeline, not just here** — `ds-pipelines` and
   `ds-features` cite this gate rather than restating it. See
-  `references/joins-and-contracts.md#join-gates`.
+  `references/ds-gather.joins-and-contracts.md#join-gates`.
 
 |---|---|---|
 | Acquisition (API/DB/file/stream) | quick-answer | conditional-on-data:new-source |
@@ -97,7 +97,7 @@ other seven, which fire only on their own trigger.
 
 ## Gates
 
-- Shape: `references/joins-and-contracts.md#contracts`.
+- Shape: `references/ds-gather.joins-and-contracts.md#contracts`.
 - `sampling_bias_note` states what the acquisition process selects for and
   against (frame coverage, response mechanism, retention/outage effects) —
   a note that only asserts "may have some bias" fails this gate.

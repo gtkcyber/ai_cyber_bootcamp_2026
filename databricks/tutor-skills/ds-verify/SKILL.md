@@ -22,11 +22,11 @@ protocol only.
   https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7890505/ : independent
   reanalysis via a genuinely separate pipeline; "major discrepancy" defined
   at ≥10% error — precedent for an explicit numeric threshold, not a
-  borrowed universal cutoff. See `references/reproduction-protocol.md#second-path`.
+  borrowed universal cutoff. See `references/ds-verify.reproduction-protocol.md#second-path`.
 - **Magnitude/sanity checks** — **LITERATURE-THIN**; nearest is the **Fermi
   problem / Fermi estimate** (general pedagogy), treated as practice
   protocol, not settled literature. See
-  `references/audit-checks.md#magnitude`.
+  `references/ds-verify.audit-checks.md#magnitude`.
 - **Join fan-out, denominator, attrition, double-filter audit** — no single
   umbrella term: **fan trap/fan-out** (relational modeling; primary
   textbook source unreachable, cited secondhand) + **survivorship/attrition
@@ -36,7 +36,7 @@ protocol only.
   a one-to-many join duplicates the "one" side's aggregate once per
   matching "many" row; a shrinking funnel denominator with improving
   per-stage metrics is the classic survivorship signature. See
-  `references/audit-checks.md#fan-out`.
+  `references/ds-verify.audit-checks.md#fan-out`.
 - **Alternative-explanation survival** — literature term: **threats to
   validity** (internal validity), Campbell & Stanley tradition. Trigger:
   claim is observational/quasi-experimental, not a randomized design.
@@ -44,14 +44,14 @@ protocol only.
   Quasi-Experimental Designs" — https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4910671/
   : taxonomy of history, maturation, testing, instrumentation, regression,
   selection, mortality threats; name the specific threat invoked, not
-  "confounders" generically. See `references/audit-checks.md#alt-explanation`.
+  "confounders" generically. See `references/ds-verify.audit-checks.md#alt-explanation`.
 - **Falsifiability** — literature term: **falsifiability / demarcation
   criterion** (Popper). Trigger: claim states a general/universal pattern,
   not one isolated data point. Stanford Encyclopedia of Philosophy,
   "Karl Popper" — https://plato.stanford.edu/entries/popper/ : scientific
   iff capable of conflicting with possible observations; a single
   apparent counter-instance is never alone methodologically sufficient. See
-  `references/audit-checks.md#falsifiability`.
+  `references/ds-verify.audit-checks.md#falsifiability`.
 
 |---|---|---|
 | Independent second-path reproduction | quick-answer | mandatory |
