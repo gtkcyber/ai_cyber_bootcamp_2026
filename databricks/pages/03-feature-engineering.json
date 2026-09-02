@@ -23,7 +23,7 @@
     },
     {
       "page": 4,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 4,
       "text": "GTK Cyber Can't We Just Use AI for Analysis?"
     },
@@ -47,7 +47,7 @@
     },
     {
       "page": 8,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 8,
       "text": "GTK Cyber If you require guaranteed consistency, you can't use AI."
     },
@@ -83,7 +83,7 @@
     },
     {
       "page": 14,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 14,
       "text": "GTK Cyber The Machine Learning Process"
     },
@@ -203,8 +203,8 @@
     },
     {
       "page": 34,
-      "kind": "unsure",
-      "group": 34,
+      "kind": "build",
+      "group": 35,
       "text": "GTK Cyber Color Red Red Blue Green Yellow Red One Hot Encoding"
     },
     {
@@ -287,7 +287,7 @@
     },
     {
       "page": 48,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 48,
       "text": "GTK Cyber Dealing with Imbalanced Classes"
     },

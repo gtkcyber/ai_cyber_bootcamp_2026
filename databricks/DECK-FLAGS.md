@@ -32,3 +32,14 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p20: pie renders as an ellipse; current Matplotlib forces an equal aspect.
 - p26: `distplot` is deprecated since Seaborn 0.11; note gives `histplot(kde=True)`.
 - p37: link is to Matplotlib 3.1.0 docs; note points at the stable URL. p50: `bokeh_chart` moved out of Streamlit core.
+
+## 03-feature-engineering
+- p16: "the are often written as X".
+- p22: "State of Authority (SOA)" for Start of Authority; "BlueGtaor" garbled registrar name.
+- p27: "First seen with the Conficker worm" is contestable (Kraken and Srizbi used DGAs earlier in 2008); note says "made widely known by".
+- p31: CountVectorizer example with a dotted vocabulary ('.com', '.de', '.uk') returns all zeros under the default token pattern, which strips the dot (documented behavior, not executed).
+- p32: "tild/zoom" for tilt.
+- p38: outdated Feature-engine import; `feature_engine.encoding.OneHotEncoder` is current.
+- p41: second sentence truncated ("...you will").
+- p55: caption "Selects all features above a given threshold" misdescribes SelectPercentile, which keeps a percentile by rank.
+- p61: stray bullet character under the code block.
