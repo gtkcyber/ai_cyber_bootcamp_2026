@@ -183,13 +183,14 @@ MODULES: list[Module] = [
                 "model_pre_trained.save(WORK_HOME + 'fingerprint_model.keras')"),
             Sub("model = load_model('fingerprint_model.keras')",
                 "model = load_model(WORK_HOME + 'fingerprint_model.keras')"),
-            Sub("1. Go into the ```../data/fingerprints/``` directory and extract the `.zip` "
-                "file. This will result in a `train_data` directory that has a bunch of "
-                "`.bmp` images (our raw data).",
-                "1. The raw images are already extracted for you in the course data "
+            Sub("1. The raw images are already extracted for you in the course data "
                 "directory, under `fingerprints/train_data/` — a directory of `.bmp` "
                 "images. (Locally that is `../data/fingerprints/train_data/`; if it is "
                 "not there, extract `fingerprint_train_data.zip` beside it once.)",
+                "1. The raw images are already extracted for you in the course data "
+                "directory, under `fingerprints/train_data/` — a directory of `.bmp` "
+                "images. (Locally that is `DATA_HOME + 'fingerprints/train_data/'`; if it "
+                "is not there, extract `fingerprint_train_data.zip` beside it once.)",
                 kind="markdown"),
         ],
         ans_only=[
@@ -290,6 +291,14 @@ MODULES: list[Module] = [
                 kind="markdown"),
             Sub("response.content[0].text", "response.choices[0].message.content", count=1,
                 kind="markdown"),
+            Sub("We've bundled three photos in `../data/vehicles/`.",
+                "We've bundled three photos in `DATA_HOME + 'vehicles/'`.",
+                kind="markdown"),
+            Sub("The other files are `../data/vehicles/sedan.jpg` and "
+                "`../data/vehicles/pickup.jpg`.",
+                "The other files are `DATA_HOME + 'vehicles/sedan.jpg'` and "
+                "`DATA_HOME + 'vehicles/pickup.jpg'`.",
+                kind="markdown"),
         ],
         ws_only=[
             # Vision call site: the default text endpoint can't take images, so this one
@@ -378,6 +387,9 @@ MODULES: list[Module] = [
             Sub("return response.content[0].text", "return response.choices[0].message.content"),
             Sub('with open("../data/cli_commands.txt") as f:',
                 'with open(DATA_HOME + "cli_commands.txt") as f:'),
+            Sub("We'll classify the commands in `../data/cli_commands.txt` (one per line).",
+                "We'll classify the commands in `DATA_HOME + 'cli_commands.txt'` (one per line).",
+                kind="markdown"),
         ],
     ),
     # --- Modules 11-13: ChatAnthropic(...) becomes make_llm(...) ---
