@@ -125,7 +125,7 @@
     },
     {
       "page": 21,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 21,
       "text": "GTK Cyber Step 3: Move centroid to center of assigned points (5) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●● ● ● ● ●"
     },
@@ -221,7 +221,7 @@
     },
     {
       "page": 37,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 36,
       "text": "GTK Cyber K-Means is affected by the scale of every feature."
     },
