@@ -35,7 +35,7 @@
     },
     {
       "page": 6,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 6,
       "text": "GTK Cyber Training Schedule: Sat Aug 1, 2026 09:00 – 10:00 Coffee Service 10:00 Classes Begin 12:30 – 13:45 Lunch 16:00 – 16:15 Coffee Service 19:00 Classes End"
     },
@@ -263,7 +263,7 @@
     },
     {
       "page": 44,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 44,
       "text": "GTK Cyber The Machine Learning Process"
     },
@@ -419,7 +419,7 @@
     },
     {
       "page": 70,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 69,
       "text": "Setup & Installation of PyCharm"
     },

@@ -58,3 +58,13 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p41, p62: JSON rule asks for confidence to two decimal places; the worked example prints three (0.965, 0.823).
 - p17: frequency and presence penalty range shown as 0.0 to 2.0; OpenAI's range is -2.0 to 2.0, and the Anthropic Messages API has neither parameter.
 - p9, p56: "Programatically". p28: "doesn't'".
+
+## 00-introduction
+- p31: photo of SPAM varieties with no caption; point not stated anywhere in the deck (UNRESOLVED note).
+- p7: title says "Aug 2-4, 2025"; the course is Aug 2-4, 2026 (p6 says 2026).
+- p4: "Exploratory Data Analysis" listed under both Day 1 and Day 2.
+- p19: "Aritificial". p34: "a observation's". p78: "the the". p14: trailing empty bullet.
+- p38: "src and dat bytes" for dst bytes; "bro" is now Zeek.
+- p79, p81: terminal examples from a prior year (env "gtk-bh-ai", directory "ads_blackhat_2025").
+- p83: screenshot's worksheet numbering (7.1 CNN, 8.1 Attacking AI) predates the current README.
+- p2: extracted text carries an email and Slack invitation not visible in the render (hidden behind the Miniconda banner).
