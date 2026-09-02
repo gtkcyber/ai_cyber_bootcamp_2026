@@ -5,14 +5,13 @@ description: "Guidance for any data science, analytics, statistics, or machine l
 
 # data-science
 
-Router for the data-science skill suite. Classify before acting.
+Guidance for the data-science skill suite. Classify before acting.
 
 ## 1. Classify: three axes
 
-- **Lifecycle phase** — where in scoping → gather → pipelines → data-models →
-  profile → clean → labeling → features → model → evaluate → verify → stats
-  → communicate → mlops → impact the task sits. Full roster and artifacts:
-  `manifest.json`.
+- **Lifecycle phase** — where in scoping → gather → pipelines → data-models
+  → profile → clean → labeling → features → model → evaluate → verify →
+  stats → communicate → mlops → impact the task sits.
 - **Method/goal family** — the modeling/analytics goal (supervised,
   unsupervised, timeseries, graph, text, geospatial, perception,
   deep-learning, ranking, llm-systems, analytics, optimize). Selection

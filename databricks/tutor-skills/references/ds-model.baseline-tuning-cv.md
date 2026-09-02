@@ -27,7 +27,7 @@ feature set, L2 strength swept over a small grid (this is the baseline's
 "comparable tuning," not zero tuning). Candidate = gradient-boosted trees
 with a 50-trial random search. If GBT beats logistic regression by 0.01
 AUC, that is not automatically worth the added debuggability/latency cost
-— see `selection-economics.md`.
+— see `references/ds-model.selection-economics.md`.
 
 ## Tuning protocol {#tuning}
 

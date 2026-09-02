@@ -5,13 +5,9 @@ model-as-verifier / guardrail cascade subfield.
 
 Chen, Zaharia, Zou, "FrugalGPT: How to Use Large Language Models While
 Reducing Cost and Improving Performance," 2023 —
-https://arxiv.org/abs/2305.05176 . FrugalGPT routes a query across models
-of increasing cost: a cheap model answers first, and a scoring/routing
-function decides whether to accept that answer or escalate to a more
-expensive model. The goal is minimizing spend while preserving accuracy —
-the routing function's own reliability is the entire mechanism; a
-miscalibrated router defeats the cost savings (by escalating everything)
-or the accuracy guarantee (by escalating nothing).
+https://arxiv.org/abs/2305.05176 . FrugalGPT routes a query across models of
+increasing cost: a cheap model answers first, and a scoring/routing function
+decides whether to accept that answer or escalate to a more expensive model.
 
 Viola & Jones, "Rapid Object Detection using a Boosted Cascade of Simple
 Features," CVPR 2001 —
@@ -48,10 +44,7 @@ pointer) rather than the raw score.
 ## Classic-NLP guardrails as cheap-stage components
 
 Each guardrail (regex/schema validator, toxicity/PII classifier,
-fact-verification against retrieved context) is itself a fit component
-with its own leakage boundary — a toxicity classifier fit on a population
-that doesn't match the deployment population is a leak into "verified"
-outputs just as much as a leaked feature would be. State each guardrail's
-own `fit_on` in the composition diagram; do not treat "it's just a
-classic-ML filter" as exempting it from the per-component leakage-boundary
-gate (`SKILL.md` `## Gates`).
+fact-verification against retrieved context) is itself a fit component with
+its own leakage boundary — a toxicity classifier fit on a population that
+doesn't match the deployment population is a leak into "verified" outputs
+just as much as a leaked feature would be.

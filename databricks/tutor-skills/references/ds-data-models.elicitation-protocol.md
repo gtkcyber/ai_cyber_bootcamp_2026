@@ -5,12 +5,11 @@ vendor doc, or standard for the data at hand — internal tables, ad-hoc CSV
 exports, a one-off integration dump), *or* `Validate` finds the data
 demonstrably contradicts a spec that does exist: a Validate nonconformance
 finding is an explicit entry point into Elicit for the affected fields, not
-just a data-quality footnote. Semantics are derived from observed
-behavior instead. Every step here is **scripts-first**: the agent writes and
-runs code that returns derived answers (counts, distributions, boundary
-values), per the suite's code-don't-read doctrine (router doctrine,
-pointer-only — not restated here). Raw-row inspection is permitted only in
-the bounded, deliberate form in "Bounded row inspection" below.
+just a data-quality footnote. Semantics are derived from observed behavior
+instead. Every step here is **scripts-first**: the agent writes and runs
+code that returns derived answers (counts, distributions, boundary values),
+per the suite's code-don't-read doctrine. Raw-row inspection is permitted
+only in the bounded, deliberate form in "Bounded row inspection" below.
 
 ## Order of computation
 
@@ -56,7 +55,7 @@ later one, so don't skip ahead:
 At each stage, three outcomes are possible for a given candidate semantic:
 
 - **Resolved** — evidence unambiguously supports one interpretation
-  (e.g., the `9`/`closed_at` co-occurrence example in `disciplines.md`).
+  (e.g., the `9`/`closed_at` co-occurrence example in `references/ds-data-models.disciplines.md`).
   Record it directly in the semantic dictionary, evidence attached.
 - **Ambiguous but boundable** — evidence points toward an interpretation but
   doesn't rule out an alternative, or evidence is present but thin. Record

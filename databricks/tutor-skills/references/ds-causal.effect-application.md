@@ -38,7 +38,7 @@ customer base into "responds positively," "no effect," and "responds
 negatively" (sleeping-dog effect — the offer itself prompts churn
 reconsideration) requires: (1) the base identification strategy for
 "does the offer affect retention" at all (randomized if available,
-otherwise matching/DiD per `identification-strategies.md`), and (2) honest
+otherwise matching/DiD per `references/ds-causal.identification-strategies.md`), and (2) honest
 splitting so the three-way segmentation isn't itself an artifact of
 in-sample noise. Reporting the segmentation without confirming (1) ships an
 uplift claim with no identification behind it — the core gate failure.
@@ -104,7 +104,7 @@ not a description of the observed sequence of touches.
   *caused* by a given touchpoint, answerable only with an identification
   strategy: a randomized holdout (channel-level PSA-style holdout,
   `ds-stats`) or an observational strategy from
-  `identification-strategies.md` (e.g. geo-level DiD if a channel's spend
+  `references/ds-causal.identification-strategies.md` (e.g. geo-level DiD if a channel's spend
   varies by region and time).
 
 The paper's own approximations — used when full causal estimation isn't

@@ -95,28 +95,30 @@ def test_precondition_block_is_gone(name):
 @pytest.mark.parametrize("name", READ_SUBSKILLS)
 def test_dropped_sections_are_gone(name):
     out = strip_body(split_frontmatter(_src(name))[1], is_router=False)
-    assert "## Artifact" not in out
-    assert "## Pairings" not in out
+    for heading in ("## Artifact", "## Pairings", "## Gates", "## Edges", "## Audit mode"):
+        assert heading not in out, f"{heading} survived in {name}"
 
 
 @pytest.mark.parametrize("name", READ_SUBSKILLS)
-def test_no_orchestration_vocabulary_survives(name):
-    out = strip_body(split_frontmatter(_src(name))[1], is_router=False)
-    for word in ("run-record", "ledger", "dispatch-table", "the router",
-                 "loop-backs.md", "Re-run scope", "→ artifact:", "re_entrant"):
-        assert word not in out, f"{word!r} survived in {name}"
+def test_the_selection_tree_survives_with_its_steps(name):
+    """Choosing a method for a problem is the question a student asks; only the
+    dispatch phrasing wrapped around it is machinery."""
+    body = split_frontmatter(_src(name))[1]
+    if "## Selection tree" not in body:
+        pytest.skip(f"{name} has no selection tree")
+    after = strip_body(body, is_router=False).split("## Selection tree", 1)[1].lstrip("\n")
+    assert after and not after.startswith("#")
 
 
 @pytest.mark.parametrize("name", READ_SUBSKILLS)
 def test_knowledge_sections_survive_with_bodies(name):
     out = strip_body(split_frontmatter(_src(name))[1], is_router=False)
     assert "## Subfields" in out
-    assert "## Edges" in out
     # The whole census of substantive sections, not just the four most common:
-    # ds-evaluate carries its method knowledge under Audit mode and Production
-    # considerations and has no Selection tree at all.
+    # ds-evaluate has no Selection tree at all and carries its method knowledge
+    # under Production considerations.
     kept = [h for h in ("## Selection tree", "## Family-specific pitfalls and evaluation",
-                        "## Deltas", "## Standards catalog", "## Audit mode",
+                        "## Deltas", "## Standards catalog",
                         "## Production considerations", "## Worked compositions") if h in out]
     assert kept, f"{name} kept no method-selection or pitfalls section"
     for heading in kept:
@@ -124,12 +126,19 @@ def test_knowledge_sections_survive_with_bodies(name):
         assert after and not after.startswith("#"), f"{heading} in {name} is an empty shell"
 
 
-@pytest.mark.parametrize("name", READ_SUBSKILLS)
-def test_strip_keeps_between_forty_and_ninety_percent_of_the_lines(name):
+ALL_SUBSKILLS = sorted(d.name for d in (SRC / "subskills").iterdir()
+                       if (d / "SKILL.md").is_file())
+
+
+@pytest.mark.parametrize("name", ALL_SUBSKILLS)
+def test_strip_keeps_between_thirty_and_ninety_percent_of_the_lines(name):
+    """Guards both directions: the strip must not gut a skill, and must not be
+    a no-op. Gates, Edges and Audit mode are three sections of every file, so
+    the floor sits lower than it did when only Artifact and Pairings went."""
     body = split_frontmatter(_src(name))[1]
     before = len([ln for ln in body.splitlines() if ln.strip()])
     after = len([ln for ln in strip_body(body, is_router=False).splitlines() if ln.strip()])
-    assert 0.40 <= after / before <= 0.90, f"{name}: kept {after}/{before}"
+    assert 0.30 <= after / before <= 0.90, f"{name}: kept {after}/{before}"
 
 
 def test_strip_leaves_no_run_of_three_blank_lines():
@@ -322,3 +331,46 @@ def test_main_replaces_a_stale_tree(tmp_path):
     (tmp_path / "ds-gone" / "SKILL.md").write_text("stale", encoding="utf-8")
     main(["--dest", str(tmp_path)])
     assert not (tmp_path / "ds-gone").exists()
+
+
+# --- the finished tree ---------------------------------------------------
+
+# Vocabulary that means an agent suite talking to itself, and nothing a student
+# ever asked about. Checked against every generated skill rather than a sample:
+# the strip is a line pass over prose written for another audience, and one
+# skill's phrasing is no evidence about another's.
+ORCHESTRATION_WORDS = (
+    "run-record", "ledger", "dispatch", "router", "loop-back", "re_entrant",
+    "re-entrant", "Re-run scope", "\u2192 artifact:", "SKILL.md \u00a7", "Precondition",
+    "Abort to the", "## Gates", "## Edges", "## Audit mode", "tiers.md",
+    "manifest.json",
+)
+
+GENERATED_SKILLS = (
+    ["data-science"] + ALL_SUBSKILLS
+    + [f"course-module-{m['number']:02d}" for m in MODULES]
+)
+
+
+@pytest.fixture(scope="session")
+def generated(tmp_path_factory):
+    """One full build, shared by every check that reads the finished tree."""
+    dest = tmp_path_factory.mktemp("tutor-skills")
+    assert main(["--dest", str(dest)]) == 0
+    return dest
+
+
+@pytest.mark.parametrize("name", GENERATED_SKILLS)
+def test_no_orchestration_vocabulary_survives(generated, name):
+    body = (generated / name / "SKILL.md").read_text(encoding="utf-8")
+    # A reference's filename is not a mention: ds-clean's assertion-suite-and-
+    # ledger names a document, it does not tell the tutor to keep a ledger.
+    body = re.sub(r"references/[\w.-]+\.md", "", body)
+    for word in ORCHESTRATION_WORDS:
+        assert word.lower() not in body.lower(), f"{word!r} survived in {name}"
+
+
+def test_every_generated_skill_keeps_a_body(generated):
+    for name in GENERATED_SKILLS:
+        body = split_frontmatter((generated / name / "SKILL.md").read_text(encoding="utf-8"))[1]
+        assert len([ln for ln in body.splitlines() if ln.strip()]) > 10, name

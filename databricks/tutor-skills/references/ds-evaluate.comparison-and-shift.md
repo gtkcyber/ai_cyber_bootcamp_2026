@@ -56,10 +56,6 @@ signal:
   causal identification of the shift's source. A high AUC alone does not
   identify which features drive it (SKILL.md).
 
-**Threshold and loop-back**: state the AUC threshold above which a finding
-counts as "shift detected" before running the check, not after seeing the
-number.
-
 ## Robustness and adversarial evaluation {#robustness}
 
 **Literature**: Goodfellow, Shlens, Szegedy, "Explaining and Harnessing

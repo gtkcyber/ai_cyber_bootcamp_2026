@@ -13,9 +13,7 @@ open exploration) vs. reader-driven ones (interactive slideshow, drill-down).
 
 **Failure modes**: author-driven vs. reader-driven is a real tradeoff
 depending on audience and stakes, not a universal ranking — a board memo
-wants author-driven; an analyst handoff can afford reader-driven. Narrative
-structure exists to structure *interpretation* of findings already on
-record, never to introduce a finding the ledger doesn't carry.
+wants author-driven; an analyst handoff can afford reader-driven.
 
 **Worked minimum**: a `report`'s narrative opens with the governing finding
 (see Executive-summary discipline), then supplies the evidence that
@@ -41,13 +39,10 @@ from evidence quality + agreement — "low," "medium," "high," "very high")
 and **likelihood** (quantitative, calibrated probability language —
 "virtually certain" >99% down to "exceptionally unlikely" <1%).
 
-**Failure modes**: don't blend the two scales — "we're fairly confident
-this is a 12% lift" reads as one number when it's actually two different
-claims (an effect-size point estimate, and a confidence-quality judgment
-about the evidence behind it) that need separate sentences. Don't imply
-numeric precision ("we're 73% confident") when only a qualitative
-confidence assessment was actually made upstream — that number doesn't
-exist in the ledger and this protocol doesn't invent one.
+**Failure modes**: don't blend the two scales — "we're fairly confident this
+is a 12% lift" reads as one number when it's actually two different claims
+(an effect-size point estimate, and a confidence-quality judgment about the
+evidence behind it) that need separate sentences.
 
 **Worked minimum**: where `ds-uncertainty` or `ds-stats` recorded an
 interval or coverage claim, state it beside the point estimate in the same

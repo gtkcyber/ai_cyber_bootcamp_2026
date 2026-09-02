@@ -5,10 +5,8 @@ description: "Post-model evaluation intelligence: metric↔business-cost matchin
 
 # ds-evaluate
 
-Runs after `ds-model` writes the model card and before `ds-verify`. Not
-re-entrant (Edges): a later re-evaluation need routes through the three
-back-edges this skill sources, not a fresh entry. Full depth and citations
-live in `references/`; this file is protocol only.
+Runs after `ds-model` writes the model card and before `ds-verify`. Full
+depth and citations live in `references/`; this file is protocol only.
 
 ## Subfields
 
@@ -68,70 +66,8 @@ live in `references/`; this file is protocol only.
   the task card's stated population, not just the training population. See
   `references/ds-evaluate.threshold-and-reconciliation.md#reconciliation`.
 
-|---|---|---|
-| Metric↔business-cost matching | analysis | mandatory |
-| Slice-wise error analysis | analysis | conditional-on-data:grouping-variables-present |
-| Stability | analysis | mandatory |
-| Comparison-with-uncertainty | analysis | conditional-on-data:multiple-candidates |
-| Dataset-shift diagnosis | analysis | conditional-on-data:train-score-population-gap |
-| Robustness/adversarial evaluation | production | conditional-on-data:adversarial-threat-relevant |
-| Operating-point selection | analysis | conditional-on-data:actionable-decision-threshold |
-| Deployment-population reconciliation | analysis | mandatory |
-
 `mandatory` rows fire whenever `ds-evaluate` composes at all; the other
 five fire only on their own trigger.
-
-## Gates
-
-- `scorecard.primary_metric`: task type + imbalance/base-rate context +
-  chosen metric + a one-line justification naming the avoided failure mode
-  ("ROC-AUC rejected: base rate 2%, PR-AUC used per Saito & Rehmsmeier").
-  Missing any of the four parts fails.
-- Every `scorecard.slice_results` entry cites the `ds-data-models`
-  semantic-dictionary interpretation (or `attest_id`) of its grouping
-  variable, plus a slice-specific population/denominator statement distinct
-  from the aggregate's — a bare metric number with neither fails.
-- Every headline number (`primary_metric`, `comparison_result`) carries a
-  variance/spread field — CV fold spread, bootstrap CI, multi-seed range —
-  a bare point estimate fails.
-- Any "beats baseline"/"beats model X" claim cites a significance-test
-  statistic (Wilcoxon at two candidates, Friedman + post-hoc at 3+) over
-  the same CV/resampling scheme `ds-model`'s model card recorded — no test
-  statistic fails, and a declared winner inside the non-significant range
-  fails regardless of point-estimate sign.
-- `scorecard.robustness_result` (when fired) reports a worst-case metric —
-  attack success rate / robust accuracy at a stated perturbation budget —
-  plus confirmation the attack isn't gradient-masked (a transfer or
-  black-box baseline on record); average-case accuracy relabeled fails.
-- `scorecard.operating_point` cites an explicit cost matrix (`C(FP)`,
-  `C(FN)`) and confirms score calibration before applying Elkan's formula —
-  a 0.5-default threshold with no stated cost matrix fails.
-- `scorecard.population_reconciliation` cites both `ds-scoping`'s
-  `intended_scoring_population` and `ds-data-models`'s
-  `population_statement`, stating any mismatch as a finding — no citation,
-  or silent scoring against whatever population the test set held, fails.
-
-## Edges
-
-Covered: the eight subfields above.
-
-Family-specific metric catalogs are router-owned reference material — this
-skill's delta is the selection *procedure*, never the catalog.
-
-- `evaluate → features` — evidence: slice-wise/stability finds a feature
-  deficiency (missing signal, leakage, importance anomaly), not a
-  metric-selection or threshold problem.
-- `evaluate → labeling` — evidence: slice-wise analysis finds a systematic
-  error pattern traceable to disagreement with ground truth, not model
-  capacity.
-- `drift → profile` — evidence: the shift-diagnosis threshold is breached.
-
-## Audit mode
-
-Input: an existing external evaluation artifact authored outside this skill
-(a vendor benchmark report, a prior analyst's metrics slide, a model card
-shipped without this skill's involvement). An undocumented claim is an
-unregistered field under Gates: flagged, never assumed compliant.
 
 ## Production considerations
 

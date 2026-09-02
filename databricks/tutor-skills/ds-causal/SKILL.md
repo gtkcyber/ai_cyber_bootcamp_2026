@@ -5,15 +5,9 @@ description: "Observational/quasi- experimental identification: DAGs and confoun
 
 # ds-causal
 
-Unlike the re-entrant trio (`ds-data-models`, `ds-stats`,
-`ds-entity-resolution`), this skill does not automatically recompose
-wherever its axis condition recurs; it is consulted via a named pointer the
-moment another skill's output would otherwise ship causal language with no
-identification behind it (`ds-analytics`, `ds-explain`, `ds-ranking`,
-`ds-impact`, `ds-gather`, `ds-stats` — see Edges for each boundary). Mirrors
-`ds-explain`'s fixed-position pattern, not `ds-method-composition`'s hook
-mechanism. Full depth, worked examples, and citations live in `references/`;
-this file is protocol only.
+Mirrors `ds-explain`'s fixed-position pattern, not `ds-method-composition`'s
+hook mechanism. Full depth, worked examples, and citations live in
+`references/`; this file is protocol only.
 
 **The core gate**: no causal language — "driver," "impact," "effect,"
 "caused by," "incrementality" — ships without a cited
@@ -106,17 +100,6 @@ association reported as causation without this citation fails at
 No fixed load-order rank — composes at the citing skill's position, per the
 named entry points above.
 
-|---|---|---|
-| DAGs and confounding | quick-answer | conditional-on-data:adjustment-set-needed |
-| Matching | analysis | conditional-on-data:comparison-group-on-observables |
-| Difference-in-differences | analysis | conditional-on-data:panel-or-repeated-cross-section |
-| Instrumental variables | analysis | conditional-on-data:instrument-candidate |
-| Uplift/treatment-effect heterogeneity | analysis | conditional-on-data:heterogeneous-effect-question |
-| Off-policy/counterfactual evaluation | analysis | conditional-on-data:logged-policy-data |
-| Attribution modeling | quick-answer | conditional-on-data:multi-touchpoint-credit-question |
-| Collider/selection stratification | quick-answer | conditional-on-data:stratification-or-selection-flagged |
-| Identification without randomization | quick-answer | `mandatory` |
-
 `mandatory`: fires whenever `ds-causal` composes at all — the assumption
 still gets named regardless of which concrete strategy fired. The other
 eight fire only on their own trigger condition.
@@ -182,43 +165,3 @@ is evaluated on assumption plausibility and robustness (placebo tests,
 sensitivity to the untestable assumption, overlap diagnostics), not
 predictive accuracy alone — a model can fit the outcome well and still
 identify the wrong quantity.
-
-## Gates
-
-- No causal-language claim ("driver," "impact," "effect," "caused by,"
-  "incrementality") ships without a cited `identification_statement` — an
-  association reported as causation with no citation fails at `ds-verify`.
-- `identification_statement` names the strategy — unnamed fails.
-- Every adjustment-set variable is classified confounder/collider/mediator
-  before it is adjusted for; matching claims cite balance diagnostics
-  labeled as evidence for observed covariates only, never unconfoundedness.
-- Staggered-timing DiD states whether a group-time estimator was used or
-  justifies plain two-way fixed effects.
-- IV claims state relevance, exclusion, monotonicity, the weak-instrument
-  diagnostic, and whether the estimate is LATE or extrapolated to ATE.
-- Heterogeneity claims confirm honest sample-splitting (partition-selection
-  and effect-estimation on disjoint samples); off-policy claims state the
-  overlap diagnostic and which model (reward or propensity) is trusted.
-- Attribution claims are labeled explicitly associative or causal, citing
-  its own identification strategy if causal; collider/selection claims
-  record the temporal-order check before any stratification executes.
-- `identification_statement` separates assumptions into testable (with the
-  test run) and untestable (with why) — undistinguished fails outright.
-
-## Edges
-
-Covered: the nine subfields above, wherever a non-randomized causal
-question or a causal-language claim surfaces.
-
-**Split discipline**: this skill does not set a task's primary split scheme
-(multi-family rule, router `SKILL.md` §1) — the task's family owns
-leakage-driving split discipline; a subfield's own sample-partition
-requirement here (honest splitting for heterogeneity) is additive to it,
-never a replacement, mirroring `ds-method-composition`'s per-component-
-boundary stance.
-
-Research-escalation trigger: regression discontinuity design, synthetic
-control, and other non-randomized strategies outside the nine subfields
-above are outside current cited coverage — declare it, research
-externally, verify the found method's assumptions against the actual
-data, report provenance, per router doctrine, before adopting one.

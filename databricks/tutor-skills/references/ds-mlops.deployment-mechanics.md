@@ -99,7 +99,7 @@ metric can't be measured there. Canary is required once the outcome
 depends on the model's own action, not just its prediction being logged.
 
 Rollback criteria (a regression threshold on the monitored metric,
-`monitoring-and-retraining.md`) are decided *before* rollout starts, never
+`references/ds-mlops.monitoring-and-retraining.md`) are decided *before* rollout starts, never
 improvised after a canary looks bad.
 
 ## cicd

@@ -32,7 +32,7 @@ oversight to silently accept.
 
 **Literature name**: information retrieval — classical relevance ranking,
 distinct from recommender collaborative filtering (`#cf-mf` in
-`recommendation-methods.md` assumes a user-item interaction matrix;
+`references/ds-ranking.recommendation-methods.md` assumes a user-item interaction matrix;
 retrieval assumes a query against a document/item corpus).
 
 **Canonical methods**: vector-space and probabilistic relevance models,

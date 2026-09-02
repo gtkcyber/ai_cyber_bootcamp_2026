@@ -38,7 +38,7 @@ one that comes to mind:
 
 ## Selection inputs, not post-hoc filters
 
-`doctrine-scale-cost.md`: compute/latency are selection *inputs*. Don't
+`references/doctrine-scale-cost.md`: compute/latency are selection *inputs*. Don't
 run the full baseline-first ladder to a winner on pure predictive
 performance and only then ask "was it worth it?" — the cost profile of
 each rung is part of the evidence considered when deciding whether to
@@ -70,7 +70,7 @@ factor.
 
 ## Referenced delta-only by
 
-`doctrine-scale-cost.md` is the doctrine home for scale/cost escalation
+`references/doctrine-scale-cost.md` is the doctrine home for scale/cost escalation
 and the threshold mechanism; this file is this skill's delta — the
 selection *procedure* that consumes that doctrine at model-choice time.
 `ds-mlops` owns ongoing serving/retraining cost once a model is deployed;

@@ -50,7 +50,7 @@ and Chatbot Arena," NeurIPS 2023 — https://arxiv.org/abs/2306.05685.
   spot-check by eye.
 
 **The provenance discipline this requires**: a judge's output is not an
-observed label. Per `doctrine-repro-provenance.md`'s provenance classes
+observed label. Per `references/doctrine-repro-provenance.md`'s provenance classes
 (observed / derived / enriched / defaulted / asserted /
 privacy-transformed), an LLM-judge score is **`asserted`** — a claim made
 by a named party (the specific judge model/version) with a specific

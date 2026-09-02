@@ -67,14 +67,6 @@ file is protocol only.
   longitudinal score comparison. See
   `references/ds-llm-systems.hallucination-and-eval-construction.md#generative-eval-set-construction`.
 
-|---|---|---|---|
-| When an LLM beats a classical model | quick-answer | 1 | mandatory |
-| Retrieval-augmented systems and their evaluation | analysis | 2 | conditional-on-data:retrieval-augmented-system |
-| Prompt/pipeline-level evaluation | analysis | 2 | conditional-on-data:pipeline-comparison-requested |
-| Generative eval-set construction | analysis | 2 | conditional-on-data:eval-set-construction-needed |
-| LLM-as-judge design, calibration, agreement | analysis | 3 | conditional-on-data:llm-judge-proposed |
-| Hallucination/grounding measurement | analysis | 3 | conditional-on-data:grounding-check-required |
-
 `mandatory`: every composition answers the LLM-vs-classical question
 first. Load-order-2 rows may co-occur (an eval set built to feed a
 pipeline comparison); load-order-3 rows consume their output.
@@ -124,30 +116,3 @@ each subfield's output feeds the next, not a single terminal branch.
 evaluation is multi-axis (HELM-class) and frequently judge-mediated rather
 than single-ground-truth-metric; a reported score states which axes and
 which judge/bias corrections were applied, not just the number.
-
-## Gates
-
-- The LLM-vs-classical decision states the specific cost/latency/quality
-  reason — feeds `ds-model`'s selection economics
-  (`doctrine-scale-cost.md`), never overrides it.
-- Any RAG evaluation reports retrieval quality and generation faithfulness
-  as separate figures — a single blended score fails.
-- Any pipeline-level evaluation states which axes it covers (Liang et
-  al.'s taxonomy or an equivalent stated set) — a bare single number
-  fails.
-- Any LLM-as-judge score is tagged `asserted` provenance
-  (`doctrine-repro-provenance.md`) with the judge model and its incentive
-  named — used as `observed` fails. Position/verbosity/self-enhancement
-  bias correction is recorded, or explicitly stated as unchecked.
-- Any hallucination/grounding claim states intrinsic-vs-extrinsic
-  classification and the detection method used per class.
-- Any generative eval-set construction states whether it draws on the
-  same model family under evaluation, and names the bias-amplification
-  risk if so — silent reuse fails.
-
-## Edges
-
-Covered: the six subfields above.
-
-No leakage constraint originates in this family — the partner family or
-router doctrine leads split/validation design in every pairing below.

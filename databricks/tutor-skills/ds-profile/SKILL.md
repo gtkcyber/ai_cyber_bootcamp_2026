@@ -41,56 +41,11 @@ is `ds-clean`'s. Full depth, worked examples, and citations live in
   `ds-data-models`' grain contract (Interpret), never re-derived here:
   `references/ds-profile.grouping-variables.md`.
 
-## Gates
-
-- Every count/rate claim states its denominator's coverage basis, citing
-  `ds-data-models`' population statement — a claim with no stated
-  denominator or coverage basis fails this gate, not just an imprecise one.
-- Every claim states what records **attest** (citing an `attest_id` in the
-  `attest_register`), never what a column name suggests — a claim inferring
-  meaning from a field name with no matching Attest entry is an
-  unregistered-field failure under `ds-data-models`'s Gates, not a
-  profiling finding.
-- Additivity — additive / semi-additive / non-additive, and
-  ratio-of-averages vs. average-of-ratios — is classified per measure
-  before any aggregation runs, here or downstream (`ds-features`,
-  `ds-analytics` cite this classification, never re-derive it);
-  `doctrine-repro-provenance.md` states the principle once, this is its
-  first execution point.
-- **Full-data profiling is limited to structure, typing, and missingness**
-  (`doctrine-leakage.md`) until the split from `ds-scoping`'s `split_design`
-  exists; any distribution-by-target, correlation-with-target, or other
-  target-relationship exploration runs on the train split only.
-- No profiling claim is written from raw rows read directly into context —
-  every count, distribution, and missingness figure is computed by a
-  written script; raw-row inspection is bounded to the find-and-feed
-  protocol (`doctrine-repro-provenance.md`) — this skill's delta is the
-  computation order those scripts follow, not the doctrine itself.
-
-## Edges
-
-Covered: structured EDA (structure/typing/missingness/cardinality/
-duplicate-signal/distributions/outlier-signal/additivity) and
-grouping-variable identification, for any dataset already carrying a
-semantic dictionary and population statement.
-
-Re-run scope is `ds-profile` itself: a fresh, higher-iteration write to the
-`profile` section, not a full replace. No back-edge originates at
-`ds-profile` itself — this skill is always a loop-back's target, never its
-trigger.
-
-## Audit mode
-
-Input: an existing external EDA artifact authored outside this skill (a
-prior analyst's EDA notebook, a data-quality report, a BI-tool profiling
-export). An undocumented profiling claim is treated as an unregistered field
-under Gates: flagged, never assumed compliant.
-
 ## Production considerations
 
 Two deltas, both pointers: full-data profiling over datasets too large for
 in-memory computation escalates only as far as forced, per
-`doctrine-scale-cost.md`'s scale playbook (validity-preserving sampling
+`references/doctrine-scale-cost.md`'s scale playbook (validity-preserving sampling
 before out-of-core, out-of-core before distributed) — sampling that
 compromises the population statement is not "cheaper," it is a different
 population; and this skill's findings — the additivity classification and

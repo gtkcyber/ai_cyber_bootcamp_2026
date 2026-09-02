@@ -12,59 +12,35 @@ citations: `references/`; this file is protocol only.
 
 ## Subfields
 
-- **Collaborative filtering / MF** — trigger: a user-item interaction
-  matrix exists. tier: `analysis`. participation:
-  `conditional-on-data:user-item-interaction-matrix`. Methods: latent-
-  factor SVD-style MF, regularized MF with bias terms. Edges: sparse
-  history is cold start, not an MF fix. See
+- Methods: latent- factor SVD-style MF, regularized MF with bias terms.
+  Edges: sparse history is cold start, not an MF fix. See
   `references/ds-ranking.recommendation-methods.md#cf-mf`.
-- **Cold start** — trigger: new/near-zero-history user or item. tier:
-  `analysis`. participation: `conditional-on-data:cold-start-user-or-item`.
-  Methods: content-based fallback, hybrid CF+content, exploration bootstrap
-  (policy: `ds-optimize`). Edges: "wait for more data" restates the
-  problem. See `references/ds-ranking.recommendation-methods.md#cold-start`.
-- **Implicit feedback** — trigger: behavioral signal (clicks, views,
-  dwell), not an explicit rating. tier: `analysis`. participation:
-  `conditional-on-data:implicit-signal-only`. Methods: confidence-weighted
-  implicit MF, all-pairs training. Edges: implicit-feedback trap gate,
-  below — absence is not a confirmed negative. See
-  `references/ds-ranking.recommendation-methods.md#implicit-feedback`.
-- **Learning-to-rank** — trigger: orders a candidate list; a score alone
-  is not this subfield. tier: `analysis`. participation:
-  `conditional-on-data:ranked-candidate-list`. Methods: pairwise (RankNet),
-  gradient-shaped listwise (LambdaRank), boosted-tree (LambdaMART). Edges:
-  heuristic approximation — no exact-optimization claim. See
-  `references/ds-ranking.ranking-and-retrieval.md#ltr`.
-- **Retrieval/search relevance** — trigger: candidate set must be found
-  from a corpus against a query, not just reordered. tier: `analysis`.
-  participation: `conditional-on-data:query-document-retrieval`. Methods:
-  vector-space/probabilistic relevance (classical), dense/embedding
-  retrieval (on diagnosed vocabulary mismatch). Edges: an LLM-based
-  encoder crosses into `ds-llm-systems` (Pairings). See
+- Methods: content-based fallback, hybrid CF+content, exploration bootstrap
+  (policy: `ds-optimize`). Edges: "wait for more data" restates the problem.
+  See `references/ds-ranking.recommendation-methods.md#cold-start`.
+- Methods: confidence-weighted implicit MF, all-pairs training. Edges:
+  implicit-feedback trap gate, below — absence is not a confirmed negative.
+  See `references/ds-ranking.recommendation-methods.md#implicit-feedback`.
+- Methods: pairwise (RankNet), gradient-shaped listwise (LambdaRank),
+  boosted-tree (LambdaMART). Edges: heuristic approximation — no
+  exact-optimization claim. See `references/ds-ranking.ranking-and-retrieval.md#ltr`.
+- Methods: vector-space/probabilistic relevance (classical), dense/embedding
+  retrieval (on diagnosed vocabulary mismatch). Edges: an LLM-based encoder
+  crosses into `ds-llm-systems` (Pairings). See
   `references/ds-ranking.ranking-and-retrieval.md#retrieval`.
 - **Ranking evaluation (NDCG/MAP/MRR)** — trigger: any ranked output needs
   a quality metric. tier: `quick-answer`. participation: `mandatory`.
   Methods: NDCG, MAP, MRR, Precision@k/Recall@k. Edges: metric matches
   relevance-judgment shape (graded vs. binary) — a default pick is a
   silent choice. See `references/ds-ranking.ranking-and-retrieval.md#evaluation`.
-- **Position and presentation bias** — trigger: training/eval data is
-  logged production clicks/impressions, not neutral judgments. tier:
-  `analysis`. participation: `conditional-on-data:logged-click-data`.
-  Methods: cascade/examination position-bias models, interleaving. Edges:
+- Methods: cascade/examination position-bias models, interleaving. Edges:
   this is a gate, below, not an optional caveat. See
   `references/ds-ranking.bias-and-attribution.md#position-bias`.
-- **Off-policy/counterfactual evaluation application** — trigger: would a
-  *new* policy outperform the *logged* one, evaluated on its logs. tier:
-  `analysis`. participation:
-  `conditional-on-data:policy-change-evaluated-on-logs`. Methods:
-  replay-based offline evaluation. See
+- Methods: replay-based offline evaluation. See
   `references/ds-ranking.bias-and-attribution.md#ope`.
-- **Attribution application with `ds-causal`** — trigger: which position/
-  touchpoint "caused" a conversion. tier: `analysis`. participation:
-  `conditional-on-data:credit-assignment-requested`. Methods:
-  causally-motivated attribution reframing (vs. rule-based credit-split).
-  Edges: logged impressions aren't randomized — pair with `ds-causal`
-  before calling output "causal lift." See
+- Methods: causally-motivated attribution reframing (vs. rule-based
+  credit-split). Edges: logged impressions aren't randomized — pair with
+  `ds-causal` before calling output "causal lift." See
   `references/ds-ranking.bias-and-attribution.md#attribution`.
 
 ## Selection tree
@@ -115,39 +91,8 @@ Pitfalls (full detail, citations: `references/`):
   Attribution credit on unrandomized logged impressions is association,
   not causal lift, until paired with a `ds-causal` identification strategy.
 
-## Gates
-
-- **Implicit-feedback trap gate**: an unobserved (user, item) pair is a
-  negative only if the `population_statement` (`ds-data-models`, Observe;
-  doctrine home `doctrine-repro-provenance.md` § Population statements are
-  composable artifacts) establishes exposure covered that item — absence
-  alone fails. Ranking-specific form of `ds-labeling`'s PU-gate.
-- **Position-bias gate**: logged click/impression data requires a stated
-  position-bias correction or interleaving design before any CTR-derived
-  quantity is reported as relevance — uncorrected raw CTR fails.
-- **Cold-start gate**: records which alternate information source is used
-  — "wait for more data" fails. **Evaluation-metric gate**: states graded
-  vs. binary judgment shape explicitly. **LTR gate**: no claim of
-  exact-metric optimization for a LambdaRank-family fit.
-- **Off-policy gate**: states the logging policy's action-selection
-  structure — an estimate without it fails.
-- **Attribution gate**: output is labeled credit-assignment (association),
-  never "causal lift," unless a `ds-causal` identification strategy is
-  attached. Fit-on-train-only compliance (`ds-features`) — cited, not
-  re-checked. Doctrine gates: leakage, provenance/additivity, scale/cost
-  (`doctrine-leakage.md`, `doctrine-repro-provenance.md`,
-  `doctrine-scale-cost.md`) — linked, not restated.
-
-## Edges
-
-Covered: collaborative filtering/MF, cold start, implicit feedback,
-learning-to-rank, retrieval/search relevance, ranking evaluation, position/
-presentation bias, off-policy/counterfactual evaluation application,
-attribution application.
-
-Not covered, pointer only: off-policy/counterfactual identification and
-attribution causal identification (`ds-causal`); LLM-based retriever/judge
-design and RAG-pipeline evaluation (`ds-llm-systems`); generic evaluation
-scorecard (`ds-evaluate`); randomized experiment design (`ds-stats`);
-cold-start bootstrap exploration policy (`ds-optimize`); fit-on-train-only
-mechanics (`ds-features`).
+**Evaluation delta.** `ds-evaluate` owns the generic scorecard; this
+family's delta is NDCG/MAP/MRR by relevance-judgment shape, position-bias
+correction or interleaving before any logged-click metric is reported
+unbiased, and off-policy estimates reported alongside the logging policy's
+exploration structure.

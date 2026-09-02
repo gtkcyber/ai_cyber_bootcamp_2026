@@ -1,7 +1,7 @@
 # Linkage mechanics
 
-Worked depth for the five re-entrant subfields. `SKILL.md` carries the
-protocol and full citations; this file carries the mechanics.
+`SKILL.md` carries the protocol and full citations; this file carries the
+mechanics.
 
 ## Blocking {#blocking}
 

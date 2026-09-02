@@ -75,14 +75,6 @@ description: "Geospatial method family: spatial autocorrelation (Moran's I / LIS
   technique needs its own justification, not a blanket "geospatial
   features" label.
 
-|---|---|---|
-| Point/raster/polygon models | quick-answer | `mandatory` |
-| CRS/projection traps | quick-answer | `mandatory` |
-| Spatial joins | quick-answer | `conditional-on-data:spatial-join-present` |
-| Spatial autocorrelation | quick-answer | `conditional-on-data:spatial-pattern-diagnosis-needed` |
-| Spatial CV (spatial-leakage delta) | analysis | `conditional-on-data:spatial-autocorrelation-in-play` |
-| Geo feature engineering | analysis | `conditional-on-data:feature-engineering-for-downstream-model` |
-
 `mandatory` here means: fires whenever `ds-geospatial` composes at all,
 same convention as `ds-gather`'s selection-into-the-dataset row — every
 geospatial task has a data model and a CRS, whether or not it joins,
@@ -144,64 +136,3 @@ diagnoses clustering, cross-validates, or engineers features.
   scheme must be the blocked/buffered spatial CV whenever spatial
   autocorrelation is in play, not a fixed random holdout defended after
   the fact.
-
-## Gates
-
-- **CRS/units gate**: every distance, area, or join computation in the
-  artifact states its CRS and units — a geographic-CRS (degree-based)
-  distance or area computation fails this gate outright, not as a noted
-  caveat.
-- **Spatial join gate**, at any join site: this family's predicate/index
-  check (predicate matches the stated spatial relationship; a spatial
-  index exists) plus `ds-gather`'s join gate (same-semantics check,
-  cardinality check against each side's declared grain) and
-  `ds-data-models`' grain contract — both cited, neither re-derived here.
-- **Spatial CV gate**: whenever spatial autocorrelation is in play
-  (diagnosed or plausible, Selection tree step 6), the reported split
-  states its block/buffer size and the autocorrelation range it exceeds —
-  a shuffled or globally-random fold assignment on spatially autocorrelated
-  data fails this gate outright, not just as a caveat.
-- **Fit-on-train-only** (`ds-features` ownership) applies to every
-  family-specific transform here: spatial-weights construction, and any
-  spatial-lag/distance-based feature statistic, are estimated on the train
-  side of the current split only, never on the full dataset before
-  splitting.
-- When this family leads a multi-family split (see Pairings), the imposed
-  scheme is recorded once and every composed family's evaluation cites
-  it — a composed family computing its own independent split on the same
-  spatially autocorrelated data fails this gate.
-- Doctrine gates this family triggers, linked not restated: leakage
-  (`doctrine-leakage.md` — the delta is spatial adjacency/distance, not
-  row independence, per Subfields above), provenance/additivity and
-  scale/cost per router doctrine.
-
-## Edges
-
-Covered: point/raster/polygon data model selection, CRS/projection
-handling, spatial joins, spatial autocorrelation diagnosis, spatial CV and
-the spatial-leakage delta, and geo feature engineering.
-
-Not covered, pointer only: CNN-class architecture and training mechanics on
-raster/imagery once a neural framing is chosen — outside this family's cited
-coverage; research external sources, verify the found method's
-resolution/CRS assumptions against the actual data, and report provenance
-before adopting one, then hand training mechanics to `ds-deep-learning`
-(classical DSP/preprocessing on raster signals is `ds-perception`'s).
-Production geospatial serving/tile infrastructure is `ds-mlops`'s.
-
-On spatially autocorrelated data composed with a non-spatial family,
-`ds-geospatial` owns the strongest constraint and imposes:
-**blocked/buffered spatial CV**, block size exceeding the effective range of
-spatial autocorrelation (Roberts et al., above) — never a shuffled or
-globally-random split, regardless of what the composed family would
-otherwise default to. Composed with `ds-timeseries` on spatiotemporal data,
-the strongest-constraint rule decides per-task by measurement, not
-preference. Decision procedure: (1) diagnose both ranges on the actual data
-— the spatial autocorrelation range (this family's spatial-CV delta) and the
-temporal embargo width (`ds-timeseries`' delta, longest look-ahead among
-composed features/ labels); (2) express each as the fraction of candidate
-train rows its block/embargo would exclude; (3) the constraint excluding
-more leads and sets the primary blocking scheme, the other is applied WITHIN
-each block (nested, never dropped); (4) the framing note records both
-measured ranges, both exclusion fractions, and the resulting scheme. A tie
-or near-tie (within ~10%) → block on both jointly (space-time blocks).

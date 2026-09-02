@@ -16,7 +16,7 @@ source.
 - **Audio** — sample-rate choice (resampling to a fixed rate before any
   spectral feature extraction — mismatched source rates are not
   comparable), frame length and hop size for spectrogram/MFCC extraction
-  (the same time/frequency-resolution tradeoff as `classical-dsp.md`
+  (the same time/frequency-resolution tradeoff as `references/ds-perception.classical-dsp.md`
   applies here), loudness/amplitude normalization.
 - **Video** — frame-sampling rate (uniform vs. keyframe-based — changes
   which temporal information survives into the model), per-frame image

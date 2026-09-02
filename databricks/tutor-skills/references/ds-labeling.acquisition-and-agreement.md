@@ -27,8 +27,8 @@ Every acquisition path is one of, or a mix of:
   vote, weighted vote by annotator reliability, adjudication). A
   single-pass, non-redundant human label carries no quality claim beyond
   "one asserter said so" — see Gates.
-- **Weak supervision** — see `weak-supervision-and-active-learning.md`.
-- **Model-assisted** — see `noise-pu-and-model-assisted.md`.
+- **Weak supervision** — see `references/ds-labeling.weak-supervision-and-active-learning.md`.
+- **Model-assisted** — see `references/ds-labeling.noise-pu-and-model-assisted.md`.
 
 A protocol that names a source but not a redundancy/aggregation scheme has
 described where labels came from, not whether they can be trusted — the two

@@ -7,7 +7,7 @@ description: "Schema, standard, and semantic intelligence for any dataset: finge
 
 **Re-entrancy trigger**: fire on first contact with any new schema, source,
 feed version, or field, at any tier, mid-pipeline or not. Mandatory at every
-composition tier per router doctrine.
+composition tier per the doctrine references.
 
 Full depth for every discipline below, worked examples, and the standards
 citations live in `references/ds-data-models.disciplines.md` and
@@ -16,8 +16,7 @@ citations live in `references/ds-data-models.disciplines.md` and
 
 ## Subfields
 
-The nine disciplines. Run in rough order on first contact with a schema;
-re-enter any one of them independently once its precondition changes.
+The nine disciplines.
 
 - **Identify** — fingerprint the schema/standard from structural tells: OCSF
   `class_uid`/`category_uid`, Splunk CIM tags, ECS field-set names, vendor
@@ -69,52 +68,6 @@ re-enter any one of them independently once its precondition changes.
 - **Validate** — conformance as a data-quality signal: extension fields,
   deprecated values, version skew across the record set flag drift even when
   every record still parses. See `references/ds-data-models.disciplines.md#validate`.
-
-## Gates
-
-Each is phrased so a script can check it against the semantic dictionary and
-Attest register:
-
-- Every field consumed by an analytic claim has a semantic-dictionary entry
-  or a declared assumption record — no unregistered field feeds a claim.
-- Every dataset has a population statement recorded before its first
-  aggregate claim.
-- Every distinct value of a dataset's declared record-type discriminator
-  (`class_uid`/`EventID`/tag set/`single-type`) included in a count has a
-  matching Attest register entry (`attest_id` naming actor/action/mechanism/
-  target) — the gate is a join between discriminator values and register
-  entries, not a per-record check.
-- Every join declares the grain of each side before executing (join gates at
-  `ds-gather`/`ds-pipelines` cite this grain, not re-derive it).
-- Every schema/standard claim cites a pinned producer-emitted version, not
-  "latest" or an assumed default.
-
-## Edges
-
-Covered: fingerprinting, versioned research, spec-less elicitation, coverage
-statements, field/event semantics, cross-model translation, conformance
-checks — for data models encountered during a DS task.
-
-Not covered, escalate with provenance: full ontology engineering; ground-up
-wire-protocol reverse-engineering. State "outside coverage" explicitly,
-research externally, verify the found method against the actual data, report
-provenance — never silently stretch past what was verified.
-
-Triggers to other skills: identity-key temporal validity →
-`ds-entity-resolution`; observable-behavior statistics beyond elicitation
-scope → `ds-profile` (Elicit computes only what's needed to assign a field
-its semantic; characterizing data for modeling is `ds-profile`'s job, not
-an extension of Elicit); missingness-mechanism hypotheses (MCAR/MAR/MNAR) →
-`ds-clean`; producing (not consuming) privacy transforms → `ds-clean` /
-`ds-simulation`; data can't support the requested framing → loop back to
-`ds-scoping`.
-
-## Audit mode
-
-Input: existing external data documentation or a semantic dictionary
-authored outside this skill (a wiki page, a vendor data dictionary, a prior
-analyst's notes). Treat undocumented claims the same as unregistered fields
-under Gates — flag, do not assume.
 
 ## Production considerations
 

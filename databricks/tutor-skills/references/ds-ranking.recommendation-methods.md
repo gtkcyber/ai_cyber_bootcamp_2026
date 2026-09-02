@@ -72,7 +72,7 @@ negative is only valid if the label-generating process — here, the
 *exposure* mechanism (was the item ever shown/reachable to this user?) —
 covered the item being treated as a non-interaction. That exposure claim is
 exactly what a `population_statement` (`ds-data-models`, Observe; doctrine
-home `doctrine-repro-provenance.md` § Population statements are composable
+home `references/doctrine-repro-provenance.md` § Population statements are composable
 artifacts) states for the logged-interaction dataset. Confidence-weighting
 (Hu, Koren & Volinsky's scheme) is a modeling choice about this ambiguity —
 it makes the uncertainty gradual instead of binary — it does not resolve

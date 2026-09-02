@@ -45,7 +45,7 @@ data:**
 None of these are automatic — each is a stated reason recorded in the
 framing note, not a default. The actual escalate-or-not decision and its
 cost accounting is `ds-model`'s baseline-first ladder + selection
-economics (`doctrine-scale-cost.md`); this subfield only supplies the
+economics (`references/doctrine-scale-cost.md`); this subfield only supplies the
 justification for treating "neural" as a candidate worth costing out.
 
 ## Architecture selection by data shape

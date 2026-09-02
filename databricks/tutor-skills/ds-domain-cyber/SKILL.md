@@ -33,7 +33,7 @@ description: "Domain overlay for security-telemetry tasks (intrusion/malware det
   manufacturing attack patterns that are statistically plausible but
   semantically impossible. Buczak & Guven 2016 is bibliographically
   confirmed (title/venue/year verified); full text not independently fetched
-  in this pass — same access-caveat disclosure pattern `standards-index.md`
+  in this pass — same access-caveat disclosure pattern `references/ds-data-models.standards-index.md`
   uses for its CIM entry, re-verify before citing a specific figure from it.
 - **Labels scarce, delayed, analyst-costed; negatives usually implicit** —
   general treatment: label acquisition strategy and implicit-negative/PU
@@ -61,7 +61,7 @@ description: "Domain overlay for security-telemetry tasks (intrusion/malware det
   consequence remains unresolved 22 years later). Axelsson 2000 is
   bibliographically confirmed (title/venue/year verified); full text not
   independently fetched in this pass — same access-caveat disclosure pattern
-  `standards-index.md` uses for its CIM entry, re-verify before citing a
+  `references/ds-data-models.standards-index.md` uses for its CIM entry, re-verify before citing a
   specific figure from it.
 - **Adversary-influenced, log-source-specific identity keys** — general
   treatment: record/identity-level linkage · domain delta: identity keys
@@ -138,12 +138,3 @@ Quick-answer tier.
 2. `ds-communicate` — reports the disaggregated counts against their
    respective population statements (`data-models.population_statement`) —
    never a single pooled "N DC accesses" claim.
-
-## Gates
-
-- No delta bullet restates owner content beyond naming it — re-deriving
-  owner content fails overlay scope.
-
-## Edges
-
-Covered: the six deltas above and the two worked compositions.

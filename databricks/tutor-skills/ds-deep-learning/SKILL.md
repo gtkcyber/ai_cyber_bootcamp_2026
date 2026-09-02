@@ -68,14 +68,6 @@ file is protocol only.
   against a misspecified reward is a stable failure, not a success. See
   `references/ds-deep-learning.generative-and-rl.md#deep-rl-training-mechanics`.
 
-|---|---|---|---|
-| When neural beats classical | quick-answer | 1 | mandatory |
-| Architecture selection by data shape | quick-answer | 2 | conditional-on-data:neural-approach-selected |
-| Representation learning | analysis | 3 | conditional-on-data:representation-learning-requested |
-| Training mechanics | analysis | 3 | conditional-on-data:neural-model-being-trained |
-| Generative modeling (non-text) | analysis | 3 | conditional-on-data:generative-modeling-task |
-| Deep-RL training mechanics | analysis | 3 | conditional-on-data:deep-rl-selected |
-
 `mandatory`: every composition answers the neural-vs-classical question
 first. The load-order-3 rows fire only on their own trigger and may
 co-occur (e.g. representation learning feeding a generative model).
@@ -119,38 +111,3 @@ architecture-dependent (FID-class for generative work, standard
 discriminative metrics otherwise); a reported metric states which
 pitfalls above were checked against this task's actual data, not just
 the number.
-
-## Gates
-
-- Every training run states which mechanism (regularization/schedule/
-  early-stopping/distillation) it applied and against which diagnosed
-  failure mode — no diagnosis named fails.
-- A neural architecture selected over a benchmarked-strong classical
-  alternative on medium tabular data states the specific reason.
-- Fit-on-train-only compliance for any DL-specific transform
-  (normalization stats, augmentation policy, embedding vocabulary) is
-  `ds-features`'s pipeline-object mandate — applies without restatement.
-- Generative evaluation reports mode-coverage alongside any FID-class
-  number (a bare score fails); deep-RL claims report convergence
-  separately from any claim about the reward/objective's correctness.
-- Doctrine gates triggered (link, not restate): `doctrine-leakage.md`,
-  `doctrine-repro-provenance.md`, `doctrine-scale-cost.md` (training-run
-  compute is a selection input to `ds-model`'s economics).
-
-## Edges
-
-Covered: neural-vs-classical decision, architecture selection by data
-shape, representation learning, generic NN training mechanics, non-text
-generative modeling and its evaluation, deep-RL training mechanics.
-
-Not covered, pointer only: pretrained-family fit for a perception modality
-(`ds-perception`); transformer escalation framing for text (`ds-text`);
-RAG/LLM-as-judge/prompt-pipeline eval (`ds-llm-systems`; this family owns
-generic NN training only); reward/exploration/regret framing
-(`ds-optimize`); embeddings consumed as downstream features
-(`ds-method-composition`); equal-performance-cheaper-model tie-breaking;
-when/why to compress for deployment (`ds-mlops`); GNN/embedding *framing* on
-graph data (`ds-graph` owns it, this family owns training once framed).
-
-No leakage constraint originates in this family — the partner family or
-router doctrine leads split/validation design in every pairing below.

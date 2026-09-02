@@ -20,9 +20,8 @@ skill's gate: an unstated criterion fails):
   measurement (this skill's own primary subfield) has shown the metric
   move no longer clears the cost the deployment carries (serving,
   retraining, on-call load) over a sustained window, not a single bad
-  period. Cites `doctrine-scale-cost.md`'s cost framing and the
+  period. Cites `references/doctrine-scale-cost.md`'s cost framing and the
   `impact_assessment.realized_outcome` history, not a fresh cost analysis.
-- Cites the loop-back row and the resulting scoping section's iteration.
 - **Replaced** — a successor system has already shipped and passed its own
   verification (`ds-verify`); the prior system's continued operation is
   redundant, not failing on its own terms.

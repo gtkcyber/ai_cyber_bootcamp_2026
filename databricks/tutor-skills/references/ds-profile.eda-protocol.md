@@ -36,7 +36,7 @@ what enters the findings doc; the raw frame it ran over never does.
    by script. Full-data distributions are permitted for non-target fields;
    any distribution conditioned on, or correlated with, the target is
    target-relationship exploration and runs train-split-only
-   (`doctrine-leakage.md`) — a full-data class-conditional histogram is a
+   (`references/doctrine-leakage.md`) — a full-data class-conditional histogram is a
    leakage-doctrine violation, not a convenience.
 7. **Outlier signal.** Descriptive flagging only (quantile/box-plot-style,
    per Tukey) — a value's position relative to the rest of its field's
@@ -47,7 +47,7 @@ what enters the findings doc; the raw frame it ran over never does.
    non-additive, and resolve ratio-of-averages vs. average-of-ratios
    before any aggregation runs. Written once here; `ds-features` and
    `ds-analytics` cite this classification rather than re-deriving it
-   (`doctrine-repro-provenance.md`'s additivity principle, gated at these
+   (`references/doctrine-repro-provenance.md`'s additivity principle, gated at these
    three skills).
 
 ## Findings-doc shape

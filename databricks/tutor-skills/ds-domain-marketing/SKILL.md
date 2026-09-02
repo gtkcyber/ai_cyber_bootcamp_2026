@@ -137,13 +137,3 @@ version/dialect against the actual feed before relying on any entry.
    population/baseline `ds-scoping` recorded.
 7. `ds-communicate` — reports credit labeled associative unless the causal
    gate passed — never blending the two framings in one figure.
-
-## Gates
-
-- No delta bullet restates owner content beyond naming it — computing an
-  MDE, a stopping boundary, or a censoring correction inline, rather than
-  citing `ds-stats`, fails overlay scope.
-
-## Edges
-
-Covered: the five deltas above and the two worked compositions.

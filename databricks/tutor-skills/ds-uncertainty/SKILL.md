@@ -69,8 +69,8 @@ another skill's lifecycle position rather than owning one of its own.
 4. The question is about the extreme tail, not the center → **tail/
    extreme-value estimation**.
 5. An estimate needs to flow into a decision → **uncertainty propagation
-   into decisions** — nonlinear in the inputs → hand off to
-   `ds-simulation`'s Monte Carlo subfield instead of linearizing.
+   into decisions** — nonlinear in the inputs → the `ds-simulation` skill
+   covers this's Monte Carlo subfield instead of linearizing.
 
 ## Family-specific pitfalls and evaluation
 
@@ -89,35 +89,3 @@ Evaluation delta to `ds-evaluate`'s scorecard: every interval carries its
 type/level/assumption set in the scorecard entry, not a separate unaudited
 caveat; empirical coverage is reported wherever checkable, never asserted
 from the nominal level alone.
-
-## Gates
-
-- **Core gate.** Every interval states its type (confidence / credible /
-  prediction / conformal), nominal level, and assumption set backing
-  coverage — a value citing only a nominal level (e.g. "95% CI") fails.
-- Hierarchical/mixed-effects claims cite the grouping variable from
-  `ds-profile`'s `grouping_variables` finding (never re-derived) and state
-  the random-effects distributional assumption.
-- Bayesian-workflow claims state what convergence evidence was checked
-  beyond R-hat, or flag that only R-hat was checked.
-- Conformal claims state the exchangeability assumption and flag any known
-  or suspected calibration/deployment shift.
-- Multiple-imputation claims state `m` and the imputation model's
-  compatibility with the analysis model — a point estimate with no
-  imputation-variance component fails.
-- Tail/extreme-value claims state the chosen threshold and its
-  bias-variance tradeoff. Propagation claims state linearized vs. Monte
-  Carlo and why — a nonlinear function with linearized-only propagation
-  and no flag fails.
-
-## Edges
-
-Covered: hierarchical/mixed-effects fitting, Bayesian workflow and
-convergence diagnostics, prediction intervals, conformal prediction,
-multiple-imputation pooling, tail/extreme-value estimation, first-order
-uncertainty propagation.
-
-No spatiotemporal/temporal-graph/ multimodal-fusion pairing applies here;
-the leakage constraint imposed whenever this skill composes is that any
-generator/resampler it consumes (`ds-simulation`) is fit train-only per
-`doctrine-leakage.md` — inherited, not re-stated.

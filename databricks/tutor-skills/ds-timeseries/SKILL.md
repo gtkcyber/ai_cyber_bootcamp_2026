@@ -43,7 +43,7 @@ description: "Time-series method family: forecasting, decomposition, stationarit
   evaluation; findings are empirical and dataset-dependent, not proof any one
   CV variant is universally safe for serially dependent data.
 - **Temporal leakage delta** — trigger: any fold/split touches serially
-  dependent data. This family's delta on `doctrine-leakage.md` (link, not
+  dependent data. This family's delta on `references/doctrine-leakage.md` (link, not
   restated): reuses Hyndman & Athanasopoulos §5.10 and Cerqueira et al.
   (above) — k-fold CV that shuffles across time silently trains on
   information from after a given test point; the delta from the general
@@ -57,15 +57,6 @@ description: "Time-series method family: forecasting, decomposition, stationarit
   normal value at an abnormal time) — is Chandola, Banerjee & Kumar 2009's
   taxonomy, not Blázquez-García's; a point-anomaly detector misses both
   contextual and subsequence-level anomalies.
-
-|---|---|---|---|
-| Forecasting | quick-answer | yes, re-entrant when horizon changes | `mandatory` |
-| Decomposition | quick-answer | no | `conditional-on-data:seasonal-structure-suspected` |
-| Stationarity | quick-answer | no | `conditional-on-data:classical-model-in-play` |
-| Backtesting protocol | analysis | yes, re-entrant per reported metric | `mandatory` |
-| Temporal CV (method selection) | analysis | no | `conditional-on-data:multiple-candidate-methods` |
-| Temporal leakage delta | quick-answer | yes, always-composed wherever any fold touches this data | `mandatory` |
-| Temporal/contextual anomaly detection | analysis | no | `conditional-on-family:anomaly-intent` |
 
 `mandatory` here means: fires whenever `ds-timeseries` composes at all, same
 convention as `ds-gather`'s selection-into-the-dataset row.
@@ -116,55 +107,3 @@ convention as `ds-gather`'s selection-into-the-dataset row.
   across origins, never a single holdout number — see backtesting protocol.
   Interval-coverage claims are `ds-uncertainty`'s (prediction intervals,
   conformal methods); this family states the point-forecast error only.
-
-## Gates
-
-- Fit-on-train-only (`ds-features` ownership) applies to every
-  family-specific transform here: differencing parameters, decomposition
-  window/seasonal-period estimates, and any lag/rolling-feature statistic
-  are estimated on the train side of the current backtest fold only, never
-  on the full series before splitting.
-- Every reported forecast metric states its rolling-origin scheme
-  (expanding or rolling, window size, step, number of origins) — a metric
-  from a single fixed split reported as final performance fails this gate.
-- Every fold/split touching this data states how it respects temporal
-  order (link `doctrine-leakage.md`, delta per Subfields above) — a
-  shuffled or globally-random fold assignment fails this gate outright, not
-  just as a caveat.
-- When this family leads a multi-family split (see Pairings), the imposed
-  scheme is recorded once and every composed family's evaluation cites it —
-  a composed family computing its own independent split on the same
-  temporally-ordered data fails this gate.
-- Doctrine gates this family triggers, linked not restated: leakage
-  (`doctrine-leakage.md`), provenance/additivity and scale/cost per router
-  doctrine.
-
-## Edges
-
-Covered: forecasting method selection, decomposition, stationarity
-diagnosis, backtesting protocol, temporal CV for method selection, the
-temporal leakage delta, and temporal/contextual anomaly detection mechanics.
-
-Not covered: sequence-model architecture and training mechanics (LSTM/
-Transformer-class forecasters) once a neural framing is chosen — outside
-this family's cited coverage; research external sources, verify the found
-method's stationarity/seasonality assumptions against the actual data, and
-report provenance before adopting one, then hand training mechanics to
-`ds-deep-learning`. Finance-specific severity thresholds on backtest
-overfitting and non-stationarity are the finance overlay's delta, not
-re-derived here.
-
-On temporally-ordered data composed with `ds-supervised` or `ds-graph`,
-`ds-timeseries` owns the strongest constraint and imposes: **rolling-origin
-evaluation** (expanding or rolling window, per Hyndman & Athanasopoulos
-§5.10), with an **embargo/purge gap** between each fold's train and
-validation windows sized to the longest look-ahead in any composed feature
-or label (lag features, rolling windows, label horizons) — never a shuffled
-or globally-random split, regardless of what the composed family would
-otherwise default to. Composed with `ds-geospatial` on spatiotemporal data,
-the strongest- constraint rule decides per-task by measurement: diagnose
-both ranges on the actual data, express each as the fraction of candidate
-train rows its block/embargo excludes, the more-excluding constraint leads
-and the other nests within each block; near-ties (within ~10%) block on both
-jointly. Full procedure (identical wording): `ds-geospatial`'s Edges. The
-framing note records both measured ranges, both fractions, and the scheme.

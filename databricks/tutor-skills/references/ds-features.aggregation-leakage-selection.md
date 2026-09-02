@@ -24,7 +24,7 @@ the feature computation must respect *its* past, not the present).
   fixed calendar cutoff — a naive `WHERE event_date >= (today - 30 days)`
   filter applied once for the whole dataset leaks future information into
   every row whose label predates today by less than the window.
-- This is the mechanical enforcement of `doctrine-leakage.md`'s
+- This is the mechanical enforcement of `references/doctrine-leakage.md`'s
   point-in-time-correctness principle — that principle is stated once
   there; this section is the how, not a restatement of the why.
 - Additivity classification (additive/semi-additive/non-additive) happens

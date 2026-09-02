@@ -8,17 +8,10 @@ description: "Record-level identity linkage: blocking, fuzzy/probabilistic match
 **Re-entrancy trigger**: fire whenever a record-level identity-linkage
 question appears — a cross-source join on a non-exact key, node resolution
 in a graph build, "are these the same entity" — at any tier, mid-pipeline or
-not, alongside whichever phase or family raised the question. Not a fixed
-lifecycle position: re-enter independently each time the trigger condition
-recurs (`ds-data-models/SKILL.md` is the pattern exemplar this mirrors).
-Full worked examples and citations live in `references/`; this file is
-protocol only.
+not, alongside whichever phase or family raised the question. Full worked
+examples and citations live in `references/`; this file is protocol only.
 
 ## Subfields
-
-Re-entrant: none of these carry a fixed load-order rank — each fires at the
-composition point where its trigger condition arises. All are
-`composed-alongside?: yes, re-entrant`, `axis: cross_family`.
 
 - Papadakis, Skoutas, Thanos, Palpanas, "A Survey of Blocking and Filtering
   Techniques for Entity Resolution," arXiv:1905.06167, 2019 —
@@ -62,7 +55,11 @@ composition point where its trigger condition arises. All are
   producing badly merged or split clusters. Report the metric matching
   what's actually evaluated — see Gates. See
   `references/ds-entity-resolution.linkage-mechanics.md#cluster-evaluation`.
-- Kimball Group, "Slowly Changing Dimensions" —
+- **LITERATURE-THIN**: no established literature name for this exact
+  application; nearest analog is bitemporal/slowly-changing-dimension
+  modeling, which solves the same validity-window problem for warehouse
+  dimensions, not identity/security keys. Kimball Group, "Slowly Changing
+  Dimensions" —
   https://www.kimballgroup.com/2008/08/slowly-changing-dimensions/ : Type 2
   SCD's date-range validity window is the mechanism this subfield adapts — a
   practice protocol, not a directly-on-point citation. Joining on a
@@ -109,40 +106,3 @@ composition point where its trigger condition arises. All are
 - `ds-evaluate` owns the generic scorecard; this family's delta: report at
   the graph/cluster level when the claim is about resolved identities, not
   the pairwise match rate.
-
-## Gates
-
-- Every cross-source join on a non-exact key cites a `linkage_decisions`
-  entry (below) naming its match rule and validity interval — a join
-  executed without a citable entry fails this gate; it isn't audited after.
-- Every linkage decision, incl. exact-key joins on a reassignable key,
-  carries a `validity_interval` — "no interval stated" reads as "not yet
-  valid," never "always valid."
-- Transitive closure is bounded and audited (Step 5) before any cluster
-  merge is used downstream — an unaudited merge cannot feed a claim.
-- A reported linkage-quality metric states its level (pairwise vs.
-  cluster/identity-graph) — an unlabeled precision/recall claim fails.
-
-## Edges
-
-Covered: record-level linkage decisions (blocking, fuzzy/probabilistic
-matching, clustering, cluster-level evaluation) and identity-key temporal
-validity, wherever a linkage question arises in a composition.
-
-Not covered, pointer only: schema/field-level mapping (which fields denote
-the same concept) is `ds-data-models`' Translate, mirroring the boundary
-its own Edges states — this skill owns only what happens once fields are
-known-comparable. Graph analytics (centrality, community detection, link
-prediction) run *on* the resolved identity graph this skill produces —
-`ds-graph`'s. Multi-source join *sites* (same-semantics + cardinality
-gates) are `ds-gather`'s; this skill supplies the linkage decision the
-join gate cites, never redoing the join gate itself.
-
-**Multi-family / leakage delta** (doctrine: `doctrine-leakage.md`): when a
-linkage decision's validity interval is the composition's strongest
-leakage constraint, this skill sets the split scheme it imposes when it
-leads — no split, feature, or join may use a decision outside the interval
-it was valid in. A resolved identity at time T is not evidence for that
-identity at T′ outside `[start, end)`; using a later-time linkage to
-interpret an earlier-time record is the same point-in-time-correctness
-violation doctrine forbids for features and targets, applied to identity.

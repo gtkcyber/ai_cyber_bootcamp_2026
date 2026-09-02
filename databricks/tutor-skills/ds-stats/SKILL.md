@@ -5,12 +5,6 @@ description: "Composes alongside any phase whenever a design or significance que
 
 # ds-stats
 
-**Re-entrancy trigger**: fire whenever a design or inference question
-appears, at any phase — not only at this skill's nominal `manifest.json`
-lifecycle position (after `ds-verify`, before `ds-communicate`). Composed
-alongside per router `SKILL.md` §3 ("Re-entrant skills": `ds-data-models`,
-`ds-stats`, `ds-entity-resolution`).
-
 Full depth, worked examples, and citations live in `references/`. This file
 is protocol only.
 
@@ -74,80 +68,16 @@ is protocol only.
   never an iid formula. See
   `references/ds-stats.subfields.md#design-based-inference-complex-samples`.
 
-|---|---|---|
-| Hypothesis testing | quick-answer | conditional-on-data:significance-question |
-| Power analysis | analysis | conditional-on-data:power-or-sample-size-question |
-| Randomized experiment design | analysis | conditional-on-data:randomized-experiment |
-| Multiple comparisons | analysis | conditional-on-data:multiple-tests-in-one-analysis |
-| Effect sizes | quick-answer | conditional-on-data:significance-claim |
-| Survival analysis | analysis | conditional-on-data:time-to-event-outcome |
-| Design-based inference, complex samples | analysis | conditional-on-data:complex-sample-design |
-
 None run `mandatory` — `ds-stats` is not in the always-mandatory set
 (`ds-scoping`, `ds-data-models`, `ds-verify`); every subfield fires on its
 own data condition.
-
-## Gates
-
-- Any significance claim in `design_analysis_memo` reports the effect size
-  and its interval alongside the p-value — a claim citing only
-  "p < threshold" fails (Lakens 2013; ASA statement above).
-- Any power/sample-size claim states the target effect size's source: a
-  comparable prior study or pilot data, or an explicit flag that Cohen's
-  d = .2/.5/.8 convention was used absent one.
-- **Peeking/optional-stopping gate**: any sequential or repeated look at
-  experiment results cites a pre-declared stopping rule in
-  `design_analysis_memo`, recorded before the first look. Code-checkable:
-  the memo's stopping-rule statement timestamp precedes the first
-  monitoring timestamp.
-- Any multiple-comparison claim spanning more than one test states the
-  correction method and the family of tests it applied to.
-- Any survival-analysis claim states the censoring-mechanism assumption
-  (non-informative, or the alternative with its operational cause).
-- Any design-based/complex-sample estimate states its weighting scheme and
-  confirms a design-consistent variance estimator, not an iid formula — the
-  weights are cited from `ds-data-models`' population statement, not
-  re-derived here.
-
-## Edges
-
-Covered: the seven subfields above, wherever triggered in the lifecycle.
-
-Grouping-variable/non-iid structure is sourced, not derived:
-`ds-data-models`' grain contract and `ds-profile`'s `grouping_variables`
-finding feed this skill's design choices (stratification, clustered SEs);
-the modeling consequence (hierarchical/ mixed-effects fit) is
-`ds-uncertainty`'s. Domain-overlay deltas about experiment/holdout economics
-(e.g. a marketing overlay) land on this skill per the same ownership row —
-the overlay states its delta, this skill supplies the method.
-
-Research-escalation trigger: regulatory-specific sequential-trial boundary
-frameworks (e.g. FDA group-sequential designs) and full Bayesian
-experimental-design frameworks are outside coverage — declare it, research
-externally, verify against the actual data, report provenance, per router
-doctrine.
-
-Sitting late in `manifest.json`'s nominal lifecycle order,
-`design_analysis_memo` appears in the invalidated closure of most upstream
-back-edges (`evaluate → features`, `evaluate → labeling`, `data-models →
-scoping`, `drift → profile`, `production-feedback → labeling`, `monitoring →
-scoping`, `impact → scoping`, `cost-overrun → scoping`, `mlops serving
-constraints → model selection`) — a fresh, higher-iteration write follows
-the normal forward cascade, not a named back-edge of its own.
-
-## Audit mode
-
-Input: an existing external design/analysis document authored outside this
-skill (a stats consultant's write-up, a pre-registration, an experimentation
-platform's auto-generated report). Undocumented claims are unregistered
-fields under Gates: flagged, never assumed compliant.
 
 ## Production considerations
 
 Production experimentation-platform mechanics — assignment service, event
 logging, results dashboarding — are `ds-mlops`' serving concern; this skill
 owns the statistical design/inference methodology only, not the platform
-running it. `doctrine-scale-cost.md`'s threshold, recorded once in
+running it. `references/doctrine-scale-cost.md`'s threshold, recorded once in
 `ds-scoping`'s kill-check, governs sample-size/duration economics at
 production tier and is read here, never restated. Production-tier
 continuous monitoring is the highest-stakes form of the peeking gate above

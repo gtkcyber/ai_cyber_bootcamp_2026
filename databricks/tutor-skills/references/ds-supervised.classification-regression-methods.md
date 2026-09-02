@@ -74,8 +74,8 @@ evidence the GBM's complexity was necessary — the GLM needs a comparable
 tuning budget (regularization strength, interaction terms) before the ladder
 step is justified. This is exactly the gate `ds-model`'s baseline-first
 subfield checks; this family does not re-check it, only supplies the rung
-order (GLM → GBM → escalate to `ds-deep-learning` past GBM) that the check
-applies to.
+order (GLM → GBM → the `ds-deep-learning` skill covers this past GBM) that
+the check applies to.
 
 ## Multi-class / multi-label classification {#multiclass-multilabel}
 

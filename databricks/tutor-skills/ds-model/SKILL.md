@@ -69,91 +69,20 @@ protocol only.
   prefer the cheaper model (training cost, inference latency/throughput,
   hardware, retraining, operational complexity, debuggability); the ladder
   stops when the gain stops paying for itself. Cost/latency are selection
-  *inputs*, not applied post-hoc — `doctrine-scale-cost.md`'s threshold,
+  *inputs*, not applied post-hoc — `references/doctrine-scale-cost.md`'s threshold,
   read from `ds-scoping`'s `kill_check`, never restated here. See
   `references/ds-model.selection-economics.md`.
-
-| Subfield | Participation |
-|---|---|
-| Baseline-first ladder | mandatory |
-| Tuning protocol | mandatory |
-| CV design choice | mandatory |
-| Imbalance intervention decision | `conditional-on-data:class-imbalance` |
-| Calibration | `conditional-on-data:probability-output-consumed` |
-| Learning-curve/data-sufficiency method | `conditional-on-data:sample-sufficiency-borderline` |
-| Selection economics | mandatory |
 
 `mandatory` here: runs whenever `ds-model` composes — every candidate
 comparison needs a baseline, a tuning decision (even "defaults,
 justified"), a CV design, and a cost accounting; the other three fire
 only on their own data-triggered condition.
 
-## Gates
-
-- Split refinement: CV folds and nested resampling operate strictly within
-  `ds-scoping`'s `split_design` train partition — model selection never
-  enlarges the split boundary. Code-checkable: every fold's row indices
-  are a subset of the recorded train partition, never the held-out test.
-- CV design: a declared group key (from `ds-profile`'s `grouping_variables`)
-  or an explicit "rows are independent" assertion is on record before any
-  CV scheme runs — plain k-fold with neither present fails this gate.
-- Baseline-first ladder: `selection_rationale` records a comparably-tuned
-  baseline result before any complex-model claim — an untuned baseline
-  compared against a tuned complex model fails.
-- Tuning protocol: `selection_rationale` records the search method and
-  budget for every compared candidate, or an explicit "defaults justified"
-  statement — a chosen model with neither fails.
-- Imbalance (when triggered): `selection_rationale` names the chosen
-  intervention (resampling / algorithm-level / threshold-adjustment /
-  none) and why — accuracy as the sole justification fails (metric
-  selection under imbalance is `ds-evaluate`'s; this gate only requires
-  the decision be named).
-- Calibration (when triggered): `model_card` records a calibration check
-  (reliability curve, Brier score, or ECE) computed on held-out data — a
-  calibration claim evaluated on training data fails.
-- Learning curve (when triggered): `model_card` records the curve result
-  and states whether/how it was extrapolated — an extrapolation presented
-  as a measured result fails.
-- Selection economics: whenever `ds-evaluate`'s comparison-with-uncertainty
-  finds candidates statistically indistinguishable, `selection_rationale`
-  names the cost inputs that broke the tie — declaring a winner within
-  noise with no cost rationale fails.
-
-## Edges
-
-Covered: cross-family baseline-first escalation ladder, tuning protocol,
-CV design choice for the modeling loop (grouped/blocked/time-aware),
-imbalance intervention decision, calibration, learning-curve/data-
-sufficiency method, selection economics (cost as a selection input,
-tie-breaking at statistically indistinguishable performance).
-
-Not covered here, pointer only: family-specific selection trees and
-actual model fitting (`ds-supervised`, `ds-deep-learning`,
-`ds-timeseries`, etc. — this skill routes to Layer 2, never trains);
-fit-on-train-only CV mechanics (`ds-features`); using the chosen CV
-scheme for comparisons and the comparison-with-uncertainty significance
-test (`ds-evaluate`, which also enforces selection economics at the
-metric-comparison level); imbalance generation mechanics
-(`ds-simulation`) and metric selection (`ds-evaluate`); serving/
-retraining cost economics (`ds-mlops`, `doctrine-scale-cost.md`).
-
-Not a `ds-scoping` loop-back — don't conflate it with the four rows that
-re-run `ds-scoping`.
-
-## Audit mode
-
-Input: an existing external model artifact authored outside this skill (a
-notebook, an experiment-tracker run, a prior analyst's writeup).
-Undocumented claims are treated as unregistered under Gates: flagged, never
-assumed.
-
 ## Production considerations
 
-`doctrine-scale-cost.md` applies at every step touching selection
-economics — this skill's delta is the selection *procedure* (baseline-
-first ladder, tie-breaking at indistinguishable performance); the
-doctrine and its cost threshold live there and in `ds-scoping`'s
-`kill_check`, never restated here. `mlops serving constraints → model
-selection` gains full loop-back eligibility at production tier
-(`tiers.md`). `ds-mlops` owns ongoing serving/retraining cost,
-compression when/why, and production drift monitoring — pointers only.
+`references/doctrine-scale-cost.md` applies at every step touching selection economics
+— this skill's delta is the selection *procedure* (baseline- first ladder,
+tie-breaking at indistinguishable performance); the doctrine and its cost
+threshold live there and in `ds-scoping`'s `kill_check`, never restated
+here. `ds-mlops` owns ongoing serving/retraining cost, compression when/why,
+and production drift monitoring — pointers only.

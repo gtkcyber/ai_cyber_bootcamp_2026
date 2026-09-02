@@ -18,8 +18,8 @@ catalog):
 
 1. Identify task type (binary/multiclass classification, ranking,
    regression). Per-family metric definitions beyond this procedure — NDCG/
-   MRR for ranking, RMSE/MAE/quantile loss for regression — are router-owned
-   catalog material and family-skill (`ds-ranking`, `ds-supervised`,
+   MRR for ranking, RMSE/MAE/quantile loss for regression — are catalog
+   material and family-skill (`ds-ranking`, `ds-supervised`,
    `ds-timeseries`) pointers, never restated here.
 2. Quantify imbalance: class prevalence (classification) or cost-asymmetry
    magnitude (regression/ranking with asymmetric error costs).

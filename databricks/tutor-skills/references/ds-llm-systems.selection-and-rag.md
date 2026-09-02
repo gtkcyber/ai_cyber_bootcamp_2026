@@ -28,14 +28,14 @@ from that paper into a selection decision:
 inference, latency budget, and achieved quality on the specific task,
 measured, not assumed — the selection-economics *method* (baseline-first
 ladder, cost-per-experiment accounting) is `ds-model`'s and
-`doctrine-scale-cost.md`'s; this subfield only supplies the LLM-specific
+`references/doctrine-scale-cost.md`'s; this subfield only supplies the LLM-specific
 framing question and the homogenization line item that a classical-only
 selection economics pass would otherwise omit.
 
 **Common wrong pattern**: reaching for an LLM because it's available and
 general, without pricing the classical alternative first — this inverts
 the scale playbook's "escalate only as far as the data forces"
-(`doctrine-scale-cost.md`). A stated reason (need for open-ended
+(`references/doctrine-scale-cost.md`). A stated reason (need for open-ended
 generation, need to handle unbounded input variety a rule-based/classical
 pipeline can't enumerate, multimodal reuse of an existing LLM investment)
 is required before the LLM is even costed against the classical baseline.

@@ -53,9 +53,7 @@ from.
 
 Two checks, required before any join executes — at ingest in `ds-gather`,
 and identically at any later join site (`ds-pipelines`, `ds-features`, or
-anywhere else two datasets combine). Neither check is optional at any
-tier; tier only compresses how much is written down about the check, never
-whether it runs (`tiers.md`).
+anywhere else two datasets combine).
 
 **Same-semantics check.** Same key name across two sources is not evidence
 of same meaning — a `user_id` in a billing system and a `user_id` in a

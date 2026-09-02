@@ -160,12 +160,3 @@ Quick-answer tier.
    survivorship-corrected population statement
    (`data-models.population_statement`), never against the
    survivorship-biased retained-account universe.
-
-## Gates
-
-- No delta bullet restates owner content beyond naming it — re-deriving
-  owner content fails overlay scope.
-
-## Edges
-
-Covered: the five deltas above and the two worked compositions.

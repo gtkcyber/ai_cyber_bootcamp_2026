@@ -14,7 +14,7 @@ method's output to another's input: pattern grammar, not technique
 enumeration. Recognize which pattern applies; the owning family/lifecycle
 skill supplies the actual method inside each component. **Central
 doctrine**: every component keeps its own leakage boundary — the delta this
-skill states on `doctrine-leakage.md`'s "generators fit train-only" rule (a
+skill states on `references/doctrine-leakage.md`'s "generators fit train-only" rule (a
 model-as-imputer fit on the full dataset, not just train, leaks into every
 downstream split consuming its output).
 
@@ -49,15 +49,12 @@ downstream split consuming its output).
   detectors share a feature space. See
   `references/ds-method-composition.composition-patterns.md#detector-ensembles`.
 - **Model-as-verifier / guardrail cascade** — trigger: "LLM output
-  untrusted" — a cheap classic check gates an expensive generative
-  model's output. Chen, Zaharia, Zou, "FrugalGPT," 2023 —
+  untrusted" — a cheap classic check gates an expensive generative model's
+  output. Chen, Zaharia, Zou, "FrugalGPT," 2023 —
   https://arxiv.org/abs/2305.05176 ; Viola & Jones, "Boosted Cascade of
   Simple Features," 2001 —
   https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-cvpr-01.pdf .
-  Safety depends entirely on the cheap stage recognizing its own
-  uncertainty — a miscalibrated stage silently passes wrong answers
-  through; state the escalation criterion explicitly (`## Gates`). See
-  `references/ds-method-composition.guardrail-cascades.md#model-as-verifier`.
+  See `references/ds-method-composition.guardrail-cascades.md#model-as-verifier`.
 - Pointer only.
 
 ## Selection tree
@@ -65,9 +62,6 @@ downstream split consuming its output).
 What limit did the escalating skill name?
 
 - "point-estimate imputation understates uncertainty" → **model-as-imputer**.
-- "this model's output would help another, OOF predictions producible" →
-  **model-as-feature-extractor** (no CV-fold structure → unavailable,
-  escalate further, `## Edges`).
 - "a fitted expected-behavior model's deviation, not its output, is the
   signal" → **residual-as-signal**.
 - "no single detector/model reliable, no ground truth to pick a winner" →
@@ -84,8 +78,8 @@ nest, not collapse.
 
 ## Family-specific pitfalls and evaluation
 
-Pitfalls specific to composition (generic leakage/provenance doctrine is
-router-owned and linked, not restated):
+Pitfalls specific to composition (generic leakage/provenance doctrine is and
+linked, not restated):
 
 - **Uncertainty collapse.** A composed point-estimate output (imputed
   value, residual, ensemble score) is treated downstream as certain as an
@@ -104,42 +98,3 @@ is evaluated **both** stand-alone **and** as wired — the composition's
 end-to-end output must improve on its strongest single component, not
 merely differ from it, or the composition has failed regardless of how
 principled the wiring.
-
-## Gates
-
-- **Per-component leakage boundary.** Every `composition_diagram` node
-  states what it was fit on (train-only, or the specific split) and which
-  downstream components/splits may consume its output — missing either
-  half fails; "fit on available data" is not a fit statement.
-- **OOF-prediction gate (feature-extractor).** Combining-model training
-  inputs are flagged out-of-fold or in-sample per base model — any
-  in-sample flag on a training-time input fails.
-- **Derived-provenance gate.** Every output is tagged `derived`
-  (`doctrine-repro-provenance.md`); a further-composed output inherits
-  the weakest input class among its own inputs.
-- **Combination-rule gate (ensembles/cascades).** Ensembles name the
-  diversity mechanism and state whether member error correlation was
-  measured; cascades state the escalation rule as a checkable threshold/
-  rejection class and confirm it was checked for calibration
-  (`ds-evaluate`) — "assumed uncorrelated" or "usually confident enough"
-  both fail.
-- **Imputation-uncertainty gate.** States whether imputation uncertainty
-  propagates (`ds-uncertainty`) or is a named, accepted limitation.
-
-## Edges
-
-Covered: the five pattern grammar entries above and the composition
-diagram's per-component leakage-boundary discipline.
-
-Not covered, pointer only: the actual method inside each component
-(imputation algorithm — `ds-clean`; base/combiner model — the relevant
-family skill; forecast method — `ds-timeseries`; LLM prompting/rubric
-design — `ds-llm-systems`) — this skill wires components together, it
-does not pick what goes inside one. Model-as-labeler is `ds-labeling`'s
-entirely. Ongoing production monitoring of a shipped composition
-(residual drift, cascade escalation-rate drift, member staleness) is
-`ds-mlops`'s.
-
-No split/validation scheme of its own (multi-family rule, `SKILL.md` §1):
-the task's family sets temporal/spatial/graph-temporal split discipline;
-this skill's per-component boundary is additive to it, not a replacement.

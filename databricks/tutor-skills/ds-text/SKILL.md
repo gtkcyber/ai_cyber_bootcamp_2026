@@ -48,9 +48,6 @@ Full depth, citations, failure modes: `references/`; protocol only here.
 1. **Input shape.** Structured/semi-structured log lines (a stable
    delimiter/template) → log/regex parsing, evaluated on this source's own
    format before any transfer claim. Free prose → tokenize first, always.
-2. **Corpus size.** Small/narrowly-scoped corpus → classic methods only,
-   small-corpus caveat recorded explicitly (`## Edges`) — never default to
-   transformer escalation to compensate for data scarcity.
 3. **Task shape.** Similarity/retrieval vector → TF-IDF/BoW. Fixed local
    context (phrase features, simple LM) → n-grams. Latent document themes
    → topic modeling (fix *K* deliberately, state it). Spans/entities → NER
@@ -60,9 +57,6 @@ Full depth, citations, failure modes: `references/`; protocol only here.
 4. **Escalation gate.** Classic methods underperform *with a stated
    reason* and the corpus supports it → embeddings/transformers, framed
    here; fit and trained in `ds-deep-learning`.
-5. **System-level LLM question.** "Would an LLM beat a classical model
-   here," a RAG pipeline, or judge/labeler design → out of scope, routes
-   to `ds-llm-systems` (pointer, `## Edges`).
 
 ## Family-specific pitfalls and evaluation
 
@@ -90,46 +84,3 @@ its stated convention, never bare), topic modeling (coherence and
 (threshold's source corpus stated), log parsing (accuracy per source, not
 inherited), TF-IDF/n-gram retrieval (evaluated on this corpus's own
 statistics, not borrowed).
-
-## Gates
-
-- Tokenization granularity/vocabulary choice recorded, not defaulted
-  silently.
-- TF-IDF/BoW vocabulary and IDF weights, n-gram counts/smoothing, and any
-  topic model's fitted parameters are fit-on-train-only (`ds-features`) —
-  cited, not re-checked here.
-- Any reported NER metric states the convention it was scored against.
-- Any string-similarity threshold states its source corpus; a log/regex
-  parser's accuracy claim is scoped to its measured source — reuse
-  elsewhere restates the check.
-- Transformer/embedding escalation records the specific reason (accuracy
-  gain vs. cost); a small-corpus task escalating past classic methods
-  records the caveat explicitly (`## Edges`).
-- Doctrine gates triggered: leakage, provenance/additivity, scale/cost
-  (`references/doctrine-leakage.md`, `doctrine-repro-provenance.md`,
-  `doctrine-scale-cost.md`) — linked, not restated.
-
-## Edges
-
-Covered: the eight subfields above (`## Subfields`).
-
-**Small-corpus regimes (edge).** A small/narrowly-scoped corpus caps what
-any method here can deliver — augmentation, distant supervision, and
-transfer learning bound but don't eliminate the penalty; augmented/
-weakly-supervised data can't substitute for real data diversity. This is
-why transformer escalation is usually unjustified here — default to
-classic methods plus an explicit caveat. Specialized low-resource methods
-beyond that (Hedderich, Lange, Adel, Strötgen, Klakow, NAACL 2021 —
-https://arxiv.org/abs/2010.12309) are outside coverage: state that,
-research externally, verify assumptions against this task's data, report
-provenance.
-
-Not covered, pointer only: transformer/multimodal-fusion *training*
-(`ds-deep-learning`); when an LLM beats a classical model, RAG,
-prompt/pipeline evaluation, LLM-judge design (`ds-llm-systems`); labeling
-strategy/quality measurement (`ds-labeling`); linkage decisions built on
-string-similarity scores (`ds-entity-resolution`); pretrained-family fit for
-non-text modalities (`ds-perception`); generic evaluation scorecard
-(`ds-evaluate`); fit-on-train-only mechanics (`ds-features`). No leakage
-constraint originates in this family — the partner family or router doctrine
-leads split/validation design in every pairing below.

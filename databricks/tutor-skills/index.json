@@ -121,7 +121,7 @@
  {
   "kind": "reference",
   "name": "ds-entity-resolution.linkage-mechanics",
-  "description": "Worked depth for the five re-entrant subfields. `SKILL.md` carries the",
+  "description": "`SKILL.md` carries the protocol and full citations; this file carries the",
   "path": "references/ds-entity-resolution.linkage-mechanics.md",
   "listed": false
  },

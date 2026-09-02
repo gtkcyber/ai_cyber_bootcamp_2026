@@ -5,9 +5,8 @@ description: "Production track for models and analytics: serving architecture (b
 
 # ds-mlops
 
-Fixed lifecycle position, immediately before `ds-impact` and after
-`ds-communicate` (`manifest.json`'s lifecycle list). Full depth, worked
-examples, and citations live in `references/`. This file is protocol only.
+Full depth, worked examples, and citations live in `references/`. This file
+is protocol only.
 
 ## Subfields
 
@@ -97,74 +96,9 @@ examples, and citations live in `references/`. This file is protocol only.
   freshness/reconciliation, dashboard contract monitoring. See
   `references/ds-mlops.monitoring-and-retraining.md#non-model-analytics`.
 
-| Subfield | Participation |
-|---|---|
-| Serving | mandatory |
-| Model registry and versioning | mandatory |
-| Monitoring | mandatory |
-| Feature stores | conditional-on-data:feature-store-backed |
-| Training-serving skew / parity testing | conditional-on-data:parity-check-required |
-| Progressive rollout and rollback | conditional-on-data:version-replacing-traffic |
-| CI/CD | conditional-on-data:automated-pipeline |
-| Model compression for edge | conditional-on-data:edge-footprint-constraint |
-| Retraining triggers | conditional-on-data:informed-retraining |
-| Federated learning and secure aggregation | conditional-on-data:federated-deployment |
-| Non-model production analytics | conditional-on-data:non-model-artifact |
-
 `mandatory`: fires whenever `ds-mlops` composes at all — every production
 deployment needs a serving decision, a registered/versioned artifact, and
 an ongoing monitoring spec; the other eight fire only on their own trigger.
-
-## Gates
-
-- Monitoring's drift coverage cites the specific `ds-clean` `assertion_suite`
-  entries it was seeded from, or the gate fails.
-- A feed-version bump re-triggers `ds-data-models`' Validate before the
-  monitoring spec is current for that feed — a spec carrying a stale schema
-  assumption fails this gate.
-- Retraining triggers state blind vs. informed; informed with no named
-  delayed-label feedback loop fails. Quantitative values cite `ds-evaluate`'s
-  `scorecard` thresholds, never restate a number independently.
-- A compression claim names its bottleneck (footprint/latency/cost) and
-  states whether fine-tuning/QAT ran after pruning — no post-compression
-  accuracy check fails this gate.
-- A federated claim states its privacy mechanism precisely ("aggregation
-  only" vs. "+ secure aggregation") — "federated, therefore private" with
-  no named mechanism fails.
-
-## Edges
-
-Covered: serving architecture selection, registry/versioning, feature
-stores (serving side), training-serving skew/parity testing, progressive
-rollout/rollback, CI/CD, edge compression (when/why), production
-monitoring across performance/schema/coverage/provenance drift, retraining
-triggers, federated learning/secure aggregation (architecture), non-model
-production analytics.
-
-Not covered, pointer only: distillation training mechanics
-(`ds-deep-learning`); feature *semantics* (`ds-features`); development-time
-dataset-shift diagnosis (`ds-evaluate`) and detection mechanics
-(`ds-timeseries`); model-card content and selection rationale (`ds-model`);
-adversarial/intentional drift framing (domain-overlay delta); anomaly
-framings outside production monitoring — error-outliers (`ds-clean`),
-anomaly-as-the-task (`ds-unsupervised`), temporal/contextual mechanics
-(`ds-timeseries`).
-
-| Signal | Edge |
-|---|---|
-| Model performance degrades in production | `drift → profile` — fires the same row `ds-evaluate`'s development-time diagnosis fires |
-| A specific feature's distribution shifts | `mlops-drift → features`, entry-scoped (`status: stale-scoped`, affected entries only) |
-| Coverage/population-statement or provenance drift invalidates the framing | `monitoring → scoping` |
-| Serving constraints (latency, footprint, cost) rule out the deployed model class | `mlops serving constraints → model selection` |
-| Analyst dispositions or user corrections arrive from production | `production-feedback → labeling` |
-
-## Audit mode
-
-Input: an existing external deployment/monitoring artifact authored outside
-this skill (a platform's deployment config, an existing dashboard/alerting
-setup, a model registry's own records). An undocumented deployment claim is
-treated as an unregistered field under Gates: flagged, never assumed
-compliant.
 
 ## Production considerations
 
@@ -172,7 +106,7 @@ This skill *is* the suite's production-delta layer — every other lifecycle
 skill's "Production considerations" section points here rather than
 restating deployment/monitoring concerns; this section states this skill's
 own remaining pointers instead of deferring further. Serving/retraining
-cost economics read `doctrine-scale-cost.md`'s threshold, recorded once in
+cost economics read `references/doctrine-scale-cost.md`'s threshold, recorded once in
 `ds-scoping`'s kill-check and never restated here. `ds-data-models`'
 Production considerations names this skill as the destination for
 feed-version-bump monitoring (mirrored above, under Monitoring) — the

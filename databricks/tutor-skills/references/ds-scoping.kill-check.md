@@ -26,7 +26,7 @@ against whether data happens to be available.
 ## Data availability at prediction time
 
 Not a separate literature entry — this is the leakage doctrine's
-point-in-time-correctness principle (`doctrine-leakage.md`) applied at
+point-in-time-correctness principle (`references/doctrine-leakage.md`) applied at
 scoping time, before any data has been touched: would the features this
 task implies even exist, unlagged, at the moment a prediction is needed in
 production? A signal that's plausible in hindsight but unavailable at
@@ -35,7 +35,7 @@ decision time kills the task here, not three skills downstream in
 
 ## Compute/cost economics
 
-Delta-only pointer: `doctrine-scale-cost.md` is where the cost doctrine
+Delta-only pointer: `references/doctrine-scale-cost.md` is where the cost doctrine
 itself is taught (scale playbook, selection economics). This skill's only
 job is to **declare the escalation threshold** and record it in the task
 card's `kill_check` field — a number or an explicit rule, not a vague budget

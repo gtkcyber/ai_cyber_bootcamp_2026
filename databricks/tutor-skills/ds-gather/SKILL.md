@@ -6,10 +6,9 @@ description: "Acquisition and selection-into-the-dataset intelligence: API/datab
 # ds-gather
 
 Runs immediately after `ds-scoping` writes the task card and before
-`ds-pipelines` takes acquired data into orchestrated transforms. Not
-re-entrant: fires once per task; a later re-acquisition need routes
-through the loop-backs in Edges, not a fresh entry. Full depth, worked
-examples, and citations live in `references/`; this file is protocol only.
+`ds-pipelines` takes acquired data into orchestrated transforms. Full depth,
+worked examples, and citations live in `references/`; this file is protocol
+only.
 
 ## Subfields
 
@@ -81,63 +80,9 @@ examples, and citations live in `references/`; this file is protocol only.
   `ds-features` cite this gate rather than restating it. See
   `references/ds-gather.joins-and-contracts.md#join-gates`.
 
-|---|---|---|
-| Acquisition (API/DB/file/stream) | quick-answer | conditional-on-data:new-source |
-| Web scraping | quick-answer | conditional-on-data:scrape-source |
-| Instrumentation/telemetry design | analysis | conditional-on-data:new-instrumentation |
-| Survey/questionnaire design | analysis | conditional-on-data:survey-instrument |
-| Document extraction | quick-answer | conditional-on-data:unstructured-documents |
-| Sampling design | quick-answer | conditional-on-data:sampling-required |
-| Selection into the dataset | quick-answer | mandatory |
-| Multi-source joining | quick-answer | conditional-on-data:join-present |
-
 `mandatory`: fires whenever `ds-gather` composes at
 all — every acquisition path selects for or against something, unlike the
 other seven, which fire only on their own trigger.
-
-## Gates
-
-- Shape: `references/ds-gather.joins-and-contracts.md#contracts`.
-- `sampling_bias_note` states what the acquisition process selects for and
-  against (frame coverage, response mechanism, retention/outage effects) —
-  a note that only asserts "may have some bias" fails this gate.
-  Identification consequences of a named mechanism route to `ds-causal`;
-  this gate only requires the mechanism be named, not resolved.
-- **Raw immutability**: acquired raw data is written once and never
-  mutated in place — every downstream transform produces a new artifact.
-  The gate checks for absence of in-place raw mutation, not for
-  correctness of what comes after.
-- **Join gate**, at any join site: same-semantics check (same key name is
-  not proof of same meaning — cite `ds-data-models`' semantic-dictionary
-  entries for both sides) plus a lightweight cardinality check against the
-  grain each side declared (`ds-data-models`' grain contract, cited, never
-  re-derived here). Both checks run before the join executes, not audited
-  after.
-- Sampling design states the frame, selection mechanism, and (if
-  stratified/weighted) the weighting scheme before collection executes — a
-  sample drawn first and characterized after fails this gate.
-
-## Edges
-
-Covered: acquisition across API/DB/file/stream sources, web scraping,
-instrumentation/telemetry design, survey/questionnaire instrument design,
-unstructured-document extraction (text/structure only), sampling design,
-selection-bias note authorship, join gates at any join site.
-
-Population-statement composition through downstream transforms is router
-doctrine (`doctrine-repro-provenance.md`), pointer only — this skill writes
-the selection-bias note, not the population statement (`ds-data-models`'
-Observe discipline owns that).
-
-When scoping re-runs, `ds-gather` re-runs as part of the forward cascade in
-normal composition order, not via a named back-edge of its own.
-
-## Audit mode
-
-Input: an existing external acquisition artifact authored outside this skill
-(a data-engineering ingestion doc, a vendor onboarding spec, a prior ETL
-job's config). An undocumented acquisition claim is treated as an
-unregistered field under Gates: flagged, never assumed compliant.
 
 ## Production considerations
 
@@ -147,6 +92,6 @@ stateful streaming serving computation moves to `ds-mlops`, which also
 owns continuous data-contract/schema-drift monitoring — seeded by the
 `data_contract` this skill writes, the way `ds-clean`'s assertion suite
 seeds it; acquisition cost economics (API rate/cost limits, scraping
-infrastructure, stream throughput) read `doctrine-scale-cost.md`'s
+infrastructure, stream throughput) read `references/doctrine-scale-cost.md`'s
 threshold, recorded once in `ds-scoping`'s kill-check and never restated
 here.

@@ -1,7 +1,7 @@
 # Encodings, scaling, interactions
 
 Depth for the three transform-mechanics subfields that aren't primarily
-about leakage timing (that's `aggregation-leakage-selection.md`'s scope).
+about leakage timing (that's `references/ds-features.aggregation-leakage-selection.md`'s scope).
 
 ## Encodings
 
@@ -23,7 +23,7 @@ mostly-zero columns; two options:
   low-count categories shrink toward the global mean instead of
   overfitting to a handful of rows. **This encoding is target-leaking by
   construction if fit naively — see `#target-encoding` in
-  `aggregation-leakage-selection.md` before shipping it.**
+  `references/ds-features.aggregation-leakage-selection.md` before shipping it.**
 - **Entity embeddings** — a dense per-category vector, learned jointly
   with a supervised NN (or trained separately and reused). Needs enough
   per-category data to learn a meaningful vector; sparse-tail categories
@@ -31,7 +31,7 @@ mostly-zero columns; two options:
   category. Producing the embedding via a separately trained model is a
   composition, not a plain encoding — declare it per
   `ds-method-composition` and carry its provenance the way any composed
-  model output does (`doctrine-repro-provenance.md`).
+  model output does (`references/doctrine-repro-provenance.md`).
 
 **Failure mode to check for**: an encoding fit that silently drops or
 maps to a sentinel any category unseen in train but present at inference
@@ -79,7 +79,7 @@ suspected:
   for interaction terms specifically.
 - Feature count grows combinatorially with degree and input-feature
   count (`C(n, degree)` new terms at minimum) — this is a compute-cost
-  concern, not just a modeling one; check `doctrine-scale-cost.md`'s
+  concern, not just a modeling one; check `references/doctrine-scale-cost.md`'s
   threshold before generating interactions over a wide feature set.
 - Generated interaction terms are near-collinear with their parent
   features by construction — expect this to interact with feature

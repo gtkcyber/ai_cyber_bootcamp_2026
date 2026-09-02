@@ -61,8 +61,6 @@ additional checks, all cited from the design spec, must also pass:
 
 ## Compressed (quick-answer) form
 
-Per `tiers.md`: one line each for `second_path` (what was recounted and
-how), `denominator_basis` (the count/rate's coverage basis), and a
-population-statement citation. This is still three separately checkable
-fields — a single sentence asserting "verified" without naming what was
-recomputed fails the gate even at quick-answer tier.
+This is still three separately checkable fields — a single sentence
+asserting "verified" without naming what was recomputed fails the gate even
+at quick-answer tier.

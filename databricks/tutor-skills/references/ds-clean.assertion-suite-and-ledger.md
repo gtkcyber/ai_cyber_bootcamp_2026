@@ -1,5 +1,3 @@
-# Normalization, the validation assertion suite, and the ledger — depth
-
 ## Normalization (delta only)
 
 Feature scaling/normalization (min-max rescaling, z-score standardization —
@@ -15,9 +13,7 @@ whether or not scaling was needed.
 **Purpose.** Every subfield's finding — a missingness policy, an outlier
 handling rule, a dedup equivalence decision, a normalization step, a
 privacy-transform parameter — implies a checkable invariant the cleaned data
-should satisfy going forward. The assertion suite is that set of invariants,
-compiled once per `ds-clean` run and written as the `assertion_suite` ledger
-field.
+should satisfy going forward.
 
 **Construction protocol** — for each `cleaning_log` entry, derive at least
 one assertion:

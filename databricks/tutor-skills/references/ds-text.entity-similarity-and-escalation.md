@@ -99,9 +99,6 @@ family owns the escalation decision (framing: is the gain worth the cost
 on this task's data); `ds-deep-learning` owns fitting and fine-tuning the
 model once that decision is made.
 
-**Interaction with the small-corpus edge**: a small corpus is exactly the
-regime where this escalation is hardest to justify — see `SKILL.md`
-`## Edges`. Low-resource NLP methods (augmentation, distant supervision,
-transfer learning) bound but don't eliminate the small-corpus penalty, and
-that bound is often below what transformer escalation would need to pay
-for itself.
+Low-resource NLP methods (augmentation, distant supervision, transfer
+learning) bound but don't eliminate the small-corpus penalty, and that bound
+is often below what transformer escalation would need to pay for itself.

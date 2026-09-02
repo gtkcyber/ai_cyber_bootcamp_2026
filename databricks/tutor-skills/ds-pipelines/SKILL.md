@@ -7,10 +7,8 @@ description: "Orchestration and warehouse-delivery intelligence for data already
 
 Runs after `ds-gather` writes the data contract and before the data enters
 `ds-data-models`' semantic work: orchestrates, refreshes, and delivers
-acquired data into whatever store the task lands on. Not re-entrant: fires
-once per task; a later maintenance need routes through the loop-backs in
-Edges, not a fresh entry. Full depth and citations live in `references/`;
-this file is protocol only.
+acquired data into whatever store the task lands on. Full depth and
+citations live in `references/`; this file is protocol only.
 
 ## Subfields
 
@@ -82,65 +80,9 @@ this file is protocol only.
   `ds-labeling`'s. See
   `references/ds-pipelines.testing-and-integrity.md#training-data-integrity`.
 
-|---|---|---|
-| Orchestration (DAGs, scheduling) | analysis | conditional-on-data:scheduled-orchestration |
-| Incremental vs full refresh | quick-answer | mandatory |
-| Backfills and idempotency | analysis | conditional-on-data:backfill-or-reprocessing |
-| Partitioning and storage formats | analysis | conditional-on-data:partitioned-storage-target |
-| Warehouse/dimensional modeling | analysis | conditional-on-data:warehouse-target |
-| Late-arriving and restated records | analysis | conditional-on-data:late-arriving-or-restated-source |
-| Point-in-time reconstruction | analysis | conditional-on-data:point-in-time-join-required |
-| Analysis-code correctness | quick-answer | mandatory |
-| Training-data integrity checks | analysis | conditional-on-data:external-or-crowd-sourced-training-data |
-
 `mandatory`: fires whenever `ds-pipelines` composes — every pipeline picks a
 refresh strategy and needs a checkable correctness claim, unlike the other
 seven, which fire only on their own trigger.
-
-## Gates
-
-- `refresh_backfill_state` states a whole-partition-overwrite (or equally
-  deterministic) design for any backfilled/reprocessed range — row-level
-  UPDATE/DELETE/APPEND without a documented dedup/merge key fails this gate.
-- Every `transform_test_suite` entry states the invariant or golden fixture
-  it checks — a test-file name alone fails; a golden fixture re-approved
-  without recording why the transform changed fails too.
-- Any join constructing a point-in-time feature or label states its as-of
-  timestamp bound explicitly — an unstated bound fails per
-  `references/doctrine-leakage.md`.
-- **Join gate**, at any join site in the pipeline: cite `ds-gather`'s
-  same-semantics + cardinality gate — never restated, only applied here.
-- A warehouse fact table states its grain before design — cite
-  `ds-data-models`' grain contract (Interpret); never re-derived here.
-- Late-arriving/restated dimension handling uses date-range validity for
-  active-row identification — a current-flag-only design fails this gate
-  for historical joins.
-- A training set from an external/crowd-sourced/user-influenced channel
-  states its poisoning-surface assessment before it feeds model training —
-  an unassessed external-source set fails this gate.
-
-## Edges
-
-Covered: orchestration/scheduling design, incremental-vs-full-refresh
-choice, backfill/idempotency design, partitioning/storage-format choice,
-warehouse/dimensional modeling at a declared grain, late-arriving/restated-
-record handling, point-in-time reconstruction mechanics, analysis-code
-correctness (property tests, golden-row regression, idempotency tests),
-training-data poisoning-surface flagging.
-
-Its artifact goes `stale` in the transitive downstream closure whenever a
-scoping-targeted back-edge fires (`data-models → scoping`, `monitoring →
-scoping`, `impact → scoping`, `cost-overrun → scoping`), since `pipelines`
-sits immediately after `gather` in `manifest.json`'s lifecycle list. When
-scoping re-runs, `ds-pipelines` re-runs as part of the forward cascade in
-normal composition order, not via a named back-edge of its own.
-
-## Audit mode
-
-Input: an existing external orchestration/warehouse artifact authored
-outside this skill (an Airflow DAG repo, a dbt project, a warehouse ERD, an
-existing test suite). An undocumented pipeline claim is treated as an
-unregistered field under Gates: flagged, never assumed compliant.
 
 ## Production considerations
 
@@ -150,5 +92,5 @@ continuous orchestration-health and contract-drift monitoring — seeded by
 this skill's `refresh_backfill_state` and `transform_test_suite`, the way
 `ds-clean`'s assertion suite seeds it; window-feature definition/semantics
 for streaming pipelines stays `ds-features`' (streaming row split); pipeline
-compute/storage economics read `doctrine-scale-cost.md`'s threshold,
+compute/storage economics read `references/doctrine-scale-cost.md`'s threshold,
 recorded once in `ds-scoping`'s kill-check and never restated here.

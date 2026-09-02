@@ -23,11 +23,11 @@ classified, operational cause stated, method chosen, rationale logged
 | Scale concern | Method class affected | Owner | Note |
 |---|---|---|---|
 | Point-estimate methods (drop, mean/median/mode, single model-based fill) | All MCAR/MAR point-prediction rows above | `ds-clean` | Scales like any single fit/transform — standard fit-on-train-only mechanics (`ds-features`), no `m`-multiplier |
-| Multiple imputation | Both inferential/interval rows above | `ds-uncertainty` + `doctrine-scale-cost.md` | Cost scales `m`× the base analysis (`m` complete-data analyses fit and pooled) — state `m` and the compute-cost tradeoff explicitly at production tier |
+| Multiple imputation | Both inferential/interval rows above | `ds-uncertainty` + `references/doctrine-scale-cost.md` | Cost scales `m`× the base analysis (`m` complete-data analyses fit and pooled) — state `m` and the compute-cost tradeoff explicitly at production tier |
 
 ## Provenance
 
-An imputed value is no longer `observed` (`doctrine-repro-provenance.md`'s
+An imputed value is no longer `observed` (`references/doctrine-repro-provenance.md`'s
 classes): a rule-based fill (drop-and-fill, mean/median/mode) degrades to
 `derived`; a model-based fill (single-point or composed model-as-imputer)
 degrades to `enriched`. Never left silently as `observed` regardless of

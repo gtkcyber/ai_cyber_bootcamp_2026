@@ -20,11 +20,10 @@ each with its own failure surface:
 - **Delivery** (`ds-pipelines`): loading into the target store,
   idempotently.
 
-Failure modes specific to extraction: source schema drift mid-pull
-(hand off to `ds-data-models` on first contact with a changed shape, not
-silently coerced); rate-limit-induced partial pulls masquerading as
-complete ones; stream acquisition without a replay/backfill story for
-gaps.
+Failure modes specific to extraction: source schema drift mid-pull (the
+`ds-data-models` skill covers this on first contact with a changed shape,
+not silently coerced); rate-limit-induced partial pulls masquerading as
+complete ones; stream acquisition without a replay/backfill story for gaps.
 
 It does not own orchestration of what happens next (`ds-pipelines`) or
 stateful serving computation over the stream (`ds-mlops`). A task that names

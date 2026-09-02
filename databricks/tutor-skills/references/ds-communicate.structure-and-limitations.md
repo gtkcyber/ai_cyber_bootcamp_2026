@@ -28,17 +28,10 @@ allows the second.
 
 Three tiers, in this order, in every `report`:
 
-1. **Finding** — the governing conclusion, one to a few sentences, in the
-   language the decision-maker who asked the original question uses (per
-   `scoping.target`), not in ledger vocabulary.
 2. **Evidence** — the headline numbers that support the finding, each
    carrying its denominator, population statement, and uncertainty inline
    (per `SKILL.md` Gates) — enough for a reader to judge whether the
    finding follows from the evidence, without re-deriving it themselves.
-3. **Method** — enough of the pipeline (data sources, key transforms,
-   model/analysis choice, verification path) for a specialist reader to
-   audit the finding, cross-referencing the ledger sections rather than
-   restating their full contents.
 
 A tier may compress (a quick-answer report can fold Evidence and Method
 into one short line) but never disappears outright — a Finding with no

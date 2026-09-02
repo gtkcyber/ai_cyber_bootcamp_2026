@@ -25,7 +25,7 @@ claim, state a mechanism hypothesis before choosing a handling method.
 3. **Choose the action** — drop (row or column), impute (mean/median/mode,
    model-based single-point), or flag-and-carry. Log `rationale`.
 4. **Declare the new provenance class.** An imputed value is no longer
-   `observed`; per `doctrine-repro-provenance.md`'s classes it is typically
+   `observed`; per `references/doctrine-repro-provenance.md`'s classes it is typically
    `derived` (rule-based fill) or `enriched` (model-based fill) — never left
    silently as `observed`.
 5. **Route to `ds-uncertainty`** before any imputed column feeds a
@@ -67,10 +67,7 @@ defect fails the same standard as an unstated missingness cause.
 
 `ds-clean` owns the **dedup policy decision** — declaring two records
 equivalent and choosing merge/remove/keep-both — not the matching
-*mechanics*. Blocking/indexing and fuzzy/probabilistic similarity scoring
-at scale are `ds-entity-resolution`'s (re-entrant; consult it when the
-matching problem is non-trivial: fuzzy thresholds, cross-source keys,
-name/address variants).
+*mechanics*.
 
 Reference: Christen, *Data Matching: Concepts and Techniques for Record
 Linkage, Entity Resolution, and Duplicate Detection*, Springer 2012 —

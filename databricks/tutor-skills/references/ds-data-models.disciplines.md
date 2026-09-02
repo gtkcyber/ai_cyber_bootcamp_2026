@@ -6,7 +6,7 @@ separable from its neighbors, and one worked micro-example. Two examples
 load-bearing for the suite and required verbatim in intent — don't drop
 their specifics when this file is edited later.
 
-Citations for every standards claim below live in `standards-index.md`; this
+Citations for every standards claim below live in `references/ds-data-models.standards-index.md`; this
 file references standard names and points there rather than repeating URLs.
 
 ## Identify
@@ -66,7 +66,7 @@ For data with no findable spec (internal tables, ad-hoc CSV exports):
 semantics come from observed behavior, not documentation, because there is
 none. Full scripts-first order (value boundaries, update cadence,
 referential integrity, null patterns, distribution breaks at policy
-changes) lives in `elicitation-protocol.md` — this section states the
+changes) lives in `references/ds-data-models.elicitation-protocol.md` — this section states the
 discipline's contract, not its procedure. Every semantic derived this way
 that can't be independently confirmed is a **declared assumption**: field,
 inferred meaning, evidence, confidence, downstream impact if wrong.
@@ -94,7 +94,8 @@ X, collected by Y, subject to Z." Absence of a record type in the data is
 never itself evidence the underlying activity didn't occur; it may just be
 outside what the collector was configured to keep. Population statements
 compose through every downstream transform (join, filter, aggregate, dedup)
-per router doctrine — each rewrites or reaffirms the statement it inherited.
+per the doctrine references — each rewrites or reaffirms the statement it
+inherited.
 
 *Micro-example:* a Windows security-event feed shows zero 4625 (failed
 logon) events for a three-week window. Before that becomes "no failed
@@ -119,7 +120,7 @@ Field-level semantics, six sub-checks:
   coerced.
 - **Sentinel encodings** — `0`, `-1`, `1970-01-01` and similar standing in
   for "unset"/"unknown"/"never" collide with legitimate values unless a
-  companion signal disambiguates (see `standards-index.md`).
+  companion signal disambiguates (see `references/ds-data-models.standards-index.md`).
 - **Nested/array fields** — a field holding zero-or-more values (an array of
   file hashes, a nested list of process ancestors) needs its cardinality
   semantics declared explicitly: is zero meaningful, is order meaningful, is
@@ -142,7 +143,7 @@ Field-level semantics, six sub-checks:
   third-party enrichment — PSL-based domain decomposition, User-Agent
   parsing, GeoIP, ASN lookup — carry class `enriched` and inherit the
   suite-wide unvalidated-external-output restriction
-  (`doctrine-repro-provenance.md`) before feeding any claim; pointer only,
+  (`references/doctrine-repro-provenance.md`) before feeding any claim; pointer only,
   not restated here. **When** (event vs. ingest vs. decision time, clock
   skew, as-of discipline) and the **grain contract** (declared grain + key
   uniqueness for the table) round out this discipline — both gate every join
@@ -157,7 +158,7 @@ itself a two-label public suffix. Which PSL section(s) this decomposition
 consults (ICANN-only, or ICANN+PRIVATE) is a declared analysis decision, and
 the PSL snapshot's fetch date is pinned in the semantic dictionary's
 `pinned_version` field exactly like a producer spec version
-(`standards-index.md`).
+(`references/ds-data-models.standards-index.md`).
 
 ## Attest
 
@@ -272,7 +273,7 @@ across schemas frequently encode different actor/action/target semantics
 (Attest discipline) or different units/grain (Interpret discipline) — the
 mapping walks through those decompositions, not a string match on field
 names. Splunk's own OCSF-CIM add-on and the independent six-schema
-crosswalk (`standards-index.md`) both demonstrate the pattern: the
+crosswalk (`references/ds-data-models.standards-index.md`) both demonstrate the pattern: the
 classification fields (`category_uid`/`class_uid` in OCSF) are set as
 mapper constants, never read from the source, while behavioral fields like
 "what activity happened" derive from a different source field per schema
