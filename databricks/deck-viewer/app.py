@@ -15,6 +15,7 @@ Configuration (values come from the bundle's app resource config.env, see
   TUTOR_DEV_USER       identity fallback with no forwarded header (local runs only)
 """
 import html
+import logging
 import mimetypes
 import os
 import re
@@ -41,6 +42,15 @@ TUTOR_SKILLS_PATH = os.environ["TUTOR_SKILLS_PATH"]
 TUTOR_LABS_PATH = os.environ["TUTOR_LABS_PATH"]
 TUTOR_ANSWERS_PATH = os.environ["TUTOR_ANSWERS_PATH"]
 TUTOR_HOME_LABS_DIR = os.environ.get("TUTOR_HOME_LABS_DIR", COURSE_TITLE)
+
+# The tutor logs one line per answer, with the tools it called and the tokens
+# it spent, and that line is where the cost per exchange is read from. Nothing
+# else configures a handler -- gunicorn sets up its own loggers, not the root
+# one -- so without this the line is emitted and dropped.
+logging.basicConfig(
+    level=os.environ.get("LOG_LEVEL", "INFO").upper(),
+    format="%(asctime)s %(levelname)s %(name)s %(message)s",
+)
 
 app = Flask(__name__)
 w = WorkspaceClient()
