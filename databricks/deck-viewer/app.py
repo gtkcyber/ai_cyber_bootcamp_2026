@@ -52,7 +52,13 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(name)s %(message)s",
 )
 
+# Nothing this app accepts is large: the tutor's only writable input is one
+# question, capped at MAX_QUESTION_CHARS by tutor/routes.py. Unset, Flask reads
+# a body of any size into memory before a route ever sees it.
+MAX_REQUEST_BYTES = 64 * 1024
+
 app = Flask(__name__)
+app.config["MAX_CONTENT_LENGTH"] = MAX_REQUEST_BYTES
 w = WorkspaceClient()
 
 _TITLE_RE = re.compile(r"<title>(.*?)</title>", re.S | re.I)

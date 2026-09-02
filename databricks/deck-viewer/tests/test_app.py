@@ -146,3 +146,8 @@ def test_the_shell_carries_the_course_title(app_module):
     body = client.get("/").get_data(as_text=True)
     assert "AI Cyber Bootcamp 2026" in body
     assert "__COURSE_TITLE__" not in body
+
+
+def test_the_request_body_is_capped_at_64_kb(app_module):
+    """Unset, Flask reads a body of any size before a route ever sees it."""
+    assert app_module.app.config["MAX_CONTENT_LENGTH"] == 64 * 1024

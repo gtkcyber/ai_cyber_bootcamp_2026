@@ -28,6 +28,12 @@ DECK_NOTES_MAX_TOKENS = 6_000
 # deck can never crowd out the conversation.
 HISTORY_RESERVE_TOKENS = 2_000
 
+# A question is the one part of the prompt a student writes, and the whole user
+# block is re-sent on every turn of the tool loop -- so a pasted notebook is
+# paid for up to five times. routes.py refuses a longer question with a 413;
+# this is the same cap enforced where the prompt is actually assembled.
+MAX_QUESTION_CHARS = 4_000
+
 SYSTEM_STANCE = """You are the tutor for AI Cyber Bootcamp 2026, a five-day course that goes from pandas and exploratory analysis through classical machine learning to LLM agents, with every lab set on a security problem.
 
 What you do:
@@ -102,6 +108,13 @@ def _truncate_notes(notes: str) -> str:
     return "\n\n".join(kept) + "\n\n[deck notes truncated to fit the prompt budget]"
 
 
+def _truncate_question(question: str) -> str:
+    if len(question) <= MAX_QUESTION_CHARS:
+        return question
+    return (question[:MAX_QUESTION_CHARS].rstrip()
+            + "\n\n[question trimmed to the prompt budget]")
+
+
 def _render_user_block(question: str, deck, slide, deck_notes, pinned_note) -> str:
     lines = []
     if deck:
@@ -120,7 +133,8 @@ def _render_user_block(question: str, deck, slide, deck_notes, pinned_note) -> s
 def build_messages(question: str, *, index_entries, deck, slide, deck_notes,
                    pinned_note, history, budget_tokens: int = BUDGET_TOKENS) -> list[dict]:
     system = build_system(render_index(index_entries))
-    user = _render_user_block(question, deck, slide, deck_notes, pinned_note)
+    user = _render_user_block(_truncate_question(question), deck, slide,
+                              deck_notes, pinned_note)
 
     running = estimate_tokens(system) + estimate_tokens(user)
     # History is fitted last, dropped oldest first, and confined to its own
@@ -137,5 +151,13 @@ def build_messages(question: str, *, index_entries, deck, slide, deck_notes,
         kept.append(entry)
         spent += cost
     kept.reverse()
+
+    # Every part above is capped, so this can only fire on a budget too small to
+    # hold the stance and the index at all -- a caller's mistake, not a
+    # student's, and better raised than silently overspent.
+    total = estimate_tokens(system) + estimate_tokens(user) + spent
+    if total > budget_tokens:
+        raise ValueError(
+            f"assembled prompt is {total} tokens against a budget of {budget_tokens}")
 
     return [{"role": "system", "content": system}, *kept, {"role": "user", "content": user}]

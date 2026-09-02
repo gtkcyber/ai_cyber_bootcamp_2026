@@ -5,8 +5,11 @@ APP_DIR = Path(__file__).resolve().parent.parent
 if str(APP_DIR) not in sys.path:
     sys.path.insert(0, str(APP_DIR))
 
+import pytest  # noqa: E402
+
 from tutor.prompt import (  # noqa: E402
     BUDGET_TOKENS,
+    MAX_QUESTION_CHARS,
     DECK_NOTES_MAX_TOKENS,
     HISTORY_RESERVE_TOKENS,
     SKILL_INDEX_MAX_TOKENS,
@@ -148,3 +151,21 @@ def test_the_budget_leaves_room_for_four_capped_tool_results():
 
 def test_estimate_tokens_is_never_zero():
     assert estimate_tokens("") >= 1
+
+
+def test_a_question_longer_than_the_cap_is_trimmed_with_a_marker():
+    content = _messages(question="x" * (MAX_QUESTION_CHARS + 5_000))[-1]["content"]
+    assert "trimmed" in content.lower()
+    assert content.count("x") <= MAX_QUESTION_CHARS
+
+
+def test_the_user_block_is_refused_when_it_cannot_be_made_to_fit():
+    """The budget is a guarantee, not a hope: an impossible one is an error."""
+    with pytest.raises(ValueError):
+        _messages(budget_tokens=10)
+
+
+def test_the_assembled_prompt_fits_the_budget_with_an_oversized_question():
+    notes = "\n\n".join(f"Slide {i}: " + "word " * 200 for i in range(200))
+    messages = _messages(question="x" * 40_000, deck_notes=notes)
+    assert sum(estimate_tokens(m["content"]) for m in messages) <= BUDGET_TOKENS
