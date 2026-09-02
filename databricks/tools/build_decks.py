@@ -58,3 +58,36 @@ def title_for(pdf_name: str) -> str:
     if not match:
         raise ValueError(f"cannot derive a deck title from {pdf_name!r}")
     return f"Module {int(match.group(1))}: {' '.join(match.group(2).split())}"
+
+
+# The reveal canvas and the page images are the same size on purpose: a slide
+# that is exactly the canvas cannot trip deck.js's overflow guard.
+PAGE_WIDTH = 1600
+PAGE_HEIGHT = 900
+WEBP_QUALITY = 82
+
+
+def render_pages(pdf_path, out_dir, width=PAGE_WIDTH, height=PAGE_HEIGHT,
+                 quality=WEBP_QUALITY):
+    """Render every page of one PDF to <out_dir>/pNNN.webp. Returns the paths.
+
+    PyMuPDF has no WebP writer of its own -- Pixmap.tobytes accepts png, pnm,
+    pgm, ppm, pbm, pam, tga, psd and ps and nothing else -- so the pixmap goes
+    through Pillow. method=6 is the encoder's slowest and best setting; at
+    roughly 0.13 s a page over 1,269 pages that is under three minutes for the
+    whole course, and it makes the output reproducible.
+    """
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    written = []
+    with pymupdf.open(pdf_path) as doc:
+        for number, page in enumerate(doc, start=1):
+            matrix = pymupdf.Matrix(width / page.rect.width,
+                                    height / page.rect.height)
+            pixmap = page.get_pixmap(matrix=matrix, alpha=False)
+            image = Image.frombytes("RGB", (pixmap.width, pixmap.height),
+                                    pixmap.samples)
+            path = out_dir / f"p{number:03d}.webp"
+            image.save(path, "WEBP", quality=quality, method=6)
+            written.append(path)
+    return written
