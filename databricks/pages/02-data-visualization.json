@@ -167,7 +167,7 @@
     },
     {
       "page": 28,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 27,
       "text": "GTK Cyber ax = sns.regplot(x=\"total_bill\", y=\"tip\", data=tips)"
     },

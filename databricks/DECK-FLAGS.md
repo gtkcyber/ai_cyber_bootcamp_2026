@@ -23,3 +23,12 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p23: code string literal wraps mid-string on the slide.
 - p20: bare pointer to https://ai.gtkcyber.com/mcp-lab with no description in the deck (UNRESOLVED note).
 - Worksheet 12.1 markdown says "Module 12" and "Module 13" where it means Module 11 (notebook, not deck).
+
+## 02-data-visualization
+- p14: URL plus one frame of an animated port-by-country chart, axes unreadable; talking point not inferable (UNRESOLVED note).
+- p6, p7: joke slides (pie photo, Pac-Man pie); short descriptive notes written.
+- p4: radial bar chart with URL only; note explains the arc-length distortion from the geometry.
+- p19, p20: bar and pie charts drawn from different data than the Series on p18 (3,5,7,3,4,8 vs 3,4,6,7,5,8,2); notes avoid quoting their values.
+- p20: pie renders as an ellipse; current Matplotlib forces an equal aspect.
+- p26: `distplot` is deprecated since Seaborn 0.11; note gives `histplot(kde=True)`.
+- p37: link is to Matplotlib 3.1.0 docs; note points at the stable URL. p50: `bokeh_chart` moved out of Streamlit core.
