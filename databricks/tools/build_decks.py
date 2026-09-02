@@ -274,3 +274,61 @@ def load_pages(root, slug):
     for page, gid in zip(pages, group_ids([p["kind"] for p in pages])):
         page["group"] = gid
     return payload
+
+
+# ------------------------------------------------------------------- notes
+#
+# One markdown file per deck, one '## Page N' section per final slide, N being
+# the PDF page number of the slide the reader ends up looking at. UNRESOLVED
+# as the whole body is the writer saying the talking points are not inferable
+# from the slide -- which goes to Curtis rather than getting invented.
+UNRESOLVED = "UNRESOLVED"
+
+NOTE_HEADING_RE = re.compile(r"^##\s+Page\s+(\d+)\s*$", re.M)
+CODE_SPAN_RE = re.compile(r"`([^`]+)`")
+
+
+def notes_path(root, slug):
+    return Path(root) / "databricks" / "notes" / f"{slug}.md"
+
+
+def load_notes(root, slug):
+    """{final page number: note body}. A missing file is an empty mapping."""
+    path = notes_path(root, slug)
+    if not path.exists():
+        return {}
+    text = path.read_text(encoding="utf-8")
+    headings = list(NOTE_HEADING_RE.finditer(text))
+    notes = {}
+    for index, heading in enumerate(headings):
+        end = headings[index + 1].start() if index + 1 < len(headings) else len(text)
+        page = int(heading.group(1))
+        if page in notes:
+            raise ValueError(f"{path}: page {page} has two '## Page' headings")
+        notes[page] = text[heading.end():end].strip()
+    return notes
+
+
+def _inline(text):
+    return CODE_SPAN_RE.sub(lambda m: f"<code>{m.group(1)}</code>",
+                            html.escape(text, quote=False))
+
+
+def note_html(body):
+    """Paragraphs, dash lists and inline code. Deliberately not a markdown
+    engine: the notes register bans everything richer, and a dependency for
+    two constructs is not worth carrying."""
+    body = body.strip()
+    if not body:
+        return ""
+    blocks = []
+    for block in re.split(r"\n\s*\n", body):
+        lines = [line.strip() for line in block.splitlines() if line.strip()]
+        if not lines:
+            continue
+        if all(line.startswith("- ") for line in lines):
+            items = "".join(f"<li>{_inline(line[2:])}</li>" for line in lines)
+            blocks.append(f"<ul>{items}</ul>")
+        else:
+            blocks.append(f"<p>{_inline(' '.join(lines))}</p>")
+    return "\n".join(blocks)
