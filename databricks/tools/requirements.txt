@@ -1,0 +1,3 @@
+nbformat>=5.10
+databricks-sdk>=0.68
+pytest>=8.3
