@@ -23,8 +23,13 @@ variables:
   state_path:
     description: "Volume directory holding per-user tutor conversation JSON."
     default: /Volumes/ai_cyber_bootcamp/course/app/tutor_state
+  # No default, deliberately: `bundle deploy` fails until a cluster id is passed,
+  # and both job scripts exit non-zero on an empty one. A deploy that baked in
+  # "" would otherwise leave the two scheduled jobs skipping the cluster half
+  # every day of the class week without a single failed run to show for it.
+  #   --var cluster_id=$(bin/terraform -chdir=terraform/bootcamp output -raw cluster_id)
   cluster_id:
-    description: "terraform/bootcamp output cluster_id: the bootcamp-labs cluster course_up/course_down start and terminate. Empty string skips the cluster half of both jobs."
+    description: "terraform/bootcamp output cluster_id: the bootcamp-labs cluster course_up/course_down start and terminate. Required; an empty value fails both jobs."
   student_group:
     description: "Account group that gets CAN_USE on the app. Created by terraform/bootcamp."
     default: bh_india_2026_students

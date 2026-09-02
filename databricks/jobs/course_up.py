@@ -2,9 +2,12 @@
 
 Usage (serverless spark_python_task, argv): course_up.py <cluster_id> <app_name>
 
-An empty cluster_id or app_name means "skip that half", so the bundle can be
-deployed and the job scheduled before terraform/bootcamp has produced a cluster
-id. Runs as the deploying service principal.
+An empty cluster_id is a deploy-time mistake, not a mode: the bundle variable
+has no default, so a deploy that leaves it blank would otherwise start nothing
+but the app, every scheduled morning, without ever failing. The app half still runs
+before the job fails -- a missing cluster id must not strand the app -- so the
+exit is non-zero but the app is left in the state it should be in. An empty app_name still skips its own half. Runs as the deploying
+service principal.
 
 No path tricks and no sibling imports: `__file__` is undefined in a serverless
 entry script, so this file stands alone.
@@ -12,6 +15,12 @@ entry script, so this file stands alone.
 import sys
 
 from databricks.sdk import WorkspaceClient
+
+EMPTY_CLUSTER_ID = (
+    "course_up: cluster_id is empty, so the labs cluster was not touched. Redeploy the "
+    "bundle with --var cluster_id=$(bin/terraform -chdir=terraform/bootcamp output "
+    "-raw cluster_id)."
+)
 
 
 def parse_args(argv: list[str]) -> tuple[str, str]:
@@ -31,9 +40,7 @@ def parse_args(argv: list[str]) -> tuple[str, str]:
 def main(w, cluster_id: str, app_name: str) -> list[str]:
     lines = []
 
-    if not cluster_id:
-        lines.append("course_up: cluster_id empty, skipping cluster start")
-    else:
+    if cluster_id:
         state = w.clusters.get(cluster_id).state.name
         if state == "TERMINATED":
             w.clusters.start(cluster_id)
@@ -54,6 +61,8 @@ def main(w, cluster_id: str, app_name: str) -> list[str]:
 
     for line in lines:
         print(line)
+    if not cluster_id:
+        raise SystemExit(EMPTY_CLUSTER_ID)
     return lines
 
 

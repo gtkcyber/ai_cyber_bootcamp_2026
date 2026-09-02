@@ -86,20 +86,44 @@ def test_down_does_not_re_terminate_a_cluster_already_terminating():
 
 
 @pytest.mark.parametrize("module", [course_up, course_down])
-def test_empty_ids_skip_their_half(module):
+def test_an_empty_app_name_skips_only_the_app_half(module):
     w = fake_w("RUNNING", "ACTIVE")
-    lines = module.main(w, "", "")
-    assert w.clusters.started == [] and w.clusters.deleted == []
+    lines = module.main(w, "c-1", "")
     assert w.apps.started == [] and w.apps.stopped == []
-    assert any("cluster_id empty" in ln for ln in lines)
     assert any("app_name empty" in ln for ln in lines)
+
+
+@pytest.mark.parametrize("module", [course_up, course_down])
+def test_an_empty_cluster_id_fails_the_job_loudly(module):
+    """A silent skip runs every morning of the class week without ever failing."""
+    w = fake_w("RUNNING", "ACTIVE")
+    with pytest.raises(SystemExit) as excinfo:
+        module.main(w, "", "bootcamp-slides")
+    message = str(excinfo.value)
+    assert "cluster_id" in message
+    assert "terraform/bootcamp output -raw cluster_id" in message
+
+
+def test_an_empty_cluster_id_still_starts_the_app_on_the_way_up():
+    w = fake_w("TERMINATED", "STOPPED")
+    with pytest.raises(SystemExit):
+        course_up.main(w, "", "bootcamp-slides")
+    assert w.apps.started == ["bootcamp-slides"]
+
+
+def test_an_empty_cluster_id_still_stops_the_app_on_the_way_down():
+    """Failing before the app half would leave the app running every night."""
+    w = fake_w("TERMINATED", "ACTIVE")
+    with pytest.raises(SystemExit):
+        course_down.main(w, "", "bootcamp-slides")
+    assert w.apps.stopped == ["bootcamp-slides"]
 
 
 @pytest.mark.parametrize("module", [course_up, course_down])
 def test_app_with_no_compute_status_is_left_alone(module):
     """A freshly deployed app reports compute_status=None; touch nothing."""
     w = fake_w("TERMINATED", None)
-    module.main(w, "", "bootcamp-slides")
+    module.main(w, "c-1", "bootcamp-slides")
     assert w.apps.started == [] and w.apps.stopped == []
 
 

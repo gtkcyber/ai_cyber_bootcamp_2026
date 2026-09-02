@@ -2,7 +2,12 @@
 
 Usage (serverless spark_python_task, argv): course_down.py <cluster_id> <app_name>
 
-Mirrors course_up.py's empty-argument escape hatch.
+An empty cluster_id is a deploy-time mistake, not a mode: the bundle variable
+has no default, so a deploy that leaves it blank would otherwise stop nothing
+but the app, every scheduled evening, without ever failing. The app half still runs
+before the job fails -- a missing cluster id must not strand the app -- so the
+exit is non-zero but the app is left in the state it should be in. An empty app_name still skips its own half. Runs as the deploying
+service principal.
 
 The SDK's clusters.delete() maps to the REST "clusters/delete" call, which
 TERMINATES the cluster -- it stops compute, keeps the cluster definition and
@@ -15,6 +20,12 @@ entry script, so this file stands alone.
 import sys
 
 from databricks.sdk import WorkspaceClient
+
+EMPTY_CLUSTER_ID = (
+    "course_down: cluster_id is empty, so the labs cluster was not touched. Redeploy the "
+    "bundle with --var cluster_id=$(bin/terraform -chdir=terraform/bootcamp output "
+    "-raw cluster_id)."
+)
 
 
 def parse_args(argv: list[str]) -> tuple[str, str]:
@@ -34,9 +45,7 @@ def parse_args(argv: list[str]) -> tuple[str, str]:
 def main(w, cluster_id: str, app_name: str) -> list[str]:
     lines = []
 
-    if not cluster_id:
-        lines.append("course_down: cluster_id empty, skipping cluster stop")
-    else:
+    if cluster_id:
         state = w.clusters.get(cluster_id).state.name
         if state not in ("TERMINATED", "TERMINATING"):
             w.clusters.delete(cluster_id)
@@ -57,6 +66,8 @@ def main(w, cluster_id: str, app_name: str) -> list[str]:
 
     for line in lines:
         print(line)
+    if not cluster_id:
+        raise SystemExit(EMPTY_CLUSTER_ID)
     return lines
 
 
