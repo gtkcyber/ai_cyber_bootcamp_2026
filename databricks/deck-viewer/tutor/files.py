@@ -1,16 +1,21 @@
 """Byte-level file access behind one small interface.
 
-The app talks to a Unity Catalog volume through the Files API; tests and the
-index builder talk to a local directory. Paths are always volume-shaped
-(`/Volumes/<catalog>/<schema>/<volume>/...`); LocalFiles maps them under its base.
+Three backends. The app reads decks and writes conversation state on a Unity
+Catalog volume through the Files API (`VolumeFiles`); it reads the tutor's
+skills, the worksheets and the answers out of workspace files, which are on no
+volume, through the workspace API (`WorkspaceTextFiles`); tests and local runs
+use a directory (`LocalFiles`). Paths are always store-shaped
+(`/Volumes/<catalog>/<schema>/<volume>/...` or `/Workspace/...`); LocalFiles
+maps them under its base.
 """
 from __future__ import annotations
 
+import base64
 import io
 from pathlib import Path
 from typing import Protocol
 
-from databricks.sdk.errors import NotFound
+from databricks.sdk.errors import DatabricksError, NotFound
 
 
 class MissingFile(Exception):
@@ -90,6 +95,66 @@ class VolumeFiles:
     def exists(self, path: str) -> bool:
         try:
             self.w.files.get_metadata(path)
+            return True
+        except NotFound:
+            return False
+
+
+class WorkspaceTextFiles:
+    """Workspace files (`/Workspace/...`) through the workspace API, read-only.
+
+    The bundle syncs the tutor's skills, the worksheets and the answers into
+    `${workspace.file_path}`; none of them is on a volume, so `VolumeFiles`
+    cannot reach them. Nothing in the app writes to workspace files -- the
+    bundle owns that tree -- so `write` and `delete` raise rather than
+    pretending to be a general backend.
+
+    `export` is the only read call there is: databricks-sdk 0.133 has no
+    `WorkspaceAPI.download`, and export hands back the bytes base64-encoded in
+    `ExportResponse.content`. A notebook is asked for as JUPYTER, which is the
+    format `CourseMaterial.read_lab` parses as JSON; anything else, and a
+    notebook the workspace holds as a plain file rather than a notebook object,
+    goes through AUTO.
+    """
+
+    def __init__(self, w):
+        self.w = w
+
+    def _export(self, path: str, fmt) -> bytes:
+        return base64.b64decode(self.w.workspace.export(path, format=fmt).content)
+
+    def read(self, path: str) -> bytes:
+        from databricks.sdk.service.workspace import ExportFormat
+        if not path.endswith(".ipynb"):
+            try:
+                return self._export(path, ExportFormat.AUTO)
+            except NotFound as e:
+                raise MissingFile(path) from e
+        try:
+            return self._export(path, ExportFormat.JUPYTER)
+        except NotFound as e:
+            raise MissingFile(path) from e
+        except DatabricksError:
+            try:
+                return self._export(path, ExportFormat.AUTO)
+            except NotFound as e:
+                raise MissingFile(path) from e
+
+    def write(self, path: str, data: bytes) -> None:
+        raise NotImplementedError("the app never writes to workspace files; the bundle owns that tree")
+
+    def list(self, path: str) -> list[str]:
+        try:
+            return sorted(e.path.rsplit("/", 1)[-1] for e in self.w.workspace.list(path))
+        except NotFound:
+            return []
+
+    def delete(self, path: str) -> None:
+        raise NotImplementedError("the app never writes to workspace files; the bundle owns that tree")
+
+    def exists(self, path: str) -> bool:
+        try:
+            self.w.workspace.get_status(path)
             return True
         except NotFound:
             return False
