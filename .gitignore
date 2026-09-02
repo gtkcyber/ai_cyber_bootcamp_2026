@@ -237,3 +237,8 @@ data/url_data_mega_deep_learning.csv
 *.keras
 /.claude/
 /answers/data/
+
+# databricks port tooling
+.venv/
+.worktrees/
+databricks/test-runs/
