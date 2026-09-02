@@ -17,7 +17,7 @@
     },
     {
       "page": 3,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 3,
       "text": "GTK Cyber A Problem: Data Validation"
     },
@@ -59,7 +59,7 @@
     },
     {
       "page": 10,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 10,
       "text": "GTK Cyber What is an outlier?"
     },
@@ -71,7 +71,7 @@
     },
     {
       "page": 12,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 12,
       "text": "GTK Cyber Anomaly Detection != Novelty Detection"
     },
@@ -137,7 +137,7 @@
     },
     {
       "page": 23,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 23,
       "text": "GTK Cyber Simple Statistics 1 Standard Deviation 2 Standard Deviations"
     },

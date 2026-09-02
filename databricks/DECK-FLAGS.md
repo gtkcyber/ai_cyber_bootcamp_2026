@@ -43,3 +43,12 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p41: second sentence truncated ("...you will").
 - p55: caption "Selects all features above a given threshold" misdescribes SelectPercentile, which keeps a percentile by rank.
 - p61: stray bullet character under the code block.
+
+## 06-anomaly-detection
+- p24: "167 outside 1 deviation" matches a one-tail count under the shown normal fit (about 159 of 1000); two-sided would be about 317. The 44 beyond 2 deviations is consistent.
+- p27: title "Mean Absolution Deviation"; pseudocode omits the absolute value; `Series.mad()` was removed in pandas 2.0.
+- p60: `behavior='new'` fails on every scikit-learn version (spelled `behaviour`, removed in 0.24).
+- p66: MAC address shown with five hex pairs; a MAC has six.
+- p67: `tokenize_data(d)` substitutes on `mac`, not `d`; `template_token` never defined; pandas and `good_macs` unused.
+- p69: the homoglyph is the Cyrillic letter er, not a "Russian Rho" (rho is Greek).
+- p15: "algorithms include" for "including". p65: Jaro "from each file" for "each string".
