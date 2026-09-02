@@ -1,0 +1,5 @@
+marked.min.js vendored from https://cdn.jsdelivr.net/npm/marked@12/marked.min.js
+bytes: 35479
+sha256: 15fabce5b65898b32b03f5ed25e9f891a729ad4c0d6d877110a7744aa847a894
+Vendored, not CDN-loaded: a Databricks App has no guaranteed egress to a CDN
+and the tutor panel must render markdown offline.
