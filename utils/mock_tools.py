@@ -14,7 +14,12 @@ from typing import Optional
 from langchain_core.tools import tool
 
 # Load threat intel DB once at import time
-_DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
+# On Databricks the course data lives on a Unity Catalog volume, and there is no
+# data/ directory beside utils/. COURSE_DATA_HOME is set on the labs cluster.
+_DATA_DIR = os.environ.get(
+    "COURSE_DATA_HOME",
+    os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data"),
+).rstrip("/")
 with open(os.path.join(_DATA_DIR, "threat_intel_db.json")) as f:
     _THREAT_DB = json.load(f)
 

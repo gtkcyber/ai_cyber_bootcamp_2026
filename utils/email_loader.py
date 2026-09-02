@@ -4,7 +4,12 @@ import json
 import os
 from typing import Optional
 
-_DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
+# On Databricks the course data lives on a Unity Catalog volume, and there is no
+# data/ directory beside utils/. COURSE_DATA_HOME is set on the labs cluster.
+_DATA_DIR = os.environ.get(
+    "COURSE_DATA_HOME",
+    os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data"),
+).rstrip("/")
 
 
 def load_emails(small: bool = False) -> list[dict]:
