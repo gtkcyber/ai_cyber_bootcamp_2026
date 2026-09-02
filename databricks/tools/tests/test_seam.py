@@ -136,3 +136,30 @@ def test_apply_subs_ignores_the_seam_cells_own_text():
     assert n == 1
     assert "from langchain_anthropic import ChatAnthropic" in nb.cells[0].source  # seam untouched
     assert nb.cells[1].source == "# swapped\nllm = ChatAnthropic(model=X)"
+
+
+from seam import insert_before_seam
+
+PIP = '%pip install "setuptools<58" tpot\ndbutils.library.restartPython()'
+
+
+def test_pre_cell_lands_immediately_before_the_seam():
+    nb = _nb([("markdown", "# t"), ("code", "x = 1")])
+    upsert_seam(nb, with_llm=False)
+    assert insert_before_seam(nb, PIP) is True
+    assert nb.cells[1].source == PIP
+    assert nb.cells[2].source.startswith(SEAM_START)
+
+
+def test_pre_cell_insert_is_idempotent():
+    nb = _nb([("markdown", "# t"), ("code", "x = 1")])
+    upsert_seam(nb, with_llm=False)
+    insert_before_seam(nb, PIP)
+    assert insert_before_seam(nb, PIP) is False
+    assert sum(c.source == PIP for c in nb.cells) == 1
+
+
+def test_pre_cell_needs_a_seam():
+    nb = _nb([("code", "x = 1")])
+    with pytest.raises(EditError, match="no seam cell"):
+        insert_before_seam(nb, PIP)

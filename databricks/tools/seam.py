@@ -155,3 +155,19 @@ def apply_subs(nb, subs) -> int:
                 c.source = c.source.replace(sub.old, sub.new)
         applied += 1
     return applied
+
+
+def insert_before_seam(nb, source: str) -> bool:
+    """Put `source` in its own code cell immediately before the seam cell.
+
+    Used for the one sanctioned notebook-scoped install (Module 4.3): it has to run
+    before the seam, because dbutils.library.restartPython() clears everything
+    defined so far. Idempotent on the exact source text.
+    """
+    found = _seam_indices(nb)
+    if not found:
+        raise EditError("no seam cell to insert before")
+    if any(c.cell_type == "code" and c.source == source for c in nb.cells):
+        return False
+    nb.cells.insert(found[0], nbformat.v4.new_code_cell(source))
+    return True

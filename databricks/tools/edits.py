@@ -18,7 +18,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from seam import EditError, Sub, apply_subs, load, save, upsert_seam
+from seam import EditError, Sub, apply_subs, insert_before_seam, load, save, upsert_seam
 
 # The line every DATA_HOME / DATA_PATH definition becomes.
 FROM_SEAM = "# DATA_HOME comes from the data-loader cell at the top of this notebook"
@@ -32,6 +32,7 @@ class Module:
     subs: list = field(default_factory=list)      # applied to both files
     ws_only: list = field(default_factory=list)
     ans_only: list = field(default_factory=list)
+    pre_cells: list = field(default_factory=list)  # cells inserted before the seam
 
 
 MODULES: list[Module] = [
@@ -109,6 +110,13 @@ MODULES: list[Module] = [
                 "pd.read_csv(handoff('dga_features_final_df.csv'))"),
             Sub('with open("exported_pipeline.py", "w") as f:',
                 'with open(WORK_HOME + "exported_pipeline.py", "w") as f:'),
+        ],
+        pre_cells=[
+            '# TPOT needs an old setuptools, which a cluster library list cannot express,\n'
+            '# so this one notebook installs it for itself. Local runs already have it\n'
+            '# from environment-4.3.yml; the install is a no-op there.\n'
+            '%pip install "setuptools<58" tpot\n'
+            'dbutils.library.restartPython()'
         ],
     ),
     Module(
@@ -474,6 +482,8 @@ def port(module: Module, root: Path, check_only: bool) -> list[str]:
         changed = False
         if module.seam != "none":
             changed |= upsert_seam(nb, with_llm=(module.seam == "llm"))
+        for source in module.pre_cells:
+            changed |= insert_before_seam(nb, source)
         n = apply_subs(nb, list(module.subs) + list(extra))
         changed |= n > 0
         if changed and not check_only:
