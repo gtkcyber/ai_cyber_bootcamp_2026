@@ -425,6 +425,10 @@ MODULES: list[Module] = [
                 "# the chat model comes from make_llm() in the data-loader cell"),
             Sub('MODEL = "claude-opus-4-8"', "MODEL = COURSE_LLM_MODEL"),
             Sub("llm = ChatAnthropic(model=MODEL)", "llm = make_llm()"),
+            Sub('assert SERVER_PATH, "Could not find mcp_server.py — run this from the notebooks/ folder."',
+                'assert SERVER_PATH, ("Could not find mcp_server.py. Locally, run this from "\n'
+                '                     "notebooks/ or answers/. On Databricks it lives beside "\n'
+                '                     "the course notebooks, one directory up from this one.")'),
         ],
     ),
     Module(
