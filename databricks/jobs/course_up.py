@@ -14,6 +14,20 @@ import sys
 from databricks.sdk import WorkspaceClient
 
 
+def parse_args(argv: list[str]) -> tuple[str, str]:
+    """The cluster id and the app name, however few parameters actually arrive.
+
+    The jobs API drops an empty task parameter rather than passing an empty
+    string, so a bundle deployed with cluster_id="" hands this script one
+    argument, not two -- and indexing argv[1] and argv[2] would either raise
+    IndexError or, worse, silently read the app name as the cluster id. Padding
+    makes the shape fixed; the emptiness that padding reveals is main's to
+    judge.
+    """
+    args = [a.strip() for a in argv[:2]] + ["", ""]
+    return args[0], args[1]
+
+
 def main(w, cluster_id: str, app_name: str) -> list[str]:
     lines = []
 
@@ -44,4 +58,4 @@ def main(w, cluster_id: str, app_name: str) -> list[str]:
 
 
 if __name__ == "__main__":
-    main(WorkspaceClient(), sys.argv[1], sys.argv[2])
+    main(WorkspaceClient(), *parse_args(sys.argv[1:]))

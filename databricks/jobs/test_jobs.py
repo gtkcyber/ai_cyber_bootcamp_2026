@@ -114,3 +114,38 @@ def test_entry_scripts_never_reference_dunder_file(path):
     source = (Path(__file__).resolve().parent / path).read_text(encoding="utf-8")
     names = {node.id for node in ast.walk(ast.parse(source)) if isinstance(node, ast.Name)}
     assert "__file__" not in names
+
+
+# --- argv ----------------------------------------------------------------
+
+@pytest.mark.parametrize("module", [course_up, course_down])
+def test_argv_with_both_parameters_is_read_in_order(module):
+    assert module.parse_args(["c-1", "bootcamp-slides"]) == ("c-1", "bootcamp-slides")
+
+
+@pytest.mark.parametrize("module", [course_up, course_down])
+def test_argv_short_of_the_app_name_does_not_index_past_the_end(module):
+    """The jobs API drops an empty parameter, which shortens argv."""
+    assert module.parse_args(["c-1"]) == ("c-1", "")
+
+
+@pytest.mark.parametrize("module", [course_up, course_down])
+def test_argv_with_no_parameters_at_all_is_two_empty_strings(module):
+    assert module.parse_args([]) == ("", "")
+
+
+@pytest.mark.parametrize("module", [course_up, course_down])
+def test_argv_ignores_anything_past_the_second_parameter(module):
+    assert module.parse_args(["c-1", "slides", "extra"]) == ("c-1", "slides")
+
+
+@pytest.mark.parametrize("module", [course_up, course_down])
+def test_argv_is_stripped_so_a_whitespace_parameter_reads_as_empty(module):
+    assert module.parse_args([" c-1 ", "  "]) == ("c-1", "")
+
+
+@pytest.mark.parametrize("path", ["course_up.py", "course_down.py"])
+def test_entry_scripts_never_index_a_fixed_argv_position(path):
+    """argv[1] and argv[2] are only there when the jobs API sent both."""
+    source = (Path(__file__).resolve().parent / path).read_text(encoding="utf-8")
+    assert "sys.argv[1]" not in source and "sys.argv[2]" not in source
