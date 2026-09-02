@@ -436,3 +436,75 @@ def emit_deck(root, slug, title, pages, notes):
                         sections="\n".join(sections)),
         encoding="utf-8")
     return path
+
+
+# --------------------------------------------------------------------- cli
+
+
+def pdf_for(root, slug):
+    """The Keynote export behind a slug."""
+    for path in sorted((Path(root) / "slides").glob("*.pdf")):
+        if slug_for(path.name) == slug:
+            return path
+    raise ValueError(f"no PDF in slides/ maps to slug {slug!r}")
+
+
+def build_deck(root, pdf_path):
+    """Render, classify, emit. Returns the counts Task 13 records."""
+    root = Path(root)
+    slug = slug_for(pdf_path.name)
+    title = title_for(pdf_path.name)
+
+    written = render_pages(pdf_path, root / "decks" / slug / "pages")
+    _, created = save_pages(root, slug, pdf_path.name, classify_pages(pdf_path))
+    payload = load_pages(root, slug)
+    pages = payload["pages"]
+    notes = load_notes(root, slug)
+    index = emit_deck(root, slug, title, pages, notes)
+
+    kinds = [page["kind"] for page in pages]
+    finals = final_pages(pages)
+    unresolved = sum(1 for page in finals
+                     if notes.get(page, "").strip() == UNRESOLVED)
+    return {
+        "slug": slug,
+        "title": title,
+        "pdf_pages": len(pages),
+        "final_slides": len(finals),
+        "fragments": len(pages) - len(finals),
+        "unsure": kinds.count("unsure"),
+        "notes_written": sum(1 for page in finals if page in notes),
+        "unresolved": unresolved,
+        "classification_created": created,
+        "pages_written": len(written),
+        "index": index,
+    }
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--root", default=str(REPO_ROOT),
+                        help="course repo root (default: this file's repo)")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--deck", help="one deck slug, e.g. 08-deep-learning")
+    group.add_argument("--all", action="store_true", help="every deck")
+    args = parser.parse_args(argv)
+
+    root = Path(args.root)
+    if args.deck:
+        pdfs = [pdf_for(root, args.deck)]
+    else:
+        pdfs = sorted((root / "slides").glob("*.pdf"))
+
+    print(f"{'deck':<52} {'pages':>5} {'slides':>6} {'frags':>5} "
+          f"{'unsure':>6} {'notes':>5}")
+    for pdf_path in pdfs:
+        result = build_deck(root, pdf_path)
+        print(f"{result['slug']:<52} {result['pdf_pages']:>5} "
+              f"{result['final_slides']:>6} {result['fragments']:>5} "
+              f"{result['unsure']:>6} {result['notes_written']:>5}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
