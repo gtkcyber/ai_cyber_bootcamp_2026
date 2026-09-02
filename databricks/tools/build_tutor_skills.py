@@ -463,3 +463,318 @@ def build_data_science(src: Path, dest: Path) -> list[dict]:
         })
 
     return entries
+
+
+# --- the course half -----------------------------------------------------
+
+# Hand-written from the repo: titles from slides/"Module N - Title.pdf",
+# worksheets from notebooks/, data files from what those notebooks load,
+# concepts from what the worksheets actually do. Modules 0 and 14 have decks
+# but no lab; the Final Project is a local-only capstone (spec "Out" list).
+#
+# `deck` is the deck folder the decks plan produces. If those slugs land
+# differently, this column is the single place to change.
+MODULES = (
+    {
+        "number": 0, "title": "Introduction", "deck": "00-introduction",
+        "worksheets": (), "data": (), "libraries": (),
+        "concepts": (
+            "What the bootcamp covers and how it is laid out: five days from pandas through "
+            "classical machine learning to LLM agents, every lab a security problem. How the "
+            "worksheets, the answer notebooks and the shared course data fit together, and what "
+            "a student is expected to be able to do by the end."
+        ),
+    },
+    {
+        "number": 1, "title": "Exploratory Data Analysis", "deck": "01-exploratory-data-analysis",
+        "worksheets": ("Worksheet_1.1_Vectorized_Data_Structures.ipynb",),
+        "data": ("dailybots.csv", "hackers-access.httpd"),
+        "libraries": ("pandas", "numpy"),
+        "concepts": (
+            "Pandas Series and DataFrames as vectorized structures: why a vectorized operation "
+            "beats a Python loop over rows, boolean masking and .loc/.iloc indexing, groupby and "
+            "aggregation, and reading semi-structured security telemetry — a botnet-activity CSV "
+            "and a raw Apache access log — into a frame you can ask questions of."
+        ),
+    },
+    {
+        "number": 2, "title": "Data Visualization", "deck": "02-data-visualization",
+        "worksheets": ("Worksheet_2.1_Data_Visualization.ipynb",),
+        "data": ("dailybots.csv",),
+        "libraries": ("matplotlib", "seaborn", "streamlit"),
+        "concepts": (
+            "Choosing a chart for the question: distributions, comparisons over time, and "
+            "relationships between two variables, plus the traps that make a security chart lie "
+            "(unlabelled axes, a truncated y-axis, an aggregation that hides the outlier you were "
+            "looking for). Worksheet 2.2 is a Streamlit script, not a notebook, and stays a "
+            "local-only exercise on Databricks."
+        ),
+    },
+    {
+        "number": 3, "title": "Feature Engineering", "deck": "03-feature-engineering",
+        "worksheets": ("Worksheet_3.1_Feature_Engineering.ipynb",),
+        "data": ("dga_data_small.csv", "d_common_en_words.pickle", "google-10000-english.txt",
+                 "dga_features_final_df.csv", "dga_features_final_df_domain.csv",
+                 "our_data_dga_features_final_df.csv"),
+        "libraries": ("pandas", "sklearn"),
+        "concepts": (
+            "Turning raw domain names into features a classifier can use: length, Shannon entropy, "
+            "vowel and digit ratios, n-gram frequency against an English corpus, and dictionary-word "
+            "membership. Why a feature has to be computable at scoring time, and why a feature that "
+            "encodes the label leaks. The frame this worksheet writes is the input to Module 4."
+        ),
+    },
+    {
+        "number": 4, "title": "Supervised Machine Learning", "deck": "04-supervised-machine-learning",
+        "worksheets": ("Worksheet_4.1_DGA_Detection_using_Supervised_Learning.ipynb",
+                       "Worksheet_4.2_Tuning_Your_Classifier.ipynb",
+                       "Worksheet_4.3_Automate_It_All.ipynb"),
+        "data": ("our_data_dga_features_final_df.csv", "dga_features_final_df.csv",
+                 "dga_decision_tree.pkl", "dga_model.sav"),
+        "libraries": ("sklearn", "lime", "shap", "tpot"),
+        "concepts": (
+            "Training and judging a DGA classifier: train/test splits, decision trees and random "
+            "forests, cross-validation, and hyperparameter search in 4.2. Which metric to read under "
+            "class imbalance and what a confusion matrix costs a SOC in false positives. 4.3 runs "
+            "TPOT for automated pipeline search and explains a fitted model with LIME and SHAP."
+        ),
+    },
+    {
+        "number": 5, "title": "Unsupervised Learning", "deck": "05-unsupervised-learning",
+        "worksheets": ("Worksheet_5.1_Clustering.ipynb",),
+        "data": ("dga-full.csv", "dga_features_final_df_domain.csv"),
+        "libraries": ("sklearn", "scipy"),
+        "concepts": (
+            "Clustering the same domain features without labels: k-means, hierarchical clustering and "
+            "reading a dendrogram, choosing k by elbow and silhouette, and how feature scaling changes "
+            "every distance in the problem. Interpreting a cluster is the hard part — a tight cluster "
+            "is only useful once you can say what its members have in common."
+        ),
+    },
+    {
+        "number": 6, "title": "Anomaly Detection", "deck": "06-anomaly-detection",
+        "worksheets": ("Worksheet_6.1_Anomaly_Detection.ipynb",),
+        "data": ("cpu-train-a.csv", "cpu-train-b.csv", "cpu-test-a.csv", "cpu-test-b.csv",
+                 "cpu-full-a.csv", "cpu-full-b.csv"),
+        "libraries": ("statsmodels", "pmdarima", "prophet"),
+        "concepts": (
+            "Anomalies in a CPU-utilisation time series: seasonal decomposition, forecasting with "
+            "ARIMA through pmdarima's auto-fit and with Prophet, and flagging a point by the size of "
+            "its residual against the forecast. Why the base rate makes anomaly detection an alerting "
+            "problem rather than a modelling one, and how a threshold trades recall for analyst time."
+        ),
+    },
+    {
+        "number": 7, "title": "Attacking Machine Learning Models",
+        "deck": "07-attacking-machine-learning-models",
+        "worksheets": ("Worksheet_7.1_Attacking_AI.ipynb",
+                       "Worksheet_7.2_FSGM_Attack_on_Image_Classifier.ipynb"),
+        "data": ("dga_decision_tree.pkl", "dga_features_final_df.csv"),
+        "libraries": ("sklearn", "torch"),
+        "concepts": (
+            "Attacking the models the earlier modules built. 7.1 evades the saved DGA decision tree by "
+            "moving a domain across the boundary in feature space. 7.2 runs a fast gradient sign method "
+            "attack on an image classifier, showing how a perturbation invisible to a person flips the "
+            "prediction. The lesson is the threat model: a deployed model is an attack surface."
+        ),
+    },
+    {
+        "number": 8, "title": "Deep Learning", "deck": "08-deep-learning",
+        "worksheets": ("Worksheet_8.1_Deep_Learning_CNN_Fingerprints.ipynb",
+                       "Worksheet_8.2_Deep_Learning_RNN_URL.ipynb"),
+        "data": ("fingerprints/", "url_data_small_deep_learning.csv",
+                 "url_data_mega_deep_learning.csv.zip"),
+        "libraries": ("tensorflow", "keras", "torch", "sklearn"),
+        "concepts": (
+            "Two architectures against two shapes of data: a convolutional network over fingerprint "
+            "images, and a recurrent network over URL character sequences. Layers, activations, loss "
+            "and optimiser; batch size and epochs; and reading a training curve for overfitting. Why a "
+            "sequence model can learn from a URL what hand-built features in Module 3 had to be told."
+        ),
+    },
+    {
+        "number": 9, "title": "Artificial Intelligence Introduction and Theory",
+        "deck": "09-artificial-intelligence-introduction-and-theory",
+        "worksheets": ("Worksheet_9.1_Classification_with_Embeddings.ipynb",
+                       "Worksheet_9.2_Unsupervised_Learning_with_Embeddings.ipynb",
+                       "Worksheet_9.3_PyTorch_in_20_Minutes.ipynb",
+                       "Worksheet_9.4_Tokenizers_and_Embeddings.ipynb",
+                       "Worksheet_9.5_Attention_and_Your_First_GPT.ipynb",
+                       "Worksheet_9.6_Fine_Tuning_and_Poisoning.ipynb"),
+        "data": ("Modified_SQL_Dataset.csv", "enriched_sql_injection_dataset_1000.csv",
+                 "clean_email.csv", "tiny_corpus.txt", "cyber_corpus.txt", "bpe_merges.json"),
+        "libraries": ("sentence_transformers", "torch", "sklearn"),
+        "concepts": (
+            "The path from embeddings to a transformer. 9.1 and 9.2 classify and cluster SQL-injection "
+            "payloads with sentence embeddings. 9.3 is PyTorch mechanics: tensors, autograd, a training "
+            "loop. 9.4 builds a byte-pair tokenizer. 9.5 implements attention and trains a small GPT on "
+            "a cyber corpus. 9.6 fine-tunes it and then poisons the fine-tuning data to show what a "
+            "corrupted training set does to a model that looks healthy."
+        ),
+    },
+    {
+        "number": 10, "title": "Prompt Engineering", "deck": "10-prompt-engineering",
+        "worksheets": ("Worksheet_10.1_Programmatic_LLM_Interaction.ipynb",
+                       "Worksheet_10.2_Classification_with_LLMs.ipynb"),
+        "data": ("cli_commands.txt", "cpu-train-b.csv", "cpu-test-b.csv", "vehicles/"),
+        "libraries": ("openai",),
+        "concepts": (
+            "Calling an LLM from code rather than a chat box: system versus user messages, temperature "
+            "and max tokens, few-shot examples, asking for structured output you can parse, and passing "
+            "an image. 10.2 uses the model as a classifier over security text and compares it with the "
+            "trained classifiers from Module 4. On Databricks both worksheets go through the "
+            "OpenAI-compatible client against the workspace serving endpoint, not an Anthropic key."
+        ),
+    },
+    {
+        "number": 11, "title": "AI Components", "deck": "11-ai-components",
+        "worksheets": ("Worksheet_11.1_AI_RAG_CVEs.ipynb",
+                       "Worksheet_11.2_Building_Agent_Tools.ipynb"),
+        "data": ("nvd_vulnerabilities_with_os.csv",),
+        "libraries": ("langchain", "langchain_community"),
+        "concepts": (
+            "The pieces an LLM application is assembled from. 11.1 builds retrieval-augmented generation "
+            "over an NVD vulnerability export: chunking, embedding, a vector store, and a prompt that "
+            "cites what it retrieved. 11.2 writes tools an agent can call — a schema, a docstring the "
+            "model actually reads, and a return value it can act on."
+        ),
+    },
+    {
+        "number": 12, "title": "Model Context Protocol", "deck": "12-model-context-protocol",
+        "worksheets": ("Worksheet_12.1_Building_an_MCP_Server.ipynb",),
+        "data": (),
+        "libraries": ("mcp", "fastmcp", "langchain_mcp_adapters"),
+        "concepts": (
+            "Model Context Protocol as the interface between a model and the tools it can reach: what a "
+            "server exposes (tools, resources, prompts), how a client discovers them, and the stdio "
+            "transport the worksheet's server runs over. Why a protocol beats a bespoke tool wrapper "
+            "once more than one client needs the same capability."
+        ),
+    },
+    {
+        "number": 13, "title": "AI Agents", "deck": "13-ai-agents",
+        "worksheets": ("Worksheet_13.1_Single_Email_Classifier.ipynb",
+                       "Worksheet_13.2_Tool_Calling_Agent.ipynb",
+                       "Worksheet_13.3_Conditional_Routing.ipynb",
+                       "Worksheet_13.4_human_in_the_loop.ipynb",
+                       "Worksheet_13.5_multi_agent_supervisor.ipynb"),
+        "data": (),
+        "libraries": ("langgraph", "langchain", "langgraph_supervisor"),
+        "concepts": (
+            "Agents as state graphs in LangGraph, built up over five worksheets: a single-node email "
+            "classifier, an agent that calls tools in a loop, conditional routing on the state, an "
+            "interrupt that puts a human in the loop before an action commits, and a supervisor "
+            "delegating to several specialist agents. Where each pattern earns its complexity, and "
+            "where a plain function call would have done."
+        ),
+    },
+    {
+        "number": 14, "title": "Red Teaming AI", "deck": "14-red-teaming-ai",
+        "worksheets": (), "data": (), "libraries": (),
+        "concepts": (
+            "Testing an AI system the way an attacker would: prompt injection through content the model "
+            "reads, jailbreaks against the system prompt, exfiltration through an agent's tools, and "
+            "supply-chain risk in models and datasets. Discussion module with no lab in the repo; the "
+            "Final Project is where the technique gets used."
+        ),
+    },
+    {
+        "number": 15, "title": "Final Project", "deck": "15-final-project",
+        "worksheets": (), "data": (),
+        "libraries": ("openai", "requests"),
+        "concepts": (
+            "The capstone: build and evaluate an agent that probes OWASP Juice Shop. The scaffold lives "
+            "in final_project/ — an agent package with HTTP and recon tools, an eval harness and a "
+            "scoring script, a design-document template, a write-up template and a rubric. It runs "
+            "locally against a Docker Compose stack, not on Databricks, because it needs a live target."
+        ),
+    },
+)
+
+
+_COURSE_SKILL = """# {name}
+
+Module {number} of AI Cyber Bootcamp 2026: {title}.
+
+## What this module teaches
+
+{concepts}
+
+## Deck
+
+`{deck}` — read a page's speaker notes with the deck-notes tool.
+
+## Labs
+
+{labs}
+
+## Data
+
+{data}
+
+## Libraries
+
+{libraries}
+"""
+
+
+def _bullets(items, empty: str) -> str:
+    return "\n".join(f"- `{i}`" for i in items) if items else empty
+
+
+def build_course_modules(dest: Path) -> list[dict]:
+    entries = []
+    for m in MODULES:
+        name = f"course-module-{m['number']:02d}"
+        labs = _bullets(
+            m["worksheets"],
+            "This module has no lab notebook in the repo — it is deck and discussion only."
+            if m["number"] != 15 else
+            "No worksheet. The capstone scaffold is `final_project/`, run locally.",
+        )
+        body = _COURSE_SKILL.format(
+            name=name, number=m["number"], title=m["title"], concepts=m["concepts"],
+            deck=m["deck"], labs=labs,
+            data=_bullets(m["data"], "No data files of its own."),
+            libraries=_bullets(m["libraries"], "No libraries beyond the course baseline."),
+        )
+        description = (
+            f"Module {m['number']} of AI Cyber Bootcamp 2026, {m['title']}: "
+            + " ".join(m["concepts"].split())
+        )
+        if len(description) > DESCRIPTION_MAX_CHARS:
+            description = description[:DESCRIPTION_MAX_CHARS].rsplit(" ", 1)[0].rstrip(",;:") + "…"
+        rel = f"{name}/SKILL.md"
+        (dest / name).mkdir(parents=True, exist_ok=True)
+        (dest / rel).write_text(render_skill(name, description, body), encoding="utf-8")
+        entries.append({"kind": "skill", "name": name, "description": description, "path": rel})
+    return entries
+
+
+def main(argv=None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--src", type=Path, default=DEFAULT_SRC,
+                        help="the claude-skills data-science suite (read-only)")
+    parser.add_argument("--dest", type=Path, default=DEFAULT_DEST,
+                        help="output tree; replaced wholesale on every run")
+    args = parser.parse_args(argv)
+
+    if args.dest.exists():
+        shutil.rmtree(args.dest)
+    args.dest.mkdir(parents=True)
+
+    entries = build_data_science(args.src, args.dest) + build_course_modules(args.dest)
+    entries.sort(key=lambda e: (e["kind"], e["name"]))
+    (args.dest / "index.json").write_text(
+        json.dumps(entries, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+
+    skills = sum(1 for e in entries if e["kind"] == "skill")
+    refs = len(entries) - skills
+    index_bytes = sum(len(e["name"]) + len(e["description"]) for e in entries)
+    print(f"wrote {skills} skills and {refs} references to {args.dest}")
+    print(f"index: {index_bytes} bytes of names and descriptions")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -191,3 +191,87 @@ def test_the_source_tree_is_not_modified(tmp_path):
     build_data_science(SRC, tmp_path)
     after = {p: p.stat().st_mtime_ns for p in SRC.rglob("*.md")}
     assert before == after
+
+
+# --- the course half ------------------------------------------------------
+
+from build_tutor_skills import MODULES, build_course_modules, main  # noqa: E402
+
+
+def test_sixteen_modules_numbered_zero_through_fifteen():
+    assert [m["number"] for m in MODULES] == list(range(16))
+
+
+def test_every_module_has_a_title_slug_and_concepts():
+    for m in MODULES:
+        assert m["title"] and m["deck"] and m["concepts"]
+        assert m["deck"].startswith(f"{m['number']:02d}-")
+
+
+def test_only_modules_zero_fourteen_and_fifteen_have_no_worksheets():
+    assert {m["number"] for m in MODULES if not m["worksheets"]} == {0, 14, 15}
+
+
+def test_worksheet_filenames_exist_in_the_repo():
+    notebooks = Path(__file__).resolve().parents[2] / "notebooks"
+    for m in MODULES:
+        for w in m["worksheets"]:
+            assert (notebooks / w).is_file(), f"module {m['number']}: {w} not in notebooks/"
+
+
+def test_data_files_exist_in_the_repo():
+    data = Path(__file__).resolve().parents[2] / "data"
+    for m in MODULES:
+        for f in m["data"]:
+            if f.endswith("/"):
+                assert (data / f.rstrip("/")).is_dir(), f"module {m['number']}: {f}"
+            else:
+                assert (data / f).is_file(), f"module {m['number']}: {f}"
+
+
+def test_build_course_modules_writes_sixteen_skills(tmp_path):
+    entries = build_course_modules(tmp_path)
+    assert len(entries) == 16
+    assert {e["name"] for e in entries} == {f"course-module-{n:02d}" for n in range(16)}
+    for e in entries:
+        assert (tmp_path / e["path"]).is_file()
+
+
+def test_a_module_skill_names_its_deck_worksheets_and_data(tmp_path):
+    build_course_modules(tmp_path)
+    text = (tmp_path / "course-module-04" / "SKILL.md").read_text(encoding="utf-8")
+    assert "Supervised Machine Learning" in text
+    assert "Worksheet_4.2_Tuning_Your_Classifier.ipynb" in text
+    assert "dga_features_final_df.csv" in text
+    assert "04-supervised-machine-learning" in text
+
+
+def test_a_module_without_a_lab_says_so(tmp_path):
+    build_course_modules(tmp_path)
+    text = (tmp_path / "course-module-14" / "SKILL.md").read_text(encoding="utf-8")
+    assert "no lab" in text.lower()
+
+
+def test_module_descriptions_are_indexable(tmp_path):
+    for e in build_course_modules(tmp_path):
+        assert 40 < len(e["description"]) <= 320
+
+
+def test_main_writes_index_json_covering_every_skill(tmp_path):
+    assert main(["--dest", str(tmp_path)]) == 0
+    index = json.loads((tmp_path / "index.json").read_text(encoding="utf-8"))
+    names = {e["name"] for e in index}
+    assert "data-science" in names
+    assert "ds-domain-cyber" in names
+    assert "course-module-09" in names
+    assert len([e for e in index if e["kind"] == "skill"]) == 38 + 16
+    assert len([e for e in index if e["kind"] == "reference"]) == 6
+    for e in index:
+        assert (tmp_path / e["path"]).is_file()
+
+
+def test_main_replaces_a_stale_tree(tmp_path):
+    (tmp_path / "ds-gone").mkdir(parents=True)
+    (tmp_path / "ds-gone" / "SKILL.md").write_text("stale", encoding="utf-8")
+    main(["--dest", str(tmp_path)])
+    assert not (tmp_path / "ds-gone").exists()
