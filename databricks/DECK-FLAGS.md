@@ -52,3 +52,9 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p67: `tokenize_data(d)` substitutes on `mac`, not `d`; `template_token` never defined; pandas and `good_macs` unused.
 - p69: the homoglyph is the Cyrillic letter er, not a "Russian Rho" (rho is Greek).
 - p15: "algorithms include" for "including". p65: Jaro "from each file" for "each string".
+
+## 10-prompt-engineering
+- p4: says an OpenAI API key is needed; the module and both worksheets use Anthropic (and, on Databricks, the workspace endpoint).
+- p41, p62: JSON rule asks for confidence to two decimal places; the worked example prints three (0.965, 0.823).
+- p17: frequency and presence penalty range shown as 0.0 to 2.0; OpenAI's range is -2.0 to 2.0, and the Anthropic Messages API has neither parameter.
+- p9, p56: "Programatically". p28: "doesn't'".
