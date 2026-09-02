@@ -33,6 +33,17 @@ def test_llm_seam_defines_both_helpers():
     assert "apiToken().get()" in SEAM_LLM
 
 
+def test_llm_seam_skills_home_branches_on_databricks(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    ns = {"dbutils": object()}
+    exec(compile(SEAM_LLM, "seam", "exec"), ns)
+    assert ns["SKILLS_HOME"] == ns["DATA_HOME"] + "skills/"
+
+    ns2 = {}
+    exec(compile(SEAM_LLM, "seam", "exec"), ns2)
+    assert ns2["SKILLS_HOME"] == "../ai_examples/skills/"
+
+
 def test_seam_text_composes():
     assert seam_text(with_llm=False) == SEAM_BASE
     combined = seam_text(with_llm=True)

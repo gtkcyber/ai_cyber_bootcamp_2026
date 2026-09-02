@@ -412,8 +412,10 @@ MODULES: list[Module] = [
             Sub('MODEL = "claude-opus-4-8"', "MODEL = COURSE_LLM_MODEL"),
             Sub('llm = ChatAnthropic(model=MODEL, api_key=os.getenv("ANTHROPIC_API_KEY"))',
                 "llm = make_llm()"),
+            # DATA_HOME + "skills/..." only exists on the volume. SKILLS_HOME (seam.py)
+            # branches to the local ai_examples/ path when not on Databricks.
             Sub('print(Path("../ai_examples/skills/triage-suspicious-url/SKILL.md").read_text())',
-                'print(Path(DATA_HOME + "skills/triage-suspicious-url/SKILL.md").read_text())'),
+                'print(Path(SKILLS_HOME + "triage-suspicious-url/SKILL.md").read_text())'),
         ],
     ),
     Module(
