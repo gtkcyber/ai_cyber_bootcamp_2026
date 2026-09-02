@@ -1,0 +1,170 @@
+# Declarative Automation Bundle for AI Cyber Bootcamp 2026: the slide-deck app
+# with its built-in tutor, and the two class-hours jobs. Everything account-side
+# (bucket, catalog, schema, volumes, student group, labs cluster) is Terraform in
+# gtk_aws/terraform/bootcamp and is NOT declared here.
+#
+# Deploy from this directory:
+#   /home/curtis/claude_projects/gtk_aws/bin/databricks bundle deploy -p gtk-workspace
+bundle:
+  name: ai-cyber-bootcamp
+
+variables:
+  chat_endpoint:
+    description: "Serving endpoint the tutor's chat calls go to (TUTOR_CHAT_ENDPOINT). 1M context, hybrid reasoning; the app sends reasoning_effort=low."
+    default: databricks-deepseek-v4-flash-0731
+  app_name:
+    description: "Databricks App name. Also the argv[2] the class-hours jobs start and stop."
+    default: bootcamp-slides
+  course_title:
+    default: "AI Cyber Bootcamp 2026"
+  decks_path:
+    description: "Volume directory holding one folder per deck, each with an index.html."
+    default: /Volumes/ai_cyber_bootcamp/course/app/decks
+  state_path:
+    description: "Volume directory holding per-user tutor conversation JSON."
+    default: /Volumes/ai_cyber_bootcamp/course/app/tutor_state
+  cluster_id:
+    description: "terraform/bootcamp output cluster_id: the bootcamp-labs cluster course_up/course_down start and terminate. Empty string skips the cluster half of both jobs."
+  student_group:
+    description: "Account group that gets CAN_USE on the app. Created by terraform/bootcamp."
+    default: bh_india_2026_students
+  schedules_paused:
+    description: "PAUSED until Curtis flips it for the class week (end of October 2026). UNPAUSED turns the class-hours jobs on."
+    default: PAUSED
+  start_cron:
+    description: "Quartz cron for course_up, in var.class_timezone."
+    default: "0 0 9 ? * MON-FRI"
+  stop_cron:
+    description: "Quartz cron for course_down. Runs Saturday too, so a Friday-evening miss still stops on Saturday."
+    default: "0 0 18 ? * MON-SAT"
+  class_timezone:
+    default: Asia/Kolkata
+
+# sync.paths scopes which top-level folders are considered at all, so the repo's
+# other trees (ai_labs/, ai_examples/, streamlit_examples/, final_project/, img/,
+# the environment-*.yml files) never enter the sync set. Within those folders the
+# default sync takes everything not gitignored, so `exclude` strips the rest.
+#
+# notebooks/ and answers/ sync because the tutor's read_lab tool reads them back
+# out of the workspace files path (TUTOR_LABS_PATH / TUTOR_ANSWERS_PATH), and
+# utils/ because the notebooks import it with sys.path.insert(0, "..").
+#
+# data/, slides/ and decks/ are named in `exclude` even though they are already
+# outside `paths`: 113 MB of course data, the source PDFs and ~200 MB of rendered
+# decks must never become bundle source, and the redundancy keeps that true if
+# someone later widens `paths`. Data reaches Databricks through the volume, decks
+# through upload_decks.py — neither through the bundle.
+sync:
+  paths:
+    - databricks/deck-viewer
+    - databricks/tutor-skills
+    - databricks/jobs
+    - notebooks
+    - answers
+    - utils
+  exclude:
+    - data/
+    - slides/
+    - decks/
+    - .venv/
+    - "**/.venv/"
+    - "**/__pycache__/"
+    - "**/.ipynb_checkpoints/"
+    - "**/.pytest_cache/"
+    - databricks/deck-viewer/tests/
+
+workspace:
+  # Staging location until Curtis supplies the read-only Git credential (spec
+  # Decision 1). When the workspace Git folder arrives this is the one line that
+  # changes: point file_path at the Git folder's path. Nothing else in this file
+  # or in the app depends on which of the two it is — the app only ever reads
+  # ${workspace.file_path}/... through the env vars below.
+  file_path: /Workspace/Users/curtis@gtkcyber.com/ai-cyber-bootcamp
+
+resources:
+  apps:
+    bootcamp_slides:
+      name: ${var.app_name}
+      description: "AI Cyber Bootcamp 2026 slides with a built-in tutor"
+      source_code_path: ./databricks/deck-viewer
+
+      # Each entry is one name + one resource map; `permission` is a single
+      # string, so READ_VOLUME and WRITE_VOLUME on the same volume are two
+      # entries. These grants are to the app's own service principal, which
+      # Databricks creates with the app and which cannot be reused or replaced.
+      resources:
+        - name: chat
+          serving_endpoint:
+            name: ${var.chat_endpoint}
+            permission: CAN_QUERY
+        - name: app-volume-read
+          uc_securable:
+            securable_type: VOLUME
+            securable_full_name: ai_cyber_bootcamp.course.app
+            permission: READ_VOLUME
+        - name: app-volume-write
+          uc_securable:
+            securable_type: VOLUME
+            securable_full_name: ai_cyber_bootcamp.course.app
+            permission: WRITE_VOLUME
+
+      # CAN_USE for the students. terraform/bootcamp creates the group and grants
+      # everything catalog-side, but not this: the app does not exist until this
+      # bundle deploys, so its permission has to live with it.
+      permissions:
+        - group_name: ${var.student_group}
+          level: CAN_USE
+
+      config:
+        env:
+          - name: DECKS_VOLUME_PATH
+            value: ${var.decks_path}
+          - name: COURSE_TITLE
+            value: ${var.course_title}
+          - name: TUTOR_STATE_PATH
+            value: ${var.state_path}
+          - name: TUTOR_CHAT_ENDPOINT
+            value: ${var.chat_endpoint}
+          - name: TUTOR_SKILLS_PATH
+            value: ${workspace.file_path}/databricks/tutor-skills
+          - name: TUTOR_LABS_PATH
+            value: ${workspace.file_path}/notebooks
+          - name: TUTOR_ANSWERS_PATH
+            value: ${workspace.file_path}/answers
+          - name: TUTOR_HOME_LABS_DIR
+            value: ${var.course_title}
+
+  jobs:
+    course_up:
+      name: ai-cyber-bootcamp-course-up
+      tasks:
+        - task_key: up
+          spark_python_task:
+            python_file: ./databricks/jobs/course_up.py
+            parameters: ["${var.cluster_id}", "${var.app_name}"]
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "3"
+      schedule:
+        quartz_cron_expression: ${var.start_cron}
+        timezone_id: ${var.class_timezone}
+        pause_status: ${var.schedules_paused}
+
+    course_down:
+      name: ai-cyber-bootcamp-course-down
+      tasks:
+        - task_key: down
+          spark_python_task:
+            python_file: ./databricks/jobs/course_down.py
+            parameters: ["${var.cluster_id}", "${var.app_name}"]
+          environment_key: default
+      environments:
+        - environment_key: default
+          spec:
+            client: "3"
+      schedule:
+        quartz_cron_expression: ${var.stop_cron}
+        timezone_id: ${var.class_timezone}
+        pause_status: ${var.schedules_paused}
