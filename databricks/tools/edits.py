@@ -159,10 +159,12 @@ MODULES: list[Module] = [
         "answers/Worksheet_7.2_FSGM_Attack_on_Image_Classifier-Answers.ipynb",
         "base",
         subs=[
-            Sub('train_full = datasets.CIFAR10("./data", train=True, download=True, transform=transform)',
-                'train_full = datasets.CIFAR10(WORK_HOME + "cifar10", train=True, download=True, transform=transform)'),
-            Sub('test_full  = datasets.CIFAR10("./data", train=False, download=True, transform=transform)',
-                'test_full  = datasets.CIFAR10(WORK_HOME + "cifar10", train=False, download=True, transform=transform)'),
+            # ~170 MB: must not land in workspace files. SCRATCH_HOME (seam.py) is the
+            # driver-local temp dir on Databricks, WORK_HOME (== DATA_HOME) locally.
+            Sub('train_full = datasets.CIFAR10(WORK_HOME + "cifar10", train=True, download=True, transform=transform)',
+                'train_full = datasets.CIFAR10(os.path.join(SCRATCH_HOME, "cifar10"), train=True, download=True, transform=transform)'),
+            Sub('test_full  = datasets.CIFAR10(WORK_HOME + "cifar10", train=False, download=True, transform=transform)',
+                'test_full  = datasets.CIFAR10(os.path.join(SCRATCH_HOME, "cifar10"), train=False, download=True, transform=transform)'),
         ],
     ),
     Module(

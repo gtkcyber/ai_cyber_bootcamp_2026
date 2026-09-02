@@ -6,20 +6,26 @@ SEAM_LLM is the Modules 10-13 extension: make_client() for the OpenAI SDK and
 make_llm() for LangChain, each with a local branch and a Databricks branch. It also
 carries SKILLS_HOME, the one path Module 11.2 needs into the ai_examples skill that
 ships with the course data on Databricks but stays at its original repo path locally.
+SEAM_BASE additionally carries SCRATCH_HOME, a driver-local scratch directory for
+large downloads (Module 7.2's CIFAR-10) that must not land on the volume or in
+Workspace Files.
 """
 
 SEAM_START = "# --- data-loader (local files / Databricks volume) ---"
 SEAM_END = "# --- end data-loader ---"
 
 _BODY = '''import os
+import tempfile
 try:
     dbutils  # defined only on Databricks
     DATA_HOME = os.environ.get("COURSE_DATA_HOME", "/Volumes/ai_cyber_bootcamp/course/data/")
     WORK_HOME = os.path.abspath("../work") + "/"
+    SCRATCH_HOME = tempfile.gettempdir()
     ON_DATABRICKS = True
 except NameError:
     DATA_HOME = "../data/"
     WORK_HOME = DATA_HOME
+    SCRATCH_HOME = WORK_HOME
     ON_DATABRICKS = False
 os.makedirs(WORK_HOME, exist_ok=True)
 

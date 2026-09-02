@@ -23,6 +23,16 @@ def test_base_seam_compiles_and_runs_locally(tmp_path, monkeypatch):
     assert ns["DATA_HOME"] == "../data/"
     assert ns["WORK_HOME"] == "../data/"
     assert ns["handoff"]("nope.csv") == "../data/nope.csv"
+    assert ns["SCRATCH_HOME"] == ns["WORK_HOME"]
+
+
+def test_scratch_home_is_driver_local_temp_on_databricks(tmp_path, monkeypatch):
+    import tempfile
+
+    monkeypatch.chdir(tmp_path)
+    ns = {"dbutils": object()}
+    exec(compile(SEAM_BASE, "seam", "exec"), ns)
+    assert ns["SCRATCH_HOME"] == tempfile.gettempdir()
 
 
 def test_llm_seam_defines_both_helpers():
