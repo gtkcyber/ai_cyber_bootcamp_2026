@@ -206,7 +206,7 @@
     body.innerHTML = renderMarkdown(text);
     div.appendChild(body);
     if (citations && citations.length) {
-      div.appendChild(buildCitationStrip(citations));
+      div.appendChild(buildSourceStrip(citations));
     }
     thread.appendChild(div);
     thread.scrollTop = thread.scrollHeight;
@@ -221,23 +221,29 @@
     thread.scrollTop = thread.scrollHeight;
   }
 
-  function buildCitationStrip(citations) {
+  // What the tutor read, one chip each. A deck chip opens that deck; a lab or
+  // answer chip resolves a workspace link; a skill or reference chip is a
+  // label, because there is nowhere for a student to go and look at one.
+  function buildSourceStrip(sources) {
     var strip = document.createElement('div');
     strip.className = 'citations';
-    citations.forEach(function (c) {
+    (sources || []).forEach(function (s) {
       var chip = document.createElement('button');
       chip.type = 'button';
       chip.className = 'citation-chip';
-      chip.textContent = c.label;
-      chip.onclick = function () {
-        if (c.source === 'lab') {
-          fetch(API + '/lab-link?notebook=' + encodeURIComponent(c.notebook))
+      chip.textContent = s.name;
+      if (s.kind === 'deck') {
+        chip.onclick = function () { window.deckViewer.open(s.name, 1); };
+      } else if (s.kind === 'lab' || s.kind === 'answer') {
+        chip.onclick = function () {
+          fetch(API + '/lab-link?notebook=' + encodeURIComponent(s.name))
             .then(function (r) { return r.json(); })
             .then(function (d) { if (d.url) window.open(d.url, '_blank'); });
-        } else {
-          window.deckViewer.open(c.deck_id, c.h, c.v);
-        }
-      };
+        };
+      } else {
+        chip.classList.add('citation-chip-plain');
+        chip.disabled = true;
+      }
       strip.appendChild(chip);
     });
     return strip;
@@ -344,11 +350,11 @@
       } else if (event === 'token') {
         liveBuffer += payload.text;
         scheduleRender();
-      } else if (event === 'citations') {
+      } else if (event === 'sources') {
         var h = ensureBubble();
         var existing = h.el.querySelector('.citations');
         if (existing) existing.remove();
-        h.el.appendChild(buildCitationStrip(payload));
+        h.el.appendChild(buildSourceStrip(payload));
         thread.scrollTop = thread.scrollHeight;
       } else if (event === 'done') {
         flush();

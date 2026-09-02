@@ -116,9 +116,29 @@ def test_deck_route_refuses_a_traversal_segment(app_module):
     assert client.get("/decks/../../etc/passwd").status_code in (404, 308)
 
 
-def test_tutor_routes_answer_503_until_the_tutor_is_built(app_module):
+def test_a_skills_load_failure_still_leaves_the_deck_viewer_serving(app_module):
+    """The tutor is an add-on; its setup failing must not take the viewer down.
+
+    The app fixture's fake WorkspaceClient has no workspace API, so the real
+    _setup_tutor_blueprint raises when it reads index.json -- which is the
+    failure this asserts on, without needing to simulate one.
+    """
+    _decks(app_module, {"00-introduction":
+                        _title("AI Cyber Bootcamp 2026 — Module 0: Introduction")})
     client = app_module.app.test_client()
     assert client.get("/api/tutor/me").status_code == 503
+    assert client.get("/api/decks").get_json() == [
+        {"id": "00-introduction", "title": "Module 0 — Introduction"}]
+
+
+def test_the_tutor_blueprint_is_the_real_one_when_setup_succeeds(app_module, monkeypatch):
+    from flask import Blueprint
+    monkeypatch.setattr(app_module, "_setup_tutor_blueprint",
+                        lambda: Blueprint("tutor", __name__))
+    from tutor.fallback import setup_or_fallback
+    bp = setup_or_fallback(app_module._setup_tutor_blueprint)
+    assert bp.name == "tutor"
+    assert not any("unavailable" in str(r) for r in bp.deferred_functions)
 
 
 def test_the_shell_carries_the_course_title(app_module):

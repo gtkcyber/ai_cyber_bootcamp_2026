@@ -26,9 +26,21 @@ from databricks.sdk.errors import NotFound
 from flask import Blueprint, Flask, Response, abort, jsonify
 
 from tutor.fallback import setup_or_fallback
+from tutor.files import VolumeFiles, WorkspaceTextFiles
+from tutor.llm import Toolbox, Tutor
+from tutor.routes import make_blueprint
+from tutor.sessions import SessionStore
+from tutor.skills import CourseMaterial, SkillLibrary
+from tutor.throttle import Throttle
 
 VOLUME_ROOT = os.environ["DECKS_VOLUME_PATH"].rstrip("/")
 COURSE_TITLE = os.environ.get("COURSE_TITLE", "AI Cyber Bootcamp 2026")
+TUTOR_STATE_PATH = os.environ["TUTOR_STATE_PATH"]
+TUTOR_CHAT_ENDPOINT = os.environ["TUTOR_CHAT_ENDPOINT"]
+TUTOR_SKILLS_PATH = os.environ["TUTOR_SKILLS_PATH"]
+TUTOR_LABS_PATH = os.environ["TUTOR_LABS_PATH"]
+TUTOR_ANSWERS_PATH = os.environ["TUTOR_ANSWERS_PATH"]
+TUTOR_HOME_LABS_DIR = os.environ.get("TUTOR_HOME_LABS_DIR", COURSE_TITLE)
 
 app = Flask(__name__)
 w = WorkspaceClient()
@@ -113,8 +125,29 @@ def index():
     return INDEX_HTML.replace("__COURSE_TITLE__", html.escape(COURSE_TITLE))
 
 
+def _lab_exists(path: str) -> bool:
+    try:
+        w.workspace.get_status(path)
+        return True
+    except NotFound:
+        return False
+
+
 def _setup_tutor_blueprint() -> Blueprint:
-    raise NotImplementedError("the tutor is not wired up yet")
+    volume = VolumeFiles(w)
+    workspace = WorkspaceTextFiles(w)
+    library = SkillLibrary.load(workspace, TUTOR_SKILLS_PATH)
+    material = CourseMaterial(files=workspace, labs_path=TUTOR_LABS_PATH,
+                              answers_path=TUTOR_ANSWERS_PATH,
+                              decks_path=VOLUME_ROOT, deck_files=volume)
+    tutor = Tutor.from_workspace(w, TUTOR_CHAT_ENDPOINT, Toolbox(library, material))
+    store = SessionStore(volume, TUTOR_STATE_PATH)
+    return make_blueprint(
+        library, material, tutor, store, Throttle(),
+        dev_user=os.environ.get("TUTOR_DEV_USER"), workspace_host=w.config.host,
+        labs_shared=TUTOR_LABS_PATH, home_labs_dir=TUTOR_HOME_LABS_DIR,
+        lab_exists=_lab_exists,
+    )
 
 
 # A tutor-side failure -- a missing skills tree, a grant not yet propagated, a

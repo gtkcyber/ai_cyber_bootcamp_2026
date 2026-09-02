@@ -64,3 +64,5 @@ body.tutor-closed #tutor { transform: translateY(calc(-100% - var(--topbar-h)));
 #tutor-composer button:disabled { opacity: .5; cursor: default; }
 
 #tutor-footer { padding: 8px 12px 10px; font-size: 11px; color: #7a8494; border-top: 1px solid #333a47; flex-shrink: 0; }
+
+.citation-chip-plain { cursor: default; }
