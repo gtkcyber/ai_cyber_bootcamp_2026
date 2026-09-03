@@ -152,3 +152,30 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p100: "nearly 100k models on HuggingFace" is dated; the hub passed one million models in 2024.
 - Unsure pages p9 (module title card) and p59 (Method 1 of the tokenization sequence) ruled own slides.
 - Spot-check: p57 note restates the slide's July 2026 price table as an input-to-output ratio; p72 note names max_tokens (Anthropic) and max_completion_tokens (OpenAI); p101 note cites JFrog's February 2024 report of about a hundred malicious models on Hugging Face.
+
+## 01-exploratory-data-analysis
+- p14: panda photograph with no text; talking point not inferable (UNRESOLVED note).
+- p15: says pandas 2.0 was released March 2023; 2.0.0 shipped April 3, 2023.
+- p29: `series2.reset_index(drop=True)` result is not assigned, so the line has no effect on series2.
+- p30, p31, p32: dict literal opens with a curly quote (`{‘firstname'`), a syntax error if pasted.
+- p32: `record[0]` on a string-indexed Series uses the deprecated positional fallback (FutureWarning in 2.x); `record.iloc[0]` is the stable form.
+- p33, p34: `np.random.random_integers` is deprecated since NumPy 1.11; `np.random.randint(1, 101, 50)` or `default_rng().integers` replaces it.
+- p39: `series.dt.strftime()` shown with empty parentheses; the format argument is required.
+- p46, p47: formulas divide by n, but `data.var()` and `data.std()` default to ddof=1 (n minus one).
+- p49: "Lower Quartile: Smallest 25% of the dataset" describes a subset; the quartile is the cut-point value.
+- p51: `Series.sum` and `Series.std` are missing their parentheses.
+- p53: variable is `random_numbers`; the earlier slides use `randomNumbers`.
+- p54, p55: list literal is missing the closing quote after 'Jim (`'Jim,'Jane'`) and will not parse.
+- p57: `Series.iteritems()` was removed in pandas 2.0; `items()` is the replacement.
+- p80: "ES" is never expanded; PCAP is a file format, not a platform.
+- p85: `sheetname=` should be `sheet_name=` (old spelling removed from pandas in 2017).
+- p86: the "changed" value lacks the space between date and time; keys use curly quotes.
+- p94: regex is wrapped mid-token on the slide (`(? P<PID>`); the captured number is the MySQL connection id, not a PID; table header "Date" does not match the group name "date".
+- p97, p98: curly quotes inside the format string and the `open(“…”)` call; `data = {}` on p98 is dead code. The slides use apache_log_parser while Worksheet 1.1 uses the apachelogs library.
+- p104: `from pandas.io.json import json_normalize` is deprecated since pandas 1.0 (`pd.json_normalize`); the `pd.DataFrame(...)` wrapper is redundant.
+- p106, p107: "ElasticSearch" should be "Elasticsearch"; p107 omits the imports it needs (ElasticDF, SplunkDF, datetime, timedelta).
+- p116: stray pilcrow "¶" copied from the docs anchor at the end of the signature.
+- p129: descriptions for left and right joins are wrong; they describe anti-joins ("items in A but not in B"), not outer joins.
+- p141: "compliment" should be "complement".
+- p145: slide calls the lab "Worksheet 1.1: Exploratory Data Analysis"; the notebook is titled "Vectorized Data Structures".
+- Unsure rulings awaiting Curtis: p103 own slide; p131 own slide (section divider); p128 is a build stage of p129 and p132 of p133 (each merge is a `kind` edit plus deleting that page's note section); p102, classified `slide`, is plainly an earlier stage of p103.

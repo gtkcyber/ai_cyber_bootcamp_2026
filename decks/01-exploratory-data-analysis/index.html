@@ -19,87 +19,138 @@
     <div class="page-stack">
       <img class="page" src="pages/p001.webp" alt="GTK Cyber Module 1: Exploratory Data Analysis">
     </div>
+    <aside class="notes">
+      <p>Module 1 introduces pandas, the Python library for tabular data, from the vectorized data structures it is built on up to the operations used to explore a dataset. Worksheet 1.1 is the lab for this module.</p>
+    </aside>
   </section>
   <section data-page="2">
     <div class="page-stack">
       <img class="page" src="pages/p002.webp" alt="GTK Cyber Overview • This module will introduce you to vectorized data structures and the Pandas library. • You will learn how to explore tabular data sets. • Pandas 2.0">
     </div>
+    <aside class="notes">
+      <p>The module has two goals. Vectorized data structures: what they are, why they replace loops, and the two pandas objects that implement them, the Series and the DataFrame. Exploring tabular data: loading a dataset into a DataFrame and using pandas to inspect, filter and summarize it. The code throughout targets pandas 2.0 and later.</p>
+    </aside>
   </section>
   <section data-page="3">
     <div class="page-stack">
       <img class="page" src="pages/p003.webp" alt="GTK Cyber A Word On Vibe Coding... • We fully expect (and encourage) you to use AI to generate the answers to the labs and exercises. • However, understanding the structure and mec">
     </div>
+    <aside class="notes">
+      <p>Using AI to write the lab code is expected. The quality of what a model produces depends on the direction it is given, and giving good direction about pandas requires knowing what a Series and a DataFrame are, how indexing works, and which operation a task calls for. Write the early exercises by hand until those concepts are familiar, then hand the typing to a model.</p>
+    </aside>
   </section>
   <section data-page="4">
     <div class="page-stack">
       <img class="page" src="pages/p004.webp" alt="GTK Cyber Why do this at all? • While you *can* send data to an LLM, there are issues with doing so: • There are fundamental limits as to how much data you can send to an LLM. • An">
     </div>
+    <aside class="notes">
+      <p>Pasting a dataset into a language model prompt is a poor way to analyze it. Context limits: a model accepts a bounded number of tokens per request, and a full telemetry table exceeds it. Cost and speed: every row sent is billed and processed as text, so a question over a large table is slow and expensive next to a pandas operation on the same data. Auditability: a model's answer arrives without the computation that produced it, so nobody can rerun or check it. Accuracy: a model can state a wrong figure with the same fluency as a right one.</p>
+    </aside>
   </section>
   <section data-page="5">
     <div class="page-stack">
       <img class="page" src="pages/p005.webp" alt="GTK Cyber A Better Approach with AI • Include a description of the data&#x27;s schema and perhaps a sample in your AI prompt. • Have the LLM generate python code to accomplish your task">
     </div>
+    <aside class="notes">
+      <p>The working pattern is to have the model write pandas code and to run that code over the data locally. Give the prompt the schema: column names, types, and what each column holds, plus a few sample rows if the values need illustrating. Ask for Python that performs the task. The code runs over the full dataset at pandas speed, its output can be inspected, and the code itself is the audit trail. Module 10, Prompt Engineering, covers how to write such prompts.</p>
+    </aside>
   </section>
   <section data-page="6">
     <div class="page-stack">
       <img class="page" src="pages/p006.webp" alt="GTK Cyber Vectorized Data Structures">
     </div>
+    <aside class="notes">
+      <p>This part defines vectorized data structures and explains why pandas is built on them.</p>
+    </aside>
   </section>
   <section data-page="7">
     <div class="page-stack">
       <img class="page" src="pages/p007.webp" alt="GTK Cyber What are they?">
     </div>
+    <aside class="notes">
+      <p>A definition of vectorized data structures follows, with the loop they replace and the table layout they assume.</p>
+    </aside>
   </section>
   <section data-page="8">
     <div class="page-stack">
       <img class="page" src="pages/p008.webp" alt="GTK Cyber Vectorized Data Structures let you perform operations on your data all at once">
     </div>
+    <aside class="notes">
+      <p>A vectorized data structure applies an operation to every element it holds in one call. Adding one to a column, comparing a column against a threshold, or multiplying two columns together is written once, as an expression over whole columns, and the library carries it out across all the rows. The plain Python alternative is a loop that visits each element in turn.</p>
+    </aside>
   </section>
   <section data-page="9">
     <div class="page-stack">
       <img class="page" src="pages/p009.webp" alt="GTK Cyber Advantages of Vectorized Data Structures • More readable and simpler code • Allows the module to optimize for CPU and Memory usage • Pass serialized objects from one syst">
     </div>
+    <aside class="notes">
+      <p>Three properties follow from operating on whole columns. Readability: an expression over a column states what is computed, and the bookkeeping of loop variables and positions disappears. Performance: the library sees the whole operation at once, so it can run it in compiled code over a contiguous block of memory instead of interpreting one Python statement per element, and it can pick a compact storage type for the column. Interchange: a column or table is one object with a known layout, so it can be serialized whole and passed to another process or system.</p>
+    </aside>
   </section>
   <section data-page="11">
     <div class="page-stack">
       <img class="page" src="pages/p010.webp" alt="GTK Cyber for x in range(0, len( data )): data[x] = data[x] + 1">
       <img class="page fragment" src="pages/p011.webp" alt="GTK Cyber for x in range(0, len( data )): data[x] = data[x] + 1 odds = evens + 1">
     </div>
+    <aside class="notes">
+      <p>The loop increments each element one at a time: Python fetches an element, adds one, stores it back, and advances the position, once per row, with the interpreter's overhead paid on every pass. The vectorized form states the same computation once for the entire column. With <code>evens</code> holding a column of even numbers, <code>odds = evens + 1</code> produces a new column with one added to every element, and the addition runs inside the library.</p>
+    </aside>
   </section>
   <section data-page="12">
     <div class="page-stack">
       <img class="page" src="pages/p012.webp" alt="GTK Cyber">
     </div>
+    <aside class="notes">
+      <p>Column arithmetic depends on a table layout in which each variable has its own column and each observation has its own row. In that layout, <code>F = M * A</code> multiplies column M by column A one row at a time and writes the products into a new column F, with the expression written once for every row. The layout is what makes the expression meaningful: a column is a vector of one variable's values, so arithmetic between two columns pairs up values that belong to the same observation.</p>
+    </aside>
   </section>
   <section data-page="13">
     <div class="page-stack">
       <img class="page" src="pages/p013.webp" alt="GTK Cyber No loops">
     </div>
+    <aside class="notes">
+      <p>Python and R both provide vectorized structures. An R vector or data frame column takes an operation applied to every element with no loop written by the analyst, which is the same idiom pandas provides in Python.</p>
+    </aside>
   </section>
   <section data-page="14">
     <div class="page-stack">
       <img class="page" src="pages/p014.webp" alt="GTK Cyber">
     </div>
+    <aside class="notes">
+      <p class="unresolved">UNRESOLVED</p>
+    </aside>
   </section>
   <section data-page="15">
     <div class="page-stack">
       <img class="page" src="pages/p015.webp" alt="GTK Cyber What is Pandas? • Pandas is the standard OSS data manipulation library for Python • At its core, it is a collection of vectorized data structures. • Pandas is the foundat">
     </div>
+    <aside class="notes">
+      <p>The pandas library is the open-source foundation of Python data analysis. Its core is a set of vectorized data structures, the Series and the DataFrame, with a large library of operations over them. The rest of the Python data science stack assumes it: scikit-learn accepts DataFrames as input, and Matplotlib and Seaborn plot from them. Version 2.0.0 was released on April 3, 2023; its headline additions were optional Apache Arrow-backed column types and a copy-on-write mode, and the code in this course assumes 2.0 or later.</p>
+    </aside>
   </section>
   <section data-page="16">
     <div class="page-stack">
       <img class="page" src="pages/p016.webp" alt="GTK Cyber Dimensions Name Description 1 Series Indexed 1 dimensional data structure 1 Timeseries Series using timestamps as an index 2 DataFrame A two dimensional table 3 Panel A t">
     </div>
+    <aside class="notes">
+      <p>pandas names its structures by dimension. Series: a one-dimensional array with an index, one label per element. Timeseries: a Series whose index holds timestamps. It has no class of its own; the datetime index is what enables time-based slicing and resampling. DataFrame: a two-dimensional table of rows and columns, where each column is a Series and all columns share the row index. Panel: a three-dimensional container that was deprecated in pandas 0.20 and removed in 0.25 in 2019; a third dimension is now represented with a hierarchical index on a DataFrame or with the xarray library.</p>
+    </aside>
   </section>
   <section data-page="17">
     <div class="page-stack">
       <img class="page" src="pages/p017.webp" alt="GTK Cyber Image Source: https://www.tutorialspoint.com/python_pandas/python_pandas_dataframe.htm">
     </div>
+    <aside class="notes">
+      <p>A DataFrame is a table. Each column has a name and holds one variable, here a registration number, a name and a mark; each row is one record, here one student. Every column is a Series, and all of the columns share one row index, so a value is addressed by a row label and a column name.</p>
+    </aside>
   </section>
   <section data-page="18">
     <div class="page-stack">
       <img class="page" src="pages/p018.webp" alt="GTK Cyber The Series Object">
     </div>
+    <aside class="notes">
+      <p>This part covers the Series: creating one, reading elements by position and by label, and filtering and transforming its values.</p>
+    </aside>
   </section>
   <section data-page="21">
     <div class="page-stack">
@@ -107,189 +158,300 @@
       <img class="page fragment" src="pages/p020.webp" alt="GTK Cyber A Series is like a list or a dictionary">
       <img class="page fragment" src="pages/p021.webp" alt="GTK Cyber A Series is like a list or a dictionary but BETTER!!">
     </div>
+    <aside class="notes">
+      <p>A Series is an ordered sequence of values, readable by position and sliceable as a list is, and each value also carries a label in the index, so a value can be looked up by label as in a dictionary. Beyond either container, a Series is vectorized: an arithmetic operation, a comparison or a string method applies to every element in a single operation, and the values sit in a typed array that the library can process at native speed.</p>
+    </aside>
   </section>
   <section data-page="22">
     <div class="page-stack">
       <img class="page" src="pages/p022.webp" alt="GTK Cyber The Series is the primary building block for all the other data structures we will discuss">
     </div>
+    <aside class="notes">
+      <p>The DataFrame is built from Series: each of its columns is a Series, and the columns share one index. Every operation covered for a Series, indexing, slicing, filtering, arithmetic and string methods, therefore carries over to a DataFrame column unchanged, and a row or column extracted from a DataFrame comes back as a Series.</p>
+    </aside>
   </section>
   <section data-page="23">
     <div class="page-stack">
       <img class="page" src="pages/p023.webp" alt="GTK Cyber import pandas as pd import numpy as np import matplotlib.pyplot as plt">
     </div>
+    <aside class="notes">
+      <p>These three imports open every notebook in this course, each under its conventional alias. pandas as <code>pd</code>: the data structures and operations this module covers. NumPy as <code>np</code>: the array library pandas builds on, which also supplies values such as <code>np.nan</code> for missing data. Matplotlib's pyplot as <code>plt</code>: the plotting interface used to draw charts from Series and DataFrames. The aliases are followed across the Python data ecosystem and in the documentation, so code that uses them reads the same everywhere.</p>
+    </aside>
   </section>
   <section data-page="24">
     <div class="page-stack">
       <img class="page" src="pages/p024.webp" alt="GTK Cyber myData = pd.Series( &lt;data&gt;, index=&lt;index&gt; ) Creating a Series">
     </div>
+    <aside class="notes">
+      <p>A Series is constructed from data plus an optional index. The data is the values: a list, a NumPy array, a dictionary or a scalar. The index is the sequence of labels, one per value; when it is omitted, pandas assigns integer positions starting at zero. When the data is a dictionary, its keys become the index and its values become the elements, so no index argument is needed.</p>
+    </aside>
   </section>
   <section data-page="25">
     <div class="page-stack">
       <img class="page" src="pages/p025.webp" alt="GTK Cyber Creating a Series series1 = pd.Series( [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;,&#x27;e&#x27;]) series2 = pd.Series({&#x27;firstName&#x27;:&#x27;Charles&#x27;, &#x27;lastName&#x27;:&#x27;Givre&#x27;})">
     </div>
+    <aside class="notes">
+      <p>Two ways to build a Series. From a list: <code>series1</code> holds the five strings a through e, and because no index was given, the labels are the integers zero to four. From a dictionary: <code>series2</code> takes the keys firstName and lastName as its index and Charles and Givre as its values. The dictionary form produces a labeled record, which is how a single row of a DataFrame is represented when it is pulled out on its own.</p>
+    </aside>
   </section>
   <section data-page="26">
     <div class="page-stack">
       <img class="page" src="pages/p026.webp" alt="GTK Cyber Accessing a Series series1 = pd.Series( [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;,&#x27;e&#x27;]) print( series1 ) 0 a 1 b 2 c 3 d 4 e dtype: object">
     </div>
+    <aside class="notes">
+      <p>Printing a Series lists the index beside the values, with the data type on a final line. The left column is the index, here the default positions zero to four; the right column holds the values. <code>dtype: object</code> is the storage type pandas chose for these values: object is the catch-all for Python strings and mixed content, where a numeric column would report int64 or float64 and support fast arithmetic.</p>
+    </aside>
   </section>
   <section data-page="27">
     <div class="page-stack">
       <img class="page" src="pages/p027.webp" alt="GTK Cyber Accessing a Series You can access items in a Pandas Series by index, similar to a python list. Just as in a regular list, indexing starts at zero. series1 = pd.Series( [&#x27;">
     </div>
+    <aside class="notes">
+      <p>Reading one element by index looks like list indexing. <code>series1[3]</code> returns d, the element at position three, because the default index labels the elements zero through four and label three is position three. The bracket looks up a label in the index; that label coincides with the position only because the index is the default. A Series built with custom labels is looked up by those labels, and position-based access goes through <code>.iloc</code>.</p>
+    </aside>
   </section>
   <section data-page="29">
     <div class="page-stack">
       <img class="page" src="pages/p028.webp" alt="GTK Cyber series1 = pd.Series( [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;,&#x27;e&#x27;]) print( series1[1:3] ) 1 b 2 c dtype: object Accessing a Series: Slicing">
       <img class="page fragment" src="pages/p029.webp" alt="GTK Cyber series1 = pd.Series( [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;,&#x27;e&#x27;]) print( series1[1:3] ) 1 b 2 c dtype: object series2 = series1[1:3] series2.reset_index( drop=True ) Accessing a Series">
     </div>
+    <aside class="notes">
+      <p>Slicing a Series by position returns the elements from the start position up to, and excluding, the end position. <code>series1[1:3]</code> returns b and c, and each keeps its original label, one and two, because a slice carries the index entries along with the values. The kept labels matter: the sliced Series <code>series2</code> no longer starts at zero, so <code>series2[0]</code> raises a KeyError. <code>reset_index(drop=True)</code> renumbers the index from zero; <code>drop=True</code> discards the old labels, and without it they would become a new column and the result would be a DataFrame. The method returns a new Series and leaves <code>series2</code> untouched unless the result is assigned back or <code>inplace=True</code> is passed; as written, the last line computes the renumbered Series and discards it.</p>
+    </aside>
   </section>
   <section data-page="31">
     <div class="page-stack">
       <img class="page" src="pages/p030.webp" alt="GTK Cyber record = pd.Series( {‘firstname&#x27;:&#x27;Charles&#x27;, &#x27;lastname&#x27;:&#x27;Givre&#x27;, &#x27;middle&#x27;:&#x27;classified&#x27; } ) record[&#x27;firstname&#x27;] Charles Accessing a Series">
       <img class="page fragment" src="pages/p031.webp" alt="GTK Cyber record = pd.Series( {‘firstname&#x27;:&#x27;Charles&#x27;, &#x27;lastname&#x27;:&#x27;Givre&#x27;, &#x27;middle&#x27;:&#x27;classified&#x27; } ) record[[&#x27;firstname&#x27;,&#x27;lastname&#x27;]] firstname Charles lastname Givre dtype: object ">
     </div>
+    <aside class="notes">
+      <p>Passing a list of labels inside the brackets selects several elements at once. <code>record[['firstname','lastname']]</code> returns a new Series holding just those two entries, labels included, in the order the list gives them. The outer brackets are the indexing operator and the inner brackets build the Python list of labels. A single label between one pair of brackets returns the bare value, while a list returns a Series.</p>
+    </aside>
   </section>
   <section data-page="32">
     <div class="page-stack">
       <img class="page" src="pages/p032.webp" alt="GTK Cyber record = pd.Series( {‘firstname&#x27;:&#x27;Charles&#x27;, &#x27;lastname&#x27;:&#x27;Givre&#x27;, &#x27;middle&#x27;:&#x27;classified&#x27; } ) record[0] Charles Accessing a Series">
     </div>
+    <aside class="notes">
+      <p>An integer between the brackets on a Series with string labels is treated as a position, so <code>record[0]</code> returns Charles, the first element. pandas 2.x still honors this with a FutureWarning, because the same bracket is label-based on an integer index and the warning states that a future version will treat integer keys as labels everywhere. Position-based access that is stable across versions is <code>record.iloc[0]</code>; label-based access is <code>record.loc['firstname']</code> or <code>record['firstname']</code>.</p>
+    </aside>
   </section>
   <section data-page="33">
     <div class="page-stack">
       <img class="page" src="pages/p033.webp" alt="GTK Cyber randomNumbers = pd.Series( np.random.random_integers(1, 100, 50) ) randomNumbers.head() 0 48 1 34 2 84 3 85 4 58 dtype: int64 Accessing a Series">
     </div>
+    <aside class="notes">
+      <p><code>head()</code> returns the first five elements of a Series, with their labels and the dtype line; <code>head(n)</code> returns the first n. Here the Series is fifty random integers between 1 and 100 drawn with NumPy, and the dtype is int64 because every value is a whole number. <code>head()</code> is the standard first look at any column or table, since it shows the shape of the values without printing thousands of rows. NumPy deprecated <code>np.random.random_integers</code> in version 1.11 in favor of <code>np.random.randint(1, 101, 50)</code>, whose upper bound is exclusive, or the generator form <code>np.random.default_rng().integers(1, 101, 50)</code>.</p>
+    </aside>
   </section>
   <section data-page="34">
     <div class="page-stack">
       <img class="page" src="pages/p034.webp" alt="GTK Cyber randomNumbers = pd.Series( np.random.random_integers(1, 100, 50) ) randomNumbers.tail( 7 ) 43 66 44 66 45 43 46 55 47 99 48 82 49 19 dtype: int64 Accessing a Series">
     </div>
+    <aside class="notes">
+      <p><code>tail(n)</code> returns the last n elements; <code>tail(7)</code> gives positions forty-three through forty-nine of the fifty-element Series. The labels are retained, so the output starts at 43, and the highest label is 49, one less than the length, because the default index starts at zero. head and tail together bracket a dataset: the first rows confirm the load parsed correctly, and the last rows catch trailing content such as a totals row or a truncated final record.</p>
+    </aside>
   </section>
   <section data-page="35">
     <div class="page-stack">
       <img class="page" src="pages/p035.webp" alt="GTK Cyber randomNumbers [ &lt;boolean condition&gt; ] randomNumbers [ randomNumbers &lt; 10 ] 12 5 21 2 24 1 27 1 29 1 dtype: int64 Filtering Data in a Series">
     </div>
+    <aside class="notes">
+      <p>A Series indexed with a boolean condition returns only the elements for which the condition is true. <code>randomNumbers &lt; 10</code> is itself a vectorized operation: it compares every element against ten and produces a Series of True and False values with the same index. Placing that boolean Series inside the brackets keeps the rows where it is True. The result retains the original labels, 12, 21, 24, 27 and 29 here, which record where in the source each kept element sat. Conditions combine with <code>&amp;</code> for and, <code>|</code> for or, and <code>~</code> for not, each side wrapped in parentheses because those operators bind more tightly than the comparisons.</p>
+    </aside>
   </section>
   <section data-page="36">
     <div class="page-stack">
       <img class="page" src="pages/p036.webp" alt="GTK Cyber record.str.contains(&#x27;Cha&#x27;) firstname True lastname False middle False dtype: bool record[ record.str.contains(&#x27;Cha&#x27;) ] firstname Charles dtype: object Filtering Data in a">
     </div>
+    <aside class="notes">
+      <p>String conditions filter the same way as numeric ones, through the <code>.str</code> accessor. <code>record.str.contains('Cha')</code> tests every value for the substring and returns a boolean Series with the original labels; only firstname holds a value containing Cha. Indexing with that boolean Series filters the record down to the matching entry. The <code>.str</code> accessor exposes Python's string methods, plus regular-expression variants, as vectorized operations over a Series of strings.</p>
+    </aside>
   </section>
   <section data-page="37">
     <div class="page-stack">
       <img class="page" src="pages/p037.webp" alt="GTK Cyber String Functions Function Explanation Series.str.contains(&lt;pattern&gt;) Returns true/false if text matches a pattern Series.str.count(&lt;pattern&gt;) Returns number of occurrence">
     </div>
+    <aside class="notes">
+      <p>The <code>.str</code> accessor's methods for matching and editing text. contains: True where the pattern occurs anywhere in the value; the pattern is a regular expression unless <code>regex=False</code> is passed. count: how many non-overlapping matches of the pattern each value holds. extract: the text captured by the pattern's parenthesized groups, one column per group, so the result is a DataFrame. find: the position of the first occurrence of a literal substring, or minus one if absent; no regular expressions. findall: every match of the pattern in each value, as a list per element. len: the number of characters in each value. replace: each match of the pattern replaced with the replacement string; since pandas 2.0 the pattern is treated as a literal unless <code>regex=True</code> is passed. Two related methods the table omits: match tests the pattern at the start of the value, and fullmatch requires the pattern to cover the whole value.</p>
+    </aside>
   </section>
   <section data-page="38">
     <div class="page-stack">
       <img class="page" src="pages/p038.webp" alt="GTK Cyber Date/Time Operations pd.to_datetime(&lt;times&gt;, format=&#x27;&lt;format string&gt;&#x27;)">
     </div>
+    <aside class="notes">
+      <p><code>pd.to_datetime</code> converts a Series of timestamp strings, or a list of them, into pandas datetime values. The format argument is a strftime pattern, for example <code>'%Y-%m-%d %H:%M:%S'</code> for 2024-05-01 13:45:00, that states how each string is laid out. Supplying it avoids guessing: pandas 2.0 infers a single format from the first value and applies it to all of them, and a value that does not fit the format raises an error. Once converted, the values are stored as 64-bit integers counting nanoseconds since 1970 by default, so comparisons, differences and sorting work as arithmetic, and the <code>.dt</code> accessor becomes available.</p>
+    </aside>
   </section>
   <section data-page="39">
     <div class="page-stack">
       <img class="page" src="pages/p039.webp" alt="GTK Cyber Selected Date/Time Operations Function Explanation series.dt.year Returns the year of the date time series.dt.month Returns the month of the date time series.dt.day Retur">
     </div>
+    <aside class="notes">
+      <p>The <code>.dt</code> accessor exposes the parts of a datetime column as vectorized properties. year, month and day: the calendar components as integer Series. weekday: the day of the week as an integer, Monday being zero and Sunday six. is_month_start: True for values that fall on the first day of their month. strftime: the datetimes rendered back into strings according to a format pattern, the inverse of to_datetime; it requires the pattern as an argument. These components are how a timestamp becomes a feature: an hour-of-day or day-of-week column extracted from an event time is what a model or a plot can use.</p>
+    </aside>
   </section>
   <section data-page="40">
     <div class="page-stack">
       <img class="page" src="pages/p040.webp" alt="GTK Cyber def addTwo( n ): return n + 2 odds.apply( addTwo )">
     </div>
+    <aside class="notes">
+      <p><code>apply</code> runs a Python function on every element and collects the results into a new Series. <code>addTwo</code> takes one value and returns it plus two; <code>odds.apply(addTwo)</code> calls it once per element and keeps the index. The cost is that each call is a Python function call, interpreted one element at a time, so apply gives up the compiled-code speed of a vectorized expression. For this example <code>odds + 2</code> computes the same result as one vectorized operation; apply is for logic that has no vectorized equivalent, such as a lookup or a multi-branch transformation.</p>
+    </aside>
   </section>
   <section data-page="41">
     <div class="page-stack">
       <img class="page" src="pages/p041.webp" alt="GTK Cyber odds.apply( lambda x: x + 1 )">
     </div>
+    <aside class="notes">
+      <p>A lambda is an unnamed function written inline, and apply accepts one in place of a named function. <code>lambda x: x + 1</code> takes one argument and adds one to it, so <code>odds.apply(lambda x: x + 1)</code> adds one to every element. It is the same element-by-element Python call as the named version, with the same speed penalty, and <code>odds + 1</code> does the same work vectorized.</p>
+    </aside>
   </section>
   <section data-page="42">
     <div class="page-stack">
       <img class="page" src="pages/p042.webp" alt="GTK Cyber Questions?">
     </div>
+    <aside class="notes">
+      <p>The Series section ends here. Summary statistics come next.</p>
+    </aside>
   </section>
   <section data-page="43">
     <div class="page-stack">
       <img class="page" src="pages/p043.webp" alt="GTK Cyber Exploring Your Data">
     </div>
+    <aside class="notes">
+      <p>The section that follows introduces the statistics used to summarize a column: measures of center and spread, the quantile-based five-number summary, the pandas methods that compute each, and counting distinct values.</p>
+    </aside>
   </section>
   <section data-page="44">
     <div class="page-stack">
       <img class="page" src="pages/p044.webp" alt="GTK Cyber • Mean: The mean is the average value of a set of numbers • Median: The median is the middle value of an ordered set of numbers • Mode: The mode is the value from a set w">
     </div>
+    <aside class="notes">
+      <p>Five statistics characterize a set of numbers. Mean: the sum divided by the count, which every value influences, so a single extreme value moves it. Median: the middle value once the set is sorted, or the average of the two middle values for an even count; extreme values do not move it, since only the order matters. Mode: the value that occurs most often; a set can have several modes, and for continuous measurements the mode is meaningless without binning. Range: the maximum minus the minimum, a spread measure determined entirely by the two most extreme values. Standard deviation: the typical distance of a value from the mean, in the same units as the data; a value near zero means the values cluster tightly around the mean.</p>
+    </aside>
   </section>
   <section data-page="45">
     <div class="page-stack">
       <img class="page" src="pages/p045.webp" alt="GTK Cyber Intro Stats: IQR The interquartile range is a measure of where the “middle fifty” is in a data set. Where a range is a measure of where the beginning and end are in a set">
     </div>
+    <aside class="notes">
+      <p>The interquartile range is the distance between the 75th and 25th percentiles, the span that holds the middle half of the sorted values. Unlike the range, which two extreme values determine, it is unchanged by an outlier at either end. In pandas, <code>quantile(q)</code> returns the value below which a fraction q of the data lies, so subtracting the 0.25 quantile from the 0.75 quantile computes it. The interquartile range also underlies Tukey's outlier fences: values further than one and a half times the interquartile range beyond either quartile are flagged.</p>
+    </aside>
   </section>
   <section data-page="46">
     <div class="page-stack">
       <img class="page" src="pages/p046.webp" alt="GTK Cyber Intro Stats: Variance The variance of a set of values, σ2, is the average of the square of the difference of the values in the dataset from the dataset&#x27;s mean. data.var(a">
     </div>
+    <aside class="notes">
+      <p>Variance measures spread as the average squared distance from the mean. For each value, subtract the mean and square the difference; the variance is the sum of those squares divided by the count. Squaring makes every term positive, so deviations below and above the mean accumulate with no canceling between them, and it weights large deviations more heavily than small ones. The formula as written divides by n, the population variance; <code>data.var()</code> in pandas divides by n minus one by default, the sample variance, which is the estimate to use when the data is a sample of a larger population. Pass <code>ddof=0</code> for the population form. <code>axis=0</code> computes down the rows, one variance per column of a DataFrame; a Series has only that axis.</p>
+    </aside>
   </section>
   <section data-page="47">
     <div class="page-stack">
       <img class="page" src="pages/p047.webp" alt="GTK Cyber Intro Stats: Std. Deviation The standard deviation, σ, is the square root of the variance: We use the standard deviation much more regularly than the variance because it ">
     </div>
+    <aside class="notes">
+      <p>The standard deviation is the square root of the variance. Taking the root brings the measure back to the units of the data: for a column of byte counts the variance is in bytes squared, and the standard deviation is in bytes, so it can be read against the mean directly. That is the reason it is reported in place of the variance, and it is the unit of a z-score, a value's distance from the mean in standard deviations, which is how unusual a single value is expressed. <code>data.std()</code> follows the same sample convention as <code>data.var()</code>, with n minus one in the denominator unless <code>ddof=0</code> is passed.</p>
+    </aside>
   </section>
   <section data-page="48">
     <div class="page-stack">
       <img class="page" src="pages/p048.webp" alt="GTK Cyber Intro Stats: Covariance Covariance, like the variance, is a measure of spread, however it also measures how closely two datasets track each other. • Covariance is a squar">
     </div>
+    <aside class="notes">
+      <p>Covariance measures how two variables move together. For each observation, multiply x's deviation from its mean by y's deviation from its mean; the covariance is the average of those products. When x and y tend to be above their means together and below together, the products are positive and the covariance is positive; when one is high while the other is low, the covariance is negative; when there is no relation, positive and negative products cancel toward zero. The magnitude is hard to interpret. It carries the units of x times the units of y, so it is on a different scale from either mean, and covariances of different variable pairs cannot be compared with each other. Dividing by the product of the two standard deviations removes the units and gives the Pearson correlation, which is bounded between minus one and one; <code>Series.corr</code> computes it and <code>Series.cov</code> computes the covariance.</p>
+    </aside>
   </section>
   <section data-page="49">
     <div class="page-stack">
       <img class="page" src="pages/p049.webp" alt="GTK Cyber Tukey 5 Number Summary • Minimum: The smallest value in the dataset • Lower Quartile: Smallest 25% of the dataset • The Median: The middle value of the dataset • Upper Qu">
     </div>
+    <aside class="notes">
+      <p>The five-number summary describes a distribution with its minimum, lower quartile, median, upper quartile and maximum. It is named for John Tukey, pronounced TOO-kee, the American statistician who coined the term exploratory data analysis and, in his 1977 book of that name, introduced this summary and the box plot that draws it. Each quartile is a cut point: the lower quartile is the value below which a quarter of the data lies, and the upper quartile is the value below which three quarters lie, so half of the data sits between them. All five come from the sorted order of the values, so a few extreme values move only the minimum and the maximum.</p>
+    </aside>
   </section>
   <section data-page="50">
     <div class="page-stack">
       <img class="page" src="pages/p050.webp" alt="GTK Cyber">
     </div>
+    <aside class="notes">
+      <p>The five-number summary on a number line from zero to one hundred. The minimum and maximum sit at the ends and the range spans the distance between them. The 25th percentile, the median at the 50th percentile, and the 75th percentile mark the quartile cut points; the interquartile range is the stretch between the 25th and 75th marks. For an even spread of values, as drawn, the quartiles fall at one quarter, one half and three quarters of the way across; a skewed distribution pulls them toward the crowded end.</p>
+    </aside>
   </section>
   <section data-page="51">
     <div class="page-stack">
       <img class="page" src="pages/p051.webp" alt="GTK Cyber Series.abs() Absolute Value of the Series Series.count() Returns number of non-empty values in the series Series.max() Returns maximum value in the Series Series.mean() R">
     </div>
+    <aside class="notes">
+      <p>The Series methods for these statistics. abs: each value's absolute value, as a new Series. count: the number of non-missing values, which is the denominator the mean uses. max and min: the largest and smallest values. mean and median: the average and the middle value. mode: the most frequent value, returned as a Series because more than one value can tie. quantile: the value at a given fraction, or one value per fraction when given a list. sum: the total. std: the sample standard deviation. Every method skips missing values, so count can be smaller than the length of the Series.</p>
+    </aside>
   </section>
   <section data-page="52">
     <div class="page-stack">
       <img class="page" src="pages/p052.webp" alt="GTK Cyber Series.describe()">
     </div>
+    <aside class="notes">
+      <p><code>describe</code> computes the statistics of this section together and returns them as a Series, with the set of statistics chosen by the column's data type.</p>
+    </aside>
   </section>
   <section data-page="53">
     <div class="page-stack">
       <img class="page" src="pages/p053.webp" alt="GTK Cyber Series.describe() &gt;&gt;&gt; random_numbers.describe() count 50.000000 mean 50.620000 std 30.102471 min 1.000000 25% 25.500000 50% 54.000000 75% 73.000000 max 99.000000 dtype: f">
     </div>
+    <aside class="notes">
+      <p>For a numeric Series, describe returns eight statistics. count: fifty non-missing values. mean: 50.62, the average. std: 30.10, the sample standard deviation. min and max: 1 and 99, the extremes. 25%, 50% and 75%: the quartiles, 25.5, 54 and 73, so half of these random integers lie between 25.5 and 73, and the median 54 sits a little above the mean. The result has dtype float64 because one Series holds all eight numbers and the count is stored alongside the fractional quantiles.</p>
+    </aside>
   </section>
   <section data-page="55">
     <div class="page-stack">
       <img class="page" src="pages/p054.webp" alt="GTK Cyber names = pd.Series( [&#x27;Jim&#x27;,&#x27;Bob&#x27;, &#x27;Bob&#x27;,&#x27;Steve&#x27;,&#x27;Jim,&#x27;Jane&#x27;,&#x27;Steph&#x27;,&#x27;Emma&#x27;,&#x27;Rachel&#x27;]) names.describe()">
       <img class="page fragment" src="pages/p055.webp" alt="GTK Cyber names = pd.Series( [&#x27;Jim&#x27;,&#x27;Bob&#x27;, &#x27;Bob&#x27;,&#x27;Steve&#x27;,&#x27;Jim,&#x27;Jane&#x27;,&#x27;Steph&#x27;,&#x27;Emma&#x27;,&#x27;Rachel&#x27;]) names.describe() count 9 unique 7 top Jim freq 2 dtype: object">
     </div>
+    <aside class="notes">
+      <p>For a Series of strings, describe switches to a categorical summary. count: nine values. unique: seven distinct names. top: the most frequent value. freq: how many times it appears. Jim and Bob each occur twice, so top reports one of the tied values, here Jim, with freq 2. The list in the code is missing a closing quote after Jim and will not parse as written; with the quote restored it holds the nine names counted here.</p>
+    </aside>
   </section>
   <section data-page="56">
     <div class="page-stack">
       <img class="page" src="pages/p056.webp" alt="GTK Cyber Finding Unique Values">
     </div>
+    <aside class="notes">
+      <p>Finding the distinct values in a column, and how often each occurs, is the subject of this section.</p>
+    </aside>
   </section>
   <section data-page="57">
     <div class="page-stack">
       <img class="page" src="pages/p057.webp" alt="GTK Cyber unique_nums = [] for key, value in random_numbers.iteritems(): if value not in unique_nums: unique_nums.append(value)">
     </div>
+    <aside class="notes">
+      <p>The loop collects the distinct values of a Series by hand: it walks every element with <code>iteritems</code>, checks whether the value is already in a Python list, and appends it if it is absent. Three things are wrong with it. The walk is one interpreted Python step per element. The membership test scans the list from the start every time, so the work grows with the square of the number of distinct values. <code>iteritems</code> was deprecated in pandas 1.5 and removed in 2.0, so under the version this course uses the code raises an AttributeError; <code>items</code> is the surviving name.</p>
+    </aside>
   </section>
   <section data-page="58">
     <div class="page-stack">
       <img class="page" src="pages/p058.webp" alt="GTK Cyber NO!!!">
     </div>
+    <aside class="notes">
+      <p>Do not write the loop. pandas computes the distinct values of a column with hash-based methods in one pass over the data, with no Python-level iteration.</p>
+    </aside>
   </section>
   <section data-page="59">
     <div class="page-stack">
       <img class="page" src="pages/p059.webp" alt="GTK Cyber series.drop_duplicates() series.unique()">
     </div>
+    <aside class="notes">
+      <p>Two methods return the distinct values of a Series. <code>drop_duplicates()</code> returns a Series: the first occurrence of each value is kept with its original index label, and later repeats are dropped. <code>unique()</code> returns a NumPy array of the distinct values in order of first appearance, with no index attached. Both hash the values, so the cost grows linearly with the length of the Series. <code>nunique()</code> returns just the number of distinct values, which is the figure the unique row of describe reports for a string column.</p>
+    </aside>
   </section>
   <section data-page="60">
     <div class="page-stack">
       <img class="page" src="pages/p060.webp" alt="GTK Cyber Counting Unique Occurrences">
     </div>
+    <aside class="notes">
+      <p>Counting the occurrences of each distinct value comes first here, followed by the histogram, line and box plots that show a column's distribution.</p>
+    </aside>
   </section>
   <section data-page="64">
     <div class="page-stack">
@@ -298,326 +460,518 @@
       <img class="page fragment" src="pages/p063.webp" alt="GTK Cyber series.value_counts(bins=5, normalize=True)">
       <img class="page fragment" src="pages/p064.webp" alt="GTK Cyber series.value_counts(bins=5, normalize=True, dropna=False)">
     </div>
+    <aside class="notes">
+      <p><code>value_counts</code> tallies how many times each distinct value appears and returns the tallies as a Series, indexed by the values and sorted with the largest count first. Three arguments change what is counted. bins: for a numeric Series, the values are split into that many equal-width intervals and the count is per interval, which is a histogram in table form. normalize: each count is divided by the total, so the result is the fraction of rows each value or interval accounts for. dropna: missing values are excluded by default; passing False adds a row that counts them, which is how a column's missing-value rate is checked. Since pandas 2.0 the returned Series is named count, or proportion when normalized.</p>
+    </aside>
   </section>
   <section data-page="65">
     <div class="page-stack">
       <img class="page" src="pages/p065.webp" alt="GTK Cyber">
     </div>
+    <aside class="notes">
+      <p>The output of <code>value_counts</code> on a Series of telephone area codes. Each row pairs a distinct value with the number of times it occurs, 833 seven times, 811 and 822 five times each, down to 855 twice, and the rows are ordered by count, largest first. The values have become the index and the counts are the data, with dtype int64. The counts add up to the number of non-missing rows in the source.</p>
+    </aside>
   </section>
   <section data-page="66">
     <div class="page-stack">
       <img class="page" src="pages/p066.webp" alt="GTK Cyber series.hist()">
     </div>
+    <aside class="notes">
+      <p><code>hist</code> draws a histogram of a numeric Series: the range of values is divided into intervals called bins, and a bar over each bin shows how many values fall in it. pandas delegates the drawing to Matplotlib, which is why the pyplot import at the start of the module is needed, and the bin count defaults to ten.</p>
+    </aside>
   </section>
   <section data-page="67">
     <div class="page-stack">
       <img class="page" src="pages/p067.webp" alt="GTK Cyber series.hist()">
     </div>
+    <aside class="notes">
+      <p>The default histogram of the fifty random integers: ten bins over the range one to one hundred, each about ten wide. Bar heights run from one to eight. The values were drawn uniformly, so every bin's expected count is five, and the variation between bins is sampling noise from a draw of only fifty values. This is what a uniform distribution looks like at a small sample size.</p>
+    </aside>
   </section>
   <section data-page="68">
     <div class="page-stack">
       <img class="page" src="pages/p068.webp" alt="GTK Cyber series.hist(bins=40)">
     </div>
+    <aside class="notes">
+      <p>With forty bins, each interval is about two and a half units wide and holds zero, one or two values, with one bin reaching six. The bars record where individual values happened to land, and the spread of the distribution is no longer readable. Too many bins for the number of values turns a histogram into a picture of noise.</p>
+    </aside>
   </section>
   <section data-page="69">
     <div class="page-stack">
       <img class="page" src="pages/p069.webp" alt="GTK Cyber series.hist(bins=5)">
     </div>
+    <aside class="notes">
+      <p>With five bins, each twenty units wide, the counts are fourteen, nine, eight, twelve and seven. The bars are smoother than the ten- and forty-bin versions because each one aggregates more values, and the price is resolution: a feature narrower than twenty units cannot show. Bin count is the one choice a histogram forces. Try two or three bin counts on any new column; the same data can look uniform, bumpy or spiky depending on the choice.</p>
+    </aside>
   </section>
   <section data-page="70">
     <div class="page-stack">
       <img class="page" src="pages/p070.webp" alt="GTK Cyber series.plot()">
     </div>
+    <aside class="notes">
+      <p><code>plot</code> with no arguments draws a line chart of the Series through Matplotlib, with the index on the horizontal axis and the values on the vertical axis.</p>
+    </aside>
   </section>
   <section data-page="71">
     <div class="page-stack">
       <img class="page" src="pages/p071.webp" alt="GTK Cyber series.plot()">
     </div>
+    <aside class="notes">
+      <p>The line plot of the fifty random integers: position zero through forty-nine along the bottom, the value at each position up the side, consecutive points joined by a line. A line implies that the order of the index carries meaning, as it does when the index is time. These values were drawn independently, so the line joins unrelated points and the zigzag conveys nothing. The line plot is the right choice for a Series with a datetime index, where it shows how a quantity changes over time.</p>
+    </aside>
   </section>
   <section data-page="72">
     <div class="page-stack">
       <img class="page" src="pages/p072.webp" alt="GTK Cyber Maximum 3rd Quartile Median 1st Quartile Minimum series.plot(kind=‘box’)">
     </div>
+    <aside class="notes">
+      <p><code>plot(kind='box')</code> draws the five-number summary. The box spans the first quartile to the third quartile, so its height is the interquartile range; the line inside is the median; the whiskers reach out toward the extremes. In Matplotlib's default, a whisker extends at most one and a half interquartile ranges beyond its quartile, and any value further out is drawn as a separate point, an outlier. In this plot no value lies that far out, so the whiskers end at the minimum and maximum as labeled. The None under the box is the Series' name, which was not set.</p>
+    </aside>
   </section>
   <section data-page="73">
     <div class="page-stack">
       <img class="page" src="pages/p073.webp" alt="GTK Cyber">
     </div>
+    <aside class="notes">
+      <p>A box plot per TCP destination port of the time between scanning attempts observed against exposed services, in hours. Each box is one port: the box holds the central fifty percent of the observed gaps, the bar inside is the median, and the whiskers reach the rest. The ports are sorted by median, so the left side holds services that get probed within minutes of appearing, Remote Desktop on 3389 and SQL Server on 1433 among them, and the right side holds ports probed only every several hours, with MySQL on 3306 at about eight. Read this way, the plot answers a security question directly: how long a newly exposed service on each port goes before an opportunistic scanner finds it. The annotated figures are means, as the footnote states.</p>
+    </aside>
   </section>
   <section data-page="74">
     <div class="page-stack">
       <img class="page" src="pages/p074.webp" alt="GTK Cyber Correlations between Datasets">
     </div>
+    <aside class="notes">
+      <p>Correlation is the subject here: the measure of how two numeric columns vary together, and the pandas method that computes it.</p>
+    </aside>
   </section>
   <section data-page="75">
     <div class="page-stack">
       <img class="page" src="pages/p075.webp" alt="GTK Cyber Correlations • Measurement of the relationship between two continuous variables • Output is between -1 and 1, with 1 being perfect correlation, -1 is perfect negative cor">
     </div>
+    <aside class="notes">
+      <p>Correlation measures the strength and direction of the linear relationship between two continuous variables. The coefficient, written r, is the covariance scaled by the two standard deviations, which strips the units and confines the result to the interval from minus one to one. An r of 1 means the points lie exactly on a rising line; minus one, exactly on a falling line; zero, no linear relationship. Values in between grade how tightly the points cluster around a line. The coefficient defined this way is Pearson's r, and it is the default that pandas computes.</p>
+    </aside>
   </section>
   <section data-page="76">
     <div class="page-stack">
       <img class="page" src="pages/p076.webp" alt="GTK Cyber Correlations">
     </div>
+    <aside class="notes">
+      <p>Six scatterplots with their correlation coefficients. Across the top row, r rises from 0.25 to 0.48 to 0.94 as the cloud of points narrows toward a rising line; across the bottom, r falls from minus 0.12 to minus 0.37 to minus 0.94 as the cloud narrows toward a falling line. The sign gives the direction of the slope and the magnitude gives how much of the scatter the line accounts for; at 0.25 or minus 0.12 the points fill the square and the trend is barely visible. Pearson's r sees only straight-line relationships: two variables tied by a curve, such as a U shape, can score near zero while being perfectly dependent. A high r establishes that the two variables rise and fall together; which one drives the other, if either does, is a separate question that the coefficient cannot answer.</p>
+    </aside>
   </section>
   <section data-page="77">
     <div class="page-stack">
       <img class="page" src="pages/p077.webp" alt="GTK Cyber Correlations series1.corr( series2 )">
     </div>
+    <aside class="notes">
+      <p><code>series1.corr(series2)</code> returns the Pearson correlation between two Series as a single number. The values are paired by index label, so the two Series must share an index, and any pair with a missing value is left out. <code>method='spearman'</code> or <code>method='kendall'</code> switches to a rank-based coefficient, which measures whether the relationship is monotonic and is less sensitive to outliers. <code>DataFrame.corr()</code> computes the coefficient for every pair of numeric columns at once and returns the results as a square matrix, which is how related features in a dataset are found.</p>
+    </aside>
   </section>
   <section data-page="78">
     <div class="page-stack">
       <img class="page" src="pages/p078.webp" alt="GTK Cyber Questions?">
     </div>
+    <aside class="notes">
+      <p>Part 1, the Series and the statistics of a single column, ends here.</p>
+    </aside>
   </section>
   <section data-page="79">
     <div class="page-stack">
       <img class="page" src="pages/p079.webp" alt="GTK Cyber Part 2: Exploratory Data Analysis Part 2: Two Dimensional Data">
     </div>
+    <aside class="notes">
+      <p>Part 2 covers two-dimensional data: the DataFrame, how to load one from a file or a security platform, and how to select, filter and summarize its rows and columns.</p>
+    </aside>
   </section>
   <section data-page="80">
     <div class="page-stack">
       <img class="page" src="pages/p080.webp" alt="GTK Cyber Data is Everything • Data is the lifeblood of AI. • Security data is often found in platforms such as ES, Splunk, PCAP and other platforms. • The data world lives in pand">
     </div>
+    <aside class="notes">
+      <p>Every model in this course is trained on tabular data, and the data begins in a security platform. Elasticsearch, abbreviated ES: the search and analytics engine that stores logs for the Elastic stack and its security information and event management product. Splunk: a commercial platform for indexing and searching machine data, queried with its own search language. PCAP: the packet capture file format written by tcpdump and Wireshark, holding raw network traffic. Whatever the source, the analysis and modeling libraries in Python take their input as a pandas DataFrame, so the first step of any project is getting the platform's data into one.</p>
+    </aside>
   </section>
   <section data-page="81">
     <div class="page-stack">
       <img class="page" src="pages/p081.webp" alt="GTK Cyber To build AI systems, you must be able to extract data from security platforms into data frames.">
     </div>
+    <aside class="notes">
+      <p>Extracting data from a security platform into a DataFrame is the entry point to every pipeline in this course. The route is the same across platforms: query the platform through its API or export, receive rows as JSON or CSV, and load them with a pandas reader. Once the data is a DataFrame, everything from Part 1 applies to each of its columns, and the model-building libraries in later modules accept it directly.</p>
+    </aside>
   </section>
   <section data-page="82">
     <div class="page-stack">
       <img class="page" src="pages/p082.webp" alt="GTK Cyber The Data Frame">
     </div>
+    <aside class="notes">
+      <p>This part covers the DataFrame: building one, loading one from a file or a query, and reading its structure.</p>
+    </aside>
   </section>
   <section data-page="83">
     <div class="page-stack">
       <img class="page" src="pages/p083.webp" alt="GTK Cyber df = pd.DataFrame( &lt;data&gt;, &lt;index&gt;, &lt;column_names&gt; )">
     </div>
+    <aside class="notes">
+      <p>A DataFrame takes data, optional row labels and optional column names. The data can take several shapes: a dictionary whose keys become column names and whose values are the columns, as lists or Series; a list of dictionaries, each one a row; a two-dimensional NumPy array; or a list of lists. The index labels the rows and defaults to positions from zero, as it does for a Series. The columns argument names the columns and is needed when the data carries no names of its own, such as an array or a list of lists; the placeholder column_names stands for the <code>columns</code> keyword.</p>
+    </aside>
   </section>
   <section data-page="84">
     <div class="page-stack">
       <img class="page" src="pages/p084.webp" alt="GTK Cyber CSV df = pd.read_csv( &lt;file&gt; ) df = pd.read_csv( &lt;url&gt; )">
     </div>
+    <aside class="notes">
+      <p><code>read_csv</code> builds a DataFrame from comma-separated text. The argument is a path to a local file or a URL; given a URL, pandas fetches the file over HTTP before parsing it. By default the first line is taken as the column names, the separator is a comma, and each column's dtype is inferred from its contents, so a column of digits becomes int64 and a column of text becomes object. Keyword arguments cover the departures: <code>sep</code> for another delimiter, <code>header=None</code> with <code>names</code> when the file has no heading row, <code>parse_dates</code> to convert timestamp columns on load, <code>usecols</code> and <code>nrows</code> to read a subset, and <code>dtype</code> to fix a column's type in place of inference.</p>
+    </aside>
   </section>
   <section data-page="85">
     <div class="page-stack">
       <img class="page" src="pages/p085.webp" alt="GTK Cyber Excel df = pd.read_excel( &lt;file&gt;, sheetname=&lt;sheetname&gt; )">
     </div>
+    <aside class="notes">
+      <p><code>read_excel</code> loads one worksheet of a spreadsheet into a DataFrame, with the first row as column names by default. The keyword that selects the sheet is <code>sheet_name</code>, by name or by zero-based position; the <code>sheetname</code> spelling was removed from pandas in 2017, so the call as written raises a TypeError. Reading .xlsx files requires the openpyxl package to be installed alongside pandas.</p>
+    </aside>
   </section>
   <section data-page="86">
     <div class="page-stack">
       <img class="page" src="pages/p086.webp" alt="GTK Cyber [ { “changed&quot;:&quot;2015-04-0300:00:00&quot;, &quot;created&quot;:&quot;2014-04-10 00:00:00”, “dnssec&quot;:&quot;False&quot;, &quot;expires&quot;:&quot;2016-04-10 00:00:00”, “isMalicious&quot;:0, “url&quot;:&quot;nuteczki.com&quot; }, … ]">
     </div>
+    <aside class="notes">
+      <p>A JSON document laid out as a list of objects, each object one record with the same keys: changed, created, dnssec, expires, isMalicious and url. This record orientation is the one that maps onto a DataFrame directly, since every object becomes a row and every key becomes a column. The values arrive as JSON types, so dates are strings until they are converted, dnssec is the string False, and isMalicious is the integer zero. This is a domain-registration record of the kind used as a feature source for classifying malicious sites.</p>
+    </aside>
   </section>
   <section data-page="87">
     <div class="page-stack">
       <img class="page" src="pages/p087.webp" alt="GTK Cyber JSON df = pd.read_json( &lt;file&gt; ) or df = pd.read_json( &lt;url&gt; )">
     </div>
+    <aside class="notes">
+      <p><code>read_json</code> builds a DataFrame from JSON in a file or at a URL. A top-level list of objects becomes one row per object; a top-level object of lists becomes one column per key. Two arguments cover the formats that platforms export. <code>lines=True</code> reads JSON Lines, where each line of the file is a separate object, which is how log exports and API dumps are laid out. <code>orient</code> states the layout when it is not the default. Since pandas 2.1, passing a literal JSON string to read_json is deprecated; wrap it in <code>io.StringIO</code> first.</p>
+    </aside>
   </section>
   <section data-page="88">
     <div class="page-stack">
       <img class="page" src="pages/p088.webp" alt="GTK Cyber From a Database df = pd.read_sql( &lt;query&gt;, &lt;connection&gt; )">
     </div>
+    <aside class="notes">
+      <p><code>read_sql</code> runs a query against a database and returns the result set as a DataFrame, with the column names the query produces. The connection is a SQLAlchemy engine or a DBAPI connection object such as one from the sqlite3 module. The filtering and joining in the query execute inside the database, so only the rows needed reach Python; <code>read_sql_table</code> pulls a whole table by name instead of a query.</p>
+    </aside>
   </section>
   <section data-page="89">
     <div class="page-stack">
       <img class="page" src="pages/p089.webp" alt="GTK Cyber Parquet df = pd.read_parquet( &lt;file&gt; )">
     </div>
+    <aside class="notes">
+      <p><code>read_parquet</code> loads an Apache Parquet file into a DataFrame. Parquet is a binary, columnar format from the Hadoop ecosystem: each column is stored and compressed separately with its type recorded, so a read recovers the exact dtypes with no inference, and a reader can pull only the columns it names. It is the storage format of Spark, Databricks and data lake tables, which makes it the interchange format between those systems and pandas. Reading it requires the pyarrow or fastparquet package.</p>
+    </aside>
   </section>
   <section data-page="90">
     <div class="page-stack">
       <img class="page" src="pages/p090.webp" alt="GTK Cyber Log Files…">
     </div>
+    <aside class="notes">
+      <p>Text logs whose lines carry no delimiters take a different loading route, shown in this section: read each line whole, then split it into columns.</p>
+    </aside>
   </section>
   <section data-page="92">
     <div class="page-stack">
       <img class="page" src="pages/p091.webp" alt="GTK Cyber 070823 21:00:32 1 Connect root@localhost on test1 070823 21:00:48 1 Query show tables 070823 21:00:56 1 Query select * from category 070917 16:29:01 21 Query select * fro">
       <img class="page fragment" src="pages/p092.webp" alt="GTK Cyber 070823 21:00:32 1 Connect root@localhost on test1 070823 21:00:48 1 Query show tables 070823 21:00:56 1 Query select * from category 070917 16:29:01 21 Query select * fro">
     </div>
+    <aside class="notes">
+      <p>A MySQL general query log has one event per line: a date and time, a connection id, a command such as Connect or Query, and the command's argument. The lines are separated by runs of spaces, with the argument itself containing spaces, so no delimiter splits them into fields cleanly. <code>read_table</code> defaults to a tab separator, which these lines lack, and <code>names=['raw']</code> supplies the single column name, so each line lands whole in a column called raw with no header row consumed. The result is a one-column DataFrame that the string methods can take apart.</p>
+    </aside>
   </section>
   <section data-page="94">
     <div class="page-stack">
       <img class="page" src="pages/p093.webp" alt="GTK Cyber logdf = pd.read_table(‘../data/mysql.log’, names=[‘raw’]) logdf[&#x27;raw&#x27;].str.extract(&#x27;(\d{6}\s\d{2}:\d{2}:\d{2})\s+(\d+)\s(\S+) \s(.+)&#x27;, expand=False)">
       <img class="page fragment" src="pages/p094.webp" alt="GTK Cyber logdf = pd.read_table(‘../data/mysql.log’, names=[‘raw’]) logdf[&#x27;raw&#x27;].str.extract(&#x27;(?P&lt;date&gt;\d{6}\s\d{2}:\d{2}:\d{2})\s+(? P&lt;PID&gt;\d+)\s(?P&lt;Action&gt;\S+)\s(?P&lt;Query&gt;.+)&#x27;, e">
     </div>
+    <aside class="notes">
+      <p><code>str.extract</code> with named groups splits the raw lines into columns in one expression. Each parenthesized group in the pattern captures one field, and the <code>(?P&lt;name&gt;...)</code> syntax names the group, so the result is a DataFrame whose column names are the group names. The pattern reads left to right: six digits, a space and a time of day for the date; a run of spaces; digits for the connection id, labeled PID here; non-space characters for the command; and everything remaining for the argument. Rows that do not match the pattern get missing values in every column, which makes a malformed line visible. The number MySQL writes in that position is the connection thread id, and the Date column in the table corresponds to the group named date.</p>
+    </aside>
   </section>
   <section data-page="95">
     <div class="page-stack">
       <img class="page" src="pages/p095.webp" alt="GTK Cyber Web Server Logs">
     </div>
+    <aside class="notes">
+      <p>Web server access logs come next, parsed into a DataFrame with the Apache log parser package.</p>
+    </aside>
   </section>
   <section data-page="97">
     <div class="page-stack">
       <img class="page" src="pages/p096.webp" alt="GTK Cyber Web Server Logs 195.154.46.135 - - [25/Oct/2015:04:11:25 +0100] &quot;GET /linux/ doing-pxe-without-dhcp-control HTTP/1.1&quot; 200 24323 &quot;http:// howto.basjes.nl/&quot; &quot;Mozilla/5.0 (W">
       <img class="page fragment" src="pages/p097.webp" alt="GTK Cyber Web Server Logs 195.154.46.135 - - [25/Oct/2015:04:11:25 +0100] &quot;GET /linux/ doing-pxe-without-dhcp-control HTTP/1.1&quot; 200 24323 &quot;http:// howto.basjes.nl/&quot; &quot;Mozilla/5.0 (W">
     </div>
+    <aside class="notes">
+      <p>An Apache access log line in the combined format, and the format string that describes it. The fields left to right are the client address, two placeholder dashes for the identd and authenticated user, the timestamp with its zone in brackets, the request line in quotes with method, path and protocol, the status code, the response size in bytes, the referring page, and the browser's user agent string. <code>apache_log_parser</code> is a Python package that takes an Apache LogFormat string and returns a function that parses one line into a dictionary. The directives in the format string are Apache's own: <code>%h</code> the host, <code>%l</code> the logname, <code>%u</code> the user, <code>%t</code> the time, <code>%r</code> the request line, <code>%&gt;s</code> the final status, <code>%b</code> the bytes, and <code>%{Referer}i</code> and <code>%{User-agent}i</code> the named request headers.</p>
+    </aside>
   </section>
   <section data-page="98">
     <div class="page-stack">
       <img class="page" src="pages/p098.webp" alt="GTK Cyber Web Server Logs import apache_log_parser line_parser = apache_log_parser.make_parser(&quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \”%{User-agent}i\”&quot;) server_log = open(“..">
     </div>
+    <aside class="notes">
+      <p>The full loading sequence for an access log. The parser is built once from the format string. The log file is opened and read line by line; each line goes through the parser and comes back as a dictionary keyed by field name, and the dictionaries are collected into a list. <code>pd.DataFrame</code> on that list of dictionaries builds the table, with one row per line and a column per key. The loop here is over lines of unstructured text, where each line needs the parser's grammar applied, so a Python loop is the appropriate tool; the vectorized work begins once the DataFrame exists. The <code>data = {}</code> line is overwritten on the next line and has no effect.</p>
+    </aside>
   </section>
   <section data-page="99">
     <div class="page-stack">
       <img class="page" src="pages/p099.webp" alt="GTK Cyber Web Server Logs">
     </div>
+    <aside class="notes">
+      <p>The DataFrame built from the access log, with columns named by the parser: request_first_line, request_header_referer, request_header_user_agent, request_http_ver, request_method and request_url, with the host, time, status and byte-count columns off the edge of the screenshot. The parser has already separated the request line into its method, path and protocol version, so those are queryable columns without further string work. The rows themselves record repeated GET and POST requests to a join_form page followed by a request to a credentials path, a sequence that reads as an automated account-creation or login attempt against the site.</p>
+    </aside>
   </section>
   <section data-page="100">
     <div class="page-stack">
       <img class="page" src="pages/p100.webp" alt="GTK Cyber Nested Data?">
     </div>
+    <aside class="notes">
+      <p>Nested data, JSON records whose values are themselves objects, has to be flattened before it fits a table; this section shows how.</p>
+    </aside>
   </section>
   <section data-page="101">
     <div class="page-stack">
       <img class="page" src="pages/p101.webp" alt="GTK Cyber {&quot;time&quot;: 1084443427.311224, &quot;timestamp&quot;: &quot;2004-05-13T10:17:07.311224&quot;, &quot;IP&quot;: { &quot;version&quot;: 4, &quot;ttl&quot;: 128, &quot;proto&quot;: 6, &quot;options&quot;: [], &quot;len&quot;: 48, &quot;dst&quot;: &quot;65.208.228.223&quot;, &quot;f">
     </div>
+    <aside class="notes">
+      <p>A packet decoded to JSON, one record per packet. The top level holds time and timestamp, and beneath them a key per protocol layer: IP is an object with version, ttl, protocol number, length, source, destination, flags and checksum, and Ethernet is an object with source and destination MAC addresses and the frame type. A table has no place for an object inside a cell; every value in a column is supposed to be a scalar of one type. Loading this as it stands leaves the protocol layers as dictionaries stuffed into single cells, which none of the vectorized operations can reach into.</p>
+    </aside>
   </section>
   <section data-page="102">
     <div class="page-stack">
       <img class="page" src="pages/p102.webp" alt="GTK Cyber pd.read_json( &#x27;nested_data.json&#x27; ) Nested Data">
     </div>
+    <aside class="notes">
+      <p><code>read_json</code> on the nested file loads the records without flattening them.</p>
+    </aside>
   </section>
   <section data-page="103">
     <div class="page-stack">
       <img class="page" src="pages/p103.webp" alt="GTK Cyber pd.read_json( &#x27;nested_data.json&#x27; ) Nested Data">
     </div>
+    <aside class="notes">
+      <p>The result of <code>read_json</code> on the packet records. The top-level keys became columns: DNS, Ethernet, IP, TCP, UDP, time and timestamp. Every column whose values were objects holds a Python dictionary in each cell, shown as the braces in the Ethernet, IP and TCP columns. DNS and UDP are NaN for these rows because the packets are TCP and carry no such layer. A dictionary in a cell is dtype object, so the IP source address or TCP source port cannot be filtered, counted or plotted as a column until it is extracted from the dictionaries.</p>
+    </aside>
   </section>
   <section data-page="104">
     <div class="page-stack">
       <img class="page" src="pages/p104.webp" alt="GTK Cyber from pandas.io.json import json_normalize import json import pandas as pd with open(&#x27;nested.json&#x27;) as data_file: pcap_data = json.load(data_file) df = pd.DataFrame( json_">
     </div>
+    <aside class="notes">
+      <p><code>json_normalize</code> flattens nested objects into columns. The file is read with the standard library's json module, which yields a Python list of dictionaries with the nesting intact. json_normalize walks each record and turns every nested key into its own column named by the path to it, joined with dots, so the IP object's src key becomes a column called IP.src. The import from pandas.io.json has been deprecated since pandas 1.0; the function lives at <code>pd.json_normalize</code>. It already returns a DataFrame, so the <code>pd.DataFrame</code> wrapper around it does nothing.</p>
+    </aside>
   </section>
   <section data-page="105">
     <div class="page-stack">
       <img class="page" src="pages/p105.webp" alt="GTK Cyber df = pd.DataFrame( json_normalize(pcap_data) ) Nested Data">
     </div>
+    <aside class="notes">
+      <p>The flattened DataFrame, with the nested TCP fields now top-level columns: TCP.seq, TCP.sport, TCP.urgptr and TCP.window, each holding a scalar per row and usable by every column operation. The values print as floats, 3372.0 in place of 3372, because rows for packets without a TCP layer have missing values in these columns, and a column that mixes integers with NaN is upcast to float64. Casting to pandas's nullable Int64 type restores integer display while keeping the missing values.</p>
+    </aside>
   </section>
   <section data-page="106">
     <div class="page-stack">
       <img class="page" src="pages/p106.webp" alt="GTK Cyber ElasticSearch &amp; Splunk">
     </div>
+    <aside class="notes">
+      <p>Querying Elasticsearch and Splunk directly into a DataFrame is the topic of this section.</p>
+    </aside>
   </section>
   <section data-page="107">
     <div class="page-stack">
       <img class="page" src="pages/p107.webp" alt="GTK Cyber ElasticSearch &amp; Splunk pip install huntlib e = ElasticDF( url=&quot;https://localhost:9200&quot;, ssl=True, username=&quot;myuser&quot;, password=&quot;mypass&quot; ) df = e.search_df( lucene=&quot;proto:t">
     </div>
+    <aside class="notes">
+      <p>huntlib is a threat-hunting helper library published by Target's security team; it wraps the Elasticsearch and Splunk client libraries so that a query returns a DataFrame. Elasticsearch: <code>ElasticDF</code> takes the cluster URL and credentials; <code>search_df</code> takes a Lucene query string, an index pattern and a time window in days, and returns the matching documents as rows. <code>normalize=False</code> leaves nested fields as dictionaries in cells, and True flattens them the way json_normalize does. Splunk: <code>SplunkDF</code> takes the host and credentials; <code>search_df</code> takes a search in Splunk's SPL and a start and end time, here the last two days computed with datetime and timedelta. The code as written omits the imports it needs, <code>from huntlib.elastic import ElasticDF</code>, <code>from huntlib.splunk import SplunkDF</code> and <code>from datetime import datetime, timedelta</code>. Credentials written into a notebook end up in version control and in shared copies; keep them in environment variables or a secrets store.</p>
+    </aside>
   </section>
   <section data-page="108">
     <div class="page-stack">
       <img class="page" src="pages/p108.webp" alt="GTK Cyber Manipulating a DataFrame">
     </div>
+    <aside class="notes">
+      <p>This part covers selecting columns from a DataFrame, adding new ones, and the difference between bracket and dot access.</p>
+    </aside>
   </section>
   <section data-page="109">
     <div class="page-stack">
       <img class="page" src="pages/p109.webp" alt="GTK Cyber series = df[&#x27;column1&#x27;] Returns a series df[&#x27;ip&#x27;].value_counts().head()">
     </div>
+    <aside class="notes">
+      <p>A single column name in brackets returns that column as a Series, with the DataFrame's row index attached. Everything the Series section covered applies to it, and because each method returns a new object, calls chain: <code>df['ip'].value_counts().head()</code> pulls the ip column, counts each distinct address, and keeps the five most frequent. A chain like this is the standard shape of an exploratory query: select a column, transform it, then trim the result.</p>
+    </aside>
   </section>
   <section data-page="110">
     <div class="page-stack">
       <img class="page" src="pages/p110.webp" alt="GTK Cyber Creating a new Column df[&#x27;new_col&#x27;] = df[&#x27;column1&#x27;] + 3">
     </div>
+    <aside class="notes">
+      <p>Assigning to a column name that does not exist adds the column. The right-hand side is a vectorized expression: <code>df['column1'] + 3</code> adds three to every element of column1 and yields a Series, which is aligned to the DataFrame by index and stored under the new name. The right-hand side can be any expression over existing columns, including sums or ratios of two columns and string or datetime accessor results. Assigning a scalar fills every row with that value.</p>
+    </aside>
   </section>
   <section data-page="111">
     <div class="page-stack">
       <img class="page" src="pages/p111.webp" alt="GTK Cyber series = df[&#x27;column1&#x27;] series = df.column1 Two Ways of Accessing Columns Don&#x27;t use the dots!">
     </div>
+    <aside class="notes">
+      <p>A column can also be read as an attribute, <code>df.column1</code>, and the bracket form is the one to use. Attribute access fails for a column name that contains spaces or punctuation, for one that is not a valid Python identifier, and for one that collides with a DataFrame method or attribute such as count, shape or index, where the dot returns the method instead of the column. It cannot create a column: <code>df.new_col = values</code> sets a plain Python attribute on the object, the DataFrame gains no column, and pandas only warns. It also cannot take a name held in a variable. The bracket form has none of these limits.</p>
+    </aside>
   </section>
   <section data-page="112">
     <div class="page-stack">
       <img class="page" src="pages/p112.webp" alt="GTK Cyber df = df[[&#x27;column1&#x27;,&#x27;column2&#x27;,&#x27;column3&#x27;]] Returns a DataFrame">
     </div>
+    <aside class="notes">
+      <p>A list of column names in brackets returns a DataFrame holding those columns, ordered as listed. Two pairs of brackets appear because the outer pair indexes the DataFrame and the inner pair builds the list. A single name returns a Series; a list, even a list of one name, returns a DataFrame. Assigning the result back to <code>df</code> keeps only the listed columns and discards the rest, which trims a wide table down to the fields an analysis needs.</p>
+    </aside>
   </section>
   <section data-page="113">
     <div class="page-stack">
       <img class="page" src="pages/p113.webp" alt="GTK Cyber Filtering a DataFrame df[&lt;boolean condition&gt;] df[[&#x27;col1&#x27;,&#x27;col2&#x27;]][df[&#x27;col3&#x27;] &gt; 5] Columns Filter">
     </div>
+    <aside class="notes">
+      <p>A DataFrame filters the way a Series does: a boolean condition in the brackets selects the rows where it holds. The condition is a Series of booleans built from one or more columns, such as <code>df['col3'] &gt; 5</code>, and pandas lines it up with the rows through the index, so it selects rows whether or not the column it tests is among the columns being returned. The second form chains two selections: the list picks the columns col1 and col2, and the condition then picks the rows. Chained brackets are fine for reading. For assignment they trigger a SettingWithCopyWarning, because pandas cannot tell whether the write reaches the original; <code>df.loc[df['col3'] &gt; 5, ['col1', 'col2']]</code> does both selections in one step and is the form to use when writing.</p>
+    </aside>
   </section>
   <section data-page="114">
     <div class="page-stack">
       <img class="page" src="pages/p114.webp" alt="GTK Cyber data.loc[&lt;index&gt;] data.loc[&lt;list of indexes&gt;] data.sample(&lt;n&gt;)">
     </div>
+    <aside class="notes">
+      <p>Three ways to pull rows. <code>loc</code> with a single label returns that row as a Series whose index is the column names. <code>loc</code> with a list of labels returns those rows as a DataFrame, in the order listed. <code>sample(n)</code> returns n rows chosen at random, which is a better look at a large table than head, since the first rows of a file reflect whatever order it was written in; pass <code>random_state</code> to make the draw repeatable. <code>loc</code> selects by index label; the positional counterpart is <code>iloc</code>, which takes integer positions and slices.</p>
+    </aside>
   </section>
   <section data-page="115">
     <div class="page-stack">
       <img class="page" src="pages/p115.webp" alt="GTK Cyber Questions?">
     </div>
+    <aside class="notes">
+      <p>Selection and filtering end here; the remaining sections cover removing rows and columns, combining tables, and grouping.</p>
+    </aside>
   </section>
   <section data-page="116">
     <div class="page-stack">
       <img class="page" src="pages/p116.webp" alt="GTK Cyber DataFrame.drop(labels, axis=0, level=None, inplace=False, errors=&#x27;raise&#x27;)¶">
     </div>
+    <aside class="notes">
+      <p><code>drop</code> returns a copy of the DataFrame with the named rows or columns removed. labels: one label or a list of them. axis: 0 drops rows by index label and 1 drops columns by name; <code>columns=</code> is an equivalent spelling for the column case. level: which level of a hierarchical index the labels refer to. inplace: False returns a new DataFrame and leaves the original alone, which is the default and the form to prefer; True modifies the original and returns None. errors: raise stops on a label that does not exist, and ignore skips it. The pilcrow at the end of the signature is a stray anchor character copied from the online documentation.</p>
+    </aside>
   </section>
   <section data-page="117">
     <div class="page-stack">
       <img class="page" src="pages/p117.webp" alt="GTK Cyber Merging Data Sets">
     </div>
+    <aside class="notes">
+      <p>Combining tables comes in two forms, both covered here: stacking one on top of another with concat, and joining two on a shared key with merge.</p>
+    </aside>
   </section>
   <section data-page="118">
     <div class="page-stack">
       <img class="page" src="pages/p118.webp" alt="GTK Cyber Union">
     </div>
+    <aside class="notes">
+      <p>A union stacks the rows of two objects into one, keeping every row from both.</p>
+    </aside>
   </section>
   <section data-page="120">
     <div class="page-stack">
       <img class="page" src="pages/p119.webp" alt="GTK Cyber Union Series 1 Index Value 0 6 1 4 2 2 3 3">
       <img class="page fragment" src="pages/p120.webp" alt="GTK Cyber Union Series 1 Index Value 0 6 1 4 2 2 3 3 Series 2 Index Value 0 7 1 5 2 3 3 4">
     </div>
+    <aside class="notes">
+      <p>Two Series, each with the default index zero through three. Series 1 holds 6, 4, 2 and 3; Series 2 holds 7, 5, 3 and 4. A union appends the second below the first, and the question it raises is what happens to the two sets of labels, which overlap.</p>
+    </aside>
   </section>
   <section data-page="121">
     <div class="page-stack">
       <img class="page" src="pages/p121.webp" alt="GTK Cyber Union combinedSeries Index Value 0 6 1 4 2 2 3 3 4 7 5 5 6 3 7 4">
     </div>
+    <aside class="notes">
+      <p>The combined Series contains all eight values in order, the four from Series 1 followed by the four from Series 2, and its index runs zero through seven. The labels were renumbered during the union. Without that step the result would carry the labels zero through three twice over, and a lookup such as <code>combinedSeries[2]</code> would return two values.</p>
+    </aside>
   </section>
   <section data-page="122">
     <div class="page-stack">
       <img class="page" src="pages/p122.webp" alt="GTK Cyber combinedSeries = pd.concat( [series1, series2], ignore_index=True )">
     </div>
+    <aside class="notes">
+      <p><code>pd.concat</code> performs the union. It takes a list of the objects to stack, any number of them, and by default appends along the row axis. <code>ignore_index=True</code> discards the incoming labels and assigns a fresh range from zero, which is what produces the zero-to-seven index of the combined Series; without it, the original labels are kept and duplicates are allowed. The same call stacks DataFrames, matching their columns by name and filling a column that one table lacks with missing values; <code>axis=1</code> places the objects side by side instead, aligning on the row index.</p>
+    </aside>
   </section>
   <section data-page="123">
     <div class="page-stack">
       <img class="page" src="pages/p123.webp" alt="GTK Cyber Joins">
     </div>
+    <aside class="notes">
+      <p>A join matches rows of two tables on a shared key and combines their columns. The join type decides what happens to rows whose key has no partner in the other table.</p>
+    </aside>
   </section>
   <section data-page="124">
     <div class="page-stack">
       <img class="page" src="pages/p124.webp" alt="GTK Cyber Inner Join (Intersection) A B Inner Join">
     </div>
+    <aside class="notes">
+      <p>An inner join keeps only the keys present in both tables, the intersection of the two sets. A row from A with no matching key in B is dropped, and so is a row from B with no match in A. Every row in the result has data from both sides, which makes it the safe default when both tables are supposed to cover the same entities.</p>
+    </aside>
   </section>
   <section data-page="125">
     <div class="page-stack">
       <img class="page" src="pages/p125.webp" alt="GTK Cyber Left Join A B Left Join">
     </div>
+    <aside class="notes">
+      <p>A left join keeps every row of the left table, A, and attaches the matching columns from B. Where a key in A has no match in B, the row is still returned and B's columns hold missing values; rows of B with no key in A are dropped. This is the join for enriching a primary table, such as attaching threat-intelligence attributes to a log of connections, without losing any of the log rows.</p>
+    </aside>
   </section>
   <section data-page="126">
     <div class="page-stack">
       <img class="page" src="pages/p126.webp" alt="GTK Cyber Right Join A B Right Join">
     </div>
+    <aside class="notes">
+      <p>A right join is the mirror image: every row of the right table, B, is kept, A's columns are attached where the key matches, and A's columns are missing where it does not. Rows of A with no key in B are dropped. Swapping the two tables and using a left join produces the same rows, so right joins are rare in practice and exist for symmetry.</p>
+    </aside>
   </section>
   <section data-page="128">
     <div class="page-stack">
       <img class="page" src="pages/p127.webp" alt="GTK Cyber pd.merge( leftData, rightData )">
       <img class="page fragment" src="pages/p128.webp" alt="GTK Cyber pd.merge( leftData, rightData, how=&quot;&lt;join type&gt;&quot; )">
     </div>
+    <aside class="notes">
+      <p><code>pd.merge</code> joins two DataFrames. The first two arguments are the left and right tables, and <code>how</code> names the join type as a string. When how is omitted the join is inner.</p>
+    </aside>
   </section>
   <section data-page="129">
     <div class="page-stack">
       <img class="page" src="pages/p129.webp" alt="GTK Cyber pd.merge( leftData, rightData, how=&quot;&lt;join type&gt;&quot; ) Option SQL Equivalent Description inner INNER JOIN Intersection left LEFT OUTER JOIN Returns items in Set A, but not in">
     </div>
+    <aside class="notes">
+      <p>The four values of <code>how</code> and their SQL counterparts. inner: the intersection, rows whose key appears in both tables. left: every row of the left table, with the right table's columns attached where the key matches and missing otherwise. right: every row of the right table, plus the left table's columns for matching keys. outer: the union of the keys, every row from both tables, with missing values on whichever side has no match. The descriptions given for left and right are wrong: a left join returns all of A with B's data where available, and a right join returns all of B with A's data where available. Returning the rows of A that have no partner in B is an anti-join, which merge produces with <code>indicator=True</code> followed by a filter on the indicator column.</p>
+    </aside>
   </section>
   <section data-page="130">
     <div class="page-stack">
       <img class="page" src="pages/p130.webp" alt="GTK Cyber pd.merge( leftData, rightData, how=&quot;&lt;join type&gt;&quot;, on=&lt;field list&gt; )">
     </div>
+    <aside class="notes">
+      <p><code>on</code> names the key column or columns the join matches on. When it is omitted, merge uses every column name the two tables have in common, which is convenient and also the source of surprises when an unrelated column happens to share a name. <code>left_on</code> and <code>right_on</code> handle keys named differently in the two tables. Non-key columns that exist on both sides come back with the suffixes _x and _y attached, or with whatever <code>suffixes</code> specifies.</p>
+    </aside>
   </section>
   <section data-page="131">
     <div class="page-stack">
       <img class="page" src="pages/p131.webp" alt="GTK Cyber Grouping and Aggregating Data">
     </div>
+    <aside class="notes">
+      <p>This part covers grouping: splitting a DataFrame's rows by the values of one or more columns and computing an aggregate for each group.</p>
+    </aside>
   </section>
   <section data-page="132">
     <div class="page-stack">
       <img class="page" src="pages/p132.webp" alt="GTK Cyber Grouping and Aggregating Data date src_ip dst_ip port 2018-06-21 192.168.20.2 10.10.4.1 80 2018-06-21 192.168.20.1 10.10.4.2 443 2018-06-21 192.168.20.2 10.10.5.1 80 2018">
     </div>
+    <aside class="notes">
+      <p>A table of four connection records with a date, a source address, a destination address and a port. <code>groupby</code> takes a column name, or a list of names, and partitions the rows so that every row sharing a value in that column lands in the same group. The call returns a GroupBy object that has done no computation yet; an aggregation method applied to it, such as count, sum or mean, runs once per group and assembles the results into a new table indexed by the group keys.</p>
+    </aside>
   </section>
   <section data-page="135">
     <div class="page-stack">
@@ -625,61 +979,97 @@
       <img class="page fragment" src="pages/p134.webp" alt="GTK Cyber Grouping and Aggregating Data date src_ip dst_ip port 2018-06-21 192.168.20.2 10.10.4.1 80 2018-06-21 192.168.20.1 10.10.4.2 443 2018-06-21 192.168.20.2 10.10.5.1 80 2018">
       <img class="page fragment" src="pages/p135.webp" alt="GTK Cyber Grouping and Aggregating Data date src_ip dst_ip port 2018-06-21 192.168.20.2 10.10.4.1 80 2018-06-21 192.168.20.1 10.10.4.2 443 2018-06-21 192.168.20.2 10.10.5.1 80 2018">
     </div>
+    <aside class="notes">
+      <p>Three aggregations over the same table. <code>groupby('src_ip')['port'].count()</code> partitions the rows by source address, selects the port column, and counts the non-missing values in each group: 192.168.20.1 has one row and 192.168.20.2 has three. <code>groupby(['date','src_ip'])['port'].count()</code> partitions by the combination of date and source address, so 192.168.20.2 is counted separately on each day, two rows on the 21st and one on the 22nd; the result is indexed by both keys at once, a two-level MultiIndex. <code>as_index=False</code> keeps date and src_ip as ordinary columns and numbers the rows from zero, which gives a flat table that can be merged, plotted or written out without further reshaping. count counts non-missing values in the selected column; size counts rows regardless; sum, mean, min, max, nunique and agg with a list or dictionary of functions follow the same pattern.</p>
+    </aside>
   </section>
   <section data-page="136">
     <div class="page-stack">
       <img class="page" src="pages/p136.webp" alt="GTK Cyber Grouping Functions http://jalammar.github.io/visualizing-pandas-pivoting-and-reshaping/">
     </div>
+    <aside class="notes">
+      <p>A MultiIndex result can be reshaped with unstack. The stacked table on the left is a Series with a three-level index, first, second and an innermost level holding A and B. <code>unstack()</code> takes the innermost level and turns its values into columns, so the right-hand table has rows indexed by first and second and one column each for A and B, with the values rearranged into the grid. Applied to the two-key groupby result, counts indexed by date and source address, unstack turns them into a table with one row per date and one column per address. The figure is from Jay Alammar's illustrated guide to pandas pivoting and reshaping.</p>
+    </aside>
   </section>
   <section data-page="137">
     <div class="page-stack">
       <img class="page" src="pages/p137.webp" alt="GTK Cyber Grouping Functions http://jalammar.github.io/visualizing-pandas-pivoting-and-reshaping/">
     </div>
+    <aside class="notes">
+      <p><code>unstack</code> takes an argument naming which index level to move into the columns, by position or by name. <code>unstack(1)</code> and <code>unstack('second')</code> both move the second level, so its values one and two become the columns, and the row index keeps the first level together with the A and B level. The default, with no argument, moves the innermost level. <code>stack</code> is the inverse and moves a column level back into the row index.</p>
+    </aside>
   </section>
   <section data-page="138">
     <div class="page-stack">
       <img class="page" src="pages/p138.webp" alt="GTK Cyber Series.dropna() Series.fillna(value=&quot;&lt;something&gt;&quot;)">
     </div>
+    <aside class="notes">
+      <p>Missing values in a Series are either dropped or filled. <code>dropna()</code> returns the Series with the missing entries removed, labels intact. <code>fillna(value=...)</code> returns it with every missing entry replaced by the given value, a zero for a count column or a placeholder string for a category. Both have DataFrame versions: <code>dropna</code> there drops whole rows by default, with <code>subset</code> limiting which columns are checked, and <code>fillna</code> accepts a dictionary of one fill value per column. Which to use depends on what a missing value means in the data; dropping rows loses whatever else those rows contained, and filling invents a value that later statistics will count.</p>
+    </aside>
   </section>
   <section data-page="139">
     <div class="page-stack">
       <img class="page" src="pages/p139.webp" alt="GTK Cyber Scaling Pandas • Pandas is limited by the amount of memory on your machine. You will need 5-10x as much RAM as the size of your datasets. • Operations on DataFrames creat">
     </div>
+    <aside class="notes">
+      <p>pandas holds the entire dataset in the machine's memory, so the dataset size is bounded by RAM. The guideline of five to ten times the dataset size comes from Wes McKinney, the creator of pandas, and it exists because operations produce copies: selecting, filtering, sorting and the transformation methods return new objects, and intermediate results in a chain of calls each occupy their own memory until they are released. String columns stored as Python objects are a large part of the overhead, since each value is a separate object with its own header. pandas 2.0 addresses both costs with Arrow-backed column types, which store strings compactly, and with copy-on-write, which defers copying until an object is modified.</p>
+    </aside>
   </section>
   <section data-page="140">
     <div class="page-stack">
       <img class="page" src="pages/p140.webp" alt="GTK Cyber Scaling Pandas Several drop-in or near drop-in replacements for Pandas exist that run on GPUs or parallelize operations. • Dask: A partial Pandas replacement geared towar">
     </div>
+    <aside class="notes">
+      <p>Libraries that run pandas-style code beyond one machine's memory or on a GPU. Dask: partitions a DataFrame into chunks and runs pandas operations over them in parallel, across cores or a cluster, with a subset of the pandas API. cuDF: NVIDIA's DataFrame library with a pandas-like API that runs on the GPU; its cudf.pandas mode accelerates existing pandas code without changes. Ray: a distributed execution framework for Python and AI workloads; the Modin library uses it to run the pandas API across a cluster. RAPIDS: NVIDIA's suite of GPU libraries, of which cuDF is the DataFrame member, alongside cuML for scikit-learn workloads and cuGraph for NetworkX workloads. Polars: a DataFrame library written in Rust with a Python interface, multithreaded and lazily evaluated, with its own API in place of pandas'. PySpark: the Python interface to Apache Spark, the distributed engine under the Databricks workspace this course runs in, which also offers a pandas API on Spark for familiar syntax.</p>
+    </aside>
   </section>
   <section data-page="141">
     <div class="page-stack">
       <img class="page" src="pages/p141.webp" alt="GTK Cyber Apache Arrow • Apache Arrow is a standardized framework for developing data analytics applications that use columnar data. • Arrow can be used in python (PyArrow), Spark ">
     </div>
+    <aside class="notes">
+      <p>Apache Arrow is a specification for how columnar data is laid out in memory, plus libraries that implement it in many languages. Because every implementation uses the same layout, a table can pass between pandas, Spark, Polars, DuckDB and other tools without being converted or copied, which is the interoperability advantage. The layout is contiguous and typed, so compute kernels run over it with vectorized instructions, which is the speed advantage, and strings and nested values are stored without one Python object per value, which is the memory advantage. PyArrow is the Python library. Parquet is the matching on-disk format, so a Parquet file reads into Arrow memory with minimal work; Arrow complements Parquet, and the spelling compliment is an error.</p>
+    </aside>
   </section>
   <section data-page="142">
     <div class="page-stack">
       <img class="page" src="pages/p142.webp" alt="GTK Cyber Pandas 2.0 • Pandas 2.0 was released in early 2023 and now has an integration with Apache Arrow • The Arrow integration can help overcome the limitations of the earlier v">
     </div>
+    <aside class="notes">
+      <p>pandas 2.0, released in April 2023, added the option to store columns in Arrow memory. <code>dtype_backend='pyarrow'</code> on a reader makes every column an Arrow-backed type, which gives string columns a compact representation, proper missing-value support for integers and booleans, and a richer set of types such as decimals and nested lists. <code>engine='pyarrow'</code> in read_csv switches to Arrow's multithreaded CSV parser. The 35x figure is the benchmark reported in the cited Towards Data Science article; the gain depends on the operation, and string-heavy columns gain the most because the object-dtype representation they replace is the slowest part of classic pandas.</p>
+    </aside>
   </section>
   <section data-page="143">
     <div class="page-stack">
       <img class="page" src="pages/p143.webp" alt="GTK Cyber Pandas 2.0: Copy on Write Optimization • One of the big challenges of Pandas is that it creates multiple copies of your data frame when you chain methods together. • Pand">
     </div>
+    <aside class="notes">
+      <p>Copy-on-write changes how pandas manages memory when one object is derived from another. Without it, a chain of method calls produces a full copy at each step. With <code>pd.options.mode.copy_on_write = True</code>, a derived object shares the original's memory and a copy is made only at the moment one of them is modified, so a chain of selections that performs no write makes no copy. The rule that follows is that every object behaves as an independent copy: modifying a filtered or sliced result does not reach back into the source. Chained assignment, <code>df[df['a'] &gt; 5]['b'] = 1</code>, therefore does nothing to df, because the write lands on a temporary; the form that works is <code>df.loc[df['a'] &gt; 5, 'b'] = 1</code>. Copy-on-write is optional in 2.x and becomes the only behavior in pandas 3.0, which is why code written now should use the loc form.</p>
+    </aside>
   </section>
   <section data-page="144">
     <div class="page-stack">
       <img class="page" src="pages/p144.webp" alt="GTK Cyber Questions?">
     </div>
+    <aside class="notes">
+      <p>Module 1 ends here.</p>
+    </aside>
   </section>
   <section data-page="145">
     <div class="page-stack">
       <img class="page" src="pages/p145.webp" alt="GTK Cyber In-Class Exercise Please complete Worksheet 1.1: Exploratory Data Analysis">
     </div>
+    <aside class="notes">
+      <p>Worksheet 1.1 is this module's lab; its notebook title is Vectorized Data Structures. Part 1 works on a Series: filter a list of email addresses down to .edu domains and extract the account names with the string methods; reduce a Series of IP addresses to the private ones using Python's ipaddress module with apply; extract area codes from phone numbers and count them with value_counts. Part 2 works on DataFrames: parse the hackers-access.httpd web server log into a table and answer questions about the browsers and operating systems in it, using the apachelogs and user_agents libraries; then load dailybots.csv and use filtering, groupby, agg and sorting to find which industry sees the most Ramnit infections, the summary statistics of infected organizations per bot family, and the date with the most infections.</p>
+    </aside>
   </section>
   <section data-page="146">
     <div class="page-stack">
       <img class="page" src="pages/p146.webp" alt="GTK Cyber">
     </div>
+    <aside class="notes">
+      <p>End of Module 1.</p>
+    </aside>
   </section>
 </div>
 </div>
