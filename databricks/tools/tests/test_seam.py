@@ -23,6 +23,16 @@ def test_base_seam_compiles_and_runs_locally(tmp_path, monkeypatch):
     assert ns["DATA_HOME"] == "../data/"
     assert ns["WORK_HOME"] == "../data/"
     assert ns["handoff"]("nope.csv") == "../data/nope.csv"
+    assert ns["SCRATCH_HOME"] == ns["WORK_HOME"]
+
+
+def test_scratch_home_is_driver_local_temp_on_databricks(tmp_path, monkeypatch):
+    import tempfile
+
+    monkeypatch.chdir(tmp_path)
+    ns = {"dbutils": object()}
+    exec(compile(SEAM_BASE, "seam", "exec"), ns)
+    assert ns["SCRATCH_HOME"] == tempfile.gettempdir()
 
 
 def test_llm_seam_defines_both_helpers():
@@ -31,6 +41,17 @@ def test_llm_seam_defines_both_helpers():
     assert "databricks-deepseek-v4-flash-0731" in SEAM_LLM
     assert "https://api.anthropic.com/v1/" in SEAM_LLM
     assert "apiToken().get()" in SEAM_LLM
+
+
+def test_llm_seam_skills_home_branches_on_databricks(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    ns = {"dbutils": object()}
+    exec(compile(SEAM_LLM, "seam", "exec"), ns)
+    assert ns["SKILLS_HOME"] == ns["DATA_HOME"] + "skills/"
+
+    ns2 = {}
+    exec(compile(SEAM_LLM, "seam", "exec"), ns2)
+    assert ns2["SKILLS_HOME"] == "../ai_examples/skills/"
 
 
 def test_seam_text_composes():

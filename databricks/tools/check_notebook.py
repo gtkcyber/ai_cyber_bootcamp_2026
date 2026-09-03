@@ -9,12 +9,17 @@ Exit code is the number of violations (capped at 255). 0 means clean.
 
 Rules:
   1. seam            the marker-commented data-loader cell appears exactly once
-  2. data-paths      no '../data' literal in a code cell outside the seam cell
-  3. pip             no !pip / %pip in a code cell outside the seam cell,
+  2. seam-drift      the seam cell's source equals seam_text() for the notebook's
+                     declared flavour in edits.py's MODULES table
+  3. data-paths      no '../data' literal in a code cell outside the seam cell, no
+                     '../ai_examples' or './data' literal in a code cell, and no
+                     '../data' mention in a markdown cell
+  4. pip             no !pip / %pip in a code cell outside the seam cell,
                      except Module 4.3's sanctioned TPOT install
-  4. llm             no ChatAnthropic( / anthropic.Anthropic( / langchain_anthropic
+  5. llm             no ChatAnthropic( / anthropic.Anthropic( / langchain_anthropic
                      import outside the seam cell
-  5. pairs           every worksheet and its answer carry the same seam flavour
+  6. pairs           every worksheet and its answer carry the same seam flavour;
+                     runs whenever more than one notebook is checked
 """
 
 import glob
@@ -25,14 +30,15 @@ import nbformat
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from seam import SEAM_END, SEAM_START
+from seam import SEAM_END, SEAM_START, seam_text
 
 # Module 4.3 only (spec Decision 12): TPOT needs an old setuptools, which no
 # cluster library can express, so that one notebook installs it notebook-scoped.
 TPOT_PIP = '%pip install "setuptools<58" tpot'
 TPOT_NOTEBOOK = "Worksheet_4.3_Automate_It_All"
 
-DATA_LITERALS = ("'../data", '"../data')
+CODE_LITERALS = ("'../data", '"../data', "'./data", '"./data', "'../ai_examples", '"../ai_examples')
+MARKDOWN_LITERALS = ("../data",)
 PIP_TOKENS = ("!pip", "%pip", "!conda", "%conda")
 LLM_TOKENS = ("ChatAnthropic(", "anthropic.Anthropic(", "langchain_anthropic")
 
@@ -75,9 +81,43 @@ def check_no_local_data_paths(nb) -> list:
     out = []
     for i, cell in _body_cells(nb):
         for line in cell.source.splitlines():
-            if any(lit in line for lit in DATA_LITERALS):
+            if any(lit in line for lit in CODE_LITERALS):
                 out.append(f"data-paths: cell {i}: {line.strip()[:100]}")
+    for i, cell in enumerate(nb.cells):
+        if cell.cell_type != "markdown":
+            continue
+        for line in cell.source.splitlines():
+            if any(lit in line for lit in MARKDOWN_LITERALS):
+                out.append(f"data-paths: cell {i} (markdown): {line.strip()[:100]}")
     return out
+
+
+def _module_for(root: Path, path_str: str):
+    """The MODULES entry whose worksheet or answer resolves to path_str, or None."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from edits import MODULES
+
+    try:
+        rel = str(Path(path_str).resolve().relative_to(root))
+    except ValueError:
+        rel = path_str
+    for module in MODULES:
+        if module.worksheet == rel or module.answer == rel:
+            return module
+    return None
+
+
+def check_seam_drift(nb, module) -> list:
+    """The seam cell's source must equal seam_text() for the module's declared flavour."""
+    if module is None or module.seam == "none":
+        return []
+    seams = [c for c in nb.cells if _is_seam(c)]
+    if len(seams) != 1:
+        return []  # check_seam already reports a missing/duplicate seam
+    wanted = seam_text(with_llm=(module.seam == "llm"))
+    if seams[0].source != wanted:
+        return ["seam-drift: seam cell does not match seam_text() for this module"]
+    return []
 
 
 def check_no_pip(nb, name: str) -> list:
@@ -107,13 +147,14 @@ def check_no_direct_llm(nb) -> list:
     return out
 
 
-def check_pairs(root: Path) -> list:
+def check_pairs(root: Path, modules=None) -> list:
     """Every worksheet and its answer must carry the same seam flavour."""
-    sys.path.insert(0, str(Path(__file__).resolve().parent))
-    from edits import MODULES
+    if modules is None:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from edits import MODULES as modules
 
     out = []
-    for module in MODULES:
+    for module in modules:
         if not module.answer:
             continue
         flavours = []
@@ -144,7 +185,9 @@ def main() -> int:
     for path_str in paths:
         nb = load_notebook(path_str)
         name = Path(path_str).name
+        module = _module_for(root, path_str)
         violations = (check_seam(nb)
+                      + check_seam_drift(nb, module)
                       + check_no_local_data_paths(nb)
                       + check_no_pip(nb, name)
                       + check_no_direct_llm(nb))
@@ -156,7 +199,7 @@ def main() -> int:
         else:
             print(f"[OK]   {path_str}")
 
-    if args == ["--all"]:
+    if len(paths) > 1:
         pair_violations = check_pairs(root)
         for v in pair_violations:
             print(f"  {v}")
