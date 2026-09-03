@@ -90,3 +90,25 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p80: "react agents" should be "ReAct agents".
 - p82: names create_react_agent with a prompt parameter; Worksheet 13.5 uses create_agent from langchain.agents with system_prompt.
 - Unsure pages p36, p51, p63 ruled own slides (section dividers).
+
+## 11-ai-components
+- p11: the cloth photograph overlaps the title; "Rescue!" is clipped.
+- p18: says Chroma is used for the labs; Worksheet 11.1 and ai_examples/rag_demo.py use LangChain's InMemoryVectorStore.
+- p19: `import chroma` should be `import chromadb`.
+- p22: the template is an f-string with placeholders meant to be filled later; the f prefix should go.
+- p30: the figure overlaps and cuts off the bullet text; "contraction of sequences" should be "construction".
+- p33: `os` is used without being imported; ChatOpenAI/gpt-3.5-turbo and `langchain.schema` are dated, and the repository's ascii_art_generator.py uses ChatAnthropic and langchain_core.messages.
+- p35: "one token at a a time" has a doubled "a".
+- p36: `SystemMessageTemplate` should be `SystemMessagePromptTemplate`; `from_template(template)` should pass `system_template`; the invoke key `{ai_name: "Jill"}` needs quotes; the comment names risky_sql_queries.py but the file is risky_sql_query_generator.py.
+- p42: ChatOpenAI import; the repository's output_parsers.ipynb uses ChatAnthropic.
+- p44: the chain uses `json_output_formatter` but the parser was created as `json_output_parser`.
+- p49: `get_relevant_documents` is deprecated (retriever.invoke); ChatOpenAI gpt-4o while the repository example uses Claude.
+- p51: `llm.predict` is deprecated; the listing is a loop body with the `while` line omitted and inconsistent indentation.
+- p76: `init_chat_model(..., model_provider="openai")`; the repository uses ChatAnthropic.
+- p77: "a client have" should be "a client has".
+- p81: imports `Tool` from langchain.tools but uses the `@tool` decorator, which is not imported; the function has no docstring, which the decorator requires.
+- p82: `tools=[phone_tool]` is undefined on the slide; `my_tool` is rebound to the Tool wrapper, discarding the decorated tool; `initialize_agent`/`AgentType` are deprecated; ChatOpenAI gpt-4 while tool_example.py uses ChatAnthropic and create_react_agent.
+- p83: `agent.run` is deprecated.
+- p85: title says "Lab 11.2: Tool Usage"; the notebook is "Worksheet 11.2: Building & Using an Agent Tool".
+- Unsure page p11 ruled own slide.
+- Port note (not a slide defect): the notes for the code slides say the worksheets target Claude through langchain_anthropic, which is the unported notebooks; the Databricks worksheets call the course endpoint through the seam cell. Same in decks 10, 12, 13, 14; a provider pass over those notes is pending.
