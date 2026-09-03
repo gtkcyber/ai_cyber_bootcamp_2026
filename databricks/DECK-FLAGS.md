@@ -131,3 +131,24 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p26 to p31: six stages of one Chio and Freeman poisoning figure classified as separate slides; each has its own note, but they could be grouped as builds.
 - Unsure pages p16, p18, p20, p38, p55, p68 ruled own slides.
 - Notebook, not deck: Worksheet_7.1_Attacking_AI.ipynb's title cell reads "Worksheet 8.1 Attacking AI - Answers" and cites HopSkipJump as "Jianbo et al. (2019)" (the author is Jianbo Chen).
+
+## 09-artificial-intelligence-introduction-and-theory
+- p13: "Gemeni" misspelled twice; the link should be gemini.google.com.
+- p14: ChatGPT dated 2023; OpenAI released it November 2022. "2000: Bag of Words" is not an origin date (Harris, 1954).
+- p20: "occurances" typo; "documents_containing-term" has a hyphen for an underscore; the IDF bullet describes occurrences, the formula counts documents containing the term.
+- p31: "labelled" (UK spelling) alongside "Unlabeled" on p32.
+- p32, p33: "for the those descriptions".
+- p34: variable named sin_matrix holds cosine similarities; the np.argmax line is missing its closing parenthesis.
+- p37: credits 2014 attention with improving word2vec; it improved RNN encoder-decoder translation (Bahdanau, Cho, Bengio).
+- p42: title "Transfomers".
+- p43: encoder output reads "I am a student" while the decoder generates "I love llamas" (inherited from the source figure).
+- p47: "Tranformers" typo; GPT-3 "1.75 billion" should be 175 billion (p48 has it right); GPT-1 was trained on BooksCorpus, Common Crawl entered with GPT-3.
+- p53: "which GPUs can execute much more effectively on a GPU" is redundant.
+- p58: title "Tozenization".
+- p77: attributes positional information to the attention layer; positional encodings are added before the attention layers, attention adds context.
+- p88: Judge "Kevin Casten" should be P. Kevin Castel.
+- p95: "Non-Deterministic systems is not guaranteed" (subject-verb).
+- p99: bare URL; the note was written from calculator.gtkcyber.com itself, which states it returns wrong results at a configurable frequency and magnitude.
+- p100: "nearly 100k models on HuggingFace" is dated; the hub passed one million models in 2024.
+- Unsure pages p9 (module title card) and p59 (Method 1 of the tokenization sequence) ruled own slides.
+- Spot-check: p57 note restates the slide's July 2026 price table as an input-to-output ratio; p72 note names max_tokens (Anthropic) and max_completion_tokens (OpenAI); p101 note cites JFrog's February 2024 report of about a hundred malicious models on Hugging Face.
