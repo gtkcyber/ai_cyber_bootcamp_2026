@@ -77,6 +77,8 @@ sync:
     - "**/.ipynb_checkpoints/"
     - "**/.pytest_cache/"
     - databricks/deck-viewer/tests/
+    - databricks/deck-viewer/local_run.py
+    - databricks/deck-viewer/requirements-dev.txt
 
 workspace:
   # Staging location until Curtis supplies the read-only Git credential (spec
