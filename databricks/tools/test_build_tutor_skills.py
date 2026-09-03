@@ -374,3 +374,38 @@ def test_every_generated_skill_keeps_a_body(generated):
     for name in GENERATED_SKILLS:
         body = split_frontmatter((generated / name / "SKILL.md").read_text(encoding="utf-8"))[1]
         assert len([ln for ln in body.splitlines() if ln.strip()]) > 10, name
+
+
+# The sections the strip keeps, named here rather than imported: a citation
+# lost out of one of these is a citation lost, whatever the drop list says.
+KNOWLEDGE_SECTIONS = (
+    "## Subfields", "## Selection tree", "## Family-specific pitfalls and evaluation",
+    "## Deltas", "## Standards catalog", "## Production considerations",
+    "## Worked compositions",
+)
+
+_URL_RE = re.compile(r"https?://[^\s`)\]\"']+")
+
+
+def _urls_in_knowledge_sections(body):
+    urls = set()
+    for heading in KNOWLEDGE_SECTIONS:
+        if heading in body:
+            urls |= set(_URL_RE.findall(body.split(heading, 1)[1].split("\n## ", 1)[0]))
+    return urls
+
+
+@pytest.mark.parametrize("name", ALL_SUBSKILLS)
+def test_every_citation_url_in_a_kept_section_survives(generated, name):
+    """A citation is the one thing a student can follow out of the course."""
+    wanted = _urls_in_knowledge_sections(split_frontmatter(_src(name))[1])
+    got = set(_URL_RE.findall((generated / name / "SKILL.md").read_text(encoding="utf-8")))
+    assert wanted - got == set()
+
+
+def test_the_fermi_estimate_definition_survives_with_its_citation(generated):
+    """It is general pedagogy a student can use, not suite machinery, and it sat
+    in the same wrapped unit as a line about tier floors."""
+    body = (generated / "ds-verify" / "SKILL.md").read_text(encoding="utf-8")
+    assert "https://en.wikipedia.org/wiki/Fermi_problem" in body
+    assert "order-of-magnitude bound" in body

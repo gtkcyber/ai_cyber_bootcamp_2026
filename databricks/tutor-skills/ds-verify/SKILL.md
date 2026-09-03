@@ -25,7 +25,10 @@ protocol only.
   borrowed universal cutoff. See `references/ds-verify.reproduction-protocol.md#second-path`.
 - **Magnitude/sanity checks** — **LITERATURE-THIN**; nearest is the **Fermi
   problem / Fermi estimate** (general pedagogy), treated as practice
-  protocol, not settled literature. See
+  protocol, not settled literature. "Fermi problem" —
+  https://en.wikipedia.org/wiki/Fermi_problem : order-of-magnitude bound via
+  a shown decomposition into independently-estimable factors; a bound-check
+  only, never a correctness proof. See
   `references/ds-verify.audit-checks.md#magnitude`.
 - **Join fan-out, denominator, attrition, double-filter audit** — no single
   umbrella term: **fan trap/fan-out** (relational modeling; primary

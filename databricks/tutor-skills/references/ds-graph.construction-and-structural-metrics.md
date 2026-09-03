@@ -46,6 +46,10 @@ of the underlying data. A co-occurrence threshold picked for graph density
 rather than domain meaning silently encodes an unstated assumption into
 every downstream centrality/community/link-prediction result.
 
+"Shared-device edge, `attest_id: dev-fp-003` (device fingerprint match
+logged at login), no threshold (binary match)" is a complete declaration;
+"edge if similarity > 0.8" with no stated rationale for 0.8 is not.
+
 Node identity: construction assumes node identity is already resolved.
 
 ## Centrality

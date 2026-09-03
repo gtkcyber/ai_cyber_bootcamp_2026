@@ -125,15 +125,17 @@ BANNED_WORDS_RE = re.compile(
 )
 
 
-def _sentences(text: str) -> list[str]:
-    """Split on sentence-final punctuation followed by a space and a new start.
+# What can open a sentence: a capital, an opening bracket, a backtick, a `**`, or
+# an opening quote. Every one of these was added because leaving it out glued a
+# machinery sentence to the knowledge sentence beside it, and the line pass then
+# took both -- the quote cost ds-verify its Fermi-estimate definition and the
+# only citation URL the strip has ever lost out of a section it keeps.
+_SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+(?=[A-Z(`*\"'\u201c\u2018\[])")
 
-    A new start is a capital, an opening bracket, a backtick or a `**` -- the
-    suite opens a sentence with bold emphasis often enough that leaving `*` out
-    would glue a machinery sentence to the knowledge sentence before it, and the
-    line pass would then drop both.
-    """
-    return [s.strip() for s in re.split(r"(?<=[.!?])\s+(?=[A-Z(`*])", text) if s.strip()]
+
+def _sentences(text: str) -> list[str]:
+    """Split on sentence-final punctuation followed by a space and a new start."""
+    return [s.strip() for s in _SENTENCE_SPLIT_RE.split(text) if s.strip()]
 
 
 def clean_description(text: str) -> str:

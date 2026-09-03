@@ -28,9 +28,11 @@ description: "Post-hoc explanation of a fixed, already-trained model and feature
   marginalizes assuming feature independence — correlated features force
   evaluation at unrealistic combinations, per when-explanations-lie. See
   `references/ds-explain.attribution-methods.md#pdp-ice`.
-- Ribeiro, Singh & Guestrin, KDD 2016, https://arxiv.org/abs/1602.04938.
-  Edges: local fidelity does not guarantee explanation stability under small
-  perturbations. See `references/ds-explain.attribution-methods.md#global-vs-local`.
+- **Global vs local (LIME)** — trigger: "explain this one prediction"
+  (local) vs. Ribeiro, Singh & Guestrin, KDD 2016,
+  https://arxiv.org/abs/1602.04938. Edges: local fidelity does not guarantee
+  explanation stability under small perturbations. See
+  `references/ds-explain.attribution-methods.md#global-vs-local`.
 - **When explanations lie** — trigger: fires whenever this skill composes at
   all, regardless of which other subfield fired. participation: `mandatory`.
   Hooker, Mentch & Zhou, 2019, https://arxiv.org/abs/1905.03151. Covers
