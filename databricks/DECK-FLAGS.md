@@ -179,3 +179,27 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p141: "compliment" should be "complement".
 - p145: slide calls the lab "Worksheet 1.1: Exploratory Data Analysis"; the notebook is titled "Vectorized Data Structures".
 - Unsure rulings awaiting Curtis: p103 own slide; p131 own slide (section divider); p128 is a build stage of p129 and p132 of p133 (each merge is a `kind` edit plus deleting that page's note section); p102, classified `slide`, is plainly an earlier stage of p103.
+
+## 04-supervised-machine-learning
+- p37: "dominate class" should read "dominant class".
+- p55: sentence repeats itself ("the same for any supervised learning ... for any supervised learning in Python").
+- p71 (also p72 through p88): the labeled TP/FN/FP/TN diagram puts true positive top-left, but scikit-learn's printed matrix with class 1 positive has TP bottom-right; the diagram matches only if class 0 is treated as positive. The p71 note spells out the correct mapping.
+- p81: typo "thet"; "the proportion of actual positives was identified correctly" is ungrammatical; double hyphen used as a dash.
+- p86: roc_auc_score is passed target_preds (hard labels); it needs scores or probabilities, otherwise it collapses to balanced accuracy.
+- p94: Yellowbrick renamed poof() to show() in 1.0.
+- p105: chart title says LinearSVC(C=10.0) but the code uses GaussianNB.
+- p109: defaults are from an old release (n_estimators=10, max_features='auto', min_impurity_split).
+- p118: import misspelled as StandardScalar.
+- p120: Imputer class no longer exists (SimpleImputer); ItemSelector is a docs-example custom class, not in sklearn.
+- p121: predictions stored in y_prediction but target_prediction passed to classification_report.
+- p122: typographic opening quote in the scoring string, a syntax error.
+- p126: pickle.dump/load given filenames instead of file objects (raises TypeError); six.moves shim is Python 2 era.
+- p128 vs p129: slide code is POST /predict with list[float]; the demo script's endpoint is GET /predict?text=<domain>. Not wrong, but the two do not match.
+- p131: slide says "Optimizing your Model"; the notebook is titled "Tuning your Classifier".
+- p132: scoring=custom_score() calls the scorer with no arguments; should pass custom_score.
+- p138: footer URL is clipped off the bottom edge of the slide (extracted text reads "github com").
+- p148, p150: pseudocode "if len( query_result > 0 )" has the comparison inside len().
+- p153, p161, p162: Python 2 code (unicode(), print statement) and sklearn.cross_validation, removed in 0.20.
+- p154, p156, p160: feature is called "G-Test Scores", "G-Score Test" and "G-Test Score" on different slides.
+- Unsure pages p36, p62, p72, p75, p79, p87, p145, p148, p160 all ruled own slides (section dividers, quiz pages before their answers, distinct charts).
+- Spot-check: notes carry library renames, removed sklearn modules, the LIME paper authorship and Condorcet 1785 beyond what the slides say.
