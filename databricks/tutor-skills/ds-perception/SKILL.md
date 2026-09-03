@@ -23,14 +23,16 @@ All three: axis `family`, composed-alongside? no.
   filter-bank implementations. Edges: filtering and peak detection are
   practitioner technique clusters, not traceable to one seminal paper each —
   don't cite a single reference as though the whole DSP toolkit derives from
-  it. See `references/classical-dsp.md`.
-- Canonical practices (not exhaustive): image resize/crop/color-space
-  policy, audio resample-rate and frame/hop-size choice for spectrogram/MFCC
-  extraction, video frame-sampling rate, sensor calibration and
-  cross-channel sample-rate alignment. Edges: every preprocessing statistic
-  (normalization mean/std, filter coefficients fit to data) is fit
-  train-only — mechanics owned by `ds-features`, cited not re-derived. See
-  `references/modality-preprocessing.md`.
+  it. See `references/ds-perception.classical-dsp.md`.
+- **LITERATURE-THIN**: practice guidance, not a settled literature — no
+  citation invented per this family's brief. Canonical practices (not
+  exhaustive): image resize/crop/color-space policy, audio resample-rate and
+  frame/hop-size choice for spectrogram/MFCC extraction, video
+  frame-sampling rate, sensor calibration and cross-channel sample-rate
+  alignment. Edges: every preprocessing statistic (normalization mean/std,
+  filter coefficients fit to data) is fit train-only — mechanics owned by
+  `ds-features`, cited not re-derived. See
+  `references/ds-perception.modality-preprocessing.md`.
 - Canonical methods: LeCun, Bottou, Bengio & Haffner, "Gradient-Based
   Learning Applied to Document Recognition," Proc. IEEE 86(11), 1998 —
   http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf : the founding CNN
@@ -42,14 +44,15 @@ All three: axis `family`, composed-alongside? no.
   — a natural-image-pretrained CNN applied to spectrograms or sensor-array
   data is a domain-shift bet, not a neutral default, and that gap is stated,
   never assumed closed by architecture similarity alone.
-  Fine-tuning/training mechanics past this framing choice hand off to
-  `ds-deep-learning`. See `references/pretrained-family-selection.md`.
+  Fine-tuning/training mechanics past this framing choice the
+  `ds-deep-learning` skill covers this. See
+  `references/ds-perception.pretrained-family-selection.md`.
 
 ## Selection tree
 
 1. **Name the modality and its preprocessing decision.** Image, audio,
    video, or sensor — each carries a distinct resample/frame/normalize
-   choice (`references/modality-preprocessing.md`); an unstated default is
+   choice (`references/ds-perception.modality-preprocessing.md`); an unstated default is
    a hidden bias, not a neutral start.
 2. **Classical-first rung.** Do DSP-derived features (FFT/filter-bank/
    spectrogram-derived summary statistics, peak locations/prominences) plus
@@ -62,7 +65,7 @@ All three: axis `family`, composed-alongside? no.
    classical rung's performance is not itself the reason.
 4. **CNN framing selected → pretrained-family choice.** Natural-image-
    pretrained CNN, a modality-specific pretrained model, or from-scratch —
-   state the domain-shift bet (`references/pretrained-family-selection.md`)
+   state the domain-shift bet (`references/ds-perception.pretrained-family-selection.md`)
    explicitly rather than defaulting on architecture-shape similarity.
 5. **Hand off training.** Fine-tuning/training mechanics for the selected
    pretrained family or from-scratch architecture are `ds-deep-learning`'s
@@ -94,46 +97,3 @@ classical-model rung is scored on `ds-supervised`'s metric family
 (accuracy/precision/recall/AUC, RMSE/MAE, per target type); a CNN-rung
 report additionally states which pretrained family was used and the
 domain-shift note from the Selection tree, not just the resulting score.
-
-## Gates
-
-- Every classical-DSP feature extraction states its window length and the
-  resulting time/frequency-resolution tradeoff — an unstated window size
-  fails.
-- Filtering/peak-detection subfield output is not attributed to a single
-  canonical citation — documented only as a practitioner technique choice
-  (cutoff/order/causal-vs-zero-phase; detection method and threshold/
-  prominence).
-- Every modality's preprocessing decision (resample rate/frame size/
-  normalization/channel handling) is stated explicitly before extraction or
-  modeling proceeds — an unstated default fails.
-- CNN framing states the comparably-tuned classical-DSP-features +
-  classical-model ceiling on record before escalating.
-- Pretrained-family selection states the domain-distance bet explicitly — a
-  natural-image-pretrained CNN applied outside the photographic domain with
-  no stated gap fails.
-- Fit-on-train-only compliance for any DSP-derived or preprocessing-derived
-  transform (normalization stats, filter coefficients fit to data) is
-  `ds-features`'s pipeline-object mandate — applies without restatement.
-- Doctrine gates triggered: leakage, provenance/additivity, scale/cost
-  (`references/doctrine-leakage.md`, `doctrine-repro-provenance.md`,
-  `doctrine-scale-cost.md`) — linked, not restated.
-
-## Edges
-
-Covered: classical DSP (FFT/filtering/spectrograms/peak detection),
-modality preprocessing across image/audio/video/sensor, the classical-first
-escalation decision into CNN framing, pretrained-family selection.
-
-Not covered here, pointer only: the baseline-first-ladder procedure and
-tuning parity itself (`ds-model`); classical model fitting once DSP features
-are extracted (`ds-supervised`); fine-tuning/training mechanics for any
-selected architecture or pretrained family (`ds-deep-learning`);
-fit-on-train-only mechanics (`ds-features`); generic evaluation scorecard
-(`ds-evaluate`); multimodal fusion architecture, which this family frames
-the modality input for but does not itself build (`ds-deep-learning`,
-jointly with a `ds-text` pairing).
-
-No leakage constraint originates in this family — the partner family leads
-split/validation design in every pairing below (router multi-family rule,
-`SKILL.md` §1).

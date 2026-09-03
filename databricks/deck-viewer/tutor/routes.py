@@ -13,7 +13,7 @@ from flask import Blueprint, Response, jsonify, request
 
 from tutor.files import MissingFile
 from tutor.identity import current_user
-from tutor.prompt import build_messages
+from tutor.prompt import MAX_QUESTION_CHARS, build_messages
 from tutor.sessions import CONV_ID_RE
 from tutor.throttle import Busy, TooManyRequests
 
@@ -24,6 +24,9 @@ BUSY_MESSAGE = "The tutor is answering other questions right now. Try again in a
 UNKNOWN_CONVERSATION_MESSAGE = "That conversation was not found."
 INVALID_NOTEBOOK_MESSAGE = "That notebook path is not valid."
 EMPTY_QUESTION_MESSAGE = "Ask a question first."
+QUESTION_TOO_LONG_MESSAGE = (
+    f"That question is too long. Trim it to {MAX_QUESTION_CHARS:,} characters or fewer "
+    "and ask again -- paste the part you want explained, not the whole notebook.")
 ANSWER_ERROR_MESSAGE = "Something went wrong answering that. Ask again."
 SETUP_ERROR_MESSAGE = "Something went wrong getting ready to answer that. Try again."
 HISTORY_TURNS = 8
@@ -88,6 +91,10 @@ def make_blueprint(library, material, tutor, store, throttle, *, dev_user: str |
 
         if not question:
             return jsonify({"message": EMPTY_QUESTION_MESSAGE}), 400
+        # Refused before the permit is taken: an over-long question is a client
+        # mistake, not a share of the student's rate limit.
+        if len(question) > MAX_QUESTION_CHARS:
+            return jsonify({"message": QUESTION_TOO_LONG_MESSAGE}), 413
 
         throttle_cm = throttle.acquire(user)
         try:
@@ -96,13 +103,6 @@ def make_blueprint(library, material, tutor, store, throttle, *, dev_user: str |
             return jsonify({"message": TOO_MANY_REQUESTS_MESSAGE}), 429
         except Busy:
             return jsonify({"message": BUSY_MESSAGE}), 503
-
-        # One Toolbox lives for the life of the process, so its record of what
-        # it served would otherwise accumulate across every question this
-        # worker ever answers and each answer would cite the last one's sources.
-        toolbox = getattr(tutor, "toolbox", None)
-        if toolbox is not None:
-            toolbox.sources.clear()
 
         released = False
 

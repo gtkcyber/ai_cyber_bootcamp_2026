@@ -26,7 +26,6 @@ checkable by code — this is why.
 Every join, filter, aggregation, or dedup rewrites (or explicitly
 reaffirms) the population statement of its output.
 
-- A **row-attrition ledger** records rows in/out per transform.
 - Attrition above a stated threshold must surface in `ds-communicate`.
 - Joins compose coverage: state intersection vs. union explicitly.
 

@@ -26,7 +26,7 @@ description: "Descriptive/product analytics and the metric layer: metric definit
   across time, and factless facts carry no numeric measure at all. This
   subfield does not classify a measure itself — additive/semi-additive/
   non-additive and ratio-of-averages-vs-average-of-ratios is
-  `doctrine-repro-provenance.md`'s Additivity section, first executed by
+  `references/doctrine-repro-provenance.md`'s Additivity section, first executed by
   `ds-profile`; this family **cites that classification, never re-derives
   it** (`ds-profile` Gates). The delta is analytics practice: a metric's
   stated grain sets its denominator, and summing a semi-additive measure
@@ -116,17 +116,6 @@ description: "Descriptive/product analytics and the metric layer: metric definit
   (changepoint/anomaly detection itself) are `ds-timeseries`'s — this
   subfield consumes that mechanism, it does not reimplement it.
 
-|---|---|---|---|
-| Metric definition and lineage | quick-answer | yes, always-composed wherever a KPI is reported | `mandatory` |
-| Grain and additivity | quick-answer | yes, always-composed wherever aggregation occurs | `mandatory` |
-| Sessionization | analysis | no | `conditional-on-data:session-based-population` |
-| Cohorts | analysis | no | `conditional-on-data:time-indexed-grouping-asked` |
-| Funnels | analysis | no | `conditional-on-data:sequential-conversion-asked` |
-| Retention curves | analysis | no | `conditional-on-data:cohort-persistence-asked` |
-| Segmentation validity | analysis | no | `conditional-on-data:group-differentiation-asked` |
-| Decomposition/driver analysis | analysis | no | `conditional-on-data:metric-change-explanation-asked` |
-| Dashboard and KPI-alert design | analysis | yes, re-entrant per dashboard/alert published | `conditional-on-data:operational-surface-asked` |
-
 `mandatory` here means: fires whenever `ds-analytics` composes at all, same
 convention as `ds-gather`'s selection-into-the-dataset row — every metric
 this family reports states its lineage and its grain, even a one-line
@@ -185,55 +174,5 @@ quick-answer rate.
   outputs are rarely held-out predictive performance; "evaluation" here is
   the lineage/consistency check above plus, for retention curves and
   dashboard-alert thresholds specifically, the reproducibility discipline
-  `doctrine-repro-provenance.md` states once — this family's delta is that
+  `references/doctrine-repro-provenance.md` states once — this family's delta is that
   the check runs per reported metric, not per fitted model.
-
-## Gates
-
-- **Metric-lineage gate**: every KPI cites both its defining computation
-  (the metric-layer spec, per metric definition and lineage) and its source
-  population statement — a bare number with neither citation fails this
-  gate. Two dashboards disagreeing on the value of one metric name is a
-  lineage failure, not a refresh-timing footnote.
-- **Grain/additivity gate**: every metric declares its grain before
-  aggregation, citing `ds-profile`'s additive/semi-additive/non-additive
-  classification — this family never re-derives that classification; a
-  metric aggregating a semi-additive measure the same way as an additive
-  one fails this gate.
-- **Driver-analysis gate**: any "driver," "cause," or "because" language
-  attached to a decomposition result requires an identification statement —
-  a decomposition presented in causal language with no identification
-  statement on record is flagged, not published.
-- **Censoring gate**: any reported retention rate for a cohort still within
-  its observation window states the censoring treatment applied — an
-  unqualified rate for a recent cohort fails this gate.
-- Fit-on-train-only (`ds-features` ownership) applies to any family-
-  specific transform that is *fit* rather than merely computed — a
-  segmentation rule threshold learned from data (as opposed to a fixed
-  business rule) is fit train-only, same as any other transform.
-- Doctrine gates this family triggers, linked not restated: leakage
-  (`doctrine-leakage.md`), provenance/additivity
-  (`doctrine-repro-provenance.md`) and scale/cost per router doctrine.
-- Dashboard publication passes `ds-verify` before going live (`ds-verify`
-  Gates) — this family states the metric and its lineage, `ds-verify`
-  computes the independent second-path check.
-
-## Edges
-
-Covered: metric definition and lineage, grain and additivity in analytics
-practice, sessionization, cohorts, funnels, retention curves, segmentation
-validity, decomposition/driver analysis, dashboard and KPI-alert design.
-
-Not covered, pointer only: additive/semi-additive/non-additive
-classification mechanics (`doctrine-repro-provenance.md`, executed first by
-`ds-profile` — this family cites, never re-derives); the grain **contract**
-and key uniqueness at the schema/record level (`ds-data-models`, Interpret —
-this family's grain subfield is the analytics-practice delta only); causal
-identification for any driver- analysis "because" claim (`ds-causal`); the
-clustering *method* itself when segmentation escalates past rule-based
-business segments (`ds-unsupervised`); statistical anomaly/changepoint
-detection *mechanics* behind a dashboard alert (`ds-timeseries` — this
-family owns alert *design*, not the detector); narrative report authoring —
-dashboard/KPI- alert design is this family's, audience-tiered narrative
-reports are `ds-communicate`'s (its own Edges points back here);
-recurring-report freshness and dashboard-contract monitoring once published.

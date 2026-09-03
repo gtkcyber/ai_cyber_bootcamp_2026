@@ -5,8 +5,11 @@ APP_DIR = Path(__file__).resolve().parent.parent
 if str(APP_DIR) not in sys.path:
     sys.path.insert(0, str(APP_DIR))
 
+import pytest  # noqa: E402
+
 from tutor.prompt import (  # noqa: E402
     BUDGET_TOKENS,
+    MAX_QUESTION_CHARS,
     DECK_NOTES_MAX_TOKENS,
     HISTORY_RESERVE_TOKENS,
     SKILL_INDEX_MAX_TOKENS,
@@ -148,3 +151,48 @@ def test_the_budget_leaves_room_for_four_capped_tool_results():
 
 def test_estimate_tokens_is_never_zero():
     assert estimate_tokens("") >= 1
+
+
+def test_a_question_longer_than_the_cap_is_trimmed_with_a_marker():
+    content = _messages(question="x" * (MAX_QUESTION_CHARS + 5_000))[-1]["content"]
+    assert "trimmed" in content.lower()
+    assert content.count("x") <= MAX_QUESTION_CHARS
+
+
+def test_the_user_block_is_refused_when_it_cannot_be_made_to_fit():
+    """The budget is a guarantee, not a hope: an impossible one is an error."""
+    with pytest.raises(ValueError):
+        _messages(budget_tokens=10)
+
+
+def test_the_assembled_prompt_fits_the_budget_with_an_oversized_question():
+    notes = "\n\n".join(f"Slide {i}: " + "word " * 200 for i in range(200))
+    messages = _messages(question="x" * 40_000, deck_notes=notes)
+    assert sum(estimate_tokens(m["content"]) for m in messages) <= BUDGET_TOKENS
+
+
+def test_history_gets_its_reserve_before_the_material_is_fitted():
+    """The plan's table is 6K index + 6K notes + 2K history + 12K tool results.
+    Fitting history from what the material leaves over inverts that: a long deck
+    eats the conversation the student is following up on."""
+    notes = "\n\n".join(f"Slide {i}: " + "word " * 200 for i in range(200))
+    history = [{"role": "user" if i % 2 == 0 else "assistant", "content": "q " * 500}
+               for i in range(12)]
+    budget = 7_500
+    messages = _messages(deck_notes=notes, history=history, budget_tokens=budget)
+    reserved = sum(estimate_tokens(m["content"]) for m in messages[1:-1])
+    assert reserved > HISTORY_RESERVE_TOKENS * 0.9, f"history squeezed to {reserved}"
+    assert sum(estimate_tokens(m["content"]) for m in messages) <= budget
+    assert "truncated" in messages[-1]["content"].lower(), "the deck should shrink, not history"
+
+
+def test_the_material_allowance_is_what_the_budget_leaves_after_the_reserve():
+    """Below the deck-notes cap it is the budget that binds, minus the reserve."""
+    notes = "\n\n".join(f"Slide {i}: " + "word " * 200 for i in range(200))
+    budget = 8_000
+    messages = _messages(deck_notes=notes, history=[], budget_tokens=budget)
+    room = budget - estimate_tokens(messages[0]["content"]) - HISTORY_RESERVE_TOKENS
+    assert room < DECK_NOTES_MAX_TOKENS, "pick a budget where the reserve is what binds"
+    # The reserve is held back even with an empty conversation, and the material
+    # takes everything else rather than stopping short of it.
+    assert room - 200 < estimate_tokens(messages[-1]["content"]) <= room

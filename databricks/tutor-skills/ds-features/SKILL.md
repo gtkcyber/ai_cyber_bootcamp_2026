@@ -5,11 +5,8 @@ description: "Feature engineering and the leak-safe transform pipeline: encoding
 
 # ds-features
 
-Runs after `ds-labeling`, before `ds-model` (`manifest.json`'s lifecycle
-list, position 8). Not re-entrant: fires once per task in normal
-composition; loop-backs into it re-run it, they are not a second entry
-point. Full depth, worked examples, and citations live in `references/`;
-this file is protocol only.
+Full depth, worked examples, and citations live in `references/`; this file
+is protocol only.
 
 ## Subfields
 
@@ -30,7 +27,7 @@ where stateful, fit logic in the `pipeline_object`.
   target/mean scheme on a high-cardinality field hands off to Leak-safe
   target encoding below, not resolved here; a learned embedding produced
   by a composed model is `ds-method-composition`'s composition, not a
-  plain encoding. See `references/encodings-scaling-interactions.md#encodings`.
+  plain encoding. See `references/ds-features.encodings-scaling-interactions.md#encodings`.
 - **Scaling** — feature scaling for scale-sensitive downstream methods
   (distance-based, gradient-based, regularized-linear). Trigger: a
   composed family/model that is scale-sensitive (the family skill states
@@ -40,7 +37,7 @@ where stateful, fit logic in the `pipeline_object`.
   under outliers. Edges: fit-on-train-only mechanics for the scaler is
   the general pipeline-object mandate (Gates), not a separate concern
   here; whether an outlier is a data defect to remove is `ds-clean`'s
-  call. See `references/encodings-scaling-interactions.md#scaling`.
+  call. See `references/ds-features.encodings-scaling-interactions.md#scaling`.
 - **Aggregation/window features** — automated aggregate construction over
   relational or temporal data. Trigger: the source has a group-by key (grain
   narrower than the modeling row) or a time axis. Kanter & Veeramachaneni,
@@ -49,7 +46,7 @@ where stateful, fit logic in the `pipeline_object`.
   https://docs.feast.dev/getting-started/concepts/point-in-time-joins : join
   only feature values timestamped ≤ event time. Additivity classification
   (Gates) runs before any aggregation-derived feature ships. See
-  `references/aggregation-leakage-selection.md#aggregation`.
+  `references/ds-features.aggregation-leakage-selection.md#aggregation`.
 - **Interactions** — explicit interaction/polynomial terms across two or
   more features. Trigger: domain knowledge or a diagnostic (not run by
   default) suggests a non-additive combination matters. LITERATURE-THIN:
@@ -58,9 +55,9 @@ where stateful, fit logic in the `pipeline_object`.
   memory. scikit-learn `PolynomialFeatures` —
   https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html.
   Edges: degree/feature-count blow-up is a compute-cost matter
-  (`doctrine-scale-cost.md`, pointer); treat as practice guidance, not a
+  (`references/doctrine-scale-cost.md`, pointer); treat as practice guidance, not a
   settled discovery method. See
-  `references/encodings-scaling-interactions.md#interactions`.
+  `references/ds-features.encodings-scaling-interactions.md#interactions`.
 - **Leak-safe target encoding** — out-of-fold/ordered target statistics
   for a target/mean encoding on a high-cardinality categorical. Trigger:
   Encodings selected a target/mean scheme for a high-cardinality field.
@@ -74,7 +71,7 @@ where stateful, fit logic in the `pipeline_object`.
   leakage — only an out-of-fold/ordered scheme does; the general
   fit-on-train-only mandate (Gates) is necessary but not sufficient here,
   this subfield's delta is the in-fold leak specifically. See
-  `references/aggregation-leakage-selection.md#target-encoding`.
+  `references/ds-features.aggregation-leakage-selection.md#target-encoding`.
 - **Feature selection (pruning, not attribution)** — filter/wrapper/
   embedded selection to finalize the candidate set before `ds-model`.
   Trigger: mandatory — every composition of this skill ends with a pruning
@@ -82,81 +79,11 @@ where stateful, fit logic in the `pipeline_object`.
   and Feature Selection," JMLR —
   https://www.jmlr.org/papers/special/feature03.html : seminal filter/
   wrapper/embedded taxonomy. See
-  `references/aggregation-leakage-selection.md#selection`.
-
-| Subfield | Participation |
-|---|---|
-| Encodings | conditional-on-data:categorical-features-present |
-| Scaling | conditional-on-data:scale-sensitive-method |
-| Aggregation/window features | conditional-on-data:relational-or-temporal-structure |
-| Interactions | conditional-on-data:interaction-suspected |
-| Leak-safe target encoding | conditional-on-data:target-encoding-selected |
-| Feature selection | mandatory |
+  `references/ds-features.aggregation-leakage-selection.md#selection`.
 
 `mandatory`: pruning (even a no-op "keep all" decision) is the one step
 every composition of this skill takes, unlike the other five, which fire
 only on their own trigger.
-
-## Gates
-
-- Every `feature_dictionary` entry states its semantic claim and cites
-  the `ds-data-models` semantic-dictionary entry it derives from; an
-  event-counting feature additionally cites the `attest_id` of the
-  Attest-register entry that claim counts — a feature naming neither
-  citation fails this gate.
-- Every `feature_dictionary` entry declares a provenance class; a
-  derived/composite feature inherits the weakest of its inputs' classes
-  (`doctrine-repro-provenance.md`'s Provenance classes section — inherited
-  here, not re-derived).
-- External unvalidated enrichments (vendor scores, GeoIP, third-party
-  scoring APIs) are rejected outright as feature inputs; internally
-  composed model outputs are admitted only when fit leak-safe within the
-  pipeline and the composition is declared per `ds-method-composition`
-  (`doctrine-repro-provenance.md`'s validation requirement).
-- Additivity (additive/semi-additive/non-additive) is classified for
-  every measure before any aggregation-derived feature is built from it,
-  ratio-of-averages vs. average-of-ratios resolved at classification time,
-  not after the aggregate ships (`doctrine-repro-provenance.md`'s
-  Additivity section, gated jointly with `ds-profile`/`ds-analytics`;
-  this skill's delta is the per-feature step before shipping).
-- Any join executed to build a feature — not only the ingest join — passes
-  the same-semantics + cardinality join gate, and post-join cardinality
-  matches the declared grain; join gates apply at every join site.
-- `pipeline_object` fits every stateful transform (scaler, encoder,
-  imputer-adjacent statistic) on the train split only — a statistic
-  computed across train+test, or across the full pre-split dataset,
-  fails this gate regardless of the downstream CV scheme
-  (`doctrine-leakage.md`).
-- Target encoding and any time-aware feature carry an explicit leakage
-  treatment on record: out-of-fold/ordered target statistics for target
-  encoding; a stated as-of timestamp discipline, provably bounded to ≤
-  event time, for window features. A feature using naive in-fold target
-  statistics, or a window with no stated bound, fails this gate.
-- The `data-models` population statement is rewritten (never silently
-  left stale) after any feature transform here that changes row coverage
-  (drop-null policies, filtering joins) — cite the rewritten statement,
-  don't restate the prior one.
-
-## Edges
-
-Covered: encodings, scaling, aggregation/window features, interactions,
-leak-safe target encoding, feature selection for pruning, the
-fit-on-train-only pipeline object.
-
-Not covered, pointer only: CV design choice for the modeling loop
-(`ds-model`); feature importance for interpretation on a fixed set
-(`ds-explain`); stateful streaming *serving* computation of a window
-feature already defined here (`ds-mlops`); model-as-feature-extractor
-composition mechanics, e.g. embeddings as features
-(`ds-method-composition`); observational identification/uplift if a
-feature is meant to support a causal claim (`ds-causal`).
-
-## Audit mode
-
-Input: an existing external feature-engineering artifact authored outside
-this skill (a feature-store definition file, a notebook's transform cell, a
-prior analyst's pipeline script). An undocumented feature is treated as an
-unregistered field under Gates: flagged, never assumed leak-safe.
 
 ## Production considerations
 

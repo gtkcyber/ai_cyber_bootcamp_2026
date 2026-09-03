@@ -124,14 +124,3 @@ version/dialect against the actual feed before relying on any entry.
 5. `ds-uncertainty` — interval/coverage claim around the treatment-effect
    estimate, per `ds-causal`'s Pairings (identification here, interval
    discipline there).
-
-## Gates
-
-- No delta bullet restates owner content beyond naming it — re-deriving
-  owner content fails overlay scope.
-
-## Edges
-
-Covered: the four deltas above and the two worked compositions. FDA
-group-sequential boundaries) — already an `ds-stats` research- escalation
-trigger, not re-derived here.

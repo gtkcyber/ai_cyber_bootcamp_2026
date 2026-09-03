@@ -5,15 +5,9 @@ description: "Observational/quasi- experimental identification: DAGs and confoun
 
 # ds-causal
 
-Unlike the re-entrant trio (`ds-data-models`, `ds-stats`,
-`ds-entity-resolution`), this skill does not automatically recompose
-wherever its axis condition recurs; it is consulted via a named pointer the
-moment another skill's output would otherwise ship causal language with no
-identification behind it (`ds-analytics`, `ds-explain`, `ds-ranking`,
-`ds-impact`, `ds-gather`, `ds-stats` — see Edges for each boundary). Mirrors
-`ds-explain`'s fixed-position pattern, not `ds-method-composition`'s hook
-mechanism. Full depth, worked examples, and citations live in `references/`;
-this file is protocol only.
+Mirrors `ds-explain`'s fixed-position pattern, not `ds-method-composition`'s
+hook mechanism. Full depth, worked examples, and citations live in
+`references/`; this file is protocol only.
 
 **The core gate**: no causal language — "driver," "impact," "effect,"
 "caused by," "incrementality" — ships without a cited
@@ -32,7 +26,7 @@ association reported as causation without this citation fails at
   silently reclassifies confounder vs. collider vs. mediator; adjusting for
   a collider is the opposite-direction error from missing a confounder
   (see collider/selection stratification). See
-  `references/identification-strategies.md#dags-and-confounding`.
+  `references/ds-causal.identification-strategies.md#dags-and-confounding`.
 - **Matching** — trigger: a comparison group exists on observed
   covariates, no natural experiment. Propensity-score matching. Rosenbaum
   & Rubin, *Biometrika* 70(1), 1983 —
@@ -40,7 +34,7 @@ association reported as causation without this citation fails at
   removes bias from *observed* confounders only, under unconfoundedness —
   cannot address hidden confounders; balance diagnostics give no evidence
   for the untestable unconfoundedness assumption itself. See
-  `references/identification-strategies.md#matching`.
+  `references/ds-causal.identification-strategies.md#matching`.
 - **Difference-in-differences** — trigger: repeated before/after
   observations, panel or repeated cross-section. DiD with staggered
   timing. Callaway & Sant'Anna — https://arxiv.org/abs/1803.09015 : rests
@@ -48,7 +42,7 @@ association reported as causation without this citation fails at
   classic two-way-fixed-effects DiD is contaminated by "forbidden
   comparisons" between already- and later-treated units — group-time
   estimators are the fix, not an optional refinement. See
-  `references/identification-strategies.md#difference-in-differences`.
+  `references/ds-causal.identification-strategies.md#difference-in-differences`.
 - **Instrumental variables** — trigger: a candidate shifts treatment but
   plausibly not the outcome directly. IV under potential outcomes.
   Angrist, Imbens & Rubin, NBER t0136 —
@@ -57,7 +51,7 @@ association reported as causation without this citation fails at
   Average Treatment Effect (LATE) for compliers only, not the population
   ATE; a weak instrument inflates variance/small-sample bias even when
   technically valid. See
-  `references/instruments-and-discipline.md#instrumental-variables`.
+  `references/ds-causal.instruments-and-discipline.md#instrumental-variables`.
 - **Uplift/treatment-effect heterogeneity** — trigger: who benefits, not
   just the average effect. Causal trees and forests. Athey & Imbens —
   https://arxiv.org/abs/1504.01132 : "honest" estimation splits the sample
@@ -65,7 +59,7 @@ association reported as causation without this citation fails at
   effect within it — one sample for both overstates precision and can
   manufacture spurious heterogeneity; still inherits the base estimator's
   identification assumption. See
-  `references/effect-application.md#uplift-and-heterogeneity`.
+  `references/ds-causal.effect-application.md#uplift-and-heterogeneity`.
 - **Off-policy/counterfactual evaluation** — trigger: evaluate a
   policy/ranking against logged data from a different policy. Doubly
   robust estimation. Dudík, Langford & Li, ICML 2011 —
@@ -73,7 +67,7 @@ association reported as causation without this citation fails at
   the logging-propensity model is correctly specified, not both — but poor
   overlap (near-zero logged propensities) blows up variance regardless.
   Ranking application: `ds-ranking`. See
-  `references/effect-application.md#off-policy-evaluation`.
+  `references/ds-causal.effect-application.md#off-policy-evaluation`.
 - **Attribution modeling** — trigger: credit for an outcome split across
   touchpoints/channels. Causally motivated multi-touch attribution.
   Dalessandro et al., ADKDD 2012 —
@@ -82,7 +76,7 @@ association reported as causation without this citation fails at
   to variable-importance measures precisely when the causal assumptions
   are violated — a stated approximation must be labeled association, not
   causal credit. Position-effect application: `ds-ranking`. See
-  `references/effect-application.md#attribution-modeling`.
+  `references/ds-causal.effect-application.md#attribution-modeling`.
 - **Collider/selection stratification** — trigger: a stratification
   candidate is a common *effect* of treatment and outcome, or `ds-gather`
   flagged selection-into-the-dataset. Collider (selection) bias. Cole,
@@ -91,7 +85,7 @@ association reported as causation without this citation fails at
   precedes both exposure and outcome; a collider is a common effect,
   posterior to both — conditioning on it induces a spurious association
   where none existed, the opposite fix from confounder adjustment. See
-  `references/instruments-and-discipline.md#collider-and-selection-stratification`.
+  `references/ds-causal.instruments-and-discipline.md#collider-and-selection-stratification`.
 - **Identification without randomization** (umbrella discipline) —
   trigger: any of the above fired, or a causal claim is about to ship. No
   single field term; the identification-strategy literature spanning
@@ -101,21 +95,10 @@ association reported as causation without this citation fails at
   discipline is naming that specific assumption (unconfoundedness,
   exclusion restriction, parallel trends) rather than asserting "we
   controlled for confounders" generically. See
-  `references/instruments-and-discipline.md#identification-without-randomization`.
+  `references/ds-causal.instruments-and-discipline.md#identification-without-randomization`.
 
 No fixed load-order rank — composes at the citing skill's position, per the
 named entry points above.
-
-|---|---|---|
-| DAGs and confounding | quick-answer | conditional-on-data:adjustment-set-needed |
-| Matching | analysis | conditional-on-data:comparison-group-on-observables |
-| Difference-in-differences | analysis | conditional-on-data:panel-or-repeated-cross-section |
-| Instrumental variables | analysis | conditional-on-data:instrument-candidate |
-| Uplift/treatment-effect heterogeneity | analysis | conditional-on-data:heterogeneous-effect-question |
-| Off-policy/counterfactual evaluation | analysis | conditional-on-data:logged-policy-data |
-| Attribution modeling | quick-answer | conditional-on-data:multi-touchpoint-credit-question |
-| Collider/selection stratification | quick-answer | conditional-on-data:stratification-or-selection-flagged |
-| Identification without randomization | quick-answer | `mandatory` |
 
 `mandatory`: fires whenever `ds-causal` composes at all — the assumption
 still gets named regardless of which concrete strategy fired. The other
@@ -182,43 +165,3 @@ is evaluated on assumption plausibility and robustness (placebo tests,
 sensitivity to the untestable assumption, overlap diagnostics), not
 predictive accuracy alone — a model can fit the outcome well and still
 identify the wrong quantity.
-
-## Gates
-
-- No causal-language claim ("driver," "impact," "effect," "caused by,"
-  "incrementality") ships without a cited `identification_statement` — an
-  association reported as causation with no citation fails at `ds-verify`.
-- `identification_statement` names the strategy — unnamed fails.
-- Every adjustment-set variable is classified confounder/collider/mediator
-  before it is adjusted for; matching claims cite balance diagnostics
-  labeled as evidence for observed covariates only, never unconfoundedness.
-- Staggered-timing DiD states whether a group-time estimator was used or
-  justifies plain two-way fixed effects.
-- IV claims state relevance, exclusion, monotonicity, the weak-instrument
-  diagnostic, and whether the estimate is LATE or extrapolated to ATE.
-- Heterogeneity claims confirm honest sample-splitting (partition-selection
-  and effect-estimation on disjoint samples); off-policy claims state the
-  overlap diagnostic and which model (reward or propensity) is trusted.
-- Attribution claims are labeled explicitly associative or causal, citing
-  its own identification strategy if causal; collider/selection claims
-  record the temporal-order check before any stratification executes.
-- `identification_statement` separates assumptions into testable (with the
-  test run) and untestable (with why) — undistinguished fails outright.
-
-## Edges
-
-Covered: the nine subfields above, wherever a non-randomized causal
-question or a causal-language claim surfaces.
-
-**Split discipline**: this skill does not set a task's primary split scheme
-(multi-family rule, router `SKILL.md` §1) — the task's family owns
-leakage-driving split discipline; a subfield's own sample-partition
-requirement here (honest splitting for heterogeneity) is additive to it,
-never a replacement, mirroring `ds-method-composition`'s per-component-
-boundary stance.
-
-Research-escalation trigger: regression discontinuity design, synthetic
-control, and other non-randomized strategies outside the nine subfields
-above are outside current cited coverage — declare it, research
-externally, verify the found method's assumptions against the actual
-data, report provenance, per router doctrine, before adopting one.

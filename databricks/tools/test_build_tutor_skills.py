@@ -95,28 +95,30 @@ def test_precondition_block_is_gone(name):
 @pytest.mark.parametrize("name", READ_SUBSKILLS)
 def test_dropped_sections_are_gone(name):
     out = strip_body(split_frontmatter(_src(name))[1], is_router=False)
-    assert "## Artifact" not in out
-    assert "## Pairings" not in out
+    for heading in ("## Artifact", "## Pairings", "## Gates", "## Edges", "## Audit mode"):
+        assert heading not in out, f"{heading} survived in {name}"
 
 
 @pytest.mark.parametrize("name", READ_SUBSKILLS)
-def test_no_orchestration_vocabulary_survives(name):
-    out = strip_body(split_frontmatter(_src(name))[1], is_router=False)
-    for word in ("run-record", "ledger", "dispatch-table", "the router",
-                 "loop-backs.md", "Re-run scope", "→ artifact:", "re_entrant"):
-        assert word not in out, f"{word!r} survived in {name}"
+def test_the_selection_tree_survives_with_its_steps(name):
+    """Choosing a method for a problem is the question a student asks; only the
+    dispatch phrasing wrapped around it is machinery."""
+    body = split_frontmatter(_src(name))[1]
+    if "## Selection tree" not in body:
+        pytest.skip(f"{name} has no selection tree")
+    after = strip_body(body, is_router=False).split("## Selection tree", 1)[1].lstrip("\n")
+    assert after and not after.startswith("#")
 
 
 @pytest.mark.parametrize("name", READ_SUBSKILLS)
 def test_knowledge_sections_survive_with_bodies(name):
     out = strip_body(split_frontmatter(_src(name))[1], is_router=False)
     assert "## Subfields" in out
-    assert "## Edges" in out
     # The whole census of substantive sections, not just the four most common:
-    # ds-evaluate carries its method knowledge under Audit mode and Production
-    # considerations and has no Selection tree at all.
+    # ds-evaluate has no Selection tree at all and carries its method knowledge
+    # under Production considerations.
     kept = [h for h in ("## Selection tree", "## Family-specific pitfalls and evaluation",
-                        "## Deltas", "## Standards catalog", "## Audit mode",
+                        "## Deltas", "## Standards catalog",
                         "## Production considerations", "## Worked compositions") if h in out]
     assert kept, f"{name} kept no method-selection or pitfalls section"
     for heading in kept:
@@ -124,12 +126,19 @@ def test_knowledge_sections_survive_with_bodies(name):
         assert after and not after.startswith("#"), f"{heading} in {name} is an empty shell"
 
 
-@pytest.mark.parametrize("name", READ_SUBSKILLS)
-def test_strip_keeps_between_forty_and_ninety_percent_of_the_lines(name):
+ALL_SUBSKILLS = sorted(d.name for d in (SRC / "subskills").iterdir()
+                       if (d / "SKILL.md").is_file())
+
+
+@pytest.mark.parametrize("name", ALL_SUBSKILLS)
+def test_strip_keeps_between_thirty_and_ninety_percent_of_the_lines(name):
+    """Guards both directions: the strip must not gut a skill, and must not be
+    a no-op. Gates, Edges and Audit mode are three sections of every file, so
+    the floor sits lower than it did when only Artifact and Pairings went."""
     body = split_frontmatter(_src(name))[1]
     before = len([ln for ln in body.splitlines() if ln.strip()])
     after = len([ln for ln in strip_body(body, is_router=False).splitlines() if ln.strip()])
-    assert 0.40 <= after / before <= 0.90, f"{name}: kept {after}/{before}"
+    assert 0.30 <= after / before <= 0.90, f"{name}: kept {after}/{before}"
 
 
 def test_strip_leaves_no_run_of_three_blank_lines():
@@ -160,7 +169,7 @@ def test_build_data_science_writes_router_37_subskills_and_kept_references(tmp_p
     skills = [e for e in entries if e["kind"] == "skill"]
     refs = [e for e in entries if e["kind"] == "reference"]
     assert len(skills) == 38, "router + 37 subskills"
-    assert {e["name"] for e in refs} == set(KEEP_REFERENCES)
+    assert set(KEEP_REFERENCES) <= {e["name"] for e in refs}
     assert (tmp_path / "data-science" / "SKILL.md").is_file()
     assert (tmp_path / "ds-domain-cyber" / "SKILL.md").is_file()
     for e in entries:
@@ -181,9 +190,55 @@ def test_no_generated_file_mentions_a_run_record(tmp_path):
 
 
 def test_the_index_of_descriptions_fits_a_prompt(tmp_path):
-    entries = build_data_science(SRC, tmp_path)
+    """Only listed entries ride in the system prompt, so only they are counted."""
+    entries = [e for e in build_data_science(SRC, tmp_path) if e["listed"]]
     total = sum(len(e["name"]) + len(e["description"]) for e in entries)
     assert total < 20_000, f"index is {total} bytes; trim DESCRIPTION_MAX_CHARS"
+
+
+# --- references ----------------------------------------------------------
+
+def _pointers(text):
+    return set(re.findall(r"references/([A-Za-z0-9._-]+)\.md", text))
+
+
+def test_every_reference_pointer_in_a_generated_skill_resolves(tmp_path):
+    """A skill that cites a reference the tree does not carry is a dead end."""
+    entries = build_data_science(SRC, tmp_path)
+    names = {e["name"] for e in entries if e["kind"] == "reference"}
+    dangling = set()
+    for path in tmp_path.rglob("*.md"):
+        for pointer in _pointers(path.read_text(encoding="utf-8")):
+            if pointer not in names or not (tmp_path / "references" / f"{pointer}.md").is_file():
+                dangling.add((path.name, pointer))
+    assert dangling == set()
+
+
+def test_a_per_subskill_reference_is_namespaced_by_its_skill(tmp_path):
+    entries = build_data_science(SRC, tmp_path)
+    by_name = {e["name"]: e for e in entries}
+    assert "ds-evaluate.metric-cost-and-slices" in by_name
+    assert (tmp_path / "references" / "ds-evaluate.metric-cost-and-slices.md").is_file()
+
+
+def test_the_same_reference_name_under_two_skills_stays_two_documents(tmp_path):
+    """ds-stats and ds-uncertainty both own a subfields.md."""
+    names = {e["name"] for e in build_data_science(SRC, tmp_path)}
+    assert {"ds-stats.subfields", "ds-uncertainty.subfields"} <= names
+
+
+def test_a_reference_cited_only_by_another_reference_is_copied_too(tmp_path):
+    """metric-selection.md cites ds-evaluate's metric-cost-and-slices."""
+    build_data_science(SRC, tmp_path)
+    text = (tmp_path / "references" / "metric-selection.md").read_text(encoding="utf-8")
+    assert "ds-evaluate.metric-cost-and-slices" in text
+
+
+def test_only_the_general_references_are_listed_in_the_prompt(tmp_path):
+    entries = build_data_science(SRC, tmp_path)
+    listed = {e["name"] for e in entries if e["kind"] == "reference" and e["listed"]}
+    assert listed == set(KEEP_REFERENCES)
+    assert all(e["listed"] for e in entries if e["kind"] == "skill")
 
 
 def test_the_source_tree_is_not_modified(tmp_path):
@@ -265,7 +320,8 @@ def test_main_writes_index_json_covering_every_skill(tmp_path):
     assert "ds-domain-cyber" in names
     assert "course-module-09" in names
     assert len([e for e in index if e["kind"] == "skill"]) == 38 + 16
-    assert len([e for e in index if e["kind"] == "reference"]) == 6
+    assert set(KEEP_REFERENCES) <= names
+    assert len([e for e in index if e["listed"]]) == 38 + 16 + len(KEEP_REFERENCES)
     for e in index:
         assert (tmp_path / e["path"]).is_file()
 
@@ -275,3 +331,81 @@ def test_main_replaces_a_stale_tree(tmp_path):
     (tmp_path / "ds-gone" / "SKILL.md").write_text("stale", encoding="utf-8")
     main(["--dest", str(tmp_path)])
     assert not (tmp_path / "ds-gone").exists()
+
+
+# --- the finished tree ---------------------------------------------------
+
+# Vocabulary that means an agent suite talking to itself, and nothing a student
+# ever asked about. Checked against every generated skill rather than a sample:
+# the strip is a line pass over prose written for another audience, and one
+# skill's phrasing is no evidence about another's.
+ORCHESTRATION_WORDS = (
+    "run-record", "ledger", "dispatch", "router", "loop-back", "re_entrant",
+    "re-entrant", "Re-run scope", "\u2192 artifact:", "SKILL.md \u00a7", "Precondition",
+    "Abort to the", "## Gates", "## Edges", "## Audit mode", "tiers.md",
+    "manifest.json",
+)
+
+GENERATED_SKILLS = (
+    ["data-science"] + ALL_SUBSKILLS
+    + [f"course-module-{m['number']:02d}" for m in MODULES]
+)
+
+
+@pytest.fixture(scope="session")
+def generated(tmp_path_factory):
+    """One full build, shared by every check that reads the finished tree."""
+    dest = tmp_path_factory.mktemp("tutor-skills")
+    assert main(["--dest", str(dest)]) == 0
+    return dest
+
+
+@pytest.mark.parametrize("name", GENERATED_SKILLS)
+def test_no_orchestration_vocabulary_survives(generated, name):
+    body = (generated / name / "SKILL.md").read_text(encoding="utf-8")
+    # A reference's filename is not a mention: ds-clean's assertion-suite-and-
+    # ledger names a document, it does not tell the tutor to keep a ledger.
+    body = re.sub(r"references/[\w.-]+\.md", "", body)
+    for word in ORCHESTRATION_WORDS:
+        assert word.lower() not in body.lower(), f"{word!r} survived in {name}"
+
+
+def test_every_generated_skill_keeps_a_body(generated):
+    for name in GENERATED_SKILLS:
+        body = split_frontmatter((generated / name / "SKILL.md").read_text(encoding="utf-8"))[1]
+        assert len([ln for ln in body.splitlines() if ln.strip()]) > 10, name
+
+
+# The sections the strip keeps, named here rather than imported: a citation
+# lost out of one of these is a citation lost, whatever the drop list says.
+KNOWLEDGE_SECTIONS = (
+    "## Subfields", "## Selection tree", "## Family-specific pitfalls and evaluation",
+    "## Deltas", "## Standards catalog", "## Production considerations",
+    "## Worked compositions",
+)
+
+_URL_RE = re.compile(r"https?://[^\s`)\]\"']+")
+
+
+def _urls_in_knowledge_sections(body):
+    urls = set()
+    for heading in KNOWLEDGE_SECTIONS:
+        if heading in body:
+            urls |= set(_URL_RE.findall(body.split(heading, 1)[1].split("\n## ", 1)[0]))
+    return urls
+
+
+@pytest.mark.parametrize("name", ALL_SUBSKILLS)
+def test_every_citation_url_in_a_kept_section_survives(generated, name):
+    """A citation is the one thing a student can follow out of the course."""
+    wanted = _urls_in_knowledge_sections(split_frontmatter(_src(name))[1])
+    got = set(_URL_RE.findall((generated / name / "SKILL.md").read_text(encoding="utf-8")))
+    assert wanted - got == set()
+
+
+def test_the_fermi_estimate_definition_survives_with_its_citation(generated):
+    """It is general pedagogy a student can use, not suite machinery, and it sat
+    in the same wrapped unit as a line about tier floors."""
+    body = (generated / "ds-verify" / "SKILL.md").read_text(encoding="utf-8")
+    assert "https://en.wikipedia.org/wiki/Fermi_problem" in body
+    assert "order-of-magnitude bound" in body

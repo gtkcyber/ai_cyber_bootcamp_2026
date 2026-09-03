@@ -54,6 +54,17 @@ KEEP_REFERENCES = (
 )
 
 
+# The five top-level references that are agent-orchestration machinery. They are
+# never copied, and every citation to one is expected to have gone with the line
+# that carried it -- one surviving means DROP_LINE_RES has a gap, which is a
+# build failure rather than something to paper over.
+DROP_REFERENCES = ("concept-ownership", "dispatch-table", "ledger-spec", "loop-backs", "tiers")
+
+
+class DanglingReferenceError(Exception):
+    """A body cites a reference the build cannot resolve, or must not copy."""
+
+
 class LeakageError(Exception):
     """A cleaned description still contains agent-orchestration vocabulary.
 
@@ -103,6 +114,7 @@ _DESCRIPTION_SCRUB_RES = (
     (re.compile(r"\bledger\s+findings\b", re.I), "findings"),
     (re.compile(r"\s*\(serving wrapper:\s*`[^`]+`\)"), ""),
     (re.compile(r";\s*sources the [^.]*\."), "."),
+    (re.compile(r";\s*re-enters? [^.]*\."), "."),
 )
 
 # Nothing matching this may survive into a description.
@@ -113,9 +125,17 @@ BANNED_WORDS_RE = re.compile(
 )
 
 
+# What can open a sentence: a capital, an opening bracket, a backtick, a `**`, or
+# an opening quote. Every one of these was added because leaving it out glued a
+# machinery sentence to the knowledge sentence beside it, and the line pass then
+# took both -- the quote cost ds-verify its Fermi-estimate definition and the
+# only citation URL the strip has ever lost out of a section it keeps.
+_SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+(?=[A-Z(`*\"'\u201c\u2018\[])")
+
+
 def _sentences(text: str) -> list[str]:
-    """Split on sentence-final punctuation followed by a space and a capital."""
-    return [s.strip() for s in re.split(r"(?<=[.!?])\s+(?=[A-Z(`])", text) if s.strip()]
+    """Split on sentence-final punctuation followed by a space and a new start."""
+    return [s.strip() for s in _SENTENCE_SPLIT_RE.split(text) if s.strip()]
 
 
 def clean_description(text: str) -> str:
@@ -141,11 +161,24 @@ def clean_description(text: str) -> str:
 
 # --- body stripping ------------------------------------------------------
 
-# Whole sections that are pure machinery. `Artifact` is literally the ledger
-# schema pointer; `Pairings` is the cross-skill composition list. The router's
-# sections 2-4 are tier selection, dispatch and reference load order — its
-# section 1 (the three classification axes) is a genuine taxonomy and stays.
-DROP_HEADINGS_SUBSKILL = ("## Artifact", "## Pairings")
+# Whole sections that are pure machinery.
+#   Artifact     the run-record schema pointer.
+#   Pairings     the cross-skill composition list.
+#   Gates        per-field preconditions on the run-record ("`scorecard.
+#                primary_metric` ... missing any of the four parts fails"). The
+#                evaluation wisdom inside is stated again in Subfields and in
+#                the pitfalls sections, in prose a student can read.
+#   Edges        the loop-back transitions between skills.
+#   Audit mode   what an agent does when handed someone else's artifact.
+# `Selection tree` is NOT here: choosing a method for a problem is the question
+# a student actually asks, and only the dispatch phrasing wrapped around it is
+# machinery -- that is scrubbed line by line below.
+#
+# The router's sections 2-4 are tier selection, dispatch and reference load
+# order — its section 1 (the three classification axes) is a genuine taxonomy
+# and stays.
+DROP_HEADINGS_SUBSKILL = ("## Artifact", "## Pairings", "## Gates", "## Edges",
+                          "## Audit mode")
 DROP_HEADINGS_ROUTER = ("## 2. Select tier", "## 3. Dispatch", "## 4. Reference load order")
 
 # The two precondition forms, matched on whitespace-normalised text so the
@@ -166,15 +199,24 @@ DROP_LINE_RES = tuple(re.compile(p, re.I) for p in (
     r"\bdispatch-table(\.md)?\b",
     r"\bLedger section\b",
     r"\bledger-spec\.md\b",
-    r"\bloop-backs\.md\b",
+    r"\bloop-backs?\b",
     r"\bconcept-ownership\.md\b",
     r"\bBACKLOG\.md\b",
+    r"\btiers\.md\b",
+    # The suite's own registry of skills and their load order.
+    r"\bmanifest\.json\b",
     r"\blint_dangling\w*\b",
     r"\brun-record\b",
-    r"\bthe router\b",
+    # Whatever INLINE_SCRUB_RES below could not turn back into plain prose. A
+    # sentence still naming the router after that pass is about how the agent
+    # suite calls itself, not about data science.
+    r"\brouter\b",
+    r"\bledgers?\b(?!\.md)",
     r"\bmisroute\b",
     r"\bRe-run scope:",
     r"\bre_entrant\s*:",
+    r"\bre-entrant\b",
+    r"\bre-enter\b",
     r"\bcomposed-alongside\s*:",
     r"\bload order\s*:\s*\d+",
     r"→\s*artifact:",
@@ -184,9 +226,14 @@ DROP_LINE_RES = tuple(re.compile(p, re.I) for p in (
     r"^\s*Invoke\b",
     r"\btier floor\b",
     r"^\s*participation\s*:",
-    r"\bSKILL\.md §\d",
+    # The composition matrices: which subfields an agent must compose, in
+    # machine-readable conditions a student cannot read.
+    r"\bconditional-on-(data|family)\s*:",
+    r"^\s*\|\s*Subfield\s*\|\s*Participation\s*\|",
+    # `SKILL.md §3`, `router \`SKILL.md\` §1` -- the backticks fall anywhere.
+    r"SKILL\.md`?\s*§\s*\d",
     # A cross-reference to a section this script deletes would dangle.
-    r"`##\s*(Pairings|Artifact)`",
+    r"`?##\s*(Pairings|Artifact|Gates|Edges|Audit mode)`?",
 ))
 
 # Machinery that sits INSIDE a sentence worth keeping. The domain skills carry
@@ -197,6 +244,22 @@ DROP_LINE_RES = tuple(re.compile(p, re.I) for p in (
 # the sentence stays.
 INLINE_SCRUB_RES = (
     (re.compile(r"\s*\(owner:\s*ds-[^)]*\)"), ""),
+    # Router phrasing wrapped around real content. Each of these leaves the
+    # sentence saying the same thing to a student, minus the machine it was
+    # addressed to; anything these miss is dropped whole by DROP_LINE_RES.
+    (re.compile(r"\s*\(router dispatch\)"), ""),
+    (re.compile(r"\s*\((?:multi-family rule,\s*)?router[^)]*\)"), ""),
+    (re.compile(r"\s*\(`?SKILL\.md`?\s*§\s*\d\)"), ""),
+    (re.compile(r",?\s*per router doctrine\b"), " per the doctrine references"),
+    (re.compile(r"\brouter doctrine\b"), "the doctrine references"),
+    (re.compile(r"\brouter-owned\s+"), ""),
+    (re.compile(r"\bis router doctrine\b"), "is doctrine"),
+    (re.compile(r"^Router for the\b"), "Guidance for the"),
+    # An imperative hand-off to another agent becomes a pointer the tutor can
+    # act on: it can load that skill itself.
+    (re.compile(r"\bconsults? `(ds-[\w-]+)` for\b", re.I), r"the `\1` skill covers"),
+    (re.compile(r"\b(?:defer to|hand off to|escalate to) `(ds-[\w-]+)`", re.I),
+     r"the `\1` skill covers this"),
     (re.compile(r"\s*→\s*artifact:\s*`[^`]*`"), ""),
     (re.compile(r"\s*\(`ds-[\w-]+`'s [^)]*\)"), ""),
 )
@@ -326,11 +389,24 @@ def _drop_lines(body: str) -> str:
             out.append(line)
             i += 1
             continue
-        standalone = (in_fence or not line.strip() or line.startswith("#")
-                      or line.lstrip().startswith(("|", ">")))
+        if not in_fence and line.lstrip().startswith("|"):
+            # A table is judged whole. The composition matrices carry a
+            # participation tier and a re-entrancy column, and dropping their
+            # machinery rows one at a time would leave a headerless separator
+            # over a handful of orphaned rows; the subfield names in their first
+            # column are already stated in the prose above them.
+            j = i
+            while j < len(lines) and lines[j].lstrip().startswith("|"):
+                j += 1
+            if not any(_is_machinery(ln) for ln in lines[i:j]):
+                out.extend(lines[i:j])
+            i = j
+            continue
+        standalone = in_fence or not line.strip() or line.startswith("#") \
+            or line.lstrip().startswith(">")
         if standalone:
-            # Code, blank lines, headings, table rows and blockquotes are each
-            # judged on their own line: none of them wraps a sentence.
+            # Code, blank lines, headings and blockquotes are each judged on
+            # their own line: none of them wraps a sentence.
             if not in_fence and line.strip() and _is_machinery(line):
                 i += 1
                 continue
@@ -381,6 +457,110 @@ def strip_body(body: str, *, is_router: bool) -> str:
     return _tidy(body)
 
 
+# --- references ----------------------------------------------------------
+
+# `references/foo.md`, or the owner-qualified `ds-data-models/references/foo.md`
+# the suite uses when one skill cites another's reference.
+_REFERENCE_CITATION_RE = re.compile(r"(?:([a-z][\w-]*)/)?references/([A-Za-z0-9._-]+)\.md")
+
+# The suite also names a reference bare, in backticks and with no path at all --
+# "(`doctrine-leakage.md`)". Rewritten the same way, so one rule covers both.
+_BARE_CITATION_RE = re.compile(r"`([A-Za-z0-9._-]+)\.md`")
+
+
+class _ReferenceLibrary:
+    """Resolve every cited reference to one indexed name, and copy what is cited.
+
+    The suite keeps eleven references at the top level and 73 more inside the
+    subskills that own them, and two skills can own a file of the same name
+    (`subfields.md` sits under both ds-stats and ds-uncertainty). So a
+    per-subskill reference is indexed as `<skill>.<stem>`, a top-level one as
+    `<stem>`, and every citation in a generated body is rewritten to the name it
+    resolved to -- which is exactly the name `read_reference` takes. Copying
+    only the six general references, as this script first did, left the other
+    sixty-odd pointers dead on arrival.
+
+    Only those six ride in the system prompt (`listed`). The rest are leaves of
+    one skill, met by name inside the body that cites them; listing all of them
+    would cost more prompt than the skills themselves.
+    """
+
+    def __init__(self, src: Path):
+        self.src = src
+        self.sources: dict[str, Path] = {}
+
+    def _candidates(self, owner: str, qualifier: str | None, stem: str):
+        subskills = self.src / "subskills"
+        if qualifier:
+            yield f"{qualifier}.{stem}", subskills / qualifier / "references" / f"{stem}.md"
+            return
+        if owner:
+            yield f"{owner}.{stem}", subskills / owner / "references" / f"{stem}.md"
+        yield stem, self.src / "references" / f"{stem}.md"
+        # A top-level reference cites a subskill's leaf by its bare name, which
+        # is only unambiguous when exactly one subskill owns that name.
+        elsewhere = sorted(subskills.glob(f"*/references/{stem}.md"))
+        if len(elsewhere) == 1:
+            yield f"{elsewhere[0].parent.parent.name}.{stem}", elsewhere[0]
+
+    def _rewrite_one(self, owner: str, qualifier: str | None, stem: str, whole: str) -> str | None:
+        if stem in DROP_REFERENCES:
+            raise DanglingReferenceError(
+                f"{owner or 'a reference'} still cites {stem!r}, which is machinery "
+                "this build drops -- the line carrying it should have gone too")
+        for name, path in self._candidates(owner, qualifier, stem):
+            if path.is_file():
+                self.sources.setdefault(name, path)
+                return name
+        return None
+
+    def rewrite(self, text: str, owner: str) -> str:
+        """Point every citation in `text` at an indexed name, queueing the file."""
+        def path_form(match: re.Match) -> str:
+            name = self._rewrite_one(owner, match.group(1), match.group(2), match.group(0))
+            if name is None:
+                raise DanglingReferenceError(
+                    f"{owner or 'a reference'} cites {match.group(0)!r}, which the source "
+                    "suite does not have under that name")
+            return f"references/{name}.md"
+
+        def bare_form(match: re.Match) -> str:
+            # A bare `foo.md` that names no reference is some other document the
+            # prose mentions, and is left exactly as it was written.
+            name = self._rewrite_one(owner, None, match.group(1), match.group(0))
+            return match.group(0) if name is None else f"`references/{name}.md`"
+
+        return _BARE_CITATION_RE.sub(bare_form, _REFERENCE_CITATION_RE.sub(path_form, text))
+
+    def emit(self, dest: Path) -> list[dict]:
+        """Write every queued reference, and everything they cite in turn."""
+        for name in KEEP_REFERENCES:
+            self.sources.setdefault(name, self.src / "references" / f"{name}.md")
+        out_dir = dest / "references"
+        out_dir.mkdir(parents=True, exist_ok=True)
+        entries: list[dict] = []
+        written: set[str] = set()
+        while True:
+            pending = sorted(set(self.sources) - written)
+            if not pending:
+                return entries
+            for name in pending:
+                written.add(name)
+                path = self.sources[name]
+                owner = (path.parent.parent.name
+                         if path.parent.parent.parent.name == "subskills" else "")
+                text = self.rewrite(_tidy(_drop_lines(path.read_text(encoding="utf-8"))), owner)
+                (out_dir / f"{name}.md").write_text(text, encoding="utf-8")
+                first = next((ln.strip() for ln in text.splitlines()
+                              if ln.strip() and not ln.startswith("#")), name)
+                entries.append({
+                    "kind": "reference", "name": name,
+                    "description": first[:DESCRIPTION_MAX_CHARS],
+                    "path": f"references/{name}.md",
+                    "listed": name in KEEP_REFERENCES,
+                })
+
+
 # --- frontmatter I/O -----------------------------------------------------
 
 def split_frontmatter(text: str) -> tuple[dict, str]:
@@ -429,18 +609,20 @@ def render_skill(name: str, description: str, body: str) -> str:
 # --- the data-science half ----------------------------------------------
 
 def build_data_science(src: Path, dest: Path) -> list[dict]:
-    """Write the stripped router, subskills and kept references. Returns index entries."""
+    """Write the stripped router, subskills and every cited reference."""
     entries: list[dict] = []
+    references = _ReferenceLibrary(src)
 
     def emit_skill(name: str, text: str, *, is_router: bool) -> None:
         meta, body = split_frontmatter(text)
         description = clean_description(meta["description"])
-        out_body = strip_body(body, is_router=is_router)
+        out_body = references.rewrite(strip_body(body, is_router=is_router), name)
         rel = f"{name}/SKILL.md"
         path = dest / rel
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(render_skill(name, description, out_body), encoding="utf-8")
-        entries.append({"kind": "skill", "name": name, "description": description, "path": rel})
+        entries.append({"kind": "skill", "name": name, "description": description,
+                        "path": rel, "listed": True})
 
     emit_skill("data-science", (src / "SKILL.md").read_text(encoding="utf-8"), is_router=True)
 
@@ -449,20 +631,7 @@ def build_data_science(src: Path, dest: Path) -> list[dict]:
         if skill_md.is_file():
             emit_skill(skill_dir.name, skill_md.read_text(encoding="utf-8"), is_router=False)
 
-    ref_dir = dest / "references"
-    ref_dir.mkdir(parents=True, exist_ok=True)
-    for name in KEEP_REFERENCES:
-        text = (src / "references" / f"{name}.md").read_text(encoding="utf-8")
-        text = _tidy(_drop_lines(text))
-        (ref_dir / f"{name}.md").write_text(text, encoding="utf-8")
-        first = next((ln.strip() for ln in text.splitlines() if ln.strip() and not ln.startswith("#")), name)
-        entries.append({
-            "kind": "reference", "name": name,
-            "description": first[:DESCRIPTION_MAX_CHARS],
-            "path": f"references/{name}.md",
-        })
-
-    return entries
+    return entries + references.emit(dest)
 
 
 # --- the course half -----------------------------------------------------
@@ -747,7 +916,8 @@ def build_course_modules(dest: Path) -> list[dict]:
         rel = f"{name}/SKILL.md"
         (dest / name).mkdir(parents=True, exist_ok=True)
         (dest / rel).write_text(render_skill(name, description, body), encoding="utf-8")
-        entries.append({"kind": "skill", "name": name, "description": description, "path": rel})
+        entries.append({"kind": "skill", "name": name, "description": description,
+                        "path": rel, "listed": True})
     return entries
 
 
@@ -770,9 +940,10 @@ def main(argv=None) -> int:
 
     skills = sum(1 for e in entries if e["kind"] == "skill")
     refs = len(entries) - skills
-    index_bytes = sum(len(e["name"]) + len(e["description"]) for e in entries)
+    listed = [e for e in entries if e["listed"]]
+    index_bytes = sum(len(e["name"]) + len(e["description"]) for e in listed)
     print(f"wrote {skills} skills and {refs} references to {args.dest}")
-    print(f"index: {index_bytes} bytes of names and descriptions")
+    print(f"prompt index: {len(listed)} entries, {index_bytes} bytes of names and descriptions")
     return 0
 
 

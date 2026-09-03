@@ -28,6 +28,12 @@ DECK_NOTES_MAX_TOKENS = 6_000
 # deck can never crowd out the conversation.
 HISTORY_RESERVE_TOKENS = 2_000
 
+# A question is the one part of the prompt a student writes, and the whole user
+# block is re-sent on every turn of the tool loop -- so a pasted notebook is
+# paid for up to five times. routes.py refuses a longer question with a 413;
+# this is the same cap enforced where the prompt is actually assembled.
+MAX_QUESTION_CHARS = 4_000
+
 SYSTEM_STANCE = """You are the tutor for AI Cyber Bootcamp 2026, a five-day course that goes from pandas and exploratory analysis through classical machine learning to LLM agents, with every lab set on a security problem.
 
 What you do:
@@ -88,46 +94,75 @@ def build_system(index_text: str) -> str:
 SYSTEM = build_system("- ds-evaluate: (index rendered per request)")
 
 
-def _truncate_notes(notes: str) -> str:
+MATERIAL_TRUNCATED = "[deck notes truncated to fit the prompt budget]"
+
+
+def _truncate_notes(notes: str, max_tokens: int) -> str:
     """Cut deck notes at a slide boundary, never mid-sentence."""
-    if estimate_tokens(notes) <= DECK_NOTES_MAX_TOKENS:
+    if max_tokens <= 0:
+        return ""
+    if estimate_tokens(notes) <= max_tokens:
         return notes
     kept, running = [], 0
     for block in notes.split("\n\n"):
         cost = estimate_tokens(block)
-        if running + cost > DECK_NOTES_MAX_TOKENS:
+        if running + cost > max_tokens:
             break
         kept.append(block)
         running += cost
-    return "\n\n".join(kept) + "\n\n[deck notes truncated to fit the prompt budget]"
+    return "\n\n".join(kept + [MATERIAL_TRUNCATED])
 
 
-def _render_user_block(question: str, deck, slide, deck_notes, pinned_note) -> str:
+def _truncate_text(text: str, max_tokens: int) -> str:
+    """Cut one note, which has no internal boundary to cut on."""
+    if max_tokens <= 0:
+        return ""
+    if estimate_tokens(text) <= max_tokens:
+        return text
+    return text[:max_tokens * 4].rstrip() + " " + MATERIAL_TRUNCATED
+
+
+def _truncate_question(question: str) -> str:
+    if len(question) <= MAX_QUESTION_CHARS:
+        return question
+    return (question[:MAX_QUESTION_CHARS].rstrip()
+            + "\n\n[question trimmed to the prompt budget]")
+
+
+def _render_user_block(question: str, deck, slide, deck_notes, pinned_note, *,
+                       material_tokens: int) -> str:
+    """The user message. `material_tokens` caps the notes, labels included.
+
+    The pinned note is fitted first because it leads, and the rest of the deck
+    takes what is left of the allowance -- so a long deck loses its tail rather
+    than the one note the student is looking at.
+    """
     lines = []
     if deck:
         where = f"The student has deck {deck} open"
         if slide:
             where += f", at slide {slide}"
         lines += [where + ".", ""]
+    left = material_tokens
     if pinned_note:
-        lines += ["Speaker note for the slide currently open:", "", pinned_note, ""]
+        label = "Speaker note for the slide currently open:"
+        left -= estimate_tokens(label)
+        pinned = _truncate_text(pinned_note, left)
+        if pinned:
+            lines += [label, "", pinned, ""]
+            left -= estimate_tokens(pinned)
     if deck_notes:
-        lines += ["Speaker notes for the whole open deck:", "", _truncate_notes(deck_notes), ""]
+        label = "Speaker notes for the whole open deck:"
+        left -= estimate_tokens(label)
+        notes = _truncate_notes(deck_notes, min(DECK_NOTES_MAX_TOKENS, left))
+        if notes:
+            lines += [label, "", notes, ""]
     lines.append(f"Question: {question}")
     return "\n".join(lines)
 
 
-def build_messages(question: str, *, index_entries, deck, slide, deck_notes,
-                   pinned_note, history, budget_tokens: int = BUDGET_TOKENS) -> list[dict]:
-    system = build_system(render_index(index_entries))
-    user = _render_user_block(question, deck, slide, deck_notes, pinned_note)
-
-    running = estimate_tokens(system) + estimate_tokens(user)
-    # History is fitted last, dropped oldest first, and confined to its own
-    # reserve -- the recent turns are the ones the student is following up on,
-    # and the budget only balances (6K index + 6K notes + 2K history + 12K of
-    # tool results) if history cannot grow past this share.
-    allowance = min(HISTORY_RESERVE_TOKENS, max(0, budget_tokens - running))
+def _fit_history(history, allowance: int) -> tuple[list[dict], int]:
+    """The most recent turns that fit, oldest dropped first."""
     kept, spent = [], 0
     for turn in reversed(history or []):
         entry = {"role": turn["role"], "content": turn["content"]}
@@ -137,5 +172,43 @@ def build_messages(question: str, *, index_entries, deck, slide, deck_notes,
         kept.append(entry)
         spent += cost
     kept.reverse()
+    return kept, spent
+
+
+def build_messages(question: str, *, index_entries, deck, slide, deck_notes,
+                   pinned_note, history, budget_tokens: int = BUDGET_TOKENS) -> list[dict]:
+    question = _truncate_question(question)
+    system = build_system(render_index(index_entries))
+
+    # The budget is 6K index + 6K deck notes + 2K history + 12K of tool results,
+    # and the order matters: history's share is reserved BEFORE the material is
+    # fitted, so the material takes the remainder. Fitting history from what the
+    # material leaves over inverts that, and a long deck then crowds out the
+    # recent turns the student is following up on. The reserve is held back
+    # whether or not this conversation has any history to put in it, which keeps
+    # the material's allowance the same from the first question to the last.
+    kept, spent = _fit_history(history, HISTORY_RESERVE_TOKENS)
+
+    def render(material: int) -> str:
+        return _render_user_block(question, deck, slide, deck_notes, pinned_note,
+                                  material_tokens=material)
+
+    fixed = estimate_tokens(system) + HISTORY_RESERVE_TOKENS + estimate_tokens(render(0))
+    material = max(0, budget_tokens - fixed)
+    user = render(material)
+
+    # estimate_tokens floors each part it measures, so a block assembled from
+    # several parts can measure a few tokens more than the parts it was fitted
+    # from. One corrective pass settles it; the check below is what guarantees it.
+    over = estimate_tokens(system) + estimate_tokens(user) + HISTORY_RESERVE_TOKENS - budget_tokens
+    if over > 0:
+        user = render(max(0, material - over))
+
+    total = estimate_tokens(system) + estimate_tokens(user) + spent
+    if total > budget_tokens:
+        # Only reachable on a budget too small to hold the stance and the index
+        # at all: a caller's mistake, and better raised than silently overspent.
+        raise ValueError(
+            f"assembled prompt is {total} tokens against a budget of {budget_tokens}")
 
     return [{"role": "system", "content": system}, *kept, {"role": "user", "content": user}]

@@ -72,12 +72,17 @@ TOOL_SCHEMAS = [
         "type": "function",
         "function": {
             "name": "read_reference",
-            "description": "Read one reference document from the tutor's library, e.g. metric-selection.",
+            "description": (
+                "Read one reference document from the tutor's library, e.g. metric-selection. "
+                "A skill body cites its own references by name; those are readable too even "
+                "though the index does not list them."),
             "parameters": {
                 "type": "object",
                 "properties": {
                     "name": {"type": "string",
-                             "description": "Exact reference name from the index."},
+                             "description": ("Exact reference name, either from the index or "
+                                             "as cited by a skill you loaded, e.g. "
+                                             "ds-evaluate.metric-cost-and-slices.")},
                 },
                 "required": ["name"],
             },
@@ -126,6 +131,12 @@ TOOL_SCHEMAS = [
 class Toolbox:
     """Dispatch from a tool name to the library or the course material.
 
+    Stateless, deliberately. The app builds one Toolbox for the whole process
+    and gunicorn answers several questions at once, so what a call served is
+    appended to a `sources` list the CALLER owns -- one per answer -- and never
+    to a list on the Toolbox itself. A shared list hands two students who ask at
+    the same moment each other's citations.
+
     A tool never raises into the loop: a bad name or a missing file comes back as
     a sentence the model can read and recover from, because a raised exception
     would lose the whole answer over a typo the model could have fixed itself.
@@ -134,29 +145,28 @@ class Toolbox:
     def __init__(self, library, material):
         self.library = library
         self.material = material
-        self.sources: list[dict] = []
 
     def schemas(self) -> list[dict]:
         return TOOL_SCHEMAS
 
-    def call(self, name: str, arguments: dict) -> str:
+    def call(self, name: str, arguments: dict, sources: list[dict]) -> str:
         try:
             if name == "load_skill":
                 key = arguments["name"]
                 out = self.library.load_skill(key)
-                self._record("skill", key)
+                _record(sources, "skill", key)
             elif name == "read_reference":
                 key = arguments["name"]
                 out = self.library.read_reference(key)
-                self._record("reference", key)
+                _record(sources, "reference", key)
             elif name == "read_lab":
                 key = arguments["worksheet"]
                 out = self.material.read_lab(key, answers=bool(arguments.get("answers")))
-                self._record("answer" if arguments.get("answers") else "lab", key)
+                _record(sources, "answer" if arguments.get("answers") else "lab", key)
             elif name == "read_deck_notes":
                 key = arguments["deck"]
                 out = self.material.render_deck_notes(key)
-                self._record("deck", key)
+                _record(sources, "deck", key)
             else:
                 return f"Unknown tool {name!r}. Use one of: " + ", ".join(
                     t["function"]["name"] for t in TOOL_SCHEMAS)
@@ -169,10 +179,11 @@ class Toolbox:
             return f"{name} failed. Answer from what you already have."
         return out
 
-    def _record(self, kind: str, name: str) -> None:
-        entry = {"kind": kind, "name": name}
-        if entry not in self.sources:
-            self.sources.append(entry)
+
+def _record(sources: list[dict], kind: str, name: str) -> None:
+    entry = {"kind": kind, "name": name}
+    if entry not in sources:
+        sources.append(entry)
 
 
 @dataclass(frozen=True)
@@ -217,7 +228,11 @@ class Tutor:
         return self.client.chat.completions.create(**kwargs)
 
     def answer(self, messages: list[dict]) -> Answer:
+        # Both collectors are per-answer: two questions answered at the same
+        # moment in two gunicorn threads share this Tutor and its Toolbox, and
+        # must not share what they cite.
         convo = list(messages)
+        sources: list[dict] = []
         used: list[str] = []
         prompt_tokens = completion_tokens = turns = 0
 
@@ -240,7 +255,7 @@ class Tutor:
             if not calls:
                 text = (message.content or "").strip() or EMPTY_ANSWER
                 return Answer(
-                    text=text, sources=list(self.toolbox.sources),
+                    text=text, sources=sources,
                     usage={"prompt_tokens": prompt_tokens,
                            "completion_tokens": completion_tokens, "turns": turns},
                     tool_calls=used,
@@ -262,7 +277,7 @@ class Tutor:
                     arguments = json.loads(call.function.arguments or "{}")
                 except ValueError:
                     arguments = {}
-                result = self.toolbox.call(name, arguments)
+                result = self.toolbox.call(name, arguments, sources)
                 label = next(iter(arguments.values()), "") if arguments else ""
                 used.append(f"{name}:{label}" if label else name)
                 convo.append({"role": "tool", "tool_call_id": call.id,

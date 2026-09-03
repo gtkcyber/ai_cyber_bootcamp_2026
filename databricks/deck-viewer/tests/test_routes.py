@@ -10,6 +10,7 @@ if str(APP_DIR) not in sys.path:
 
 from tutor.files import LocalFiles  # noqa: E402
 from tutor.llm import Answer  # noqa: E402
+from tutor.prompt import MAX_QUESTION_CHARS  # noqa: E402
 from tutor.routes import make_blueprint  # noqa: E402
 from tutor.sessions import SessionStore  # noqa: E402
 from tutor.skills import CourseMaterial, SkillLibrary  # noqa: E402
@@ -30,7 +31,6 @@ class FakeTutor:
                                         tool_calls=["load_skill:ds-evaluate"])
         self._error = error
         self.messages = None
-        self.toolbox = type("Box", (), {"sources": []})()
 
     def answer(self, messages):
         self.messages = messages
@@ -195,6 +195,34 @@ def test_an_empty_message_is_refused(tmp_path):
     assert chat(client, message="   ").status_code == 400
 
 
+def test_a_question_at_the_length_cap_is_answered(tmp_path):
+    client, _ = build(tmp_path)
+    assert chat(client, message="x" * MAX_QUESTION_CHARS).status_code == 200
+
+
+def test_a_question_over_the_length_cap_is_refused_with_413(tmp_path):
+    """A pasted notebook is re-sent on every turn of the tool loop; cap it once."""
+    client, _ = build(tmp_path)
+    resp = chat(client, message="x" * (MAX_QUESTION_CHARS + 1))
+    assert resp.status_code == 413
+    assert "4,000" in resp.get_json()["message"]
+
+
+def test_an_over_long_question_never_reaches_the_model(tmp_path):
+    tutor = FakeTutor()
+    client, _ = build(tmp_path, tutor=tutor)
+    chat(client, message="x" * (MAX_QUESTION_CHARS + 1))
+    assert tutor.messages is None
+
+
+def test_an_over_long_question_does_not_leak_a_throttle_permit(tmp_path):
+    throttle = Throttle(per_user=99, concurrent=1)
+    client, _ = build(tmp_path, throttle=throttle)
+    chat(client, message="x" * (MAX_QUESTION_CHARS + 1))
+    with throttle.acquire("anyone"):
+        pass
+
+
 def test_a_tutor_failure_becomes_an_error_frame_not_a_500(tmp_path):
     client, _ = build(tmp_path, tutor=FakeTutor(error=RuntimeError("endpoint down")))
     got = frames(chat(client))
@@ -202,12 +230,12 @@ def test_a_tutor_failure_becomes_an_error_frame_not_a_500(tmp_path):
     assert "endpoint down" not in json.dumps(got)  # no internals leak to the student
 
 
-def test_a_second_question_does_not_inherit_the_first_questions_sources(tmp_path):
+def test_the_route_keeps_no_source_state_between_questions(tmp_path):
+    """Sources are collected per answer inside Tutor.answer, not on the route."""
     tutor = FakeTutor()
     client, _ = build(tmp_path, tutor=tutor)
-    tutor.toolbox.sources.append({"kind": "skill", "name": "stale"})
-    frames(chat(client))
-    assert tutor.toolbox.sources == []
+    assert frames(chat(client))["sources"][0] == [{"kind": "skill", "name": "ds-evaluate"}]
+    assert frames(chat(client))["sources"][0] == [{"kind": "skill", "name": "ds-evaluate"}]
 
 
 def test_the_throttle_window_returns_429(tmp_path):
