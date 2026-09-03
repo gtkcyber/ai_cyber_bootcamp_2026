@@ -53,12 +53,26 @@ data volume with no errors in under a minute. `databricks/tools/probe.py`
 confirmed the notebook's working directory is its own folder, `WORK_HOME`
 is writable, subprocesses spawn, and a notebook-scoped `pip install` works.
 
-**Library gaps found by the runs.**
-- `tensorboard` is not installed and Keras `fit` needs it (8.1 fails with
-  `TBNotInstalledError`); added to `cluster_pypi_packages`.
-- `langgraph-supervisor` does not import against the `langgraph` the cluster
-  resolved (`cannot import name 'ExecutionInfo' from 'langgraph.runtime'`);
-  13.5 needs a pin.
+**Library gaps found by the runs, both fixed in `cluster_pypi_packages`.**
+- `tensorboard`: Keras `fit` needs it and the tensorflow wheel no longer pulls
+  it in (8.1 failed with `TBNotInstalledError`). Added. 8.1 then loaded,
+  imported and trained three epochs at about ninety seconds each on the two
+  CPU cores; the run was cancelled after that, so the full lab's CPU time is
+  unmeasured beyond "long".
+- `langgraph>=1.2` and `langchain>=1.4`: Databricks installs cluster
+  libraries one at a time in list order, and unbounded the pair settled on
+  langgraph 1.0.10 with a langgraph-prebuilt that imports a symbol 1.0
+  lacks, so 13.5's `langgraph-supervisor` failed to import. With the bounds
+  the cluster resolves langgraph 1.2.11, langchain 1.4.0, prebuilt 1.1.0,
+  supervisor 0.0.31; 13.5 ran in 12.5 minutes.
+
+**GPU.** Standard access mode supports neither GPU nodes nor the ML runtime,
+so a GPU cluster for modules 7 to 9 is dedicated mode (user or group) on the
+`18.x-gpu-ml-scala2.13` runtime, which ships TensorFlow and Torch with CUDA
+and needs none of those cluster libraries. Smallest single-GPU nodes the
+workspace offers, on-demand us-east-1 EC2 price before DBUs: g4dn.xlarge
+(T4, 4 vCPU, 16 GB) USD 0.526/h; g6.xlarge (L4) 0.805; g5.xlarge (A10G)
+1.006. Not created; a decision for Curtis.
 
 **Workspace notebook paths.** A JUPYTER import names the object exactly as
 the path is given, extension included; upload to the extension-less path
