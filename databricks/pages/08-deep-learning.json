@@ -1,0 +1,319 @@
+{
+  "slug": "08-deep-learning",
+  "pdf": "Module 8 - Deep Learning.pdf",
+  "page_count": 52,
+  "pages": [
+    {
+      "page": 1,
+      "kind": "slide",
+      "group": 1,
+      "text": "GTK Cyber Module 8 Deep Learning"
+    },
+    {
+      "page": 2,
+      "kind": "slide",
+      "group": 2,
+      "text": "GTK Cyber Why?"
+    },
+    {
+      "page": 3,
+      "kind": "slide",
+      "group": 3,
+      "text": "GTK Cyber ( S o u r ce : Xav i e r G i r o - o - N i e to) Computer vision took a quantum leap in 2012 with AlexNet • 1000 object classes • Images • 1.2 Million to train • 100K to test ImageNet challenge"
+    },
+    {
+      "page": 4,
+      "kind": "slide",
+      "group": 4,
+      "text": "GTK Cyber Why? https://www.researchgate.net/figure/Winner-results-of-the-ImageNet-large-scale-visual-recognition-challenge-LSVRC-of-the_fig7_324476862"
+    },
+    {
+      "page": 5,
+      "kind": "slide",
+      "group": 5,
+      "text": "GTK Cyber What is Deep Learning? Hand-crafted Features Trainable Classifier Traditional Computer Vision Low-level Features Trainable Classifier Mid-level Features High-level Features Deep Learning"
+    },
+    {
+      "page": 6,
+      "kind": "slide",
+      "group": 6,
+      "text": "GTK Cyber What is Deep Learning? https://towardsdatascience.com/cousins-of-artificial-intelligence-dda4edc27b55 In today's context a subset of the field of AI"
+    },
+    {
+      "page": 7,
+      "kind": "slide",
+      "group": 7,
+      "text": "GTK Cyber Recap of learning architectures Category 1: • Here you know what the answer should look like. There is a teacher-signal, a gold standard, labeled-data that you are comparing against. This is referred to as “Supervised Learning”. (SVM, Regression, ) Category 2: • Here you do not have much a priori knowledge, i.e., no clearly labeled data of the answer. We search for structure in the data. This is referred to as “Unsupervised Learning”."
+    },
+    {
+      "page": 8,
+      "kind": "slide",
+      "group": 8,
+      "text": "GTK Cyber Neural Networks"
+    },
+    {
+      "page": 9,
+      "kind": "slide",
+      "group": 9,
+      "text": "GTK Cyber The Biological Neuron Input (from other neurons) Output (to other neurons) h t t p s : //e n . w i k i p e d i a . o r g / w i k i / N e u r o n"
+    },
+    {
+      "page": 10,
+      "kind": "slide",
+      "group": 10,
+      "text": "GTK Cyber The Artificial Neuron"
+    },
+    {
+      "page": 11,
+      "kind": "slide",
+      "group": 11,
+      "text": "GTK Cyber The Artificial Neuron Encapsulates three main aspects of a biological neuron • Primarily a threshold element (‘firing’) • Nonlinear response (i.e. thresholding is not a straight line) • Adaptive (can change its connection strengths to other neurons) i.e. abstracts the integrate and fire paradigm. Most used artificial neuron model is the “Perceptron” (Minksy & Papert, 1969) model (an iteration of the McCulloh-Pitts (1943) model). Perceptron is the mainstay ‘neural model’ for modern AI"
+    },
+    {
+      "page": 12,
+      "kind": "slide",
+      "group": 12,
+      "text": "GTK Cyber Perceptron Has: 1.Inputs (x1 x2 x3) 2.Weights, w (1,-0,75,0.25) 3.Combination/integration function: Typically summation (sum) 4.Activation function (threshold function, here tanh.) 5.Output (y) 6.There is also a bias b (1) (state of neuron without input) Individual Perceptrons have limited computational capacities. The computational power comes from stitching a lot of these together as networks with layered architecture"
+    },
+    {
+      "page": 13,
+      "kind": "slide",
+      "group": 13,
+      "text": "GTK Cyber Perceptron Bias Weights Combination function Activation function Output The neurons and network architectures varies in terms or the parameters (b,w), combination functions and activation functions."
+    },
+    {
+      "page": 14,
+      "kind": "slide",
+      "group": 14,
+      "text": "GTK Cyber Multi-layer Perceptron h t t p s : / / w w w . c c . g a t e c h . e d u / ~ s a n 3 7 / p o s t / d l h c - f n n /"
+    },
+    {
+      "page": 15,
+      "kind": "slide",
+      "group": 15,
+      "text": "GTK Cyber Basic operation of a neural network Initialize with random weights Observations 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Present a training pattern Observations 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Observations 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Feed through to output 1.4 2.7 1.9 0.8 1.4 2.7 1.9 Observations 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Compare to target, calculate Error 0.8 1.4 2.7 1.9 Error = .8 – 0 = 0.8 Observations 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Modify weights based on Loss function 0.8 1.4 2.7 1.9 Observations 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Present new pattern, repeat process 0.9 6.4 2.8 1.9 Do this thousands of times till the network learns the correct associations."
+    },
+    {
+      "page": 16,
+      "kind": "slide",
+      "group": 16,
+      "text": "GTK Cyber Neural Network Demo https://playground.tensorflow.org/"
+    },
+    {
+      "page": 17,
+      "kind": "slide",
+      "group": 17,
+      "text": "GTK Cyber Recap: Supervised Learning Observations are items about which we want to predict something. Also referred to as inputs. Targets are labels corresponding to an observation. These are usually the things being predicted. Model is a mathematical expression or a function that takes an observation, x, and predicts the value of its target label. Parameters, also called weights, these parameterize the model. It is standard to use the notation w (for weights) or ŵ. Predictions, also called estimates, are the values of the targets guessed by the model. The prediction of a target y is denoted as ŷ. Loss function compares how far off a prediction is from target for observations in the training data. The lower the value of the loss, the better the model is at predicting the target."
+    },
+    {
+      "page": 18,
+      "kind": "slide",
+      "group": 18,
+      "text": "GTK Cyber Recap: Supervised Learning The general supervised modeling paradigm involves training the model on existing labeled data set and then applying it to new data to make predictions. • start with lots of correctly labeled training data/observations. • pass it through our model and calculate the error (loss, cost etc) by comparing it to the correct label values • We then use another function known tweak the model’s parameters so that the cost or error is low. The goal of supervised learning model is to pick values of the parameters that minimize the loss function for a given dataset. i.e., equivalent to finding roots of an equation. Most of the work centers around figuring out • What model to use e.g. linear, non-linear, neural networks • What is the best way to calculate error (cost function) • What is the best way to minimize that error. E.g. gradient descent, simulated annealing etc. What algorithm can do the minimization fastest/efficiently. Depends on choice of #3, the error function"
+    },
+    {
+      "page": 19,
+      "kind": "slide",
+      "group": 19,
+      "text": "GTK Cyber Finding the right parameters Observations 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Compare to target, calculate Error 0.8 1.4 2.7 1.9 Error = .8 – 0 = 0.8 Observations 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Modify weights based on Loss function 0.8 1.4 2.7 1.9"
+    },
+    {
+      "page": 20,
+      "kind": "slide",
+      "group": 20,
+      "text": "GTK Cyber Finding the right parameters: Loss function Minimizing Cost: e.g., Least mean squares algorithm We want to choose θ so as to minimize J(θ). Start with initial guess for θ and iteratively change θ to minimize J(θ). We will use another algorithm called Gradient Descent to achieve this. Conceptually Gradient Descent works by finding the direction of the largest change around a location. We then move along this direction by a step and do our calculation again and find the direction of greatest change at that point, move another step and so on. Mathematically this is represented by: Cost/Loss Function α is the learning rate that determines how big a step is. This is set by hand or before the training begins. Such parameters are also referred to as hyperparameters"
+    },
+    {
+      "page": 21,
+      "kind": "slide",
+      "group": 21,
+      "text": "GTK Cyber Finding the right parameters: Gradient Descent Example trajectory using batch gradient descent. Ellipses are contours of our loss function: Once the batch gradient descent is done we have our θs, i.e., the parameters of our model"
+    },
+    {
+      "page": 22,
+      "kind": "slide",
+      "group": 22,
+      "text": "GTK Cyber Finding the right parameters: Gradient Descent Update against each example as you go through the training set. Takes a more zig-zag path to minimum, but gets their faster. More commonly used in machine learning (ML) Stochastic Gradient Descent: Alternative quicker version Loss functions and optimization algorithms are an area of active research. Progress is being made in multiple disciplines and lots of new developments. But the basic premises are similar. Traverse the error surface fast to a minima that is acceptable for the data/task at hand."
+    },
+    {
+      "page": 23,
+      "kind": "slide",
+      "group": 23,
+      "text": "GTK Cyber Finding the right parameters efficiently: Backpropagation Finding gradients is a computationally intensive process It used to be complicated and difficult, but in 1986 Rumelhart et.al adapted an algorithm (from late 60s early 70s) called backpropagation that made parameter finding more efficient and tractable in neural networks with lots of parameters. Backpropagation (backprop) is a special case of a type of algorithm called automatic differentiation. It calculates exact values of derivatives for given values of a function. Backprop overview: • Calculate the activations of the network for one given input/training example. This is the forward pass (from Input layer -> Output layer) • Calculate error using error function and minimize error. • Error is sent back to each neuron, i.e., backward pass (from Output layer -> Input layer) Input Layer Hidden Layers Output Layer"
+    },
+    {
+      "page": 24,
+      "kind": "slide",
+      "group": 24,
+      "text": "GTK Cyber Finding the right parameters efficiently: Backpropagation The backpropagation algorithm for a single training input Go from output towards input hence: backpropagation Backpropagation has been around for quite some time. What has changed that allows it be more widely adapted now? Availability of powerful and flexible software libraries (that implements backpropagation and more general automatic differentiation algorithms) based on the notion of computational graphs."
+    },
+    {
+      "page": 25,
+      "kind": "slide",
+      "group": 25,
+      "text": "GTK Cyber Efficient Backprop with Computational Graphs Consider an expression as follows: A computational graph turns an equation or mathematical expression into a series of sequential nodes and edges representing the operations and values of each of the elements in the equation/expression. Traversing the graph in order is equivalent to calculating the mathematical expression. 𝑝= 𝑥+ 𝑦 The computational graph for it is: 𝑔= (𝑥+ 𝑦) ∗𝑧 Just like in chain rule we define that intermediate variables that helps with the computation of the graph"
+    },
+    {
+      "page": 26,
+      "kind": "slide",
+      "group": 26,
+      "text": "GTK Cyber Backpropagation: Computational Graphs Perspective. 𝑔= (𝑥+ 𝑦) ∗𝑧 Forward pass for: x=1,y=3,z=−3 use the value of x = 1 and y = 3, to get p = 4 Go from left to right, forward Then p = 4 and z = -3 to get g = -12 In the backward pass, our intention is to compute the gradients for each input with respect to the final output. Backward pass Desired gradients: Go from right to left, backward pass 1 2 Next, backward pass through the \"*\" operation. Calculate the gradients at p and z. and Since g = p*z From forward pass we know p = 4 and z = -3. Plug them in: We want to calculate the gradients at x and y. By chain rule 3 and We know the dg/dp = -3. p depends on x and y. So dp/dx and dp/dy are direct. and 𝑝= 𝑥+ 𝑦 →𝜕𝑝 𝜕𝑥= 1, 𝜕𝑝 𝜕𝑦= 1 𝜕𝑔 𝜕𝑥, 𝜕𝑔 𝜕𝑦, 𝜕𝑔 𝜕𝑧 a b"
+    },
+    {
+      "page": 27,
+      "kind": "slide",
+      "group": 27,
+      "text": "GTK Cyber Backpropagation: Computational Graphs Perspective. 27 Computation at each graph node in 2 stages: Stage 1: Forward pass Stage 2: Backward pass"
+    },
+    {
+      "page": 28,
+      "kind": "slide",
+      "group": 28,
+      "text": "GTK Cyber Neural Networks: Architectures"
+    },
+    {
+      "page": 29,
+      "kind": "slide",
+      "group": 29,
+      "text": "GTK Cyber Neural Network Architecture: • One input node per pixel. • Two hidden layers • One output layer • Nodes in one layer is only connected to nodes in next layer (feed forward). No backwards connections or layer jumping connections. • Every node is connected to all nodes in the next layer i.e. fully connected Network Architecture and Features 1 63 7 29 1 63 7 Input Layer Hidden Layers Output Layer"
+    },
+    {
+      "page": 30,
+      "kind": "slide",
+      "group": 30,
+      "text": "GTK Cyber ….. 1 63 1 63 Each hidden unit has pattern of connection/weights that abstracts a certain aspect of the input. They act as self-organized pattern detectors. 7 7 e.g. This particular unit has strong connection for inputs 3-6 (Red lines). Will send strong signal out for first row ….. 1 63 1 63 7 7 e.g. This particular unit will send strong signal out for the highlighted area. 1 63 7 ANNs: Network Connection Weights 1 63 7 How does the AI learn this is a 9 or g?"
+    },
+    {
+      "page": 31,
+      "kind": "slide",
+      "group": 31,
+      "text": "GTK Cyber ANNs: Layers What type of feature are recognized by the groups of units or layers ? Vertical lines Small Circles Horizontal lines Basic features detected by initial layers. 31"
+    },
+    {
+      "page": 32,
+      "kind": "slide",
+      "group": 32,
+      "text": "GTK Cyber ANNs: Feature Detection in Layers What type of feature are recognized by the units ? ….. 63 . . . . . . Higher order features detected by subsequent layers Initial layer units: e.g. detect lines in specific positions Higher level detectors (horizontal line, ‘upper loop’, etc… 32"
+    },
+    {
+      "page": 33,
+      "kind": "slide",
+      "group": 33,
+      "text": "GTK Cyber Deep Neural Networks: Two Architectures • We’ll work on two types of networks • Convolutional neural networks (CNNs) • Mostly used for images and static data • Recurrent Neural Networks (RNNs) • Mostly used for sequences and time stamped data."
+    },
+    {
+      "page": 34,
+      "kind": "slide",
+      "group": 34,
+      "text": "GTK Cyber Convolutional Neural Networks"
+    },
+    {
+      "page": 35,
+      "kind": "slide",
+      "group": 35,
+      "text": "GTK Cyber Convolutional Neural Networks (CNNs) Handling hi-dimensional patterns in CNNs: Two main ideas 1. Filter the high-dimensional information in space. a) Information squeezing/extraction. Typically, convolution + pooling in space. 2. Have a subset on ‘neurons’ learn that part of the input. a) Divide and conquer. Move away from fully connected architecture. Have a subset focus on the spatially filtered information. Convolutional Neural Networks: • Developed primarily for image processing; takes in hi-dimensional images, creates low-dimensional intermediate representations for classification"
+    },
+    {
+      "page": 36,
+      "kind": "build",
+      "group": 36,
+      "text": "GTK Cyber 36 1. Filter the high-dimensional information in space: Convolution + Pooling i. Convolution (feature extraction) + Convolution Example: CNNs Idea 1 : Handling hi-dimensional patterns space Image Convolved Feature Convolution Kernel https://stanford.edu/~shervine/teaching/cs-230/ cheatsheet-convolutional-neural-networks"
+    },
+    {
+      "page": 37,
+      "kind": "slide",
+      "group": 36,
+      "text": "GTK Cyber 37 1. Filter the high-dimensional information in space: Convolution + Pooling i. Convolution (feature extraction) + Convolution Example: CNNs Idea 1 : Handling hi-dimensional patterns space Image Convolved Feature Convolution Kernel https://stanford.edu/~shervine/teaching/cs-230/ cheatsheet-convolutional-neural-networks ii. Pooling (reduce information further). a) Filter the output of the convolution further. b) Typically uses a spatial kernel that calculates maximum or average"
+    },
+    {
+      "page": 38,
+      "kind": "slide",
+      "group": 37,
+      "text": "GTK Cyber ii. Pooling (reduce information further). a) Filter the output of the convolution further. b) Typically uses a spatial kernel that calculates maximum or average 1. Filter the high-dimensional information in space: Convolution + Pooling i. Convolution (feature extraction) + CNNs Idea 1 : Handling hi-dimensional patterns space"
+    },
+    {
+      "page": 39,
+      "kind": "slide",
+      "group": 38,
+      "text": "GTK Cyber Handling hi-dimensional patterns in CNNs: Idea 2 Start with image, filter (convolution, pooling), then feed that to a fully connected (FC or dense) neural net. This can be chained or repeated as necessary. CNN architecture: Putting it all together This is what we were looking at before; i.e, it is feedforward, fully connected ANN But in CNNs we want a subset of ‘neurons’ learn a part of the input. Divide and conquer. Move away from fully connected architecture."
+    },
+    {
+      "page": 40,
+      "kind": "slide",
+      "group": 39,
+      "text": "GTK Cyber Convolutional Neural Architecture https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural- networks-the-eli5-way-3bd2b1164a53 https://medium.com/@curiousily/tensorflow-for-hackers-part-iv-neural- network-from-scratch-1a4f504dfa8"
+    },
+    {
+      "page": 41,
+      "kind": "slide",
+      "group": 40,
+      "text": "GTK Cyber In Class Exercise Complete Worksheet 8.1: Deep Learning CNN Fingerprints"
+    },
+    {
+      "page": 42,
+      "kind": "slide",
+      "group": 41,
+      "text": "GTK Cyber Deep Learning for Everyone!"
+    },
+    {
+      "page": 43,
+      "kind": "slide",
+      "group": 42,
+      "text": "GTK Cyber Terminology Deep Learning is performed in an iterative fashion! This means only part of all training data is used at a time. • Batch Size: number of training examples in one forward/backward pass aka how many URLs are we training on here at a time (limited by RAM). • Iterations: number of passes, where for each pass “batch size” number of training examples are used. • Epoch: one forward and backward pass of “all” training data. Example: For 1000 training examples (here URLs) and batch size of 500 it will take 2 iterations to complete 1 epoch. For Keras you have to provide batch size and number of epochs!!! Batch size of 32 is commonly used!"
+    },
+    {
+      "page": 44,
+      "kind": "slide",
+      "group": 43,
+      "text": "GTK Cyber Recurrent Neural Networks"
+    },
+    {
+      "page": 45,
+      "kind": "slide",
+      "group": 44,
+      "text": "GTK Cyber 45 Data sequences and data in time So far, we have been dealing with data that is temporally/sequentially invariant. i.e. no specific relationship in time But many data are time-dependent (e.g., stock-market, logins, server-logs ) or sequences (e.g. language, videos). Output Layer 1 7 Hidden Layers 1 63 7 Input Layer Output Layer 1 7 Hidden Layers 1 63 7 Input Layer For image processing/classification the following two networks are equivalent. i.e. any sequential relationship is not captured. The class of neural networks that can parse sequential data is called recurrent neural networks (RNNs)"
+    },
+    {
+      "page": 46,
+      "kind": "slide",
+      "group": 45,
+      "text": "GTK Cyber Recurrent neural networks (RNNs) Recurrent neural networks (RNNs) are a class of neural networks that have both feedforward and feedback connections. Feedforward Neural Networks Output Hidden Input Information flow is unidirectional. Progresses from input layer to output layer Cannot handle sequences or variable length inputs. Example text processing To overcome this we can introduce loops in the hidden layers. At each step in the sequence the hidden layer can feedback its intermediate output as new input to itself till the sequence is done. So hidden layer input at step t is dependent upon step t-1 and so on. This type of relation is called recurrence relation. Hence recurrent network. Recurrent Neural Networks Output Hidden Input"
+    },
+    {
+      "page": 47,
+      "kind": "slide",
+      "group": 46,
+      "text": "GTK Cyber y H X We can create an “unfolded” feedforward version of basic RNN • Each step/loop can be thought of as “memory” of the network (by modifying the weights). Memory is meant as the influence of history of the sequence on the current step. • How many steps to loop over decides what the memory length is (or how much back in steps/time the current step is influenced by). • Basic RNNs become unstable as the memory length increases. This is a technical problem. With each loop you have to calculate the gradient. This can introduce numerical issues during training. Recurrent neural networks (RNNs)"
+    },
+    {
+      "page": 48,
+      "kind": "slide",
+      "group": 47,
+      "text": "GTK Cyber y H X Basic RNN • In a basic RNN each layer and unit is made up of artificial neuron with one activation function e.g. tanh • Each node processes its input and passes the result of the the hidden state to node in next layer (step in loop) tanh activation Modified RNN for longer steps/memory • In RNNs modified for longer memory the basic unit has multiple functions within each neuron/ cell (e.g. sigmoid, tanh etc) • These functions and their outputs are combined algebraically (addition, multiplication etc) to produce the output of the neuron/cell • Since each cell in now more complex there are more functions and parameters and hence more complexity. But the complexity gives more flexibility and control at each cell. • The functions of a given cell selectively modulate/scale the input from the previous cell and thus act as gates for how the information from a previous state is allowed to go forward. RNNs : Gates"
+    },
+    {
+      "page": 49,
+      "kind": "slide",
+      "group": 48,
+      "text": "GTK Cyber 49 Long short-term memory (LSTM) LSTMs utilize for gates: 1. Forget gate: decides what information should be thrown away or kept from previous step. 2. Input gate: decides which values will be updated from current input 3. Cell gate: generate candidate current cell state 4. Output gate: Generate final current cell state and hidden state. The four gates together with its parameters provide flexibility for modulating the values and keeping track of the inputs for very long periods/steps Gated Recurrent Units (GRUs) GRUs are a modified/simplified version of LSTMs that combines the four gates into two and is widely used. Common RNNs with Gates"
+    },
+    {
+      "page": 50,
+      "kind": "slide",
+      "group": 49,
+      "text": "GTK Cyber In Class Exercise Complete Worksheet 8.2: Deep Learning RNN URL"
+    },
+    {
+      "page": 51,
+      "kind": "slide",
+      "group": 50,
+      "text": "GTK Cyber Deep Learning Takeaways • Deep learning isn’t magic • The size of our datasets is what’s really magic • Certain problems and problem areas are perfect for deep learning • Others are not • Deep learning is hard to implement • But the tools are getting easier every day • RNNs probably have the most application in Cybersecurity"
+    },
+    {
+      "page": 52,
+      "kind": "slide",
+      "group": 51,
+      "text": "GTK Cyber Questions?"
+    }
+  ]
+}

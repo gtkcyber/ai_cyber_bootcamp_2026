@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Final Project</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="Final Project">
+    </div>
+    <aside class="notes">
+      <p>The final project asks each student to build an autonomous agent that runs a penetration test, an authorized attack on a system to find and exploit its security weaknesses, against a deliberately vulnerable web application. The slides ahead cover the target, the learning objectives, and the required deliverables.</p>
+    </aside>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber Final Project • Your task is to build an autonomous pen-testing agent. • This task is intended to get you to design an agent, not just prompt one.">
+    </div>
+    <aside class="notes">
+      <p>The assignment is a design problem. What gets built and graded is the control logic that drives a language model. An agent is a program that runs a language model in a loop: the model proposes an action, a tool executes it, the output returns to the model, and the cycle repeats until the goal is met or a step budget is spent. A lone prompt exercises none of that structure. The grade rests on the design of the loop, meaning how the task is broken into steps, which tools the model can call, and how its choices become executed actions.</p>
+    </aside>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber The Target • We will be using the OWASP Juice Shop as our target. (https:// owasp.org/www-project-juice-shop) • You may install this locally using Docker or use one of th">
+    </div>
+    <aside class="notes">
+      <p>The target is OWASP Juice Shop, a web application built by the Open Worldwide Application Security Project to be broken into on purpose. It ships with a catalog of planted vulnerabilities spanning the common classes of web flaw, which gives the agent real bugs to find and a fixed answer key to score against. Students run it one of two ways: locally as a Docker container, or on an instance the instructors host during class. Setup steps for the local container are in the final project <code>README</code>.</p>
+    </aside>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber Learning Objectives • Design and implement an autonomous agent loop with tools. • Translate pen-testing methodology (reconnaissance, vulnerability discovery, exploitation">
+    </div>
+    <aside class="notes">
+      <p>The project has four aims.</p>
+<ul><li>Agent construction: implement an autonomous loop that calls tools and acts on what they return.</li><li>Methodology translation: express the stages of a penetration test, reconnaissance to map the target, vulnerability discovery to find weaknesses, exploitation to prove them, and reporting to write them up, as logic a program runs on its own.</li><li>Design sensitivity: measure how prompt wording and tool choice change what the agent manages to accomplish.</li><li>Practical limits: experience where language-model automation struggles on adversarial security tasks, where a plausible-sounding answer is not a working exploit.</li></ul>
+    </aside>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber Deliverables • agent/agent.py : The agent loop. The stub defines the interface; you decide the architecture (ReAct, Plan-and- Execute, multi-agent, hierarchical) • agent/">
+    </div>
+    <aside class="notes">
+      <p>Four things must be turned in.</p>
+<ul><li>The agent loop, in <code>agent/agent.py</code>: a stub fixes the interface, and the architecture is the student's call. Named options include ReAct, which interleaves one reasoning step with one action each turn; Plan-and-Execute, which drafts a full plan first and then works through it; a multi-agent design that splits the work across cooperating agents; and a hierarchical design where a controller directs sub-agents.</li><li>The prompts, in <code>agent/prompts/</code>: the system prompt and any prompts that break the task into parts, filled into the empty templates provided.</li><li>At least three new tools in <code>agent/tools/</code>, on top of the two reference tools that ship with the scaffold. Each must do real work; a tool that only forwards to another tool does not count. Workable examples are a SQL injection tester, a JSON Web Token decoder and forger, a cross-site scripting payload generator, a directory brute-forcer, an API fuzzer, and a business-logic probe.</li><li>The report, at <code>reports/final_report.md</code>, written by the agent when a run ends. It states each finding, its severity, the evidence that proves it, and how to fix it.</li></ul>
+<p>Three files stay untouched so every submission is judged on equal terms. The scorer and harness, <code>eval/score.py</code> and <code>eval/harness.py</code>, run the evaluation. The abstraction in <code>agent/llm.py</code> pins every agent to one fixed language-model interface, so a result reflects the design and not a more capable model. The protocol in <code>agent/tools/base.py</code> sets how a tool is declared and invoked.</p>
+    </aside>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber Questions?">
+    </div>
+    <aside class="notes">
+      <p>Questions about the assignment go to the course instructors, whose contacts are in the course <code>README</code>.</p>
+    </aside>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="Good Luck!">
+    </div>
+    <aside class="notes">
+      <p>This closes the final project briefing. From here the work is done independently, and the evaluation harness scores each run against the challenges Juice Shop tracks.</p>
+    </aside>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>

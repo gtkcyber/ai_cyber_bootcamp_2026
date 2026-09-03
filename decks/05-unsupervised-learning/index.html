@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Module 5: Unsupervised Learning</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="GTK Cyber Module 5: Unsupervised Learning">
+    </div>
+    <aside class="notes">
+      <p>Module 5 covers unsupervised learning: clustering data that carries no labels, the k-means algorithm and its dependence on the number of clusters, the random start and the scale of the features, the silhouette coefficient and the elbow plot for judging a clustering, and principal component analysis for reducing the number of features.</p>
+    </aside>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Category No No Predic9on, Inference Pre">
+    </div>
+    <aside class="notes">
+      <p>The flowchart sorts a problem into a family of machine learning by asking about labels. Labeled data means each observation carries the value the model is supposed to produce. With labels, the next question is whether that value is a quantity or a category: a quantity calls for regression, which predicts a number and supports inference about which features drive it; a category calls for classification, which predicts the class.</p>
+<p>Without labels, the question is whether labels can be obtained. If they can, labeling the data moves the problem into the supervised branch. If they cannot, the problem is clustering or pattern finding, and the chart's verdict on the output is that nothing is proven: the model groups similar observations and flags anomalous ones, and recommender systems are built this way, but with no labels there is no ground truth to score the result against.</p>
+    </aside>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber Supervised Machine Learning Process Getting / Cleaning Data Preprocessing/ Feature Engineering Training Data Build Model Evaluate Model Advanced Feature Selection Testing">
+    </div>
+    <aside class="notes">
+      <p>The supervised pipeline splits the data before a model is built. Data is gathered and cleaned, preprocessed into features, and narrowed by feature selection. The resulting dataset is divided into a training set and a testing set. The model is built on the training set alone, and evaluation scores it on the testing set, whose labels the model did not see during training. The double-headed arrows record that evaluation results feed back into rebuilding the model and into the data preparation stages. The split exists because the labels make it possible to measure the model's error on examples it was not fit to.</p>
+    </aside>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber Unsupervised Machine Learning Process Getting / Cleaning Data Preprocessing/ Feature Engineering Build Model Evaluate Model Advanced Feature Selection DATA">
+    </div>
+    <aside class="notes">
+      <p>The unsupervised pipeline keeps every stage except the split. Data is gathered, cleaned, engineered into features and narrowed by feature selection exactly as before, and the whole dataset goes into building the model. Evaluation still loops back into model building and data preparation, but there is no testing set, because there are no labels for a prediction to be compared with. Evaluating an unsupervised model therefore measures properties of the result itself, such as how tightly the groups are packed and how far apart they sit, or checks the groups against what is known about the data.</p>
+    </aside>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber Unsupervised Clustering Algorithm 1. Select Features 2. Calculate a distance measure 3. Apply a clustering algorithm 4. Validate?">
+    </div>
+    <aside class="notes">
+      <p>Clustering has four steps. Feature selection: choose the columns that describe each observation, since the groups found depend only on those columns. Distance measure: define how far apart two observations are, for example the Euclidean distance between their feature vectors, which requires the features to be numeric and comparable in scale. Clustering algorithm: apply a procedure that groups observations by that distance. Validation: the question mark marks this as the step without a clean answer, because there are no labels that say the groups are right; validation relies on internal measures of group quality and on inspecting what the members of each group have in common.</p>
+    </aside>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber Clustering… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+    <aside class="notes">
+      <p>The scatter plot is unlabeled data in two dimensions: each dot is one observation, and its position is its value on two features. Three concentrations are visible, one on the left, one at the upper right and one at the lower middle, with scattered points between and around them. Clustering turns that visual impression into an explicit assignment of every point to a group, using only the distances between points.</p>
+    </aside>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber Clustering… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+    <aside class="notes">
+      <p>One clustering of the points into three groups, drawn as ellipses: orange on the left, green at the upper right, blue at the lower middle. The ellipses overlap where the groups meet, and a point in the overlap could belong to either neighbor. A clustering algorithm settles each of those points by a rule, and different rules and different settings settle them differently. The outlying points at the far left fall inside the orange ellipse only because it was drawn wide enough to include them.</p>
+    </aside>
+  </section>
+  <section data-page="8">
+    <div class="page-stack">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber Clustering… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+    <aside class="notes">
+      <p>The same points split into two groups instead of three. The orange ellipse on the left is unchanged, and a single green ellipse now covers both the upper right and the lower middle concentrations. Both partitions are consistent with the plot; the data alone does not decide between two groups and three. The number of groups is a choice the analyst makes.</p>
+    </aside>
+  </section>
+  <section data-page="9">
+    <div class="page-stack">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber K-Means Before starting, pick the number of clusters, K 1. Pick K random centroids within data range 2. Assign each data point to the nearest centroid 3. Move centroid to">
+    </div>
+    <aside class="notes">
+      <p>K-means takes the number of clusters, K, as an input and finds K centroids. A centroid is the point at the mean position of a set of points. Step 1 places K centroids at random within the range of the data. Step 2 assigns every observation to the centroid nearest to it, which partitions the data into K groups. Step 3 recomputes each centroid as the mean of the points assigned to it, which is where the name comes from. Step 4 repeats the assignment and the recomputation until the centroids stop moving, which happens when a pass reassigns no points.</p>
+<p>Each pass of steps 2 and 3 lowers, or leaves unchanged, the sum of squared distances from every point to its centroid, and there are finitely many ways to partition the data, so the loop ends. The partition it ends at depends on where step 1 put the centroids.</p>
+    </aside>
+  </section>
+  <section data-page="10">
+    <div class="page-stack">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber Step 1: Pick 3 random centroids within data range ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+    <aside class="notes">
+      <p>Step 1 on the example data: K is three, and the three starting centroids, drawn as red, green and blue asterisks, are placed at random within the range of the data. None of them sits inside a visible concentration. The red and green markers are near the top of the plot, where there are few points, and the blue marker is at the lower left. These positions and the value of K are the only inputs; everything that follows is determined by them.</p>
+    </aside>
+  </section>
+  <section data-page="11">
+    <div class="page-stack">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+    <aside class="notes">
+      <p>First assignment: each point takes the color of the nearest centroid. The red centroid at the upper left claims only the handful of points near it. The green centroid claims the whole upper right concentration plus a few points in the middle. The blue centroid at the lower left claims the lower middle concentration and most of the left one, since both are closer to it than to the red or green markers. The coloring at this stage reflects where the random centroids landed, not the concentrations in the data.</p>
+    </aside>
+  </section>
+  <section data-page="12">
+    <div class="page-stack">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (1) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+    <aside class="notes">
+      <p>First move: each centroid relocates to the mean position of the points colored with it in the previous step. The red centroid drops from the top of the plot into the middle of its small red group. The green centroid moves right into the center of the upper right concentration. The blue centroid moves up and right from the corner to the mean of the large blue set that spans the left and lower middle concentrations, and so ends up between them. The point colors are unchanged, because reassignment is the next step.</p>
+    </aside>
+  </section>
+  <section data-page="13">
+    <div class="page-stack">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (2) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+    <aside class="notes">
+      <p>Second assignment: with the centroids in their new positions, every point is again colored by the nearest one. The red centroid, now inside the left concentration, takes most of it from blue. The blue centroid, sitting between the left and lower middle concentrations, keeps the lower middle one and a band of points along the boundary. The green centroid keeps the upper right. A point changes color only where a centroid's move changed which centroid is nearest to it.</p>
+    </aside>
+  </section>
+  <section data-page="14">
+    <div class="page-stack">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (2) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+    <aside class="notes">
+      <p>Second move: the centroids relocate to the means of their new memberships. The red centroid shifts a short distance to the center of its enlarged group. The blue centroid moves down into the lower middle concentration, since the points on the left that it lost no longer pull its mean leftward. The green centroid barely moves. The moves are smaller than in the first round, because the memberships changed less.</p>
+    </aside>
+  </section>
+  <section data-page="15">
+    <div class="page-stack">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (3) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+    <aside class="notes">
+      <p>Third assignment: the points along the boundary between the red and blue groups switch to red, now that the blue centroid has moved down and away from them. The green and blue memberships are otherwise the same. The three colored groups now coincide with the three concentrations visible in the unlabeled plot.</p>
+    </aside>
+  </section>
+  <section data-page="16">
+    <div class="page-stack">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (3) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+    <aside class="notes">
+      <p>Third move: the centroids relocate to the means of the updated groups. Each shift is small, because few points changed membership in the assignment before it. All three centroids now sit near the middle of the concentrations they represent.</p>
+    </aside>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (4) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+    <aside class="notes">
+      <p>Fourth assignment: the coloring is nearly identical to the previous one. Only a couple of points on the boundary between the red and blue groups change color, from blue to red.</p>
+    </aside>
+  </section>
+  <section data-page="18">
+    <div class="page-stack">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (4) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+    <aside class="notes">
+      <p>Fourth move: the centroids relocate by a distance too small to see. The memberships are almost fixed, so the means they are computed from are almost fixed too.</p>
+    </aside>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (5) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+    <aside class="notes">
+      <p>Fifth assignment: no point changes color. Every point is already assigned to its nearest centroid, so the partition is stable.</p>
+    </aside>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (5) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+    <aside class="notes">
+      <p>Fifth move: with no membership changes, each centroid is recomputed from the same points as before and stays where it was. This is the stopping condition of step 4. The result is the final partition, three clusters and three centroids, each centroid the mean of its cluster.</p>
+    </aside>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (5) ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+    <aside class="notes">
+      <p>The converged clusters with their boundaries drawn as ellipses: red on the left, green at the upper right, blue at the lower middle, with each centroid at the center of its ellipse. The boundaries do not overlap, because k-means assigns each point to exactly one centroid. That includes the outlying points at the far left of the red group and the stray points between concentrations; k-means has no notion of noise, and a point that is far from every centroid still goes to whichever one is nearest.</p>
+    </aside>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber K-Means: Got a problem with it? Before starting, pick the number of clusters, K 1. Pick K random centroids within data range 2. Assign each data point to the nearest cent">
+      <img class="page fragment" src="pages/p023.webp" alt="GTK Cyber K-Means: Got a problem with it? Before starting, pick the number of clusters, K 1. Pick K random centroids within data range 2. Assign each data point to the nearest cent">
+    </div>
+    <aside class="notes">
+      <p>The annotations mark two weaknesses of the algorithm. The choice of K is subjective: the number of clusters is an input, and k-means returns exactly K clusters whether or not the data contains that many. The random placement of the starting centroids is underlined because different starting positions can converge to different partitions of the same data.</p>
+<p>The third annotation, sensitive to scale, applies to the arithmetic of the loop. The nearest-centroid assignment and the centroid mean are both computed from raw feature values, so a feature with a large numeric range contributes more to the distance between two points than a feature with a small range. Groups then form along the large-range feature and the others barely influence the result.</p>
+    </aside>
+  </section>
+  <section data-page="24">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber How many clusters? ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●">
+    </div>
+    <aside class="notes">
+      <p>A broad cloud of points with no gaps between concentrations. The density varies across the plot, but there is no place where the data separates into groups. K-means run on this data returns three clusters if K is three and four if K is four, and the output alone does not reveal that the split is arbitrary.</p>
+    </aside>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber Random Start… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+    <aside class="notes">
+      <p>One k-means run on the cloud with K set to four. The four clusters are red at the upper left, purple at the lower left, green at the upper right and teal at the lower right, and the asterisks are the converged centroids. The boundary between two adjacent clusters is the set of points equidistant from their two centroids, so the boundaries are straight lines and every cluster is a convex region around its centroid.</p>
+    </aside>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber Random Start… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+    <aside class="notes">
+      <p>A second run on the same data with the same K and a different random start. The red cluster now sits at the upper left and center, the teal cluster has taken the upper right, the green cluster covers the lower center and right, and purple keeps the lower left. Many points have a different color than in the first run, although nothing about the data changed.</p>
+    </aside>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber Random Start… ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ">
+    </div>
+    <aside class="notes">
+      <p>A third run, and a third partition: green at the upper left, purple at the upper right, teal at the lower left and red at the lower center. Each of the three runs converged, so each result is a local minimum of the sum of squared distances from points to centroids, and the random starting positions decided which minimum a run reached. Nothing in a single run's output says whether its partition reflects structure in the data or only the start it was given.</p>
+    </aside>
+  </section>
+  <section data-page="28">
+    <div class="page-stack">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber K-Means “…it’s too easy to throw k-means on your data, and nevertheless get a result out (that is pretty much random, but you won&#x27;t notice).” — Anony-Mousse http://stats.">
+    </div>
+    <aside class="notes">
+      <p>The figure is a k-means partition of data made of many compact groups. Each black polygon is the region of the plane closer to one centroid than to any other, the small plus sign inside it is that centroid, and the colored points are the group assigned to it. The groups here are tight and well separated, so the partition looks orderly, and a partition of data with no groups at all would be drawn with the same kind of polygons and look just as orderly.</p>
+<p>The quote is from Anony-Mousse, a pseudonymous contributor to Cross Validated, the statistics question and answer site at stats.stackexchange.com; the name is a pun on anonymous. The point of the quote is that k-means always returns a partition. It has no step that tests whether the groups it found are real, and the output of a run on structureless data is formatted exactly like the output of a run on data with clear groups.</p>
+    </aside>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Which one is correct? A B">
+    </div>
+    <aside class="notes">
+      <p>Two results of k-means with K equal to three on the same points, which form three visible groups: upper left, right and lower left. In result A, one centroid sits in the middle of each group. In result B, one centroid sits halfway between the two groups on the left and the other two share the group on the right.</p>
+<p>Result B is a converged solution, the same as A. Every point on the left is nearer to the middle-left centroid than to either centroid on the right, so all of them are assigned to it, and that centroid is the mean of the two left groups combined. The two centroids on the right each hold half of the right group, and each is the mean of its half. A further pass of assignment and recomputation changes nothing in either result.</p>
+    </aside>
+  </section>
+  <section data-page="30">
+    <div class="page-stack">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber Which one is correct? BOTH">
+    </div>
+    <aside class="notes">
+      <p>Both are correct in the only sense the algorithm has. Each result is a fixed point of the loop, a configuration in which every point is assigned to its nearest centroid and every centroid is the mean of its points, so the loop stops. The sum of squared distances from points to centroids is smaller in A, where the three groups are tight, than in B, where the left cluster spans two groups. K-means does not compare the fixed point it reached with any other, so it reports B with the same confidence as A. Only a person looking at the plot, or a separate score computed on the result, ranks A above B.</p>
+    </aside>
+  </section>
+  <section data-page="31">
+    <div class="page-stack">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber Pain of optimization…Being stuck at sub- optimal local minimum… Initial guess matters! Same outcome cannot be guaranteed">
+    </div>
+    <aside class="notes">
+      <p>The boundaries of result B are drawn in: a vertical line separating the left cluster from the right, and a line splitting the right group between its two centroids. This is a local minimum of the sum of squared distances, a configuration that no single step of the loop improves, even though a different configuration scores lower overall. The starting positions decide which local minimum the loop lands in, which is what the two lines of text say: the initial guess matters, and two runs with different starts are not guaranteed the same outcome.</p>
+<p>The remedy built into the library is to run the whole loop several times from different starts and keep the result with the smallest sum of squared distances. In scikit-learn, the number of such runs is the <code>n_init</code> argument of <code>KMeans</code>, and the <code>init</code> argument selects the starting rule; the worksheet's calls set <code>n_init</code> and use the <code>k-means++</code> rule, which places each starting centroid far from the ones already chosen so that the starts are spread across the data instead of bunched together.</p>
+    </aside>
+  </section>
+  <section data-page="32">
+    <div class="page-stack">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber #Import from Scikit-learn from sklearn.cluster import KMeans kmeans = KMeans(n_clusters=2) kmeans.fit(data) centroids = kmeans.cluster_centers_ labels = kmeans.labels_f K">
+    </div>
+    <aside class="notes">
+      <p>Scikit-learn's <code>KMeans</code> class runs the whole algorithm in two calls. The constructor takes <code>n_clusters</code>, which is K. The <code>fit</code> method takes the feature matrix and runs the loop to convergence. Two attributes hold the result: <code>cluster_centers_</code> is an array with one row per cluster giving the centroid's coordinates, and <code>labels_</code> is an array with one entry per row of the input giving the index of the cluster it was assigned to. The trailing letter on the slide's last line is a typo; the attribute is <code>labels_</code>.</p>
+<p>The plot is a fit with K equal to two on six points. The three green points at the lower left form one cluster and the three red points at the upper right form the other, and the two blue crosses are the rows of <code>cluster_centers_</code>.</p>
+    </aside>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber The Dataset sns.pairplot(data)">
+    </div>
+    <aside class="notes">
+      <p>The data is the iris measurements: sepal length, sepal width, petal length and petal width, in centimeters, for 150 flowers. The species column of that dataset is not among the four features, so nothing in the data says which flower is which kind.</p>
+<p>Seaborn's <code>pairplot</code> draws every feature against every other as a scatter plot, with the histogram of each feature on the diagonal. The petal length histogram has two separate humps, a narrow one below two centimeters and a broad one from three to seven, and every scatter panel that involves petal length or petal width shows a compact group in the lower left separated from the rest by a gap. Sepal width, by contrast, has a single hump and separates nothing on its own. Those panels are what a clustering of this data has to find.</p>
+    </aside>
+  </section>
+  <section data-page="34">
+    <div class="page-stack">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber K-Means Clustering kmeans = KMeans(n_clusters=2) kmeans.fit(data)">
+    </div>
+    <aside class="notes">
+      <p>The two lines fit k-means with two clusters to the four iris columns. Constructing the object sets K, and <code>fit</code> runs the assignment and recomputation loop on the rows of <code>data</code> and stores the centroids and labels on the object. The call pattern is the one every scikit-learn estimator uses, construct then fit, with one difference from the supervised estimators: <code>fit</code> receives only the feature matrix, and there is no target argument.</p>
+    </aside>
+  </section>
+  <section data-page="35">
+    <div class="page-stack">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber K-Means Clustering sns.pairplot(data, hue=&quot;kmeans_2&quot;) Labels">
+    </div>
+    <aside class="notes">
+      <p>The cluster labels from <code>labels_</code> have been added to the data frame as a column named <code>kmeans_2</code>, and passing that column as <code>hue</code> colors every point by its cluster. Cluster 0, in blue, is the compact group with petal length under two centimeters and petal width under half a centimeter; cluster 1, in orange, is everything else. The diagonal histograms are split by cluster as well, and the split is clean on petal length and petal width and blurred on sepal length and sepal width, where the two clusters overlap. The algorithm used all four features in its distance and found the gap that the petal measurements contain.</p>
+    </aside>
+  </section>
+  <section data-page="36">
+    <div class="page-stack">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber K-Means Clustering plt.scatter(&lt;cluster_centers&gt;,&lt;col_2&gt;, linewidths=3, marker=&#x27;x&#x27;, s=200, c=&#x27;black&#x27;)">
+    </div>
+    <aside class="notes">
+      <p>The scatter plot is sepal width against sepal length, colored by cluster, with the two centroids drawn as black crosses. <code>cluster_centers_</code> has one row per cluster and one column per feature, and the call to <code>scatter</code> takes the two columns that match the plot's axes. The remaining arguments are appearance: <code>marker</code> selects the cross, <code>s</code> sets its size, <code>linewidths</code> its stroke and <code>c</code> its color.</p>
+<p>In these two features the clusters overlap, and each cross sits at the mean of its cluster's points in the plane of the plot. The centroid of the orange cluster is near a sepal width of 2.9 and a sepal length of 6.3; the blue centroid is near 3.4 and 5.0.</p>
+    </aside>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber K-Means is affected by the scale of every feature.">
+    </div>
+    <aside class="notes">
+      <p>Euclidean distance adds up the squared difference of every feature, so a feature whose values spread over a wide range produces larger differences than one that spreads over a narrow range, and dominates the sum. In the iris data, petal length runs from about one to seven centimeters and petal width from near zero to two and a half, so two flowers that differ by a typical amount in petal length are farther apart, as k-means measures it, than two that differ by a typical amount in petal width. The weighting comes from the units the features happen to be measured in, and a feature recorded in millimeters would count ten times as much as the same feature recorded in centimeters.</p>
+    </aside>
+  </section>
+  <section data-page="38">
+    <div class="page-stack">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Feature Scaling For k-means clustering, features must be scaled to the same ranges of values to contribute &quot;equally&quot; to the euclidean distance calculation. Each row is tr">
+    </div>
+    <aside class="notes">
+      <p>Standardization puts every feature on the same scale. For each column, subtract the column's mean from every value, then divide by the column's standard deviation. Afterward every column has a mean of zero and a standard deviation of one, and a difference of one unit in any column means one standard deviation of that feature.</p>
+<p>The quotation marks around equally are apt. Standardization equalizes the spread of the features, and after it a feature that carries no information about the groups weighs as much in the distance as one that carries a lot. Scaling is a choice about weights, made before the algorithm runs, and the choice here is equal weight for every feature.</p>
+    </aside>
+  </section>
+  <section data-page="39">
+    <div class="page-stack">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Feature Scaling # center and scale the data scaler = StandardScaler() raw_data_scaled = scaler.fit_transform( &lt;data&gt; ) data_scaled = pd.DataFrame( raw_data_scaled, column">
+    </div>
+    <aside class="notes">
+      <p><code>StandardScaler</code> from <code>sklearn.preprocessing</code> performs the standardization. The <code>fit_transform</code> call does two things: it computes the mean and standard deviation of every column, which the scaler stores, and then it applies the subtraction and division to the data it was given. The scaler's <code>transform</code> method can later apply the same stored means and standard deviations to new rows. The result is a NumPy array without column names, which is why the last line wraps it in a <code>DataFrame</code> with <code>columns=features</code>. The worksheet does the same to the five domain features and keeps the scaled columns beside the raw ones.</p>
+    </aside>
+  </section>
+  <section data-page="40">
+    <div class="page-stack">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber Feature Scaling # K-means on scaled data km = KMeans( n_clusters=2 ) km.fit( &lt;scaled_data&gt; )">
+    </div>
+    <aside class="notes">
+      <p>The clustering call is unchanged; only the input differs. <code>KMeans</code> with two clusters is fit to the scaled data frame instead of the raw one, and the distances inside the loop are now measured in standard deviations. Everything the object stores is in the scaled units as well: the rows of <code>cluster_centers_</code> are centroids in scaled coordinates, and the scaler's <code>inverse_transform</code> converts them back to centimeters if they are to be plotted on the original axes.</p>
+    </aside>
+  </section>
+  <section data-page="41">
+    <div class="page-stack">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Feature Scaling Scaled Features Unscaled Features">
+    </div>
+    <aside class="notes">
+      <p>The two pair plots are the two-cluster result on the scaled features, on the left, and on the unscaled features, on the right. They are indistinguishable at this resolution: both isolate the small-petal group as cluster 0 and put the rest in cluster 1. Scaling made no visible difference on iris because the four features are all a few centimeters wide and the gap in the petal measurements is large relative to every feature's spread.</p>
+<p>Scaling matters when the features differ in units. The worksheet's domain data describes each name by a character count, a fraction, an entropy and an n-gram score, and there the scaling step precedes the clustering.</p>
+    </aside>
+  </section>
+  <section data-page="42">
+    <div class="page-stack">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber More Clusters km3 = KMeans(n_clusters=3) km3.fit(scaled_data)">
+    </div>
+    <aside class="notes">
+      <p>The same scaled data fit with three clusters instead of two. Cluster 1, in blue, is again the small-petal group and is unchanged. The third centroid split the large group in two along petal length and petal width: cluster 2, in green, holds the flowers with petal length below about five centimeters and petal width below about one and three quarters, and cluster 0, in orange, holds the larger ones. The two new clusters overlap on every panel, so the split runs through a region of the data with no gap in it.</p>
+<p>The cluster indices are assigned by the run and carry no meaning: which group is called 0, 1 or 2 changes from one fit to another.</p>
+    </aside>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber Outlier Detection clf = svm.OneClassSVM( tol=0.001, nu=0.1) clf.fit(X) target_pred_outliers=clf.predict(X) Delete n% of “outlier data”, here ~10% http://scikit-learn.org/">
+    </div>
+    <aside class="notes">
+      <p>A one-class support vector machine draws a boundary around the bulk of the data and treats what falls outside it as outliers. <code>OneClassSVM</code> from <code>sklearn.svm</code> is fit on the feature matrix alone, with no labels; <code>nu</code> is an upper bound on the fraction of training points allowed to fall outside the boundary, so a value of one tenth asks for a boundary that leaves out about ten percent of the data, and <code>tol</code> is the tolerance at which the optimizer stops. <code>predict</code> returns one for a point inside the boundary and minus one for a point outside it.</p>
+<p>In the figure, the red contour is the learned frontier, the green points inside it are the regular observations, the red points outside it are the outliers, and the shading is the decision function, darker the farther a location is from the frontier. The training error rate printed beneath, a little over eleven percent, is the fraction of training points classed as outliers, close to the value of <code>nu</code>.</p>
+<p>The text on the left gives the use in this module: remove roughly the outlying tenth of the data before clustering it. A centroid is a mean, and a mean is pulled toward extreme values, so a few distant points can drag a centroid away from the group it should represent.</p>
+    </aside>
+  </section>
+  <section data-page="44">
+    <div class="page-stack">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber Evaluating your Model The Silhouette Coefficient is a common metric for evaluating clustering &quot;performance&quot; in situations when the &quot;true&quot; cluster assignments are not know">
+    </div>
+    <aside class="notes">
+      <p>The silhouette coefficient scores a clustering from the distances alone, with no labels. For one point, a is the mean distance to the other points in its own cluster and b is the mean distance to the points of the nearest other cluster. The coefficient is b minus a, divided by the larger of the two. It ranges from minus one to one: a value near one means the point is much closer to its own cluster than to the neighboring one, a value near zero means it sits on the boundary between the two, and a negative value means it is on average closer to the neighboring cluster than to its own and is probably assigned to the wrong one. The score for a whole clustering is the mean coefficient over all its points.</p>
+    </aside>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber Evaluating your Model k_range = range(2,16) scores = [] for k in k_range: km_ss = KMeans(n_clusters=k, random_state=1) km_ss.fit(iris_data_scaled) scores.append(silhouett">
+    </div>
+    <aside class="notes">
+      <p>The loop fits k-means once for every K from two through fifteen, because <code>range(2, 16)</code> stops before sixteen, and records the silhouette score of each fit. <code>random_state=1</code> fixes the random seed, so the initialization is reproducible and rerunning the loop gives the same scores. <code>silhouette_score</code> takes the data and the fitted labels and returns the mean coefficient over all points. The range starts at two because the coefficient needs a nearest other cluster, which a single cluster does not have. The data passed to <code>silhouette_score</code> has to be the same scaled data the model was fit on, so the distances it measures are the ones the clustering used.</p>
+    </aside>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber Evaluating your Model Best number of clusters">
+    </div>
+    <aside class="notes">
+      <p>The curve is the silhouette score against the number of clusters, from two to fifteen, on the scaled iris data. It is highest at two clusters, about 0.58, drops steeply through three and four, reaches its lowest value at six, about 0.32, and then wanders between 0.33 and 0.37 for larger K.</p>
+<p>By the definition of the coefficient, a higher score means points sit closer to their own cluster than to the next one, so the curve favors two clusters, the partition that isolates the small-petal group. The arrow marks six, which is the minimum of the curve and by this measure the worst choice in the range, so the annotation contradicts the score it is drawn on.</p>
+    </aside>
+  </section>
+  <section data-page="47">
+    <div class="page-stack">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber Evaluating your Model from yellowbrick.cluster import KElbowVisualizer visualizer = KElbowVisualizer(KMeans(), k=(4,12)) visualizer.fit(X) visualizer.poof()">
+    </div>
+    <aside class="notes">
+      <p>Yellowbrick is a visualization library that wraps scikit-learn estimators, and its <code>KElbowVisualizer</code> fits the model once for every K in a range and plots a score against K. The range <code>k=(4, 12)</code> covers four through eleven. The score on the left axis is the distortion, the sum of squared distances from every point to its assigned centroid, which <code>KMeans</code> also exposes as <code>inertia_</code>. Adding a centroid can only shorten those distances, so the best possible distortion falls as K grows and there is no minimum to look for. The criterion is instead the elbow: the K past which adding clusters brings little further reduction. The blue line falls steeply from four to eight and then goes flat, so the elbow is at eight.</p>
+<p>The dashed green line, on the right axis, is the time each fit took in seconds. The small rise in distortion after eight is a sign of the runs at larger K stopping at worse local solutions, since the best partition for a larger K has a distortion no higher than the best partition for a smaller one. The figure's title names <code>MiniBatchKMeans</code>, a variant that updates the centroids from random subsets of the data to run faster on large sets, while the code on the slide passes plain <code>KMeans</code>; the reading of the elbow is the same for either. The <code>poof</code> method renders the plot, and newer Yellowbrick versions call this method <code>show</code>.</p>
+    </aside>
+  </section>
+  <section data-page="48">
+    <div class="page-stack">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber Evaluating your Model from yellowbrick.cluster import SilhouetteVisualizer model = MiniBatchKMeans(6) visualizer = SilhouetteVisualizer(model) visualizer.fit(X) visualize">
+    </div>
+    <aside class="notes">
+      <p>The silhouette plot shows the coefficient of every point, grouped by cluster. The model is <code>MiniBatchKMeans</code> with six clusters on a dataset of a thousand samples. Each colored band is one cluster: the points are sorted by coefficient and drawn as horizontal bars from zero to their value, so the band's height is the cluster's size and its shape is the distribution of its coefficients. The dashed red line is the mean coefficient over all points, about 0.65.</p>
+<p>Clusters 1, 3, 4 and 5 have most of their points above the mean, with values up to about 0.8, which marks them as compact and well separated. Clusters 0 and 2 have lower values, from about 0.5 down to 0.4 and all below the mean, and they are the two tallest bands, about twice the height of the others, so those two clusters are less well separated from their neighbors than the rest. No band extends left of zero, so no point in this fit is closer to another cluster than to its own.</p>
+    </aside>
+  </section>
+  <section data-page="49">
+    <div class="page-stack">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber In Class Exercise Please complete Worksheet 5.1: Clustering">
+    </div>
+    <aside class="notes">
+      <p>Worksheet 5.1 applies the module to about six thousand domain names, five thousand generated by botnet domain generation algorithms and one thousand taken from the Alexa list of popular sites, each described by its length, its share of dictionary words, its entropy, its count of digits and an n-gram score. The steps are to standardize the five features, fit k-means with two clusters on the scaled columns, attach the labels as a column, and count the domain sources within each cluster to see whether the clusters separate generated names from legitimate ones; then to plot the sum of squared distances against K for the elbow method.</p>
+<p>The worksheet then uses two other clustering methods. Agglomerative clustering starts with every point as its own cluster and repeatedly merges the two closest clusters; the dendrogram is the tree of those merges, and points that stay unmerged until late in the tree are candidates for anomalies, which the worksheet uses to find twenty generated domains placed among a thousand legitimate ones. DBSCAN, density-based spatial clustering of applications with noise, groups points that have at least a minimum number of neighbors within a radius and leaves points with too few neighbors unassigned as noise; its two settings are that radius and that minimum count.</p>
+    </aside>
+  </section>
+  <section data-page="51">
+    <div class="page-stack">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber Other uses of unsupervised learning: Dimensionality Reduction">
+      <img class="page fragment" src="pages/p051.webp" alt="GTK Cyber Other uses of unsupervised learning: Dimensionality Reduction • Dimensionality reduction reduces the number of features in a dataset without losing the information in a d">
+    </div>
+    <aside class="notes">
+      <p>Dimensionality reduction replaces the columns of a dataset with fewer columns while keeping as much of the variation in the data as it can. The reduction is possible when features are correlated: if two columns rise and fall together, one derived column carries most of what both contain, and the data occupies fewer effective directions than it has columns. Fewer columns means less input for a downstream model, a way to plot high-dimensional data in two dimensions, and less room for noise. The method is unsupervised because it uses no labels; it looks only at how the features vary. Principal component analysis is the common technique.</p>
+    </aside>
+  </section>
+  <section data-page="52">
+    <div class="page-stack">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber Other uses of unsupervised learning: Dimensionality Reduction • PCA attempts to combine the highly correlated features and represent this data with a smaller number of li">
+    </div>
+    <aside class="notes">
+      <p>Principal component analysis finds the directions in which the data varies most. The first principal component is the direction, a weighted combination of all the original features, along which the data has the greatest variance. The second is the direction of greatest remaining variance at right angles to the first, which makes it uncorrelated with the first; the third is at right angles to both, and so on until there are as many components as original features. Highly correlated features carry overlapping information, and a single component captures what they share.</p>
+<p>The components are ordered by the variance they capture, so projecting the data onto the first few keeps most of the total variance in far fewer columns. Each new column is a principal component score, a linear combination of every original feature, and the components are linearly uncorrelated with one another.</p>
+    </aside>
+  </section>
+  <section data-page="53">
+    <div class="page-stack">
+      <img class="page" src="pages/p053.webp" alt="GTK Cyber PCA Example from sklearn.decomposition import PCA n_components = 784 whiten = False pca = PCA(n_components=n_components, whiten=whiten) features_train_PCA = pca.fit_trans">
+    </div>
+    <aside class="notes">
+      <p>The code is from the dimensionality reduction notebook of Hands-On Unsupervised Learning Using Python, the book by Ankur Patel whose repository the link points to. The 784 features are the pixels of the 28 by 28 images of handwritten digits in the MNIST dataset, which that notebook works on.</p>
+<p><code>PCA</code> from <code>sklearn.decomposition</code> is constructed with <code>n_components</code> equal to 784, as many components as there are features, so this first fit discards nothing. <code>whiten=False</code> leaves each component's scores at their natural variance instead of rescaling them all to a variance of one. <code>fit_transform</code> finds the components from the training features and projects those features onto them, and the result is wrapped in a data frame that keeps the training index. <code>explained_variance_ratio_</code> is an array holding the fraction of the total variance each component captures, in decreasing order. Summed over all 784 components it comes to 1.0, all of the variance, which is the line at the bottom. Fitting with every component is what makes it possible to read off how much variance any smaller number of them would keep.</p>
+    </aside>
+  </section>
+  <section data-page="54">
+    <div class="page-stack">
+      <img class="page" src="pages/p054.webp" alt="GTK Cyber PCA Example Variance Captured by First 10 Principal Components: [0.48876238] Variance Captured by First 20 Principal Components: [0.64398025] Variance Captured by First 5">
+    </div>
+    <aside class="notes">
+      <p>Each line is the sum of <code>explained_variance_ratio_</code> over the first N components, that is, the share of the total variance kept if only those N are retained. Ten components keep about 49 percent of the variance of 784 pixel columns, twenty keep 64 percent, fifty keep 82 percent, one hundred keep 91 percent, two hundred keep 97 percent and three hundred keep 98.6 percent. The gain per component falls steeply: the first hundred add 91 points, the second hundred add five, the third hundred add two.</p>
+<p>The bottom line on the slide follows: three hundred of the 784 columns hold about 98 percent of the variance, so the dataset can be cut to well under half its width while losing about one and a half percent. The word theoretically carries a caveat. Variance is the quantity PCA preserves, and it is a proxy for the information a model needs; whether the dropped one and a half percent matters to a classifier trained on the 300 component scores is a question the classifier's accuracy answers, and the variance figure does not.</p>
+    </aside>
+  </section>
+  <section data-page="55">
+    <div class="page-stack">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Questions?">
+    </div>
+    <aside class="notes">
+      <p>Questions on the module: clustering without labels, the k-means loop and its dependence on K, on the random start and on the scale of the features, the silhouette coefficient and the elbow plot, and principal component analysis.</p>
+    </aside>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>

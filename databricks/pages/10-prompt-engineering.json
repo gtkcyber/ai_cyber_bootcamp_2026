@@ -1,0 +1,451 @@
+{
+  "slug": "10-prompt-engineering",
+  "pdf": "Module 10 Prompt Engineering.pdf",
+  "page_count": 74,
+  "pages": [
+    {
+      "page": 1,
+      "kind": "slide",
+      "group": 1,
+      "text": "Module 10: Prompt Engineering Charles S. Givre CISSP"
+    },
+    {
+      "page": 2,
+      "kind": "slide",
+      "group": 2,
+      "text": "GTK Cyber Outline • Part 1: Introduction and Theory: How Generative Models Work • Part 2: Prompt Engineering: How to get the most out of Generative Models • Part 3: Architecture: How to build AI driven applications • Part 4: Red Teaming: How to Attack & Defend AI Applications"
+    },
+    {
+      "page": 3,
+      "kind": "slide",
+      "group": 3,
+      "text": "GTK Cyber Outline • Best Strategies for Prompting • Meta Prompting • Prompting programmatically"
+    },
+    {
+      "page": 4,
+      "kind": "slide",
+      "group": 4,
+      "text": "GTK Cyber Notes • For this module, we will be using Anthropic models. • The principles cross over to any LLM workflow. • You will need an API key from OpenAI for these exercises. • For the examples, we set an environment variable called ANTHROPIC_API_KEY • You will need to create a file in the root directory of the repo called .env with the content below. ANTHROPIC_API_KEY = \"<YOUR ANTHROPIC_API_AI TOKEN HERE>\""
+    },
+    {
+      "page": 5,
+      "kind": "slide",
+      "group": 5,
+      "text": "GTK Cyber Accessing your API Token import os from dotenv import load_dotenv # Loads the .env file. load_dotenv() # Get the specific environment variable. ANTHROPIC_API_KEY = os.environ.get(\"ANTHROPIC_API_KEY\")"
+    },
+    {
+      "page": 6,
+      "kind": "slide",
+      "group": 6,
+      "text": "GTK Cyber Please try these examples as we go along."
+    },
+    {
+      "page": 7,
+      "kind": "slide",
+      "group": 7,
+      "text": "GTK Cyber Prompt Engineering"
+    },
+    {
+      "page": 8,
+      "kind": "slide",
+      "group": 8,
+      "text": "GTK Cyber Is it really a skill?"
+    },
+    {
+      "page": 9,
+      "kind": "slide",
+      "group": 9,
+      "text": "GTK Cyber Prompting Programatically is Different than Chatting with a chatbot."
+    },
+    {
+      "page": 10,
+      "kind": "slide",
+      "group": 10,
+      "text": "GTK Cyber How is it Different? • You need output in a consumable format--usually JSON. • For programmatic usage, output has to be consistent, so you will need much more error checking. • The prompt is actually split into two portions: the system message and the user message. • You will have to think about security."
+    },
+    {
+      "page": 11,
+      "kind": "slide",
+      "group": 11,
+      "text": "GTK Cyber Interacting with OpenAI Programmatically • OpenAI has a module (openai) which makes API calls easier. • It supports both chat-like interactions and one-shot interactions. • Documentation is available here: https://github.com/openai/openai-python import os from openai import OpenAI # Create the client client = OpenAI( # This is the default and can be omitted api_key=os.environ.get(\"OPENAI_API_KEY\"), ) response = client.responses.create( model=\"gpt-4o\", instructions=\"You are a coding assistant that talks like a pirate.\", input=\"How do I check if a Python object is an instance of a class?\", ) print(response.output_text)"
+    },
+    {
+      "page": 12,
+      "kind": "slide",
+      "group": 12,
+      "text": "GTK Cyber Interacting with Anthropic Models Programmatically • Anthropic also has a module (anthropic) which makes API calls easier. • It supports both chat-like interactions and one-shot interactions. • Documentation is available here: https://github.com/anthropics/anthropic-sdk-python import os from anthropic import Anthropic client = Anthropic( api_key=os.environ.get(\"ANTHROPIC_API_KEY\"), # This is the default and can be omitted ) message = client.messages.create( max_tokens=1024, messages=[ { \"role\": \"user\", \"content\": \"Hello, Claude\", } ], model=\"claude-opus-4-6\", ) print(message.content)"
+    },
+    {
+      "page": 13,
+      "kind": "slide",
+      "group": 13,
+      "text": "GTK Cyber Interacting with Anthropic Programmatically - Uploading Files • Interacting with files import base64 import anthropic client = anthropic.Anthropic() # ANTHROPIC_API_KEY from env with open(\"path/to/image.png\", \"rb\") as f: b64 = base64.standard_b64encode(f.read()).decode() resp = client.messages.create( model=\"claude-sonnet-4-6\", max_tokens=1024, messages=[{ \"role\": \"user\", \"content\": [ {\"type\": \"image\", \"source\": {\"type\": \"base64\", \"media_type\": \"image/png\", \"data\": b64}}, {\"type\": \"text\", \"text\": \"What is in this image?\"}, ], }], ) print(resp.content[0].text)"
+    },
+    {
+      "page": 14,
+      "kind": "slide",
+      "group": 14,
+      "text": "GTK Cyber Interacting with Huggingface Models • HuggingFace also has a module to facilitate interacting with models on HuggingFace. (https://github.com/huggingface/transformers) • In principle it functions similarly to OpenAI's SDK, but will allow you to download models stored on HuggingFace. • USE CAUTION WHEN DOWNLOADING MODELS!!!"
+    },
+    {
+      "page": 15,
+      "kind": "slide",
+      "group": 15,
+      "text": "GTK Cyber Tuning Parameters"
+    },
+    {
+      "page": 16,
+      "kind": "slide",
+      "group": 16,
+      "text": "GTK Cyber LLM Parameters • Temperature: controls the randomness of the responses. Ranges from 0-1. Higher temperature will yield more \"creative\" responses, where as a temperature of 0 will yield the same response every time. • top_p: The size of the subset of tokens (the nucleus) the LLM considers. It will consider tokens until it reaches their cumulative probability. Ranges from 0-1. When set to 1, it will consider all tokens."
+    },
+    {
+      "page": 17,
+      "kind": "slide",
+      "group": 17,
+      "text": "GTK Cyber LLM Parameters • Max Tokens: The maximum length in tokens of the output. Prevents overly long responses, however it can lead to truncated responses as well. • Frequency Penalty: Parameter to set the likelihood of repeating the same phrases. Ranges from 0.0-2.0. • Presence Penalty: Paremeter to set the likelihood of introducing new topics. (ADHD parameter) Ranges from 0.0-2.0 • Stop Sequences: Define sequences of tokens to stop generation."
+    },
+    {
+      "page": 18,
+      "kind": "slide",
+      "group": 18,
+      "text": "GTK Cyber System vs. User Message • The system message or prompt is a prompt which defines how the LLM will behave. • The system message is sent with every single call to the LLM. • The user message is where more frequent interactions will take place."
+    },
+    {
+      "page": 19,
+      "kind": "slide",
+      "group": 19,
+      "text": "GTK Cyber Principles of Effective Prompt Engineering"
+    },
+    {
+      "page": 20,
+      "kind": "slide",
+      "group": 20,
+      "text": "GTK Cyber Basics: What doesn't work • Vagueness • Unspecific output formats • Not providing examples • Assuming facts not \"on the record\""
+    },
+    {
+      "page": 21,
+      "kind": "slide",
+      "group": 21,
+      "text": "GTK Cyber Tip 1: Set the Stage Start by setting the stage and tell the model explicitly who and where it is. For example: Here is a sample of trouble tickets: Or: You are a helpful customer service bot Or: You are an advanced cybersecurity analytic bot whose job it is to test infrastructure and provide insights as to how to harden that infrastructure."
+    },
+    {
+      "page": 22,
+      "kind": "slide",
+      "group": 22,
+      "text": "GTK Cyber Tip 2: Assume Nothing • GenAI works best when you provide all the information in the prompt. This lends itself to use cases such as summarizing data, or generating something from a specific input. • You cannot rely on GenAI's understanding of facts as sometimes they are wrong. • Do not assume that the model knows \"facts not on record\"."
+    },
+    {
+      "page": 23,
+      "kind": "slide",
+      "group": 23,
+      "text": "GTK Cyber Tip 3: Specify your Output Format • The best way to get consistent output is to explicitly tell the model how you want your output. For example: Output the results as a python object. Or Be concise. Or Be sure to include docstrings in all functions."
+    },
+    {
+      "page": 24,
+      "kind": "slide",
+      "group": 24,
+      "text": "GTK Cyber Tip 4: Be Positive! • Affirmative commands work better than negative commands. For example: Do not include categories A and B. vs. Only include categories C, D."
+    },
+    {
+      "page": 25,
+      "kind": "slide",
+      "group": 25,
+      "text": "GTK Cyber Be Positive • Models tend to respond better to positive commands than negative commands. For example:"
+    },
+    {
+      "page": 26,
+      "kind": "slide",
+      "group": 26,
+      "text": "GTK Cyber Tip 5: Be Direct! • AI is not your friend. You don't have to say please and thank you. • In your prompts, be direct and specific. Do this: Categorize the following linux commands into one of three categories: normal, risky or unknown. If you are unsure, select unknown. These are the only possible categories. Not this: I have a bunch of commands and I am looking to categorize them into categories. Could you please categorize them as either normal, risky or unknown. Thank you very much!!!"
+    },
+    {
+      "page": 27,
+      "kind": "slide",
+      "group": 27,
+      "text": "GTK Cyber Tip 6: Provide Examples • LLMs will perform significantly better if you can provide examples of what you are looking for. • In classification contexts, this is known as few shot learning. Classify the command as either safe or risky. ##### ls safe ##### rm -rf * risky"
+    },
+    {
+      "page": 28,
+      "kind": "slide",
+      "group": 28,
+      "text": "GTK Cyber Tip 7: Tell It What To Do When It Doesn't Know What To Do • Language models may hallucinate if they don't know what to do. • You can reduce the chances of hallucinations with statements like: • If you are unable to categorize the response, output unknown. • Telling the model not to hallucinate does nothing."
+    },
+    {
+      "page": 29,
+      "kind": "slide",
+      "group": 29,
+      "text": "GTK Cyber Basics for Prompt Engineering"
+    },
+    {
+      "page": 30,
+      "kind": "slide",
+      "group": 30,
+      "text": "GTK Cyber Basic Components of a Prompt • Directive: An explicit, unambiguous instruction of what you want the model to do. • Examples: Examples will help the model provide better responses. • Role or Persona: Will help dictate the type of response if applicable. • Output Formatting: An explanation of how you want the results formatted. • Additional Information: Any additional information that you might wish to provide to the model. https://learnprompting.org/docs/basics/prompt_structure"
+    },
+    {
+      "page": 31,
+      "kind": "slide",
+      "group": 31,
+      "text": "GTK Cyber Order Matters • Since LLMs are designed to predict the next token based on sequences, rearranging the order so that it makes sense to the model can improve the results. • Recommended order: 1. Role 2. Directive 3. Additional Information 4. Output Formatting 5. Examples https://learnprompting.org/docs/basics/prompt_structure"
+    },
+    {
+      "page": 32,
+      "kind": "slide",
+      "group": 32,
+      "text": "GTK Cyber Role Matters"
+    },
+    {
+      "page": 33,
+      "kind": "slide",
+      "group": 33,
+      "text": "GTK Cyber Role Matters"
+    },
+    {
+      "page": 34,
+      "kind": "slide",
+      "group": 34,
+      "text": "GTK Cyber Zero Shot / Few Shot • Most prompting you have probably done is zero shot where you just ask a model to do something. • Few shot learning is where you provide examples for the model. • A few examples can radically improve the model's performance."
+    },
+    {
+      "page": 35,
+      "kind": "slide",
+      "group": 35,
+      "text": "GTK Cyber Zero Shot / Few Shot You are an automated security bot which will assess whether a command line command is potentially risky or not. You must only output either: very risky, moderately risky, not risky or unknown. ### Command: ls -l: not risky Command: rm -rf very risky Command: find . --name my_data.csv not risky Command: akjfklsj unknown"
+    },
+    {
+      "page": 36,
+      "kind": "slide",
+      "group": 36,
+      "text": "GTK Cyber Few Shot Examples"
+    },
+    {
+      "page": 37,
+      "kind": "slide",
+      "group": 37,
+      "text": "GTK Cyber Few Shot Examples"
+    },
+    {
+      "page": 38,
+      "kind": "slide",
+      "group": 38,
+      "text": "GTK Cyber Few Shot Examples"
+    },
+    {
+      "page": 39,
+      "kind": "slide",
+      "group": 39,
+      "text": "GTK Cyber Few Shot Examples"
+    },
+    {
+      "page": 40,
+      "kind": "slide",
+      "group": 40,
+      "text": "GTK Cyber Defining Output Format • When writing prompts for programmatic use, it is vital that the model returns output in the exact format you are expecting and that your code can consume the data. • LLMs are not deterministic so despite all your work, the LLM may generate incorrectly formatted results, or hallucinate. • Tell the LLM what to do when it doesn't' know what to do. • Charles personally prefers that the model returns JSON as it is easy to parse. However there is no guarantee that the model will return the correct format or valid JSON."
+    },
+    {
+      "page": 41,
+      "kind": "slide",
+      "group": 41,
+      "text": "GTK Cyber Defining Output Format • If you want the model to output JSON, be sure to include examples in the prompt. PROMPT = \"\"\" You will be given a product name. Your job is to find the most relevant categories for this product. 1. You must only select categories from the following list: [Omitted for brevity] 2. If you are uncertain categorize the product as unknown. 3. Output the completion as a JSON object using the example located in the XML tags. 4. In the completion, include a confidence score for the categorization. The confidence score should be outputted to two decimal places. <example> { \"product\": \"iPhone 14\", \"categories\": [ { \"name\": \"Technology\", \"confidence\": 0.965 }, { \"name\": \"Electronics\", \"confidence\": 0.823 } ] } </example> \"\"\""
+    },
+    {
+      "page": 42,
+      "kind": "slide",
+      "group": 42,
+      "text": "GTK Cyber Questions?"
+    },
+    {
+      "page": 43,
+      "kind": "slide",
+      "group": 43,
+      "text": "GTK Cyber Lab Please complete Worksheet 10.1: Programmatic Interaction with LLMs"
+    },
+    {
+      "page": 44,
+      "kind": "slide",
+      "group": 44,
+      "text": "GTK Cyber Advanced Prompting"
+    },
+    {
+      "page": 45,
+      "kind": "slide",
+      "group": 45,
+      "text": "GTK Cyber Advanced Prompting • Chain of Thought • Meta Prompting / Prompt Chaining • Data Analysis and Classification with LLMs"
+    },
+    {
+      "page": 46,
+      "kind": "slide",
+      "group": 46,
+      "text": "GTK Cyber Advanced Prompting Techniques • These techniques go beyond simple \"ask ChatGPT\". • They are meant to be used programmatically, or in the context of building AI Agents. • These techniques often have different names for minor variations."
+    },
+    {
+      "page": 47,
+      "kind": "slide",
+      "group": 47,
+      "text": "GTK Cyber Chain of Thought • Chain of Thought (CoT) is a prompting technique which enhances the reasoning of LLMs by breaking problems down into logical steps, a chain of thought, within the prompt. • CoT guides the model to work though intermediate steps to help solve complex tasks. • With CoT prompts, you can achieve better performance from LLMs without fine tuning. • CoT differs from few-shot prompting in that few shot prompting lays out the answer. CoT giudes the model to lay out the reasoning process. https://learnprompting.org/docs/intermediate/chain_of_thought"
+    },
+    {
+      "page": 48,
+      "kind": "slide",
+      "group": 48,
+      "text": "GTK Cyber Key Concept of CoT is that by providing a few examples where the reasoning process is shown, the LLM will include reasoning steps in its responses, which often results in more accurate outputs."
+    },
+    {
+      "page": 49,
+      "kind": "slide",
+      "group": 49,
+      "text": "GTK Cyber How CoT Works • Decompose the problem: CoT prompts guide the model to break down a complex question into manageable steps. • Guide with Exemplars: CoT uses examples that demonstrate the reasoning steps helping the model arrive at a correct answer."
+    },
+    {
+      "page": 50,
+      "kind": "slide",
+      "group": 50,
+      "text": "GTK Cyber Chain of Thought • While CoT does cause a model to echo the reasoning involved in solving problems, it is important to note that LLMs do not actually \"think\". • There is a lot of debate about the effectiveness of CoT and degree to which models \"actually think\"."
+    },
+    {
+      "page": 51,
+      "kind": "slide",
+      "group": 51,
+      "text": "GTK Cyber Chain of Thought Example Scenario: The EDR platform detects a PowerShell script being executed on a user workstation, and it’s obfuscated. Think step by step: 1. PowerShell execution, especially if obfuscated, is a common sign of malware or lateral movement. 2. Retrieve the script contents and de-obfuscate it to understand what it’s doing. 3. Identify the parent process — was it launched by a user or by a suspicious binary? 4. Check whether this behavior matches any known attack techniques (MITRE ATT&CK, e.g., T1059.001). 5. Isolate the machine to prevent potential spread. 6. Conduct a scan for persistence mechanisms, like registry changes or scheduled tasks. 7. Search across the environment for other systems running similar scripts. 8. Capture forensic data and escalate the incident as needed. Conclusion: This is likely part of a targeted attack or malware campaign. Escalate and investigate fully. Now You Try): Scenario: You receive multiple alerts from your firewall indicating large outbound traffic to a Tor exit node from a development server. The server typically communicates only with internal systems. Think step by step:"
+    },
+    {
+      "page": 52,
+      "kind": "slide",
+      "group": 52,
+      "text": "GTK Cyber Zero Shot CoT In a distributed query engine, depending on the query, it can be advantageous to push down operations to the downstream data system. It can also be advantageous to break up the original query into multiple queries and run the parts in parallel. Let's think this through."
+    },
+    {
+      "page": 53,
+      "kind": "slide",
+      "group": 53,
+      "text": "GTK Cyber Using LLMs for Entity Recognition and Data Extraction • You can use an LLM to extract data artifacts from bodies of text. • This approach is very useful when it would be difficult or impractical to use regular expressions."
+    },
+    {
+      "page": 54,
+      "kind": "slide",
+      "group": 54,
+      "text": "GTK Cyber Meta Prompting"
+    },
+    {
+      "page": 55,
+      "kind": "slide",
+      "group": 55,
+      "text": "GTK Cyber Meta Prompting • Meta prompting is a technique in which one prompt is used to generate additional prompts. • Meta prompting is useful if you are trying to execute a complex task which requires many steps and a lot of output. • For instance, analyzing collections of files, or some sort of sequential data might be a good use case."
+    },
+    {
+      "page": 56,
+      "kind": "slide",
+      "group": 56,
+      "text": "GTK Cyber Meta Prompting"
+    },
+    {
+      "page": 57,
+      "kind": "slide",
+      "group": 57,
+      "text": "GTK Cyber Meta Prompting You are a penetration testing bot. Your task is to attempt to perform network reconnaissance on a target system. The input will be the output of a previous command. Generate a prompt to execute the next step in the process. Only output the prompt."
+    },
+    {
+      "page": 58,
+      "kind": "slide",
+      "group": 58,
+      "text": "GTK Cyber Classification with Generative Models"
+    },
+    {
+      "page": 59,
+      "kind": "slide",
+      "group": 59,
+      "text": "GTK Cyber Classification with Generative Models • In addition to using generative models to generate text, you can also use them to classify data, much in the same way you built and trained traditional ML classifiers. • You might want to do this in instances where data is limited, or text- based."
+    },
+    {
+      "page": 60,
+      "kind": "slide",
+      "group": 60,
+      "text": "GTK Cyber Classification with Generative Models • Generative models are not deterministic so you cannot really validate the results. • Generative models cannot be audited. • Generative models require a lot of compute and are generally slower than traditional ML models. • You cannot view the probabilities of the predictions."
+    },
+    {
+      "page": 61,
+      "kind": "slide",
+      "group": 61,
+      "text": "GTK Cyber Classification with Generative Models • Generative models can be useful when you don't have a lot of training data, or when the classifications are somewhat subjective. • The level of human effort can be significantly less. • You can also use generative models to score artifacts, however it is important to remember that those scores are somewhat arbitrary."
+    },
+    {
+      "page": 62,
+      "kind": "slide",
+      "group": 62,
+      "text": "GTK Cyber Classification with Generative Models You will be given a product name. Your job is to find the most relevant categories for this product. 1. You must only select categories from the following list: [List omittted] 2. If you are uncertain categorize the product as unknown. 3. Output the completion as a JSON object using the example located in the XML tags. 4. In the completion, include a confidence score for the categorization. The confidence score should be outputted to two decimal places. 5. Sort the cateogries by category confidence. <example> { \"product\": \"iPhone 14\", \"categories\": [ { \"name\": \"Technology\", \"confidence\": 0.965 }, { \"name\": \"Electronics\", \"confidence\": 0.823 } ] } </example>"
+    },
+    {
+      "page": 63,
+      "kind": "slide",
+      "group": 63,
+      "text": "GTK Cyber The Holy Grail of Data Analytics: Just get answers!"
+    },
+    {
+      "page": 64,
+      "kind": "slide",
+      "group": 64,
+      "text": "GTK Cyber Or is it?"
+    },
+    {
+      "page": 65,
+      "kind": "slide",
+      "group": 65,
+      "text": "GTK Cyber Two Approaches • Use an LLM to generate intermediate code (like SQL) based on a description of your data. • Use an LLM to analyze your data directly."
+    },
+    {
+      "page": 66,
+      "kind": "slide",
+      "group": 66,
+      "text": "GTK Cyber Challenges: Security & Privacy"
+    },
+    {
+      "page": 67,
+      "kind": "slide",
+      "group": 67,
+      "text": "GTK Cyber Challenges: Black box responses"
+    },
+    {
+      "page": 68,
+      "kind": "slide",
+      "group": 68,
+      "text": "GTK Cyber Challenges: Limitations on data size"
+    },
+    {
+      "page": 69,
+      "kind": "slide",
+      "group": 69,
+      "text": "GTK Cyber PandasAI Offers a Convenient Wrapper for EDA import pandas as pd from pandasai import PandasAI from pandasai.llm.openai import OpenAI # Initialize the LLM llm = OpenAI(api_token=\"<Your API Key>\") pandas_ai = PandasAI(llm) # Create a DataFrame df = pd.read_csv('../data/dailybots.csv') df['date'] = pd.to_datetime(df['date'])"
+    },
+    {
+      "page": 70,
+      "kind": "slide",
+      "group": 70,
+      "text": "GTK Cyber PandasAI: Summarization >>> pandas_ai(df, \"What botfams had the most infections?\") botfam ConfickerAB 321373 Ramnit 78753 PushDo 62485 Sality 56600 Bedep 52049"
+    },
+    {
+      "page": 71,
+      "kind": "slide",
+      "group": 71,
+      "text": "GTK Cyber PandasAI: Visualization >>> pandas_ai(df, \"Make a line chart of infections per day, broken down by botfam.\")"
+    },
+    {
+      "page": 72,
+      "kind": "slide",
+      "group": 72,
+      "text": "GTK Cyber PandasAI: Other Functions PandasAI can also: • Clean data: pandas_ai.clean_data(df) • Impute missing values: pandas_ai.impute_missing_values(df) • Generate Features: pandas_ai.generate_features(df) • Plot histograms: pandas_ai.plot_histogram(df, column=\"foo\")"
+    },
+    {
+      "page": 73,
+      "kind": "slide",
+      "group": 73,
+      "text": "GTK Cyber Questions?"
+    },
+    {
+      "page": 74,
+      "kind": "slide",
+      "group": 74,
+      "text": "GTK Cyber Lab Please complete Worksheet 10.2: Classification with LLMs"
+    }
+  ]
+}

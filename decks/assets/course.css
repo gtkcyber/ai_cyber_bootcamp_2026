@@ -1,0 +1,626 @@
+/* Graph Analytics for Cyber Security - shared deck look.
+ *
+ * Linked by every deck so ten decks stay one course. Layered on top of
+ * reveal's stock `white` theme; everything here is a CSS custom property
+ * override or a small additional class. No fork, no Sass, no build.
+ *
+ * Canvas is reveal's default 960 x 700. Every size below is stated as px
+ * plus its percentage of canvas width, because reveal scales a fixed
+ * canvas rather than reflowing and only the ratio travels.
+ *   body 40px = 4.2%   h1 118px = 12.3%   h2 76px = 7.9%   code 32px = 3.3%
+ * Floors come from SLIDES-PLAN.md ("Type and color").
+ */
+
+/* ---------------------------------------------------------------- tokens */
+
+:root {
+  /* Ground. Never absolute white; a projected pure white blooms. */
+  --c-bg:        #faf9f7;
+  --c-bg-sunk:   #f0eeea;
+  --c-ink:       #1a1a1a;
+  --c-ink-soft:  #55514b;
+  --c-rule:      #d6d1c8;
+
+  /* Okabe-Ito, CVD-safe. Capped at 5 in use on any one slide.
+     `-mark` values are for large marks (SVG fills, headlines);
+     `-text` values are darkened so small text still clears WCAG AA. */
+  --c-blue-mark:   #0072b2;   --c-blue-text:   #0072b2;
+  --c-orange-mark: #e69f00;   --c-orange-text: #8a5f00;
+  --c-green-mark:  #009e73;   --c-green-text:  #007a59;
+  --c-verm-mark:   #d55e00;   --c-verm-text:   #b34700;
+  --c-sky-mark:    #56b4e9;   --c-sky-text:    #22689a;
+  --c-purple-mark: #cc79a7;   --c-purple-text: #97467a;
+
+  /* Roles. Consistent across every deck and every zoom tier: a colour
+     means one thing for the life of the course and is never re-mapped.
+     Figures are hand-authored SVG and cannot read these variables, so the
+     hex is repeated inline. THIS BLOCK IS THE SOURCE OF TRUTH: a figure that
+     colours an account anything but #0072b2 is wrong, not creative. Cap five
+     of these on any one figure. Shape is the second channel, never a
+     substitute for hue: circle for an actor, rounded rect for a thing that
+     lives on a machine, diamond for a reified event. */
+  --c-account:  var(--c-blue-mark);   /* #0072b2  account, user, principal   */
+  --c-host:     var(--c-orange-mark); /* #e69f00  host, machine, workstation */
+  --c-shared:   var(--c-verm-mark);   /* #d55e00  infrastructure everybody touches */
+  --c-process:  var(--c-green-mark);  /* #009e73  process                    */
+  --c-file:     var(--c-purple-mark); /* #cc79a7  file, document             */
+  --c-external: var(--c-sky-mark);    /* #56b4e9  destination outside the org */
+  --c-event:    #55514b;              /* reified event: neutral, plus a diamond */
+  --c-muted:    #a9a49c;              /* context, deliberately grayed out    */
+
+  --font-sans: "Segoe UI", Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* Identifiers get a font with disambiguated 0/O and 1/l/I. Prefers a
+     locally installed face; nothing is fetched. NOT YET SELF-HOSTED. */
+  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", "IBM Plex Mono",
+               ui-monospace, Menlo, Consolas, monospace;
+}
+
+/* Dark is best-effort for the cold reader. Visuals are authored for
+   light and will look wrong here; every illustration bakes its own light
+   ground in so it degrades to ugly rather than to invisible. */
+:root[data-theme="dark"] {
+  --c-bg:       #16181c;
+  --c-bg-sunk:  #22252b;
+  --c-ink:      #eceae6;
+  --c-ink-soft: #a9a49c;
+  --c-rule:     #3b3f46;
+  --c-blue-text:   #7cc4ef;
+  --c-orange-text: #e8b64a;
+  --c-green-text:  #4fc9a3;
+  --c-verm-text:   #ff9257;
+  --c-sky-text:    #8fd0f2;
+  --c-purple-text: #e0a3c4;
+}
+
+/* -------------------------------------------------------------- the deck */
+
+.reveal-viewport { background: var(--c-bg); }
+
+.reveal {
+  --r-background-color: var(--c-bg);
+  --r-main-font: var(--font-sans);
+  --r-main-font-size: 40px;              /* 4.2% of canvas width */
+  --r-main-color: var(--c-ink);
+  --r-heading-font: var(--font-sans);
+  --r-heading-color: var(--c-ink);
+  --r-heading-text-transform: none;      /* stock theme shouts; it must not */
+  --r-heading-font-weight: 650;
+  --r-heading1-size: 118px;              /* 12.3% */
+  --r-heading2-size: 76px;               /* 7.9%  */
+  --r-heading3-size: 50px;               /* 5.2%  */
+  --r-heading4-size: 42px;
+  --r-code-font: var(--font-mono);
+  --r-link-color: var(--c-blue-text);
+  --r-link-color-hover: var(--c-verm-text);
+  --r-selection-background-color: var(--c-sky-mark);
+  --r-block-margin: 28px;
+  letter-spacing: 0.002em;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+  line-height: 1.06;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+.reveal h2 { margin-bottom: 0.5em; }
+
+.reveal .slides section { text-align: left; }
+.reveal .slides section.center-slide { text-align: center; }
+
+/* A HEADING OVER A FIGURE, WITH NOTHING ELSE, CENTRES ITSELF.
+ *
+ * A lone title left-aligned above a full-width figure hangs off one corner of
+ * an otherwise symmetrical slide. Centred, it reads as the figure's caption
+ * from above, which is what it is.
+ *
+ * This applies itself rather than waiting to be tagged, because ten decks of
+ * figure slides will be authored by somebody who never read the rule, and a
+ * convention that must be remembered is a convention that decays. If :has()
+ * ever fails, the title falls back to left-aligned: wrong, not broken.
+ *
+ * The child combinators are load-bearing. Speaker notes are <aside class=
+ * "notes"> full of <p>, so a descendant :not(:has(p)) would exclude every
+ * slide in the deck. Matching only DIRECT children of the content root steps
+ * over the notes subtree. Two forms because reveal-a11y wraps slide content in
+ * .accessibilityWrapper after init and the raw form exists before it. */
+.reveal .slides section:not(.divider):not(.title):has(> .accessibilityWrapper > figure):not(:has(> .accessibilityWrapper > :is(p, ul, ol, table, pre, blockquote, .placeholder, .tcs))),
+.reveal .slides section:not(.divider):not(.title):has(> figure):not(:has(> :is(p, ul, ol, table, pre, blockquote, .placeholder, .tcs))) {
+  text-align: center;
+}
+
+.reveal p { line-height: 1.35; }
+.reveal ul, .reveal ol { margin-left: 1.1em; }
+.reveal li { margin-bottom: 0.36em; line-height: 1.28; }
+.reveal li::marker { color: var(--c-muted); }
+
+.reveal strong { color: var(--c-ink); font-weight: 700; }
+.reveal em { color: var(--c-ink-soft); font-style: italic; }
+
+/* Identifiers, field names, and API calls. Notation, not prose. */
+.reveal code {
+  font-family: var(--font-mono);
+  font-size: 0.80em;
+  background: var(--c-bg-sunk);
+  border-radius: 4px;
+  padding: 0.06em 0.26em;
+}
+.reveal pre { width: 100%; box-shadow: none; margin: 24px 0; }
+.reveal pre code {
+  font-size: 32px;                       /* 3.3% of canvas width */
+  line-height: 1.4;
+  padding: 20px 24px;
+  background: var(--c-bg-sunk);
+  border: 1px solid var(--c-rule);
+  border-radius: 8px;
+  max-height: none;
+}
+
+/* Syntax colours, hand-set. Every stock highlight.js theme shipped with
+   reveal is dark, and a dark code block on a light deck reads as a hole.
+   Colour is doing real work for a non-coding audience, so it stays. */
+.reveal pre code.hljs { color: var(--c-ink); background: var(--c-bg-sunk); }
+.reveal .hljs-keyword,
+.reveal .hljs-built_in { color: var(--c-blue-text); font-weight: 600; }
+.reveal .hljs-string { color: var(--c-green-text); }
+.reveal .hljs-comment { color: var(--c-ink-soft); font-style: italic; }
+.reveal .hljs-number { color: var(--c-verm-text); }
+.reveal .hljs-title,
+.reveal .hljs-attr { color: var(--c-purple-text); }
+
+/* Tables stay small. The canvas does not reflow; overflow scales toward
+   minScale and then clips. */
+.reveal table { font-size: 32px; border-collapse: collapse; width: 100%; }
+.reveal table th,
+.reveal table td {
+  border: none;
+  border-bottom: 1px solid var(--c-rule);
+  padding: 0.30em 0.5em;
+  vertical-align: top;
+}
+.reveal table th {
+  color: var(--c-ink-soft);
+  font-weight: 650;
+  border-bottom: 2px solid var(--c-ink-soft);
+}
+.reveal table code { font-size: 0.88em; }
+
+/* ------------------------------------------------------------- fixtures */
+
+/* Divider. Marks a run boundary and does orientation work: this is where
+   the room stands up, and it says where in the module they are. */
+.reveal section.divider { text-align: left; }
+.reveal section.divider h1 { font-size: 96px; margin-bottom: 0.18em; }
+.reveal section.divider .run {
+  font-size: 34px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-verm-text);
+  font-weight: 700;
+  margin: 0 0 0.4em 0;
+}
+.reveal section.divider .covers { color: var(--c-ink-soft); font-size: 36px; }
+.reveal section.divider::after {
+  content: "";
+  display: block;
+  width: 220px;
+  height: 8px;
+  background: var(--c-verm-mark);
+  margin-top: 0.5em;
+}
+
+/* Lab cue. The break slide that sends the room to a notebook.
+   Deliberately unlike anything else in the deck, because its whole job is to
+   be unmissable when somebody is scanning ahead for the next stopping point.
+   The marks are styled on bare classes rather than under .reveal: reading
+   mode clones slide content out to #reading, and a student reading the deck
+   cold needs to see where the labs fall just as much as a presenter does. */
+.reveal section.lab { text-align: left; }
+.lab-tag {
+  font-size: 34px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-verm-text);
+  font-weight: 700;
+  margin: 0 0 0.3em 0;
+}
+.lab-file {
+  font-family: ui-monospace, "JetBrains Mono", Consolas, monospace;
+  font-size: 26px;
+  color: var(--c-ink-soft);
+  background: var(--c-bg-sunk);
+  border-left: 8px solid var(--c-verm-mark);
+  padding: 0.45em 0.7em;
+  margin: 0.2em 0 0.7em 0;
+}
+.lab-do { font-size: 32px; color: var(--c-ink-soft); max-width: 24em; }
+
+/* Title slide. */
+.reveal section.title h1 { font-size: 104px; }
+.reveal section.title .sub {
+  font-size: 44px;
+  color: var(--c-ink-soft);
+  margin-top: 0.3em;
+}
+
+/* One statement, alone on the glass. Used where the sentence is the visual. */
+.reveal .lede { font-size: 54px; line-height: 1.2; max-width: 20em; }
+
+/* Field label above a block: TASK / CONDITIONS / STANDARD. */
+.reveal .field {
+  font-size: 30px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--c-verm-text);
+  display: block;
+  margin-bottom: 0.15em;
+}
+.reveal .tcs { margin-bottom: 0.7em; }
+.reveal .tcs p { margin: 0; font-size: 38px; line-height: 1.24; }
+
+/* Two columns. Used where a picture and its short reading sit together. */
+.reveal .cols { display: flex; gap: 44px; align-items: center; }
+.reveal .cols > * { flex: 1 1 0; min-width: 0; }
+.reveal .cols.wide-left > *:first-child { flex: 1.5 1 0; }
+.reveal .cols.wide-right > *:last-child { flex: 1.5 1 0; }
+
+/* FIGURES ARE CHECKED BY ARITHMETIC, NOT BY EYE.
+ *
+ * Four checks. Every one of them caught a real defect in this module's
+ * figures, and every one of those defects looked fine while it was being
+ * drawn. A figure is correct in the part and wrong in the whole, which is
+ * exactly the failure an eye cannot catch and a number can.
+ *
+ * 1. A LABEL FITS INSIDE ITS SHAPE.
+ *      width ~= 0.6 x font-size x characters   (bold)
+ *      width ~= 0.55 x font-size x characters  (regular)
+ *    Past 0.9 of its container is a defect, not a near miss: font fallback on
+ *    a machine that is not yours pushes it over. Those constants are a floor,
+ *    not a promise. Measured against this deck's sans, bold ran nearer 0.69 em
+ *    per character, so "Automate" at 22px needed 122px inside a 76px box.
+ *    When a label will not fit, move the LABEL out of the shape. Do not widen
+ *    the shape, whose width usually encodes something, and do not shrink the
+ *    type, which is already below the deck's floor.
+ *
+ * 2. EVERY EDGE ENDPOINT LANDS ON A NODE. Both ends of every line and path sit
+ *    on some node's boundary, within its radius of that node's centre. An edge
+ *    that stops in empty space makes the node it should have reached read as
+ *    floating and disconnected.
+ *
+ * 3. DRAWN CONTENT IS CENTRED IN THE VIEWBOX. Bounding box of everything drawn,
+ *    excluding the background plate, with its midpoint on the viewBox midpoint.
+ *    More than a couple of percent off and the figure hangs to one side of a
+ *    centred heading. Multi-panel figures are the exception: there, panels
+ *    centre on their COLUMN centres, and unequal panel widths then leave the
+ *    whole figure legitimately asymmetric in the viewBox.
+ *
+ * 4. EVERY LABEL ANCHORS TO ITS REFERENT. A label naming a node sits at that
+ *    node's centre, on whatever offset the figure establishes for the others.
+ *    One label deviating from the pattern the rest follow is a bug, not a
+ *    style choice. */
+.reveal figure,
+#reading figure { margin: 0 auto; }
+.reveal figure svg,
+#reading figure svg { width: 100%; height: auto; display: block; margin: 0 auto; }
+/* Raster (a photo or cartoon lifted from the web) has a native resolution
+   an SVG doesn't — stretching it to the full canvas width past that
+   resolution goes soft. Cap it instead of filling, and shrink the figure
+   to the image's own rendered width (rather than the SVGs' full-width
+   block) so a caption below can align to the image's actual edge instead
+   of the slide's. */
+.reveal figure:has(> img),
+#reading figure:has(> img) { display: inline-block; }
+.reveal figure img,
+#reading figure img {
+  max-width: 100%;
+  /* A portrait-oriented image capped only on width can still be taller
+     than the 700px canvas once it renders near its natural width — that's
+     what clips. 480px (69% of canvas height) leaves room under it for the
+     credit caption and reveal's own slide margins. */
+  max-height: 480px;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* A raster image lifted from the web (rare — purpose-built SVG is the
+   default; see SLIDES-PLAN.md, Assets) carries its source on the slide,
+   not off it: underneath, left-aligned to the image, figure-label size,
+   low contrast. Provenance a viewer can trace, never the most legible
+   thing on the slide. */
+.reveal figure .credit,
+#reading figure .credit {
+  display: block;
+  text-align: left;
+  margin: 0.35em 0 0;
+  font-size: 13px;              /* 1.4% of the 960 canvas — below the figure-
+                                    label band on purpose; barely legible is
+                                    the point, this is provenance, not a label */
+  line-height: 1.3;
+  color: var(--c-muted);
+}
+
+/* A visual we have not drawn yet. Deliberately loud so it cannot ship
+   unnoticed. */
+.reveal .placeholder {
+  border: 3px dashed var(--c-verm-mark);
+  border-radius: 10px;
+  background: var(--c-bg-sunk);
+  padding: 28px 32px;
+  color: var(--c-verm-text);
+  font-size: 32px;
+  line-height: 1.3;
+}
+.reveal .placeholder b { display: block; letter-spacing: 0.1em; font-size: 26px; }
+
+/* ------------------------------------------------------- overflow guard */
+
+/* A slide taller than the canvas is clipped at the bottom with no warning of
+   any kind, which is why this is drawn loudly.
+   The marker lives in the page chrome rather than on the slide. Drawing it on
+   the section looked right and was useless: an overflowing section extends
+   past the canvas floor, so a badge anchored to the section's bottom edge is
+   clipped along with the content it was warning about. Chrome cannot be
+   clipped by the canvas. `?guard=0` turns the whole thing off for a room. */
+#deck-overflow-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 70;
+  display: none;
+  background: var(--c-verm-mark);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 9px 16px;
+  text-align: center;
+  pointer-events: none;
+}
+#deck-overflow-banner.on { display: block; }
+
+#deck-tools .overflow-count {
+  background: var(--c-verm-mark);
+  border-color: var(--c-verm-mark);
+  color: #ffffff;
+  opacity: 1;
+  cursor: default;
+}
+
+/* --------------------------------------------------------------- chrome */
+
+#deck-tools {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 60;
+  display: flex;
+  gap: 8px;
+  font-family: var(--font-sans);
+}
+#deck-tools button {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--c-ink);
+  background: var(--c-bg);
+  border: 1px solid var(--c-rule);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s ease;
+}
+#deck-tools button:hover,
+#deck-tools button:focus-visible { opacity: 1; }
+#deck-tools button[aria-pressed="true"] {
+  background: var(--c-blue-mark);
+  border-color: var(--c-blue-mark);
+  color: #ffffff;
+  opacity: 1;
+}
+
+/* ---------------------------------------------------- reading mode view */
+
+/* Notes reach the student here, not through reveal's speaker view, which
+   needs a web server and dies on file://. This is an ordinary scrolling
+   document built from the deck's own DOM, so it escapes the fixed canvas
+   and long notes can simply be long. */
+
+body.reading-mode .reveal,
+body.reading-mode .reveal-viewport > .backgrounds { display: none; }
+body.reading-mode { overflow: auto; background: var(--c-bg); }
+
+#reading {
+  display: none;
+  max-width: 46em;
+  margin: 0 auto;
+  padding: 64px 28px 160px;
+  font-family: var(--font-sans);
+  font-size: 19px;
+  line-height: 1.62;
+  color: var(--c-ink);
+}
+body.reading-mode #reading { display: block; }
+
+#reading .r-slide {
+  border-top: 1px solid var(--c-rule);
+  padding-top: 40px;
+  margin-top: 40px;
+}
+#reading .r-slide:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+#reading .r-sub { margin-left: 28px; border-left: 4px solid var(--c-rule); padding-left: 28px; }
+
+#reading h1 { font-size: 2.1em; line-height: 1.12; margin: 0 0 0.4em; }
+#reading h2 { font-size: 1.55em; line-height: 1.16; margin: 0 0 0.5em; }
+#reading h3 { font-size: 1.2em; margin: 0 0 0.5em; }
+#reading .r-glass {
+  color: var(--c-ink-soft);
+  background: var(--c-bg-sunk);
+  border-radius: 8px;
+  padding: 16px 22px;
+  margin-bottom: 22px;
+  font-size: 0.95em;
+}
+#reading .r-glass ul, #reading .r-glass ol { margin: 0 0 0 1.1em; padding: 0; }
+#reading .r-glass p:last-child, #reading .r-glass li:last-child { margin-bottom: 0; }
+#reading .r-glass svg { width: 100%; height: auto; background: transparent; }
+#reading .r-glass table { font-size: 0.92em; width: 100%; border-collapse: collapse; }
+#reading .r-glass th, #reading .r-glass td {
+  border-bottom: 1px solid var(--c-rule);
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+#reading .r-notes p { margin: 0 0 1.05em; }
+#reading .r-notes code, #reading .r-glass code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--c-bg-sunk);
+  border-radius: 4px;
+  padding: 0.05em 0.3em;
+}
+#reading .r-nonote { color: var(--c-verm-text); font-style: italic; }
+#reading .r-lead {
+  font-size: 0.78em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+  margin: 0 0 10px;
+}
+
+@media print {
+  #deck-tools { display: none; }
+}
+
+/* ---- Figure colours -------------------------------------------------
+ * Figures resolve every colour through a token, so rebranding a deck for a
+ * licensee is a stylesheet and not a thousand hand edits. Classes name what
+ * a thing IS, never the colour it currently happens to be — a licensee's
+ * palette will not keep our associations, and a class called fig-blue that
+ * renders green is worse than the literal it replaced.
+ *
+ * Enforced by scripts/check_slides.py: a colour literal inside an SVG is a
+ * hard failure.
+ *
+ * Deliberately NOT scoped under .reveal. Reading mode clones slide content
+ * into #reading, which hangs off <body>, so a .reveal-scoped fill silently
+ * stops applying there and every figure renders as a black box. */
+svg .fig-fill-account { fill: var(--c-account); }
+svg .fig-fill-event { fill: var(--c-event); }
+svg .fig-fill-external { fill: var(--c-external); }
+svg .fig-fill-file { fill: var(--c-file); }
+svg .fig-fill-host { fill: var(--c-host); }
+svg .fig-fill-ink { fill: var(--c-ink); }
+svg .fig-fill-muted { fill: var(--c-muted); }
+svg .fig-fill-plate { fill: var(--c-bg); }
+svg .fig-fill-process { fill: var(--c-process); }
+svg .fig-fill-shared { fill: var(--c-shared); }
+svg .fig-fill-shared-text { fill: var(--c-verm-text); }
+svg .fig-fill-sunk { fill: var(--c-bg-sunk); }
+/* Partition overlays: two algorithms' answers drawn translucent over one
+ * graph, so their disagreement is the visible thing (deck 05, Leiden). */
+svg .fig-fill-partition-a { fill: var(--c-process); fill-opacity: 0.22; }
+svg .fig-fill-partition-b { fill: var(--c-file); fill-opacity: 0.28; }
+svg .fig-stroke-account { stroke: var(--c-account); }
+svg .fig-stroke-event { stroke: var(--c-event); }
+svg .fig-stroke-external { stroke: var(--c-external); }
+svg .fig-stroke-host { stroke: var(--c-host); }
+svg .fig-stroke-file { stroke: var(--c-file); }
+svg .fig-stroke-ink { stroke: var(--c-ink); }
+svg .fig-stroke-ink-soft { stroke: var(--c-ink-soft); }
+svg .fig-stroke-plate { stroke: var(--c-bg); }
+svg .fig-stroke-muted { stroke: var(--c-muted); }
+svg .fig-stroke-process { stroke: var(--c-process); }
+svg .fig-stroke-rule { stroke: var(--c-rule); }
+svg .fig-stroke-shared { stroke: var(--c-shared); }
+
+aside.notes .cue::before,
+.reveal .speaker-notes .cue::before {
+  content: "PRESENTER";
+  display: block;
+  font-size: 0.72em;
+  letter-spacing: 0.12em;
+  color: var(--c-shared);
+  margin-bottom: 0.2em;
+}
+
+/* ---- Presenter cues ---------------------------------------------------
+ * A slide's notes serve two audiences: explanation for the student reading
+ * the deck cold, and .cue blocks for whoever is standing up. Reading mode
+ * strips .cue (deck.js); reveal's speaker view shows it.
+ *
+ * Cue styling is deliberately INLINE on the element, not here. Reveal's
+ * notes plugin builds the speaker window with document.write and injects
+ * notes as innerHTML — it copies no stylesheets, so nothing in this file
+ * reaches that window. Only what travels with the markup survives, which is
+ * also why every cue opens with a literal PRESENTER marker: if the styles go,
+ * the label still says who the text is for. */
+
+/* Headings wrap balanced rather than filling each line and orphaning a word.
+   Replaces hand-placed &nbsp; glue, which only ever fixed the one title it was
+   typed into and leaked into the voice-scoring companion. Unsupported browsers
+   fall back to normal wrapping: worse looking, never broken. */
+.reveal h1, .reveal h2, .reveal h3,
+#reading h1, #reading h2, #reading h3 { text-wrap: balance; }
+
+/* ---------------------------------------------------- image slides
+ * Every slide in this course is a rendered Keynote page, so the deck has no
+ * type scale of its own: one 1600x900 image fills the canvas exactly. A
+ * Keynote build's earlier stages sit in the same box as reveal fragments, so
+ * advancing replays the animation the room saw; the finished page is last in
+ * the DOM and therefore on top.
+ *
+ * The two contexts get explicit rules rather than one shared one. In the deck
+ * the stack is pinned to the canvas in pixels, so its measured height is
+ * exactly the canvas height and deck.js's overflow guard cannot trip on a
+ * sub-pixel rounding. In reading mode the same markup is cloned into #reading,
+ * which hangs off <body> and is a fluid document, so it gets a percentage
+ * width and an aspect ratio instead. A single .reveal-scoped rule would stop
+ * applying in reading mode and the stack would collapse into a column of
+ * overlapping full-size images.
+ */
+.reveal .slides section .page-stack {
+  position: relative;
+  width: 1600px;
+  height: 900px;
+  margin: 0;
+  line-height: 0;
+}
+.reveal .slides section { padding: 0; }
+
+#reading .page-stack {
+  position: relative;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin: 0 0 18px;
+}
+
+/* The white theme gives every image a margin, a plate and a shadow. A slide
+   photograph wants none of that. */
+.page-stack .page {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  max-width: none;
+  max-height: none;
+}
+
+/* A slide whose talking points could not be inferred from the page. Loud on
+   purpose: this is a hole in the course, not a style choice. */
+.unresolved {
+  color: var(--c-verm-text);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}

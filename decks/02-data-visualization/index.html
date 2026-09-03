@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI Cyber Bootcamp 2026 &mdash; Module 2: Data Visualization</title>
+
+  <!-- reveal.js, basic setup: CDN, pinned, no build step, runs from file:// -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css" id="theme">
+  <!-- Shared across every deck in the course. Sixteen decks, one look. -->
+  <link rel="stylesheet" href="../assets/reveal-a11y/helper.css">
+  <link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+  <section data-page="1">
+    <div class="page-stack">
+      <img class="page" src="pages/p001.webp" alt="GTK Cyber Module 2: A Little Data Visualization">
+    </div>
+    <aside class="notes">
+      <p>Module 2 covers data visualization: charts whose drawing misrepresents their own numbers, with 3D bars, radial bars and pie charts as the cases; plotting in Python with pandas, Matplotlib and Seaborn; customizing a Matplotlib chart through its figure and axes objects; and building interactive dashboards with Streamlit.</p>
+    </aside>
+  </section>
+  <section data-page="2">
+    <div class="page-stack">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber">
+    </div>
+    <aside class="notes">
+      <p>The chart cannot answer either question. It is drawn in perspective, with the blue, red and green series on three rows receding along a depth axis. Each row rests on its own baseline, so the rows do not share the zero line the value axis on the left assumes, and a column in the back row is placed higher on the page than a front-row column of the same value. Read against the gridlines, the green tops sit level with the tallest blue column, and green appears taller than blue in categories B, C and D.</p>
+    </aside>
+  </section>
+  <section data-page="3">
+    <div class="page-stack">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber 0 2 4 6 8 A B C D 5 5 5 5 2.5 1.8 3.75 2 5.25 5.75 6.25 7">
+    </div>
+    <aside class="notes">
+      <p>The same data drawn flat answers both questions. Green is 5 in all four categories. Blue is 7, 6.25, 5.75 and 5.25, so blue is taller than green in every category, the opposite of what the perspective view suggested for B, C and D. Red runs from 1.8 to 3.75.</p>
+<p>The flat chart works because all bars rise from one baseline and the reader compares the positions of their tops along a single scale. In Cleveland and McGill's 1984 experiments on graphical perception, judging position along a common scale was the most accurate of the elementary visual tasks they tested.</p>
+    </aside>
+  </section>
+  <section data-page="4">
+    <div class="page-stack">
+      <img class="page" src="pages/p004.webp" alt="GTK Cyber https://www.theautopian.com/fewer-buyers-are-open-to-electric-vehicles-than-they-were-just-two-years-ago-survey/">
+    </div>
+    <aside class="notes">
+      <p>This chart inverts the trend its own source reports. It is a radial bar chart: each ring is a year, each ring carries two bars, electric in the darker shade and hybrid in the lighter, and a bar's percentage is drawn as the fraction of that ring's circumference it covers. Arc length grows with radius, so a given percentage on an outer ring is a longer arc than the same percentage on an inner ring. The 2023 electric bar on the outermost ring, at 67 percent, is drawn longer than the 2021 electric bar two rings in, at 86 percent. Read from the labels, openness fell from 86 and 93 percent in 2021 to 67 and 72 percent in 2023, which is the decline the headline reports; the arcs show growth.</p>
+    </aside>
+  </section>
+  <section data-page="5">
+    <div class="page-stack">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber A Brief Interlude: Why Never to Use a Pie Chart">
+    </div>
+    <aside class="notes">
+      <p>The interlude covers pie charts: what a reader has to judge to extract a value from one, and what the exploded, donut and 3D variants do to that judgment.</p>
+    </aside>
+  </section>
+  <section data-page="6">
+    <div class="page-stack">
+      <img class="page" src="pages/p006.webp" alt="GTK Cyber">
+    </div>
+    <aside class="notes">
+      <p>The photograph is a pie chart in the literal sense. Its two categories are the pie eaten and the pie not yet eaten, and the eaten wedge is about a quarter of the whole. A quarter is a share the eye can name because the wedge's two edges meet at a right angle.</p>
+    </aside>
+  </section>
+  <section data-page="7">
+    <div class="page-stack">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber">
+    </div>
+    <aside class="notes">
+      <p>The chart is its own data. The title asks what percentage of the chart resembles Pac-Man; the yellow wedge is the portion that does, the gray wedge is the mouth that does not, and the result is a circle with a mouth-shaped gap, which is Pac-Man.</p>
+    </aside>
+  </section>
+  <section data-page="8">
+    <div class="page-stack">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber 7% 8% 10% 11% 29% 35%">
+    </div>
+    <aside class="notes">
+      <p>Six wedges hold 35, 29, 11, 10, 8 and 7 percent. Without the printed labels a reader recovers each share from the angle its wedge subtends at the center, and angle is a weak cue: Cleveland and McGill's experiments ranked angle judgments below position judgments in accuracy. The four small wedges show the cost. They differ by one to three percentage points, their angles differ by a few degrees, and nothing in the drawing lets a reader order them without the labels.</p>
+    </aside>
+  </section>
+  <section data-page="9">
+    <div class="page-stack">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber 7% 8% 10% 11% 29% 35%">
+    </div>
+    <aside class="notes">
+      <p>Exploding the pie removes the shared center. Each wedge is pushed outward along its own bisector, so the tips no longer meet at one vertex and the angles have no common point to be compared from. The gaps between wedges are area that stands for no value. The data is the same six percentages.</p>
+    </aside>
+  </section>
+  <section data-page="10">
+    <div class="page-stack">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber 7% 8% 10% 11% 29% 35%">
+    </div>
+    <aside class="notes">
+      <p>The donut removes the center and with it the angle cue. What remains is a ring of arcs whose lengths are proportional to the shares, so a reader compares arc lengths. Skau and Kosara's 2016 experiments on pie and donut perception found that readers estimate shares from arc length and area rather than from the center angle, and that a donut is read about as accurately as a pie. The four small arcs remain hard to order: their lengths differ by one to three percent of the circumference.</p>
+    </aside>
+  </section>
+  <section data-page="11">
+    <div class="page-stack">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber">
+    </div>
+    <aside class="notes">
+      <p>Tilting the pie into a 3D view changes every angle. The disk is drawn as an ellipse, which compresses it top to bottom, and the compression does not treat wedges equally: a wedge centered on the vertical axis of the ellipse spreads to a wider apparent angle, and a wedge centered on the horizontal axis narrows. The rendering also paints the front rim, adding a band of area to the wedges at the bottom of the ellipse and none to the wedges at the back. The 29 percent green wedge sits at the front with a widened angle and a visible rim, and it reads at least as large as the 35 percent blue wedge at the side.</p>
+    </aside>
+  </section>
+  <section data-page="12">
+    <div class="page-stack">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber">
+    </div>
+    <aside class="notes">
+      <p>A steeper tilt and a rotation push the distortion further. The rim is now thick and runs along the left edge, so the yellow 11 percent and red 10 percent wedges carry a dark side face that the wedges on the right lack, and the yellow wedge covers far more of the page than the purple 8 percent wedge, a gap that three percentage points cannot account for. The angles at the center belong to a tilted ellipse, not to the data. The six labels are the only reliable source of the values.</p>
+    </aside>
+  </section>
+  <section data-page="13">
+    <div class="page-stack">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber 3D Pie Charts are BAD! h8p://themendozaline.org/post/113828947026/3d-pie-charts-are-lie-charts">
+    </div>
+    <aside class="notes">
+      <p>The two drawings measure the same pie. On the left are the angles as they appear in the 3D rendering; on the right, the same seven wedges drawn flat with their true angles. Wedge 7 is drawn at 27.8 degrees but holds 14.4, almost twice its share. Wedge 6 is drawn at 37.4 against a true 22.7. Wedge 4, on the horizontal axis of the ellipse, is drawn at 25 degrees against a true 48.2, about half its share. Wedges near the vertical axis of the ellipse widen and wedges near the horizontal axis narrow, which is what projecting a circle onto a tilted plane does to its angles. The measurements come from the source post, titled "3D pie charts are lie charts".</p>
+    </aside>
+  </section>
+  <section data-page="14">
+    <div class="page-stack">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber https://datadrivensecurity.info/blog/posts/2014/Jun/marx-ports/">
+    </div>
+    <aside class="notes">
+      <p class="unresolved">UNRESOLVED</p>
+    </aside>
+  </section>
+  <section data-page="15">
+    <div class="page-stack">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Data Visualization in Python">
+    </div>
+    <aside class="notes">
+      <p>This part covers plotting in Python: the libraries available, the pandas plot method for a chart in one line, and Seaborn's functions for scatter plots, distributions, regression fits and grids of small charts.</p>
+    </aside>
+  </section>
+  <section data-page="16">
+    <div class="page-stack">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Python Visualization Libraries • Matplotlib: “Lowest” level visualization library. Very powerful, but little abstraction • Pandas/Pyplot: Easier, but requires transformat">
+    </div>
+    <aside class="notes">
+      <p>Five libraries cover the plotting in this course, at different levels of abstraction.</p>
+<ul><li>Matplotlib: the base library that pandas and Seaborn draw with. Every element of a figure can be set, at the cost of writing code for each one.</li><li>pandas plotting: the <code>plot</code> method on a Series or DataFrame, which calls Matplotlib's pyplot interface with defaults. A line, bar or histogram takes one line of code; a more complex chart requires reshaping the data first.</li><li>Seaborn: statistical charts such as distributions, regression fits and pairwise plots, built from a DataFrame and column names, with grouping and styling handled by the function.</li><li>Altair: a declarative library, meaning the code states which columns map to which visual channels and the library decides how to draw them. It is built on the Vega-Lite grammar and renders in the browser.</li><li>Plotly, with Cufflinks as its pandas binding: charts rendered as interactive web graphics with hover, zoom and pan.</li></ul>
+    </aside>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber import pandas as pd import matplotlib.pyplot as plt import numpy as np import seaborn as sns %matplotlib inline">
+    </div>
+    <aside class="notes">
+      <p>These five lines open a plotting notebook. The four imports bind the libraries to their conventional short names: <code>pd</code> for pandas, <code>plt</code> for Matplotlib's pyplot module, <code>np</code> for NumPy and <code>sns</code> for Seaborn. Code found in documentation and answers assumes these aliases.</p>
+<p>The last line is not Python. <code>%matplotlib inline</code> is an IPython magic command, an instruction to the notebook kernel, and it tells the kernel to render Matplotlib figures as images in the output cell under the code rather than in a separate window. Jupyter and Databricks notebooks now render inline by default, and a plain Python script rejects the line as a syntax error.</p>
+    </aside>
+  </section>
+  <section data-page="18">
+    <div class="page-stack">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber data = pd.Series( [3,4,6,7,5,8,2 ]) graph = data.plot()">
+    </div>
+    <aside class="notes">
+      <p>A pandas Series has a <code>plot</code> method and its default is a line chart. The Series here holds seven integers, and the call draws them in order, with the index 0 through 6 on the horizontal axis and the values on the vertical axis. The gray background and dotted grid come from a plotting style setting rather than from pandas; Matplotlib's own default is a white background with no grid. The return value assigned to <code>graph</code> is the Matplotlib axes object the line was drawn on, which is the handle for any later customization.</p>
+    </aside>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber barchart = data.plot( kind=&quot;bar&quot; )">
+    </div>
+    <aside class="notes">
+      <p>The <code>kind</code> argument selects the chart type, and <code>kind="bar"</code> draws one vertical bar per element, positioned by index. Bars start at zero on the vertical axis, so their heights are directly comparable. pandas accepts <code>line</code>, <code>bar</code>, <code>barh</code>, <code>hist</code>, <code>box</code>, <code>kde</code>, <code>density</code> and <code>area</code> for a Series or a DataFrame, <code>pie</code> for a Series, and <code>scatter</code> and <code>hexbin</code> for a DataFrame.</p>
+    </aside>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber piechart = data.plot( kind=&quot;pie&quot; )">
+    </div>
+    <aside class="notes">
+      <p><code>kind="pie"</code> draws the Series as wedges, each labeled with its index and sized as that element's fraction of the sum of all elements. A pie assumes the values are parts of one whole. A Series of separate measurements is not, so the chart assigns each value a share of a total that has no meaning. The pie is also an ellipse here because the axes were left at the figure's proportions; current Matplotlib releases set the aspect ratio to equal inside the pie function and draw a circle.</p>
+    </aside>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber import seaborn as sns">
+    </div>
+    <aside class="notes">
+      <p>Seaborn is a statistical plotting library built on Matplotlib, and <code>sns</code> is its conventional alias. Its functions take the DataFrame as the <code>data</code> argument and name the columns for the axes and for grouping, color the groups when asked, and apply a consistent style, so a chart that would take a block of Matplotlib code is one call. Everything it draws is still a Matplotlib figure, so Matplotlib's customization methods apply to the result.</p>
+    </aside>
+  </section>
+  <section data-page="22">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber df = pd.DataFrame(np.random.randint( 0,100,size=(100, 4)), columns=list(&#x27;ABCD&#x27;)) df[&#x27;category&#x27;] = df[&#x27;C&#x27;] % 3 sns.scatterplot(x=df[&#x27;A&#x27;], y=df[&#x27;B&#x27;], data=df)">
+    </div>
+    <aside class="notes">
+      <p>The DataFrame is built from random integers so that the chart has no structure to find. <code>np.random.randint(0, 100, size=(100, 4))</code> fills a 100 by 4 array with integers from 0 to 99, the columns are named A through D, and a fifth column, <code>category</code>, holds the remainder of C divided by three, which is 0, 1 or 2. <code>sns.scatterplot</code> draws one dot per row at the position given by columns A and B. Because the columns were drawn independently, the dots spread evenly with no trend, which is the correct picture of independent variables.</p>
+    </aside>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber sns.scatterplot(x=df[&#x27;A&#x27;], y=df[&#x27;B&#x27;], style=df[&#x27;category&#x27;])">
+    </div>
+    <aside class="notes">
+      <p>The <code>style</code> argument maps a column to marker shape. Each <code>category</code> value gets its own marker, circle for 0, cross for 1 and square for 2, and a legend is added with the column name as its title. Shape is a categorical channel: it distinguishes groups but carries no order, so it suits a column with a few discrete values and would not suit a numeric column with many.</p>
+    </aside>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber sns.scatterplot(x=df[&#x27;A&#x27;], y=df[&#x27;B&#x27;], hue=df[&#x27;D&#x27;])">
+      <img class="page fragment" src="pages/p025.webp" alt="GTK Cyber sns.scatterplot(x=df[&#x27;A&#x27;], y=df[&#x27;B&#x27;], size=df[&#x27;C&#x27;], hue=df[&#x27;D&#x27;])">
+    </div>
+    <aside class="notes">
+      <p>Two more arguments map columns to properties of the marker. <code>hue</code> maps column D to color; because D is numeric, Seaborn uses a sequential palette from light to dark and labels the legend at 0, 40, 80 and 120 even though the data stops at 99. <code>size</code> maps column C to marker area, with its own legend. The chart now encodes four columns per row: A and B as position, D as color and C as size. Position is read most accurately, color and size less so, so the columns that matter most belong on the axes.</p>
+    </aside>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber ax = sns.distplot(&lt;data&gt;)">
+    </div>
+    <aside class="notes">
+      <p><code>distplot</code> draws the distribution of one numeric variable as a histogram with a kernel density estimate overlaid. The bars count observations per bin, scaled so the total area is one, which is why the vertical axis reads as density rather than count. The smooth curve is the kernel density estimate, a continuous estimate of the same distribution made by placing a kernel, a small smooth curve, at every observation and summing them. The example is a sample centered on zero with the bell shape of a normal distribution. Seaborn deprecated <code>distplot</code> in version 0.11; <code>histplot</code> with <code>kde=True</code> produces the same picture in current versions.</p>
+    </aside>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber g = sns.pairplot(&lt;data&gt;, hue=&quot;&lt;target&gt;&quot;)">
+    </div>
+    <aside class="notes">
+      <p><code>pairplot</code> draws every pairwise combination of the numeric columns in one grid. Each off-diagonal cell is a scatter plot of one column against another, and each diagonal cell is a histogram of a single column. <code>hue</code> names a column whose values color the points and split the histograms, so the grid doubles as a check of how well the measurements separate the classes. The example is the iris dataset: 150 flowers of three species with four measurements each. Petal length and petal width separate setosa from the other two species with a clear gap, and the two remaining species overlap on sepal width. A grid of n columns has n squared cells, so the plot suits a handful of columns.</p>
+    </aside>
+  </section>
+  <section data-page="28">
+    <div class="page-stack">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber ax = sns.regplot(x=&quot;total_bill&quot;, y=&quot;tip&quot;, data=tips)">
+    </div>
+    <aside class="notes">
+      <p><code>regplot</code> draws a scatter plot and fits a straight line to it by ordinary least squares. The shaded band around the line is a 95 percent confidence interval for the fitted line, computed by bootstrap resampling, so the band widens where the data is sparse, at the high end of the bill here. The example is Seaborn's built-in tips dataset, 244 restaurant bills with the tip left on each, and the fit shows tips rising with the bill. The function returns the Matplotlib axes, which is what <code>ax</code> receives.</p>
+    </aside>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber g = sns.lmplot(x=&quot;total_bill&quot;, y=&quot;tip&quot;, hue=&quot;smoker&quot;, data=tips)">
+    </div>
+    <aside class="notes">
+      <p><code>lmplot</code> fits the same kind of line but works at the level of a whole figure, which is what lets it split the data. <code>hue="smoker"</code> divides the rows by that column and fits a separate line to each group, with its own color and its own confidence band, and adds a legend. In the tips data the line for non-smokers is steeper than the line for smokers, so the tip grows faster with the bill among non-smokers. Because <code>lmplot</code> builds a figure, it also accepts <code>col</code> and <code>row</code> to split the data into a grid of panels, and it returns a <code>FacetGrid</code> object rather than an axes, which is why the result is assigned to <code>g</code>.</p>
+    </aside>
+  </section>
+  <section data-page="30">
+    <div class="page-stack">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber g = sns.FacetGrid(tips, col=&quot;time&quot;, row=&quot;smoker&quot;) &gt;&gt;&gt; g = g.map(plt.hist, &quot;total_bill&quot;)">
+    </div>
+    <aside class="notes">
+      <p><code>FacetGrid</code> builds a grid of panels, one per combination of the values in the <code>row</code> and <code>col</code> columns, and <code>map</code> draws the same chart in each panel. Here <code>col="time"</code> gives one column of panels for lunch and one for dinner, <code>row="smoker"</code> gives one row for smokers and one for non-smokers, and <code>g.map(plt.hist, "total_bill")</code> draws a histogram of the bill in each of the four panels. The panels share axes, so heights are comparable across them: dinner bills are more numerous and spread wider than lunch bills in both rows. The <code>&gt;&gt;&gt;</code> prompt on the second line is copied from an interactive session and is not part of the code.</p>
+    </aside>
+  </section>
+  <section data-page="31">
+    <div class="page-stack">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber scatterPlot.get_figure().savefig( &quot;scatterPlot.png&quot; )">
+    </div>
+    <aside class="notes">
+      <p>A Seaborn axes-level function returns a Matplotlib axes, and <code>get_figure</code> on that axes returns the figure that contains it. <code>savefig</code> on the figure writes it to disk, with the format chosen from the file extension: PNG here, and PDF or SVG for vector output. The call is needed when a chart has to leave the notebook, for a report or a slide, because the inline rendering exists only in the notebook output. Adding <code>bbox_inches="tight"</code> trims the margin around the figure and keeps long tick labels inside the saved image.</p>
+    </aside>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber Customizing your Charts">
+      <img class="page fragment" src="pages/p033.webp" alt="GTK Cyber Customizing your Charts https://pbpython.com/effective-matplotlib.html">
+    </div>
+    <aside class="notes">
+      <p>The figure is Matplotlib's own anatomy diagram and it names the parts a customization call can touch. The figure is the whole canvas. The axes is one plot inside it, with its own x axis and y axis; each axis carries major and minor ticks, tick labels and an axis label. Inside the axes are the drawn data, lines for a line plot and markers for a scatter plot, plus the grid, the legend, the title and the spines, which are the four lines that frame the plotting area. Every one of these is an object with setter methods, and customizing a chart means getting hold of the right object and calling them.</p>
+    </aside>
+  </section>
+  <section data-page="34">
+    <div class="page-stack">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber Customizing your Charts • Axes: Axes represent an individual plot or chart. • Figure: This is the final complete image and may contain 1 or more axes.">
+    </div>
+    <aside class="notes">
+      <p>Matplotlib's two container terms are easy to confuse because one is named for the other. An Axes object is a single plot: the region where data is drawn, together with its two axis objects, its title and its legend. A Figure is the whole image, and it holds one or more Axes objects. A chart with two panels side by side is one Figure with two Axes. The word axes in this sense is singular, and the x axis and y axis inside it are Axis objects of a different class.</p>
+    </aside>
+  </section>
+  <section data-page="35">
+    <div class="page-stack">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber Customizing your Charts • Matplotlib has both an object-oriented and state- based interface. This can be confusing when you look up answers on Stack Overflow. • Use basic">
+    </div>
+    <aside class="notes">
+      <p>Matplotlib has two interfaces to the same objects. The state-based interface is the <code>pyplot</code> module: calls such as <code>plt.plot</code> and <code>plt.xlabel</code> act on whichever figure and axes are current, and the library tracks that state. The object-oriented interface holds explicit Figure and Axes objects and calls methods on them, such as <code>ax.set_xlabel</code>. Both produce the same chart, and answers found online mix them freely, so a snippet that calls <code>plt.title</code> and one that calls <code>ax.set_title</code> are doing the same thing through different handles.</p>
+<p>The recommended division of labor:</p>
+<ul><li>Simple plots: the pandas <code>plot</code> method.</li><li>Complex statistical charts: Seaborn, or Yellowbrick, a library of diagnostic charts for scikit-learn models such as learning curves and confusion matrices.</li><li>Adjustments to a simple plot: the object-oriented interface, through the axes that pandas or Seaborn return.</li></ul>
+    </aside>
+  </section>
+  <section data-page="36">
+    <div class="page-stack">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber Customizing your Charts fig, ax = plt.subplots() df.plot(..., ax=ax) This method gets you access to the figure and axes.">
+    </div>
+    <aside class="notes">
+      <p><code>plt.subplots</code> creates a Figure and one Axes in a single call and returns both. Passing that Axes to the pandas <code>plot</code> method through <code>ax=ax</code> tells pandas to draw into it instead of creating its own, so the code ends up holding <code>fig</code> and <code>ax</code> as explicit handles. The handles are the entry point to the object-oriented interface: every later adjustment is a method call on <code>ax</code> for the plot or on <code>fig</code> for the whole image. Without the <code>ax</code> argument pandas still returns the Axes it drew on, but the figure has to be recovered from it afterward.</p>
+    </aside>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber Customizing your Charts • Axes: Long list of possible options to configure your chart: https:// matplotlib.org/3.1.0/api/axes_api.html#the-axes-class">
+    </div>
+    <aside class="notes">
+      <p>The Axes class is where most customization methods live, and the linked page is its reference. The methods fall into groups: setters for the title and axis labels, limits and scale for each axis, tick positions and tick labels, the legend, the grid, and the drawing methods themselves such as <code>plot</code>, <code>bar</code>, <code>scatter</code> and <code>hist</code>. The link points at the documentation for version 3.1.0; the current version's reference is at matplotlib.org/stable/api/axes_api.html.</p>
+    </aside>
+  </section>
+  <section data-page="38">
+    <div class="page-stack">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Add Axis Labels https://pbpython.com/effective-matplotlib.html fig, ax = plt.subplots() df.plot(kind=&#x27;barh&#x27;, ax=ax) ax.set_xlim([-10000, 140000]) ax.set_xlabel(&#x27;Total Rev">
+    </div>
+    <aside class="notes">
+      <p>Three method calls on the axes turn a bare chart into a labeled one. <code>set_xlim</code> fixes the horizontal range, here from minus 10,000 to 140,000, which leaves room to the left of the zero line and to the right of the longest bar. <code>set_xlabel</code> and <code>set_ylabel</code> put text on the two axes; without them the y axis would carry the DataFrame's index name, if it has one, and the x axis nothing. <code>kind='barh'</code> draws horizontal bars, which suits long category names such as these customer names, since the labels run horizontally. The semicolon after the last line suppresses the printed return value in a notebook. The example comes from Chris Moffitt's Practical Business Python article on effective Matplotlib.</p>
+    </aside>
+  </section>
+  <section data-page="39">
+    <div class="page-stack">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Add Annotations https://pbpython.com/effective-matplotlib.html fig, ax = plt.subplots() df.plot(kind=&#x27;barh&#x27;, ax=ax) avg = df[&#x27;Sales&#x27;].mean() ax.axvline(x=avg, color=&#x27;b&#x27;, ">
+    </div>
+    <aside class="notes">
+      <p>Annotations add reference marks that the data alone does not carry. <code>axvline</code> draws a vertical line across the axes at a given x position, here the mean of the Sales column computed with pandas, and the keyword arguments set its color to blue, its style to dashed, its width to one point and its legend label to Average. <code>ax.text</code> places a string at a data coordinate: the loop writes "New Customer" at x equal to 115,000 beside the bars at positions 3, 5 and 8, which are the fourth, sixth and ninth bars from the bottom because bar positions count from zero. The chart on the right also has a title and dollar-formatted ticks, which come from calls the listing omits.</p>
+    </aside>
+  </section>
+  <section data-page="40">
+    <div class="page-stack">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber Subplots https://pbpython.com/effective-matplotlib.html fig, (ax0, ax1) = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(7, 4)) df.plot(kind=&#x27;barh&#x27;, ax=ax0) ax0.set">
+    </div>
+    <aside class="notes">
+      <p><code>plt.subplots</code> with <code>nrows=1</code> and <code>ncols=2</code> creates one figure holding two axes side by side, returned as the pair <code>(ax0, ax1)</code>. <code>sharey=True</code> makes the two panels use one vertical axis, so the customer names appear once on the left and the bars in the two panels line up row for row. <code>figsize=(7, 4)</code> sets the figure's width and height in inches. Each <code>df.plot</code> call is directed to its own panel with <code>ax=ax0</code> or <code>ax=ax1</code>, and each axes is then customized independently: <code>ax1.set</code> sets the title, x label and an empty y label in one call, and <code>axvline</code> draws the average line for units on the second panel as it did for revenue on the first. The title above both panels, 2014 Sales Analysis, belongs to the figure and is set with <code>fig.suptitle</code>.</p>
+    </aside>
+  </section>
+  <section data-page="41">
+    <div class="page-stack">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Lab Please take 30 min to complete Worksheet 2.1: Data Visualization">
+    </div>
+    <aside class="notes">
+      <p>Worksheet 2.1 applies the pandas and Matplotlib material to the daily botnet data. The task is a line chart comparing the number of hosts infected by the Bedep and ConfickerAB bot families in the Government/Politics sector: read <code>dailybots.csv</code>, filter it by industry and by bot family, merge the two families into one DataFrame with a date column and a count column per family, and plot it. The second half customizes the result through the axes: convert the date column to datetime so the x axis is a time axis, move the legend, enlarge the figure, add axis labels, and split the two lines into two subplots with <code>plt.subplots</code>.</p>
+    </aside>
+  </section>
+  <section data-page="42">
+    <div class="page-stack">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber Interactive Visualizations">
+    </div>
+    <aside class="notes">
+      <p>This part covers interactive visualization: the limits of interactive notebooks, and Streamlit as a way to turn a Python script into a web application with charts, tables, layout and input widgets.</p>
+    </aside>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber Interactive Notebooks • There are many modules and tools out there for making Jupyter notebooks interactive. • Ipywidgets, plotly, altair... others.. • Difficult to share">
+    </div>
+    <aside class="notes">
+      <p>A Jupyter notebook can be made interactive with ipywidgets, which adds sliders, dropdowns and buttons whose values feed back into Python, or with Plotly and Altair, which render charts that respond to hover, zoom and selection. Widgets need a running kernel to respond, so the notebook has to be hosted where the reader can execute it; an exported HTML file keeps only the last rendered state. The reader also sees code cells, a toolbar and execution order, a working surface for an analyst and an obstacle for a manager or anyone else who is not going to run code.</p>
+    </aside>
+  </section>
+  <section data-page="44">
+    <div class="page-stack">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber Introducing Streamlit">
+    </div>
+    <aside class="notes">
+      <p>Streamlit is an open source Python library, first released in 2019 and owned by Snowflake since 2022, for building web applications from a script.</p>
+    </aside>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber Introducing Streamlit • Streamlit is a framework for building interactive, data-driven applications in Python. • Streamlit allows you to quickly and easily create interac">
+    </div>
+    <aside class="notes">
+      <p>Streamlit turns a Python script into a web application. The script runs top to bottom, and every call such as <code>st.markdown</code> or <code>st.dataframe</code> appends an element to the page in order, so a script that prints text and a chart becomes a page with that text and that chart. The framework generates the HTML, JavaScript and server plumbing itself, so the author writes only Python and handles only the data. Its chat widgets, <code>chat_input</code> and <code>chat_message</code>, exist for building interfaces to language models.</p>
+    </aside>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber You don&#x27;t run Streamlit in Jupyter">
+    </div>
+    <aside class="notes">
+      <p>A Streamlit application is a script started by the Streamlit server, and a notebook cell cannot be that script. The server reruns the whole file from the top on every interaction, which a notebook kernel with its persistent cell state does not do, and Streamlit calls made inside a notebook warn that no script is running and render nothing. Write the application as a <code>.py</code> file in a text editor or an IDE and run it from a terminal.</p>
+    </aside>
+  </section>
+  <section data-page="47">
+    <div class="page-stack">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber Starting a Streamlit Application • You must write your code in a standard python file. • When you are ready to launch, simply execute the following command. It will launc">
+    </div>
+    <aside class="notes">
+      <p><code>streamlit run your_script.py</code> starts a local web server, executes the script, and serves the resulting page on port 8501 of the local machine. The command prints the local and network URLs in the terminal and opens a browser tab at the local one unless headless mode is set. The server watches the file: saving a change offers a rerun in the browser, so the edit and refresh loop needs no restart. Options after the script name set the port, the address the server binds to and whether the browser opens; the Streamlit documentation lists them.</p>
+    </aside>
+  </section>
+  <section data-page="48">
+    <div class="page-stack">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber Basic Streamlit Concepts import streamlit as st import pandas as pd # Display some text... st.markdown(&quot;&quot;&quot;# Basic Application This basic application will demonstrate how ">
+    </div>
+    <aside class="notes">
+      <p>The script is a Streamlit application in its entirety; there is no application object, route or template. <code>import streamlit as st</code> is the conventional alias. <code>st.markdown</code> renders a Markdown string, here a level one heading followed by a paragraph, into the page. <code>st.area_chart</code> draws a filled line chart from a DataFrame, with the index on the horizontal axis and one filled series per column. <code>st.dataframe</code> renders a DataFrame as an interactive table that can be scrolled, sorted by clicking a column header and resized; <code>hide_index=True</code> drops the row numbers. Each call places its element below the previous one, in script order.</p>
+    </aside>
+  </section>
+  <section data-page="49">
+    <div class="page-stack">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber">
+    </div>
+    <aside class="notes">
+      <p>The page as the browser renders it at localhost. The heading and paragraph are the Markdown, the area chart plots one series by date from June through August 2016, and the table beneath is the raw daily botnet records with date, bot family, industry, hosts and orgs columns. The Deploy button and menu at the top right are added by Streamlit and are not part of the script. The table is live: the column headers sort and the scrollbar on the right moves through the rows.</p>
+    </aside>
+  </section>
+  <section data-page="50">
+    <div class="page-stack">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber Presenting Data with Streamlit • You can see from the previous example how easy it is to present data using Streamlit • Complete charting docs are available here: https:/">
+    </div>
+    <aside class="notes">
+      <p>Streamlit's chart functions fall into two tiers. The built-in <code>line_chart</code>, <code>area_chart</code>, <code>bar_chart</code>, <code>scatter_chart</code> and <code>map</code> take a DataFrame and draw with defaults, which is the tier the basic example used. The second tier renders charts built with another library: <code>pyplot</code> for Matplotlib figures, and <code>altair_chart</code>, <code>vega_lite_chart</code>, <code>plotly_chart</code> and <code>pydeck_chart</code> for those libraries, which is how a chart gets full customization. The API reference at docs.streamlit.io/develop/api-reference/charts documents both tiers. The complete code for the basic example is in the <code>streamlit_examples</code> folder of the course repository.</p>
+    </aside>
+  </section>
+  <section data-page="51">
+    <div class="page-stack">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber Laying Out Your Application • Streamlit has a variety of layout components including tabs, pages, containers, expanders, popovers, modal dialogues and more. • Complete li">
+    </div>
+    <aside class="notes">
+      <p>Layout elements are containers that hold other elements. Streamlit's set includes <code>tabs</code>, <code>columns</code>, <code>container</code>, <code>expander</code>, <code>popover</code>, <code>dialog</code> for modal dialogs, <code>sidebar</code>, and multipage apps through a <code>pages</code> directory or <code>st.navigation</code>. Each container is used with Python's <code>with</code> statement: the block opens the container, and every Streamlit call inside the block places its element in that container rather than on the main page. The reference at docs.streamlit.io/develop/api-reference/layout lists the full set.</p>
+    </aside>
+  </section>
+  <section data-page="52">
+    <div class="page-stack">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber Laying Out Your Data # Create the tabs chart_tab, table_tab = st.tabs([&quot;Chart&quot;, &quot;Data&quot;]) # Display the line chart with chart_tab: st.area_chart(line_chart_data) # Display">
+    </div>
+    <aside class="notes">
+      <p><code>st.tabs</code> takes a list of tab titles and returns one container per title, unpacked here into <code>chart_tab</code> and <code>table_tab</code>. The <code>with chart_tab</code> block puts the area chart under the Chart tab, and the <code>with table_tab</code> block puts the table under the Data tab. The page then shows one of the two at a time and the reader switches between them, where the earlier version stacked chart and table vertically. The data calls themselves are unchanged; only the container they run inside differs.</p>
+    </aside>
+  </section>
+  <section data-page="53">
+    <div class="page-stack">
+      <img class="page" src="pages/p053.webp" alt="GTK Cyber Laying Out Your Data">
+    </div>
+    <aside class="notes">
+      <p>The rendered page with the Chart tab selected. The tab strip sits under the description text, at the point in the script where <code>st.tabs</code> was called, and the area chart fills the selected tab; selecting Data swaps the table into the same space. The contents of both tabs are rendered when the script runs and the switch happens in the browser, so changing tabs does not rerun the script.</p>
+    </aside>
+  </section>
+  <section data-page="54">
+    <div class="page-stack">
+      <img class="page" src="pages/p054.webp" alt="GTK Cyber Laying Out Your Data">
+    </div>
+    <aside class="notes">
+      <p>The rendered page with the Data tab selected. The table takes the region the chart occupied, and the toolbar that appears above it includes a CSV download, a search box and a fullscreen view, all supplied by <code>st.dataframe</code> without extra code. The rows are the June 1, 2016 records: one line per bot family and industry, with the counts of infected hosts and of affected organizations.</p>
+    </aside>
+  </section>
+  <section data-page="55">
+    <div class="page-stack">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Taking Input from a User • Streamlit has a large collection of input widgets available here: https:// docs.streamlit.io/develop/api-reference/widgets • When the input ele">
+    </div>
+    <aside class="notes">
+      <p>Input widgets are function calls that return the current value of the control. <code>st.text_input("Enter your name")</code> draws a text box with that label and returns whatever the box contains, an empty string until the user types. Every change to a widget triggers a rerun of the whole script from the top, and on that rerun the call returns the new value, so the <code>if</code> test and the <code>st.write</code> line run again with the user's text and the greeting appears. The rerun replaces event handlers: nothing in the script registers a callback. Values that have to survive between reruns, such as a growing list, have to be stored in <code>st.session_state</code>, because local variables are recreated on every run.</p>
+<p>Validate the input. A value taken from a text box is arbitrary user data, and it should be checked for length, type and content before it reaches a query, a file path or a shell command.</p>
+    </aside>
+  </section>
+  <section data-page="56">
+    <div class="page-stack">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber Building AI Applications with Streamlit • Streamlit has a chat_input and chat_message widget which are built for interacting with LLMs. • Full docs are available here: ht">
+    </div>
+    <aside class="notes">
+      <p><code>st.chat_input</code> draws a message box pinned to the bottom of the page and returns the submitted text, or <code>None</code> when nothing has been sent. <code>st.chat_message</code> is a container that draws one message with an avatar for its role, user or assistant, and the elements written inside its <code>with</code> block appear as that message's body. The two widgets carry no model logic of their own; they are the input and output halves of a chat interface, and the calls to a language model go between them in ordinary Python.</p>
+    </aside>
+  </section>
+  <section data-page="57">
+    <div class="page-stack">
+      <img class="page" src="pages/p057.webp" alt="GTK Cyber Building AI Applications with Streamlit">
+    </div>
+    <aside class="notes">
+      <p>The finished application. The title is a Markdown heading, the two message bubbles are <code>st.chat_message</code> containers for the user role and the assistant role, each with its own avatar, and the box at the bottom with the placeholder "What is up?" is <code>st.chat_input</code>. The exchange asks whether <code>sudo rm -rf .*</code> is risky; the assistant's answer comes from the language model, and the script only relays it.</p>
+    </aside>
+  </section>
+  <section data-page="58">
+    <div class="page-stack">
+      <img class="page" src="pages/p058.webp" alt="GTK Cyber Building AI Applications with Streamlit client = OpenAI(api_key=os.getenv(&quot;OPENAI_KEY&quot;)) st.session_state[&quot;openai_model&quot;] = &quot;gpt-3.5-turbo&quot; if &quot;messages&quot; not in st.sessio">
+    </div>
+    <aside class="notes">
+      <p>The script keeps the conversation in <code>st.session_state</code>, the dictionary Streamlit preserves across reruns for one browser session. <code>OpenAI(api_key=os.getenv("OPENAI_KEY"))</code> builds the API client with a key read from an environment variable, which keeps the key out of the source file. The model name, here <code>gpt-3.5-turbo</code>, is stored in session state so that one place controls which model the call uses. <code>messages</code> is created as an empty list only when it does not already exist, and that guard is what stops each rerun from wiping the history. The <code>for</code> loop replays the history: for each stored message it opens a <code>chat_message</code> container for the message's role and writes the content as Markdown, which is how earlier turns stay on the page after a rerun.</p>
+<p>The last two lines handle a model response. <code>st.write_stream</code> consumes a streaming reply, writes each chunk to the page as it arrives, and returns the full text, which is then appended to the history under the assistant role.</p>
+    </aside>
+  </section>
+  <section data-page="59">
+    <div class="page-stack">
+      <img class="page" src="pages/p059.webp" alt="GTK Cyber Building AI Applications with Streamlit if prompt := st.chat_input(&quot;What is up?&quot;): st.session_state.messages.append({&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: prompt}) with st.chat_mess">
+    </div>
+    <aside class="notes">
+      <p>The turn logic runs only when the user has submitted text. <code>if prompt := st.chat_input("What is up?")</code> assigns the box's contents to <code>prompt</code> and enters the block only when the value is not empty; the <code>:=</code> operator, assignment inside an expression, arrived in Python 3.8. The user's message is appended to the history and drawn in a user bubble. Inside an assistant bubble the script builds the request: a system message that tells the model to act as a security bot and to answer only cybersecurity questions, followed by the whole stored history reduced to role and content pairs, so the model sees every earlier turn and answers in context. <code>stream=True</code> makes the API return the reply in chunks rather than as one block, which is what <code>st.write_stream</code> expects in order to show the answer as it is generated. The restriction to cybersecurity questions lives in the system message alone, so it is an instruction the model follows rather than a check the code performs.</p>
+    </aside>
+  </section>
+  <section data-page="60">
+    <div class="page-stack">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber Questions?">
+    </div>
+    <aside class="notes">
+      <p>Questions on the module before the second lab.</p>
+    </aside>
+  </section>
+  <section data-page="61">
+    <div class="page-stack">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Lab Please take 30 min to complete Worksheet 2.2 Interactive Visualizations (Not in Jupyter)">
+    </div>
+    <aside class="notes">
+      <p>Worksheet 2.2 is a Streamlit script. It is written in an editor and started with <code>streamlit run</code>, and it builds a small dashboard on the daily botnet file: a title and description in Markdown, a <code>selectbox</code> listing the industries whose chosen value is kept in a variable, and two tabs. The chart tab holds a bar chart of infected host totals by bot family for the selected industry, which takes a filter on the industry column and a group by bot family before the chart call. The data tab holds the raw records as a table, optionally filtered by the same selection and formatted through the column configuration parameters of <code>st.dataframe</code>.</p>
+    </aside>
+  </section>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="../assets/deck.js"></script>
+<script>
+  CourseDeck.start();
+</script>
+</body>
+</html>
