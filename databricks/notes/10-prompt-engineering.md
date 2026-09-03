@@ -12,9 +12,9 @@ The module has three threads: strategies for writing prompts, meta prompting, in
 
 ## Page 4
 
-The examples and both worksheets call Anthropic models through the anthropic Python package, so the key you need is an Anthropic API key, issued at console.anthropic.com. The third bullet names OpenAI; that is the wrong vendor for these exercises. The principles carry over to any vendor's model.
+The slide's setup is an Anthropic model called through the anthropic Python package, with the key in .env. Both worksheets instead build their client in the setup cell, which points at the course's serving endpoint, so the model is whatever that cell names and no key of your own is needed. The third bullet names OpenAI; the rest of the slide names Anthropic. The principles carry over to any vendor's model.
 
-The key lives in a file named .env in the root of the repository, as a single line assigning ANTHROPIC_API_KEY. The bootcamp repository ignores .env in git, so the key stays out of version control. Keep the key out of notebooks and out of code: a notebook is shared and committed, and a key pasted into a cell travels with it.
+The slide keeps the key in a file named .env in the root of the repository, as a single line assigning ANTHROPIC_API_KEY. The bootcamp repository ignores .env in git, so the key stays out of version control. Keep the key out of notebooks and out of code: a notebook is shared and committed, and a key pasted into a cell travels with it.
 
 ## Page 5
 
@@ -242,7 +242,7 @@ Questions on the SDKs, the request parameters, and the seven prompting practices
 
 ## Page 43
 
-Worksheet 10.1 has two parts, and both end in a JSON reply parsed into Python. In the first, you format a table of CPU readings as one text line per row, build a prompt from a sample of about fifty normal rows and the first forty unknown rows, ask for the anomalous rows as a JSON list, call Claude, and parse the reply with a helper that strips an optional code fence before json.loads. In the second, you base64-encode a vehicle photo, send it with a prompt that lists the fields to extract and asks for raw JSON only, and parse the result into a dict; then you add a field of your own to the prompt and confirm it appears. The helper you write in the first part is reused in the second.
+Worksheet 10.1 has two parts, and both end in a JSON reply parsed into Python. In the first, you format a table of CPU readings as one text line per row, build a prompt from a sample of about fifty normal rows and the first forty unknown rows, ask for the anomalous rows as a JSON list, call the model, and parse the reply with a helper that strips an optional code fence before json.loads. In the second, you base64-encode a vehicle photo, send it with a prompt that lists the fields to extract and asks for raw JSON only, and parse the result into a dict; then you add a field of your own to the prompt and confirm it appears. The helper you write in the first part is reused in the second.
 
 ## Page 44
 
@@ -360,7 +360,7 @@ The model reads the data as tokens in the prompt, and the prompt has a maximum s
 
 ## Page 69
 
-PandasAI wraps a pandas DataFrame so it can be queried in natural language, generating and running code behind the query. The setup shown imports pandas and PandasAI, creates an OpenAI language-model client from an API key, passes it to PandasAI, and loads a DataFrame from dailybots.csv, a table of daily botnet-infection counts by family. The library drives whichever model it is given; here that is OpenAI rather than the Anthropic models used earlier in the module. This is the direct-analysis approach from the two-approaches slide, packaged as a library. The API shown, constructing PandasAI with the model and later calling the object with a question, is the library's earlier interface.
+PandasAI wraps a pandas DataFrame so it can be queried in natural language, generating and running code behind the query. The setup shown imports pandas and PandasAI, creates an OpenAI language-model client from an API key, passes it to PandasAI, and loads a DataFrame from dailybots.csv, a table of daily botnet-infection counts by family. The library drives whichever model it is given; here that is OpenAI rather than the Anthropic models on the earlier slides. This is the direct-analysis approach from the two-approaches slide, packaged as a library. The API shown, constructing PandasAI with the model and later calling the object with a question, is the library's earlier interface.
 
 ## Page 70
 

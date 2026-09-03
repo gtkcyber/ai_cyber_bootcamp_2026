@@ -270,7 +270,7 @@ Questions on MCP before the lab.
 
 Lab 12.1 is the client side of this module. The server, `notebooks/mcp_server.py`, is given and complete: a FastMCP server named security-tools with three simulated tools for URL reputation, sender reputation, and SPF, DKIM, and DMARC analysis. The worksheet, `Worksheet_12.1_Building_an_MCP_Server.ipynb`, has you configure a MultiServerMCPClient with the stdio transport, await get_tools and confirm three come back, build an agent with create_agent and a SOC phishing-triage system prompt, and send it two emails.
 
-The first email claims to be PayPal billing from paypa1-secure.com with failing authentication and a login link; the agent should call the tools and return a phishing verdict. The second is a GitHub sign-in notice with passing authentication; the agent should return legitimate. Needed beforehand: the mcp, langchain-mcp-adapters, and langchain-anthropic packages, and an ANTHROPIC_API_KEY in the project's .env file.
+The first email claims to be PayPal billing from paypa1-secure.com with failing authentication and a login link; the agent should call the tools and return a phishing verdict. The second is a GitHub sign-in notice with passing authentication; the agent should return legitimate. Needed beforehand: the mcp and langchain-mcp-adapters packages; the chat model comes from the setup cell, which builds it against the course's serving endpoint, so the model is whatever that cell names.
 
 ## Page 48
 
