@@ -19,12 +19,14 @@ import logging
 import mimetypes
 import os
 import re
+import threading
+from collections import OrderedDict
 from functools import lru_cache
 from pathlib import Path
 
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.errors import NotFound
-from flask import Blueprint, Flask, Response, abort, jsonify
+from flask import Blueprint, Flask, Response, abort, jsonify, request
 
 from tutor.fallback import setup_or_fallback
 from tutor.files import VolumeFiles, WorkspaceTextFiles
@@ -65,10 +67,48 @@ _TITLE_RE = re.compile(r"<title>(.*?)</title>", re.S | re.I)
 _MODULE_RE = re.compile(r"^Module\s+(\d+)\s*:\s*(.+)$")
 
 
-@lru_cache(maxsize=512)
+# A deck is a self-contained reveal page with its images inlined, and sixteen of
+# them run to a couple of hundred megabytes. Counting entries -- 512 of them, as
+# an lru_cache would -- says nothing about the memory the app is holding, so the
+# cache is bounded by total bytes instead, with the entries in least-recently-
+# used order. Gunicorn runs eight threads through this, hence the lock.
+DECK_CACHE_MAX_BYTES = 64 * 1024 * 1024
+
+_deck_cache: "OrderedDict[str, bytes]" = OrderedDict()
+_deck_cache_lock = threading.Lock()
+
+
+def deck_cache_bytes() -> int:
+    with _deck_cache_lock:
+        return sum(len(v) for v in _deck_cache.values())
+
+
 def read_volume_file(path: str) -> bytes:
-    resp = w.files.download(path)
-    return resp.contents.read()
+    with _deck_cache_lock:
+        cached = _deck_cache.get(path)
+        if cached is not None:
+            _deck_cache.move_to_end(path)
+            return cached
+
+    data = w.files.download(path).contents.read()
+
+    with _deck_cache_lock:
+        # A single file bigger than the whole cap is served but never stored:
+        # caching it would evict everything else to hold one deck.
+        if len(data) <= DECK_CACHE_MAX_BYTES:
+            _deck_cache[path] = data
+            _deck_cache.move_to_end(path)
+            held = sum(len(v) for v in _deck_cache.values())
+            while held > DECK_CACHE_MAX_BYTES:
+                held -= len(_deck_cache.popitem(last=False)[1])
+    return data
+
+
+def clear_caches() -> None:
+    """Forget every deck and the deck list. See /api/decks?refresh=1."""
+    with _deck_cache_lock:
+        _deck_cache.clear()
+    list_decks.cache_clear()
 
 
 def _deck_label(folder: str, title: str | None) -> str:
@@ -111,6 +151,10 @@ def list_decks():
 
 @app.route("/api/decks")
 def api_decks():
+    # ?refresh=<anything> drops both caches, so a deck uploaded to the volume
+    # after the app started shows up without a restart.
+    if request.args.get("refresh"):
+        clear_caches()
     return jsonify(list_decks())
 
 

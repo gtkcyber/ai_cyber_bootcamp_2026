@@ -22,11 +22,15 @@ class FakeFiles:
 
     def __init__(self, decks):
         self.decks = decks
+        self.downloads = []
+        self.listings = 0
 
     def list_directory_contents(self, path):
+        self.listings += 1
         return [SimpleNamespace(path=f"{path}/{name}", is_directory=True) for name in self.decks]
 
     def download(self, path):
+        self.downloads.append(path)
         name = path[len(DECKS) + 1:].split("/", 1)[0]
         body = self.decks.get(name)
         if body is None:
@@ -53,8 +57,7 @@ def app_module(monkeypatch):
 
 def _decks(app, mapping):
     app.w.files = FakeFiles(mapping)
-    app.read_volume_file.cache_clear()
-    app.list_decks.cache_clear()
+    app.clear_caches()
     return app.list_decks()
 
 
@@ -106,9 +109,63 @@ def test_a_deck_with_no_title_tag_falls_back_to_its_folder(app_module):
 
 def test_a_folder_with_no_index_html_is_skipped(app_module):
     app_module.w.files = FakeFiles({"03-feature-engineering": None})
-    app_module.read_volume_file.cache_clear()
-    app_module.list_decks.cache_clear()
+    app_module.clear_caches()
     assert app_module.list_decks() == []
+
+
+# --- caches --------------------------------------------------------------
+
+def test_a_deck_file_is_read_from_the_volume_only_once(app_module):
+    _decks(app_module, {"00-introduction": _title("x")})
+    before = len(app_module.w.files.downloads)
+    app_module.read_volume_file(f"{DECKS}/00-introduction/index.html")
+    assert len(app_module.w.files.downloads) == before
+
+
+def test_the_deck_cache_evicts_the_oldest_once_it_passes_its_byte_cap(app_module, monkeypatch):
+    """512 decks at 20 MB each would be 10 GB of app memory; bound the bytes."""
+    monkeypatch.setattr(app_module, "DECK_CACHE_MAX_BYTES", 300)
+    app_module.w.files = FakeFiles({name: b"x" * 100 for name in ("a", "b", "c", "d")})
+    app_module.clear_caches()
+    for name in ("a", "b", "c", "d"):
+        app_module.read_volume_file(f"{DECKS}/{name}/index.html")
+    assert app_module.deck_cache_bytes() <= 300
+    before = len(app_module.w.files.downloads)
+    app_module.read_volume_file(f"{DECKS}/a/index.html")  # evicted first
+    assert len(app_module.w.files.downloads) == before + 1
+    before = len(app_module.w.files.downloads)
+    app_module.read_volume_file(f"{DECKS}/d/index.html")  # still resident
+    assert len(app_module.w.files.downloads) == before
+
+
+def test_a_file_bigger_than_the_whole_cap_is_served_but_not_cached(app_module, monkeypatch):
+    monkeypatch.setattr(app_module, "DECK_CACHE_MAX_BYTES", 50)
+    app_module.w.files = FakeFiles({"big": b"x" * 500})
+    app_module.clear_caches()
+    assert len(app_module.read_volume_file(f"{DECKS}/big/index.html")) == 500
+    assert app_module.deck_cache_bytes() == 0
+
+
+def test_the_deck_list_is_cached_between_requests(app_module):
+    _decks(app_module, {"00-introduction": _title("x")})
+    client = app_module.app.test_client()
+    client.get("/api/decks")
+    before = app_module.w.files.listings
+    client.get("/api/decks")
+    assert app_module.w.files.listings == before
+
+
+def test_refresh_rereads_the_deck_list_and_the_deck_files(app_module):
+    """A newly uploaded deck must not need an app restart to appear."""
+    _decks(app_module, {"00-introduction": _title("x")})
+    client = app_module.app.test_client()
+    client.get("/api/decks")
+    app_module.w.files.decks["01-exploratory-data-analysis"] = _title(
+        "AI Cyber Bootcamp 2026 — Module 1: Exploratory Data Analysis")
+    assert len(client.get("/api/decks").get_json()) == 1
+    refreshed = client.get("/api/decks?refresh=1").get_json()
+    assert [d["id"] for d in refreshed] == ["00-introduction", "01-exploratory-data-analysis"]
+    assert app_module.deck_cache_bytes() > 0  # refilled by the listing it just did
 
 
 def test_deck_route_refuses_a_traversal_segment(app_module):
