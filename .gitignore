@@ -245,8 +245,6 @@ databricks/test-runs/
 # app + tooling build artefacts
 __pycache__/
 .pytest_cache/
-.venv/
-databricks/deck-viewer/.venv/
 .databricks/
 
 # databricks port: WORK_HOME == DATA_HOME == data/ locally, so lab runs now write here
