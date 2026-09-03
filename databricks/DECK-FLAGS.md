@@ -74,3 +74,19 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p42: "Prompt-Injection Dogo" for Dojo; the lab is ai_labs/prompt_injection_lab/workbench.py (Streamlit, OpenAI or Ollama). The other three ai_labs apps are not referenced by any deck.
 - p51: "consulting form McKinsey". p60: injection text starts "ops," (dropped the O).
 - p21, p66, p74: absolute titles ("always", "never"); notes teach the scoped reading.
+
+## 13-ai-agents
+- p6: "Agents will loop ... until it runs out" (subject/verb mismatch); "a stopping criteria" should be "criterion".
+- p9, p10: "Level 2 the output ..." and "Level 3 the number ..." lack a colon or "At" after the level name.
+- p11: figure is reproduced from the Yao et al. 2022 ReAct paper with no attribution on the slide.
+- p24: "Microsoft AutoGen (AG2)" conflates Microsoft's AutoGen with AG2, the community fork.
+- p30: OWASP numbers mix editions: "LLM02 Insecure Output Handling" is the 2023 list; in the 2025 list it is LLM05 Improper Output Handling, while LLM06 and LLM08 are 2025 numbers. The note explains the renumbering.
+- p37, p38, p39, p49: describe a phishing-email lab, but the code and prose on p41, p42, p43, p45, p47, p48, p53, p55, p56, p57, p64, p83, p85 use a suspicious-login / account-takeover example (LoginState, classify_login, ATO_TOOLS, check_geo_velocity, identity_analyst) that matches none of the five notebooks. The notes follow the notebooks (phishing emails) and say so on the affected pages; if the source is reconciled to one domain, trim those sentences on p41, p55, p64, p83 and p85.
+- p54 says the three tools are "already implemented in utils/mock_tools.py", but p55 names check_geo_velocity, check_device_reputation, check_login_velocity; that file contains check_url_reputation, check_sender_reputation, check_email_authentication.
+- p42: "State Graphs are defined as TypedDicts" is imprecise; the state schema is the TypedDict and the StateGraph is built from it.
+- p49 and p50: two consecutive lab-prompt slides for the same lab; p49 uses the old title "Phishing Lab Part 1".
+- p53: says Lab 1's state had "login, classification, and confidence" fields; Lab 1 has no confidence field and uses email fields.
+- p66: raw markdown asterisks are visible ("**routing function**", "**mapping dict**", "*sets*").
+- p80: "react agents" should be "ReAct agents".
+- p82: names create_react_agent with a prompt parameter; Worksheet 13.5 uses create_agent from langchain.agents with system_prompt.
+- Unsure pages p36, p51, p63 ruled own slides (section dividers).
