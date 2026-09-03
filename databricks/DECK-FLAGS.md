@@ -112,3 +112,22 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p85: title says "Lab 11.2: Tool Usage"; the notebook is "Worksheet 11.2: Building & Using an Agent Tool".
 - Unsure page p11 ruled own slide.
 - Port note (not a slide defect): the notes for the code slides say the worksheets target Claude through langchain_anthropic, which is the unported notebooks; the Databricks worksheets call the course endpoint through the seam cell. Same in decks 10, 12, 13, 14; a provider pass over those notes is pending.
+
+## 07-attacking-machine-learning-models
+- p5: Model Inversion row defines it as recovering trained weights and Membership Inference as recovering training data; in the literature inversion reconstructs class inputs (which p19 to p21 demonstrate) and membership inference tests whether a record was in the training set.
+- p7: paper title shown with no citation (Nguyen, Yosinski and Clune, CVPR 2015).
+- p8: only the Gizmodo URL is cited; the patch is Brown et al., "Adversarial Patch" (2017).
+- p12: the figure is Figure 1 of Kurakin, Goodfellow and Bengio, "Adversarial Examples in the Physical World" (2016); caption cites Goodfellow et al. 2014.
+- p16: embedded image caption misspells "Prairie" as "Prarie" (in the source image).
+- p33: Evtimov title reads "Machine Learning Models" while p9 and p10 read "Deep Learning Models"; both are arXiv revision titles of the same paper, published as Eykholt et al., CVPR 2018.
+- p45, p46, p47: acronym written "FSGM" in titles and body; the method is FGSM. (Worksheet 7.2's filename has the same misspelling.)
+- p49: exact duplicate of p48.
+- p51: "PGD is MUCH SLOWER that FSGM" should read "than FGSM".
+- p53: steps 4 and 5 are the two goals of step 3 but are numbered as separate steps.
+- p76: title "Boundary Attack: How it Works" on a pros and cons slide.
+- p84: x_adv from FGSM is overwritten by the PGD line before it is evaluated, so the printed "adv" row is PGD only.
+- p85: same pattern; HopSkipJump's x_adv is overwritten by BoundaryAttack before anything reads it.
+- p87: "Counterfeit" should be "Counterfit"; "Cleverhans is built by Google and part of Tensorflow" is inaccurate (created by Goodfellow and Papernot, hosted under the tensorflow GitHub org as a separate library, v4 supports JAX, PyTorch and TF2).
+- p26 to p31: six stages of one Chio and Freeman poisoning figure classified as separate slides; each has its own note, but they could be grouped as builds.
+- Unsure pages p16, p18, p20, p38, p55, p68 ruled own slides.
+- Notebook, not deck: Worksheet_7.1_Attacking_AI.ipynb's title cell reads "Worksheet 8.1 Attacking AI - Answers" and cites HopSkipJump as "Jianbo et al. (2019)" (the author is Jianbo Chen).
