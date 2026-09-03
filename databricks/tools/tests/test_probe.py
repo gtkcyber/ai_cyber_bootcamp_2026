@@ -83,7 +83,7 @@ def test_main_uploads_the_probe_notebook_and_prints_the_answers(monkeypatch, cap
     rc = probe.main()
     assert rc == 0
 
-    assert f"{probe.SCRATCH}/probes/build_facts.ipynb" in w.workspace.uploaded
+    assert f"{probe.SCRATCH}/probes/build_facts" in w.workspace.uploaded
     assert f"{probe.SCRATCH}/probes" in w.workspace.mkdirs_calls
 
     submitted = w.jobs.submitted[0]

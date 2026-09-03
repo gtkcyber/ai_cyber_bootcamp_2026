@@ -90,7 +90,8 @@ def test_sync_pushes_answers_utils_and_mcp_server(tmp_path, monkeypatch):
     rn.sync(w)
 
     uploaded = w.workspace.uploaded
-    assert f"{rn.SCRATCH}/answers/Worksheet_1.1-Answers.ipynb" in uploaded
+    assert f"{rn.SCRATCH}/answers/Worksheet_1.1-Answers" in uploaded
+    assert f"{rn.SCRATCH}/answers/Worksheet_1.1-Answers.ipynb" not in uploaded
     assert f"{rn.SCRATCH}/answers/notes.txt" not in uploaded
     assert f"{rn.SCRATCH}/utils/email_loader.py" in uploaded
     assert f"{rn.SCRATCH}/notebooks/mcp_server.py" in uploaded
@@ -152,7 +153,7 @@ def test_import_check_parses_the_notebook_report():
         notebook_output=SimpleNamespace(result=json.dumps(report)))
     out = rn.import_check(w, "cluster-1")
     assert out == report
-    assert f"{rn.SCRATCH}/import_check.ipynb" in w.workspace.uploaded
+    assert f"{rn.SCRATCH}/import_check" in w.workspace.uploaded
 
 
 def test_main_sync_only_stops_after_sync(monkeypatch, tmp_path):

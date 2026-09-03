@@ -94,9 +94,12 @@ def _upload(w, local: Path, remote: str, fmt: ImportFormat) -> None:
 
 def sync(w) -> None:
     """Push answers/, utils/ and mcp_server.py into the scratch tree."""
+    # A JUPYTER import names the workspace object after the path as given, extension
+    # included, and the job then has to ask for that exact name; strip it here so the
+    # object is Worksheet_X and run_one's path matches.
     for name in sorted(os.listdir(ROOT / "answers")):
         if name.endswith(".ipynb"):
-            _upload(w, ROOT / "answers" / name, f"{SCRATCH}/answers/{name}",
+            _upload(w, ROOT / "answers" / name, f"{SCRATCH}/answers/{name[:-6]}",
                     ImportFormat.JUPYTER)
     for name in sorted(os.listdir(ROOT / "utils")):
         if name.endswith(".py"):
@@ -164,8 +167,7 @@ def import_check(w, cid: str) -> dict:
     buf = io.BytesIO(nbformat.writes(nb).encode("utf-8"))
     remote = f"{SCRATCH}/import_check"
     w.workspace.mkdirs(SCRATCH)
-    w.workspace.upload(f"{remote}.ipynb", buf, format=ImportFormat.JUPYTER,
-                       overwrite=True)
+    w.workspace.upload(remote, buf, format=ImportFormat.JUPYTER, overwrite=True)
     waiter = w.jobs.submit(
         run_name="bootcamp import-check",
         tasks=[SubmitTask(task_key="probe", existing_cluster_id=cid,

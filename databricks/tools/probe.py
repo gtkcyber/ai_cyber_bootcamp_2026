@@ -69,8 +69,7 @@ def main() -> int:
     nb.cells.append(nbformat.v4.new_code_cell(PROBE))
     remote = f"{SCRATCH}/probes/build_facts"
     w.workspace.mkdirs(f"{SCRATCH}/probes")
-    w.workspace.upload(f"{remote}.ipynb",
-                       io.BytesIO(nbformat.writes(nb).encode("utf-8")),
+    w.workspace.upload(remote, io.BytesIO(nbformat.writes(nb).encode("utf-8")),
                        format=ImportFormat.JUPYTER, overwrite=True)
     waiter = w.jobs.submit(
         run_name="bootcamp build-facts probe",
