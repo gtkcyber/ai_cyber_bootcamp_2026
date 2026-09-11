@@ -3,3 +3,4 @@ databricks-sdk>=0.68
 pymupdf>=1.28
 pillow>=12
 pytest>=8.3
+keynote-parser>=1.14

@@ -16,6 +16,7 @@ python3 -m venv .venv && .venv/bin/python -m pip install -r databricks/tools/req
 | `probe.py` | Runs one generated notebook on a job cluster to settle the four build-time facts the design spec left open. |
 | `build_decks.py` | Renders `slides/*.pdf` into the reveal decks under `decks/`. A deck with a Keynote manifest in `databricks/keynote/<slug>.json` takes its build stages, movies and YouTube embeds from it; without one the stages are inferred from the page text and the inference in `databricks/pages/` is kept as a human override surface. |
 | `check_decks.py` | The deck gate: page images, notes, manifest consistency and media files. Exit code is the number of failures. |
+| `keynote/` | Decodes a Keynote (.key) file into a plain-Python deck model (slides, drawables, build/click chunks, movies, web videos, table dimensions) using keynote-parser's Python API directly. `python -m keynote inspect <key> [--json PATH]` prints a per-slide summary. |
 
 All Databricks calls go through the `gtk-workspace` profile; the CLI itself lives at
 `/home/curtis/claude_projects/gtk_aws/bin/databricks`. Run `pytest databricks/tools/tests`
