@@ -270,3 +270,7 @@ edits the Keynote sources. Page numbers are PDF pages.
 ## 08-deep-learning (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
 - Conversion loss: the convolution example graphic on p36 and p37 (image, kernel, convolved feature) renders blank, labels only; the p37 note describes it from the old export.
 - Conversion loss: p38's two grids at left are native tables and render empty.
+
+## 10-prompt-engineering (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- p74: the talk track "New Drill Demo. Show SQL query generation." was read as Apache Drill; confirm.
+- p59: section divider classified unsure, never reviewed (its note exists).

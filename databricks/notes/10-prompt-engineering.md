@@ -1,6 +1,6 @@
 ## Page 1
 
-Module 10 covers prompt engineering: calling a language model from Python through a vendor SDK, the request parameters that shape a reply, the practices that make a prompt hold up when code has to parse the answer, chain of thought and meta prompting, classification with a generative model, and querying a DataFrame in plain English through PandasAI.
+Module 10 covers prompt engineering: calling a language model from Python through a vendor SDK or through an abstraction layer that hides the vendor, the request parameters that shape a reply, the practices that make a prompt hold up when code has to parse the answer, chain of thought and meta prompting, classification with a generative model, and querying data in plain English, through PandasAI over a DataFrame and through generated SQL.
 
 ## Page 2
 
@@ -22,7 +22,7 @@ The python-dotenv package moves the key from the .env file into the process envi
 
 ## Page 6
 
-TODO NEW SLIDE
+Run the examples in a notebook as you read them. The slide code runs as written once .env holds a valid Anthropic key. In the worksheets the setup cell's client replaces that step: on Databricks it points at the course's serving endpoint, so no key of your own is needed there.
 
 ## Page 7
 
@@ -34,7 +34,7 @@ Whether prompt engineering counts as a skill depends on where the prompt is used
 
 ## Page 9
 
-A program sends the prompt and consumes the reply with no person in between. In a chat a person reads each answer and adjusts the next message. In a program the reply goes to a parser, a database write, or the next stage of a pipeline, so it has to arrive in the shape the code expects.
+A program sends the prompt and consumes the reply with no person in between. In a chat a person reads each answer and adjusts the next message. In a program the reply goes to a parser, a database write, or the next stage of a pipeline, so it has to arrive in the shape the code expects. Google Dorking is the nearest parallel: a search query composed from operators such as site: and filetype: so the engine returns exactly the pages wanted, not a page of loosely related hits. In both cases the query is engineered for the result, not for the conversation.
 
 ## Page 10
 
@@ -66,6 +66,8 @@ An image goes into the same call as a content block alongside the text. The requ
 
 Worksheet 10.1 uses this pattern to pull a license plate, make, model, and other fields out of vehicle photos as a JSON record.
 
+Inlining the bytes suits a one-off script. Each call re-sends the whole file, so for a file used across many calls, or in a production service, Anthropic's Files API is the more robust route: upload the file once, get an id back, and reference the id in each message instead of the bytes.
+
 ## Page 14
 
 The transformers package from Hugging Face runs a model on your own hardware instead of calling a hosted API. The calling pattern resembles the vendor SDKs, but the model's weights are downloaded from the Hugging Face hub and run locally, so nothing leaves your machine and the machine needs the memory and, for larger models, the GPU to hold them.
@@ -74,7 +76,11 @@ The caution about downloads is about code execution. Weights distributed as PyTo
 
 ## Page 15
 
-TODO NEW SLIDE
+An abstraction layer puts one calling interface in front of many vendors' APIs, so the vendor and model become a configuration value rather than a shape the code is built around. The two named on the slide take different forms. LiteLLM: a Python library that exposes one completion function and translates each call into the target vendor's request format, with the model chosen by a name string. OpenRouter: a hosted service that exposes one OpenAI-style endpoint and forwards each request to the vendor behind the named model, under a single key and a single bill.
+
+The openai and anthropic packages on the earlier slides differ in method names, argument names, and reply structure, so moving a program from one to the other means rewriting every call site. Behind an abstraction layer a model swap is a changed string, which is what the third bullet means by swapping models without rearchitecting the code. The worksheets use the same idea without either product: the setup cell builds one OpenAI-style client and points it at Anthropic's compatible endpoint when run locally and at the course's serving endpoint on Databricks, and the calling code is identical in both cases.
+
+The cost is the lowest common denominator. A feature one vendor offers and the layer has not mapped, such as a new content block type or a request parameter, is unreachable until the layer adds it, and errors arrive translated, one step removed from the vendor's own message.
 
 ## Page 16
 
@@ -122,7 +128,7 @@ In the API these opening lines belong in the system message, where they apply to
 
 ## Page 23
 
-The model performs best when everything the answer depends on is in the prompt. Summarizing a document and generating output from a given input are the strong use cases because the answer needs nothing beyond the supplied text. What the model recalls from training can be wrong, and a wrong recollection reads as fluently as a right one. Facts not on record are whatever the prompt does not state: your hostnames, your ticket categories, your policies, and events after the model's training cutoff.
+The model performs best when everything the answer depends on is in the prompt. Summarizing a document and generating output from a given input are the strong use cases because the answer needs nothing beyond the supplied text. What the model recalls from training can be wrong, and a wrong recollection reads as fluently as a right one. Facts not on record are whatever the prompt does not state: your hostnames, your ticket categories, your policies, and events after the model's training cutoff. Relative dates are the everyday case: the model has no clock, so "yesterday" or "last week" in a prompt resolves to nothing unless the prompt also states today's date.
 
 For a program this means the data itself goes into the prompt as text. Worksheet 10.1 turns a table of CPU readings into one line per row before asking the model to find the anomalies in it.
 
@@ -364,7 +370,9 @@ The model reads the data as tokens in the prompt, and the prompt has a maximum s
 
 ## Page 70
 
-TODO NEW SLIDE
+PandasAI wraps a pandas DataFrame so it can be queried in natural language, generating and running pandas code behind each question. The setup shown imports pandas and PandasAI, creates an OpenAI language-model client from an API key, passes it to PandasAI, loads a DataFrame from dailybots.csv, a table of daily botnet-infection counts by family, and converts the date column to datetime so questions about days and ranges can use it. The library drives whichever model it is given; here that is OpenAI rather than the Anthropic models on the earlier slides.
+
+This is the code-generating approach from the two-approaches slide, packaged as a library: the model sees the frame's column names and a few sample rows, not the full data, and writes code that runs locally over the whole frame. The API shown, constructing PandasAI with the model and later calling the object with a question, is the library's earlier interface.
 
 ## Page 71
 
@@ -380,7 +388,7 @@ PandasAI exposes named helpers for routine data-preparation steps in addition to
 
 ## Page 74
 
-TODO NEW SLIDE
+The slide marks a live demonstration, not reproduced in the deck, of SQL query generation in Apache Drill, the SQL engine introduced in Module 0: the model is given a table's schema and a question in plain language and writes the query that answers it, and the engine runs the query. This is the code-generating approach from the two-approaches slide with SQL as the generated code instead of pandas. The prompt carries the schema and the question, not the rows, so the data stays where it is and its size is bounded by the engine rather than the context window. The query is text you can read before it runs, which answers the black-box objection, and the engine computes the result, so the numbers are exact. What the model can still get wrong is the query itself, a join on the wrong key or a filter that reads the question differently than you meant, which is why the query is reviewed before it runs.
 
 ## Page 75
 
