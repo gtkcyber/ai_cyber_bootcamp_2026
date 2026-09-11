@@ -36,6 +36,8 @@ class FakeJobsAPI:
         self.runs = {}  # run_id -> SimpleNamespace(tasks=[...])
         self.outputs = {}  # task run_id -> SimpleNamespace(error=..., notebook_output=...)
         self.raise_on_result = None
+        self.cancelled = []
+        self.exported = []
 
     def submit(self, **kwargs):
         self.submitted.append(kwargs)
@@ -48,6 +50,14 @@ class FakeJobsAPI:
 
     def get_run_output(self, task_run_id):
         return self.outputs[task_run_id]
+
+    def cancel_run(self, run_id):
+        self.cancelled.append(run_id)
+        return FakeWaiter(run_id)
+
+    def export_run(self, run_id, views_to_export=None):
+        self.exported.append(run_id)
+        return SimpleNamespace(views=[SimpleNamespace(content="<html>epoch 1</html>")])
 
 
 class FakeWorkspaceAPI:
@@ -73,7 +83,8 @@ def test_job_cluster_reads_the_terraform_outputs(monkeypatch):
 
     def fake_run(cmd, **kwargs):
         calls.append(cmd)
-        outputs = {"node_type_id": "r5d.large", "spark_version": "18.x-scala2.13",
+        outputs = {"node_type_id": "r5d.large", "gpu_node_type_id": "g4dn.xlarge",
+                   "spark_version": "18.x-scala2.13",
                    "cluster_pypi_packages": '["apachelogs","mcp<2"]'}
         return SimpleNamespace(stdout=outputs[cmd[-1]] + "\n")
 
@@ -88,6 +99,10 @@ def test_job_cluster_reads_the_terraform_outputs(monkeypatch):
     assert "single_user_name" not in spec
     assert rn.job_libraries() == [{"pypi": {"package": "apachelogs"}}, {"pypi": {"package": "mcp<2"}}]
     assert all(cmd[2:4] == ["output", "-raw"] for cmd in calls)
+    gpu = rn.job_cluster(gpu=True)
+    assert gpu["node_type_id"] == "g4dn.xlarge"
+    assert {k: v for k, v in gpu.items() if k != "node_type_id"} == \
+        {k: v for k, v in spec.items() if k != "node_type_id"}
 
 
 def test_sync_pushes_answers_utils_and_mcp_server(tmp_path, monkeypatch):
@@ -155,20 +170,40 @@ def test_run_one_prefers_the_run_output_error_when_present():
     assert result["message"] == "a more specific traceback"
 
 
-def test_run_one_times_out_when_the_task_state_is_unresolved():
+def test_run_one_cancels_a_run_it_stopped_waiting_for():
     w = FakeWorkspaceClient()
     w.jobs.raise_on_result = TimeoutError("still running")
     w.jobs.runs[100] = SimpleNamespace(tasks=[SimpleNamespace(run_id=200, state=None)])
     w.jobs.outputs[200] = SimpleNamespace(error=None)
     result = rn.run_one(w, JOB_CLUSTER, "Worksheet_1.1-Answers.ipynb", minutes=5)
     assert result["state"] == "TIMEOUT"
-    assert "still running" in result["message"]
+    assert result["message"] == "cancelled after 5 minutes"
+    assert w.jobs.cancelled == [100]
+
+
+def test_a_finished_run_is_not_cancelled():
+    w = FakeWorkspaceClient()
+    w.jobs.runs[100] = SimpleNamespace(tasks=[SimpleNamespace(
+        run_id=200,
+        state=SimpleNamespace(result_state=SimpleNamespace(value="FAILED"),
+                              state_message="boom"))])
+    w.jobs.outputs[200] = SimpleNamespace(error=None)
+    rn.run_one(w, JOB_CLUSTER, "Worksheet_1.1-Answers.ipynb", minutes=5)
+    assert w.jobs.cancelled == []
+
+
+def test_export_views_writes_the_rendered_notebook(tmp_path):
+    w = FakeWorkspaceClient()
+    rn.export_views(w, 100, tmp_path / "run.html")
+    assert (tmp_path / "run.html").read_text() == "<html>epoch 1</html>"
+    assert w.jobs.exported == [100]
 
 
 def test_import_check_parses_the_notebook_report():
     w = FakeWorkspaceClient()
     w.jobs.runs[100] = SimpleNamespace(tasks=[SimpleNamespace(run_id=200)])
-    report = {"python": "3.11.9", "ok": [["numpy", "1.26"]], "missing": [["tpot", "no module"]]}
+    report = {"python": "3.11.9", "ok": [["numpy", "1.26"]], "missing": [["tpot", "no module"]],
+              "cuda": {"torch": "2.6", "available": True, "device": "Tesla T4"}}
     w.jobs.outputs[200] = SimpleNamespace(
         notebook_output=SimpleNamespace(result=json.dumps(report)))
     out = rn.import_check(w, JOB_CLUSTER, JOB_LIBRARIES)
@@ -182,7 +217,7 @@ def test_main_sync_only_stops_after_sync(monkeypatch, tmp_path):
     (tmp_path / "notebooks").mkdir()
     (tmp_path / "notebooks" / "mcp_server.py").write_text("# server")
     monkeypatch.setattr(rn, "ROOT", tmp_path)
-    monkeypatch.setattr(rn, "job_cluster", lambda: JOB_CLUSTER)
+    monkeypatch.setattr(rn, "job_cluster", lambda gpu=False: JOB_CLUSTER)
     monkeypatch.setattr(rn, "job_libraries", lambda: JOB_LIBRARIES)
     w = FakeWorkspaceClient()
     monkeypatch.setattr(rn, "WorkspaceClient", lambda profile: w)
@@ -198,7 +233,6 @@ def test_main_only_filters_to_one_notebook_and_writes_a_run_record(monkeypatch, 
     (tmp_path / "notebooks" / "mcp_server.py").write_text("# server")
     (tmp_path / "databricks").mkdir()
     monkeypatch.setattr(rn, "ROOT", tmp_path)
-    monkeypatch.setattr(rn, "job_cluster", lambda: JOB_CLUSTER)
     monkeypatch.setattr(rn, "job_libraries", lambda: JOB_LIBRARIES)
     w = FakeWorkspaceClient()
     monkeypatch.setattr(rn, "WorkspaceClient", lambda profile: w)
@@ -207,9 +241,12 @@ def test_main_only_filters_to_one_notebook_and_writes_a_run_record(monkeypatch, 
         state=SimpleNamespace(result_state=SimpleNamespace(value="SUCCESS"),
                               state_message=""))])
     w.jobs.outputs[200] = SimpleNamespace(error=None)
-    monkeypatch.setattr(sys, "argv", ["run_notebooks.py", "--only", "9.2"])
+    monkeypatch.setattr(sys, "argv", ["run_notebooks.py", "--only", "9.2", "--gpu"])
+    seen = []
+    monkeypatch.setattr(rn, "job_cluster", lambda gpu=False: seen.append(gpu) or JOB_CLUSTER)
     rc = rn.main()
     assert rc == 0
+    assert seen == [True]
     run_files = list((tmp_path / "databricks" / "test-runs").glob("*.json"))
     assert len(run_files) == 1
     record = json.loads(run_files[0].read_text())
@@ -217,6 +254,28 @@ def test_main_only_filters_to_one_notebook_and_writes_a_run_record(monkeypatch, 
     assert len(record["results"]) == 1
     assert record["results"][0]["notebook"] == \
         "Worksheet_9.2_Unsupervised_Learning_with_Embeddings-Answers.ipynb"
+    assert w.jobs.exported == []
+
+
+def test_main_keeps_the_notebook_views_of_a_run_that_did_not_succeed(monkeypatch, tmp_path):
+    (tmp_path / "answers").mkdir()
+    (tmp_path / "utils").mkdir()
+    (tmp_path / "notebooks").mkdir()
+    (tmp_path / "notebooks" / "mcp_server.py").write_text("# server")
+    (tmp_path / "databricks").mkdir()
+    monkeypatch.setattr(rn, "ROOT", tmp_path)
+    monkeypatch.setattr(rn, "job_cluster", lambda gpu=False: JOB_CLUSTER)
+    monkeypatch.setattr(rn, "job_libraries", lambda: JOB_LIBRARIES)
+    w = FakeWorkspaceClient()
+    monkeypatch.setattr(rn, "WorkspaceClient", lambda profile: w)
+    w.jobs.raise_on_result = TimeoutError("still running")
+    w.jobs.runs[100] = SimpleNamespace(tasks=[SimpleNamespace(run_id=200, state=None)])
+    w.jobs.outputs[200] = SimpleNamespace(error=None)
+    monkeypatch.setattr(sys, "argv", ["run_notebooks.py", "--only", "8.1", "--minutes", "1"])
+    assert rn.main() == 1
+    html = list((tmp_path / "databricks" / "test-runs").glob("*-100.html"))
+    assert len(html) == 1 and html[0].read_text() == "<html>epoch 1</html>"
+    assert w.jobs.cancelled == [100]
 
 
 def test_only_matches_a_whole_worksheet_number():

@@ -12,7 +12,7 @@ python3 -m venv .venv && .venv/bin/python -m pip install -r databricks/tools/req
 | `edits.py` | Applies the seam cell and every listed substitution to the worksheets and answers. `--check` reports without writing. |
 | `check_notebook.py` | The gate. Exit code is the number of violations. |
 | `upload_data.py` | Mirrors `data/` plus the extracted fingerprint images to the course volume. |
-| `run_notebooks.py` | Submits each answer notebook as a one-off job on its own job cluster, shaped like `bootcamp-labs` from the Terraform outputs, and records the result. The labs cluster itself is dedicated to the student group and refuses API jobs. |
+| `run_notebooks.py` | Submits each answer notebook as a one-off job on its own job cluster, shaped like `bootcamp-labs` from the Terraform outputs (`--gpu`: like `bootcamp-gpu`), and records the result. The course clusters themselves are dedicated to the student group and refuse API jobs. `--import-check` also reports whether torch sees a CUDA device. |
 | `probe.py` | Runs one generated notebook on a job cluster to settle the four build-time facts the design spec left open. |
 | `build_decks.py` | Renders `slides/*.pdf` into the reveal decks under `decks/`. A deck with a Keynote manifest in `databricks/keynote/<slug>.json` takes its build stages, movies and YouTube embeds from it; without one the stages are inferred from the page text and the inference in `databricks/pages/` is kept as a human override surface. |
 | `check_decks.py` | The deck gate: page images, notes, manifest consistency and media files. Exit code is the number of failures. |

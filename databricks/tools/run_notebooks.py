@@ -25,7 +25,7 @@ from pathlib import Path
 
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service.compute import ClusterSpec, DataSecurityMode, Kind, Library, PythonPyPiLibrary
-from databricks.sdk.service.jobs import NotebookTask, SubmitTask
+from databricks.sdk.service.jobs import NotebookTask, SubmitTask, ViewsToExport
 from databricks.sdk.service.workspace import ImportFormat
 
 PROFILE = "gtk-workspace"
@@ -88,10 +88,13 @@ def _tf_output(name: str) -> str:
     return out.stdout.strip()
 
 
-def job_cluster() -> dict:
-    """A single-node job cluster shaped like the labs cluster, dedicated to whoever
-    submits the run (the automation service principal) rather than to the group."""
-    return {"node_type_id": _tf_output("node_type_id"),
+def job_cluster(gpu: bool = False) -> dict:
+    """A single-node job cluster shaped like the labs cluster -- or, with `gpu`,
+    like the GPU cluster -- dedicated to whoever submits the run (the automation
+    service principal) rather than to the group. The runtime id is the same
+    either way: with `kind` set, Databricks picks the GPU build of the ML
+    runtime from the node type."""
+    return {"node_type_id": _tf_output("gpu_node_type_id" if gpu else "node_type_id"),
             "spark_version": _tf_output("spark_version"),
             "use_ml_runtime": True, "is_single_node": True, "kind": "CLASSIC_PREVIEW",
             "data_security_mode": "DATA_SECURITY_MODE_DEDICATED"}
@@ -162,6 +165,12 @@ def run_one(w, spec: dict, name: str, minutes: int = 90, libraries: list[dict] |
     if task.state and task.state.result_state:
         state = task.state.result_state.value
         message = (task.state.state_message or "")[:600]
+    elif state == "TIMEOUT":
+        # A run nobody is waiting for must not keep its job cluster alive:
+        # "run it for a bit" is a deliberate way to use this, so the cap is
+        # also the stop.
+        w.jobs.cancel_run(run_id).result(timeout=timedelta(minutes=5))
+        message = f"cancelled after {minutes} minutes"
     try:
         out = w.jobs.get_run_output(task.run_id)
         if out.error:
@@ -184,9 +193,23 @@ for name in %s:
         report["ok"].append([name, getattr(module, "__version__", "?")])
     except Exception as exc:
         report["missing"].append([name, str(exc)[:200]])
+try:
+    import torch
+    report["cuda"] = {"torch": torch.__version__, "available": torch.cuda.is_available(),
+                      "device": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None}
+except Exception as exc:
+    report["cuda"] = {"available": False, "error": str(exc)[:200]}
 print(json.dumps(report, indent=2))
 dbutils.notebook.exit(json.dumps(report))
 '''
+
+
+def export_views(w, run_id: int, path: Path) -> None:
+    """Save the run's rendered notebook, output cells included. The point is a
+    run that was cancelled or failed: its partial output is the only record of
+    how far it got."""
+    views = w.jobs.export_run(run_id, views_to_export=ViewsToExport.CODE).views or []
+    path.write_text("\n".join(v.content for v in views if v.content), encoding="utf-8")
 
 
 def import_check(w, spec: dict, libraries: list[dict]) -> dict:
@@ -213,6 +236,9 @@ def import_check(w, spec: dict, libraries: list[dict]) -> dict:
           f"{', '.join(n for n, _v in report['ok'])}")
     print(f"MISSING {len(report['missing'])}: "
           f"{', '.join(n for n, _e in report['missing'])}")
+    cuda = report.get("cuda", {})
+    print(f"CUDA    {'yes, ' + str(cuda.get('device')) if cuda.get('available') else 'no'}"
+          f" (torch {cuda.get('torch', '?')})")
     return report
 
 
@@ -222,10 +248,12 @@ def main() -> int:
     ap.add_argument("--import-check", action="store_true")
     ap.add_argument("--sync-only", action="store_true")
     ap.add_argument("--minutes", type=int, default=90, help="per-notebook timeout")
+    ap.add_argument("--gpu", action="store_true",
+                    help="shape the job cluster like bootcamp-gpu instead of bootcamp-labs")
     args = ap.parse_args()
 
     w = WorkspaceClient(profile=PROFILE)
-    spec, libraries = job_cluster(), job_libraries()
+    spec, libraries = job_cluster(gpu=args.gpu), job_libraries()
     print(f"job cluster {spec['node_type_id']} {spec['spark_version']} ml, "
           f"{len(libraries)} libraries", flush=True)
     sync(w)
@@ -248,8 +276,11 @@ def main() -> int:
     record = {"job_cluster": spec, "started": stamp, "results": results}
     (out_dir / f"{stamp}.json").write_text(json.dumps(record, indent=2))
     failed = [r for r in results if r["state"] != "SUCCESS"]
+    for r in failed:
+        export_views(w, r["run_id"], out_dir / f"{stamp}-{r['run_id']}.html")
     print(f"\n{len(results) - len(failed)}/{len(results)} succeeded; "
-          f"record at databricks/test-runs/{stamp}.json")
+          f"record at databricks/test-runs/{stamp}.json"
+          + ("; notebook views of the others beside it" if failed else ""))
     for r in failed:
         print(f"  FAILED {r['notebook']}: {r['message'].splitlines()[0][:120]}")
     return 1 if failed else 0
