@@ -103,10 +103,8 @@ Tables: `TST.TableInfoArchive.tableModel` names a `TST.TableModelArchive`
 carrying `numberOfRows`/`numberOfColumns`/`numberOfHeaderRows`/
 `numberOfHeaderColumns`. Keynote omits the header fields entirely for a table
 with zero header rows/columns (proto2 field presence), which this module
-reads back as 0. Cell text is not decoded here: it lives in per-cell "tile"
-archives under `Index/Tables/`, reached from
-`TableModelArchive.baseDataStore.tiles.tiles[].tile.identifier` -- a later
-work package's job. `Table.cells` is `None` as the documented hook for it.
+reads back as 0. The cells, sizes and look come from the archives under
+`Index/Tables/` and are decoded by tables.py into `Table.grid`.
 """
 
 from __future__ import annotations
@@ -119,6 +117,7 @@ from typing import Optional
 
 from keynote_parser.codec import IWAFile
 
+from keynote import tables
 from keynote.package import SKIP_ARCHIVES, flatten
 
 UNKNOWN_PBTYPE = "keynote_parser.UnknownArchive"
@@ -171,7 +170,7 @@ class Table:
     columns: int
     header_rows: int
     header_columns: int
-    cells: None = None
+    grid: Optional[tables.Grid] = None
 
 
 @dataclass(frozen=True)
@@ -208,15 +207,13 @@ def _archives(iwa_dict: dict):
 
 
 def build_registry(index_dir: Path) -> dict[str, dict]:
-    """One identifier -> decoded-object dict, merged across Index/*.iwa.
+    """One identifier -> decoded-object dict, merged across Index/**/*.iwa.
 
-    Does not recurse into Index/Tables/ -- table cell storage lives there and
-    is out of scope for this module (see the module docstring); everything
-    `model.py` needs (slides, drawables, builds, movies, table dimensions)
-    lives directly under Index/.
+    Index/Tables/ holds the table cell storage (tiles, string tables, header
+    buckets) and is read too; nothing else lives below Index/.
     """
     registry: dict[str, dict] = {}
-    for path in sorted(Path(index_dir).glob("*.iwa")):
+    for path in sorted(Path(index_dir).rglob("*.iwa")):
         if f"Index/{path.name}" in SKIP_ARCHIVES:
             continue
         data = IWAFile.from_buffer(path.read_bytes(), str(path)).to_dict()
@@ -344,6 +341,7 @@ def _table(registry: dict, identifier: str, obj: dict) -> Table:
         columns=table_model.get("numberOfColumns") or 0,
         header_rows=table_model.get("numberOfHeaderRows") or 0,
         header_columns=table_model.get("numberOfHeaderColumns") or 0,
+        grid=tables.decode(registry, table_model) if table_model else None,
     )
 
 

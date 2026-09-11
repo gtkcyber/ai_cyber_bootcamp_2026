@@ -15,7 +15,7 @@ import pymupdf
 import pytest
 
 from keynote import odp
-from keynote.build import flat_key, replace_pdf, table_losses
+from keynote.build import flat_key, replace_pdf
 from keynote.media import box_of, youtube_entries
 from keynote.model import BuildEvent, Deck, Drawable, Slide, Table, WebVideo
 from keynote.stages import Stage, stages
@@ -233,12 +233,6 @@ def test_media_boxes_are_canvas_fractions():
     assert box_of(s, "m") == [0.1, 0.1, 0.5, 0.5]
     assert youtube_entries(s) == [{"slide": 3, "kind": "youtube", "id": "abc",
                                    "box": [0.1, 0.1, 0.5, 0.5]}]
-
-
-def test_tables_are_listed_as_losses():
-    s = slide(4, [], tables=(Table(drawable="t", rows=3, columns=2, header_rows=1, header_columns=0),))
-    deck = Deck(name="x", source=Path("x.key"), slides=(s, slide(None, [], skipped=True, tables=s.tables)))
-    assert table_losses(deck) == [{"slide": 4, "kind": "table", "detail": "3x2 table not rendered"}]
 
 
 def test_replace_pdf_drops_the_older_export_of_the_same_deck(tmp_path):

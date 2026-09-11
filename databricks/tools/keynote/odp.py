@@ -22,6 +22,13 @@ than Keynote has drawables, and the surplus is not evenly spread.
 Two importer habits are patched on the way through, both measured on the
 course decks: an empty `text:bullet-char` where Keynote draws a bullet, and
 bullet glyphs sized at 45% of the text where Keynote draws them full size.
+
+Tables: the importer writes a Keynote table as a `draw:frame` holding a
+`table:table` with the right columns and rows but every cell empty and
+unstyled, which is why they rendered as blank rectangles. `fill_table` puts
+the decoded cell text back (tables.py) and styles the cells the way Keynote
+did: fills, font, size, weight, colour, and gridlines when the table shows
+them. The styles go into `office:automatic-styles` under names of their own.
 """
 
 from __future__ import annotations
@@ -34,8 +41,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from keynote.model import Drawable, Slide
+from keynote.model import Drawable, Slide, Table
 from keynote.stages import Stage
+from keynote.tables import Look
 
 NS = {
     "draw": "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0",
@@ -46,6 +54,7 @@ NS = {
     "style": "urn:oasis:names:tc:opendocument:xmlns:style:1.0",
     "fo": "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0",
     "xlink": "http://www.w3.org/1999/xlink",
+    "table": "urn:oasis:names:tc:opendocument:xmlns:table:1.0",
 }
 for _prefix, _uri in NS.items():
     ET.register_namespace(_prefix, _uri)
@@ -198,6 +207,85 @@ def stage_page(page, slide: Slide, stage: Stage, rendered: dict[str, list]):
     return clone
 
 
+# ------------------------------------------------------------------ tables
+
+CELL_PADDING = "0.12cm"
+GRIDLINE = "0.5pt solid #b8b8b8"
+
+
+def _style(root, name: str, family: str, properties: str, **attributes) -> str:
+    """Append one automatic style and return its name."""
+    styles = root.find("office:automatic-styles", NS)
+    style = ET.SubElement(styles, _q("style:style"),
+                          {_q("style:name"): name, _q("style:family"): family})
+    ET.SubElement(style, _q(properties), {_q(k): v for k, v in attributes.items()})
+    return name
+
+
+def _cell_styles(root, prefix: str, look: Look, gridlines: bool) -> tuple[str, str]:
+    """(cell style, paragraph style) for cells drawn with `look`."""
+    cell = {"fo:padding": CELL_PADDING, "style:vertical-align": "middle",
+            "fo:border": GRIDLINE if gridlines else "none"}
+    if look.fill:
+        cell["fo:background-color"] = look.fill
+    cell_name = _style(root, f"{prefix}c", "table-cell", "style:table-cell-properties", **cell)
+    styles = root.find("office:automatic-styles", NS)
+    paragraph = ET.SubElement(styles, _q("style:style"),
+                              {_q("style:name"): f"{prefix}p", _q("style:family"): "paragraph"})
+    ET.SubElement(paragraph, _q("style:paragraph-properties"), {_q("fo:text-align"): "start"})
+    ET.SubElement(paragraph, _q("style:text-properties"), {
+        _q("fo:font-size"): f"{look.font_size:g}pt", _q("fo:color"): look.color,
+        _q("fo:font-family"): look.font,
+        _q("fo:font-weight"): "bold" if look.bold else "normal"})
+    return cell_name, f"{prefix}p"
+
+
+def fill_table(root, frame, table: Table, prefix: str) -> bool:
+    """Put the cell text and Keynote's look into the importer's empty table.
+
+    Returns False when the frame holds no table of the expected shape, so the
+    caller can report the loss instead of drawing a wrong table.
+    """
+    grid = table.grid
+    node = frame.find("table:table", NS)
+    if grid is None or node is None:
+        return False
+    rows = node.findall("table:table-row", NS)
+    if len(rows) != len(grid.cells):
+        return False
+    styles: dict[Look, tuple[str, str]] = {}
+    for row_index, (row, cells) in enumerate(zip(rows, grid.cells)):
+        # Keynote's stored height is the row's floor; the text may need more.
+        row.set(_q("table:style-name"), _style(
+            root, f"{prefix}r{row_index}", "table-row", "style:table-row-properties",
+            **{"style:min-row-height": f"{grid.row_heights[row_index]:.2f}pt",
+               "style:use-optimal-row-height": "true"}))
+        nodes = [c for c in row if c.tag == _q("table:table-cell")]
+        for node_cell, cell in zip(nodes, cells):
+            if cell.look not in styles:
+                styles[cell.look] = _cell_styles(root, f"{prefix}s{len(styles)}", cell.look, grid.gridlines)
+            cell_style, paragraph_style = styles[cell.look]
+            node_cell.set(_q("table:style-name"), cell_style)
+            for child in list(node_cell):
+                node_cell.remove(child)
+            for line in cell.text.split("\n"):
+                paragraph = ET.SubElement(node_cell, _q("text:p"), {_q("text:style-name"): paragraph_style})
+                paragraph.text = line
+    return True
+
+
+def fill_tables(root, page, slide: Slide, rendered: dict[str, list]) -> list[dict]:
+    """Fill every table on the page; the losses are the tables that could not be."""
+    losses = []
+    for index, table in enumerate(slide.tables):
+        frames = [n for n in rendered.get(table.drawable, ()) if n.find("table:table", NS) is not None]
+        prefix = f"kt{slide.number}_{index}"
+        if not frames or not fill_table(root, frames[0], table, prefix):
+            losses.append({"slide": slide.number, "kind": "table",
+                           "detail": f"{table.rows}x{table.columns} table has no matching frame"})
+    return losses
+
+
 @dataclass(frozen=True)
 class PageRecord:
     """One page of the rewritten deck: which slide and stage it shows."""
@@ -211,9 +299,10 @@ def expand(content_root, slides, stage_lists) -> tuple[list[PageRecord], list[di
 
     `slides` and `stage_lists` run parallel and cover every slide the importer
     exported, skipped ones included, in show order. Returns the page records
-    of the rewritten deck and the losses found on the way: a build target the
-    importer drew nothing for (its stage would be a blank click) and a stage
-    that came out identical to the one before it (dropped).
+    of the rewritten deck and the losses found on the way: a table with no
+    frame to fill, a build target the importer drew nothing for (its stage
+    would be a blank click) and a stage that came out identical to the one
+    before it (dropped).
     """
     presentation = content_root.find("office:body/office:presentation", NS)
     pages = presentation.findall("draw:page", NS)
@@ -226,10 +315,11 @@ def expand(content_root, slides, stage_lists) -> tuple[list[PageRecord], list[di
         if slide.skipped:
             presentation.remove(page)
             continue
+        rendered = match_page(page, slide) if slide.tables or len(stages) > 1 else {}
+        losses.extend(fill_tables(content_root, page, slide, rendered))
         if len(stages) == 1:
             records.append(PageRecord(slide.number, 0, 1))
             continue
-        rendered = match_page(page, slide)
         built = {event.drawable for chunk in slide.chunks for event in chunk}
         for missing in sorted(built - set(rendered)):
             losses.append({"slide": slide.number, "kind": "build target",

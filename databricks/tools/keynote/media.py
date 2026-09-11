@@ -39,7 +39,7 @@ def movie_entries(slide: Slide, workdir: Path, media_dir: Path) -> list[dict]:
         if movie.data_path is None:
             continue
         name = f"slide-{slide.number:03d}" + (f"-{index + 1}" if index else "")
-        staged = workdir / (name + movie.data_path.suffix)
+        staged = workdir / (name + "-source" + movie.data_path.suffix)
         shutil.copyfile(movie.data_path, staged)
         mp4 = render.to_mp4(staged, name + ".mp4")
         if movie.poster_path is not None:

@@ -8,9 +8,10 @@
 
 The manifest is what build_decks.py reads to group stage pages into one
 reveal slide and to place the movies and embeds; its `losses` list is what
-the render could not reproduce (native tables until they are handled, and
-any build object the importer drew nothing for), so nobody has to compare
-the deck with Keynote by eye to know what is missing.
+the render could not reproduce (a table without a frame to fill, a build
+object the importer drew nothing for), so nobody has to compare
+the deck with Keynote by eye to know what is missing. Native tables are
+filled back into the importer's empty table frames on the way (odp.py).
 """
 
 from __future__ import annotations
@@ -23,7 +24,7 @@ from pathlib import Path
 
 from build_decks import build_deck, manifest_path, slug_for
 from keynote import media, odp, render
-from keynote.model import Deck, load_deck
+from keynote.model import load_deck
 from keynote.package import flatten
 from keynote.stages import stages
 
@@ -35,12 +36,6 @@ def flat_key(flat_dir: Path, target: Path) -> Path:
             if path.is_file():
                 archive.write(path, path.relative_to(flat_dir).as_posix())
     return target
-
-
-def table_losses(deck: Deck) -> list[dict]:
-    return [{"slide": slide.number, "kind": "table",
-             "detail": f"{table.rows}x{table.columns} table not rendered"}
-            for slide in deck.slides if not slide.skipped for table in slide.tables]
 
 
 def replace_pdf(root: Path, slug: str, pdf: Path, name: str) -> Path:
@@ -91,7 +86,7 @@ def build(key_path: Path, root: Path, workdir: Path | None = None) -> dict:
         "pages": [{"page": number, "slide": r.slide, "stage": r.stage, "stages": r.stages}
                   for number, r in enumerate(records, start=1)],
         "media": entries,
-        "losses": sorted(losses + table_losses(deck), key=lambda l: (l["slide"], l["kind"])),
+        "losses": sorted(losses, key=lambda l: (l["slide"], l["kind"])),
     }
     path = manifest_path(root, slug)
     path.parent.mkdir(parents=True, exist_ok=True)
