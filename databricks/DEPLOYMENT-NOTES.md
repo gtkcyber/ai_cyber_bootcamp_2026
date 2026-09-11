@@ -113,3 +113,15 @@ the path is given, extension included; upload to the extension-less path
 the job will ask for (fixed in the tools on the first live run).
 
 Run records land in `databricks/test-runs/` (gitignored).
+
+### GPU (2026-09-11)
+
+`run_notebooks.py --gpu` shapes the job cluster like `bootcamp-gpu` (g4dn.xlarge, one T4).
+`--import-check --gpu`: CUDA available, "Tesla T4", torch 2.9.0+cu129; every course
+module imports except `databricks_langchain`, which fails on the GPU ML runtime with
+`cannot import name 'RequestContext' from 'mcp.shared.context'` (the cluster-installed
+`mcp<2` against the runtime's own langchain stack; the CPU runtime was not re-checked).
+Lab 8.1 (CNN fingerprints) ran to SUCCESS in 1,121 s wall clock including about ten
+minutes of cluster start, under a 25-minute cap. The AWS quota is four G-instance vCPUs,
+so one g4dn.xlarge at a time: the course cluster and a GPU job cluster cannot coexist,
+and a just-terminated node keeps its vCPUs for a couple of minutes.
