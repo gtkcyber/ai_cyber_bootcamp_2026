@@ -214,3 +214,16 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p66: "Veiw"; mismatched quotes in the code ('<target_column' opens curly, closes straight).
 - p43: the Keynote talk track on this slide is the scaling note, misattached.
 - p44 is a bare-table build stage of p45 that the classifier left as its own group.
+
+## 04-supervised-machine-learning (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- p67: renders blank (footer only); Keynote slide 68's body is an image. Conversion loss to check, not a slide defect.
+- p157: the Step 2 n-gram table renders with empty cells. Conversion loss to check.
+- p72, p73, p74, p76, p77, p80, p81: the row-label text box beside the printed matrix renders 1 above 0, the reverse of the matrix's row order and of the slide's own class-0 arithmetic.
+- p50, p51, p52: the charts and the forest diagram sit over the bullet text, which shows through at the edges.
+- p60: the comparison grid is placed over the bullet list; the last two bullets show through under the image.
+- p55: two loop arrows in the process diagram run off the right edge of the slide.
+- p2, p3, p14, p26, p27, p28, p54, p69, p88, p108: narrow text boxes wrap labels one syllable per line (axis labels, "margin", section subtitles, "True target").
+- p89: the precision and recall printout overlaps the true-target label.
+- p90, p91: matrix A wraps "[[10 0]" onto two lines.
+- p106: chart titled LinearSVC while the code fits GaussianNB.
+- Aligner note: the old-to-new page map was off by one in three stretches (old 29, 51, 108); the notes were placed by the page images.

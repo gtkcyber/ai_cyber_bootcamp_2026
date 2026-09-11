@@ -1,114 +1,114 @@
 ## Page 1
 
-TODO NEW SLIDE
+Module 4 covers supervised classification: the ideas behind support vector machines, decision trees, k-nearest neighbors and random forests, how each is fitted in scikit-learn, the metrics and cross-validation that measure a classifier, hyperparameter tuning, pipelines, saving and serving a model, automated machine learning with TPOT, and a case study that detects SQL injection. The concept slides are adapted from Sebastian Thrun's Udacity machine learning course.
 
 ## Page 2
 
-TODO NEW SLIDE
+A supervised classifier learns from examples that carry labels. Each URL in the chart is one example, placed by two features: its length on the horizontal axis and its count of digits on the vertical axis. The color is the label, malicious or benign. The malicious URLs in this data are longer and carry more digits, so the two classes occupy different regions of the feature space. A classifier's job is to learn where the regions lie so that a URL with no label can be assigned one.
 
 ## Page 3
 
-TODO NEW SLIDE
+The toy dataset used for the concept slides scores each observation on two features, alcohol and secrecy, from zero to ten, and labels it beer or cyber. Beer observations sit at high alcohol and low secrecy; cyber observations, drawn as spies, sit at low alcohol and high secrecy. The features mean nothing beyond the joke. The purpose is a two-dimensional dataset whose classes can be drawn on a page and separated by eye, because the same reasoning applies to URLs or domain names with dozens of features, where no picture can be drawn.
 
 ## Page 5
 
-TODO NEW SLIDE
+A new observation arrives at alcohol about four and secrecy about four, with no label. It lies in the gap between the two clusters: its alcohol is below every beer observation and its secrecy is below every cyber observation. Reading the label off the chart works for a point that lands inside a cluster and gives no answer here. A classifier is a rule that assigns a label to every point in the feature space, including points that no training example is near.
 
 ## Page 6
 
-TODO NEW SLIDE
+A decision surface is the boundary in feature space where the classifier's prediction changes from one class to the other; every point on one side gets one label and every point on the other side gets the other. The two panels are two boundaries fitted to the same data, one curved and one straight. Both put the cyber cluster above and the beer cluster below, and both place the new observation on the beer side. The shape of the boundary is set by the model family: a linear model can only draw a straight line, and other families draw curves or rectangles. Different families can disagree about points in the gap even when they agree on every training point.
 
 ## Page 7
 
-TODO NEW SLIDE
+This part covers support vector machines, a classifier that separates classes with the straight line, or in more than two dimensions the flat plane, that leaves the widest gap between them. The treatment is conceptual, without the optimization mathematics behind the fit.
 
 ## Page 9
 
-TODO NEW SLIDE
+A straight line drawn through the gap separates the two classes: every cyber observation lies above it and every beer observation below. Data that a single straight line can split this way is linearly separable. With two features the separator is a line; with three it is a plane, and with more it is a hyperplane, a flat surface of one dimension less than the feature space. A linear support vector machine fits this kind of boundary.
 
 ## Page 11
 
-TODO NEW SLIDE
+Three lines separate the training data equally well: one tilted left, one vertical, one tilted right, all crossing at the center of the gap. The vertical line, number two, is the best one. The tilted lines pass close to individual observations at the inner edge of each cluster, so an observation that lands a little past those points would be labeled by which side of a tilted line it falls on rather than by which cluster it is nearest. The vertical line keeps the greatest distance from the nearest observation of either class, which leaves the most room for new observations to land on the correct side.
 
 ## Page 13
 
-TODO NEW SLIDE
+Three vertical lines all separate the data: one just right of the beer cluster, one just left of the cyber cluster, and one midway between them. The middle line, number two, is again the best. The measure is the margin, the distance from the boundary to the nearest training observation on each side. The left line has almost no margin on the beer side and the right line almost none on the cyber side, so a beer observation slightly farther right than any seen so far would cross the left line and be called cyber. The middle line maximizes the smaller of the two distances, and a support vector machine chooses its boundary by this criterion.
 
 ## Page 14
 
-TODO NEW SLIDE
+The fitted support vector machine has three named parts. Decision boundary: the solid line where the prediction switches, with the red region on the cyber side and the gray region on the beer side. Margin: the band between the two dashed lines that run parallel to the boundary through the nearest observation of each class; the fit chooses the boundary that makes this band as wide as possible. Support vectors: the observations that lie on the dashed lines, marked with black dots. They alone fix the boundary's position. Any other observation could move, as long as it stays outside the band, without changing the fit, which is why the boundary is said to be supported by these points and why the model carries their name.
 
 ## Page 15
 
-TODO NEW SLIDE
+A second dataset: beer observations at low alcohol and high secrecy, cyber observations at high alcohol and low secrecy, and one beer observation at alcohol eight and secrecy four and a half, sitting beside the cyber cluster. The question is the same as before, which straight line separates the classes best, and the stray beer observation is what makes it harder.
 
 ## Page 17
 
-TODO NEW SLIDE
+Two candidate lines. Line one rises from lower left to upper right through the middle of the wide gap between the two main clusters, but it leaves the stray beer observation at alcohol eight on the cyber side. Line two falls gently from left to right, passing just above the cyber cluster and just below the stray beer observation, so every training observation is on its correct side. Line two is the answer. A support vector machine first requires the boundary to separate the training classes and only then maximizes the margin, and line one is not a separating line for this data. The price is a narrow margin, set by the stray observation and the cyber points beside it.
 
 ## Page 18
 
-TODO NEW SLIDE
+A third dataset: beer at low alcohol and low secrecy, cyber at high alcohol and high secrecy, and one cyber observation, circled, at alcohol one and secrecy one, deep inside the beer cluster. No straight line puts this observation on the cyber side while keeping the beer observations around it on the beer side, so the data is not linearly separable. An observation that sits far from every other member of its class is an outlier, and it may be a mislabeled record or a rare case.
 
 ## Page 19
 
-TODO NEW SLIDE
+The answer is to ignore the outlier. The line drawn from upper left to lower right separates the two clusters with a wide margin and gets one training observation wrong, the circled cyber point. A boundary bent to put that point on the cyber side would cut through the beer cluster and misclassify new beer observations near it, trading one training error for many future ones. A support vector machine that tolerates training errors has a soft margin. In scikit-learn, the Python machine learning library, pronounced sy-kit learn and imported as sklearn, the tolerance is the C parameter of the support vector classifier: a small C accepts misclassified or in-margin training points in exchange for a wider margin, and a large C forces the boundary to fit every training point.
 
 ## Page 20
 
-TODO NEW SLIDE
+Two fitted support vector machines, with the support vectors marked by black dots. Left: the second dataset fitted with no training error allowed. The boundary runs between the stray beer observation and the cyber points below it, and the dashed margin lines sit almost on top of it, so the prediction for a new observation near that corner changes with a small move in either feature. Right: the third dataset fitted with a soft margin. The boundary runs through the middle of the gap between the clusters, the band between the dashed lines is wide, and the outlying cyber observation sits on the beer side, inside the gray region, counted as a training error the fit accepted.
 
 ## Page 21
 
-TODO NEW SLIDE
+The kernel trick lets a support vector machine draw a curved boundary while still fitting a straight one. Input space: the original features, where the red points sit inside a curved region with blue points around them and no straight line separates the two. Feature space: a higher-dimensional space reached by a mapping, written phi, that computes new coordinates from the original features; in the diagram the mapping lifts the points into three dimensions, where a flat plane separates the classes. Mapped back to the input space, the plane becomes the curve. The trick is that the fit does not compute the mapped coordinates. It only needs the similarity between pairs of observations, and a kernel function returns that similarity directly from the original features. The kernels scikit-learn's support vector classifier offers include linear, polynomial and radial basis function, called rbf in the code, and the choice is a parameter of the classifier.
 
 ## Page 22
 
-TODO NEW SLIDE
+This part covers decision trees, a classifier that reaches its prediction through a chain of threshold tests, each on one feature. As with support vector machines, the mathematics is left out.
 
 ## Page 23
 
-A decision tree is a chain of questions. Each box is a node that tests one feature; each arrow is one outcome of the test; each red box is a leaf that holds the prediction. Reading a prediction starts at the root and follows the branch that matches the observation until a leaf is reached. In the example, credited to Charles Givre, one of the course's instructors, the root asks whether the gadget costs under two hundred dollars; if it does, the answer is yes. If not, the next node asks whether Charles's wife approves; if she does, yes. If she does not, the last node asks whether she will notice, and the branch drawn leads to yes. Every leaf is yes, which is the joke, and the structure is what a fitted tree looks like: features at the internal nodes, thresholds on the branches, class labels at the leaves.
+A decision tree is a chain of questions. Each box is a node that tests one feature, each arrow is one outcome of the test, and each colored box at the end of a path is a leaf that holds the prediction. Reading a prediction starts at the root and follows the branch that matches the observation until a leaf is reached. In the example, credited to Charles Givre, one of the course's instructors, the root asks whether the gadget costs under two hundred dollars; if it does, the answer is yes. If not, the next node asks whether Charles's wife approves; if she does, yes. If she does not, the last node asks whether the gadget is six inches or shorter; if it is, yes, and only an expensive, unapproved gadget over six inches long reaches the single no. Three of the four leaves say yes, which is the joke, and the structure is what a fitted tree looks like: features at the internal nodes, thresholds on the branches, class labels at the leaves.
 
 ## Page 24
 
-A boundary that traces individual observations is a sign of overfitting. Left: hand-drawn outlines around the cyber observations, curving to include each one and exclude the beer observations between them. Right: a fitted tree's regions on the same data, with a red cyber region that has a notch, a step and a gray island inside it, each produced by a split that exists to capture one or two observations. A model overfits when it learns the particular training observations, including their noise and mislabeled records, rather than the pattern that generated them. Training accuracy reaches one hundred percent while the boundaries are set by single points, so new observations near those points are misclassified. A tree can always be grown deep enough to give every training observation its own pure region, which is why trees need limits on growth: in scikit-learn, max_depth bounds the number of tests from root to leaf and min_samples_leaf sets the fewest observations a leaf may hold.
+The same decision with the approval question removed, so that only the two numeric features remain: price, tested at the root against two hundred dollars, and length, tested against six inches for the gadgets that cost more. The chart at the right is the data behind the tree, one point per gadget, placed by length on the horizontal axis and price on the vertical, with the marker giving the label. Every gadget bought sits at or below two hundred dollars; the gadgets passed over are the expensive ones and one cheap gadget twelve inches long. The tree's two tests are two cuts through this chart: a horizontal cut at two hundred dollars, and above it a vertical cut at six inches. The cheap long gadget lands on the yes side of the first cut, a training error that a third test on length would remove. A decision tree with numeric features works this way in general: it carves the feature space into rectangles, one threshold at a time, and labels each rectangle with a class. The next slides do the same for the beer and cyber data.
 
 ## Page 26
 
-TODO NEW SLIDE
+A two-split tree separates the toy data. The root tests alcohol: below four, the observation is beer. At four or above, the next node tests secrecy: below five, beer; five or above, cyber. The two tests draw the red cyber region as the rectangle with alcohol at least four and secrecy at least five, and everything else is gray, the beer region. Every test compares a single feature with a threshold, so each boundary a tree draws is a horizontal or vertical line segment and the regions it produces are rectangles. This is the geometric difference from a support vector machine, whose boundary can run at any angle.
 
 ## Page 27
 
-TODO NEW SLIDE
+The exercise is to build a decision tree by hand for the data on the printed worksheet, in ten minutes. The data has cyber observations across the top of the chart at high secrecy, a second group of cyber observations at low alcohol and middling secrecy, and beer observations along the bottom and in the lower right. A hand-built tree is a list of tests, each comparing one feature with a threshold, chosen by reading the coordinates where one class ends and the other begins, together with the label each resulting region gets.
 
 ## Page 28
 
-TODO NEW SLIDE
+Three splits solve the worksheet. First, secrecy at 5.27: every observation above it is cyber, which takes the whole top of the chart. Second, among the observations below that, alcohol at 4.47: at or above it, beer, the lower right. Third, among the observations at low alcohol, secrecy at 2.70: at or above it, cyber, the small group in the lower left; below it, beer, the bottom row. The tree has three internal nodes and four leaves. The red cyber region is a rectangle across the top plus a smaller rectangle at the lower left, the shape that two horizontal cuts and one vertical cut produce.
 
 ## Page 29
 
-TODO NEW SLIDE
+The final challenge is data no small tree can separate. The cyber observations run in a loose diagonal band through the middle of the chart with beer observations on both sides and among them, and a second small cyber group sits in the lower right. Every axis-aligned cut that isolates one cyber observation cuts through beer observations too, so a tree that gets every training observation right needs one or more splits per isolated point.
 
 ## Page 30
 
-TODO NEW SLIDE
+A boundary that traces individual observations is a sign of overfitting. Left: hand-drawn outlines around the cyber observations, curving to include each one and exclude the beer observations between them. Right: a fitted tree's regions on the same data, with a red cyber region that has a notch, a step and a gray island inside it, each produced by a split that exists to capture one or two observations. A model overfits when it learns the particular training observations, including their noise and mislabeled records, rather than the pattern that generated them. Training accuracy reaches one hundred percent while the boundaries are set by single points, so new observations near those points are misclassified. A tree can always be grown deep enough to give every training observation its own pure region, which is why trees need limits on growth: in scikit-learn, max_depth bounds the number of tests from root to leaf and min_samples_leaf sets the fewest observations a leaf may hold.
 
 ## Page 31
 
-TODO NEW SLIDE
+A tree chooses each split by how pure the resulting groups are. Purity is the degree to which a group holds observations of a single class. The mixed set at the top holds twenty-three blue and nine red observations. Below it are two groups drawn from it. Group A holds fifteen blue and one red; group B holds eight blue and eight red. The quiz asks which group is purer.
 
 ## Page 32
 
-Group A is purer. Fifteen of its sixteen observations are blue, so a leaf made from it would predict blue and be wrong once. Group B is half blue and half red, the most impure a two-class group can be, and a leaf made from it would be wrong half the time whichever class it predicted. A split is good when its child groups are purer than the parent.
+Group A is purer. Fifteen of its sixteen observations are blue, so a leaf made from it would predict blue and be wrong once. Group B is half blue and half red, the most impure a two-class group can be, and a leaf made from it would be wrong half the time whichever class it predicted. A split is good when its child groups are purer than the parent. The comparison here is by eye. A tree applies the general form of the same rule at every node: check every feature and every threshold, score each candidate split by a purity criterion, take the best, and repeat inside each child until the tree is grown. The criterion is defined on the next two slides.
 
 ## Page 33
 
-TODO NEW SLIDE
+Information gain is the number a tree uses to score a candidate split. It is built on entropy, a measure of impurity: for a group, entropy is the sum over the classes of minus the class proportion times the base-two logarithm of that proportion. It is zero for a group that holds a single class and, for two classes, reaches its maximum of one bit when the group is half one class and half the other. Group A, with one red among sixteen, has an entropy of about a third of a bit. Group B, with eight of each, has an entropy of one bit. The lower the entropy of the groups a split produces, the more the split has told the tree about the class.
 
 ## Page 34
 
-Information gain is the entropy of the parent minus the weighted average entropy of the children, each child weighted by its share of the parent's observations. The parent here holds two white and two red circles, so its entropy is one bit, the most impure a two-class group can be. Three candidate features are compared. Feature one sends three circles left, two white and one red, and one red circle right; the gain is 0.3112 bits. Feature two sends one white and one red each way; each child is as mixed as the parent, so the gain is zero. Feature three sends both whites left and both reds right; both children are pure, so the gain is the full one bit. Feature three gives the best split. A tree grows by computing this number for every feature and every threshold at a node, taking the largest, and repeating in each child.
+Information gain is the entropy of the parent minus the weighted average entropy of the children, each child weighted by its share of the parent's observations. The parent here holds two white and two red circles, so its entropy is one bit, the maximum for two classes. Three candidate features are compared. Feature one sends three circles left, two white and one red, and one red circle right; the gain is 0.3112 bits. Feature two sends one white and one red each way; each child is as mixed as the parent, so the gain is zero. Feature three sends both whites left and both reds right; both children are pure, so the gain is the full one bit. Feature three gives the best split. A tree grows by computing this number for every feature and every threshold at a node, taking the largest, and repeating in each child.
 
 ## Page 35
 
@@ -146,7 +146,7 @@ The disadvantages. The value of k: it must be chosen, and the chart on the previ
 
 ## Page 44
 
-This part covers ensembles, models built by combining the predictions of several models. The photo is the word's original sense, a group of musicians playing together.
+This part covers ensembles, models built by combining the predictions of several models. The photo is the word's original sense, a group of musicians playing together. Five independent models that are each right seventy percent of the time, combined by majority vote, are right a little over eighty-three percent of the time, because the vote goes wrong only when three or more of the five err on the same observation.
 
 ## Page 45
 
@@ -156,9 +156,13 @@ Ensemble learning combines several predictive models into one combined model tha
 
 Two conditions make ensembling work. Accuracy: each member does better than random guessing. Independence: the members' predictions come from different processes, so their errors are not the same errors. Under those conditions the mistakes that one member makes on its own are unlikely to be shared by the rest, and averaging or voting discards them. Condorcet's jury theorem, published by the Marquis de Condorcet in 1785 for juries, is the formal version: if each voter is right with probability above one half and the voters are independent, the probability that the majority is right increases toward one as voters are added.
 
+Independence is obtained in one of two ways. Automatically: a method that builds and combines its own members, which is what a random forest does and is the route the deck takes next. Manually: fit the members yourself and make them differ by using different model types, different subsets of the features, or different tuning parameters, then combine their predictions by vote or by average.
+
 ## Page 47
 
 Bagging, short for bootstrap aggregating, is the simplest tree ensemble. A bootstrap sample is a sample the size of the training set drawn with replacement, so some observations appear more than once and others not at all; each sample differs from the others. Grow n trees, one on each of n bootstrap samples. Have each tree predict. Combine the predictions: the average for regression trees, a majority vote for classification trees. The reason it helps is the high variance of single trees. Each tree's errors depend on its particular sample, and averaging trees grown on different samples cancels much of that variation.
+
+Each bagged tree is grown deep and left unpruned, so it has low bias and high variance; the averaging is what removes the variance, so there is no reason to limit the trees. And the mechanism is the one cross-validation uses for scoring: a single train and test split gives an estimate that depends on which rows fell on which side, and splitting many times and averaging steadies it. Bagging steadies the prediction the same way, by sampling many times and averaging the models.
 
 ## Page 48
 
@@ -170,13 +174,13 @@ Two parameters of a random forest need tuning. The number of trees, n_estimators
 
 ## Page 50
 
-The second tuning chart plots the same error against max_features from one to seven. Error drops from about 4.7 with one feature per split to about 3.5 at six, then rises slightly at seven, so for this data considering six features per split is best. With too few candidates the probability that the best feature for a split is among them is low, and the trees are weak; with all seven the trees are strongly correlated and the average gains less.
-
-The diagram is how a fitted forest classifies one instance. The instance is passed down every tree; each tree follows its own path of tests to a leaf and returns a class. Tree one returns class A, trees two and n return class B. The votes are tallied as a proportion, class A with p percent and class B with the rest, and the majority wins. The proportion is also the forest's predicted probability for each class.
+The chart plots the error of a random forest regressor against the number of trees, from twenty to about five hundred. The error measure is the root mean squared error, the square root of the average squared difference between prediction and truth, so lower is better. Error falls steeply over the first hundred trees, then keeps falling with diminishing returns and some noise, from about 3.80 to about 3.55. Adding trees does not cause overfitting, because more trees only reduce the variance of the average, but every added tree costs training time and prediction time, so the setting is chosen where the curve flattens.
 
 ## Page 52
 
-TODO NEW SLIDE
+The second tuning chart plots the same error against max_features from one to seven. Error drops from about 4.7 with one feature per split to about 3.5 at six, then rises slightly at seven, so for this data considering six features per split is best. With too few candidates the probability that the best feature for a split is among them is low, and the trees are weak; with all seven the trees are strongly correlated and the average gains less.
+
+The diagram is how a fitted forest classifies one instance. The instance is passed down every tree; each tree follows its own path of tests to a leaf and returns a class. Tree one returns class A, trees two and n return class B. The votes are tallied as a proportion, class A with p percent and class B with the rest, and the majority wins. The proportion is also the forest's predicted probability for each class.
 
 ## Page 53
 
@@ -186,11 +190,11 @@ The disadvantages. Interpretability: with hundreds of trees there is no single p
 
 ## Page 54
 
-TODO NEW SLIDE
+This part moves from concepts to code: the scikit-learn workflow for fitting a classifier and producing predictions.
 
 ## Page 55
 
-TODO NEW SLIDE
+The machine learning process runs through the stages in the diagram. Getting and cleaning data, in pandas, the Python library for tabular data. Preprocessing and feature engineering, in pandas and scikit-learn. Advanced feature selection, in scikit-learn. Those three stages, covered in the feature engineering module, produce the dataset. The dataset is split into train data and test data. The model is built on the train data and evaluated on the test data. The arrows running back from evaluation to feature engineering and to model building are the loop: an evaluation result leads to different features or a different model, and the cycle repeats.
 
 ## Page 56
 
@@ -198,17 +202,15 @@ Every supervised model in scikit-learn is used the same way. Create the classifi
 
 ## Page 57
 
-TODO NEW SLIDE
+The three lines fit and apply a support vector machine. The variable clf is short for classifier. The first line creates the model object, SVC standing for support vector classifier. The second fits it to the features and target; fit returns the fitted object itself, so assigning the result back to clf is harmless and unnecessary. The third asks for predictions. Because the predictions here are made on the same features the model was fitted to, they measure how well the model reproduces its training data, not how it will do on new data.
 
 ## Page 58
 
-TODO NEW SLIDE
+The same three lines with a decision tree in place of the support vector machine. The only change is the class named on the first line. Everything the deck does from here on with fit, predict and the evaluation functions works for any model class in the library.
 
 ## Page 60
 
-The supervised learning chapter of the scikit-learn user guide lists these families. Generalized linear models: logistic regression and its relatives, a weighted sum of the features passed through a link function. Kernel ridge: ridge regression combined with the kernel trick. Support vector machines, nearest neighbors and trees: covered above. Gaussian processes: a Bayesian method that returns a probability distribution with each prediction. Naive Bayes: applies Bayes' theorem under the assumption that features are independent given the class; it appears later in this deck as GaussianNB. Neural networks: the multilayer perceptron, the subject of the deep learning module. AdaBoost: boosting, which fits models in sequence with each new model weighting the observations the earlier ones got wrong. Gradient tree boosting: boosting where each new tree fits the remaining errors of the ensemble so far. Ensemble methods: bagging, random forests and voting combinations of any models.
-
-<!-- MERGE: a second old note landed on this page; fold or drop -->
+The supervised learning chapter of the scikit-learn user guide lists these families. Generalized linear models: logistic regression and its relatives, a weighted sum of the features passed through a link function. Kernel ridge: ridge regression combined with the kernel trick. Support vector machines, nearest neighbors and trees: covered above. Gaussian processes: a Bayesian method that returns a probability distribution with each prediction. Naive Bayes: applies Bayes' theorem under the assumption that features are independent given the class; it appears later in this deck as GaussianNB. Neural networks: the multilayer perceptron, the subject of the deep learning module. AdaBoost: boosting, which fits models in sequence with each new model weighting the observations the earlier ones got wrong. Gradient tree boosting: boosting where each new tree fits the remaining errors of the ensemble so far. Ensemble methods: bagging, random forests and voting combinations of any models. The list is broad by design. The module teaches four of the families; the rest are here so that their names are familiar when they appear in the documentation, not to be learned now.
 
 The grid is the classifier comparison example from the scikit-learn documentation. Each row is one synthetic two-class dataset: two interleaved crescents, a ring around a central cluster, and two clusters that a straight line nearly separates. Each column is one classifier fitted to that data, with the colored background as its decision regions and its accuracy on held-out points in the corner. The shapes of the regions are the point. The linear support vector machine can only draw a straight line, so it scores 0.40 on the ring, no better than chance. The decision tree and random forest draw rectangles. The radial basis function support vector machine, the Gaussian process and nearest neighbors draw smooth curves that follow the crescents and the ring. Naive Bayes and quadratic discriminant analysis draw ellipses. No classifier wins every row, which is why the model is chosen by measuring it on the data at hand.
 
@@ -226,7 +228,7 @@ The reference page for a classifier begins with its constructor signature, every
 
 ## Page 64
 
-The same page documents the two methods every classifier shares, with the shapes of their arguments. The feature matrix X passed to fit has shape n_samples by n_features, one row per observation and one column per feature; the target y has shape n_samples, one label per row. The matrix passed to predict has the same width as the one used to fit, and the return value has one entry per row of it. Most shape errors in a scikit-learn script are a one-dimensional array passed where the two-dimensional X is expected, or a matrix whose column count differs from the one the model was fitted on.
+The same page documents the two methods every classifier shares, with the shapes of their arguments. The feature matrix X passed to fit has shape n_samples by n_features, rows for observations and columns for features; the target y has shape n_samples, one label per row. The matrix passed to predict has the same width as the one used to fit, and the return value has one entry per row of it. Most shape errors in a scikit-learn script are a one-dimensional array passed where the two-dimensional X is expected, or a matrix whose column count differs from the one the model was fitted on.
 
 ## Page 65
 
@@ -238,7 +240,7 @@ Clustering and dimensionality reduction methods have a different set of methods.
 
 ## Page 67
 
-TODO NEW SLIDE
+The quotation is the title of the 2016 paper by Marco Tulio Ribeiro, Sameer Singh and Carlos Guestrin that introduced LIME, local interpretable model-agnostic explanations. The method explains a single prediction of any classifier by perturbing the input, recording how the classifier's output changes, and fitting a simple linear model to those changes around the one input. The linear model's coefficients are the explanation: which features pushed the prediction toward which class, and by how much.
 
 ## Page 68
 
@@ -246,11 +248,11 @@ The code applies LIME to a tabular model, with the library from Ribeiro's GitHub
 
 ## Page 69
 
-TODO NEW SLIDE
+This part covers how a classifier is measured: the confusion matrix and the metrics derived from it, then cross-validation, the procedure for measuring on data the model did not see.
 
 ## Page 70
 
-TODO NEW SLIDE
+This part covers the performance metrics for classifiers.
 
 ## Page 71
 
@@ -258,27 +260,27 @@ A classifier's mistakes come in two kinds. A false positive, also called a type 
 
 ## Page 72
 
-TODO NEW SLIDE
+A confusion matrix counts predictions by true class and predicted class. The example has sixteen observations with the true labels in target and the predicted labels in target_pred, and confusion_matrix from scikit-learn tabulates them. Rows are the true class and columns the predicted class, both in the order zero then one. Row zero reads seven then two: nine observations were truly zero, seven predicted zero and two predicted one. Row one reads three then four: seven were truly one, three predicted zero and four predicted one. The diagonal holds the correct predictions and everything off it is an error. The labeled diagram at the right gives the four cell names: true positive, false negative, false positive and true negative. With class one as the positive class, the true positives are the four in the lower right, the true negatives the seven in the upper left, the false positives the two in the upper right, and the false negatives the three in the lower left. The diagram's layout puts true positives at the upper left, which matches the code's matrix only if class zero is taken as the positive class.
 
 ## Page 73
 
-TODO NEW SLIDE
+Accuracy is the proportion of all predictions that were correct: the true positives plus the true negatives, divided by the total count. The function accuracy_score computes it from the true and predicted labels. The quiz is to compute it by hand from the matrix.
 
 ## Page 74
 
-TODO NEW SLIDE
+The diagonal holds seven and four, eleven correct predictions out of sixteen, so the accuracy is 0.6875. The number says nothing about which class the errors fell on; the five mistakes could have been all of one kind or split as here.
 
 ## Page 75
 
-TODO NEW SLIDE
+Precision is computed down a column of the confusion matrix. The picture is a chainsaw held in a guide frame, a saw made to cut where it is aimed, and the column-wise label is the reminder of where the numbers come from.
 
 ## Page 76
 
-TODO NEW SLIDE
+Precision for a class is the number of observations correctly predicted as that class divided by the number predicted as that class at all: true positives over true positives plus false positives. It answers the question of how much a positive prediction can be trusted. In scikit-learn, precision_score with average set to None returns one precision per class, and with average set to binary returns the precision of class one only. The quiz is to compute it for both classes.
 
 ## Page 77
 
-TODO NEW SLIDE
+Class zero: the column for predicted zero holds seven correct and three wrong, so precision is seven over ten, 0.7. Class one: the column for predicted one holds four correct and two wrong, so precision is four over six, 0.666. Each is a column total in the denominator.
 
 ## Page 78
 
@@ -286,23 +288,21 @@ The targets illustrate the everyday meanings of accurate and precise. Accurate m
 
 ## Page 79
 
-TODO NEW SLIDE
+Recall is computed along a row of the confusion matrix. The photo shows a prop from the film Total Recall, and the row-wise label is the reminder.
 
 ## Page 80
 
-TODO NEW SLIDE
+Recall for a class divides the same numerator, the observations correctly predicted as that class, by the number that truly belong to it: true positives over true positives plus false negatives. It answers the question of how many of the real positives the model found. In scikit-learn, recall_score has the same average parameter as precision_score, None for one value per class and binary for class one. The quiz asks for both classes again.
 
 ## Page 81
 
-TODO NEW SLIDE
+Class zero: the row for true zero holds seven found and two missed, so recall is seven over nine, 0.777. Class one: the row for true one holds four found and three missed, so recall is four over seven, 0.571. Each is a row total in the denominator. The model finds the zeros more reliably than the ones.
 
 ## Page 83
 
 Precision and recall pull against each other. Precision is the proportion of positive identifications that are correct; recall is the proportion of actual positives that were identified. A model that flags only the observations it is surest of makes few false positives, so its precision is high, and misses the doubtful positives, so its recall is low. A model that flags anything doubtful finds the positives, so its recall is high, and sweeps in negatives, so its precision falls. Which to favor depends on the cost of each kind of error.
 
-<!-- MERGE: a second old note landed on this page; fold or drop -->
-
-The chart, from Google's machine learning crash course, is the mechanism behind the trade-off. Each dot is an observation placed by the score the classifier gave it, from zero to one; circles are true negatives and crossed squares are true positives. The classification threshold, here 0.67, converts a score into a label: everything to its right is called positive. At this threshold no negative crosses the line, so the false positive count is zero and precision is one, but twenty-one positives fall short of it and are called negative, so recall is 0.56.
+The chart, from Google's machine learning crash course, is the mechanism behind the trade-off. Each dot is an observation placed by the score the classifier gave it, from zero to one; circles are the observations that are actually negative and crossed squares the ones that are actually positive. The classification threshold, here 0.67, converts a score into a label: everything to its right is called positive. At this threshold no negative crosses the line, so the false positive count is zero and precision is one, but twenty-one positives fall short of it and are called negative, so recall is 0.56.
 
 ## Page 84
 
@@ -314,7 +314,7 @@ The threshold set to 0.55, between the two extremes. Forty positives clear it an
 
 ## Page 86
 
-The receiver operating characteristic curve plots the true positive rate against the false positive rate. The true positive rate is recall, the fraction of positives found; the false positive rate is the fraction of negatives wrongly called positive, false positives over false positives plus true negatives. Each point on the curve is one threshold, and sweeping the threshold from one down to zero traces the curve from the lower left, where nothing is called positive, to the upper right, where everything is. The curve needs the classifier's scores rather than its labels, so the plotting call takes the predicted probabilities. The code uses the scikit-plot library's plot_roc function with matplotlib to draw it. The name comes from radar operators in the Second World War, whose ability to tell signal from noise was measured the same way.
+The receiver operating characteristic curve plots the true positive rate against the false positive rate. The true positive rate is recall, the fraction of positives found; the false positive rate is the fraction of negatives wrongly called positive, false positives over false positives plus true negatives. Each point on the curve is one threshold, and sweeping the threshold from one down to zero traces the curve from the lower left, where nothing is called positive, to the upper right, where everything is. Lowering the threshold calls more observations positive, which raises the true positive count and the false positive count together, so each step along the curve moves up and to the right, and the shape of the curve is how much true positive rate each unit of false positive rate buys. The curve needs the classifier's scores rather than its labels, so the plotting call takes the predicted probabilities. The code uses the scikit-plot library's plot_roc function with matplotlib to draw it. The name comes from radar operators in the Second World War, whose ability to tell signal from noise was measured the same way.
 
 ## Page 87
 
@@ -322,15 +322,15 @@ The area under the receiver operating characteristic curve summarizes the whole 
 
 ## Page 88
 
-TODO NEW SLIDE
+A confusion matrix for three classes has three rows and three columns, and the per-class metrics follow the same rules. The example has twenty-eight observations with labels zero, one and two. Accuracy is the sum of the diagonal over the total. Precision for a class is its diagonal cell over its column total, and recall for a class is its diagonal cell over its row total. The quiz is to compute all seven numbers.
 
 ## Page 89
 
-TODO NEW SLIDE
+The diagonal holds seven, four and four, so accuracy is fifteen over twenty-eight, 0.5357. For class two, the column for predicted two holds four correct, five true zeros and two true ones, so precision is four over eleven, 0.3636; the row for true two holds four found, one called class one and none called class zero, so recall is four over five, 0.8. The full vectors from precision_score and recall_score with average set to None are precision 0.7, 0.571 and 0.364 and recall 0.5, 0.444 and 0.8 for classes zero, one and two. Class two is found reliably and overpredicted; class zero is predicted carefully and missed half the time.
 
 ## Page 91
 
-TODO NEW SLIDE
+Three confusion matrices, each with sixteen observations and eleven correct, so each has an accuracy of 0.6875. Precision and recall separate them. Matrix A: all ten class-zero observations found, but only one of the six class-one observations, so recall for class one is 0.2 and precision for class one is one because the single prediction was right. Matrix B: the earlier example, with precision 0.7 for both classes and recall 0.8 and 0.6. Matrix C: none of the four class-zero observations found, so precision and recall for class zero are both zero, while eleven of twelve class-one observations are found. Which is the worst depends on which class matters. If class one is malicious, A passes five of six attacks through; C flags nearly everything, catching the attacks and burying the four benign records under alerts. Accuracy alone cannot tell these apart.
 
 ## Page 92
 
@@ -350,23 +350,23 @@ The code uses Yellowbrick, a visualization library that wraps scikit-learn model
 
 ## Page 96
 
-TODO NEW SLIDE
+This part covers cross-validation, the procedure for measuring a model on data that was withheld from fitting.
 
 ## Page 97
 
-TODO NEW SLIDE
+The picture is the reason for cross-validation. The cube on the left was solved; the cube on the right was painted red so that every face matches. A model scored on the data it was fitted to is the painted cube: the score says every face matches, and it says nothing about whether the model works on data it has not seen. A tree grown without limits reaches one hundred percent on its training data by memorizing it. The only score that measures generalization is one computed on observations that were withheld from the fit.
 
 ## Page 98
 
-TODO NEW SLIDE
+The data is split into a training portion and a testing portion before any model is fitted. The feature matrix X and the target vector y are cut at the same rows, here seventy percent for training and thirty for testing, so every test row keeps its true label for scoring. The model is fitted on the training rows only, and the test rows stand in for the future data the model will meet.
 
 ## Page 99
 
-TODO NEW SLIDE
+The train_test_split function in scikit-learn does the cut. It takes the features and the target and returns four arrays: training features, test features, training target and test target, in that order. The test_size argument is the fraction held out, here a quarter. Rows are shuffled before the split so that the test portion is a random sample rather than the last rows of the file, and a random_state argument makes the shuffle repeatable. The comment calls this simple cross-validation; the usual name is a holdout split.
 
 ## Page 100
 
-TODO NEW SLIDE
+The holdout workflow in code. The classifier is fitted on the training features and training target only. Predictions are made on the test features, rows that were withheld from the fit. The accuracy is computed by comparing those predictions with the test target. Every score reported for a model should come from this last line or its equivalent, not from predictions on the training rows.
 
 ## Page 101
 
@@ -374,7 +374,7 @@ A single holdout split gives a score that depends on which rows happened to land
 
 ## Page 103
 
-K-fold cross-validation is the standard way to make those splits. Divide the dataset into K equal partitions, called folds. Use fold one as the testing set and the union of the other folds as the training set, and compute the testing accuracy. Repeat K times, with a different fold as the testing set each time. Take the average of the K testing accuracies as the estimate of out-of-sample accuracy. Each observation is tested once and trained on K minus one times.
+K-fold cross-validation is the standard way to make those splits. Divide the dataset into K equal partitions, called folds. Use fold one as the testing set and the union of the other folds as the training set, and compute the testing accuracy. Repeat K times, with a different fold as the testing set each time. Take the average of the K testing accuracies as the estimate of out-of-sample accuracy. Each observation is tested once and trained on K minus one times. The diagram is the procedure with K equal to five. The data is stacked in five blocks; in each of the five columns a different block is the test set, in red, and the other four are the training set, in blue. Five models are fitted and five test scores computed, one per column, and their average is the estimate.
 
 ## Page 104
 
@@ -382,23 +382,23 @@ In scikit-learn the whole procedure is one call. cross_val_score takes the class
 
 ## Page 106
 
-A learning curve plots the training score and the cross-validation score against the number of training examples. In the chart the training score, in red, starts at one with eighty examples and falls toward 0.95 as more are added; the cross-validation score, in green, starts at 0.875 and rises to meet it near 0.94. The gap between the curves is the overfitting: with few examples the model fits them perfectly and generalizes worse. Converging curves at a high score are a good fit. Two curves that converge at a low score mean the model is too simple for the data, and a cross-validation curve still rising at the right edge means more data would help. In scikit-learn, LearningCurveDisplay.from_estimator draws the chart from a model, the data and a scoring choice; the code uses Gaussian naive Bayes with weighted F1, though the chart's title is a linear support vector classifier from a different run.
+A learning curve plots the training score and the cross-validation score against the number of training examples, and the two charts are the same model at two data sizes. The first chart stops at one hundred sixty examples: the training score, in red, sits at one and barely moves, while the cross-validation score, in green, stays near 0.87 and is nearly flat. The wide gap between the curves is overfitting: the model reproduces the examples it was fitted to and does much worse on the ones it was not, and since the cross-validation curve has not begun to climb, more data is the first thing to try. The second chart carries the same model to eight hundred examples. The training score falls from one toward 0.95 as the model can no longer fit every example, the cross-validation score rises from 0.875 to meet it near 0.94, and the two converge. Converging curves at a high score are a good fit. Two curves that converge at a low score mean the model is too simple for the data, and a cross-validation curve still rising at the right edge means more data would still help. In scikit-learn, LearningCurveDisplay.from_estimator draws the chart from a model, the data and a scoring choice; the code uses Gaussian naive Bayes with weighted F1, though both charts are titled with a linear support vector classifier from a different run.
 
 ## Page 107
 
-Topics the module has left for later. Saving models: a fitted model is serialized to disk with pickle so it can be loaded and used without refitting. Feature importances: the list at the right, from a domain classifier, gives each feature's share of the impurity reduction; DurationCreated carries more than half of the total and the top-level-domain indicator columns com, net, org and ru carry almost none. Bag-of-words features: a vocabulary of tokens produces a matrix that is mostly zeros, stored as a sparse matrix. Production readiness: an accuracy of 0.86 is not acceptable, because fourteen of every hundred predictions are wrong, and applied to the volume of lookups a network produces, the wrong ones on the benign side are a stream of false alerts. Improvement comes from more and better data, changes to feature engineering and selection, and a different model. Word2vec embeddings with deep learning are one route for text features, covered in the deep learning module.
+Topics the module has left for later. Saving models: a fitted model is serialized to disk with pickle so that it can be reloaded without refitting. Feature importances: the list at the right, from a domain classifier, gives each feature's share of the impurity reduction; DurationCreated carries more than half of the total and the top-level-domain indicator columns com, net, org and ru carry almost none. Bag-of-words features: a vocabulary of tokens produces a matrix that is mostly zeros, stored as a sparse matrix. Production readiness: an accuracy of 0.86 is not acceptable, because fourteen of every hundred predictions are wrong, and applied to the volume of lookups a network produces, the wrong ones on the benign side are a stream of false alerts. Improvement comes from more and better data, changes to feature engineering and selection, and a different model. Word2vec embeddings with deep learning are one route for text features, covered in the deep learning module.
 
 ## Page 108
 
-TODO NEW SLIDE
+Worksheet 4.1 applies the deck to the domain generation task, in forty-five minutes. It loads the feature table built in the feature engineering module, separates the target column from the feature matrix, splits both into training and test portions, fits a decision tree, checks single predictions against their true labels, and scores the test predictions with accuracy, a classification report and a plotted confusion matrix. It then explains the model three ways, by impurity-based feature importance, by permutation importance, and by SHAP and LIME on single rows, and ends by fitting a random forest, a support vector machine and a k-nearest neighbors classifier on the same data to compare their metrics.
 
 ## Page 109
 
-TODO NEW SLIDE
+This part covers hyperparameter tuning. A hyperparameter is a setting fixed before fitting, such as the number of trees, the maximum depth, or the C of a support vector machine, as opposed to the parameters that fit computes. The picture is a flashlight over a mountain range at night: the score as a function of the settings is a landscape that cannot be seen whole, and tuning is a search over it. The general form of the problem is optimization, of which gradient descent, which follows the local slope downhill, is the method used inside the fitting of many models.
 
 ## Page 110
 
-This part covers hyperparameter tuning. A hyperparameter is a setting fixed before fitting, such as the number of trees, the maximum depth, or the C of a support vector machine, as opposed to the parameters that fit computes. The picture is a flashlight over a mountain range at night: the score as a function of the settings is a landscape that cannot be seen whole, and tuning is a search over it. The general form of the problem is optimization, of which gradient descent, which follows the local slope downhill, is the method used inside the fitting of many models.
+The chart is the reason hyperparameters need tuning. Error is plotted against model complexity, the amount of detail a model is allowed to express, which is what the hyperparameters set: the depth of a tree, the k of nearest neighbors, the number of trees in a forest. Bias, plotted squared, is the error from a model too simple to follow the pattern in the data; it is high at the left and falls as complexity grows. Variance is the error from a model that follows its particular training sample, noise included, so that a different sample would give a different model; it is low at the left and rises as complexity grows. Total error is their sum, a curve that falls, bottoms out at the optimum marked by the dotted line, and rises again. Left of the optimum the model underfits, and training and test scores are both poor. Right of it the model overfits: the training score keeps improving while the test score gets worse, the gap seen on the learning curve. Tuning is the search for the setting at the bottom of the total error curve, and the search must be scored on held-out data, because the training score alone keeps improving to the right.
 
 ## Page 111
 
@@ -426,7 +426,7 @@ Bayesian search chooses each candidate from the results of the ones before it. B
 
 ## Page 117
 
-This part covers pipelines, the scikit-learn object that chains preprocessing steps and a model into a single estimator.
+This part covers pipelines, the scikit-learn object that chains preprocessing steps and a model into a single estimator. A pipeline brings together the three things the module has so far done separately: transforming the data, by removing skew, scaling numeric columns and encoding categorical variables as numbers; training and validating a model on the transformed data; and choosing the model's settings to optimize a metric such as accuracy, precision, recall or F1 score. The next slides first do the work without a pipeline, to show what the object replaces.
 
 ## Page 118
 
@@ -450,7 +450,7 @@ The steps attribute prints the full structure of a larger pipeline. The first st
 
 ## Page 123
 
-Using a pipeline is the same as using a model: fit on the training features and target, predict on the test features, and pass the true and predicted labels to classification_report, which prints precision, recall, F1 score and support for each class. The slide stores the predictions in y_prediction and then passes target_prediction to the report, so as written the third line refers to a variable that was not assigned.
+Using a pipeline is the same as using a model: fit on the training features and target, predict on the test features, and pass the true and predicted labels to classification_report, which prints precision, recall, F1 score and support for each class. Both calls go to the pipeline object itself, not to the scaler or the classifier inside it; the pipeline passes the data through each step in order, so no step is fitted or called on its own. The slide stores the predictions in y_prediction and then passes target_prediction to the report, so as written the third line refers to a variable that was not assigned.
 
 ## Page 124
 
@@ -494,11 +494,11 @@ Worksheet 4.2, titled Tuning your Classifier in the notebook, takes thirty minut
 
 ## Page 134
 
-TODO NEW SLIDE
+A search optimizes whatever score it is given, and the score can be custom. The function takes the true and predicted labels, computes precision and recall for every class, and returns the smallest of all those numbers. make_scorer wraps it into a scorer object, with greater_is_better set so the search maximizes it. Passed as the scoring argument of RandomizedSearchCV, it makes the search prefer settings under which no class and no metric is poor, rather than settings that raise the average by sacrificing one class. The cv argument here is a split iterator from a stratified shuffle split object, defined elsewhere. As written, scoring is given custom_score with parentheses, which calls the scorer with no arguments and fails; the scorer object itself should be passed.
 
 ## Page 135
 
-TODO NEW SLIDE
+Topics in scikit-learn for further study. Feature selection using classifiers: SelectFromModel keeps the features a fitted model rates as important. Ranking features: recursive feature elimination refits a model while dropping the weakest feature each round and records the order. Comparing classifiers: fit several and choose by cross-validated score. Stacking and voting: a stacking ensemble trains a second model on the predictions of several base models, and a voting classifier combines them by majority or by averaged probabilities. Plotting: the receiver operating characteristic curve at the left, with its area of 0.79, and manifold learning at the right, a family of nonlinear methods including Isomap, locally linear embedding and t-SNE that flatten high-dimensional data into two dimensions for visualization, here unrolling an S-shaped surface.
 
 ## Page 137
 
@@ -578,7 +578,7 @@ Step two counts n-grams of token types, sequences of one, two or three consecuti
 
 ## Page 157
 
-TODO NEW SLIDE
+The sequences column holds each statement's n-grams as tuples, ready to be scored. The fragment anything' or 'x'='x becomes identifier, string, identifier, string, and so on, the alternation the previous chart marked as malicious. The other rows are SQL Server probes: calls to xp_cmdshell, and statements that test whether the current login is sa or a member of the sysadmin role and then call waitfor, which delays the response, so the attacker learns the answer from how long the server takes to reply.
 
 ## Page 158
 
