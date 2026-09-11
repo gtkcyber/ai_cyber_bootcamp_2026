@@ -14,6 +14,7 @@ python3 -m venv .venv && .venv/bin/python -m pip install -r databricks/tools/req
 | `upload_data.py` | Mirrors `data/` plus the extracted fingerprint images to the course volume. |
 | `run_notebooks.py` | Submits each answer notebook as a one-off job on its own job cluster, shaped like `bootcamp-labs` from the Terraform outputs, and records the result. The labs cluster itself is dedicated to the student group and refuses API jobs. |
 | `probe.py` | Runs one generated notebook on a job cluster to settle the four build-time facts the design spec left open. |
+| `keynote/` | Decodes a Keynote (.key) file into a plain-Python deck model (slides, drawables, build/click chunks, movies, web videos, table dimensions) using keynote-parser's Python API directly. `python -m keynote inspect <key> [--json PATH]` prints a per-slide summary. |
 
 All Databricks calls go through the `gtk-workspace` profile; the CLI itself lives at
 `/home/curtis/claude_projects/gtk_aws/bin/databricks`. Run `pytest databricks/tools/tests`
