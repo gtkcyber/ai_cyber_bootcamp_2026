@@ -203,3 +203,14 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p154, p156, p160: feature is called "G-Test Scores", "G-Score Test" and "G-Test Score" on different slides.
 - Unsure pages p36, p62, p72, p75, p79, p87, p145, p148, p160 all ruled own slides (section dividers, quiz pages before their answers, distinct charts).
 - Spot-check: notes carry library renames, removed sklearn modules, the LIME paper authorship and Condorcet 1785 beyond what the slides say.
+
+## 03-feature-engineering (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- p15, p16: stray empty bullet between items.
+- p16: "a observation's", "in discrete class".
+- p18: lone backslash glyph at top left (slide body text is "\").
+- p23: "Legal contraints".
+- p26: "be come".
+- p64: code listing assigns corr_matrix but plots corr_mat.
+- p66: "Veiw"; mismatched quotes in the code ('<target_column' opens curly, closes straight).
+- p43: the Keynote talk track on this slide is the scaling note, misattached.
+- p44 is a bare-table build stage of p45 that the classifier left as its own group.

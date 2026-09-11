@@ -1,6 +1,6 @@
 ## Page 1
 
-TODO NEW SLIDE
+Module 3 covers feature engineering: the process a supervised project follows, turning raw records such as a URL into numeric columns a model can learn from, preparing those columns by imputation, encoding, scaling and resampling, and choosing which of them to keep. The worked example throughout is detecting domain names produced by a domain generation algorithm.
 
 ## Page 2
 
@@ -34,7 +34,7 @@ A requirement of guaranteed consistency rules out a non-deterministic component.
 
 ## Page 9
 
-An audit requires that a result can be reproduced and its cause traced. A trained model supports both. The training data, the code, the fitted parameters and the feature values behind each prediction are all stored, so a prediction can be recomputed exactly and the features that drove it inspected. A language model supports neither. Its output cannot be rerun to the same answer, the weights that produced the answer are not interpretable, and an explanation it writes for its own answer is itself generated text with no link to the computation that produced the answer.
+An audit requires that a result can be reproduced and its cause traced. A trained model supports both. The training data, the code, the fitted parameters and the feature values behind each prediction are all stored, so a prediction can be recomputed exactly and the features that drove it inspected. A language model supports neither. Its output cannot be rerun to the same answer, the weights that produced the answer are not interpretable, and an explanation it writes for its own answer is itself generated text with no link to the computation that produced the answer. A language model asked for a confidence score on its own output will supply a number, but the number is generated text like any other token, not a measurement computed from anything, so it gives no basis for an audit.
 
 ## Page 10
 
@@ -42,7 +42,7 @@ The better approach is to ask the language model for code. The model drafts the 
 
 ## Page 11
 
-A language model can write the code that fits a model, and it cannot tune one. Tuning is the loop of fitting, measuring on held-out data, records kept out of the fit, changing a setting, and fitting again: which features to keep, how complex the model may be, where to put the decision threshold. Each change is chosen from the numbers the last fit produced and from which kind of error the use case can tolerate, and a model that only writes the code sees neither.
+A language model can write the code that fits a model, and it cannot tune one. Tuning is the loop of fitting, measuring on held-out data, records kept out of the fit, changing a setting, and fitting again: which features to keep, how complex the model may be, where to put the decision threshold. Each change is chosen from the numbers the last fit produced and from which kind of error the use case can tolerate, and a model that only writes the code sees neither. A plain text-generating call cannot run this loop itself. An agentic system built around a language model, one that can execute code, read back the resulting metric and choose the next setting, can carry it out without a person in it.
 
 ## Page 12
 
@@ -50,19 +50,19 @@ A language model is expensive and slow per prediction compared with a trained cl
 
 ## Page 13
 
-TODO NEW SLIDE
+The cartoon's subject is tool fit. A chainsaw will spread butter, and a butter knife does the job with none of the cost or risk. A large language model applied to a classification problem is the chainsaw: it can produce a verdict for a domain or a URL, at a cost in money and time that a classifier fitted to a handful of numeric columns does not carry, and without the reproducibility the classifier gives.
 
 ## Page 14
 
-This part lays out the stages of a supervised machine learning project and defines the terms for its inputs and outputs.
+This part defines the kinds of machine learning and the problems each solves, names the parts of a dataset, lays out the stages of a supervised and of an unsupervised project, and lists the planning questions that come before building.
 
 ## Page 15
 
-TODO NEW SLIDE
+Machine learning divides by whether the training data carries labels. Supervised learning: a model is fitted to records that already hold the value to be predicted, so the fit can be scored against known answers. Unsupervised learning: a model is built from records with no such value, so it can only find structure among the features themselves. The lab's domain data carries a label, generated or legitimate, on every row, so its methods are supervised.
 
 ## Page 16
 
-TODO NEW SLIDE
+Four problem types cover most of machine learning, two supervised and two unsupervised. Classification: predicting which of a set of discrete classes an observation belongs to, such as malicious or benign. Regression: predicting a continuous value from the observation's features, such as a byte count or a duration. Both need labels, because the fit is scored against the known class or value. Clustering: finding groups of similar observations, with no label to say what the groups mean. Dimensionality reduction: reducing the number of columns in a feature set without discarding most of what they encode. Both work from the features alone.
 
 ## Page 17
 
@@ -72,39 +72,43 @@ The model is fitted to X and y together and applied to X alone. The target exist
 
 ## Page 18
 
-TODO NEW SLIDE
+The first question in any project is whether the data carries labels, because a yes opens the supervised methods and a no closes them until labels can be found. With labels, the type of the value picks the method. A quantity leads to regression, which predicts a number and supports inference about which inputs move it. A category leads to classification, which predicts a class. Without labels, the question is whether they can be obtained, by hand labeling or from an existing source such as a blocklist; if they can, the supervised methods apply. If they cannot, what remains is clustering and pattern finding: recommenders, similarity search and anomaly detection. The chart marks this branch nothing proven because no label exists to check the output against, so the result is a structure found in the data, with no way to score it as right or wrong.
+
+Detecting generated domains sits on the classification branch. Each domain is labeled legitimate or generated, and the label is a category.
 
 ## Page 19
 
-TODO NEW SLIDE
+A supervised machine learning project runs through the stages in the diagram. Getting and cleaning data: loading the records and fixing missing or malformed values, done in pandas, the Python library for tabular data. Preprocessing and feature engineering: computing numeric columns from the raw records and putting them on a usable scale, done in pandas and in scikit-learn, the Python machine learning library, pronounced sy-kit learn and imported as sklearn. Advanced feature selection: dropping columns that carry no information about the target, done in scikit-learn. The output of these three stages is the dataset that the modeling stages consume.
+
+The dataset is split into training data and test data. The model is built from the training data alone and evaluated on the test data, so the evaluation measures how the model behaves on records it was not fitted on. The arrows running back from evaluation to model building and to the preparation stages show that the process iterates: a poor evaluation sends the analyst back to change the model, the features or the cleaning.
 
 ## Page 20
 
-TODO NEW SLIDE
+The unsupervised process keeps the same three preparation stages and drops the split. There is no training and test data because the model makes no prediction that a held-out label could check; a clustering model is built from the whole dataset, and its evaluation has no known answer to compare against. The loop back from evaluation to the preparation stages remains, because what the model can find is still bounded by the features it is given.
 
 ## Page 21
 
-TODO NEW SLIDE
+Success is defined before any code is written: what the project is to accomplish, and what measurement will show whether it did. The measurement is the standard every later result is judged against. It decides which errors matter, a missed attack or a false alarm, and through that which model and which decision threshold to pick. Code written before the goal is stated produces results with nothing to score them against.
 
 ## Page 22
 
-TODO NEW SLIDE
+Choosing data sources takes four questions. What is available: which records exist and can be reached, since a feature cannot be computed from data the project does not hold. Is it enough: whether there are enough records, and enough of the rare class, for a model to learn from and for a held-out set to evaluate it on. Is it reliable, clean and consistent: whether the values are correct, whether missing and malformed entries are rare enough to fix, and whether a column means the same thing in every source and every time period, since a model learns the errors in its data along with the pattern. What other data could be used: whether a second source, such as the registration record of a domain, adds information the first lacks.
 
 ## Page 23
 
-TODO NEW SLIDE
+Five constraints sit alongside the choice of source. Policies: the organization's own rules on which data may be collected, kept and used for modeling. Legal constraints: privacy and data protection law, which limits what may be stored, for how long, and where it may be moved. Biases in data: records that overrepresent some cases and underrepresent others; a model learns the imbalance as if it were the truth and its predictions repeat it. Latency: how long it takes to obtain a record and its features, which bounds how fast a decision can be made; a feature that needs a network lookup cannot serve a decision due in milliseconds. Data size: the volume of records, which sets storage and compute cost and decides whether the data fits in memory on one machine.
 
 ## Page 24
 
-TODO NEW SLIDE
+Gathering and exploring the data answers the planning questions against the actual records: whether the data is good enough, what rules govern its use, whether there is enough of it, and whether it holds problems or biases that would carry into the model. Most of the effort in a project goes here. Exploration is not a stage that is finished once and left behind; every feature computed and every model evaluated raises new questions about the data, so the exploratory analysis of Module 1 recurs through the whole process.
 
 ## Page 25
 
-TODO NEW SLIDE
+This part defines feature engineering and works through a URL as the raw record to be turned into features.
 
 ## Page 26
 
-TODO NEW SLIDE
+Feature engineering is two decisions. What is being measured: the unit the model will score, which becomes the observations, the rows of the final dataset. How each unit is represented mathematically: the numbers computed from it, which become the features, the columns. In the lab the unit is a domain name and the features are counts and scores computed from its characters. Both decisions come out of exploring the data with the visualizations and statistical summaries of Module 1, not from fixing them in advance.
 
 ## Page 27
 
@@ -112,7 +116,7 @@ A URL string is not usable input for a model. A classifier computes with numbers
 
 ## Page 28
 
-TODO NEW SLIDE
+The string becomes one row of a table with one column per feature, and the model receives the table. The deck's running example is detecting malicious URLs, where the raw record is the URL string and nothing else. The features are computed from the part highlighted on the slide, google.com, not from the protocol or the www prefix, which say nothing about the site behind them; which part of a record to measure is itself a feature engineering decision. Finding features that represent the record in a way a model can use is often the hardest part of a project.
 
 ## Page 29
 
@@ -122,7 +126,7 @@ A good feature varies with the thing being predicted. The slide's example is a f
 
 ## Page 30
 
-A URL is made of parts, and each part is measured separately. Protocol: the scheme before the double slash, https here. Subdomain: the label in front of the registered domain, www. Zone apex: the registered domain together with its top-level domain, google.com, which is the name at which the owner's DNS zone begins. Domain: the registered name on its own, google. Top-level domain: the suffix administered by a registry, .com. Path: everything after the host, here /search followed by a query string of parameter and value pairs.
+A URL is made of parts, and each part is measured separately. Protocol: the scheme before the double slash, https here. Subdomain: the label in front of the registered domain, www. Zone apex: the registered domain together with its top-level domain, google.com, which is the name at which the owner's DNS zone begins. Domain: the registered name on its own, google. Top-level domain: the suffix administered by a registry, .com. Path: everything after the host, here /search followed by a query string of parameter and value pairs. Top-level domains fall into three families: generic ones such as .com or the newer .guru and .cloud, country-code ones such as .uk, .de or .ru, and sponsored ones restricted to a community, such as .mil, .gov and .edu.
 
 The parts carry different information. The domain is chosen and paid for by the registrant, so its characters reflect who registered it; the path and query string are produced by the server and can be any length and any content. Lexical features are therefore computed per part, and computing them starts with splitting the string correctly. A top-level domain can itself contain a dot, as in co.uk, so the split cannot be done by counting dots; tldextract, a Python library that splits a hostname into subdomain, domain and suffix using the public suffix list, does it correctly.
 
@@ -138,7 +142,9 @@ Resolving a name takes the nine steps in the diagram when nothing is cached. The
 
 ## Page 33
 
-TODO NEW SLIDE
+The two lists differ in their characters, and the differences are the features. The blocklist entries carry marks of automated or deceptive construction: a hostname built from a brand name and German words joined by hyphens under the .xyz top-level domain (amazon-sicherheit.kunden-ueberpruefung.xyz), an executable in the path (eng.exe), paths ending in strings with no dictionary words (rxdjna2.html, fx29id1.txt), and a path through the administrator directory of a content management system. The allowlist entries are shorter, use recognizable names and readable path words, and sit under .com, .ru and .org.
+
+The separation is not clean. bohicacapital.com and summerweb.net on the blocklist look like ordinary sites, and 333cn.com and the long numeric user ID in the google.com entry on the allowlist have the digit-heavy look of a generated name. No single rule separates the lists. Each property is a tendency, and a model weighs many tendencies at once, which is the reason for computing many lexical features.
 
 ## Page 34
 
@@ -152,15 +158,19 @@ This part introduces domain generation algorithms and the lexical features that 
 
 ## Page 36
 
-TODO NEW SLIDE
+A domain generation algorithm produces a list of pseudo-random domain names from a seed, and malware uses the list to find its command server. The infected machine and the operator run the same algorithm with the same seed, so both compute the same list for the day; the operator registers one name on it, and the infected machine tries names from the list until one resolves. Blocking or seizing that name does not close the channel, because the next day's list is different, and a defender who wants to cut the channel has to register or block every name on it while the operator needs only one.
+
+The technique was made widely known by the Conficker worm of 2008, whose later variants generated tens of thousands of candidate names a day. Detecting generated names is called the hello world of cyber machine learning because labeled examples are easy to obtain, from published algorithm output and from lists of legitimate domains, and because the names differ from real ones in ways that features computed from the string alone capture.
 
 ## Page 37
 
-TODO NEW SLIDE
+Mark Bowden's Worm: The First Digital World War, published in 2011, is a book-length account of Conficker and of the working group that tried to contain it by registering the domains the worm's algorithm would generate before its operators could.
 
 ## Page 38
 
-TODO NEW SLIDE
+The exercise derives lexical features from each domain string. Length of URL: the character count of the full string. Length of domain: the character count of the registered name alone. Count of digits: how many characters are numerals. Entropy of domain: Shannon entropy, computed by taking each distinct character's share of the string, multiplying each share by its base-two logarithm, summing, and negating; a name that uses a few characters repeatedly scores low and a name whose characters are spread evenly over the alphabet scores high. Position of the first digit: the one-based index of the first numeral, zero when there is none. Bag-of-words for the top-level domain, domain and path: one column per vocabulary token holding how many times the token occurs in that part.
+
+Worksheet 3.1 computes length, digit count, entropy, the vowel-to-consonant ratio, the first-digit index and an n-gram score, which measures how much of the name is built from character sequences common in English words, for each domain in its data file, using helper functions supplied in the notebook. Each feature encodes a way in which an algorithm's output differs from a name a person chose: a generator drawing characters at random spreads them evenly, which raises entropy, places digits at any position, and does not keep the vowel-to-consonant balance of English words.
 
 ## Page 39
 
@@ -170,33 +180,37 @@ The strings themselves do not enter the model; only the numeric columns do.
 
 ## Page 40
 
-TODO NEW SLIDE
+A bag-of-words model turns text into counts: each token in a fixed vocabulary becomes a column, and a document's row holds how many times each token occurs in it, with word order discarded. scikit-learn's CountVectorizer builds the matrix; fit establishes the vocabulary, here imposed as the three top-level domains .com, .de and .uk, and transform counts the vocabulary tokens in each string. In the example, facebook.com gets a one in the .com column, google.de a one in the .de column, and google.ru zeros in every column because .ru is outside the vocabulary. A fixed vocabulary keeps the column count under control for a part of the URL, such as the top-level domain or the path, that takes a large number of distinct values, and anything outside it becomes invisible. TfidfVectorizer is the alternative: it weights each count by how rare the token is across all the documents, so a token that appears in nearly every row counts for little.
+
+The example as printed does not run as intended. CountVectorizer's default tokenizer keeps only runs of two or more word characters, so .com is tokenized as com, which is not in a vocabulary spelled with dots, and every row comes back zero. Either spell the vocabulary without dots and pass each top-level domain without its dot, or supply a tokenizer that keeps the dot.
 
 ## Page 41
 
-Preprocessing is the set of operations that turn cleaned data into columns a model accepts, and the choice among them is made per dataset and per model; that is the sense of the title. Imputing missing values: filling empty cells with a substitute such as the column mean. Scaling and normalization: putting columns on comparable numeric ranges. One-hot encoding: turning a categorical column into one zero-or-one column per category. Embedding: mapping a token to a learned vector of numbers so that tokens used in similar contexts get similar vectors; word2vec is one method. Binarizing: converting a multi-class label into one zero-or-one column per class, which a neural network's multi-class output layer needs. Encoding strings as integers: replacing each distinct string with a code number. Dimensionality reduction: replacing many correlated columns with fewer uncorrelated ones that keep most of the variation; principal component analysis is the method named on the slide. Augmentation: creating extra training examples by transforming existing ones, such as tilting or zooming images. Feature selection based on a classifier: fitting a model and keeping the columns it relies on. Variance threshold: dropping columns whose values hardly change, since a near-constant column cannot separate classes.
+Preprocessing is the set of operations that turn cleaned data into columns a model accepts, and the choice among them is made per dataset and per model; that is the sense of the title. Imputing missing values: filling empty cells with a substitute such as the column mean. Scaling and normalization: putting columns on comparable numeric ranges. One-hot encoding: turning a categorical column into one zero-or-one column per category. Embedding: mapping a token to a learned vector of numbers so that tokens used in similar contexts get similar vectors; word2vec is one method, and its vectors capture relations by analogy: the direction from man to boy is close to the direction from woman to girl. Binarizing: converting a multi-class label into one zero-or-one column per class, which a neural network's multi-class output layer needs. Encoding strings as integers: replacing each distinct string with a code number. Dimensionality reduction: replacing many correlated columns with fewer uncorrelated ones that keep most of the variation; principal component analysis is the method named on the slide. Augmentation: creating extra training examples by transforming existing ones, such as tilting or zooming images. Feature selection based on a classifier: fitting a model and keeping the columns it relies on. Variance threshold: dropping columns whose values hardly change, since a near-constant column cannot separate classes.
 
 The images at the right are the data types these operations serve: numbers, text, time series, categories and binary flags. The libraries are pandas for the table operations, scikit-learn for the transformers, and SciPy for the numerical routines underneath.
 
 ## Page 42
 
-TODO NEW SLIDE
+Imputation fills a missing cell with a value computed from the rest of the column, because scikit-learn estimators reject a feature matrix containing missing values. The first line fills missing src_bytes with the column's most frequent value: value_counts sorts the distinct values by frequency, index[0] is the top one, and fillna writes it into every empty cell. The second fills missing dst_bytes with the column mean. The most frequent value suits discrete or categorical columns, where a mean would be a value no record has; the mean suits continuous columns, with the caveat that a few extreme values pull it, in which case the median is the safer fill. Whichever statistic is used, compute it on the training data and reuse the same number on the test data.
 
 ## Page 43
 
-TODO NEW SLIDE
+This part covers categorical variables, columns whose values are names rather than quantities, and one-hot encoding as the way to make them numeric.
 
 ## Page 44
 
-TODO NEW SLIDE
+A single categorical column, one row per record and a category name in each cell, is the input to one-hot encoding.
 
 ## Page 45
 
-TODO NEW SLIDE
+One-hot encoding replaces a categorical column with a binary column for each of its categories. The Color column has four categories, so it becomes four columns, Color_Red, Color_Blue, Color_Yellow and Color_Green; each row has a one in the column of its own color and zeros elsewhere, and the original column is deleted. The name comes from digital circuits, where a one-hot signal has exactly one line high.
+
+The encoding exists because a model reads integers as quantities. Coding red, blue, green and yellow as one to four would tell the model that yellow is twice blue and that green lies between them, relations that colors do not have. Four binary columns carry the category with no ordering imposed. The cost is width: a column with a thousand distinct values becomes a thousand columns.
 
 ## Page 46
 
-pandas performs one-hot encoding with get_dummies. Called on a Series of six colors, it returns a table with one column per distinct value and one row per element. Called on a whole DataFrame with a columns argument, it encodes only the named columns, here protocol_type and flag, and leaves the rest untouched. prefix=None: name each new column after the source column. prefix_sep='_': join the source name and the category with an underscore, giving protocol_type_tcp. dummy_na=False: do not add a column marking missing values. sparse=False: return an ordinary dense table. pandas 2.0 and later return True and False in the new columns; pass dtype=int for ones and zeros.
+pandas performs one-hot encoding with get_dummies. Called on a Series of six colors, it returns a table with one column per distinct value and one row per element. Called on a whole DataFrame with a columns argument, it encodes only the named columns, here protocol_type and flag, and leaves the rest untouched. prefix=None: name each new column after the source column. prefix_sep='_': join the source name and the category with an underscore, giving protocol_type_tcp. dummy_na=False: do not add a column marking missing values. sparse=False: return an ordinary dense table. pandas 2.0 and later return True and False in the new columns; pass dtype=int for ones and zeros. scikit-learn's OneHotEncoder does the same through the fit and transform interface of its other transformers. Widening one column into many binary columns makes the table sparse, mostly zeros, and a column with many distinct values compounds this into the curse of dimensionality: the rows spread so thinly across the added columns that a model needs far more data to find a pattern among them.
 
 ## Page 47
 
@@ -214,7 +228,7 @@ Scaling matters for models that combine columns arithmetically. A distance-based
 
 ## Page 50
 
-StandardScaler from sklearn.preprocessing is the transformer for z-scoring. Constructing it creates an object with no parameters yet; fit computes the mean and standard deviation of every column and stores them on the object; transform subtracts and divides using the stored values and returns the scaled matrix. fit_transform does both in one call and is the form to use on the training data. The test data gets transform alone, so that it is scaled with the training statistics.
+StandardScaler from sklearn.preprocessing is the transformer for z-scoring. Constructing it creates an object with no parameters yet; fit computes the mean and standard deviation of every column and stores them on the object; transform subtracts and divides using the stored values and returns the scaled matrix. fit_transform does both in one call and is the form to use on the training data. The test data gets transform alone, so that it is scaled with the training statistics. fit followed by transform is the interface every scikit-learn transformer shares, so the pattern learned here applies to imputers, encoders and selectors alike.
 
 ## Page 51
 
@@ -274,11 +288,15 @@ The scoring functions are chosen by the task. For classification: chi2, the chi-
 
 ## Page 63
 
-Plotting is the second answer. The views the lab draws from the same feature table are a correlation matrix as a heatmap, a pairplot colored by class, a radviz projection, and a bar chart of mutual information with the target.
+Plotting is the second answer. The views the lab draws from the same feature table are a correlation matrix as a heatmap, a pairplot colored by class, a radviz projection, and a bar chart of mutual information with the target. Two Python libraries are built for this kind of visualization: Yellowbrick, which wraps such plots in a scikit-learn style API, and scikit-plot.
 
 ## Page 64
 
-The three lines produce the heatmap. corr computes the Pearson correlation of every pair of columns in df_final_int, the feature table with isDGA already encoded as an integer so that the target can be correlated too. np.triu(np.ones_like(corr_mat, dtype=bool)) builds a boolean matrix that is true on and above the diagonal; passed as mask, it tells seaborn, the plotting library built on matplotlib and imported as sns, to leave those cells blank. cmap='viridis' picks the purple-to-yellow color scale, and the trailing semicolon suppresses the printed representation of the returned axes in a notebook. The link at the foot of the slide is Yellowbrick's Rank2D visualizer, which draws the same pairwise matrix through a scikit-learn style API.
+The three lines produce the heatmap. corr computes the Pearson correlation of every pair of columns in df_final, the feature table with the target included so that each feature's relation to isDGA appears as well. np.triu(np.ones_like(corr_matrix, dtype=bool)) builds a boolean matrix that is true on and above the diagonal; passed as mask, it tells seaborn, the plotting library built on matplotlib and imported as sns, to leave those cells blank, since they would repeat the lower triangle and the self-correlations of one. cmap='viridis' picks the purple-to-yellow color scale, and the trailing semicolon in the notebook cell suppresses the printed representation of the returned axes. The listing assigns corr_matrix and then plots corr_mat, a mismatch to fix before running it.
+
+Each cell is the Pearson correlation between its row's column and its column's column, on a scale from negative 0.6 in dark purple to above 0.8 in yellow. The first column is the relation of each feature to isDGA. length and entropy are positively correlated with the target, both around 0.5; ngrams is the most negatively correlated, near negative 0.6, and vowel-cons is also negative, near negative 0.5. Generated names are longer, have more evenly spread characters, contain fewer English letter sequences and have fewer vowels relative to consonants than real names. digits and firstDigitIndex are weakly positive and tell the model little on their own.
+
+The remaining cells are the relations among features. length and entropy are the brightest pair, above 0.8, so they carry much of the same information: a longer name has room for more distinct characters. ngrams and vowel-cons are positively correlated with each other, near 0.6, since both measure how English-like a name is. A strong correlation between two features means they may carry similar information, and pairs like these are the candidates for dropping one member.
 
 ## Page 65
 
@@ -288,7 +306,9 @@ Two readings come out of it. On the diagonal, two class histograms that barely o
 
 ## Page 66
 
-TODO NEW SLIDE
+Radviz places each feature at a fixed anchor on a circle and each record inside it. A record's feature values are scaled to the range zero to one, and the record is drawn at the average of the anchor positions weighted by those scaled values, so it sits nearest the features on which it scores high. pandas draws the plot with plotting.radviz, given the DataFrame and the target column's name, and colors each point by class.
+
+The plot shows whether the features can separate the classes at all, before any model is fitted. In the lab's plot the generated names, in dark blue, cluster toward the entropy, digits and length anchors, and the legitimate names, in yellow, toward vowel-cons and ngrams, with an overlap where the two meet. Two regions with a visible boundary mean the feature set carries enough to predict the class; a single mixed cloud means no model fitted to these features will separate them.
 
 ## Page 67
 
@@ -306,13 +326,13 @@ fg-data-profiling, the current name of the package released earlier as pandas-pr
 
 ## Page 70
 
-The per-variable panel for digits. Distinct count, twenty-two, and unique, 1.1 percent: the column takes twenty-two different values across two thousand rows. Zeros, 1670 or 83.5 percent: most domains contain no digit at all. The quantile block makes the same point: minimum, fifth percentile, first quartile, median and third quartile are all zero, the ninety-fifth percentile is nine and the maximum is twenty-seven, so the interquartile range is zero and the whole spread of the column is confined to its top sixth. The descriptive block shows the consequence: a mean of 1.19 pulled up from the zero median by the tail, a standard deviation of 3.23 larger than the mean, and skewness of 3.1 and kurtosis of 10.9, both marking a long right tail. The histogram at the top right is a single bar at zero with a sliver beside it.
-
-A column shaped like this separates only the sixth of the names that contain digits and says nothing about the rest, which is why its mutual information with the target is low.
+The report's overview tab summarizes the lab's feature table. Number of variables, seven: the six features and isDGA. Number of observations, two thousand: one row per domain. Missing cells, zero: no imputation is needed. Duplicate rows, two: identical rows to drop before selection. Variable types: six numeric columns and one boolean, the target. The Reproduction tab records when and how the report was generated, and the Warnings tab, with four entries, lists the findings the report flags.
 
 ## Page 71
 
-TODO NEW SLIDE
+The per-variable panel for digits. Distinct count, twenty-two, and unique, 1.1 percent: the column takes twenty-two different values across two thousand rows. Zeros, 1670 or 83.5 percent: most domains contain no digit at all. The quantile block makes the same point: minimum, fifth percentile, first quartile, median and third quartile are all zero, the ninety-fifth percentile is nine and the maximum is twenty-seven, so the interquartile range is zero and the whole spread of the column is confined to its top sixth. The descriptive block shows the consequence: a mean of 1.19 pulled up from the zero median by the tail, a standard deviation of 3.23 larger than the mean, and skewness of 3.1 and kurtosis of 10.9, both marking a long right tail. The histogram at the top right is a single bar at zero with a sliver beside it.
+
+A column shaped like this separates only the sixth of the names that contain digits and says nothing about the rest, which is why its mutual information with the target is low.
 
 ## Page 72
 
@@ -324,7 +344,9 @@ The correlations tab draws the full correlation matrix, diagonal included, with 
 
 ## Page 74
 
-TODO NEW SLIDE
+Worksheet 3.1 applies the deck to the domain data. Part 1 derives the features listed for the exercise: Task A with the notebook's helper functions, and Task B the n-gram score following Schiavoni, Maggi, Cavallaro and Zanero's 2014 paper Phoenix: DGA-based Botnet Tracking and Intelligence, computed by summing, over each name's one-, two- and three-character sequences, how often the sequence occurs in Google's list of the ten thousand most common English words, dividing by the number of sequences, and averaging over the three lengths. The domain column is then dropped, leaving the numeric table.
+
+Part 2 visualizes the result. The target strings are encoded as integers, the correlation of each feature with the target is computed, and the feature table is drawn in the four views of the selection section: heatmap, pairplot, radviz and mutual information ranking. An optional last step generates the profiling report. A breakpoint cell loads a prepared feature file for anyone whose Part 1 did not finish.
 
 ## Page 75
 
