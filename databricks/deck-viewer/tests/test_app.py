@@ -222,3 +222,27 @@ def test_every_app_requirement_is_pinned():
         "flask", "gunicorn", "databricks-sdk", "openai"}
     for pin in pins:
         assert re.fullmatch(r"[A-Za-z0-9_.-]+==\d+(\.\d+)*", pin), f"{pin!r} is not pinned"
+
+
+def test_a_media_range_request_is_served_from_one_cached_download(app_module):
+    app_module.w.files = FakeFiles({"08-deep-learning": b"0123456789"})
+    app_module.clear_caches()
+    client = app_module.app.test_client()
+    first = client.get("/decks/08-deep-learning/media/slide-012.mp4",
+                       headers={"Range": "bytes=2-4"})
+    second = client.get("/decks/08-deep-learning/media/slide-012.mp4",
+                        headers={"Range": "bytes=5-"})
+    assert (first.status_code, first.data) == (206, b"234")
+    assert first.headers["Content-Range"] == "bytes 2-4/10"
+    assert (second.status_code, second.data) == (206, b"56789")
+    assert first.mimetype == "video/mp4"
+    assert len(app_module.w.files.downloads) == 1
+
+
+def test_a_deck_file_without_a_range_is_still_the_whole_file(app_module):
+    app_module.w.files = FakeFiles({"08-deep-learning": _title("Module 8: Deep Learning")})
+    app_module.clear_caches()
+    r = app_module.app.test_client().get("/decks/08-deep-learning/index.html")
+    assert r.status_code == 200
+    assert b"<title>Module 8: Deep Learning</title>" in r.data
+    assert r.headers["Accept-Ranges"] == "bytes"

@@ -26,8 +26,9 @@ from pathlib import Path
 
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.errors import NotFound
-from flask import Blueprint, Flask, Response, abort, jsonify, request
+from flask import Blueprint, Flask, abort, jsonify, request
 
+from ranges import partial_response
 from tutor.fallback import setup_or_fallback
 from tutor.files import VolumeFiles, WorkspaceTextFiles
 from tutor.llm import Toolbox, Tutor
@@ -71,8 +72,11 @@ _MODULE_RE = re.compile(r"^Module\s+(\d+)\s*:\s*(.+)$")
 # them run to a couple of hundred megabytes. Counting entries -- 512 of them, as
 # an lru_cache would -- says nothing about the memory the app is holding, so the
 # cache is bounded by total bytes instead, with the entries in least-recently-
-# used order. Gunicorn runs eight threads through this, hence the lock.
-DECK_CACHE_MAX_BYTES = 64 * 1024 * 1024
+# used order. Gunicorn runs eight threads through this, hence the lock. The cap
+# leaves room for the course movies (the largest is 43 MB): a browser asks for
+# a movie in many byte ranges, and each range served from the cache is one
+# volume download saved.
+DECK_CACHE_MAX_BYTES = 128 * 1024 * 1024
 
 _deck_cache: "OrderedDict[str, bytes]" = OrderedDict()
 _deck_cache_lock = threading.Lock()
@@ -167,7 +171,7 @@ def serve_deck_file(subpath: str):
     except NotFound:
         abort(404)
     mime = mimetypes.guess_type(subpath)[0] or "application/octet-stream"
-    return Response(data, mimetype=mime)
+    return partial_response(data, mime, request.headers.get("Range"))
 
 
 _INDEX_HTML_PATH = Path(__file__).parent / "static" / "index.html"

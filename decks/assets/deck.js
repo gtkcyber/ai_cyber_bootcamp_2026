@@ -104,6 +104,14 @@ window.CourseDeck = (function () {
       f.classList.remove('fragment', 'visible', 'current-fragment');
       f.removeAttribute('data-fragment-index');
     });
+    // Reveal swaps data-src for src only on slides it is showing, and the
+    // reading copy is never shown by reveal, so its movies and embeds get
+    // their sources here. preload="none" and loading="lazy" on the elements
+    // keep that from fetching anything until it is played or scrolled to.
+    Array.prototype.forEach.call(clone.querySelectorAll('.media[data-src]'), function (m) {
+      m.setAttribute('src', m.getAttribute('data-src'));
+      m.removeAttribute('data-src');
+    });
 
     var article = document.createElement('article');
     article.className = 'r-slide' + (isSub ? ' r-sub' : '');
@@ -115,7 +123,7 @@ window.CourseDeck = (function () {
     // The headline belongs to the section, not to the glass box.
     var head = glass.querySelector('h1, h2, h3');
     if (head) { article.appendChild(head); }
-    if (glass.textContent.trim() || glass.querySelector('svg, table, img')) {
+    if (glass.textContent.trim() || glass.querySelector('svg, table, img, video, iframe')) {
       article.appendChild(glass);
     }
 

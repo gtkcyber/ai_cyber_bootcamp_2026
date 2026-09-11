@@ -7,8 +7,12 @@
 Each PDF page becomes a 1600x900 WebP. Consecutive pages that are stages of
 one Keynote build collapse into a single reveal slide whose earlier stages are
 fragments layered under the finished page, so advancing replays what the room
-saw. The classification is written once to databricks/pages/<slug>.json and
-never rewritten, because a human correction there has to survive a rebuild.
+saw. A deck built from its Keynote file says which pages are stages in
+databricks/keynote/<slug>.json, and that manifest also places the movies and
+YouTube embeds on their slides. Without one the stages are inferred from the
+page text, and that classification is written once to
+databricks/pages/<slug>.json and never rewritten, because a human correction
+there has to survive a rebuild.
 """
 
 from __future__ import annotations
@@ -246,18 +250,20 @@ def pages_path(root, slug):
     return Path(root) / "databricks" / "pages" / f"{slug}.json"
 
 
-def save_pages(root, slug, pdf_name, pages):
-    """Write the classification if it is not already there. (path, written?).
+def save_pages(root, slug, pdf_name, pages, manifest=False):
+    """Write the classification. (path, written?).
 
-    Never overwrites. The file is the human override surface: someone who
-    flips a kind must not lose that edit to the next rebuild.
+    An inferred classification is never overwritten: the file is the human
+    override surface, and someone who flips a kind must not lose that edit to
+    the next rebuild. A classification dictated by a Keynote manifest is
+    derived, so it is rewritten every build and marked as such.
     """
     path = pages_path(root, slug)
-    if path.exists():
+    if path.exists() and not manifest:
         return path, False
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = {"slug": slug, "pdf": pdf_name, "page_count": len(pages),
-               "pages": pages}
+               "manifest": manifest, "pages": pages}
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
                     encoding="utf-8")
     return path, True
@@ -274,6 +280,91 @@ def load_pages(root, slug):
     for page, gid in zip(pages, group_ids([p["kind"] for p in pages])):
         page["group"] = gid
     return payload
+
+
+# ---------------------------------------------------------------- manifest
+#
+# A deck built from its Keynote file carries databricks/keynote/<slug>.json,
+# written by the Keynote build step: every PDF page mapped to the Keynote slide
+# and build stage it renders, plus the movies and YouTube embeds the slides
+# carry. Where it exists it is the truth and the word-overlap classifier above
+# is not consulted -- Keynote knows which pages are stages of one slide, the
+# text heuristic only guesses. Media boxes are fractions of the Keynote canvas,
+# so they place the same way on the pixel-pinned deck and the fluid reading
+# copy.
+MEDIA_KINDS = ("movie", "youtube")
+YOUTUBE_EMBED = "https://www.youtube-nocookie.com/embed/{id}"
+
+
+def manifest_path(root, slug):
+    return Path(root) / "databricks" / "keynote" / f"{slug}.json"
+
+
+def load_manifest(root, slug):
+    """The validated Keynote manifest for a slug, or None without one."""
+    path = manifest_path(root, slug)
+    if not path.exists():
+        return None
+    manifest = json.loads(path.read_text(encoding="utf-8"))
+    _validate_manifest(manifest, path)
+    return manifest
+
+
+def _validate_manifest(manifest, path):
+    """A manifest that is not exactly one page per PDF page, in order, with
+    complete stage runs, would build a deck that lies about its slides."""
+    entries = manifest["pages"]
+    if [e["page"] for e in entries] != list(range(1, manifest["page_count"] + 1)):
+        raise ValueError(f"{path}: pages must run 1..{manifest['page_count']} in order")
+    runs = {}
+    for entry in entries:
+        runs.setdefault(entry["slide"], []).append((entry["stage"], entry["stages"]))
+    if list(runs) != sorted(runs):
+        raise ValueError(f"{path}: slides are out of order")
+    for slide, run in runs.items():
+        count = run[0][1]
+        if [s for s, _ in run] != list(range(count)) or any(c != count for _, c in run):
+            raise ValueError(f"{path}: slide {slide} stages are not 0..{count - 1}")
+    for item in manifest.get("media", []):
+        if item["kind"] not in MEDIA_KINDS:
+            raise ValueError(f"{path}: unknown media kind {item['kind']!r}")
+        if item["slide"] not in runs:
+            raise ValueError(f"{path}: media on slide {item['slide']}, which has no page")
+        box = item["box"]
+        if len(box) != 4 or not all(0 <= value <= 1 for value in box):
+            raise ValueError(f"{path}: media box {box} is not four canvas fractions")
+        if not item.get("src" if item["kind"] == "movie" else "id"):
+            raise ValueError(f"{path}: {item['kind']} on slide {item['slide']} has no source")
+
+
+def manifest_kinds(manifest):
+    """A stage before the finished page is 'build'; the finished page is 'slide'."""
+    return ["build" if e["stage"] < e["stages"] - 1 else "slide"
+            for e in manifest["pages"]]
+
+
+def manifest_pages(manifest, pdf_path):
+    """The classification the manifest dictates, in the classifier's shape plus
+    the Keynote slide number. Text still comes from the PDF: it is the alt text
+    and the unresolved report."""
+    with pymupdf.open(pdf_path) as doc:
+        if doc.page_count != manifest["page_count"]:
+            raise ValueError(f"{pdf_path.name} has {doc.page_count} pages, "
+                             f"the manifest says {manifest['page_count']}")
+        texts = [" ".join(page.get_text("text").split()) for page in doc]
+    kinds = manifest_kinds(manifest)
+    return [{"page": entry["page"], "kind": kind, "group": gid,
+             "slide": entry["slide"], "text": text}
+            for entry, kind, gid, text
+            in zip(manifest["pages"], kinds, group_ids(kinds), texts)]
+
+
+def manifest_media(manifest):
+    """{Keynote slide number: [media items]} in manifest order."""
+    by_slide = {}
+    for item in manifest.get("media", []):
+        by_slide.setdefault(item["slide"], []).append(item)
+    return by_slide
 
 
 # ------------------------------------------------------------------- notes
@@ -390,8 +481,33 @@ def _alt_text(page):
     return html.escape(text or f"Slide {page['page']}", quote=True)
 
 
-def _section(stages, note):
-    """One reveal slide: the group's pages stacked, then the note.
+def _style(box):
+    """Inline position for a media box, as percentages of the page stack."""
+    left, top, width, height = (f"{value * 100:.2f}%" for value in box)
+    return f"left:{left};top:{top};width:{width};height:{height}"
+
+
+def _media_html(item, fragment_index):
+    """A movie or YouTube embed over the finished page. Sources ride in
+    data-src so reveal loads them only when the slide is near; preload and
+    lazy loading keep the reading copy just as cheap until somebody plays."""
+    css_class = "media" if fragment_index is None else "media fragment"
+    order = "" if fragment_index is None else f' data-fragment-index="{fragment_index}"'
+    style = _style(item["box"])
+    if item["kind"] == "movie":
+        poster = (f' poster="{html.escape(item["poster"], quote=True)}"'
+                  if item.get("poster") else "")
+        return (f'      <video class="{css_class}" '
+                f'data-src="{html.escape(item["src"], quote=True)}"{poster}{order} '
+                f'controls preload="none" playsinline style="{style}"></video>')
+    return (f'      <iframe class="{css_class}" '
+            f'data-src="{YOUTUBE_EMBED.format(id=html.escape(item["id"], quote=True))}"'
+            f'{order} title="YouTube video" loading="lazy" allow="fullscreen" '
+            f'allowfullscreen style="{style}"></iframe>')
+
+
+def _section(stages, note, media=()):
+    """One reveal slide: the group's pages stacked, its media, then the note.
 
     The group's first page is the base layer and each later stage is a
     fragment above it, so one keypress per stage replays the build and the
@@ -399,13 +515,22 @@ def _section(stages, note):
     not the stacking order, so it shows the finished page. data-page carries
     the PDF page number of the finished page, which is what the deployed
     app's tutor reads to know which page is on screen.
+
+    Media belong to the finished page. On a slide with build stages they are
+    fragments too, sharing the last stage's index so they arrive with it:
+    reveal orders explicitly indexed fragments before unindexed ones, so once
+    one element carries an index every element in the section must.
     """
+    explicit = bool(media) and len(stages) > 1
     layers = []
     for index, page in enumerate(stages):
         css_class = "page" if index == 0 else "page fragment"
+        order = f' data-fragment-index="{index - 1}"' if explicit and index else ""
         layers.append(f'      <img class="{css_class}" '
-                      f'src="pages/p{page["page"]:03d}.webp" '
+                      f'src="pages/p{page["page"]:03d}.webp"{order} '
                       f'alt="{_alt_text(page)}">')
+    last = len(stages) - 2 if explicit else None
+    layers.extend(_media_html(item, last) for item in media)
     body = "\n".join(layers)
     rendered = (f'<p class="unresolved">{UNRESOLVED}</p>'
                 if note.strip() == UNRESOLVED else note_html(note))
@@ -418,8 +543,13 @@ def _section(stages, note):
             f"  </section>")
 
 
-def emit_deck(root, slug, title, pages, notes):
-    """Write decks/<slug>/index.html. Returns the path."""
+def emit_deck(root, slug, title, pages, notes, media=None):
+    """Write decks/<slug>/index.html. Returns the path.
+
+    `media` is manifest_media()'s mapping; pages from a manifest carry their
+    Keynote slide number, which is what it is keyed by.
+    """
+    media = media or {}
     by_group = {}
     for page in pages:
         by_group.setdefault(page["group"], []).append(page)
@@ -427,7 +557,8 @@ def emit_deck(root, slug, title, pages, notes):
     sections = []
     for gid in sorted(by_group):
         stages = sorted(by_group[gid], key=lambda p: p["page"])
-        sections.append(_section(stages, notes.get(stages[-1]["page"], "")))
+        items = media.get(stages[-1].get("slide"), ())
+        sections.append(_section(stages, notes.get(stages[-1]["page"], ""), items))
 
     path = Path(root) / "decks" / slug / "index.html"
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -456,11 +587,17 @@ def build_deck(root, pdf_path):
     title = title_for(pdf_path.name)
 
     written = render_pages(pdf_path, root / "decks" / slug / "pages")
-    _, created = save_pages(root, slug, pdf_path.name, classify_pages(pdf_path))
+    manifest = load_manifest(root, slug)
+    if manifest:
+        _, created = save_pages(root, slug, pdf_path.name,
+                                manifest_pages(manifest, pdf_path), manifest=True)
+    else:
+        _, created = save_pages(root, slug, pdf_path.name, classify_pages(pdf_path))
     payload = load_pages(root, slug)
     pages = payload["pages"]
     notes = load_notes(root, slug)
-    index = emit_deck(root, slug, title, pages, notes)
+    media = manifest_media(manifest) if manifest else {}
+    index = emit_deck(root, slug, title, pages, notes, media)
 
     kinds = [page["kind"] for page in pages]
     finals = final_pages(pages)
@@ -476,6 +613,8 @@ def build_deck(root, pdf_path):
         "notes_written": sum(1 for page in finals if page in notes),
         "unresolved": unresolved,
         "classification_created": created,
+        "manifest": manifest is not None,
+        "media": sum(len(items) for items in media.values()),
         "pages_written": len(written),
         "index": index,
     }
@@ -497,12 +636,14 @@ def main(argv=None):
         pdfs = sorted((root / "slides").glob("*.pdf"))
 
     print(f"{'deck':<52} {'pages':>5} {'slides':>6} {'frags':>5} "
-          f"{'unsure':>6} {'notes':>5}")
+          f"{'unsure':>6} {'notes':>5} {'media':>5} {'from':>8}")
     for pdf_path in pdfs:
         result = build_deck(root, pdf_path)
         print(f"{result['slug']:<52} {result['pdf_pages']:>5} "
               f"{result['final_slides']:>6} {result['fragments']:>5} "
-              f"{result['unsure']:>6} {result['notes_written']:>5}")
+              f"{result['unsure']:>6} {result['notes_written']:>5} "
+              f"{result['media']:>5} "
+              f"{'keynote' if result['manifest'] else 'text':>8}")
     return 0
 
 

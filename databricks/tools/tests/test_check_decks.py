@@ -1,6 +1,7 @@
 """The deck gate."""
 
 import json
+import re
 
 import pytest
 from PIL import Image
@@ -136,3 +137,62 @@ def test_the_exit_code_is_the_failure_count(deck):
     (root / "databricks" / "notes" / f"{slug}.md").write_text(
         "## Page 2\n\nA plain note body.\n")
     assert main(["--root", str(root), "--deck", slug]) == 0
+
+
+def _manifest_deck(tmp_path, deck, media_file=True):
+    """The two-page deck as a manifest deck: one slide of two stages, one movie."""
+    keynote = tmp_path / "databricks" / "keynote"
+    keynote.mkdir(parents=True)
+    (keynote / "08-deep-learning.json").write_text(json.dumps({
+        "slug": "08-deep-learning", "source": "Module 8 - Deep Learning.key",
+        "pdf": "Module 8 - Deep Learning.pdf", "page_count": 2,
+        "pages": [{"page": 1, "slide": 1, "stage": 0, "stages": 2},
+                  {"page": 2, "slide": 1, "stage": 1, "stages": 2}],
+        "media": [{"slide": 1, "kind": "movie", "src": "media/slide-001.mp4",
+                   "poster": None, "box": [0.1, 0.1, 0.8, 0.8]}]}))
+    pages = tmp_path / "databricks" / "pages" / "08-deep-learning.json"
+    payload = json.loads(pages.read_text())
+    payload["manifest"] = True
+    pages.write_text(json.dumps(payload))
+    index = tmp_path / "decks" / "08-deep-learning" / "index.html"
+    index.write_text(index.read_text().replace(
+        "</div><aside",
+        '<video class="media fragment" data-src="media/slide-001.mp4" '
+        'data-fragment-index="0" controls preload="none" playsinline '
+        'style="left:10.00%;top:10.00%;width:80.00%;height:80.00%"></video>'
+        "</div><aside"))
+    if media_file:
+        (index.parent / "media").mkdir()
+        (index.parent / "media" / "slide-001.mp4").write_bytes(b"mp4")
+    return tmp_path
+
+
+def test_a_manifest_deck_with_its_media_in_place_passes(tmp_path, deck):
+    failures, warnings = check_deck(_manifest_deck(tmp_path, deck), "08-deep-learning")
+    assert failures == []
+
+
+def test_a_missing_movie_file_fails(tmp_path, deck):
+    failures, _ = check_deck(_manifest_deck(tmp_path, deck, media_file=False),
+                             "08-deep-learning")
+    assert failures == ["08-deep-learning: media/slide-001.mp4 is referenced and missing"]
+
+
+def test_a_classification_not_rebuilt_from_the_manifest_fails(tmp_path, deck):
+    _manifest_deck(tmp_path, deck)
+    pages = tmp_path / "databricks" / "pages" / "08-deep-learning.json"
+    payload = json.loads(pages.read_text())
+    payload["manifest"] = False
+    pages.write_text(json.dumps(payload))
+    failures, _ = check_deck(tmp_path, "08-deep-learning")
+    assert failures == ["08-deep-learning: classification does not match the "
+                        "Keynote manifest; rebuild the deck"]
+
+
+def test_media_the_manifest_lists_must_be_in_the_deck(tmp_path, deck):
+    _manifest_deck(tmp_path, deck)
+    index = tmp_path / "decks" / "08-deep-learning" / "index.html"
+    index.write_text(re.sub(r"<video.*?</video>", "", index.read_text()))
+    failures, _ = check_deck(tmp_path, "08-deep-learning")
+    assert failures == ["08-deep-learning: 0 media element(s) in the deck, "
+                        "1 in the manifest"]

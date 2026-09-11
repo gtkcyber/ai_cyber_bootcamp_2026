@@ -10,7 +10,7 @@ import yaml
 
 REPO = Path(__file__).resolve().parents[3]
 APP_DIR = REPO / "databricks" / "deck-viewer"
-RUNTIME = {"app.py", "app.yaml", "requirements.txt", "static", "tutor"}
+RUNTIME = {"app.py", "app.yaml", "ranges.py", "requirements.txt", "static", "tutor"}
 IGNORED = {"__pycache__", ".venv", ".pytest_cache"}
 
 

@@ -19,10 +19,11 @@ import sys
 from pathlib import Path
 
 from databricks.sdk import WorkspaceClient
-from flask import Flask, Response, abort, jsonify
+from flask import Flask, abort, jsonify, request
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+from ranges import partial_response  # noqa: E402
 from tutor.files import LocalFiles  # noqa: E402
 from tutor.llm import Toolbox, Tutor  # noqa: E402
 from tutor.routes import make_blueprint  # noqa: E402
@@ -62,8 +63,9 @@ def build(volume: Path, workspace: Path, endpoint: str, dev_user: str) -> Flask:
         p = volume / "decks" / subpath
         if not p.is_file():
             abort(404)
-        return Response(p.read_bytes(),
-                        mimetype=mimetypes.guess_type(subpath)[0] or "application/octet-stream")
+        return partial_response(p.read_bytes(),
+                                mimetypes.guess_type(subpath)[0] or "application/octet-stream",
+                                request.headers.get("Range"))
 
     app.register_blueprint(
         make_blueprint(library, material, tutor, SessionStore(vol, "/tutor_state"), Throttle(),

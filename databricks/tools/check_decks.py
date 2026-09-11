@@ -26,11 +26,14 @@ from PIL import Image
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from build_decks import (PAGE_HEIGHT, PAGE_WIDTH, REPO_ROOT, UNRESOLVED,
+                         load_manifest, manifest_kinds,
                          COURSE_NAME, final_pages, load_notes, load_pages,
                          pages_path)
 from checks import prose
 
 IMG_RE = re.compile(r'<img class="page(?: fragment)?" src="([^"]+)"')
+MEDIA_RE = re.compile(r'<(?:video|iframe) class="media(?: fragment)?"')
+LOCAL_MEDIA_RE = re.compile(r'(?:data-src|poster)="(media/[^"]+)"')
 # emit_deck stamps every <section> with data-page="N", so the tag is never
 # the bare four characters "<section>" in a real build; match the opening
 # tag itself rather than any one attribute on it.
@@ -55,6 +58,14 @@ def check_deck(root, slug, ship=False):
     payload = load_pages(root, slug)
     pages = payload["pages"]
     finals = final_pages(pages)
+
+    # A manifest deck's classification is derived from the manifest, so the
+    # two disagreeing means the deck was not rebuilt after the manifest changed.
+    manifest = load_manifest(root, slug)
+    if manifest and (not payload.get("manifest")
+                     or [p["kind"] for p in pages] != manifest_kinds(manifest)):
+        failures.append(f"{where} classification does not match the Keynote "
+                        f"manifest; rebuild the deck")
 
     unsure = [page["page"] for page in pages if page["kind"] == "unsure"]
     if unsure:
@@ -92,6 +103,14 @@ def check_deck(root, slug, ship=False):
                 failures.append(
                     f"{where} {source} is {image.size[0]}x{image.size[1]}, "
                     f"expected {PAGE_WIDTH}x{PAGE_HEIGHT}")
+
+    expected_media = len(manifest.get("media", [])) if manifest else 0
+    if len(MEDIA_RE.findall(markup)) != expected_media:
+        failures.append(f"{where} {len(MEDIA_RE.findall(markup))} media element(s) "
+                        f"in the deck, {expected_media} in the manifest")
+    for source in LOCAL_MEDIA_RE.findall(markup):
+        if not (index_path.parent / source).is_file():
+            failures.append(f"{where} {source} is referenced and missing")
 
     try:
         notes = load_notes(root, slug)

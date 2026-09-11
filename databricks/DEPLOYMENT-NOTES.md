@@ -31,6 +31,24 @@ non-zero on it rather than silently skipping the cluster half every morning and
 evening of the class week. Both still start and stop the app before they fail,
 so a misdeploy cannot leave the app running overnight.
 
+## Decks: Keynote manifests and media
+
+A deck built from its Keynote file ships with `databricks/keynote/<slug>.json`: one
+entry per PDF page naming the Keynote slide and build stage it renders, plus the
+movies and YouTube embeds on the slides. `build_decks.py` groups a manifest deck's
+pages by slide (no text heuristic), rewrites `databricks/pages/<slug>.json` from the
+manifest on every build, and places each movie as a `<video>` and each YouTube link
+as an `<iframe>` over the finished page in the box Keynote drew it in. Movie files
+live in `decks/<slug>/media/` beside the page images and reach the app the same way,
+through the volume. To take a deck back to text classification, delete both the
+manifest and its `databricks/pages/` file.
+
+Browsers fetch a `<video>` in byte ranges and refuse to play or seek without 206
+replies, so `/decks/<path>` answers `Range` requests (`ranges.py`, also used by
+`local_run.py`). A movie is read from the volume once and served from the byte cache
+after that; the cache cap is 128 MB so the largest movie (43 MB) fits without
+evicting the deck it belongs to.
+
 ## Labs cluster: what the live runs established
 
 The cluster is `bootcamp-labs` from `gtk_aws/terraform/bootcamp`: single node,

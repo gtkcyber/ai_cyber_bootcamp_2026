@@ -617,6 +617,20 @@ aside.notes .cue::before,
   max-height: none;
 }
 
+/* A movie or YouTube embed sits over its slide's finished page in the box
+   Keynote drew it in. The box is percentages of the stack, so the one rule
+   serves the pixel-pinned deck and the fluid reading copy. */
+.page-stack .media {
+  position: absolute;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: #000;
+  box-shadow: none;
+  max-width: none;
+  max-height: none;
+}
+
 /* A slide whose talking points could not be inferred from the page. Loud on
    purpose: this is a hole in the course, not a style choice. */
 .unresolved {
