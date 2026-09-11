@@ -266,3 +266,7 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p34: sin_matrix misnomer and the missing closing parenthesis on the argmax line remain.
 - p39, p55: title typos Transfomers and Tozenization remain.
 - The attention restructure skips Keynote slides 36 to 38 and 79 to 80; the head's softmax-and-weighted-sum description and the generation-loop flowchart left with them.
+
+## 08-deep-learning (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- Conversion loss: the convolution example graphic on p36 and p37 (image, kernel, convolved feature) renders blank, labels only; the p37 note describes it from the old export.
+- Conversion loss: p38's two grids at left are native tables and render empty.
