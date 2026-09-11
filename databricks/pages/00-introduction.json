@@ -1,19 +1,19 @@
 {
   "slug": "00-introduction",
   "pdf": "Module 0 - Introduction.pdf",
-  "page_count": 86,
+  "page_count": 83,
   "pages": [
     {
       "page": 1,
       "kind": "slide",
       "group": 1,
-      "text": "AI Cyber Bootcamp Module 0 - Introduction"
+      "text": "AI Cyber Bootcamp Aug 1-4, 2026 y y PSK: LabourNeglectFreighter"
     },
     {
       "page": 2,
       "kind": "slide",
       "group": 2,
-      "text": "AI Cyber Bootcamp Summer@gtkcyber.com Tim@gtkcyber.com SSID: XXX PSK: XXX Email Summer@gtkcyber.com now if you would like to be added to the course slack so I can send you links and stuff Download Miniconda Install for yourself (not all users)"
+      "text": "AI Cyber Bootcamp Summer@gtkcyber.com Tim@gtkcyber.com Presented by Brian Genz, CISSP, GREM, GCIH, GNFA, GCFA y y PSK: LabourNeglectFreighter Email Summer@gtkcyber.com now if you would like to be added to the course slack so I can send you links and stuff Download Miniconda Install for yourself (not all users) https://gtkcyber.com/course-setup/ai-cyber-bootcamp"
     },
     {
       "page": 3,
@@ -37,13 +37,13 @@
       "page": 6,
       "kind": "slide",
       "group": 6,
-      "text": "GTK Cyber Training Schedule: Sat Aug 1, 2026 09:00 – 10:00 Coffee Service 10:00 Classes Begin 12:30 – 13:45 Lunch 16:00 – 16:15 Coffee Service 19:00 Classes End"
+      "text": "GTK Cyber Training Schedule: Sat Aug 1, 2026 08:00 – 9:00 Coffee Service 09:00 Classes Start 10:30 – 10:45 Coffee Service 12:00 – 13:30 Lunch Break 15:00 – 15:20 Coffee Service 18:00 Classes End"
     },
     {
       "page": 7,
       "kind": "slide",
       "group": 7,
-      "text": "GTK Cyber Training Schedule: Aug 2-4, 2025 08:00 – 09:00 Breakfast 09:00 Classes Begin 10:30 – 10:45 Coffee Service 12:30 – 13:45 Lunch (Shoreline LV2) 16:00 – 16:15 Coffee Service 18:00 Classes End"
+      "text": "GTK Cyber Training Schedule: Aug 2-4, 2025 08:00 – 9:00 Coffee Service 09:00 Classes Start 10:30 – 10:45 Coffee Service 12:00 – 13:30 Lunch Break 15:00 – 15:20 Coffee Service 18:00 Classes End"
     },
     {
       "page": 8,
@@ -55,7 +55,7 @@
       "page": 9,
       "kind": "slide",
       "group": 9,
-      "text": "GTK Cyber Course Materials • All course materials are hosted in the course GitHub repository which is located at the URL below. • Python based labs are in the notebooks/ folder. • Slides are in the slides/ folder. • There are bonus and optional materials throughout the repository. • Hosted AI labs are at the GTK Cyber AI Dojo at https:// ai.gtkcyber.com. Please create an account there before Monday. https://github.com/gtkcyber/ai_cyber_bootcamp_2026"
+      "text": "GTK Cyber Course Materials • All course materials are hosted in the course GitHub repository which is located at the URL below. • Python based labs are in the notebooks/ folder. • Slides are in the slides/ folder. • There are bonus and optional materials throughout the repository. • Hosted AI labs are at the GTK Cyber AI Dojo at https://ai.gtkcyber.com. Please create an account there before Monday. https://github.com/gtkcyber/ ai_cyber_bootcamp_2026"
     },
     {
       "page": 10,
@@ -67,13 +67,13 @@
       "page": 11,
       "kind": "slide",
       "group": 11,
-      "text": "GTK Cyber • Solution Architect Principal @ <undisclosed> • AI Solution Architect @ Booz Allen Hamilton • DoD, FDA, CDC, ONC, CMS • Computational Neuroscientist in Auditory and Music Perception • PhD in Complex Systems and Brain Sciences Summer Rankin, PhD"
+      "text": "GTK Cyber • Principal Engineer @ Wells Fargo • Lead Data Scientist at JP Morgan Chase • PMC Chair for Apache Drill • Senior Lead Data Scientist @ Booz Allen • 5 Years @ CIA • Undergraduate in Comp.Sci & Music Charles Givre, CISSP"
     },
     {
       "page": 12,
       "kind": "slide",
       "group": 12,
-      "text": "GTK Cyber • Principal Engineer @ Wells Fargo • Lead Data Scientist at JP Morgan Chase • PMC Chair for Apache Drill • Senior Lead Data Scientist @ Booz Allen • 5 Years @ CIA • Undergraduate in Comp.Sci & Music Charles Givre, CISSP"
+      "text": "GTK Cyber • Solution Architect Principal @ <undisclosed> • AI Solution Architect @ Booz Allen Hamilton • DoD, FDA, CDC, ONC, CMS • Computational Neuroscientist in Auditory and Music Perception • PhD in Complex Systems and Brain Sciences Summer Rankin, PhD"
     },
     {
       "page": 13,
@@ -85,61 +85,61 @@
       "page": 14,
       "kind": "slide",
       "group": 14,
-      "text": "GTK Cyber • Specialist Solutions Architect @ Databricks • Husband, Father, Mechanic, Data Scientist, Linguist, …. • Senior Lead Data Scientist @ Booz Allen • 20 years supporting the intelligence community. • Curtis Lambert, CISSP"
+      "text": "GTK Cyber Artificial Intelligence"
     },
     {
       "page": 15,
       "kind": "slide",
       "group": 15,
-      "text": "GTK Cyber Artificial Intelligence"
+      "text": ""
     },
     {
       "page": 16,
       "kind": "slide",
       "group": 16,
-      "text": ""
+      "text": "GTK Cyber"
     },
     {
       "page": 17,
       "kind": "slide",
       "group": 17,
-      "text": "GTK Cyber"
+      "text": "GTK Cyber How do you define artificial intelligence?"
     },
     {
       "page": 18,
       "kind": "slide",
       "group": 18,
-      "text": "GTK Cyber How do you define artificial intelligence?"
+      "text": "GTK Cyber Aritificial Intelligence is any activity that mimics human behavior. https://www.kdnuggets.com/2017/07/rapidminer-ai-machine-learning-deep- learning.html"
     },
     {
       "page": 19,
       "kind": "slide",
       "group": 19,
-      "text": "GTK Cyber Aritificial Intelligence is any activity that mimics human behavior. https://www.kdnuggets.com/2017/07/rapidminer-ai-machine-learning-deep-learning.html"
+      "text": "GTK Cyber AI != Large Language Models"
     },
     {
       "page": 20,
       "kind": "slide",
       "group": 20,
-      "text": "GTK Cyber AI != Large Language Models"
+      "text": "GTK Cyber AI > Large Language Models"
     },
     {
       "page": 21,
       "kind": "slide",
       "group": 21,
-      "text": "GTK Cyber AI > Large Language Models"
+      "text": "GTK Cyber LLMs Didn't Make Machine Learning Obsolete"
     },
     {
       "page": 22,
       "kind": "slide",
       "group": 22,
-      "text": "GTK Cyber LLMs Didn't Make Machine Learning Obsolete"
+      "text": "GTK Cyber LLMs are an excellent catalyst and force multiplier. But remember what happens when you multiply by zero."
     },
     {
       "page": 23,
       "kind": "slide",
       "group": 23,
-      "text": "GTK Cyber AI vs. ML • AI is a tool... so is machine learning. • LLMs are non-deterministic which means that they are not suitable for many use cases. • LLMs require enormous compute resources. This means they are slow and expensive to use."
+      "text": "GTK Cyber LLM vs. ML • LLMs are tools... so is machine learning. • LLMs are non-deterministic which means that they are not suitable for many use cases. • LLMs require enormous compute resources. This means they are slow and expensive to use."
     },
     {
       "page": 24,
@@ -157,7 +157,7 @@
       "page": 26,
       "kind": "slide",
       "group": 26,
-      "text": "GTK Cyber https://www.kdnuggets.com/2017/07/rapidminer-ai-machine-learning-deep-learning.html"
+      "text": "GTK Cyber https://www.kdnuggets.com/2017/07/rapidminer-ai-machine-learning-deep- learning.html"
     },
     {
       "page": 27,
@@ -193,7 +193,7 @@
       "page": 32,
       "kind": "slide",
       "group": 32,
-      "text": "GTK Cyber •Blacklists •Simple keyword matching •Naive Bayesian Classifiers •Deep Learning"
+      "text": "GTK Cyber • Blacklists • Simple keyword matching • Naive Bayesian Classifiers • Deep Learning"
     },
     {
       "page": 33,
@@ -211,7 +211,7 @@
       "page": 35,
       "kind": "slide",
       "group": 35,
-      "text": "GTK Cyber What Problem am I solving? Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Category No No Predic9on, Inference Predic9on Nothing proven Recommenders, Similar, anomalous"
+      "text": "GTK Cyber What Problem am I solving? What Data Science kind of is… 3 Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Category No No Predic9on, Inference Predic9on Nothing proven Recommenders, Similar, anomalous"
     },
     {
       "page": 36,
@@ -229,7 +229,7 @@
       "page": 38,
       "kind": "slide",
       "group": 38,
-      "text": "GTK Cyber Network-Based Intrusion Detection • Derive Features from Network Traffic Captures “pcap” at packet level or NetFlow level (tools: tshark, tcpdump, bro…) • Example Features based on header information: 2s-windowing of connections > duration, protocol, src and dat bytes, service. • Get data sets: http://www.netresec.com/?page=PcapFiles, https://maccdc.org/, http://www.westpoint.edu/crc/SitePages/ DataSets.aspx http://www.unb.ca/cic/research/datasets/,"
+      "text": "GTK Cyber Network-Based Intrusion Detection • Derive Features from Network Traffic Captures “pcap” at packet level or NetFlow level (tools: tshark, tcpdump, bro…) • Example Features based on header information: 2s-windowing of connections > duration, protocol, src and dat bytes, service. • Get data sets: http://www.netresec.com/?page=PcapFiles, https://maccdc.org/, http://www.westpoint.edu/crc/SitePages/DataSets.aspx http://www.unb.ca/cic/research/datasets/,"
     },
     {
       "page": 39,
@@ -247,7 +247,7 @@
       "page": 41,
       "kind": "slide",
       "group": 41,
-      "text": "GTK Cyber Data Science Hunting Funnel http://www.austintaylor.io/network/traffic/threat/data/science/hunting/funnel/machine/learning/domain/expertise/2017/07/11/data-science-hunting-funnel/"
+      "text": "GTK Cyber Data Science Hunting Funnel http://www.austintaylor.io/network/traffic/threat/data/science/hunting/funnel/machine/learning/domain/expertise/2017/07/11/data-science-hunting- funnel/"
     },
     {
       "page": 42,
@@ -263,7 +263,7 @@
     },
     {
       "page": 44,
-      "kind": "slide",
+      "kind": "unsure",
       "group": 44,
       "text": "GTK Cyber The Machine Learning Process"
     },
@@ -271,13 +271,13 @@
       "page": 45,
       "kind": "slide",
       "group": 45,
-      "text": "GTK Cyber Supervised Machine Learning Process Getting / Cleaning Data Preprocessing/ Feature Engineering Training Data Build Model Evaluate Model pandas ... pandas/sklearn ... sklearn Advanced Feature Selection Testing Data DATA"
+      "text": "GTK Cyber Supervised Machine Learning Process Getting / Cleaning Data Getting / Cleaning Data Preprocessing/ Feature Engineering Preprocessing/ Feature Engineering Training Data Training Data Build Model Build Model Evaluate Model Evaluate Model pandas ... pandas/sklearn ... sklearn Advanced Feature Selection Advanced Feature Selection Testing Data Testing Data DATA DATA"
     },
     {
       "page": 46,
       "kind": "slide",
       "group": 46,
-      "text": "GTK Cyber Unsupervised Machine Learning Process Getting / Cleaning Data Preprocessing/ Feature Engineering Build Model Evaluate Model pandas ... pandas/sklearn ... sklearn Advanced Feature Selection DATA"
+      "text": "GTK Cyber Unsupervised Machine Learning Process Getting / Cleaning Data Getting / Cleaning Data Preprocessing/ Feature Engineering Preprocessing/ Feature Engineering Build Model Build Model Evaluate Model Evaluate Model pandas ... pandas/sklearn ... sklearn Advanced Feature Selection Advanced Feature Selection DATA DATA"
     },
     {
       "page": 47,
@@ -325,198 +325,180 @@
       "page": 54,
       "kind": "slide",
       "group": 54,
-      "text": "GTK Cyber Feature Engineering Feature Value Color Gray Fins 7 Predator TRUE"
+      "text": "GTK Cyber Build and Tune your Model • Believe it or not, this is the easy part. • Most of this is done using libraries like scikit-learn, mllib, tensorflow, caret or keras, and many steps can be automated. • You can even do it in Splunk or Elasticsearch."
     },
     {
       "page": 55,
-      "kind": "build",
+      "kind": "slide",
       "group": 55,
-      "text": "GTK Cyber Feature Engineering Feature Value Color Gray Fins 7 Predator TRUE"
+      "text": "GTK Cyber Evaluate Performance • Use various scoring methods, or write your own to determine model performance. • Go back to step 1 and repeat! (Do not pass go, do not collect $200)"
     },
     {
       "page": 56,
       "kind": "slide",
-      "group": 55,
-      "text": "GTK Cyber Feature Engineering Feature Value Color Gray Fins 7 Predator TRUE Mammal TRUE"
+      "group": 56,
+      "text": "GTK Cyber Group Discussion Consider that you are building a system to identify fraudulent credit card transactions. In your groups, try to answer the following questions: 1. What are some features that you would want to capture? 2. What data sets will you need? 3. What legal and policy challenges might you face? 4. What other challenges you could foresee in this problem? 5. How will you define success? 6. How can you articulate the value of this model to stakeholders?"
     },
     {
       "page": 57,
       "kind": "slide",
-      "group": 56,
-      "text": "GTK Cyber Build and Tune your Model • Believe it or not, this is the easy part. • Most of this is done using libraries like scikit-learn, mllib, tensorflow, caret or keras, and many steps can be automated. • You can even do it in Splunk or Elasticsearch."
+      "group": 57,
+      "text": "GTK Cyber The Python Data Science Ecosystem"
     },
     {
       "page": 58,
       "kind": "slide",
-      "group": 57,
-      "text": "GTK Cyber Evaluate Performance • Use various scoring methods, or write your own to determine model performance. • Go back to step 1 and repeat! (Do not pass go, do not collect $200)"
+      "group": 58,
+      "text": "GTK Cyber Machine Learning Ecosystem • Data Gathering: Pandas, Drill, BeautifulSoup, PyDBAPI, PyDAL, Boto3 • Feature Extraction: Pandas, NumPy, Featuretools • Machine Learning • \"Regular\" ML: Scikit-learn (sklearn), h2o, mllib (PySpark) • Deep Learning: Tensorflow, Keras, Theano, Caffe, PyTorch • Visualization: Matplotlib, Seaborn, Yellowbrick, LIME, ggplot, plot.ly,"
     },
     {
       "page": 59,
       "kind": "slide",
-      "group": 58,
-      "text": "GTK Cyber Group Discussion Consider that you are building a system to identify fraudulent credit card transactions. In your groups, try to answer the following questions: 1. What are some features that you would want to capture? 2. What data sets will you need? 3. What legal and policy challenges might you face? 4. What other challenges you could foresee in this problem? 5. How will you define success? 6. How can you articulate the value of this model to stakeholders?"
+      "group": 59,
+      "text": "GTK Cyber Recommended Reading"
     },
     {
       "page": 60,
       "kind": "slide",
-      "group": 59,
-      "text": "GTK Cyber The Python Data Science Ecosystem"
+      "group": 60,
+      "text": "GTK Cyber Recommended Reading http://www.deeplearningbook.org/"
     },
     {
       "page": 61,
       "kind": "slide",
-      "group": 60,
-      "text": "GTK Cyber Machine Learning Ecosystem • Data Gathering: Pandas, Drill, BeautifulSoup, PyDBAPI, PyDAL, Boto3 • Feature Extraction: Pandas, NumPy, Featuretools • Machine Learning • \"Regular\" ML: Scikit-learn (sklearn), h2o, mllib (PySpark) • Deep Learning: Tensorflow, Keras, Theano, Caffe, PyTorch • Visualization: Matplotlib, Seaborn, Yellowbrick, LIME, ggplot, plot.ly,"
+      "group": 61,
+      "text": "GTK Cyber"
     },
     {
       "page": 62,
       "kind": "slide",
-      "group": 61,
-      "text": "GTK Cyber Recommended Reading"
+      "group": 62,
+      "text": "GTK Cyber"
     },
     {
       "page": 63,
-      "kind": "slide",
-      "group": 62,
-      "text": "GTK Cyber Recommended Reading http://www.deeplearningbook.org/"
-    },
-    {
-      "page": 64,
       "kind": "slide",
       "group": 63,
       "text": "GTK Cyber"
     },
     {
-      "page": 65,
+      "page": 64,
       "kind": "slide",
       "group": 64,
-      "text": "GTK Cyber"
+      "text": "GTK Cyber Setting Up Your Environment"
+    },
+    {
+      "page": 65,
+      "kind": "slide",
+      "group": 65,
+      "text": "GTK Cyber Conda Download Miniconda Install for yourself (not all users)"
     },
     {
       "page": 66,
       "kind": "slide",
-      "group": 65,
-      "text": "GTK Cyber"
+      "group": 66,
+      "text": "GTK Cyber Download Course Repository https://github.com/gtkcyber/ai_cyber_bootcamp_2026 Download code repo (either as a git pull or just grab the .zip file)."
     },
     {
       "page": 67,
-      "kind": "slide",
-      "group": 66,
-      "text": "GTK Cyber Setting Up Your Environment"
+      "kind": "unsure",
+      "group": 67,
+      "text": "Setup & Installation of PyCharm"
     },
     {
       "page": 68,
       "kind": "slide",
-      "group": 67,
-      "text": "GTK Cyber Download Miniconda Install for yourself (not all users)"
+      "group": 68,
+      "text": "GTK Cyber Setup and Installation • Install JetBrains PyCharm • Install Conda • Create environment for the course • Initialize the environment"
     },
     {
       "page": 69,
       "kind": "slide",
-      "group": 68,
-      "text": "GTK Cyber Download Course Repository https://github.com/gtkcyber/ai_cyber_bootcamp_2026 Download code repo (either as a git pull or just grab the .zip file)."
+      "group": 69,
+      "text": "GTK Cyber Download/Install PyCharm and Conda PyCharm Professional: • https://www.jetbrains.com/pycharm/ • Use the 30 Day Trial MiniConda: https://www.anaconda.com/download/success Detailed instructions: • https://gtkcyber.com/course-setup/ai-cyber-bootcamp/"
     },
     {
       "page": 70,
       "kind": "slide",
-      "group": 69,
-      "text": "Setup & Installation of PyCharm"
+      "group": 70,
+      "text": "GTK Cyber Conda: create environment • Download the course repository • https://github.com/gtkcyber/ai_cyber_bootcamp_2026 • Open repository project in PyCharm • Open the terminal window in PyCharm • You will create a python environment from the environment-1-6.yml file • Run the following to create a conda environment based on the .yml file (base)/…/ai_cyber_bootcamp_2026$ conda env create -f environment-1-6.yml • This created a conda environment called gtk-bh-ai-1-6"
     },
     {
       "page": 71,
       "kind": "slide",
-      "group": 70,
-      "text": "GTK Cyber Setup and Installation ●Install JetBrains PyCharm ●Install Conda ●Create environment for the course ●Initialize the environment"
+      "group": 71,
+      "text": "GTK Cyber Conda: environment.yml name: gtk-bh-ai-1-6 channels: - defaults - conda-forge dependencies: - pip - python=3.13 - jupyter - pandas - matplotlib - streamlit - seaborn - scikit-learn …"
     },
     {
       "page": 72,
       "kind": "slide",
-      "group": 71,
-      "text": "GTK Cyber Download/Install PyCharm and Conda PyCharm Professional: ●https://www.jetbrains.com/pycharm/ ●Use the 30 Day Trial MiniConda: ●https://www.anaconda.com/download/success Detailed instructions: ●https://gtkcyber.com/course-setup/ai-cyber-bootcamp/"
+      "group": 72,
+      "text": "Setup and Installation of Python and Jupyter Notebooks"
     },
     {
       "page": 73,
       "kind": "slide",
-      "group": 72,
-      "text": "GTK Cyber Conda: create environment ●Download the course repository ●https://github.com/gtkcyber/ai_cyber_bootcamp_2026 ●Open repository project in PyCharm ●Open the terminal window in PyCharm ●You will create a python environment from the environment-1-6.yml file ●Run the following to create a conda environment based on the .yml file (base)/…/ai_cyber_bootcamp_2026$ conda env create -f environment-1-6.yml ●This created a conda environment called gtk-bh-ai-1-6"
+      "group": 73,
+      "text": "GTK Cyber Conda: activate environment in PyCharm • From the Setup Window select Python > Interpreter - Then click Add Interpreter and select Add Local Interpreter…"
     },
     {
       "page": 74,
       "kind": "slide",
-      "group": 73,
-      "text": "GTK Cyber Conda: environment.yml name: gtk-bh-ai-1-6 channels: - defaults - conda-forge dependencies: - pip - python=3.13 - jupyter - pandas - matplotlib - streamlit - seaborn - scikit-learn …"
+      "group": 74,
+      "text": "GTK Cyber Conda: activate environment in PyCharm • Select existing • Type: Conda • gtk-bh-ai-1-6"
     },
     {
       "page": 75,
       "kind": "slide",
-      "group": 74,
-      "text": "Setup and Installation of Python and Jupyter Notebooks"
+      "group": 75,
+      "text": "GTK Cyber Conda: activate environment in PyCharm • When you open a new terminal window in PyCharm you will now see the the selected environment shown on the command line. (gtk-bh-ai-1-6)/…/ai_cyber_bootcamp_2026$ Note: The name of the current environment is located in the lower right hand corner of PyCharm Note: The name of the current environment is located in the lower right hand corner of PyCharm"
     },
     {
       "page": 76,
       "kind": "slide",
-      "group": 75,
-      "text": "GTK Cyber Conda: activate environment in PyCharm ●From the Setup Window select Python > Interpreter - Then click Add Interpreter and select Add Local Interpreter…"
+      "group": 76,
+      "text": "GTK Cyber Conda: list environments • Now the environment for this window is gtk-python which contains Python 3 along with some third party libraries we will explore in this course In addition to the selector in PyCharm settings you can also list the Conda environments from the terminal. (base)/…/ai_cyber_bootcamp_2026$ conda env list # conda environments: # base * /Users/summer/opt/anaconda3 env_py3 /Users/summer/opt/anaconda3/envs/env_py3 gtk-bh-ai /Users/summer/opt/anaconda3/envs/gtk-bh-ai nlpBase /Users/summer/opt/anaconda3/envs/nlpBase pymc_env /Users/summer/opt/anaconda3/envs/pymc_env"
     },
     {
       "page": 77,
       "kind": "slide",
-      "group": 76,
-      "text": "GTK Cyber Conda: activate environment in PyCharm ●Select existing ●Type: Conda ●gtk-bh-ai-1-6"
+      "group": 77,
+      "text": "GTK Cyber Conda: Switching Environments Clicking the name of the current environment in the lower right corner will open a modal listing all the environments added to this project and will allow you to switch between them."
     },
     {
       "page": 78,
       "kind": "slide",
-      "group": 77,
-      "text": "GTK Cyber Conda: activate environment in PyCharm ●When you open a new terminal window in PyCharm you will now see the the selected environment shown on the command line. (gtk-bh-ai-1-6)/…/ai_cyber_bootcamp_2026$ Note: The name of the current environment is located in the lower right hand corner of PyCharm"
+      "group": 78,
+      "text": "GTK Cyber Conda: deactivate environment Now the environment is base deactivate the environment (base)/…/ads_blackhat_2025$ (gtk-bh-ai)/…/ai_cyber_bootcamp_2026$ conda deactivate"
     },
     {
       "page": 79,
       "kind": "slide",
-      "group": 78,
-      "text": "GTK Cyber Conda: list environments ●Now the environment for this window is gtk-python which contains Python 3 along with some third party libraries we will explore in this course In addition to the selector in PyCharm settings you can also list the Conda environments from the terminal. (base)/…/ai_cyber_bootcamp_2026$ conda env list # conda environments: # base * /Users/summer/opt/anaconda3 env_py3 /Users/summer/opt/anaconda3/envs/env_py3 gtk-bh-ai /Users/summer/opt/anaconda3/envs/gtk-bh-ai nlpBase /Users/summer/opt/anaconda3/envs/nlpBase pymc_env /Users/summer/opt/anaconda3/envs/pymc_env"
+      "group": 79,
+      "text": "GTK Cyber Using Jupyter Notebooks"
     },
     {
       "page": 80,
       "kind": "slide",
-      "group": 79,
-      "text": "GTK Cyber Conda: Switching Environments Clicking the name of the current environment in the lower right corner will open a modal listing all the environments added to this project and will allow you to switch between them."
+      "group": 80,
+      "text": "GTK Cyber Using Jupyter Notebook Open a notebook"
     },
     {
       "page": 81,
       "kind": "slide",
-      "group": 80,
-      "text": "GTK Cyber Conda: deactivate environment Now the environment is base deactivate the environment (base)/…/ads_blackhat_2025$ (gtk-bh-ai)/…/ai_cyber_bootcamp_2026$ conda deactivate"
+      "group": 81,
+      "text": "GTK Cyber Using Jupyter Notebook Run a cell O R"
     },
     {
       "page": 82,
       "kind": "slide",
-      "group": 81,
-      "text": "GTK Cyber Using Jupyter Notebooks"
+      "group": 82,
+      "text": "GTK Cyber Questions?"
     },
     {
       "page": 83,
       "kind": "slide",
-      "group": 82,
-      "text": "GTK Cyber Using Jupyter Notebook Open a notebook"
-    },
-    {
-      "page": 84,
-      "kind": "slide",
       "group": 83,
-      "text": "GTK Cyber Using Jupyter Notebook Run a cell OR"
-    },
-    {
-      "page": 85,
-      "kind": "slide",
-      "group": 84,
-      "text": "GTK Cyber Questions?"
-    },
-    {
-      "page": 86,
-      "kind": "slide",
-      "group": 85,
       "text": "GTK Cyber Let's Get Started!"
     }
   ]

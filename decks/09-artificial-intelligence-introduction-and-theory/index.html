@@ -17,7 +17,7 @@
 <div class="slides">
   <section data-page="1">
     <div class="page-stack">
-      <img class="page" src="pages/p001.webp" alt="Artificial Intelligence: The Part You&#x27;ve All Been Waiting For Charles S. Givre CISSP">
+      <img class="page" src="pages/p001.webp" alt="Artificial Intelligence - LLM flavor: The Part You&#x27;ve All Been Waiting For Charles S. Givre CISSP">
     </div>
     <aside class="notes">
       <p>Module 9 opens the artificial intelligence half of the bootcamp with the theory behind large language models: how text becomes tokens and embeddings, how a transformer produces output one token at a time, and why a generative model is non-deterministic and can return confident, wrong answers.</p>
@@ -76,7 +76,7 @@
       <img class="page" src="pages/p008.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>The Emperor Palpatine meme closes the list: the five properties are real, and they are also what the hype around AI is built on.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
   <section data-page="9">
@@ -92,7 +92,7 @@
       <img class="page" src="pages/p010.webp" alt="GTK Cyber Outline • Part 1: Introduction and Theory: How Generative Models Work • Part 2: Prompt Engineering: How to get the most out of LLMs • Part 3: AI Architecture: Components ">
     </div>
     <aside class="notes">
-      <p>The AI portion of the bootcamp has six parts. Part 1, Introduction and Theory: how generative models work. Part 2, Prompt Engineering: how to get the most out of a large language model. Part 3, AI Architecture: the components of an AI application. Part 4, Agentic AI: building AI tools that do work, meaning models that call tools and take actions. Part 5, Red Teaming: how to attack AI applications. Part 6: defending them.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
   <section data-page="11">
@@ -113,7 +113,7 @@
   </section>
   <section data-page="13">
     <div class="page-stack">
-      <img class="page" src="pages/p013.webp" alt="GTK Cyber What LLMs Are Out There? In addition to ChatGPT, there are many other OSS and commercial LLMs available: • Gemeni by Google (https://gemeni.google.com/) • LLaMA by Meta (">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber What LLMs Are Out There? In addition to ChatGPT, there are many other OSS and commercial LLMs available: • Gemini by Google (https://gemini.google.com/) • LLaMA by Meta (">
     </div>
     <aside class="notes">
       <p>ChatGPT is one product among many. Commercial models: Gemini by Google and Claude by Anthropic. Models with openly downloadable weights: LLaMA by Meta, and the Mistral family from Mistral AI in Paris. OSS on the slide stands for open source software. Hugging Face is a company whose hub hosts models and training datasets from many publishers; models in this module are loaded from it by name. The two links at the foot of the slide are a curated list of open language models and an article on the licenses they ship under, which range from permissive to restricted commercial use.</p>
@@ -130,7 +130,7 @@
   </section>
   <section data-page="15">
     <div class="page-stack">
-      <img class="page" src="pages/p015.webp" alt="GTK Cyber What Can We Do with Language Models?">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber What Can We Do with Language Models? • 1.">
     </div>
     <aside class="notes">
       <p>A language model takes unstructured text as input and can return three kinds of output. Text output: generated text, which is what a chat model returns. Embeddings: a vector of numbers representing the input, used to compare texts with each other. Classification: a label identifying which category the input belongs to.</p>
@@ -271,7 +271,7 @@
   </section>
   <section data-page="32">
     <div class="page-stack">
-      <img class="page" src="pages/p032.webp" alt="GTK Cyber Classifying Unlabeled Data • You can also use embeddings to classify unlabeled data. • To do so: you describe the labels, and then create embeddings for the those descrip">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber Grouping Unlabeled Data • You can also use embeddings to label/group unlabeled data. • To do so: you describe the labels, and then create embeddings for the those descrip">
     </div>
     <aside class="notes">
       <p>Unlabeled text can be classified from a description of each label. Write a short sentence for each candidate label, here A negative review for 0 and A positive review for 1. Pass the descriptions through the embedding model to get one label embedding each. Pass the document, Best movie ever!, through the same model to get its document embedding. The label whose embedding is most similar to the document's is the prediction. Nothing is trained; the method rests on the embedding model placing a positive review and a sentence describing a positive review near each other. This is zero-shot classification, zero-shot because the model has seen no examples of the classes.</p>
@@ -279,7 +279,7 @@
   </section>
   <section data-page="33">
     <div class="page-stack">
-      <img class="page" src="pages/p033.webp" alt="GTK Cyber Classifying Unlabeled Data • You can also use embeddings to classify unlabeled data. • To do so: you describe the labels, and then create embeddings for the those descrip">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber Grouping Unlabeled Data • You can also use embeddings to classify unlabeled data. • To do so: you describe the labels, and then create embeddings for the those descriptio">
     </div>
     <aside class="notes">
       <p>The comparison is geometric. Each embedding is a vector from the origin, and cosine similarity measures the angle between two of them: the smaller the angle, the higher the similarity. In the plot, the angle θ1 between Best movie ever! and A positive movie review is smaller than the angle θ2 between it and A negative movie review, so the document is assigned the positive label. The plot is drawn in two dimensions for legibility; the real vectors have hundreds of dimensions, and the angle is measured across all of them at once.</p>
@@ -287,10 +287,10 @@
   </section>
   <section data-page="34">
     <div class="page-stack">
-      <img class="page" src="pages/p034.webp" alt="GTK Cyber Classifying Unlabeled Data # Imports omitted from sklearn.metrics.pairwise import cosine_similarity # Create embeddings for labels label_embeddings = model.encode([&quot;A pos">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber Grouping Unlabeled Data # Imports omitted from sklearn.metrics.pairwise import cosine_similarity # Create embeddings for groups/labels label_embeddings = model.encode([&quot;A">
     </div>
     <aside class="notes">
-      <p>Three lines do the classification. model.encode on the list of two label descriptions returns two label embeddings. cosine_similarity from scikit-learn takes the matrix of document embeddings and the matrix of label embeddings and returns a matrix with one row per document and one column per label, each cell the cosine similarity between that document and that label. np.argmax along axis one returns, for each row, the index of the column with the highest value. The index refers to the order of the label list: zero is A positive review and one is A negative review, the reverse of the diagram's numbering, so the mapping from index to label has to be read off the list that was encoded. The variable is named sin_matrix although it holds cosine similarities, and the argmax line is missing its closing parenthesis.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
   <section data-page="35">
@@ -303,556 +303,529 @@
   </section>
   <section data-page="36">
     <div class="page-stack">
-      <img class="page" src="pages/p036.webp" alt="GTK Cyber Pay ATTENTION!">
-    </div>
-    <aside class="notes">
-      <p>Section divider for attention, the mechanism that lets a model weigh which parts of its input matter for each part of its output.</p>
-    </aside>
-  </section>
-  <section data-page="37">
-    <div class="page-stack">
-      <img class="page" src="pages/p037.webp" alt="GTK Cyber Key Concept: Attention! • In 2014 the concept of attention was introduced which made a dramatic improvement in word2vec performance. • Attention allows a model to focus o">
-    </div>
-    <aside class="notes">
-      <p>Attention lets a model weight the parts of its input by how relevant each is to the position being processed. It was introduced in 2014 by Dzmitry Bahdanau, Kyunghyun Cho and Yoshua Bengio for neural machine translation, where the models of the time were recurrent neural networks. An RNN reads a sequence one token at a time and carries a hidden state forward; a translation model encoded the whole source sentence into that state, and a second RNN decoded from it. Attention let the decoder look back at every encoder position and take a mix of them weighted by relevance to the word being produced. Before attention the decoder had only the single compressed state to work from.</p>
-<p>The slide credits the improvement to word2vec performance. The gain was in the translation quality of RNN encoder-decoder models; word vectors were their inputs. The diagram is the transformer form of the same encoder and decoder pair, translating I love llamas into Dutch, Ik hou van lama's.</p>
-    </aside>
-  </section>
-  <section data-page="38">
-    <div class="page-stack">
-      <img class="page" src="pages/p038.webp" alt="GTK Cyber Translation with Word2Vec • Word2Vec creates static downloadable representations of words. • The previously mentioned RNNs are used to encode and decode text. • Each step">
-    </div>
-    <aside class="notes">
-      <p>Word2Vec supplies static vectors and a pair of RNNs does the translating. Static means one vector per word, fixed after training and downloadable as a file; the vector for bank is the same in river bank and bank account. The encoder RNN reads the source tokens I love llamas and the decoder RNN produces Dutch tokens one at a time.</p>
-<p>Each step is autoregressive: the token produced at one step is appended to the input for the next. Step one takes the source and produces Ik; step two takes the source plus Ik and produces hou; step three adds hou and produces van; step four adds van and produces lama's. Generation stops when the model emits an end-of-sequence token. The same loop, with a transformer in place of the RNNs, is how the GPT models produce text.</p>
-    </aside>
-  </section>
-  <section data-page="39">
-    <div class="page-stack">
-      <img class="page" src="pages/p039.webp" alt="GTK Cyber Transformers">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber Transformer s">
     </div>
     <aside class="notes">
       <p>Section divider. The picture is the film robot; the transformer that follows is a neural network architecture.</p>
     </aside>
   </section>
-  <section data-page="40">
+  <section data-page="37">
     <div class="page-stack">
-      <img class="page" src="pages/p040.webp" alt="GTK Cyber Transformers • In 2017, researchers at Google published a paper Attention is All You Need (https://arxiv.org/abs/1706.03762) which proposed a new architecture paradigm fo">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber Transformers • In 2017, researchers at Google published a paper Attention is All You Need (https://arxiv.org/abs/1706.03762) which proposed a new architecture paradigm fo">
     </div>
     <aside class="notes">
       <p>The transformer is an encoder-decoder architecture built on attention alone. It was proposed in Attention Is All You Need, published in 2017 by Ashish Vaswani and seven colleagues at Google. It removed the recurrent networks: each layer computes attention between every position and every other position in one matrix operation, so no hidden state is carried from token to token. Every token of a sequence is processed at the same time, which is what makes transformers trainable in parallel across GPUs, and that parallelism is what made training runs of billions of parameters feasible. GPT stands for Generative Pretrained Transformer; every GPT model is this architecture, decoder half only.</p>
     </aside>
   </section>
-  <section data-page="41">
+  <section data-page="38">
     <div class="page-stack">
-      <img class="page" src="pages/p041.webp" alt="GTK Cyber Key Concept: Transformers">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Key Concept: Transformers">
     </div>
     <aside class="notes">
       <p>The architecture has two stacks. The encoder stack takes the input tokens I love llamas and produces one vector per token that reflects the whole input. The decoder stack takes the encoder's vectors and the tokens generated so far and produces the next output token, building the Dutch Ik hou van lama's one token at a time. Each stack is several identical layers, drawn as the stacked rectangles, with the output of one layer feeding the next. BERT keeps only the encoder stack and GPT keeps only the decoder stack; the original model kept both because it was built for translation, where an input sequence has to be read in full before an output sequence is written.</p>
     </aside>
   </section>
-  <section data-page="42">
+  <section data-page="39">
     <div class="page-stack">
-      <img class="page" src="pages/p042.webp" alt="GTK Cyber Transfomers: Encoding">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Transfomers: Encoding">
     </div>
     <aside class="notes">
       <p>One encoder layer has two sublayers. Each input token arrives as an embedding, the grey vectors. Self-attention updates every token's vector with a mix of all the tokens' vectors, weighted by how relevant each other token is to this one, and produces the yellow vectors. A feedforward neural network then transforms each position's vector separately, producing the blue vectors that leave the layer. The output is one vector per input token, the same count as went in, and each now depends on the tokens around it: llamas after I love carries different values than llamas alone. The slide title is missing an r in Transformers.</p>
     </aside>
   </section>
-  <section data-page="43">
+  <section data-page="40">
     <div class="page-stack">
-      <img class="page" src="pages/p043.webp" alt="GTK Cyber Decoding with Transformers">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber Decoding with Transformers">
     </div>
     <aside class="notes">
       <p>The decoder layer adds a third sublayer and a restriction. Its input is the words generated so far, I and love, as embeddings. Masked self-attention is self-attention in which each position may attend only to positions before it, so the model cannot use tokens it has not yet produced; the mask enforces at training time the condition that holds at generation time. Encoder attention, also called cross-attention, lets each decoder position attend to the encoder's output vectors, the blue column on the left, which is how the source sentence reaches the decoder. The feedforward network transforms the result, and the final vector is turned into the next generated word, llamas.</p>
     </aside>
   </section>
-  <section data-page="44">
+  <section data-page="41">
     <div class="page-stack">
-      <img class="page" src="pages/p044.webp" alt="GTK Cyber Introducing BERT • BERT stands for Bidirectional Encoder Representations from Transformers. • BERT is an encoder-only architecture which is used for representing language">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Introducing BERT • BERT stands for Bidirectional Encoder Representations from Transformers. • BERT is an encoder-only architecture which is used for representing language">
     </div>
     <aside class="notes">
       <p>BERT is an encoder-only transformer that produces representations of text. The name stands for Bidirectional Encoder Representations from Transformers; it was published by Jacob Devlin and colleagues at Google in 2018. Bidirectional means each token attends to the tokens on both sides of it, which the encoder allows and the masked decoder does not, so BERT's vector for a word reflects its whole sentence. The diagram is BERT base: twelve encoder layers, taking the input [CLS] I love llamas and returning a contextualized embedding per token.</p>
 <p>[CLS] is a token added at the start of every input. Its output vector is trained to stand for the whole input, so a classifier fine-tuned on BERT reads that one vector. Models of this kind are called representation models: their output is a vector, and something else, a classifier or a similarity comparison, turns the vector into an answer.</p>
     </aside>
   </section>
-  <section data-page="45">
+  <section data-page="42">
     <div class="page-stack">
-      <img class="page" src="pages/p045.webp" alt="GTK Cyber BERT • BERT based models are very effective for transfer learning. • Training BERT based models is complex and costly, however there are many pre-trained models which can">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber BERT • BERT based models are very effective for transfer learning. • Training BERT based models is complex and costly, however there are many pre-trained models which can">
     </div>
     <aside class="notes">
       <p>BERT is built for transfer learning in two stages. Stage one, pretraining: the model is trained on a large unlabeled corpus, Wikipedia in the diagram, with the objective of masked language modeling, in which some tokens of each input are hidden and the model must predict them from the tokens around them. No labels are needed, because the text supplies its own answers. This stage is the costly one; the BERT paper reports four days on sixteen TPU chips for the base model.</p>
 <p>Stage two, fine-tuning: a pretrained checkpoint is downloaded and trained further on a small labeled set for one task, with a task-specific output layer. The downstream tasks named are classification, named entity recognition, which marks which tokens are people, places and organizations, and paraphrase identification, which decides whether two sentences mean the same thing. The BERT paper reports fine-tuning in at most an hour on a single TPU, which is why the shared pretrained checkpoints are the starting point. Worksheet 9.6 repeats the two stages at small scale: pretrain a mini-GPT on general English, then fine-tune it on CVE descriptions.</p>
     </aside>
   </section>
-  <section data-page="46">
+  <section data-page="43">
     <div class="page-stack">
-      <img class="page" src="pages/p046.webp" alt="GTK Cyber What is Generative Artificial Intelligence? • Generative Artificial Intelligence (GenAI) is a relatively new form of artificial intelligence which generates output such a">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber What is Generative Artificial Intelligence? • Generative Artificial Intelligence (GenAI) is a relatively new form of artificial intelligence which generates output such a">
     </div>
     <aside class="notes">
       <p>Generative AI produces content as its output. A classifier from the earlier modules returns a class membership and a regression model returns a number; a generative model returns text, an image, audio or video. Its input is a prompt, the text describing what is wanted. Internally the model still computes probabilities, one distribution over its vocabulary for the next token, and the generated text is the result of picking a token from that distribution and repeating until the response is complete. Multimodal generative models take and produce images, audio and video in addition to text.</p>
     </aside>
   </section>
-  <section data-page="47">
+  <section data-page="44">
     <div class="page-stack">
-      <img class="page" src="pages/p047.webp" alt="GTK Cyber Generative Models • Also in 2018, decoder only models were developed for generative tasks. • GPT--Generative Pretrained Tranformers were born. • GPT-1, trained on 7k book">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber Generative Models • Also in 2018, decoder only models were developed for generative tasks. • GPT--Generative Pretrained Tranformers were born. • GPT-1, trained on 7k book">
     </div>
     <aside class="notes">
       <p>Decoder-only transformers, introduced in 2018, are the generative branch. GPT stands for Generative Pretrained Transformer, and GPT-1 was published by Alec Radford and colleagues at OpenAI in June 2018. With no encoder, the prompt itself is fed to the decoder stack, masked self-attention relates each prompt token to the ones before it, and the final vector is decoded into the next word; the diagram shows GPT-1's twelve decoder layers taking I love and producing llamas. GPT-1 had 117 million parameters and was trained on BooksCorpus, about seven thousand unpublished books; Common Crawl, the web scrape named on the slide, entered the series with GPT-3. GPT-2, 2019, had 1.5 billion parameters. GPT-3, 2020, had 175 billion; the 1.75 billion on the slide drops two zeros, and the How Large Are They slide has the right figure.</p>
     </aside>
   </section>
-  <section data-page="48">
+  <section data-page="45">
     <div class="page-stack">
-      <img class="page" src="pages/p048.webp" alt="GTK Cyber How Large Are They? • GPT-3, released in 2020 has 175 billion parameters and is approximately 800 GB in size. Trained on ~500 billion tokens. • Using 1024 GPUs, GPT-3 was">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber How Large Are They? • GPT-3, released in 2020 has 175 billion parameters and is approximately 800 GB in size. Trained on ~500 billion tokens. • Using 1024 GPUs, GPT-3 was">
     </div>
     <aside class="notes">
       <p>The sizes and costs are estimates from outside the labs, since OpenAI has not published them. GPT-3, released in 2020: 175 billion parameters, roughly 800 GB of weights, trained on about 500 billion tokens, a run estimated at 34 days on 1024 GPUs and about five million dollars. GPT-4, released in 2023: 1.8 trillion parameters in 120 layers, trained on 13 trillion tokens over about 55 days at a cost of 63 million dollars, figures from a 2023 report by the analyst firm SemiAnalysis that OpenAI has not confirmed. Pretraining at this scale costs tens of millions of dollars, so applications are built on models that are already trained, reached through an API or downloaded as weights.</p>
     </aside>
   </section>
-  <section data-page="49">
+  <section data-page="46">
     <div class="page-stack">
-      <img class="page" src="pages/p049.webp" alt="GTK Cyber Key Concept: Context Window • The context window is the maximum number of tokens the model can process.">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber Key Concept: Context Window • The context window is the maximum number of tokens the model can process.">
     </div>
     <aside class="notes">
       <p>The context window is the maximum number of tokens the model can hold at once, and it counts the prompt and the generated output together. The diagram's model has a maximum context length of 512. The prompt Tell me something about llamas. is six tokens; the two tokens already generated, Llamas and are, bring the current length to eight; the model produces one more token, domesticated, from that context. The new token is appended to the input, the length becomes nine, and the next pass begins. Every generated token uses one slot in the window, so a long answer to a long prompt can run out of room, at which point the model stops or the application drops the oldest tokens. The limit exists because attention compares every token with every other token, so the work for a pass grows with the square of the context length.</p>
     </aside>
   </section>
-  <section data-page="50">
+  <section data-page="47">
     <div class="page-stack">
-      <img class="page" src="pages/p050.webp" alt="GTK Cyber What Models Are Out There?">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber What Models Are Out There?">
     </div>
     <aside class="notes">
       <p>The timeline covers models released from late 2022 to early 2024, split by whether the weights can be downloaded. Proprietary models, available only through their owner's API: ChatGPT and GPT-4 from OpenAI; Bard, PaLM 2 and Gemini from Google; Claude 2 from Anthropic; Grok from xAI. Open models, whose weights are published: Llama and Llama 2 from Meta, MPT from MosaicML, Falcon from the Technology Innovation Institute in Abu Dhabi, Qwen from Alibaba, Mistral and Mixtral from Mistral AI, Yi from 01.AI, DeciLM from Deci, Phi-2 from Microsoft, and Command R from Cohere. The numbers under the open models are parameter counts in billions, and a model released in several sizes lists each. Mixtral's 8 × 7B is a mixture of experts: eight networks of seven billion parameters, of which two are consulted for each token. The chart stops in early 2024 and predates the models on the pricing slide in this module.</p>
     </aside>
   </section>
-  <section data-page="51">
+  <section data-page="48">
     <div class="page-stack">
-      <img class="page" src="pages/p051.webp" alt="GTK Cyber Deployment Models There are three ways of deploying an LLM: • API calls to shared model: OpenAI uses this approach. • API calls to forked model: More enterprise-oriented ">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber Deployment Models There are three ways of deploying an LLM: • API calls to shared model: OpenAI uses this approach. • API calls to forked model: More enterprise-oriented ">
     </div>
     <aside class="notes">
       <p>A language model reaches an application in one of three ways. API calls to a shared model: one copy of the model serves every customer behind a public API, prompts leave your network, and usage is metered per token; OpenAI's API works this way. API calls to a forked model: a dedicated copy of the model is deployed for one customer, in that customer's cloud account or on the vendor's isolated hardware, so prompts and outputs stay inside the customer's boundary while access is still an API and still metered; enterprise offerings take this form. Self-hosted: open weights run on hardware you control, so nothing leaves your network and there is no per-token bill; the cost is the GPUs and the people to run them.</p>
     </aside>
   </section>
-  <section data-page="52">
+  <section data-page="49">
     <div class="page-stack">
-      <img class="page" src="pages/p052.webp" alt="GTK Cyber The Next Labs • The next few labs will walk you through the process of building a basic LLM. • The goal is for you to understand the mechanics of how these pieces work an">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber The Next Labs • The next few labs will walk you through the process of building a basic LLM. • The goal is for you to understand the mechanics of how these pieces work an">
     </div>
     <aside class="notes">
       <p>Worksheets 9.3 through 9.6 build a small language model from parts. 9.3 is a PyTorch primer; 9.4 builds a tokenizer, an embedding table and a first next-token model; 9.5 adds attention and assembles a GPT; 9.6 pretrains it, fine-tunes it and then poisons it. The model that results is tiny and the point is the mechanics: each piece is written by hand so that the diagrams in this deck correspond to code you have run.</p>
     </aside>
   </section>
-  <section data-page="53">
+  <section data-page="50">
     <div class="page-stack">
-      <img class="page" src="pages/p053.webp" alt="GTK Cyber A Note About GPUs • To do any &quot;real&quot; work with LLMs you will reach a point very quickly where you need a GPU to process the data in a timely manner. • As you will see, ma">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber A Note About GPUs • To do any &quot;real&quot; work with LLMs you will reach a point very quickly where you need a GPU to process the data in a timely manner. • As you will see, ma">
     </div>
     <aside class="notes">
       <p>A forward pass through a transformer is a sequence of matrix multiplications, and a GPU is built to run them. A CPU has a handful of fast cores; a GPU has thousands of slower cores that execute the same multiply-and-add across a whole matrix at once, which is the shape of the work in attention, the feedforward layers and the embedding lookups. Training and any inference beyond toy scale therefore need one. Frameworks target NVIDIA first because their GPU support is built on CUDA, NVIDIA's programming platform; support for other vendors exists in PyTorch but lags. The second bullet on the slide reads "which GPUs can execute much more effectively on a GPU"; the second "on a GPU" is a leftover.</p>
     </aside>
   </section>
-  <section data-page="54">
+  <section data-page="51">
     <div class="page-stack">
-      <img class="page" src="pages/p054.webp" alt="GTK Cyber Tokens">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber Tokens">
     </div>
     <aside class="notes">
       <p>Section divider for tokens: the units the model reads, writes and bills by.</p>
     </aside>
   </section>
-  <section data-page="55">
+  <section data-page="52">
     <div class="page-stack">
-      <img class="page" src="pages/p055.webp" alt="GTK Cyber Key Concept: Tokens • For modern AI systems, you don&#x27;t send raw text to the model, you send tokens. • Tokens are used for both model input and output. • Tokens are about ">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber Key Concept: Tokens • For modern AI systems, you don&#x27;t send raw text to the model, you send tokens. • Tokens are used for both model input and output. • Tokens are about ">
     </div>
     <aside class="notes">
       <p>The model's input is a sequence of token ids. The text you send is converted to a sequence of token ids before the model runs, and the model's output is a sequence of token ids converted back to text. A token is a fragment of text, a whole common word or a piece of a rare one; the four-character average is OpenAI's rule of thumb for English, and other languages come out shorter per token. The conversion is tokenization, and the tokenizer is fixed for a given model, so its vocabulary decides how any input is split. Commercial APIs bill per token in and per token out, so the token count of a prompt is also its price.</p>
     </aside>
   </section>
-  <section data-page="56">
+  <section data-page="53">
     <div class="page-stack">
-      <img class="page" src="pages/p056.webp" alt="GTK Cyber Demo • https://platform.openai.com/tokenizer">
+      <img class="page" src="pages/p053.webp" alt="GTK Cyber Demo • https://platform.openai.com/tokenizer">
     </div>
     <aside class="notes">
       <p>OpenAI's tokenizer page splits any pasted text into tokens for a chosen model, colors each token, and reports the count. It is the quickest way to see that a leading space is part of the token that follows it, that a common word is one token, and that an uncommon word or a non-English word becomes several.</p>
     </aside>
   </section>
-  <section data-page="57">
+  <section data-page="54">
     <div class="page-stack">
-      <img class="page" src="pages/p057.webp" alt="GTK Cyber Token Pricing • AI Model Companies charge you for token inputs and outputs. • You are also charged a reduced rate for cache hits and writes. • As a strategy, modeling com">
+      <img class="page" src="pages/p054.webp" alt="GTK Cyber Token Pricing • AI Model Companies charge you for token inputs and outputs. • You are also charged a reduced rate for cache hits and writes. • As a strategy, modeling com">
     </div>
     <aside class="notes">
       <p>The bill has two meters, input tokens and output tokens, and output is the expensive one. In the table, output costs five to six times input for every model listed. Prompt caching lowers the input side: a prefix that repeats across requests, such as a long system prompt, is stored by the provider, and later requests that reuse it pay a reduced rate for those cached tokens, with a separate charge for writing the cache. The table gives prices per million tokens for the OpenAI and Anthropic model lines as of July 2026 and change over time.</p>
 <p>Providers retire models. Older, cheaper models are deprecated in favor of larger, costlier ones on a schedule the customer does not control, so an application built against one model has to be retested when that model is replaced.</p>
     </aside>
   </section>
-  <section data-page="58">
+  <section data-page="55">
     <div class="page-stack">
-      <img class="page" src="pages/p058.webp" alt="GTK Cyber Tozenization Methods • There are three main methods of tokenizing language: Byte-Pair Encoding (BPE), WordPiece and SentencePiece. • The GPT series of models uses BPE">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Tozenization Methods • There are three main methods of tokenizing language: Byte-Pair Encoding (BPE), WordPiece and SentencePiece. • The GPT series of models uses BPE">
     </div>
     <aside class="notes">
       <p>Three subword tokenization methods cover the models in use. Byte-Pair Encoding, BPE: builds its vocabulary by repeatedly merging the most frequent adjacent pair of tokens; the GPT series uses it. WordPiece: Google's variant used by BERT, which chooses merges by how much they improve the likelihood of the training text and marks a word-continuing piece with a ## prefix, the notation seen in the vocalization example earlier in this deck. SentencePiece: a Google library that tokenizes raw text without first splitting on spaces, treating the space as a character in its own right, which is what lets one method serve languages that do not use spaces. The slide title reads Tozenization.</p>
     </aside>
   </section>
-  <section data-page="59">
+  <section data-page="56">
     <div class="page-stack">
-      <img class="page" src="pages/p059.webp" alt="GTK Cyber More Tokenization Tokenizing the phrase: &quot;Don&#x27;t you love 🤗 Transformers? We sure do.&quot; Method 1: Splitting by spaces: [&quot;Don&#x27;t&quot;, &quot;you&quot;, &quot;love&quot;, &quot;🤗&quot;, &quot;Transformers?&quot;, &quot;We&quot;, ">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber More Tokenization Tokenizing the phrase: &quot;Don&#x27;t you love 🤗 Transformers? We sure do.&quot; Method 1: Splitting by spaces: [&quot;Don&#x27;t&quot;, &quot;you&quot;, &quot;love&quot;, &quot;🤗&quot;, &quot;Transformers?&quot;, &quot;We&quot;, ">
     </div>
     <aside class="notes">
       <p>Splitting on spaces is the simplest tokenizer and it leaves punctuation attached to words. Don't you love 🤗 Transformers? We sure do. becomes eight tokens, and among them are Transformers? and do. with their punctuation included. Those are separate vocabulary entries from Transformers and do, so the same word shows up in the vocabulary once for each punctuation mark it has ever been followed by.</p>
     </aside>
   </section>
-  <section data-page="60">
+  <section data-page="57">
     <div class="page-stack">
-      <img class="page" src="pages/p060.webp" alt="GTK Cyber More Tokenization Tokenizing the phrase: &quot;Don&#x27;t you love 🤗 Transformers? We sure do.&quot; Method 2: Splitting by spaces with punctuation: [&quot;Don&quot;, &quot;&#x27;&quot;, &quot;t&quot;, &quot;you&quot;, &quot;love&quot;, &quot;🤗&quot;">
+      <img class="page" src="pages/p057.webp" alt="GTK Cyber More Tokenization Tokenizing the phrase: &quot;Don&#x27;t you love 🤗 Transformers? We sure do.&quot; Method 2: Splitting by spaces with punctuation: [&quot;Don&quot;, &quot;&#x27;&quot;, &quot;t&quot;, &quot;you&quot;, &quot;love&quot;, &quot;🤗&quot;">
     </div>
     <aside class="notes">
       <p>Splitting off punctuation removes the duplicate entries and creates a new problem. Don't becomes three tokens, Don, the apostrophe and t, and t on its own carries no meaning. A tokenizer that knows English contractions produces Do and n't, where n't is the negation, and rule-based tokenizers such as spaCy do this. Rules of that kind are what a word-level tokenizer needs for every case in every language, and the vocabulary that results is large: the Hugging Face tokenizer summary the slide draws on gives Transformer-XL's space-and-punctuation vocabulary of 267,735 entries as the example. Every entry needs a row in the embedding table, and the rare ones are seen too seldom in training to get a useful vector.</p>
     </aside>
   </section>
-  <section data-page="61">
+  <section data-page="58">
     <div class="page-stack">
-      <img class="page" src="pages/p061.webp" alt="GTK Cyber Subword Tokenization Tokenizing the phrase: &quot;Don&#x27;t you love 🤗 Transformers? We sure do.&quot; Method 3: Subword Tokenization: [&#x27;don&#x27;,&quot;&#x27;&quot;,&#x27;t&#x27;,&#x27;you&#x27;,&#x27;love&#x27;,&#x27;[UNK]&#x27;,&#x27;transformers">
+      <img class="page" src="pages/p058.webp" alt="GTK Cyber Subword Tokenization Tokenizing the phrase: &quot;Don&#x27;t you love 🤗 Transformers? We sure do.&quot; Method 3: Subword Tokenization: [&#x27;don&#x27;,&quot;&#x27;&quot;,&#x27;t&#x27;,&#x27;you&#x27;,&#x27;love&#x27;,&#x27;[UNK]&#x27;,&#x27;transformers">
     </div>
     <aside class="notes">
       <p>Subword tokenization splits rare words into pieces that are common. The vocabulary holds whole common words plus fragments, so it stays at a size the model can learn, and a word absent from it, vocalization for instance, is still representable as vocal plus ization, each seen often enough in training to have a good embedding. The output on the slide is from BERT's uncased WordPiece tokenizer: everything is lowercased, and the emoji, which has no entry in the vocabulary, is replaced by the unknown token [UNK]. An unknown token loses the input's information at that position, which is the weakness that byte-level tokenizers fix.</p>
     </aside>
   </section>
-  <section data-page="62">
+  <section data-page="59">
     <div class="page-stack">
-      <img class="page" src="pages/p062.webp" alt="GTK Cyber Subword Tokenization Tokenizing the phrase: &quot;Don&#x27;t you love 🤗 Transformers? We sure do.&quot; from transformers import XLNetTokenizer xlnet_tokenizer = XLNetTokenizer.from_pre">
+      <img class="page" src="pages/p059.webp" alt="GTK Cyber Subword Tokenization Tokenizing the phrase: &quot;Don&#x27;t you love 🤗 Transformers? We sure do.&quot; from transformers import XLNetTokenizer xlnet_tokenizer = XLNetTokenizer.from_pre">
     </div>
     <aside class="notes">
       <p>XLNet's tokenizer, a SentencePiece model, keeps the spaces. XLNet is a 2019 model from Google and Carnegie Mellon; its tokenizer replaces each space with ▁, a distinct Unicode block character, and attaches it to the start of the following token, so ▁you records that a space preceded you. The original text can be rebuilt exactly, and a language written without spaces is handled by the same rule. Case is preserved, since the model is cased. Transformers is split into Transform and ers because the whole word is absent from the vocabulary, and the emoji survives as its own token. The ▁ is a separate character from the ASCII underscore; typing an underscore does not produce it.</p>
     </aside>
   </section>
-  <section data-page="63">
+  <section data-page="60">
     <div class="page-stack">
-      <img class="page" src="pages/p063.webp" alt="GTK Cyber BPE Tokenization The GPT series of models use BPE tokenization. The algorithm for training a BPE tokenizer is: • Start off with initial set of tokens (e.g. single charact">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber BPE Tokenization The GPT series of models use BPE tokenization. The algorithm for training a BPE tokenizer is: • Start off with initial set of tokens (e.g. single charact">
     </div>
     <aside class="notes">
       <p>BPE builds its vocabulary by counting and merging. Byte-Pair Encoding was a data compression method published by Philip Gage in 1994 and was adapted to tokenization for machine translation by Rico Sennrich, Barry Haddow and Alexandra Birch in 2016. Training starts with an initial token set, single characters or single bytes, and tokenizes the corpus with it. It then counts every adjacent pair of tokens, takes the most frequent pair, merges it into one new token, and adds that token to the vocabulary. Repeating the count-and-merge step a chosen number of times grows the vocabulary by one token per step, so the number of merges sets the vocabulary size.</p>
 <p>Applying a trained BPE tokenizer to new text replays the same merges in the same order. Starting from bytes means any input is representable, including an emoji or a script absent from the training data, so a byte-level tokenizer has no unknown token. The GPT models use byte-level BPE; Worksheet 9.4 trains a BPE tokenizer from scratch.</p>
     </aside>
   </section>
-  <section data-page="64">
+  <section data-page="61">
     <div class="page-stack">
-      <img class="page" src="pages/p064.webp" alt="GTK Cyber BPE Tokenization import tiktoken # To get the tokenizer corresponding to a specific model in the OpenAI API: enc = tiktoken.encoding_for_model(&quot;gpt-4o&quot;) # Tokenize the te">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber BPE Tokenization import tiktoken # To get the tokenizer corresponding to a specific model in the OpenAI API: enc = tiktoken.encoding_for_model(&quot;gpt-4o&quot;) # Tokenize the te">
     </div>
     <aside class="notes">
       <p>tiktoken is OpenAI's open-source library for the tokenizers its models use. encoding_for_model returns the tokenizer matched to a model name, gpt-4o here. encode turns the sentence into eleven token ids, and decode_single_token_bytes turns each id back into the bytes it stands for. Three things are visible in the result. Don't is a single token, because it is common enough to have been merged whole. The leading space belongs to the token that follows it, so you and space-you are different tokens. The emoji, four bytes in UTF-8, is split across two tokens, three bytes then one, and is printed as escaped bytes because neither piece is a complete character on its own. Forty-two characters became eleven tokens, close to four characters per token.</p>
     </aside>
   </section>
-  <section data-page="65">
+  <section data-page="62">
     <div class="page-stack">
-      <img class="page" src="pages/p065.webp" alt="GTK Cyber TikToken Resources • https://github.com/openai/tiktoken • https://github.com/openai/openai-cookbook/blob/main/examples/ How_to_count_tokens_with_tiktoken.ipynb">
+      <img class="page" src="pages/p062.webp" alt="GTK Cyber TikToken Resources • https://github.com/openai/tiktoken • https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb">
     </div>
     <aside class="notes">
       <p>Two references for counting tokens. The tiktoken repository on GitHub holds the library, its encodings and the list of which encoding each OpenAI model uses. The OpenAI cookbook notebook How to count tokens with tiktoken walks through counting tokens for plain strings and for whole chat message lists, including the per-message overhead the chat API adds, which is the count that matches the bill.</p>
     </aside>
   </section>
-  <section data-page="66">
+  <section data-page="63">
     <div class="page-stack">
-      <img class="page" src="pages/p066.webp" alt="GTK Cyber Denial of Wallet">
+      <img class="page" src="pages/p063.webp" alt="GTK Cyber Denial of Wallet">
     </div>
     <aside class="notes">
       <p>Section divider for denial of wallet, the attack that turns per-token billing against the application's owner.</p>
     </aside>
   </section>
-  <section data-page="67">
+  <section data-page="64">
     <div class="page-stack">
-      <img class="page" src="pages/p067.webp" alt="GTK Cyber Denial of Wallet Attacks • Denial of Wallet (DOW) attacks are a variant of a Denial of Service (DOS) attack where the attacker&#x27;s goal isn&#x27;t to disable a service, but rath">
+      <img class="page" src="pages/p064.webp" alt="GTK Cyber Denial of Wallet Attacks • Denial of Wallet (DOW) attacks are a variant of a Denial of Service (DOS) attack where the attacker&#x27;s goal isn&#x27;t to disable a service, but rath">
     </div>
     <aside class="notes">
       <p>A denial of wallet attack runs up the victim's bill. A denial of service attack exhausts a service's capacity so that legitimate users are refused. Denial of wallet exploits usage-based pricing: the attacker sends requests the service handles normally, the service scales to meet them, and the metered charges accumulate to the owner. The service stays up throughout, and the damage is the bill.</p>
 <p>Applications built on a language model API are exposed on every count. Each request is expensive to serve, the provider scales without limit, the endpoint is reachable by anyone the application accepts input from, and the price is a function of both the input tokens and the output tokens of every request. The attacker controls the input directly and can steer the length of the output through what the input asks for.</p>
     </aside>
   </section>
-  <section data-page="68">
+  <section data-page="65">
     <div class="page-stack">
-      <img class="page" src="pages/p068.webp" alt="GTK Cyber Denial of Wallet Attacks Consider the following use case: You have a customer facing application which responds to customer reviews posted on Amazon about your products. ">
+      <img class="page" src="pages/p065.webp" alt="GTK Cyber Denial of Wallet Attacks Consider the following use case: You have a customer facing application which responds to customer reviews posted on Amazon about your products. ">
     </div>
     <aside class="notes">
       <p>The scenario is an application that answers product reviews with a language model: a negative review gets an apology and an offer to fix things, a positive one gets thanks. The review on the slide is positive, so it gets thanks, and it also asks for shoe recommendations and for the reply to reach family members who speak French, Dutch, Italian, German, Hebrew, Arabic, Farsi and Chinese. Posting a review costs the reviewer nothing, and the reply is billed to the application's owner by the token.</p>
     </aside>
   </section>
-  <section data-page="69">
+  <section data-page="66">
     <div class="page-stack">
-      <img class="page" src="pages/p069.webp" alt="GTK Cyber">
+      <img class="page" src="pages/p066.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>The application's instruction to the model is the system message shown: act as an agent that answers Amazon product reviews, thank the customer for a positive review, apologize and give the support address for a negative one. The review is passed as the user message. Nothing in the system message limits the length or the language of the reply, and that gap is what the review exploits.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="70">
+  <section data-page="67">
     <div class="page-stack">
-      <img class="page" src="pages/p070.webp" alt="GTK Cyber 634 Tokens!!">
+      <img class="page" src="pages/p067.webp" alt="GTK Cyber 634 Tokens!!">
     </div>
     <aside class="notes">
       <p>The model did what the review asked. The reply thanks the customer in English and then repeats the thanks in French, Dutch, Italian, German, Hebrew, Arabic, Farsi and Chinese, for a total of 634 output tokens. The review as posted here ends with an explicit request to include responses in those languages. The languages were chosen to inflate the count: Hebrew, Arabic, Farsi and Chinese each take more tokens per word than English in GPT tokenizers. At the output prices on the token pricing slide one such reply costs between about four tenths of a cent and three cents, and a script posting reviews at volume bills every reply to the application's owner.</p>
     </aside>
   </section>
-  <section data-page="71">
+  <section data-page="68">
     <div class="page-stack">
-      <img class="page" src="pages/p071.webp" alt="GTK Cyber Measuring Prompt Length • When building AI driven applications you should log the input and output length to monitor for DOW attacks. Here&#x27;s how: import tiktoken # To get">
+      <img class="page" src="pages/p068.webp" alt="GTK Cyber">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="69">
+    <div class="page-stack">
+      <img class="page" src="pages/p069.webp" alt="GTK Cyber Measuring Prompt Length • When building AI driven applications you should log the input and output length to monitor for DOW attacks. Here&#x27;s how: import tiktoken # To get">
     </div>
     <aside class="notes">
       <p>Log the token count of every input and output. The code tokenizes a prompt with the model's own tokenizer and prints its length, which is the number the provider will bill for input. The API response also reports the input and output tokens it charged, and that is the figure to log for the output side. With both counts recorded per request, an alert can fire on a jump in output tokens per request, on a single user whose totals stand out, or on a daily total above budget. Denial of wallet is invisible in availability metrics because the service keeps working; it shows only in the token log and the bill.</p>
     </aside>
   </section>
-  <section data-page="72">
+  <section data-page="70">
     <div class="page-stack">
-      <img class="page" src="pages/p072.webp" alt="GTK Cyber Limiting Maximum Output Tokens • Most AI SDKs will have a parameter to limit the maximum output tokens. • Once you understand your use case, setting this parameter to a r">
+      <img class="page" src="pages/p070.webp" alt="GTK Cyber Limiting Maximum Output Tokens • Most AI SDKs will have a parameter to limit the maximum output tokens. • Once you understand your use case, setting this parameter to a r">
     </div>
     <aside class="notes">
       <p>Cap the output. Every model API takes a parameter that limits the number of tokens generated for one response, max_tokens in Anthropic's API and max_completion_tokens in OpenAI's, and the model stops when it reaches the cap. Set it to the largest response the use case needs, a few hundred tokens for a review reply, and the eight-language answer is cut off at that length. The cap bounds the cost of any one response; the number of requests an attacker can make is bounded separately by rate limiting and authentication.</p>
     </aside>
   </section>
-  <section data-page="73">
+  <section data-page="71">
     <div class="page-stack">
-      <img class="page" src="pages/p073.webp" alt="GTK Cyber LLM Workflow Input Text Tokens Token Embeddings LLM Output Tokens Output Text">
+      <img class="page" src="pages/p071.webp" alt="GTK Cyber LLM Workflow Input Text Tokens Token Embeddings LLM Output Tokens Output Text">
     </div>
     <aside class="notes">
       <p>The whole path from text to text. Input text is tokenized into token ids. Each id is looked up in the embedding table to give a token embedding. The transformer processes the embeddings and produces output token ids, one per pass. The output ids are decoded back into text. The tokenizer and the embedding table belong to the model and are fixed, so the same text produces the same ids each time; billing counts the ids at the two ends of the diagram.</p>
     </aside>
   </section>
-  <section data-page="74">
+  <section data-page="72">
     <div class="page-stack">
-      <img class="page" src="pages/p074.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 9.4: Tokenizers &amp; Embeddings If you&#x27;re not familiar with PyTorch, Try worksheet 9.3 PyTorch in 20 Minutes first">
+      <img class="page" src="pages/p072.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 9.4: Tokenizers &amp; Embeddings If you&#x27;re not familiar with PyTorch, Try worksheet 9.3 PyTorch in 20 Minutes first">
     </div>
     <aside class="notes">
       <p>Worksheet 9.4 builds the first two boxes of the workflow by hand: a BPE tokenizer trained on a text corpus, an embedding table that turns token ids into learnable vectors, and a bigram model that predicts the next token from the one before it, trained with cross-entropy loss. Worksheet 9.3 is a twenty-minute PyTorch primer, tensors, automatic differentiation and a training loop, for anyone who has not used the library; 9.4 assumes it.</p>
     </aside>
   </section>
-  <section data-page="75">
+  <section data-page="73">
     <div class="page-stack">
-      <img class="page" src="pages/p075.webp" alt="GTK Cyber Generating Text • LLMs generate text one token at a time, rather than generating the whole text. • Each new output token is added onto the end of the prompt and fed back ">
+      <img class="page" src="pages/p073.webp" alt="GTK Cyber Generating Text • LLMs generate text one token at a time, rather than generating the whole text. • Each new output token is added onto the end of the prompt and fed back ">
     </div>
     <aside class="notes">
       <p>A language model produces one token per pass. The prompt goes in, the model outputs a single token, that token is appended to the prompt, and the extended prompt goes in again for the next one. In the diagram the prompt asks for an apology email to Sarah, and the first four passes yield Dear, Sarah, a comma and a newline; punctuation and line breaks are tokens like any other. A response of a few hundred tokens is a few hundred passes, which is why output length drives both latency and cost, and why the output-token price is the higher one.</p>
     </aside>
   </section>
-  <section data-page="76">
+  <section data-page="74">
     <div class="page-stack">
-      <img class="page" src="pages/p076.webp" alt="GTK Cyber Generating Text • After each pass, the model calculates the probability distribution for the next token. • One method is to use the token with the highest probability. Th">
+      <img class="page" src="pages/p074.webp" alt="GTK Cyber Generating Text • After each pass, the model calculates the probability distribution for the next token. • One method is to use the token with the highest probability. Th">
     </div>
     <aside class="notes">
       <p>Each pass ends with a probability for every token in the vocabulary. The model's last layer produces a score per token, and a softmax turns the scores into probabilities that sum to one; in the diagram, Dear has forty percent, Title thirteen, To eight and Hi two. A decoding strategy then picks one token from that distribution. Greedy decoding takes the highest, Dear here, every time. Sampling picks at random with probability proportional to the values, so Title is chosen about one time in eight.</p>
 <p>Temperature is the parameter that controls the sampling. It rescales the scores before the softmax: a temperature near zero sharpens the distribution until sampling behaves like greedy decoding, and a higher temperature flattens it so lower-ranked tokens are chosen more often, which makes the output more varied. The distribution is recomputed after every token, so one different choice early changes every probability that follows it.</p>
     </aside>
   </section>
-  <section data-page="77">
+  <section data-page="75">
     <div class="page-stack">
-      <img class="page" src="pages/p077.webp" alt="GTK Cyber The Attention Layer • The attention layer adds additional information to the embeddings by adding positional information. • For instance, in the sentence: I gave the book">
+      <img class="page" src="pages/p075.webp" alt="GTK Cyber The Attention Layer • The attention layer adds context to the embeddings by adding positional information. • For instance, in the sentence: I gave the book back to the li">
     </div>
     <aside class="notes">
       <p>Attention enriches each token's vector with information from the other tokens in the sequence. In I gave the book back to the library because it, the vector for it has to carry whether it means the book or the library, and the model resolves that by attending to those earlier positions when it processes it; the sentence on the slide stops at it, and the word that follows is what settles the reference. The diagram is one attention head: the position currently being processed is compared with the other positions in the sequence through three learned projection matrices, query, key and value, and the result is the current position's vector enriched with context from the others.</p>
 <p>Word order reaches the model by a separate route. Positional encodings are added to the token embeddings before the first layer, so that attention, which on its own treats the input as an unordered set, can tell the first token from the fifth. The slide's first bullet attributes the positional information to the attention layer; the attention layer contributes the contextual information.</p>
     </aside>
   </section>
-  <section data-page="78">
+  <section data-page="76">
     <div class="page-stack">
-      <img class="page" src="pages/p078.webp" alt="GTK Cyber The Attention Layer • Attention multiplies the inputs to create three new matrices: queries, keys and values. • To calculate relevance, multiply the query vector of the c">
-    </div>
-    <aside class="notes">
-      <p>One attention head is three matrix multiplications and a softmax. Every position's vector is multiplied by the query projection, the key projection and the value projection, giving each position a query, a key and a value. For the position being processed, its query is multiplied against every position's key, which yields one relevance score per position. Softmax normalizes the scores so they sum to one. The head's output for the position is the sum of all the values, each weighted by its normalized score.</p>
-<p>In the diagram the position being processed is it in Sarah fed the cat because it, and the scores put half the weight on cat and about a third on the, so the vector that leaves the head for it is mostly cat's information. A transformer layer runs several such heads in parallel, each with its own three projections, and concatenates their outputs. The computation is the target of continuing engineering because it touches every pair of positions; FlashAttention, published by Tri Dao and colleagues in 2022, reorders it so the full score matrix is not written to GPU memory.</p>
-    </aside>
-  </section>
-  <section data-page="79">
-    <div class="page-stack">
-      <img class="page" src="pages/p079.webp" alt="GTK Cyber Generating Text">
-    </div>
-    <aside class="notes">
-      <p>The flowchart is the generation loop written as probability. The input is the vectors for the m tokens so far, w1 through wm. The transformer produces P(w | w1, ..., wm), the probability of each candidate w as the next token given all of them. argmax picks the w with the highest probability, which is greedy decoding; with a temperature above zero this step is a draw from the distribution. The chosen token is the output, it is combined with the previous tokens, and the dotted line carries the longer sequence back to the input for the next pass. The loop ends when the model produces its end-of-sequence token or the output cap is reached.</p>
-    </aside>
-  </section>
-  <section data-page="80">
-    <div class="page-stack">
-      <img class="page" src="pages/p080.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 9.5: Attention and Your First GPT">
+      <img class="page" src="pages/p076.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 9.5: Attention and Your First GPT">
     </div>
     <aside class="notes">
       <p>Worksheet 9.5 implements the attention head from the preceding slides in PyTorch, with the query, key and value projections, the softmax and the causal mask, stacks heads into transformer blocks, and trains a small GPT that generates text.</p>
     </aside>
   </section>
-  <section data-page="81">
+  <section data-page="77">
     <div class="page-stack">
-      <img class="page" src="pages/p081.webp" alt="GTK Cyber A Question...">
+      <img class="page" src="pages/p077.webp" alt="GTK Cyber A Question...">
     </div>
     <aside class="notes">
       <p>A question put to a chat model, and its answer, follow.</p>
     </aside>
   </section>
-  <section data-page="82">
+  <section data-page="78">
     <div class="page-stack">
-      <img class="page" src="pages/p082.webp" alt="GTK Cyber">
+      <img class="page" src="pages/p078.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>The question is nonsense from end to end. It has the form of a cloud certification exam item: a scenario at a financial services company, a set of requirements, four lettered options naming AWS services. None of the services exists, and neither do the glimglom, the wibblenibbet, frobnication or the Grumbleflux standards. The only true content is the format.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="83">
+  <section data-page="79">
     <div class="page-stack">
-      <img class="page" src="pages/p083.webp" alt="GTK Cyber">
+      <img class="page" src="pages/p079.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>The model answered with confidence. It chose option C and gave a reason for each requirement in turn: Zimzam is purpose-built for glimglom scenarios, its Blarglefoo integration provides frobnication shielding, only Zimzam supports quibble-threading. Each reason is assembled from words in the question, which is what completion by probability looks like: the training data includes exam questions of this shape followed by answers of this shape, and the most probable continuation of the question is an answer that picks an option and justifies it. No step in the process checks whether Zimzam exists.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="84">
+  <section data-page="80">
     <div class="page-stack">
-      <img class="page" src="pages/p084.webp" alt="GTK Cyber">
+      <img class="page" src="pages/p080.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>The summary repeats the verdict with a check mark: Zimzam is the only option that meets every requirement, final answer C. No part of the reply says that the services are unknown or that the question cannot be answered.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="85">
+  <section data-page="81">
     <div class="page-stack">
-      <img class="page" src="pages/p085.webp" alt="GTK Cyber Hallucination: When an LLM gives confident but wrong responses.">
+      <img class="page" src="pages/p081.webp" alt="GTK Cyber Hallucination: When an LLM gives confident but wrong responses.">
     </div>
     <aside class="notes">
       <p>A hallucination is a confident, wrong response. Fluent, assured text is what the model is trained to produce, and nothing in the training objective rewards truth over plausibility, so the confidence of an answer carries no information about its accuracy.</p>
     </aside>
   </section>
-  <section data-page="86">
+  <section data-page="82">
     <div class="page-stack">
-      <img class="page" src="pages/p086.webp" alt="GTK Cyber Hallucinations • Transformer based models work by making a prediction about what the most likely sequence of tokens will follow an input prompt. • Hallucinations are when">
+      <img class="page" src="pages/p082.webp" alt="GTK Cyber Hallucinations • Transformer based models work by making a prediction about what the most likely sequence of tokens will follow an input prompt. • Hallucinations are when">
     </div>
     <aside class="notes">
       <p>A transformer predicts the token sequence most likely to follow the prompt, given its training data. A hallucination is a prediction that reads as correct and is false. The mechanism is the same in both cases: the training corpus has been compressed into the model's weights, and a statement appears in the output because token sequences like it were frequent in the corpus after prompts like this one. A fact that was common in the corpus tends to be reproduced; a rare subject or a fictional one gets the most plausible sequence available, which is a fabrication with the right shape.</p>
 <p>The model has no database of facts to consult. The asterisk on the slide marks the exception: retrieval-augmented generation puts retrieved documents into the prompt so the model can draw on them, which Worksheet 11.1 builds. Models do not understand facts or think in any recognizable way; they compute a distribution over the next token.</p>
     </aside>
   </section>
-  <section data-page="87">
+  <section data-page="83">
     <div class="page-stack">
-      <img class="page" src="pages/p087.webp" alt="GTK Cyber Hallucinations https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence) This article does not exist.">
+      <img class="page" src="pages/p083.webp" alt="GTK Cyber Hallucinations https://en.wikipedia.org/wiki/ Hallucination_(artificial_intelligence) This article does not exist.">
     </div>
     <aside class="notes">
       <p>The article does not exist. The user asked ChatGPT to summarize a New York Times piece at a URL, and the model returned a coherent summary about ChatGPT being used to evade content filters. The model at the time could not fetch web pages, and the URL's path, chatgpt-prompts-to-avoid-content-filters, was enough for it to compose what a summary of an article with that title would say. It did not report that it had no access to the page. The example comes from the Wikipedia article on hallucination in artificial intelligence, linked at the foot of the slide.</p>
     </aside>
   </section>
-  <section data-page="88">
+  <section data-page="84">
     <div class="page-stack">
-      <img class="page" src="pages/p088.webp" alt="GTK Cyber Hallucinations • In June 2023, two lawyers were caught having submitted a legal brief written by ChatGPT. • The brief contained fake quotes and citations. • Attorney Stev">
+      <img class="page" src="pages/p084.webp" alt="GTK Cyber Hallucinations • In June 2023, two lawyers were caught having submitted a legal brief written by ChatGPT. • The brief contained fake quotes and citations. • Attorney Stev">
     </div>
     <aside class="notes">
       <p>The case is Mata v. Avianca, decided in the Southern District of New York in June 2023. Two lawyers filed a brief whose case citations and quotations had been produced by ChatGPT, and six of the cited decisions did not exist. Judge P. Kevin Castel fined the lawyers and their firm five thousand dollars; the slide spells the judge's name Casten. Attorney Steven Schwartz told the court he had not known that ChatGPT could produce false information. He had also asked ChatGPT whether the cases were real, and it had answered that they were: the same failure a second time, since the most plausible reply to a question about whether a citation is real is yes.</p>
     </aside>
   </section>
-  <section data-page="89">
+  <section data-page="85">
     <div class="page-stack">
-      <img class="page" src="pages/p089.webp" alt="GTK Cyber Legal Hallucinations Continue... • In July 2025, two attorneys representing MyPillow CEO were ordered to pay $3000 after they filed a brief with 30 hallucinated citations">
+      <img class="page" src="pages/p085.webp" alt="GTK Cyber Legal Hallucinations Continue... • In July 2025, two attorneys representing MyPillow CEO were ordered to pay $3000 after they filed a brief with 30 hallucinated citations">
     </div>
     <aside class="notes">
       <p>The sanctions continued through 2025. In July 2025 two attorneys representing the MyPillow chief executive in a Colorado defamation case were each ordered to pay three thousand dollars after filing a brief with about thirty defective citations. In California, attorneys from Ellis George LLP and K&amp;L Gates LLP filed a brief with invented citations in a case against State Farm; the motion was denied, the briefs were struck from the record, and the attorneys paid thirty-one thousand dollars of the other side's legal fees. In Chicago, attorneys for the Chicago Housing Authority were found to have cited nonexistent cases in an appeal.</p>
 <p>Citations are the worst case for a language model. A citation has a rigid form, party names, a reporter volume, a page number and a year, and the model produces that form whether or not a case behind it exists, so a fabricated citation is indistinguishable from a real one until someone looks it up.</p>
     </aside>
   </section>
-  <section data-page="90">
+  <section data-page="86">
     <div class="page-stack">
-      <img class="page" src="pages/p090.webp" alt="GTK Cyber Legal Hallucinations Continue • There is a database of AI Hallucination Cases. • https://www.damiencharlotin.com/hallucinations/ • At the time of writing, it has over 178">
+      <img class="page" src="pages/p086.webp" alt="GTK Cyber Legal Hallucinations Continue • There is a database of AI Hallucination Cases. • https://www.damiencharlotin.com/hallucinations/ • At the time of writing, it has over 178">
     </div>
     <aside class="notes">
       <p>Damien Charlotin, a legal researcher in Paris, maintains a public database of court decisions in which a party or a lawyer relied on hallucinated content. It records the court, the tool if known, the nature of the fabrication and the sanction, and it covers courts worldwide. At the time the slide was written it held over 1,785 cases, and the count rises as decisions are published.</p>
     </aside>
   </section>
-  <section data-page="91">
+  <section data-page="87">
     <div class="page-stack">
-      <img class="page" src="pages/p091.webp" alt="GTK Cyber">
+      <img class="page" src="pages/p087.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>Three Google AI Overview results from May 2024, the week the feature launched in the United States. Asked how many rocks to eat, it advised at least one small rock per day, citing geologists at UC Berkeley; the source was a satirical article in The Onion. Asked about cheese sliding off pizza, it suggested adding an eighth of a cup of non-toxic glue to the sauce; the source was a joke comment on Reddit. Asked how to pass kidney stones quickly, it advised drinking two quarts of urine every twenty-four hours, a garbling of medical advice to produce that much. The overview system retrieves pages and summarizes them, and the summarizer cannot tell satire from advice or notice that a sentence it rewrote now says the opposite of its source.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="92">
+  <section data-page="88">
     <div class="page-stack">
-      <img class="page" src="pages/p092.webp" alt="GTK Cyber">
+      <img class="page" src="pages/p088.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>The query 1000 km to tomatoes is nonsense, and the overview answered it anyway: one thousand tomatoes equal one kilotomato. The cited source is a Reddit post about a mnemonic, five tomatoes for the 5,280 feet in a mile, which the model combined with the kilo prefix into a fluent sentence. This is the Zimzam question again in a search box: a well-formed query gets a well-formed answer regardless of whether one exists.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="93">
+  <section data-page="89">
     <div class="page-stack">
-      <img class="page" src="pages/p093.webp" alt="GTK Cyber Hallucinations may seem funny, until you realize people are using LLMs to look up facts.">
+      <img class="page" src="pages/p089.webp" alt="GTK Cyber">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="90">
+    <div class="page-stack">
+      <img class="page" src="pages/p090.webp" alt="GTK Cyber Hallucinations may seem funny, until you realize people are using LLMs to look up facts.">
     </div>
     <aside class="notes">
       <p>The examples are jokes until the outputs are used as reference answers. Search overviews and chat assistants are consulted for medical, legal and technical facts, and the lawyers on the preceding slides filed the results in court.</p>
     </aside>
   </section>
-  <section data-page="94">
+  <section data-page="91">
     <div class="page-stack">
-      <img class="page" src="pages/p094.webp" alt="GTK Cyber LLMs do not have &quot;common sense&quot;">
+      <img class="page" src="pages/p091.webp" alt="GTK Cyber LLMs do not have &quot;common sense&quot;">
     </div>
     <aside class="notes">
       <p>A person rejects eat one rock a day on sight. A model has no such check: it scores a sentence by how probable it is given its context, and a sentence copied from a satirical article that ranked highly in retrieval is probable. Sense is not a quantity the model computes.</p>
     </aside>
   </section>
-  <section data-page="95">
+  <section data-page="92">
     <div class="page-stack">
-      <img class="page" src="pages/p095.webp" alt="GTK Cyber Key Concepts: Deterministic and Non-Deterministic • Deterministic systems will always return the same result given the same input. • Non-Deterministic systems is not guar">
+      <img class="page" src="pages/p092.webp" alt="GTK Cyber Key Concepts: Deterministic and Non-Deterministic • Deterministic systems will always return the same result given the same input. • Non-Deterministic systems is not guar">
     </div>
     <aside class="notes">
       <p>A deterministic system returns the same result every time it is given the same input; a non-deterministic system is not guaranteed to. A vending machine is the slide's example: the same button returns the same product, and the machine on the right returned an onion. Code that parses a log line, a database query, a hash function and a fitted classifier are deterministic. A system that draws from a probability distribution is not, and a language model draws once per token. The slide's second bullet reads systems is; the subject and verb disagree.</p>
     </aside>
   </section>
-  <section data-page="96">
+  <section data-page="93">
     <div class="page-stack">
-      <img class="page" src="pages/p096.webp" alt="GTK Cyber Deterministic vs. Non- Deterministic • AI is expensive and if you have deterministic workflows, LLMs are probably the most expensive and slowest way to achieve that goal.">
+      <img class="page" src="pages/p093.webp" alt="GTK Cyber Deterministic vs. Non- Deterministic • AI is expensive and if you have deterministic workflows, LLMs are probably the most expensive and slowest way to achieve that goal.">
     </div>
     <aside class="notes">
       <p>If a rule can compute the answer, code should compute it. Parsing a timestamp, looking up an IP address, matching a signature or computing a hash runs in microseconds, costs nothing per call and gives the same answer every time. A language model call for the same task takes seconds, is billed per token and can answer differently on the next call, so for a deterministic workflow it is the slowest and most expensive option available.</p>
 <p>A non-deterministic workflow has to be tested across many runs and many inputs. One passing run says nothing about the next, so evaluation means a held-out set of inputs with known correct outputs, scored over repeated runs, and re-scored whenever the prompt or the model changes.</p>
     </aside>
   </section>
-  <section data-page="97">
+  <section data-page="94">
     <div class="page-stack">
-      <img class="page" src="pages/p097.webp" alt="GTK Cyber LLMs are by their nature non- deterministic.">
+      <img class="page" src="pages/p094.webp" alt="GTK Cyber LLMs are by their nature non- deterministic.">
     </div>
     <aside class="notes">
       <p>Language models are non-deterministic by construction. Each token is drawn from a distribution, and a temperature of zero narrows the draw without making the output fixed: providers do not guarantee identical output for identical input, because batching and floating-point arithmetic on the GPU can change which of two near-equal tokens ranks first, and the model behind a name is updated over time. Any application that needs the same answer twice has to be designed around that.</p>
     </aside>
   </section>
-  <section data-page="98">
+  <section data-page="95">
     <div class="page-stack">
-      <img class="page" src="pages/p098.webp" alt="GTK Cyber Classification with Generative Models • It is entirely possible to use a generative model to classify data simply with prompting. • You can craft prompts which will do so">
+      <img class="page" src="pages/p095.webp" alt="GTK Cyber Classification with Generative Models • It is entirely possible to use a generative model to classify data simply with prompting. • You can craft prompts which will do so">
     </div>
     <aside class="notes">
       <p>A generative model can classify by prompting. A prompt that presents the text and asks for one of a fixed set of labels returns a label, and Worksheet 10.2 does this. The cost is the non-determinism just described: the same input can get a different label on a rerun, the model can return a label outside the set or add an explanation that the calling code has to parse away, and every call takes seconds and tokens. The embedding-plus-classifier approach of Worksheet 9.1 is deterministic, free per call after training, and gives a probability that can be thresholded, so prompting is the choice when there is no labeled data and no time to build one.</p>
     </aside>
   </section>
-  <section data-page="99">
+  <section data-page="96">
     <div class="page-stack">
-      <img class="page" src="pages/p099.webp" alt="GTK Cyber Demo https://calculator.gtkcyber.com">
+      <img class="page" src="pages/p096.webp" alt="GTK Cyber Demo https://calculator.gtkcyber.com">
     </div>
     <aside class="notes">
       <p>The demo is an AI-enabled calculator that gets sums wrong on purpose. Its settings panel sets an error frequency, thirty percent by default, and an error magnitude from off by one or two up to off by ten to fifty, and the page states that it intentionally produces subtly incorrect results to demonstrate the risks of trusting AI outputs without verification. Arithmetic is the deterministic workflow of the preceding slides. A calculator that is right seven times in ten and wrong by a little the rest of the time is worse than a plain one, because every result now has to be checked, and checking a sum costs as much as computing it.</p>
     </aside>
   </section>
-  <section data-page="100">
+  <section data-page="97">
     <div class="page-stack">
-      <img class="page" src="pages/p100.webp" alt="GTK Cyber Which Model to Choose? • Not so simple. There are nearly 100k models on HuggingFace. • Some are general, some are task-specific. • Options include using a task-specific m">
+      <img class="page" src="pages/p097.webp" alt="GTK Cyber Which Model to Choose? • Not so simple. There are nearly 100k models on HuggingFace. • Some are general, some are task-specific. • Options include using a task-specific m">
     </div>
     <aside class="notes">
       <p>There is no single model to choose. Hugging Face hosts models by the hundred thousand, and the slide's figure of nearly a hundred thousand is dated; the hub passed one million in 2024. Some are general, trained to handle any text task; some are task-specific, trained or fine-tuned for one job such as sentiment or named entity recognition. The options are to use a task-specific model as is, to prompt a foundation model, or to fine-tune an existing model on your own data. The considerations: cost, per token for an API or per GPU hour for a self-hosted model; speed, the latency of a call, which grows with model size; size, which decides what hardware can run it; and license, which decides whether commercial use, modification and redistribution are allowed.</p>
     </aside>
   </section>
-  <section data-page="101">
+  <section data-page="98">
     <div class="page-stack">
-      <img class="page" src="pages/p101.webp" alt="GTK Cyber • Models are code and code can be malicious. • Researchers have successfully uploaded malicious models to HuggingFace. • Malicious models have been found there as well. W">
+      <img class="page" src="pages/p098.webp" alt="GTK Cyber series = df[&#x27;column1&#x27;] series = df.column1 • Models are code and code can be malicious. • Researchers, and others have successfully uploaded malicious models to HuggingFa">
     </div>
     <aside class="notes">
       <p>A model file is code, and code can be malicious. The formats in which models are shared can execute instructions when loaded: PyTorch's default save format is a Python pickle, and unpickling runs whatever Python the file contains, so a model file can carry a payload that executes the moment it is loaded. Researchers have demonstrated this by uploading working malicious models to Hugging Face, and malicious models placed by others have been found there; JFrog's security team reported about a hundred of them in February 2024, including one that opened a reverse shell to a remote host on load. Treat a downloaded model as a downloaded executable: take it from a publisher you trust, prefer the safetensors format, which stores only tensors and cannot execute code, and load pickle files with the weights-only option. Worksheet 9.6 covers the other route to a malicious model, poisoning its training data.</p>
     </aside>
   </section>
-  <section data-page="102">
+  <section data-page="99">
     <div class="page-stack">
-      <img class="page" src="pages/p102.webp" alt="GTK Cyber Questions?">
+      <img class="page" src="pages/p099.webp" alt="GTK Cyber Questions?">
     </div>
     <aside class="notes">
       <p>Close of Part 1.</p>
     </aside>
   </section>
-  <section data-page="103">
+  <section data-page="100">
     <div class="page-stack">
-      <img class="page" src="pages/p103.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 9.6: Fine Tuning and Poisoning">
+      <img class="page" src="pages/p100.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 9.6: Fine Tuning and Poisoning">
     </div>
     <aside class="notes">
       <p>Worksheet 9.6 finishes the build-your-own-LLM sequence in two halves. First, fine-tuning: the mini-GPT from 9.5 is pretrained on general English and then fine-tuned on real CVE descriptions until it produces vulnerability text. Second, poisoning: the same training step is fed tampered data, and the model's output changes to match, which is the lesson of the worksheet: whoever controls the training data controls the model.</p>

@@ -17,10 +17,10 @@
 <div class="slides">
   <section data-page="1">
     <div class="page-stack">
-      <img class="page" src="pages/p001.webp" alt="Module 3: Machine Learning Part 1 Feature Engineering">
+      <img class="page" src="pages/p001.webp" alt="Module 3: Machine Learning Feature Engineering">
     </div>
     <aside class="notes">
-      <p>Module 3 covers feature engineering: turning raw records such as a URL into numeric columns a model can learn from, preparing those columns by imputation, encoding, scaling and resampling, and choosing which of them to keep. The worked example throughout is detecting domain names produced by a domain generation algorithm.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
   <section data-page="2">
@@ -65,7 +65,7 @@
   </section>
   <section data-page="7">
     <div class="page-stack">
-      <img class="page" src="pages/p007.webp" alt="GTK Cyber Determinism vs. Non-Determinism • Deterministic functions will always produce the same output for the same input. • Non-Deterministic functions will not. • LLMs/AI by the">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber Determinism vs. Non- Determinism • Deterministic functions will always produce the same output for the same input. • Non-Deterministic functions will not. • LLMs/AI by th">
     </div>
     <aside class="notes">
       <p>A deterministic function returns the same output every time it is given the same input; a non-deterministic function does not. A fitted classifier is deterministic. Its prediction is a fixed calculation over the fitted parameters and the feature values, so the same row always gets the same score.</p>
@@ -117,7 +117,7 @@
       <img class="page" src="pages/p013.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>The cartoon's subject is tool fit. A chainsaw will spread butter, and a butter knife does the job with none of the cost or risk. A large language model applied to a classification problem is the chainsaw: it can produce a verdict for a domain or a URL, at a cost in money and time that a classifier fitted to a handful of numeric columns does not carry, and without the reproducibility the classifier gives.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
   <section data-page="14">
@@ -130,452 +130,502 @@
   </section>
   <section data-page="15">
     <div class="page-stack">
-      <img class="page" src="pages/p015.webp" alt="GTK Cyber Machine Learning Process Getting / Cleaning Data Preprocessing/ Feature Engineering Train Data Build Model Evaluate Model pandas ... pandas/sklearn ... sklearn Advanced F">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Machine Learning • Supervised Learning: Supervised Learning is a class of Machine Learning in which a model is &quot;trained&quot; using a set of pre-existing labeled data. • • Uns">
     </div>
     <aside class="notes">
-      <p>A supervised machine learning project runs through the stages in the diagram. Getting and cleaning data: loading the records and fixing missing or malformed values, done in pandas, the Python library for tabular data. Preprocessing and feature engineering: computing numeric columns from the raw records and putting them on a usable scale, done in pandas and in scikit-learn, the Python machine learning library, pronounced sy-kit learn and imported as sklearn. Advanced feature selection: dropping columns that carry no information about the target, done in scikit-learn. The output of these three stages is the dataset that the modeling stages consume.</p>
-<p>The dataset is split into training data and test data. The model is built from the training data alone and evaluated on the test data, so the evaluation measures how the model behaves on records it was not fitted on. The arrows running back from evaluation to model building and to the preparation stages show that the process iterates: a poor evaluation sends the analyst back to change the model, the features or the cleaning.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
   <section data-page="16">
     <div class="page-stack">
-      <img class="page" src="pages/p016.webp" alt="GTK Cyber Machine Learning Terms • Features: The mathematical representation of the original data. The features are the columns in your data set. Since the features will be a matri">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Machine Learning Problem Types • Classification: Assigning or predicting a observation&#x27;s membership in discrete class • Regression: Predicting a continuous value based on">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="17">
+    <div class="page-stack">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber Machine Learning Terms • Features: The mathematical representation of the original data. The features are the columns in your data set. Since the features will be a matri">
     </div>
     <aside class="notes">
       <p>Three terms name the parts of a dataset. Features: the numeric representation of the original data, one column each; the set of features is a matrix, written X, with a row per record and a column per feature. Observations: the rows of X; in the lab each observation is one domain name. Target: the variable being predicted, written y, a vector with one entry per observation; in the lab it is the isDGA column, which labels each domain as algorithmically generated or legitimate.</p>
 <p>The model is fitted to X and y together and applied to X alone. The target exists for the training records and is what the model produces for new ones.</p>
     </aside>
   </section>
-  <section data-page="17">
-    <div class="page-stack">
-      <img class="page" src="pages/p017.webp" alt="GTK Cyber Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Category No No Predic9on, Inference Pre">
-    </div>
-    <aside class="notes">
-      <p>The choice of method follows from the data. Labeled data, meaning every record carries the value to be predicted, leads to supervised learning, and the type of that value picks the method. A quantity leads to regression, which predicts a number and supports inference about which inputs move it. A category leads to classification, which predicts a class. Without labels, the question is whether labels can be obtained, by hand labeling or from an existing source such as a blocklist; if they can, the supervised methods apply. If they cannot, what remains is clustering and pattern finding: recommenders, similarity search and anomaly detection. The chart marks this branch nothing proven because no label exists to check the output against, so the result is a structure found in the data, with no way to score it as right or wrong.</p>
-<p>Detecting generated domains sits on the classification branch. Each domain is labeled legitimate or generated, and the label is a category.</p>
-    </aside>
-  </section>
   <section data-page="18">
     <div class="page-stack">
-      <img class="page" src="pages/p018.webp" alt="GTK Cyber Features http://www.google.com">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber \ What Data Science kind of is… 3 Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Categ">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="19">
+    <div class="page-stack">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber Supervised Machine Learning Process Getting / Cleaning Data Getting / Cleaning Data Preprocessing/ Feature Engineering Preprocessing/ Feature Engineering Training Data Tr">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="20">
+    <div class="page-stack">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber Unsupervised Machine Learning Process Getting / Cleaning Data Getting / Cleaning Data Preprocessing/ Feature Engineering Preprocessing/ Feature Engineering Build Model Bu">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="21">
+    <div class="page-stack">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber How do you define success? What are you measuring?">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="22">
+    <div class="page-stack">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber Choose data sources • What is available? • Is it enough? • Is the data reliable/clean/consistent? • What other data could you use?">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="23">
+    <div class="page-stack">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber Other Considerations • Policies • Legal contraints • Biases in Data • Latency • Data size">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="24">
+    <div class="page-stack">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber Gather and Explore Your Data Is the data good enough? What are the rules governing its use? Do I have enough? Do problems or biases exist in the data that could cause pro">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber Feature Engineering">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber Feature Engineering • Define what you are trying to measure. These will become the observations or rows of your final dataset • Define how you will mathematically represe">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="27">
+    <div class="page-stack">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber Features http://www.google.com">
     </div>
     <aside class="notes">
       <p>A URL string is not usable input for a model. A classifier computes with numbers: it multiplies feature values by weights or compares them against thresholds, and a string of characters supports neither operation. The string has to be turned into numeric columns before any model can be fitted to it, and choosing which columns is the work of feature engineering.</p>
     </aside>
   </section>
-  <section data-page="19">
+  <section data-page="28">
     <div class="page-stack">
-      <img class="page" src="pages/p019.webp" alt="GTK Cyber Features domain_length vowel_count digit_count 6 3 0 http://www.google.com">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber Features http://www.google.com">
     </div>
     <aside class="notes">
-      <p>Three features are computed from the domain part of the URL. domain_length: the number of characters in google, six. vowel_count: the number of vowels in it, three. digit_count: the number of digits in it, zero. Each is a whole number a model can compute with, and together they form one row of the feature matrix for this URL.</p>
-<p>The features are measured on google alone. The protocol and the www prefix say nothing about the site behind them, so counting their characters would add a constant to every row and separate nothing. Which part of a URL to measure is itself a feature engineering decision.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="20">
+  <section data-page="29">
     <div class="page-stack">
-      <img class="page" src="pages/p020.webp" alt="GTK Cyber Representation of URL Knowledge • Come up with a representation/set of knowledge that has enough complexity to accurately describe the problem for the computer • Knowledg">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Representation of URL Knowledge • Come up with a representation/set of knowledge that has enough complexity to accurately describe the problem for the computer • Knowledg">
     </div>
     <aside class="notes">
       <p>Features are the representation of the problem that the model receives, and the representation has to be rich enough to describe the problem. The model receives no rules. It receives the columns and finds the pattern that links them to the target, so what it can find is bounded by what the columns encode, and a feature set that leaves out the property separating the classes leaves the model nothing to learn.</p>
 <p>A good feature varies with the thing being predicted. The slide's example is a feature that is high when it rains and low when it is sunny; the feature carries information because its value moves with the outcome. A column that takes the same value for malicious and benign records carries none. High variance about the problem means that the feature's value differs between the outcomes.</p>
     </aside>
   </section>
-  <section data-page="21">
+  <section data-page="30">
     <div class="page-stack">
-      <img class="page" src="pages/p021.webp" alt="GTK Cyber URL Definition https://www.google.com/search? q=URL&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ved=0ahUKEwjcl6ut- IDUAhVEPCYKHdJGDsYQ_AUIDCgD&amp;biw=1215&amp;bih=652 https:// protocol www subdom">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber URL Definition https://www.google.com/search? q=URL&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ved=0ahUKEwjcl6ut -IDUAhVEPCYKHdJGDsYQ_AUIDCgD&amp;biw=1215&amp;bih=652">
     </div>
     <aside class="notes">
       <p>A URL is made of parts, and each part is measured separately. Protocol: the scheme before the double slash, https here. Subdomain: the label in front of the registered domain, www. Zone apex: the registered domain together with its top-level domain, google.com, which is the name at which the owner's DNS zone begins. Domain: the registered name on its own, google. Top-level domain: the suffix administered by a registry, .com. Path: everything after the host, here /search followed by a query string of parameter and value pairs.</p>
 <p>The parts carry different information. The domain is chosen and paid for by the registrant, so its characters reflect who registered it; the path and query string are produced by the server and can be any length and any content. Lexical features are therefore computed per part, and computing them starts with splitting the string correctly. A top-level domain can itself contain a dot, as in co.uk, so the split cannot be done by counting dots; tldextract, a Python library that splits a hostname into subdomain, domain and suffix using the public suffix list, does it correctly.</p>
     </aside>
   </section>
-  <section data-page="22">
+  <section data-page="31">
     <div class="page-stack">
-      <img class="page" src="pages/p022.webp" alt="GTK Cyber DNS 101 • Domain Name Service (DNS) resolves domain names to IP addresses (like a phone book) • Domain Registrars: authority that signs unique domain names (GoDaddy, Blue">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber DNS 101 • Domain Name Service (DNS) resolves domain names to IP addresses (like a phone book) • Domain Registrars: authority that signs unique domain names (GoDaddy, Blue">
     </div>
     <aside class="notes">
       <p>DNS resolves a domain name to an IP address, and the terms on the slide are the parts of that system. Registrar: the company, GoDaddy for example, accredited to register a unique name on the owner's behalf. Start of Authority record, abbreviated SOA: the record at the top of a zone that names its primary name server and its administrator and sets its timers, including the default time to live, which is how long a resolver may cache a record before asking again, and how long a secondary server waits before checking the primary for updates. The slide's State of Authority is a mislabel; the record's name is Start of Authority. Root zone: the top of the name hierarchy, managed by the Internet Assigned Numbers Authority. NS record: names the servers that hold the authoritative records for a zone, which is how a top-level domain server hands a query on to the zone's own name servers. A record: maps a name to an IPv4 address. CNAME record: maps one name to another name, which is then resolved in turn. Autonomous system number and Border Gateway Protocol data: identify which network announces the address and how traffic reaches it.</p>
 <p>These records are the source of host-based features. Registration date and registrant come from WHOIS, the registries' ownership database; time to live and name servers come from DNS; the autonomous system number comes from routing data. The Python libraries on the slide fetch them: python-whois for WHOIS, dnspython for DNS queries, tldextract for splitting a hostname, and ipaddress for parsing and comparing addresses.</p>
     </aside>
   </section>
-  <section data-page="23">
+  <section data-page="32">
     <div class="page-stack">
-      <img class="page" src="pages/p023.webp" alt="GTK Cyber DNS Flow">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber DNS Flow">
     </div>
     <aside class="notes">
       <p>Resolving a name takes the nine steps in the diagram when nothing is cached. The end user's operating system sends the query to a DNS resolver, run by the ISP, the organization or a public service (step 1). The resolver asks a root name server, which does not know the address but replies with the name servers for the .com top-level domain (steps 2 and 3). The resolver asks a .com server, which replies with the name servers for google.com (steps 4 and 5). The resolver asks Google's name server, which holds the authoritative A record and replies with the address (steps 6 and 7). The resolver returns the address to the operating system (step 8), which connects to the web server directly (step 9). Each server answers only for the part of the hierarchy it is responsible for, and the resolver caches every answer for the record's time to live, so a repeat query for the same name skips steps 2 through 7.</p>
     </aside>
   </section>
-  <section data-page="24">
+  <section data-page="33">
     <div class="page-stack">
-      <img class="page" src="pages/p024.webp" alt="GTK Cyber What makes them different? URL BlockList URL AllowList amazon-sicherheit.kunden-ueberpruefung.xyz eclipsehotels.com/language/en-GB/eng.exe bohicacapital.com/page summerwe">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber What makes them different? URL BlockList URL AllowList amazon-sicherheit.kunden-ueberpruefung.xyz eclipsehotels.com/language/en-GB/eng.exe bohicacapital.com/page summerwe">
     </div>
     <aside class="notes">
-      <p>The two lists differ in their characters, and the differences are the features. The blocklist entries carry marks of automated or deceptive construction: a hostname built from a brand name and German words joined by hyphens under the .xyz top-level domain (amazon-sicherheit.kunden-ueberpruefung.xyz), an executable in the path (eng.exe), paths ending in strings with no dictionary words (rxdjna2.html, fx29id1.txt), and a path through the administrator directory of a content management system. The allowlist entries are shorter, use recognizable names and readable path words, and sit under .com, .ru and .org.</p>
-<p>The separation is not clean. bohicacapital.com and summerweb.net on the blocklist look like ordinary sites, and 333cn.com and the long numeric user ID in the google.com entry on the allowlist have the digit-heavy look of a generated name. No single rule separates the lists. Each property is a tendency, and a model weighs many tendencies at once, which is the reason for computing many lexical features.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="25">
+  <section data-page="34">
     <div class="page-stack">
-      <img class="page" src="pages/p025.webp" alt="GTK Cyber Malicious URL Detection Features (Literature) 1. BlackList Features: BlackLists suffer from a high false negative rate, but can still be useful as machine learning featur">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber Malicious URL Detection Features (Literature) 1. BlackList Features: BlackLists suffer from a high false negative rate, but can still be useful as machine learning featur">
     </div>
     <aside class="notes">
       <p>Sahoo, Liu and Hoi's 2017 survey Malicious URL Detection using Machine Learning groups URL features into four families. Blacklist features: whether the URL or its host appears on a published list of known-bad entries; a blacklist misses anything not yet listed, so it has a high false negative rate, and list membership is still an informative column. Lexical features: measurements of the string itself, such as URL length, digit count, the lengths of the parts, and the entropy of the domain name, a measure of how unpredictable its next character is given the mix of characters it contains; they capture the tendency of malicious URLs to look different from benign ones and are computed from the string alone. Host-based features: properties of where the site is hosted, who owns it and how it is managed, such as registration date, geolocation, autonomous system number, connection speed and time to live; each needs WHOIS or DNS queries, so every row costs a network round trip. Content-based features: properties of the page's HTML or JavaScript; they require fetching and possibly executing the page, which is unsafe when the page is malicious and slow at scale, so they are the least used family.</p>
 <p>The lab computes lexical features only. They need nothing beyond the string, so every row can be computed offline without a query to an outside service.</p>
     </aside>
   </section>
-  <section data-page="26">
+  <section data-page="35">
     <div class="page-stack">
-      <img class="page" src="pages/p026.webp" alt="GTK Cyber Domain Generating Algorithm (DGA) Detection">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber Domain Generating Algorithm (DGA) Detection">
     </div>
     <aside class="notes">
       <p>This part introduces domain generation algorithms and the lexical features that separate their output from legitimate domain names.</p>
     </aside>
   </section>
-  <section data-page="27">
+  <section data-page="36">
     <div class="page-stack">
-      <img class="page" src="pages/p027.webp" alt="GTK Cyber What is DGA? • Domain Generating Algorithms (DGA) are algorithms which generate pseudo-random domains that are used for infected machines to communicate with the controll">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber What is DGA? • Domain Generating Algorithms (DGA) are algorithms which generate pseudo-random domains that are used for infected machines to communicate with the controll">
     </div>
     <aside class="notes">
-      <p>A domain generation algorithm produces a list of pseudo-random domain names from a seed, and malware uses the list to find its command server. The infected machine and the operator run the same algorithm with the same seed, so both compute the same list for the day; the operator registers one name on it, and the infected machine tries names from the list until one resolves. Blocking or seizing that name does not close the channel, because the next day's list is different, and a defender who wants to cut the channel has to register or block every name on it while the operator needs only one.</p>
-<p>The technique was made widely known by the Conficker worm of 2008, whose later variants generated tens of thousands of candidate names a day. Detecting generated names is called the hello world of cyber machine learning because labeled examples are easy to obtain, from published algorithm output and from lists of legitimate domains, and because the names differ from real ones in ways that features computed from the string alone capture.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="28">
+  <section data-page="37">
     <div class="page-stack">
-      <img class="page" src="pages/p028.webp" alt="GTK Cyber">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>Mark Bowden's Worm: The First Digital World War, published in 2011, is a book-length account of Conficker and of the working group that tried to contain it by registering the domains the worm's algorithm would generate before its operators could.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="29">
+  <section data-page="38">
     <div class="page-stack">
-      <img class="page" src="pages/p029.webp" alt="GTK Cyber Preparation In Class Exercise ML Feature Engineering Lexical Features 1. Length of URL 2. Length of domain 3. Count of digits 4. Entropy of domain 5. Position (or index) ">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Preparation In Class Exercise ML Feature Engineering Lexical Features 1. Length of URL 2. Length of domain 3. Count of digits 4. Entropy of domain 5. Position (or index) ">
     </div>
     <aside class="notes">
-      <p>The exercise derives lexical features from each domain string. Length of URL: the character count of the full string. Length of domain: the character count of the registered name alone. Count of digits: how many characters are numerals. Entropy of domain: Shannon entropy, computed by taking each distinct character's share of the string, multiplying each share by its base-two logarithm, summing, and negating; a name that uses a few characters repeatedly scores low and a name whose characters are spread evenly over the alphabet scores high. Position of the first digit: the one-based index of the first numeral, zero when there is none. Bag-of-words for the top-level domain, domain and path: one column per vocabulary token holding how many times the token occurs in that part.</p>
-<p>Worksheet 3.1 computes length, digit count, entropy, the vowel-to-consonant ratio, the first-digit index and an n-gram score, which measures how much of the name is built from character sequences common in English words, for each domain in its data file, using helper functions supplied in the notebook. Each feature encodes a way in which an algorithm's output differs from a name a person chose: a generator drawing characters at random spreads them evenly, which raises entropy, places digits at any position, and does not keep the vowel-to-consonant balance of English words.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="30">
+  <section data-page="39">
     <div class="page-stack">
-      <img class="page" src="pages/p030.webp" alt="GTK Cyber Data Set (Features and Target) Features or X Target or y">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Data Set (Features and Target) Features or X Target or y">
     </div>
     <aside class="notes">
       <p>The raw table and the feature table are the same records before and after feature engineering. The raw table holds one row per URL with the string itself, the isMalicious label, the extracted domain and a creation timestamp. The feature table holds the same kind of rows as numbers: isMalicious is the target y, and every other column is a feature in X. isIP: whether the host is a bare IP address. Length and LengthDomain: character counts of the URL and of the domain. DigitsCount: the number of numerals. EntropyDomain: the entropy of the domain string. FirstDigitIndex: the position of the first numeral. com, org, net and the columns through w and waset: the bag-of-words columns, one per vocabulary token, holding the token's count in the URL, which for these tokens is zero or one.</p>
 <p>The strings themselves do not enter the model; only the numeric columns do.</p>
     </aside>
   </section>
-  <section data-page="31">
+  <section data-page="40">
     <div class="page-stack">
-      <img class="page" src="pages/p031.webp" alt="GTK Cyber Bag-of-Words • Bag-of-words model: (Frequency of) occurrence of each word is used as a feature • Sklearn&#x27;s CountVectorizer: Convert a collection of text documents to a ma">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber Bag-of-Words • Bag-of-words model: (Frequency of) occurrence of each word is used as a feature • Sklearn&#x27;s CountVectorizer: Convert a collection of text documents to a ma">
     </div>
     <aside class="notes">
-      <p>A bag-of-words model turns text into counts: each token in a fixed vocabulary becomes a column, and a document's row holds how many times each token occurs in it, with word order discarded. scikit-learn's CountVectorizer builds the matrix; fit establishes the vocabulary, here imposed as the three top-level domains .com, .de and .uk, and transform counts the vocabulary tokens in each string. In the example, facebook.com gets a one in the .com column, google.de a one in the .de column, and google.ru zeros in every column because .ru is outside the vocabulary. A fixed vocabulary keeps the column count under control for a part of the URL, such as the top-level domain or the path, that takes a large number of distinct values, and anything outside it becomes invisible.</p>
-<p>The example as printed does not run as intended. CountVectorizer's default tokenizer keeps only runs of two or more word characters, so .com is tokenized as com, which is not in a vocabulary spelled with dots, and every row comes back zero. Either spell the vocabulary without dots and pass each top-level domain without its dot, or supply a tokenizer that keeps the dot.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="32">
+  <section data-page="41">
     <div class="page-stack">
-      <img class="page" src="pages/p032.webp" alt="GTK Cyber • Imputing missing values • Scaling/Normalization • One-Hot Encoding (Encoding categorical features) • Embedding (e.g. word2vec) • Binarizing (e.g. needed for Deep Learni">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Preprocessing - an Art Work! • Imputing missing values • Scaling/Normalization • One-Hot Encoding (Encoding categorical features) • Embedding (e.g. word2vec) • Binarizing">
     </div>
     <aside class="notes">
       <p>Preprocessing is the set of operations that turn cleaned data into columns a model accepts, and the choice among them is made per dataset and per model; that is the sense of the title. Imputing missing values: filling empty cells with a substitute such as the column mean. Scaling and normalization: putting columns on comparable numeric ranges. One-hot encoding: turning a categorical column into one zero-or-one column per category. Embedding: mapping a token to a learned vector of numbers so that tokens used in similar contexts get similar vectors; word2vec is one method. Binarizing: converting a multi-class label into one zero-or-one column per class, which a neural network's multi-class output layer needs. Encoding strings as integers: replacing each distinct string with a code number. Dimensionality reduction: replacing many correlated columns with fewer uncorrelated ones that keep most of the variation; principal component analysis is the method named on the slide. Augmentation: creating extra training examples by transforming existing ones, such as tilting or zooming images. Feature selection based on a classifier: fitting a model and keeping the columns it relies on. Variance threshold: dropping columns whose values hardly change, since a near-constant column cannot separate classes.</p>
 <p>The images at the right are the data types these operations serve: numbers, text, time series, categories and binary flags. The libraries are pandas for the table operations, scikit-learn for the transformers, and SciPy for the numerical routines underneath.</p>
     </aside>
   </section>
-  <section data-page="33">
+  <section data-page="42">
     <div class="page-stack">
-      <img class="page" src="pages/p033.webp" alt="GTK Cyber Imputing Missing Values # using the most_frequent value df[&#x27;src_bytes&#x27;] = df[&#x27;src_bytes&#x27;].fillna (df[&#x27;src_bytes&#x27;].value_counts().index[0]) # using the mean value df[&#x27;dst_">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber Missing Values # using the most_frequent value df[&#x27;src_bytes&#x27;] = df[&#x27;src_bytes&#x27;].fillna # print the results df[&#x27;src_bytes&#x27;].value_counts().index[0]) # using the mean valu">
     </div>
     <aside class="notes">
-      <p>Imputation fills a missing cell with a value computed from the rest of the column, because scikit-learn estimators reject a feature matrix containing missing values. The first line fills missing src_bytes with the column's most frequent value: value_counts sorts the distinct values by frequency, index[0] is the top one, and fillna writes it into every empty cell. The second fills missing dst_bytes with the column mean. The most frequent value suits discrete or categorical columns, where a mean would be a value no record has; the mean suits continuous columns, with the caveat that a few extreme values pull it, in which case the median is the safer fill. Whichever statistic is used, compute it on the training data and reuse the same number on the test data.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="35">
+  <section data-page="43">
     <div class="page-stack">
-      <img class="page" src="pages/p034.webp" alt="GTK Cyber Color Red Red Blue Green Yellow Red One Hot Encoding">
-      <img class="page fragment" src="pages/p035.webp" alt="GTK Cyber Color Red Red Blue Green Yellow Red Color_Red Color_Blue Color_Yellow Color_Green 1 0 0 0 1 0 0 0 0 1 0 0 0 0 0 1 0 0 1 0 1 0 0 0 4 Categories 4 Columns with 1 when Categ">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber Categorical Variables One-Hot Encoding">
     </div>
     <aside class="notes">
-      <p>One-hot encoding replaces a categorical column with one zero-or-one column per category. The Color column has four categories, so it becomes four columns, Color_Red, Color_Blue, Color_Yellow and Color_Green; each row has a one in the column of its own color and zeros elsewhere, and the original column is deleted. The name comes from digital circuits, where a one-hot signal has exactly one line high.</p>
-<p>The encoding exists because a model reads integers as quantities. Coding red, blue, green and yellow as one to four would tell the model that yellow is twice blue and that green lies between them, relations that colors do not have. Four binary columns carry the category with no ordering imposed. The cost is width: a column with a thousand distinct values becomes a thousand columns.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="36">
+  <section data-page="44">
     <div class="page-stack">
-      <img class="page" src="pages/p036.webp" alt="GTK Cyber colors = [&#x27;Red&#x27;, &#x27;Red&#x27;, &#x27;Blue&#x27;, &#x27;Green&#x27;, &#x27;Yellow&#x27;, ‘Red&#x27;] series_data = pd.Series( colors ) pd.get_dummies( series_data ) # df scenario df=pd.get_dummies(df, prefix=None,">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber One Hot Encoding">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="45">
+    <div class="page-stack">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber One Hot Encoding 4 Categories 4 Columns with 1 when Category is True and delete original column!">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="46">
+    <div class="page-stack">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber One Hot Encoding colors = [&#x27;Red&#x27;, &#x27;Red&#x27;, &#x27;Blue&#x27;, &#x27;Green&#x27;, &#x27;Yellow&#x27;, ‘Red&#x27;] series_data = pd.Series( colors ) pd.get_dummies(series_data) df = pd.get_dummies(df, prefix=No">
     </div>
     <aside class="notes">
       <p>pandas performs one-hot encoding with get_dummies. Called on a Series of six colors, it returns a table with one column per distinct value and one row per element. Called on a whole DataFrame with a columns argument, it encodes only the named columns, here protocol_type and flag, and leaves the rest untouched. prefix=None: name each new column after the source column. prefix_sep='_': join the source name and the category with an underscore, giving protocol_type_tcp. dummy_na=False: do not add a column marking missing values. sparse=False: return an ordinary dense table. pandas 2.0 and later return True and False in the new columns; pass dtype=int for ones and zeros.</p>
     </aside>
   </section>
-  <section data-page="37">
+  <section data-page="47">
     <div class="page-stack">
-      <img class="page" src="pages/p037.webp" alt="GTK Cyber Better way: Feature Engine • Feature Engine is a module which helps automate the complexities of feature engineering. • Missing Value Imputation • One Hot Encoding • Outl">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber Better way: Feature Engine • Feature Engine is a module which helps automate the complexities of feature engineering. • Missing Value Imputation • One Hot Encoding • Outl">
     </div>
     <aside class="notes">
       <p>Feature-engine is an open-source Python library, written by Soledad Galli, that packages feature engineering steps as scikit-learn style transformers: imputation of missing values, one-hot and other categorical encodings, capping of outliers at a chosen quantile, and more. Each transformer has a fit method that learns its parameters from the training data and a transform method that applies them, so a step fitted once is reapplied to new data unchanged and can sit inside a scikit-learn pipeline.</p>
     </aside>
   </section>
-  <section data-page="38">
+  <section data-page="48">
     <div class="page-stack">
-      <img class="page" src="pages/p038.webp" alt="GTK Cyber Feature Engine from feature_engine import categorical_encoders as ce import pandas as pd # set up the encoder encoder = ce.OneHotCategoricalEncoder( top_categories=3, dro">
-    </div>
-    <aside class="notes">
-      <p>The encoder is set up, fitted and applied in three steps. OneHotCategoricalEncoder is constructed with two settings. top_categories=3: encode only the three most frequent categories of each variable, so a variable with hundreds of values produces three columns and a row holding any other value gets zeros in all three. drop_last=False: keep every column; True would drop one, because with all categories present the last column is implied by the others. fit scans the training data to find which categories are the top three; transform adds the columns and drops the originals. The fitted encoder is reused on test data, which is what keeps the column set identical between the two.</p>
-<p>Current Feature-engine releases moved this class: the import is from feature_engine.encoding import OneHotEncoder, with the same arguments.</p>
-    </aside>
-  </section>
-  <section data-page="39">
-    <div class="page-stack">
-      <img class="page" src="pages/p039.webp" alt="GTK Cyber PROBE = [&#x27;portsweep.&#x27;, &#x27;satan.&#x27;, &#x27;nmap.&#x27;, &#x27;ipsweep.&#x27;] df = df.replace(to_replace = PROBE, value=1) Encoding Strings as Integers">
-    </div>
-    <aside class="notes">
-      <p>A label column of strings is turned into integers with replace. PROBE lists four attack names from the KDD Cup 1999 intrusion dataset, each with the trailing period that dataset uses, and replace rewrites every cell holding one of them to the integer one. Repeating the call for each attack family, with a different integer per family and zero for normal, turns the label column into class codes a classifier can fit to.</p>
-<p>A classifier treats each distinct target value as a class label with no order among them, so integer codes suit a target column. A feature column is read as quantities, with three larger than one, which is why categorical features get one-hot encoding.</p>
-    </aside>
-  </section>
-  <section data-page="40">
-    <div class="page-stack">
-      <img class="page" src="pages/p040.webp" alt="GTK Cyber Feature Scaling">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber Feature Scaling">
     </div>
     <aside class="notes">
       <p>This part covers feature scaling: putting numeric columns on a common range so that no column dominates a model because of its units.</p>
     </aside>
   </section>
-  <section data-page="41">
+  <section data-page="49">
     <div class="page-stack">
-      <img class="page" src="pages/p041.webp" alt="GTK Cyber When you&#x27;re creating a scaling object, you should first &quot;fit&quot; it to the training data, then transform both the training and testing data using the &quot;fit&quot; scaler. If you tr">
-    </div>
-    <aside class="notes">
-      <p>A scaler is fitted on the training data once, and the fitted scaler transforms both the training data and the test data. The slide's second sentence is cut off. The consequence it was going to state is that fitting the two sets separately produces two different sets of scaling parameters, so the same raw value maps to different scaled values in the two sets and the thresholds the model learned on the training scale no longer line up with the test data. Fitting on the test set also lets its statistics into the preprocessing, so the evaluation stops being a measurement on unseen data. The same rule applies to every fitted preprocessing step: imputers and encoders as well as scalers.</p>
-    </aside>
-  </section>
-  <section data-page="42">
-    <div class="page-stack">
-      <img class="page" src="pages/p042.webp" alt="GTK Cyber Standard Scaling scaled_feature = (feature - column_mean) / standard_deviation">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber Standard Scaling scaled_feature = (feature - column_mean) / standard_deviation Standardization - rescale so that mean = 0, std = 1">
     </div>
     <aside class="notes">
       <p>Standard scaling replaces each value with its z-score: the value minus the column mean, divided by the column standard deviation. The result says how many standard deviations the value sits above or below the column's average, so a scaled value of two means two standard deviations above the mean whatever the original units were. Every column ends up with mean zero and standard deviation one, and columns measured in bytes, seconds and counts become comparable.</p>
 <p>Scaling matters for models that combine columns arithmetically. A distance-based model such as k-nearest neighbors, or a model fitted by gradient steps such as logistic regression or a neural network, is dominated by whichever column has the largest numeric range; a byte count in the millions outweighs an entropy value near three. Tree-based models split one column at a time against a threshold and are unaffected by scaling.</p>
     </aside>
   </section>
-  <section data-page="43">
+  <section data-page="50">
     <div class="page-stack">
-      <img class="page" src="pages/p043.webp" alt="GTK Cyber Standard Scaling from sklearn.preprocessing import StandardScaler scaler = StandardScaler() scaler.fit(features) features_scaled = scaler.transform(features) or features_">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber Standard Scaling from sklearn.preprocessing import StandardScaler scaler = StandardScaler() scaler.fit(features) features_scaled = scaler.transform(features)">
     </div>
     <aside class="notes">
       <p>StandardScaler from sklearn.preprocessing is the transformer for z-scoring. Constructing it creates an object with no parameters yet; fit computes the mean and standard deviation of every column and stores them on the object; transform subtracts and divides using the stored values and returns the scaled matrix. fit_transform does both in one call and is the form to use on the training data. The test data gets transform alone, so that it is scaled with the training statistics.</p>
     </aside>
   </section>
-  <section data-page="44">
+  <section data-page="51">
     <div class="page-stack">
-      <img class="page" src="pages/p044.webp" alt="GTK Cyber Standard Scaling original values: [[ 0.9 0.1 40. ] [ 0.3 0.2 50. ] [ 0.6 0.8 60. ]] Mean of each column: [ 0.6 0.3667 50.] SD of each column: [ 0.2449 0.3091 8.165 ] scal">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber Standard Scaling original values: [[ 0.9 0.1 40. ] [ 0.3 0.2 50. ] [ 0.6 0.8 60. ]] Mean of each column: [ 0.6 0.3667 50.] SD of each column: [ 0.2449 0.3091 8.165 ] scal">
     </div>
     <aside class="notes">
       <p>The example scales a three-by-three matrix. The column means are 0.6, 0.3667 and 50, and the column standard deviations are 0.2449, 0.3091 and 8.165. The top-left value, 0.9, becomes 0.9 minus 0.6 divided by 0.2449, which is 1.2247; the value below it, 0.3, is the same distance below the mean and becomes negative 1.2247; the 0.6 sits on the mean and becomes zero. The means of the scaled columns print as zero, one of them as negative zero, which is a rounding artifact of floating point, and the standard deviations print as one.</p>
 <p>StandardScaler divides by the population standard deviation, the root of the mean squared deviation, without the n minus one correction that pandas applies in its std method. A hand check with pandas therefore gives 0.3 for the first column, and the scaled values differ. The slide's numbers are the scikit-learn ones.</p>
     </aside>
   </section>
-  <section data-page="45">
+  <section data-page="52">
     <div class="page-stack">
-      <img class="page" src="pages/p045.webp" alt="GTK Cyber Min/Max Scaling normed_feature = (feature - col_min) / (col_max - col_min)">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber Min/Max Scaling normed_feature = (feature - col_min) / (col_max - col_min)">
     </div>
     <aside class="notes">
       <p>Min-max scaling maps each column onto the range zero to one: the value minus the column minimum, divided by the column maximum minus the column minimum. The smallest value becomes zero, the largest becomes one, and every other value keeps its relative position between them, so the shape of the column's distribution is preserved. A single extreme value sets the maximum, which compresses the rest of the column into a narrow band near zero, and a test value outside the training range scales to below zero or above one.</p>
     </aside>
   </section>
-  <section data-page="46">
+  <section data-page="53">
     <div class="page-stack">
-      <img class="page" src="pages/p046.webp" alt="GTK Cyber Min/Max Scaling from sklearn.preprocessing import MinMaxScaler minmax = MinMaxScaler() minmax.fit(features) features_scaled_minmax = minmax.transform(features) or feature">
+      <img class="page" src="pages/p053.webp" alt="GTK Cyber Min/Max Scaling from sklearn.preprocessing import MinMaxScaler minmax = MinMaxScaler() minmax.fit(features) features_scaled_minmax = minmax.transform(features)">
     </div>
     <aside class="notes">
       <p>MinMaxScaler has the same interface as StandardScaler. fit records the minimum and maximum of every column; transform applies the formula with the recorded values; fit_transform does both on the training data. The stored minimum and maximum, like the stored mean and standard deviation, are what make the scaling repeatable on new records.</p>
     </aside>
   </section>
-  <section data-page="47">
+  <section data-page="54">
     <div class="page-stack">
-      <img class="page" src="pages/p047.webp" alt="GTK Cyber Min/Max Scaling original values: [[ 0.9 0.1 40. ] [ 0.3 0.2 50. ] [ 0.6 0.8 60. ]] Mean of each column: [ 0.6 0.3667 50.] SD of each column: [ 0.2449 0.3091 8.165 ] scale">
+      <img class="page" src="pages/p054.webp" alt="GTK Cyber Min/Max Scaling original values: [[ 0.9 0.1 40. ] [ 0.3 0.2 50. ] [ 0.6 0.8 60. ]] Mean of each column: [ 0.6 0.3667 50.] SD of each column: [ 0.2449 0.3091 8.165 ] scale">
     </div>
     <aside class="notes">
       <p>The same matrix under min-max scaling. In the first column the minimum is 0.3 and the maximum is 0.9, so 0.9 becomes one, 0.3 becomes zero, and 0.6, halfway between, becomes 0.5. In the second column 0.2 becomes 0.2 minus 0.1 divided by 0.8 minus 0.1, which is 0.1429. In the third, 40, 50 and 60 become zero, 0.5 and one. The means of the scaled columns are 0.5, 0.381 and 0.5 and the standard deviations are 0.4082, 0.4416 and 0.4082: only the endpoints are fixed by this method, and the mean and spread are whatever the data gives.</p>
     </aside>
   </section>
-  <section data-page="48">
+  <section data-page="55">
     <div class="page-stack">
-      <img class="page" src="pages/p048.webp" alt="GTK Cyber Dealing with Imbalanced Classes">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Dealing with Imbalanced Classes">
     </div>
     <aside class="notes">
       <p>This part covers class imbalance: training data in which one class is far rarer than the other, and resampling as the remedy.</p>
     </aside>
   </section>
-  <section data-page="49">
+  <section data-page="56">
     <div class="page-stack">
-      <img class="page" src="pages/p049.webp" alt="GTK Cyber Dealing with Imbalanced Classes • A lot of real-world security data will have very imbalanced targets. • Fortunately, there is a library called imbalanced-learn which can">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber Dealing with Imbalanced Classes • A lot of real-world security data will have very imbalanced targets. • Fortunately, there is a library called imbalanced-learn which can">
     </div>
     <aside class="notes">
       <p>In security data the class of interest is rare: malicious records are a small fraction of the total, and the target column is imbalanced. Imbalance distorts fitting. A model that minimizes overall error is pulled toward the majority class, and a classifier that labels everything as normal scores high accuracy while detecting nothing, so the rare class is the one the model learns least about.</p>
 <p>imbalanced-learn, a Python library built to work with scikit-learn, resamples the training data to even out the classes. Its methods fall into two families: over-sampling, which adds minority rows by duplicating existing ones or by synthesizing new ones between neighbors, and under-sampling, which discards majority rows.</p>
     </aside>
   </section>
-  <section data-page="50">
+  <section data-page="57">
     <div class="page-stack">
-      <img class="page" src="pages/p050.webp" alt="GTK Cyber Dealing with Imbalanced Classes from imblearn.over_sampling import RandomOverSampler ros = RandomOverSampler(random_state=0) X_resampled, y_resampled = ros.fit_resample(X">
+      <img class="page" src="pages/p057.webp" alt="GTK Cyber Dealing with Imbalanced Classes from imblearn.over_sampling import RandomOverSampler ros = RandomOverSampler(random_state=0) X_resampled, y_resampled = ros.fit_resample(X">
     </div>
     <aside class="notes">
       <p>RandomOverSampler duplicates randomly chosen minority rows until the classes are the same size. random_state=0 fixes the random draw so that the resampled set is the same on every run. fit_resample takes the feature matrix and the target and returns a new pair, X_resampled and y_resampled, longer than the originals by the number of duplicates added. Resample the training data only, after the split. Resampling the test data would score the model on duplicated rows and on a class ratio that the real data does not have, so the evaluation would no longer describe the data the model will be applied to.</p>
     </aside>
   </section>
-  <section data-page="51">
+  <section data-page="58">
     <div class="page-stack">
-      <img class="page" src="pages/p051.webp" alt="GTK Cyber Selecting Features">
+      <img class="page" src="pages/p058.webp" alt="GTK Cyber Selecting Features">
     </div>
     <aside class="notes">
       <p>This part covers feature selection: deciding which of the engineered columns go into the model and which are dropped.</p>
     </aside>
   </section>
-  <section data-page="52">
+  <section data-page="59">
     <div class="page-stack">
-      <img class="page" src="pages/p052.webp" alt="GTK Cyber Should we use all of them?">
+      <img class="page" src="pages/p059.webp" alt="GTK Cyber Should we use all of them?">
     </div>
     <aside class="notes">
       <p>Whether every engineered column belongs in the model is a decision. A column that carries no information about the target gives the model noise to fit, which costs accuracy on new records; a column that repeats another's information double-counts it; and every column costs compute and memory at training time and at prediction time. The question applies to the lab's six features as much as to a table with hundreds.</p>
     </aside>
   </section>
-  <section data-page="53">
+  <section data-page="60">
     <div class="page-stack">
-      <img class="page" src="pages/p053.webp" alt="GTK Cyber How do we know which features to use and which to discard?">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber How do we know which features to use and which to discard?">
     </div>
     <aside class="notes">
       <p>Two kinds of evidence answer the question. A scoring statistic rates each feature by how strongly it relates to the target and keeps the top scorers, which is fast and automatic. Plots of the features against the target and against each other show which ones separate the classes and which pairs carry the same information, which a per-feature score cannot detect. Both are applied to the same feature table, and the decision about what to drop comes from reading them together.</p>
     </aside>
   </section>
-  <section data-page="54">
+  <section data-page="61">
     <div class="page-stack">
-      <img class="page" src="pages/p054.webp" alt="GTK Cyber Before using automation, you should remove: • Unnecessary features that are uninformative or repetitive • Irrelevant features • Duplicate observations">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Before using automation, you should remove: • Unnecessary features that are uninformative or repetitive • Irrelevant features • Duplicate observations">
     </div>
     <aside class="notes">
       <p>Three things are removed by hand before any automated selection runs. Unnecessary features, uninformative or repetitive: a column that is constant or nearly so cannot separate classes, and two columns that encode the same fact double-count it; in the lab's feature set, digits and firstDigitIndex are both zero on exactly the rows with no numerals, since a name without a digit has no first digit, so they share the information about whether a digit is present. Irrelevant features: columns with no relation to the target, such as a row identifier. Duplicate observations: identical rows, which weight one record more than once and, when the copies land on both sides of the train and test split, put training rows into the test set.</p>
 <p>Automated scoring does not catch these. A scoring function rates each column against the target on its own, so two redundant columns both score well and both survive, and duplicate rows inflate every statistic computed on them.</p>
     </aside>
   </section>
-  <section data-page="55">
+  <section data-page="62">
     <div class="page-stack">
-      <img class="page" src="pages/p055.webp" alt="GTK Cyber best_features = SelectKBest(score_func=chi2,k=3).fit_transform(features,target) References: http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.Sel">
+      <img class="page" src="pages/p062.webp" alt="GTK Cyber How do we know which features to use and which to discard? best_features = SelectKBest(score_func=chi2,k=3).fit_transform(features,target) References: http://scikit-learn">
     </div>
     <aside class="notes">
       <p>SelectKBest scores every feature against the target with a chosen statistic and keeps the k highest; with score_func=chi2 and k=3 it keeps the three features with the largest chi-squared statistic. fit_transform computes the scores and returns the reduced matrix in one call. SelectPercentile keeps a share of the features by score; percentile=3 keeps the top three percent, which for a seven-column table comes to one column. The slide's caption for it, all features above a threshold in the scoring function, is inexact; SelectPercentile ranks the features and keeps a fraction of them, and a score threshold is a different selector.</p>
 <p>The scoring functions are chosen by the task. For classification: chi2, the chi-squared test of independence between a non-negative feature such as a count and the class; f_classif, the analysis-of-variance F statistic comparing the feature's mean across classes; and mutual_info_classif, an estimate of mutual information. For regression: f_regression and mutual_info_regression, the same ideas against a numeric target. chi2 requires non-negative features, so it suits bag-of-words counts and rejects a z-scored column. All of these are univariate: each feature is scored alone against the target.</p>
     </aside>
   </section>
-  <section data-page="56">
+  <section data-page="63">
     <div class="page-stack">
-      <img class="page" src="pages/p056.webp" alt="GTK Cyber How do we know which features to use and which to discard? Visualize Them!!">
+      <img class="page" src="pages/p063.webp" alt="GTK Cyber How do we know which features to use and which to discard? Visualize Them!!">
     </div>
     <aside class="notes">
       <p>Plotting is the second answer. The views the lab draws from the same feature table are a correlation matrix as a heatmap, a pairplot colored by class, a radviz projection, and a bar chart of mutual information with the target.</p>
     </aside>
   </section>
-  <section data-page="57">
+  <section data-page="64">
     <div class="page-stack">
-      <img class="page" src="pages/p057.webp" alt="GTK Cyber">
-    </div>
-    <aside class="notes">
-      <p>The heatmap is the correlation matrix of the lab's feature table with the target included. Each cell is the Pearson correlation between its row's column and its column's column, on a scale from negative 0.6 in dark purple to above 0.8 in yellow; the upper triangle and the diagonal are blank because they would repeat the lower triangle and the self-correlations of one.</p>
-<p>The first column is the relation of each feature to isDGA. length and entropy are positively correlated with the target, both around 0.5; ngrams is the most negatively correlated, near negative 0.6, and vowel-cons is also negative, near negative 0.5. Generated names are longer, have more evenly spread characters, contain fewer English letter sequences and have fewer vowels relative to consonants than real names. digits and firstDigitIndex sit near zero and tell the model little on their own.</p>
-<p>The remaining cells are the relations among features. length and entropy are the brightest pair, above 0.8, so they carry much of the same information: a longer name has room for more distinct characters. ngrams and vowel-cons are positively correlated with each other, near 0.6, since both measure how English-like a name is. Pairs like these are the candidates for dropping one member.</p>
-    </aside>
-  </section>
-  <section data-page="58">
-    <div class="page-stack">
-      <img class="page" src="pages/p058.webp" alt="GTK Cyber corr_mat = df_final_int.corr() mask = np.triu(np.ones_like(corr_mat, dtype=bool)) # plot a heatmap sns.heatmap(corr_mat, mask=mask, cmap=&#x27;viridis&#x27;); http://www.scikit-yb.">
+      <img class="page" src="pages/p064.webp" alt="GTK Cyber Heatmap import seaborn as sns import pandas as pd #Calculate correlations between features corr_matrix = df_final.corr() #Generate a mask for the upper mask = np.triu(np.">
     </div>
     <aside class="notes">
       <p>The three lines produce the heatmap. corr computes the Pearson correlation of every pair of columns in df_final_int, the feature table with isDGA already encoded as an integer so that the target can be correlated too. np.triu(np.ones_like(corr_mat, dtype=bool)) builds a boolean matrix that is true on and above the diagonal; passed as mask, it tells seaborn, the plotting library built on matplotlib and imported as sns, to leave those cells blank. cmap='viridis' picks the purple-to-yellow color scale, and the trailing semicolon suppresses the printed representation of the returned axes in a notebook. The link at the foot of the slide is Yellowbrick's Rank2D visualizer, which draws the same pairwise matrix through a scikit-learn style API.</p>
     </aside>
   </section>
-  <section data-page="59">
+  <section data-page="65">
     <div class="page-stack">
-      <img class="page" src="pages/p059.webp" alt="GTK Cyber import seaborn as sns sns.pairplot(&lt;features&gt;, hue=&#x27;&lt;target&gt;&#x27; )">
+      <img class="page" src="pages/p065.webp" alt="GTK Cyber Pairplot import seaborn as sns sns.pairplot(&lt;features&gt;, hue=&#x27;&lt;target&gt;&#x27;) http://seaborn.pydata.org/generated/seaborn.pairplot.html Look at the correlations between feature">
     </div>
     <aside class="notes">
       <p>A pairplot draws every feature against every other. Each off-diagonal cell is a scatter of one feature against another with points colored by the target, and each diagonal cell is the distribution of one feature drawn separately for each class. seaborn's pairplot takes the feature table and the name of the target column as hue. The example on the slide comes from a tumor diagnosis dataset with classes M for malignant and B for benign.</p>
 <p>Two readings come out of it. On the diagonal, two class histograms that barely overlap mark a feature that separates the classes on its own; in the example, the malignant class sits to the right of the benign class on every feature. Off the diagonal, points that fall along a line, rising or falling, mark two features that are correlated and so carry the same information, and one of them is a candidate to drop; all three features in the example rise together. The upper and lower triangles are mirror images, so one of them can be ignored.</p>
     </aside>
   </section>
-  <section data-page="60">
+  <section data-page="66">
     <div class="page-stack">
-      <img class="page" src="pages/p060.webp" alt="GTK Cyber Mutual Information • Captures non-linear relationships between the features and the target. • Will help you identify features which are highly predictive that are not cor">
+      <img class="page" src="pages/p066.webp" alt="GTK Cyber Radviz import pandas as pd pd.plotting.radviz(df, ‘&lt;target_column’) Veiw the contributions that each feature is making to the target via Pandas Radviz">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="67">
+    <div class="page-stack">
+      <img class="page" src="pages/p067.webp" alt="GTK Cyber Mutual Information • Captures non-linear relationships between the features and the target. • Will help you identify features which are highly predictive that are not cor">
     </div>
     <aside class="notes">
       <p>Mutual information measures how much knowing a feature's value reduces uncertainty about the target. It is zero when the two are independent and grows with any kind of dependence, whatever its shape. Pearson correlation measures straight-line association only, so a feature that flags the positive class at both ends of its range and the negative class in the middle has a correlation near zero and a mutual information well above it. Ranking features by mutual information therefore surfaces predictive columns that a correlation matrix scores near zero.</p>
     </aside>
   </section>
-  <section data-page="61">
+  <section data-page="68">
     <div class="page-stack">
-      <img class="page" src="pages/p061.webp" alt="GTK Cyber Mutual Information Plot from sklearn.feature_selection import mutual_info_classif features = df_final_int.drop(columns=&quot;isDGA&quot;) target = df_final_int[&quot;isDGA&quot;].astype(int)">
+      <img class="page" src="pages/p068.webp" alt="GTK Cyber Mutual Information Plot from sklearn.feature_selection import mutual_info_classif features = df_final_int.drop(columns=&quot;isDGA&quot;) target = df_final_int[&quot;isDGA&quot;].astype(int)">
     </div>
     <aside class="notes">
       <p>The bar chart ranks the lab's features by mutual information with isDGA. ngrams, entropy, vowel-cons and length score close together, each around 0.26 to 0.28; digits scores about 0.07 and firstDigitIndex about 0.015. The four strong features each carry roughly the same amount of information about whether a name is generated, and the two digit-based features carry little.</p>
 <p>The code separates the table into features, everything except isDGA, and target, the isDGA column as integers, calls mutual_info_classif to get one score per column, wraps the scores in a Series indexed by column name so that they sort and label themselves, and draws a horizontal bar chart. mutual_info_classif estimates the quantity from nearest neighbors and adds a small amount of random noise to break ties, so the scores differ slightly from run to run unless random_state is set.</p>
     </aside>
   </section>
-  <section data-page="62">
+  <section data-page="69">
     <div class="page-stack">
-      <img class="page" src="pages/p062.webp" alt="GTK Cyber Do it all at once! • FG-Data-Profiling (Formerly YData and Pandas-Profiling) is a module which can generate very thorough summaries of your datasets. • Simple to use, but">
+      <img class="page" src="pages/p069.webp" alt="GTK Cyber Do it all at once! • FG-Data-Profiling (Formerly YData and Pandas-Profiling) is a module which can generate very thorough summaries of your datasets. • Simple to use, but">
     </div>
     <aside class="notes">
       <p>fg-data-profiling, the current name of the package released earlier as pandas-profiling and then ydata-profiling, generates a full report on a DataFrame in one call: per-column statistics and histograms, missing-value and duplicate counts, warnings, and correlation matrices under several coefficients. ProfileReport takes the DataFrame and a title and returns the report object, which a notebook renders inline or saves as HTML. The computation covers every column and every pair of columns, which is what the slide's computationally intense refers to.</p>
     </aside>
   </section>
-  <section data-page="63">
+  <section data-page="70">
     <div class="page-stack">
-      <img class="page" src="pages/p063.webp" alt="GTK Cyber FG Data Profiling">
-    </div>
-    <aside class="notes">
-      <p>The report's overview tab summarizes the lab's feature table. Number of variables, seven: the six features and isDGA. Number of observations, two thousand: one row per domain. Missing cells, zero: no imputation is needed. Duplicate rows, two: identical rows to drop before selection. Variable types: six numeric columns and one boolean, the target. The Reproduction tab records when and how the report was generated, and the Warnings tab, with four entries, lists the findings the report flags.</p>
-    </aside>
-  </section>
-  <section data-page="64">
-    <div class="page-stack">
-      <img class="page" src="pages/p064.webp" alt="GTK Cyber FG Data Profiling">
+      <img class="page" src="pages/p070.webp" alt="GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense...">
     </div>
     <aside class="notes">
       <p>The per-variable panel for digits. Distinct count, twenty-two, and unique, 1.1 percent: the column takes twenty-two different values across two thousand rows. Zeros, 1670 or 83.5 percent: most domains contain no digit at all. The quantile block makes the same point: minimum, fifth percentile, first quartile, median and third quartile are all zero, the ninety-fifth percentile is nine and the maximum is twenty-seven, so the interquartile range is zero and the whole spread of the column is confined to its top sixth. The descriptive block shows the consequence: a mean of 1.19 pulled up from the zero median by the tail, a standard deviation of 3.23 larger than the mean, and skewness of 3.1 and kurtosis of 10.9, both marking a long right tail. The histogram at the top right is a single bar at zero with a sliver beside it.</p>
 <p>A column shaped like this separates only the sixth of the names that contain digits and says nothing about the rest, which is why its mutual information with the target is low.</p>
     </aside>
   </section>
-  <section data-page="65">
+  <section data-page="71">
     <div class="page-stack">
-      <img class="page" src="pages/p065.webp" alt="GTK Cyber FG Data Profiling">
+      <img class="page" src="pages/p071.webp" alt="GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense...">
+    </div>
+    <aside class="notes">
+      <p>TODO NEW SLIDE</p>
+    </aside>
+  </section>
+  <section data-page="72">
+    <div class="page-stack">
+      <img class="page" src="pages/p072.webp" alt="GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense...">
     </div>
     <aside class="notes">
       <p>The warnings tab lists four findings. Two duplicate rows, 0.1 percent of the table: remove them before selection. digits has 1670 zeros and firstDigitIndex has 1670 zeros, the same count, because both are zero on exactly the names that contain no numeral; on 83.5 percent of the rows the two columns are identical, and they differ only on the remaining sixth, so they are close to redundant. vowel-cons has 87 zeros, 4.3 percent: names with no vowel, and names with no consonant, for which the helper function returns zero in place of a division by zero.</p>
     </aside>
   </section>
-  <section data-page="66">
+  <section data-page="73">
     <div class="page-stack">
-      <img class="page" src="pages/p066.webp" alt="GTK Cyber FG Data Profiling">
+      <img class="page" src="pages/p073.webp" alt="GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense...">
     </div>
     <aside class="notes">
       <p>The correlations tab draws the full correlation matrix, diagonal included, with blue for positive and red for negative values on a scale from negative one to one. It is the same Pearson matrix as the heatmap drawn by hand, so the blue cells linking isDGA with length, digits and entropy and the red cells for ngrams and vowel-cons against the target repeat the earlier reading. The other tabs recompute the matrix with different coefficients. Spearman's rho: the Pearson correlation of the ranks, which measures any monotonic relation, straight-line or not. Kendall's tau: the balance of concordant against discordant pairs, another rank measure. Phik: a coefficient that works across numeric and categorical columns and picks up non-linear dependence, with values from zero to one.</p>
     </aside>
   </section>
-  <section data-page="67">
+  <section data-page="74">
     <div class="page-stack">
-      <img class="page" src="pages/p067.webp" alt="GTK Cyber In Class Exercise Please take 45 minutes and complete Worksheet 3.1 - Feature Engineering">
+      <img class="page" src="pages/p074.webp" alt="GTK Cyber In Class Exercise Please take 45 minutes and complete Worksheet 3.1 - Feature Engineering">
     </div>
     <aside class="notes">
-      <p>Worksheet 3.1 applies the deck to the domain data. Part 1 derives the features listed for the exercise: Task A with the notebook's helper functions, and Task B the n-gram score following Schiavoni, Maggi, Cavallaro and Zanero's 2014 paper Phoenix: DGA-based Botnet Tracking and Intelligence, computed by summing, over each name's one-, two- and three-character sequences, how often the sequence occurs in Google's list of the ten thousand most common English words, dividing by the number of sequences, and averaging over the three lengths. The domain column is then dropped, leaving the numeric table.</p>
-<p>Part 2 visualizes the result. The target strings are encoded as integers, the correlation of each feature with the target is computed, and the feature table is drawn as a correlation heatmap, a pairplot colored by class, a radviz projection, in which each feature anchors a point on a circle and each record is placed by the balance of its feature values, and a mutual information ranking. An optional last step generates the profiling report. A breakpoint cell loads a prepared feature file for anyone whose Part 1 did not finish.</p>
+      <p>TODO NEW SLIDE</p>
     </aside>
   </section>
-  <section data-page="68">
+  <section data-page="75">
     <div class="page-stack">
-      <img class="page" src="pages/p068.webp" alt="GTK Cyber Questions?">
+      <img class="page" src="pages/p075.webp" alt="GTK Cyber Questions?">
     </div>
     <aside class="notes">
       <p>Closing slide for questions on the module.</p>

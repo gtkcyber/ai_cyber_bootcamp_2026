@@ -1,25 +1,25 @@
 {
   "slug": "01-exploratory-data-analysis",
   "pdf": "Module 1 - Exploratory Data Analysis.pdf",
-  "page_count": 146,
+  "page_count": 160,
   "pages": [
     {
       "page": 1,
       "kind": "slide",
       "group": 1,
-      "text": "GTK Cyber Module 1: Exploratory Data Analysis"
+      "text": "Module 1: Exploratory Data Analysis"
     },
     {
       "page": 2,
       "kind": "slide",
       "group": 2,
-      "text": "GTK Cyber Overview • This module will introduce you to vectorized data structures and the Pandas library. • You will learn how to explore tabular data sets. • Pandas 2.0"
+      "text": "GTK Cyber Overview • This module will introduce you to vectorized data structures and the Pandas library. • You will learn how to explore tabular data sets. • Pandas 3.x"
     },
     {
       "page": 3,
       "kind": "slide",
       "group": 3,
-      "text": "GTK Cyber A Word On Vibe Coding... • We fully expect (and encourage) you to use AI to generate the answers to the labs and exercises. • However, understanding the structure and mechanism of Pandas will allow you to give better direction to AI. • We therefore would suggest writing code manually until you are comfortable with the concepts behind Pandas."
+      "text": "GTK Cyber A Word On Vibe Coding... • We fully expect (and encourage) you to use AI to generate the answers to the labs and exercises. • However, understanding the structure and mechanism of Pandas will allow you to give better direction to AI. • We therefore would suggest writing code manually until you are comfortable with the concepts behind Pandas. • Don't just cut/paste the instructions into an LLM."
     },
     {
       "page": 4,
@@ -61,19 +61,19 @@
       "page": 10,
       "kind": "build",
       "group": 10,
-      "text": "GTK Cyber for x in range(0, len( data )): data[x] = data[x] + 1"
+      "text": "GTK Cyber for cell in row: half_cell = cell / 2 for x in range(0, len( data )): data[x] = data[x] + 1"
     },
     {
       "page": 11,
       "kind": "slide",
       "group": 10,
-      "text": "GTK Cyber for x in range(0, len( data )): data[x] = data[x] + 1 odds = evens + 1"
+      "text": "GTK Cyber for cell in row: half_cell = cell / 2 for x in range(0, len( data )): data[x] = data[x] + 1 odds = evens + 1"
     },
     {
       "page": 12,
       "kind": "slide",
       "group": 11,
-      "text": "GTK Cyber"
+      "text": "GTK Cyber for cell in row: half_cell = cell / 2"
     },
     {
       "page": 13,
@@ -91,13 +91,13 @@
       "page": 15,
       "kind": "slide",
       "group": 14,
-      "text": "GTK Cyber What is Pandas? • Pandas is the standard OSS data manipulation library for Python • At its core, it is a collection of vectorized data structures. • Pandas is the foundation of the Python data science ecosystem, so understanding it is key to being effective at data science using Python. • In March 2023, Pandas 2.0 was released which had some major new features."
+      "text": "GTK Cyber What is Pandas? • Pandas is the standard OSS data manipulation library for Python • At its core, it is a collection of vectorized data structures. • Pandas is the foundation of the Python data science ecosystem, so understanding it is key to being effective at data science using Python. • In Jan 2026, Pandas 3.0 was released which had some major new features."
     },
     {
       "page": 16,
       "kind": "slide",
       "group": 15,
-      "text": "GTK Cyber Dimensions Name Description 1 Series Indexed 1 dimensional data structure 1 Timeseries Series using timestamps as an index 2 DataFrame A two dimensional table 3 Panel A three dimensional mutable data structure"
+      "text": "GTK Cyber"
     },
     {
       "page": 17,
@@ -107,777 +107,861 @@
     },
     {
       "page": 18,
-      "kind": "slide",
+      "kind": "unsure",
       "group": 17,
-      "text": "GTK Cyber The Series Object"
+      "text": "GTK Cyber Libraries in Python"
     },
     {
       "page": 19,
-      "kind": "build",
+      "kind": "slide",
       "group": 18,
-      "text": "GTK Cyber A Series is like a list"
+      "text": "GTK Cyber What is a Python library? • Python libraries are also called modules • Python has large set of built-in libraries • Can contain classes, functions or variables • Imported into a script or session import ipaddress"
     },
     {
       "page": 20,
-      "kind": "build",
-      "group": 18,
-      "text": "GTK Cyber A Series is like a list or a dictionary"
+      "kind": "slide",
+      "group": 19,
+      "text": "GTK Cyber Python library: full name Functions defined in a library are called using dot notation when importing the full library. import ipaddress user_address = ipaddress.ip_address(\"0:0:0:0:0:FFFF:185.15.58.226\") user_address.is_private Note: try using use tab completion after typing the dot and the letter ‘i’ to get a tool tip of possible functions that start with ‘i’ from the ipaddress library. Note: try using use tab completion after typing the dot and the letter ‘i’ to get a tool tip of possible functions that start with ‘i’ from the ipaddress library. library name + period + function name False"
     },
     {
       "page": 21,
       "kind": "slide",
-      "group": 18,
-      "text": "GTK Cyber A Series is like a list or a dictionary but BETTER!!"
+      "group": 20,
+      "text": "GTK Cyber Python library: Jupyter shortcuts Tab completion Shift + Tab = documentation"
     },
     {
       "page": 22,
       "kind": "slide",
-      "group": 19,
-      "text": "GTK Cyber The Series is the primary building block for all the other data structures we will discuss"
+      "group": 21,
+      "text": "GTK Cyber Python library: alias Use an alias to avoid typing the full name of the library each time a function is called. import pandas as pd raw_empty_data_frame = pd.DataFrame() import ipaddress as ip user_address = ip.ip_address(\"185.15.58.226\")"
     },
     {
       "page": 23,
       "kind": "slide",
-      "group": 20,
-      "text": "GTK Cyber import pandas as pd import numpy as np import matplotlib.pyplot as plt"
+      "group": 22,
+      "text": "GTK Cyber Python library: specific functions When importing specific functions from a library, the function name can be called without the dot notation if we import them specifically using: from ipaddress import ip_address, ip_network, ip_interface ip_interface(\"0:0:0:0:0:FFFF:185.15.58.226\") from library import function1, function2"
     },
     {
       "page": 24,
       "kind": "slide",
-      "group": 21,
-      "text": "GTK Cyber myData = pd.Series( <data>, index=<index> ) Creating a Series"
+      "group": 23,
+      "text": "GTK Cyber Python library: wild card DON’T DO THIS!!! When importing specific functions from a library, all the functions, variables, etc can be imported using the wildcard. from ipaddress import * ip_network(\"192.0.2.0/24\") Note: this is bad practice because you don’t always know what you have imported and this can cause naming conflicts, make code harder to read, and clutter the namespace with things you won’t use. Despite this, you will see it used all the time. Note: this is bad practice because you don’t always know what you have imported and this can cause naming conflicts, make code harder to read, and clutter the namespace with things you won’t use. Despite this, you will see it used all the time."
     },
     {
       "page": 25,
       "kind": "slide",
-      "group": 22,
-      "text": "GTK Cyber Creating a Series series1 = pd.Series( ['a','b','c','d','e']) series2 = pd.Series({'firstName':'Charles', 'lastName':'Givre'})"
+      "group": 24,
+      "text": "GTK Cyber Third party Python library • Third party library = written by someone other than Python developers • Many useful third party libraries for data science tasks • Not installed with Python • Can be installed into the Python environment (pip, conda) or directly in a Jupyter Notebook (pip) • Download from PyPI (Python Package Index) (pypi.org) • Imported/used the same way the built-in libraries are imported"
     },
     {
       "page": 26,
       "kind": "slide",
-      "group": 23,
-      "text": "GTK Cyber Accessing a Series series1 = pd.Series( ['a','b','c','d','e']) print( series1 ) 0 a 1 b 2 c 3 d 4 e dtype: object"
+      "group": 25,
+      "text": "GTK Cyber Third party Python library"
     },
     {
       "page": 27,
       "kind": "slide",
-      "group": 24,
-      "text": "GTK Cyber Accessing a Series You can access items in a Pandas Series by index, similar to a python list. Just as in a regular list, indexing starts at zero. series1 = pd.Series( ['a','b','c','d','e']) print( series1[3] ) d"
+      "group": 26,
+      "text": "GTK Cyber Third party Python library"
     },
     {
       "page": 28,
-      "kind": "build",
-      "group": 25,
-      "text": "GTK Cyber series1 = pd.Series( ['a','b','c','d','e']) print( series1[1:3] ) 1 b 2 c dtype: object Accessing a Series: Slicing"
+      "kind": "slide",
+      "group": 27,
+      "text": "GTK Cyber The Series Object"
     },
     {
       "page": 29,
-      "kind": "slide",
-      "group": 25,
-      "text": "GTK Cyber series1 = pd.Series( ['a','b','c','d','e']) print( series1[1:3] ) 1 b 2 c dtype: object series2 = series1[1:3] series2.reset_index( drop=True ) Accessing a Series"
+      "kind": "build",
+      "group": 28,
+      "text": "GTK Cyber A Series is like a list"
     },
     {
       "page": 30,
       "kind": "build",
-      "group": 26,
-      "text": "GTK Cyber record = pd.Series( {‘firstname':'Charles', 'lastname':'Givre', 'middle':'classified' } ) record['firstname'] Charles Accessing a Series"
+      "group": 28,
+      "text": "GTK Cyber A Series is like a list or a dictionary"
     },
     {
       "page": 31,
       "kind": "slide",
-      "group": 26,
-      "text": "GTK Cyber record = pd.Series( {‘firstname':'Charles', 'lastname':'Givre', 'middle':'classified' } ) record[['firstname','lastname']] firstname Charles lastname Givre dtype: object Accessing a Series"
+      "group": 28,
+      "text": "GTK Cyber A Series is like a list or a dictionary but BETTER!!"
     },
     {
       "page": 32,
       "kind": "slide",
-      "group": 27,
-      "text": "GTK Cyber record = pd.Series( {‘firstname':'Charles', 'lastname':'Givre', 'middle':'classified' } ) record[0] Charles Accessing a Series"
+      "group": 29,
+      "text": "GTK Cyber The Series is the primary building block for all the other data structures we will discuss"
     },
     {
       "page": 33,
       "kind": "slide",
-      "group": 28,
-      "text": "GTK Cyber randomNumbers = pd.Series( np.random.random_integers(1, 100, 50) ) randomNumbers.head() 0 48 1 34 2 84 3 85 4 58 dtype: int64 Accessing a Series"
+      "group": 30,
+      "text": "GTK Cyber Python libraries: Common for Data Sci import pandas as pd import numpy as np import matplotlib.pyplot as plt"
     },
     {
       "page": 34,
-      "kind": "slide",
-      "group": 29,
-      "text": "GTK Cyber randomNumbers = pd.Series( np.random.random_integers(1, 100, 50) ) randomNumbers.tail( 7 ) 43 66 44 66 45 43 46 55 47 99 48 82 49 19 dtype: int64 Accessing a Series"
+      "kind": "unsure",
+      "group": 31,
+      "text": "GTK Cyber import pandas as pd myData = pd.Series( <data> ) Creating a Series"
     },
     {
       "page": 35,
       "kind": "slide",
-      "group": 30,
-      "text": "GTK Cyber randomNumbers [ <boolean condition> ] randomNumbers [ randomNumbers < 10 ] 12 5 21 2 24 1 27 1 29 1 dtype: int64 Filtering Data in a Series"
+      "group": 32,
+      "text": "GTK Cyber Creating a Series import pandas as pd series1 = pd.Series( [‘a','b','c','d','e'] ) series2 = pd.Series( {‘firstName':'Charles', ‘lastName’ : ‘Givre’} )"
     },
     {
       "page": 36,
       "kind": "slide",
-      "group": 31,
-      "text": "GTK Cyber record.str.contains('Cha') firstname True lastname False middle False dtype: bool record[ record.str.contains('Cha') ] firstname Charles dtype: object Filtering Data in a Series"
+      "group": 33,
+      "text": "GTK Cyber Pandas Series series1 = pd.Series( ['a','b','c','d','e'] ) print(series1) 0 a 1 b 2 c 3 d 4 e dtype: object"
     },
     {
       "page": 37,
-      "kind": "slide",
-      "group": 32,
-      "text": "GTK Cyber String Functions Function Explanation Series.str.contains(<pattern>) Returns true/false if text matches a pattern Series.str.count(<pattern>) Returns number of occurrences of a pattern in a string Series.str.extract(<pattern>) Returns matching groups from a string Series.str.find(<string>) Returns index of first occurrences of a substring (Note: not regex) Series.str.findall(<pattern>) Returns all occurrences of a regex Series.str.len() Returns the length of text Series.str.replace(<pat>, <replace>) Replaces matches with a replacement string https://pandas.pydata.org/docs/user_guide/text.html#method-summary"
+      "kind": "unsure",
+      "group": 34,
+      "text": "GTK Cyber Pandas Series: single elements series1 = pd.Series( ['a','b','c','d','e'] ) print(series1[3]) d"
     },
     {
       "page": 38,
-      "kind": "slide",
-      "group": 33,
-      "text": "GTK Cyber Date/Time Operations pd.to_datetime(<times>, format='<format string>')"
+      "kind": "unsure",
+      "group": 35,
+      "text": "GTK Cyber Pandas Series: slicing series1 = pd.Series( ['a','b','c','d','e'] ) print(series1[1:3]) 1 b 2 c dtype: object"
     },
     {
       "page": 39,
       "kind": "slide",
-      "group": 34,
-      "text": "GTK Cyber Selected Date/Time Operations Function Explanation series.dt.year Returns the year of the date time series.dt.month Returns the month of the date time series.dt.day Returns the days of the date time series.dt.weekday Returns the day of the week series.dt.is_month_start Returns true if it is the first day of the month series.dt.strftime() Returns an array of formatted strings specified by a date_format https://pandas.pydata.org/docs/user_guide/timeseries.html"
+      "group": 36,
+      "text": "GTK Cyber Accessing a Series series1 = pd.Series( ['a','b','c' ,'d','e']) print( series1[1:3] ) 1 b 2 c dtype: object series2 = series1[1:3] series2.reset_index( drop=True )"
     },
     {
       "page": 40,
-      "kind": "slide",
-      "group": 35,
-      "text": "GTK Cyber def addTwo( n ): return n + 2 odds.apply( addTwo )"
+      "kind": "build",
+      "group": 37,
+      "text": "GTK Cyber Accessing a Series series2 = pd.Series( {'firstName':'Charles', 'lastName' : 'Givre'} ) print(series2['firstName']) Charles"
     },
     {
       "page": 41,
       "kind": "slide",
-      "group": 36,
-      "text": "GTK Cyber odds.apply( lambda x: x + 1 )"
+      "group": 37,
+      "text": "GTK Cyber Accessing a Series series2 = pd.Series( {‘firstName':'Charles', ‘lastName’ : ‘Givre’} ) print(series2[[‘firstName’,’lastName’]]) firstName Charles lastName Givre dtype: object"
     },
     {
       "page": 42,
       "kind": "slide",
-      "group": 37,
-      "text": "GTK Cyber Questions?"
+      "group": 38,
+      "text": "GTK Cyber Accessing a Series series2 = pd.Series( {‘firstName':'Charles', ‘lastName’ : ‘Givre’} ) print(series2[0]) Charles"
     },
     {
       "page": 43,
       "kind": "slide",
-      "group": 38,
-      "text": "GTK Cyber Exploring Your Data"
+      "group": 39,
+      "text": "GTK Cyber Accessing a Series randomNumbers = pd.Series( np.random.random_integers(1, 100, 50)) randomNumbers.head() 0 48 1 34 2 84 3 85 4 58 dtype: int64"
     },
     {
       "page": 44,
       "kind": "slide",
-      "group": 39,
-      "text": "GTK Cyber • Mean: The mean is the average value of a set of numbers • Median: The median is the middle value of an ordered set of numbers • Mode: The mode is the value from a set which is repeated the most frequently. • Range: Difference between minimum and maximum • Standard Deviation: Measures dispersion in a data set. Close to zero indicates little dispersion."
+      "group": 40,
+      "text": "GTK Cyber Accessing a Series randomNumbers = pd.Series( np.random.random_integers(1, 100, 50) ) randomNumbers.tail( 7 ) 43 66 44 66 45 43 46 55 47 99 48 82 49 19 dtype: int64"
     },
     {
       "page": 45,
       "kind": "slide",
-      "group": 40,
-      "text": "GTK Cyber Intro Stats: IQR The interquartile range is a measure of where the “middle fifty” is in a data set. Where a range is a measure of where the beginning and end are in a set, an interquartile range is a measure of where the bulk of the values lie. http://www.statisticshowto.com/probability-and-statistics/interquartile-range/ IQR = data.quantile(0.75) - data.quantile(0.25)"
+      "group": 41,
+      "text": "GTK Cyber Filtering Data in a Series randomNumbers [ <boolean condition> ] randomNumbers [ randomNumbers < 10 ] 12 5 21 2 24 1 27 1 29 1 dtype: int64"
     },
     {
       "page": 46,
       "kind": "slide",
-      "group": 41,
-      "text": "GTK Cyber Intro Stats: Variance The variance of a set of values, σ2, is the average of the square of the difference of the values in the dataset from the dataset's mean. data.var(axis=0)"
+      "group": 42,
+      "text": "GTK Cyber Filtering Data in a Series record.str.contains('Cha') firstname True lastname False middle False dtype: bool record[ record.str.contains('Cha') ] firstname Charles dtype: object"
     },
     {
       "page": 47,
       "kind": "slide",
-      "group": 42,
-      "text": "GTK Cyber Intro Stats: Std. Deviation The standard deviation, σ, is the square root of the variance: We use the standard deviation much more regularly than the variance because it is on the same scale as the original data: data.std(axis=0)"
+      "group": 43,
+      "text": "GTK Cyber String Functions https://pandas.pydata.org/docs/user_guide/text.html#method-"
     },
     {
       "page": 48,
       "kind": "slide",
-      "group": 43,
-      "text": "GTK Cyber Intro Stats: Covariance Covariance, like the variance, is a measure of spread, however it also measures how closely two datasets track each other. • Covariance is a squared quantity, so it is not on the same scale as the mean • Covariance of different pairs of variables can have completely different scales"
+      "group": 44,
+      "text": "GTK Cyber Date/Time Operations pd.to_datetime(<times>, format='<format string>')"
     },
     {
       "page": 49,
       "kind": "slide",
-      "group": 44,
-      "text": "GTK Cyber Tukey 5 Number Summary • Minimum: The smallest value in the dataset • Lower Quartile: Smallest 25% of the dataset • The Median: The middle value of the dataset • Upper Quartile: The largest 25% of the dataset • Maximum: The largest value in the dataset"
+      "group": 45,
+      "text": "GTK Cyber Selected Date/Time Operations https://pandas.pydata.org/docs/user_guide/"
     },
     {
       "page": 50,
       "kind": "slide",
-      "group": 45,
-      "text": "GTK Cyber"
+      "group": 46,
+      "text": "GTK Cyber combinedSeries = series1.add( series2 )"
     },
     {
       "page": 51,
       "kind": "slide",
-      "group": 46,
-      "text": "GTK Cyber Series.abs() Absolute Value of the Series Series.count() Returns number of non-empty values in the series Series.max() Returns maximum value in the Series Series.mean() Returns the mean of a Series Series.median() Returns the median of a Series Series.min() Returns the minimum value in a Series Series.mode() Take a guess.. Series.quantile([q]) Returns the quantiles of a Series Series.sum Returns the sum of a series Series.std Returns the standard deviation of a Series"
+      "group": 47,
+      "text": "GTK Cyber def addTwo(n): return n+2 odds.apply(addTwo)"
     },
     {
       "page": 52,
       "kind": "slide",
-      "group": 47,
-      "text": "GTK Cyber Series.describe()"
+      "group": 48,
+      "text": "GTK Cyber odds.apply(lambda x: x + 1 )"
     },
     {
       "page": 53,
       "kind": "slide",
-      "group": 48,
-      "text": "GTK Cyber Series.describe() >>> random_numbers.describe() count 50.000000 mean 50.620000 std 30.102471 min 1.000000 25% 25.500000 50% 54.000000 75% 73.000000 max 99.000000 dtype: float64"
+      "group": 49,
+      "text": "GTK Cyber שאלותQuestion s?"
     },
     {
       "page": 54,
-      "kind": "build",
-      "group": 49,
-      "text": "GTK Cyber names = pd.Series( ['Jim','Bob', 'Bob','Steve','Jim,'Jane','Steph','Emma','Rachel']) names.describe()"
+      "kind": "slide",
+      "group": 50,
+      "text": "GTK Cyber Exploring Your Data"
     },
     {
       "page": 55,
       "kind": "slide",
-      "group": 49,
-      "text": "GTK Cyber names = pd.Series( ['Jim','Bob', 'Bob','Steve','Jim,'Jane','Steph','Emma','Rachel']) names.describe() count 9 unique 7 top Jim freq 2 dtype: object"
+      "group": 51,
+      "text": "GTK Cyber Statistics: objectives This section will cover basic statistical methods commonly used in cleaning, analyzing and visualization of data. The relationship between statistics and data science will be discussed. The python skills learned thus far will be used to practice translating a mathematical equation into code. 1. Explain the difference between and calculate mean, median, mode, range, standard deviation, variance of a dataset 2. Differentiate when and why it is appropriate to use mean vs median 3. Use a histogram and box plot to understand the distribution of a dataset 4. Identify outliers and decide what actions to take 5. Normalize and scale a feature and describe when and why it is necessary"
     },
     {
       "page": 56,
       "kind": "slide",
-      "group": 50,
-      "text": "GTK Cyber Finding Unique Values"
+      "group": 52,
+      "text": "GTK Cyber Statistics: define Probability is a mathematical tool used to study randomness. It deals with the chance (the likelihood) of an event occurring"
     },
     {
       "page": 57,
       "kind": "slide",
-      "group": 51,
-      "text": "GTK Cyber unique_nums = [] for key, value in random_numbers.iteritems(): if value not in unique_nums: unique_nums.append(value)"
+      "group": 53,
+      "text": "GTK Cyber Statistics: define Population - a collection of persons, things, or objects under study. To study the population, we select a sample - a portion (or subset) of the larger population. Study this portion (sample) to gain information about the population. Data are the result of sampling from a population. sample population"
     },
     {
       "page": 58,
       "kind": "slide",
-      "group": 52,
-      "text": "GTK Cyber NO!!!"
+      "group": 54,
+      "text": "GTK Cyber Statistics: variables Variables - a characteristic or measurement for each member of a population Numerical - numbers (weight, bytes, time) Categorical - a category that members can be put into (user/bot, location)"
     },
     {
       "page": 59,
       "kind": "slide",
-      "group": 53,
-      "text": "GTK Cyber series.drop_duplicates() series.unique()"
+      "group": 55,
+      "text": "GTK Cyber Statistics: types of data QuaLitative - aka categorical data, non-numeric data (user status, url, gender) QuanTitative - numeric data Discrete - integers, like the result of counting (# of site visits, log ins) Continuous - decimal numbers, fractions (weight, amount of time)"
     },
     {
       "page": 60,
       "kind": "slide",
-      "group": 54,
-      "text": "GTK Cyber Counting Unique Occurrences"
+      "group": 56,
+      "text": "GTK Cyber Statistics: data example"
     },
     {
       "page": 61,
-      "kind": "build",
-      "group": 55,
-      "text": "GTK Cyber series.value_counts()"
+      "kind": "slide",
+      "group": 57,
+      "text": "GTK Cyber Statistics: quantitative discrete Number of users per company"
     },
     {
       "page": 62,
-      "kind": "build",
-      "group": 55,
-      "text": "GTK Cyber series.value_counts(bins=5)"
+      "kind": "slide",
+      "group": 58,
+      "text": "GTK Cyber Statistics: quantitative continuous Amount of time users were logged into server"
     },
     {
       "page": 63,
-      "kind": "build",
-      "group": 55,
-      "text": "GTK Cyber series.value_counts(bins=5, normalize=True)"
+      "kind": "slide",
+      "group": 59,
+      "text": "GTK Cyber Statistics: normal distribution Normal distribution (Gaussian) Ainali, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons"
     },
     {
       "page": 64,
       "kind": "slide",
-      "group": 55,
-      "text": "GTK Cyber series.value_counts(bins=5, normalize=True, dropna=False)"
+      "group": 60,
+      "text": "GTK Cyber Statistics: histogram Amount of time users were logged into server"
     },
     {
       "page": 65,
       "kind": "slide",
-      "group": 56,
-      "text": "GTK Cyber"
+      "group": 61,
+      "text": "GTK Cyber Statistics: mode Mode - value with the most occurrences Unimodal Bimodal Multimodal"
     },
     {
       "page": 66,
       "kind": "slide",
-      "group": 57,
-      "text": "GTK Cyber series.hist()"
+      "group": 62,
+      "text": "GTK Cyber Statistics: mean Mean - Measure of central tendency. 𝜇= population mean x = sample mean Note: Sensitive to outliers Note: Sensitive to outliers"
     },
     {
       "page": 67,
       "kind": "slide",
-      "group": 58,
-      "text": "GTK Cyber series.hist()"
+      "group": 63,
+      "text": "GTK Cyber Statistics: mean Amount of time users were logged into server Mean = 10.11"
     },
     {
       "page": 68,
       "kind": "slide",
-      "group": 59,
-      "text": "GTK Cyber series.hist(bins=40)"
+      "group": 64,
+      "text": "GTK Cyber Statistics: variation Variation - all data has variation (spread of data around the mean) Variance - the mean squared deviation Note: Sensitive to extreme values Note: Sensitive to extreme values Standard Deviation - square root of the variance"
     },
     {
       "page": 69,
       "kind": "slide",
-      "group": 60,
-      "text": "GTK Cyber series.hist(bins=5)"
+      "group": 65,
+      "text": "GTK Cyber Statistics: variation Variance = 44.73 Standard Deviation = 6.68"
     },
     {
       "page": 70,
       "kind": "slide",
-      "group": 61,
-      "text": "GTK Cyber series.plot()"
+      "group": 66,
+      "text": "GTK Cyber Statistics: mean & variation"
     },
     {
       "page": 71,
       "kind": "slide",
-      "group": 62,
-      "text": "GTK Cyber series.plot()"
+      "group": 67,
+      "text": "GTK Cyber Statistics: median Median - Middle value separating the greater and lesser halves of a data set"
     },
     {
       "page": 72,
       "kind": "slide",
-      "group": 63,
-      "text": "GTK Cyber Maximum 3rd Quartile Median 1st Quartile Minimum series.plot(kind=‘box’)"
+      "group": 68,
+      "text": "GTK Cyber Statistics: median Median - Middle value separating the greater and lesser halves of a data set s_list = [8,3,1,8,3,9,2,0] s_list = [0,1,2,3,3,8,8,9] Sort the values middle values median = (3+3)/2 = 3 Note: If number of values is even, take mean of middle 2 numbers Note: If number of values is even, take mean of middle 2 numbers"
     },
     {
       "page": 73,
       "kind": "slide",
-      "group": 64,
-      "text": "GTK Cyber"
+      "group": 69,
+      "text": "GTK Cyber Intro Stats: Covariance Covariance, like the variance, is a measure of spread, however it also measures how closely two datasets track each other. • Covariance is a squared quantity, so it is not on the same scale as the mean • Covariance of different pairs of variables can have completely different scales"
     },
     {
       "page": 74,
       "kind": "slide",
-      "group": 65,
-      "text": "GTK Cyber Correlations between Datasets"
+      "group": 70,
+      "text": "GTK Cyber Tukey 5 Number Summary • Minimum: The smallest value in the dataset • Lower Quartile: Smallest 25% of the dataset • The Median: The middle value of the dataset • Upper Quartile: The largest 25% of the dataset • Maximum: The largest value in the dataset"
     },
     {
       "page": 75,
       "kind": "slide",
-      "group": 66,
-      "text": "GTK Cyber Correlations • Measurement of the relationship between two continuous variables • Output is between -1 and 1, with 1 being perfect correlation, -1 is perfect negative correlation, 0 is no correlation. • Correlation measurement is referred to as r."
+      "group": 71,
+      "text": "GTK Cyber Intro Stats: IQR The interquartile range is a measure of where the “middle fifty” is in a data set. Where a range is a measure of where the beginning and end are in a set, an interquartile range is a measure of where the bulk of the values lie. http://www.statisticshowto.com/probability-and-statistics/interquartile- range/ IQR = data.quantile(0.75) - data.quantile(0.25)"
     },
     {
       "page": 76,
       "kind": "slide",
-      "group": 67,
-      "text": "GTK Cyber Correlations"
+      "group": 72,
+      "text": "GTK Cyber Statistics: IQR (interquartile range) median 50% first quartile (Q1) 25% third quartile (Q3) (75%) middle 50% of data outliers IQR = Q3-Q1"
     },
     {
       "page": 77,
       "kind": "slide",
-      "group": 68,
-      "text": "GTK Cyber Correlations series1.corr( series2 )"
+      "group": 73,
+      "text": "GTK Cyber Statistics: IQR (interquartile range) median 50% first quartile (Q1) 25% third quartile (Q3) (75%) middle 50% of data outliers"
     },
     {
       "page": 78,
       "kind": "slide",
-      "group": 69,
-      "text": "GTK Cyber Questions?"
+      "group": 74,
+      "text": "GTK Cyber Statistics: IQR"
     },
     {
       "page": 79,
       "kind": "slide",
-      "group": 70,
-      "text": "GTK Cyber Part 2: Exploratory Data Analysis Part 2: Two Dimensional Data"
+      "group": 75,
+      "text": "GTK Cyber Statistics: outliers"
     },
     {
       "page": 80,
       "kind": "slide",
-      "group": 71,
-      "text": "GTK Cyber Data is Everything • Data is the lifeblood of AI. • Security data is often found in platforms such as ES, Splunk, PCAP and other platforms. • The data world lives in pandas data frames."
+      "group": 76,
+      "text": "GTK Cyber Statistics: Normalize Normalization (min-max scaler) - get data on a common scale Standardization - rescale so that mean = 0, std = 1"
     },
     {
       "page": 81,
       "kind": "slide",
-      "group": 72,
-      "text": "GTK Cyber To build AI systems, you must be able to extract data from security platforms into data frames."
+      "group": 77,
+      "text": "GTK Cyber Statistics: hypothesis testing Normal distribution (Gaussian) Ainali, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons"
     },
     {
       "page": 82,
       "kind": "slide",
-      "group": 73,
-      "text": "GTK Cyber The Data Frame"
+      "group": 78,
+      "text": "GTK Cyber"
     },
     {
       "page": 83,
       "kind": "slide",
-      "group": 74,
-      "text": "GTK Cyber df = pd.DataFrame( <data>, <index>, <column_names> )"
+      "group": 79,
+      "text": "GTK Cyber Series.describe( )"
     },
     {
       "page": 84,
       "kind": "slide",
-      "group": 75,
-      "text": "GTK Cyber CSV df = pd.read_csv( <file> ) df = pd.read_csv( <url> )"
+      "group": 80,
+      "text": "GTK Cyber Series.describe( ) >>> random_numbers.describe() count 50.000000 mean 50.620000 std 30.102471 min 1.000000 25% 25.500000 50% 54.000000 75% 73.000000 max 99.000000 dtype: float64"
     },
     {
       "page": 85,
-      "kind": "slide",
-      "group": 76,
-      "text": "GTK Cyber Excel df = pd.read_excel( <file>, sheetname=<sheetname> )"
+      "kind": "build",
+      "group": 81,
+      "text": "GTK Cyber names = pd.Series( ['Jim','Bob', 'Bob','Steve','Jim,'Jane','Steph','Emma','Rachel']) names.describe()"
     },
     {
       "page": 86,
       "kind": "slide",
-      "group": 77,
-      "text": "GTK Cyber [ { “changed\":\"2015-04-0300:00:00\", \"created\":\"2014-04-10 00:00:00”, “dnssec\":\"False\", \"expires\":\"2016-04-10 00:00:00”, “isMalicious\":0, “url\":\"nuteczki.com\" }, … ]"
+      "group": 81,
+      "text": "GTK Cyber names = pd.Series( ['Jim','Bob', 'Bob','Steve','Jim,'Jane','Steph','Emma','Rachel']) names.describe() count 9 unique 7 top Jim freq 2 dtype: object"
     },
     {
       "page": 87,
       "kind": "slide",
-      "group": 78,
-      "text": "GTK Cyber JSON df = pd.read_json( <file> ) or df = pd.read_json( <url> )"
+      "group": 82,
+      "text": "GTK Cyber Finding Unique Values"
     },
     {
       "page": 88,
       "kind": "slide",
-      "group": 79,
-      "text": "GTK Cyber From a Database df = pd.read_sql( <query>, <connection> )"
+      "group": 83,
+      "text": "GTK Cyber unique_nums = [] for key, value in random_numbers.iteritems(): if value not in unique_nums: unique_nums.append(value)"
     },
     {
       "page": 89,
       "kind": "slide",
-      "group": 80,
-      "text": "GTK Cyber Parquet df = pd.read_parquet( <file> )"
+      "group": 84,
+      "text": "GTK Cyber NO!!!"
     },
     {
       "page": 90,
-      "kind": "slide",
-      "group": 81,
-      "text": "GTK Cyber Log Files…"
+      "kind": "build",
+      "group": 85,
+      "text": "GTK Cyber series.drop_duplicates() series.unique()"
     },
     {
       "page": 91,
-      "kind": "build",
-      "group": 82,
-      "text": "GTK Cyber 070823 21:00:32 1 Connect root@localhost on test1 070823 21:00:48 1 Query show tables 070823 21:00:56 1 Query select * from category 070917 16:29:01 21 Query select * from location 070917 16:29:12 21 Query select * from location where id = 1 LIMIT 1"
+      "kind": "slide",
+      "group": 85,
+      "text": "GTK Cyber series.drop_duplicates() series.unique() Counting Unique Occurrences"
     },
     {
       "page": 92,
-      "kind": "slide",
-      "group": 82,
-      "text": "GTK Cyber 070823 21:00:32 1 Connect root@localhost on test1 070823 21:00:48 1 Query show tables 070823 21:00:56 1 Query select * from category 070917 16:29:01 21 Query select * from location 070917 16:29:12 21 Query select * from location where id = 1 LIMIT 1 logdf = pd.read_table(‘../data/mysql.log’, names=['raw']) raw 0 070823 21:00:32 1 Connect root@local... 1 070823 21:00:48 1 Query show tables 2 070823 21:00:56 1 Query select * f... 3 070917 16:29:01 21 Query select * f... 4 070917 16:29:12 21 Query select * f..."
+      "kind": "build",
+      "group": 86,
+      "text": "GTK Cyber series.drop_duplicates() series.unique() series.value_counts( )"
     },
     {
       "page": 93,
       "kind": "build",
-      "group": 83,
-      "text": "GTK Cyber logdf = pd.read_table(‘../data/mysql.log’, names=[‘raw’]) logdf['raw'].str.extract('(\\d{6}\\s\\d{2}:\\d{2}:\\d{2})\\s+(\\d+)\\s(\\S+) \\s(.+)', expand=False)"
+      "group": 86,
+      "text": "GTK Cyber series.drop_duplicates() series.unique() series.value_counts(bins=5 )"
     },
     {
       "page": 94,
-      "kind": "slide",
-      "group": 83,
-      "text": "GTK Cyber logdf = pd.read_table(‘../data/mysql.log’, names=[‘raw’]) logdf['raw'].str.extract('(?P<date>\\d{6}\\s\\d{2}:\\d{2}:\\d{2})\\s+(? P<PID>\\d+)\\s(?P<Action>\\S+)\\s(?P<Query>.+)', expand=False)"
+      "kind": "build",
+      "group": 86,
+      "text": "GTK Cyber series.drop_duplicates() series.unique() series.value_counts(bins=5 , normalize=True)"
     },
     {
       "page": 95,
       "kind": "slide",
-      "group": 84,
-      "text": "GTK Cyber Web Server Logs"
+      "group": 86,
+      "text": "GTK Cyber series.drop_duplicates() series.unique() series.value_counts(bins=5 , normalize=True, dropna=False)"
     },
     {
       "page": 96,
-      "kind": "build",
-      "group": 85,
-      "text": "GTK Cyber Web Server Logs 195.154.46.135 - - [25/Oct/2015:04:11:25 +0100] \"GET /linux/ doing-pxe-without-dhcp-control HTTP/1.1\" 200 24323 \"http:// howto.basjes.nl/\" \"Mozilla/5.0 (Windows NT 5.1; rv:35.0) Gecko/20100101 Firefox/35.0\""
+      "kind": "slide",
+      "group": 87,
+      "text": "GTK Cyber"
     },
     {
       "page": 97,
       "kind": "slide",
-      "group": 85,
-      "text": "GTK Cyber Web Server Logs 195.154.46.135 - - [25/Oct/2015:04:11:25 +0100] \"GET /linux/ doing-pxe-without-dhcp-control HTTP/1.1\" 200 24323 \"http:// howto.basjes.nl/\" \"Mozilla/5.0 (Windows NT 5.1; rv:35.0) Gecko/20100101 Firefox/35.0\" import apache_log_parser line_parser = apache_log_parser.make_parser(\"%h %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\\"%{User-agent}i\\\"\")"
+      "group": 88,
+      "text": "GTK Cyber series.drop_duplicates() series.unique() series.hist( )"
     },
     {
       "page": 98,
-      "kind": "slide",
-      "group": 86,
-      "text": "GTK Cyber Web Server Logs import apache_log_parser line_parser = apache_log_parser.make_parser(\"%h %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\”%{User-agent}i\\”\") server_log = open(“../data/hackers-access.httpd”, \"r\") parsed_server_data = [] for line in server_log: data = {} data = line_parser(line) parsed_server_data.append( data ) server_df = pd.DataFrame( parsed_server_data )"
+      "kind": "build",
+      "group": 89,
+      "text": "GTK Cyber series.drop_duplicates() series.unique() series.hist( )"
     },
     {
       "page": 99,
       "kind": "slide",
-      "group": 87,
-      "text": "GTK Cyber Web Server Logs"
+      "group": 89,
+      "text": "GTK Cyber series.drop_duplicates() series.unique() series.hist(bins=40 )"
     },
     {
       "page": 100,
       "kind": "slide",
-      "group": 88,
-      "text": "GTK Cyber Nested Data?"
+      "group": 90,
+      "text": "GTK Cyber series.drop_duplicates() series.unique() series.hist(bins=5 )"
     },
     {
       "page": 101,
       "kind": "slide",
-      "group": 89,
-      "text": "GTK Cyber {\"time\": 1084443427.311224, \"timestamp\": \"2004-05-13T10:17:07.311224\", \"IP\": { \"version\": 4, \"ttl\": 128, \"proto\": 6, \"options\": [], \"len\": 48, \"dst\": \"65.208.228.223\", \"frag\": 0, \"flags\": 2, \"src\": “145.254.160.237\", \"chksum\": 37355 }, \"Ethernet\": {\"src\": \"00:00:01:00:00:00\", \"type\": 2048, \"dst\": “fe:ff:20:00:01:00\"}, … Nested Data?"
+      "group": 91,
+      "text": "GTK Cyber series.drop_duplicates() series.unique() series.plot( )"
     },
     {
       "page": 102,
       "kind": "slide",
-      "group": 90,
-      "text": "GTK Cyber pd.read_json( 'nested_data.json' ) Nested Data"
+      "group": 92,
+      "text": "GTK Cyber series.drop_duplicates() series.unique() series.plot( )"
     },
     {
       "page": 103,
-      "kind": "unsure",
-      "group": 91,
-      "text": "GTK Cyber pd.read_json( 'nested_data.json' ) Nested Data"
+      "kind": "slide",
+      "group": 93,
+      "text": "GTK Cyber Reading a Boxplot Maximu m 3rd Quartile Median 1st Quartile Minimum series.plot(kind=‘box’ )"
     },
     {
       "page": 104,
       "kind": "slide",
-      "group": 92,
-      "text": "GTK Cyber from pandas.io.json import json_normalize import json import pandas as pd with open('nested.json') as data_file: pcap_data = json.load(data_file) df = pd.DataFrame( json_normalize(pcap_data) ) Nested Data"
+      "group": 94,
+      "text": "GTK Cyber"
     },
     {
       "page": 105,
       "kind": "slide",
-      "group": 93,
-      "text": "GTK Cyber df = pd.DataFrame( json_normalize(pcap_data) ) Nested Data"
+      "group": 95,
+      "text": "GTK Cyber Correlations between Datasets"
     },
     {
       "page": 106,
       "kind": "slide",
-      "group": 94,
-      "text": "GTK Cyber ElasticSearch & Splunk"
+      "group": 96,
+      "text": "GTK Cyber Correlations • Measurement of the relationship between two continuous variables • Output is between -1 and 1, with 1 being perfect correlation, -1 is perfect negative correlation, 0 is no correlation. • Correlation measurement is referred to as r."
     },
     {
       "page": 107,
       "kind": "slide",
-      "group": 95,
-      "text": "GTK Cyber ElasticSearch & Splunk pip install huntlib e = ElasticDF( url=\"https://localhost:9200\", ssl=True, username=\"myuser\", password=\"mypass\" ) df = e.search_df( lucene=\"proto:tcp AND port:80\", index=\"myindex-*\", days=1, normalize=False ) s = SplunkDF( host=\"<splunk_ip>\", username=\"myuser\", password=\"mypass\" ) df = s.search_df( spl='search index=win_events src=\"10.9.*.*\"', start_time=datetime.now()-timedelta(days=2), end_time=datetime.now() )"
+      "group": 97,
+      "text": "GTK Cyber Correlations • Measurement of the relationship between two continuous variables • Output is between -1 and 1, with 1 being perfect correlation, -1 is perfect negative correlation, 0 is no correlation. • Correlation measurement is referred to as r."
     },
     {
       "page": 108,
       "kind": "slide",
-      "group": 96,
-      "text": "GTK Cyber Manipulating a DataFrame"
+      "group": 98,
+      "text": "GTK Cyber Correlations • Measurement of the relationship between two continuous variables • Output is between -1 and 1, with 1 being perfect correlation, -1 is perfect negative correlation, 0 is no correlation. • Correlation measurement is referred to as r. series1.corr( series2 )"
     },
     {
       "page": 109,
       "kind": "slide",
-      "group": 97,
-      "text": "GTK Cyber series = df['column1'] Returns a series df['ip'].value_counts().head()"
+      "group": 99,
+      "text": "GTK Cyber Questions?"
     },
     {
       "page": 110,
       "kind": "slide",
-      "group": 98,
-      "text": "GTK Cyber Creating a new Column df['new_col'] = df['column1'] + 3"
+      "group": 100,
+      "text": "GTK Cyber Part 2: Exploratory Data Analysis Part 2: Two Dimensional Data"
     },
     {
       "page": 111,
       "kind": "slide",
-      "group": 99,
-      "text": "GTK Cyber series = df['column1'] series = df.column1 Two Ways of Accessing Columns Don't use the dots!"
+      "group": 101,
+      "text": "GTK Cyber Data is Everything • Data is the lifeblood of AI. • Security data is often found in platforms such as ES, Splunk, PCAP and other platforms. • The security world lives in Splunk (Ewwww!) but the data world lives in pandas data frames."
     },
     {
       "page": 112,
       "kind": "slide",
-      "group": 100,
-      "text": "GTK Cyber df = df[['column1','column2','column3']] Returns a DataFrame"
+      "group": 102,
+      "text": "GTK Cyber To build AI systems, you must be able to extract data from security platforms into data frames."
     },
     {
       "page": 113,
       "kind": "slide",
-      "group": 101,
-      "text": "GTK Cyber Filtering a DataFrame df[<boolean condition>] df[['col1','col2']][df['col3'] > 5] Columns Filter"
+      "group": 103,
+      "text": "GTK Cyber The Data Frame"
     },
     {
       "page": 114,
       "kind": "slide",
-      "group": 102,
-      "text": "GTK Cyber data.loc[<index>] data.loc[<list of indexes>] data.sample(<n>)"
+      "group": 104,
+      "text": "GTK Cyber df = pd.DataFrame( <data>, <index>, <column_names> ) Create a Pandas dataframe"
     },
     {
       "page": 115,
       "kind": "slide",
-      "group": 103,
-      "text": "GTK Cyber Questions?"
+      "group": 105,
+      "text": "GTK Cyber DataFrames Read in a CSV df = pd.read_csv(<file>) df = pd.read_csv(<url>)"
     },
     {
       "page": 116,
       "kind": "slide",
-      "group": 104,
-      "text": "GTK Cyber DataFrame.drop(labels, axis=0, level=None, inplace=False, errors='raise')¶"
+      "group": 106,
+      "text": "GTK Cyber DataFrames Exce l df = pd.read_excel(<file>, sheetname=<sheetname>)"
     },
     {
       "page": 117,
       "kind": "slide",
-      "group": 105,
-      "text": "GTK Cyber Merging Data Sets"
+      "group": 107,
+      "text": "GTK Cyber DataFrames JSO N df = pd.read_json( <file> ) or df = pd.read_json( <url> )"
     },
     {
       "page": 118,
       "kind": "slide",
-      "group": 106,
-      "text": "GTK Cyber Union"
+      "group": 108,
+      "text": "GTK Cyber DataFrames From a Database df = pd.read_sql(<query>, <connection>)"
     },
     {
       "page": 119,
-      "kind": "build",
-      "group": 107,
-      "text": "GTK Cyber Union Series 1 Index Value 0 6 1 4 2 2 3 3"
+      "kind": "slide",
+      "group": 109,
+      "text": "GTK Cyber DataFrames Parque t df = pd.read_parquet(<file>)"
     },
     {
       "page": 120,
       "kind": "slide",
-      "group": 107,
-      "text": "GTK Cyber Union Series 1 Index Value 0 6 1 4 2 2 3 3 Series 2 Index Value 0 7 1 5 2 3 3 4"
+      "group": 110,
+      "text": "GTK Cyber Log Files…"
     },
     {
       "page": 121,
-      "kind": "slide",
-      "group": 108,
-      "text": "GTK Cyber Union combinedSeries Index Value 0 6 1 4 2 2 3 3 4 7 5 5 6 3 7 4"
+      "kind": "build",
+      "group": 111,
+      "text": "GTK Cyber 070823 21:00:32 1 Connect root@localhost on test1 070823 21:00:48 1 Query show tables 070823 21:00:56 1 Query select * from category 070917 16:29:01 21 Query select * from location 070917 16:29:12 21 Query select * from location where id = 1 LIMIT 1"
     },
     {
       "page": 122,
       "kind": "slide",
-      "group": 109,
-      "text": "GTK Cyber combinedSeries = pd.concat( [series1, series2], ignore_index=True )"
+      "group": 111,
+      "text": "GTK Cyber 070823 21:00:32 1 Connect root@localhost on test1 070823 21:00:48 1 Query show tables 070823 21:00:56 1 Query select * from category 070917 16:29:01 21 Query select * from location 070917 16:29:12 21 Query select * from location where id = 1 LIMIT 1 logdf = pd.read_table(‘../data/mysql.log’, names=['raw'])"
     },
     {
       "page": 123,
-      "kind": "slide",
-      "group": 110,
-      "text": "GTK Cyber Joins"
+      "kind": "build",
+      "group": 112,
+      "text": "GTK Cyber logdf = pd.read_table(‘../data/mysql.log’, names=[‘raw’]) logdf['raw'].str.extract('(\\d{6}\\s\\d{2}:\\d{2}:\\d{2})\\s+(\\d+)\\s(\\ S+)\\s(.+)', expand=False)"
     },
     {
       "page": 124,
       "kind": "slide",
-      "group": 111,
-      "text": "GTK Cyber Inner Join (Intersection) A B Inner Join"
+      "group": 112,
+      "text": "GTK Cyber logdf = pd.read_table(‘../data/mysql.log’, names=[‘raw’]) logdf['raw'].str.extract('(?P<date>\\d{6}\\s\\d{2}:\\d{2}:\\d{2})\\s+ (?P<PID>\\d+)\\s(?P<Action>\\S+)\\s(?P<Query>.+)', expand=False)"
     },
     {
       "page": 125,
       "kind": "slide",
-      "group": 112,
-      "text": "GTK Cyber Left Join A B Left Join"
+      "group": 113,
+      "text": "GTK Cyber Web Server Logs"
     },
     {
       "page": 126,
-      "kind": "slide",
-      "group": 113,
-      "text": "GTK Cyber Right Join A B Right Join"
+      "kind": "build",
+      "group": 114,
+      "text": "GTK Cyber Web Server Logs 195.154.46.135 - - [25/Oct/2015:04:11:25 +0100] \"GET /linux/doing-pxe-without-dhcp-control HTTP/1.1\" 200 24323 \"http://howto.basjes.nl/\" \"Mozilla/5.0 (Windows NT 5.1; rv:35.0) Gecko/20100101 Firefox/35.0\""
     },
     {
       "page": 127,
-      "kind": "build",
+      "kind": "slide",
       "group": 114,
-      "text": "GTK Cyber pd.merge( leftData, rightData )"
+      "text": "GTK Cyber Web Server Logs 195.154.46.135 - - [25/Oct/2015:04:11:25 +0100] \"GET /linux/doing-pxe-without-dhcp-control HTTP/1.1\" 200 24323 \"http://howto.basjes.nl/\" \"Mozilla/5.0 (Windows NT 5.1; rv:35.0) Gecko/20100101 Firefox/35.0\" from apachelogs import LogParser line_parser = LogParser(“%h %l %u %t \\\"%r\\\" %>s %b \\\"{Referer}i\\\" \\\"%{User-agent}i\\\"\")"
     },
     {
       "page": 128,
-      "kind": "unsure",
-      "group": 114,
-      "text": "GTK Cyber pd.merge( leftData, rightData, how=\"<join type>\" )"
+      "kind": "slide",
+      "group": 115,
+      "text": "GTK Cyber Web Server Logs import apache_log_parser line_parser = apache_log_parser.make_parser(\"%h %l %u %t \\\"%r\\\" %>s %b \\\"%{Referer}i\\\" \\”%{User-agent}i\\”\") server_log = open(“../data/hackers-access.httpd”, \"r\") parsed_server_data = [] for line in server_log: data = {} data = line_parser(line) parsed_server_data.append( data ) server_df = pd.DataFrame( parsed_server_data )"
     },
     {
       "page": 129,
       "kind": "slide",
-      "group": 115,
-      "text": "GTK Cyber pd.merge( leftData, rightData, how=\"<join type>\" ) Option SQL Equivalent Description inner INNER JOIN Intersection left LEFT OUTER JOIN Returns items in Set A, but not in Set B right RIGHT OUTER JOIN Returns items in Set B, but not in Set A outer FULL OUTER JOIN Returns the union of both sets"
+      "group": 116,
+      "text": "GTK Cyber Web Server Logs"
     },
     {
       "page": 130,
       "kind": "slide",
-      "group": 116,
-      "text": "GTK Cyber pd.merge( leftData, rightData, how=\"<join type>\", on=<field list> )"
+      "group": 117,
+      "text": "GTK Cyber Nested Data?"
     },
     {
       "page": 131,
-      "kind": "unsure",
-      "group": 117,
-      "text": "GTK Cyber Grouping and Aggregating Data"
+      "kind": "slide",
+      "group": 118,
+      "text": "GTK Cyber Nested Data? {\"time\": 1084443427.311224, \"timestamp\": \"2004-05-13T10:17:07.311224\", \"IP\": { \"version\": 4, \"ttl\": 128, \"proto\": 6, \"options\": [], \"len\": 48, \"dst\": \"65.208.228.223\", \"frag\": 0, \"flags\": 2, \"src\": “145.254.160.237\", \"chksum\": 37355 }, \"Ethernet\": {\"src\": \"00:00:01:00:00:00\", \"type\": 2048, \"dst\": “fe:ff:20:00:01:00\"}, …"
     },
     {
       "page": 132,
-      "kind": "unsure",
-      "group": 118,
-      "text": "GTK Cyber Grouping and Aggregating Data date src_ip dst_ip port 2018-06-21 192.168.20.2 10.10.4.1 80 2018-06-21 192.168.20.1 10.10.4.2 443 2018-06-21 192.168.20.2 10.10.5.1 80 2018-06-22 192.168.20.2 10.10.4.1 80 df.groupby(field or list of fields)"
+      "kind": "slide",
+      "group": 119,
+      "text": "GTK Cyber Nested Data pd.read_json('nested_data.json' )"
     },
     {
       "page": 133,
-      "kind": "build",
-      "group": 119,
-      "text": "GTK Cyber Grouping and Aggregating Data date src_ip dst_ip port 2018-06-21 192.168.20.2 10.10.4.1 80 2018-06-21 192.168.20.1 10.10.4.2 443 2018-06-21 192.168.20.2 10.10.5.1 80 2018-06-22 192.168.20.2 10.10.4.1 80 df.groupby('src_ip')['port'].count() src_ip count 192.168.20.1 1 192.168.20.2 3"
+      "kind": "unsure",
+      "group": 120,
+      "text": "GTK Cyber Nested Data pd.read_json('nested_data.json' )"
     },
     {
       "page": 134,
-      "kind": "build",
-      "group": 119,
-      "text": "GTK Cyber Grouping and Aggregating Data date src_ip dst_ip port 2018-06-21 192.168.20.2 10.10.4.1 80 2018-06-21 192.168.20.1 10.10.4.2 443 2018-06-21 192.168.20.2 10.10.5.1 80 2018-06-22 192.168.20.2 10.10.4.1 80 df.groupby(['date','src_ip'])['port'].count() date src_ip 2018-06-21 192.168.20.1 1 192.168.20.2 2 2018-06-22 192.168.20.2 1 Multi-Index"
+      "kind": "slide",
+      "group": 121,
+      "text": "GTK Cyber Nested Data from pandas import json_normalize import json import pandas as pd with open('nested.json') as data_file: pcap_data = json.load(data_file) df = pd.DataFrame(json_normalize(pcap_data))"
     },
     {
       "page": 135,
       "kind": "slide",
-      "group": 119,
-      "text": "GTK Cyber Grouping and Aggregating Data date src_ip dst_ip port 2018-06-21 192.168.20.2 10.10.4.1 80 2018-06-21 192.168.20.1 10.10.4.2 443 2018-06-21 192.168.20.2 10.10.5.1 80 2018-06-22 192.168.20.2 10.10.4.1 80 df.groupby(['date','src_ip'], as_index=False) ['port'].count() date src_ip port 0 2018-06-21 192.168.20.1 1 1 2018-06-21 192.168.20.2 2 2 2018-06-22 192.168.20.2 1"
+      "group": 122,
+      "text": "GTK Cyber d df = pd.DataFrame(json_normalize(pcap_data))"
     },
     {
       "page": 136,
       "kind": "slide",
-      "group": 120,
-      "text": "GTK Cyber Grouping Functions http://jalammar.github.io/visualizing-pandas-pivoting-and-reshaping/"
+      "group": 123,
+      "text": "GTK Cyber ElasticSearch & Splunk"
     },
     {
       "page": 137,
       "kind": "slide",
-      "group": 121,
-      "text": "GTK Cyber Grouping Functions http://jalammar.github.io/visualizing-pandas-pivoting-and-reshaping/"
+      "group": 124,
+      "text": "GTK Cyber ElasticSearch & Splunk pip install huntlib e = ElasticDF( url=\"https://localhost:9200\", ssl=True, username=\"myuser\", password=\"mypass\" ) df = e.search_df( lucene=\"proto:tcp AND port:80\", index=\"myindex-*\", days=1, normalize=False ) s = SplunkDF( host=\"<splunk_ip>\", username=\"myuser\", password=\"mypass\" ) df = s.search_df( spl='search index=win_events src=\"10.9.*.*\"', start_time=datetime.now()-timedelta(days=2), end_time=datetime.now() )"
     },
     {
       "page": 138,
       "kind": "slide",
-      "group": 122,
-      "text": "GTK Cyber Series.dropna() Series.fillna(value=\"<something>\")"
+      "group": 125,
+      "text": "GTK Cyber Manipulating a DataFrame"
     },
     {
       "page": 139,
       "kind": "slide",
-      "group": 123,
-      "text": "GTK Cyber Scaling Pandas • Pandas is limited by the amount of memory on your machine. You will need 5-10x as much RAM as the size of your datasets. • Operations on DataFrames creates copies of the data in memory. • Pandas 2.0 has a big improvement in memory management."
+      "group": 126,
+      "text": "GTK Cyber Creating a new Column df['new_col'] = df['column1'] + 3"
     },
     {
       "page": 140,
       "kind": "slide",
-      "group": 124,
-      "text": "GTK Cyber Scaling Pandas Several drop-in or near drop-in replacements for Pandas exist that run on GPUs or parallelize operations. • Dask: A partial Pandas replacement geared towards running code on compute clusters. • cuDF: A drop in partial replacement for Pandas for use on GPUs. Developed by NVIDIA • Ray: A unified low level framework for scaling AI and Python applications. • RAPIDS: A set of libraries and APIs that runs on NVIDIA CUDA GPUs. It offers GPU-enabled substitutes for popular Python libraries, such as cuDF for Pandas, cuML for scikit-learn, and cuGraph for NetworkX. • Polars: A fast dataframe library implemented in Rust. (Runs in Python). • PySpark: The Python API for Spark that lets you harness the simplicity of Python and the power of Apache Spark."
+      "group": 127,
+      "text": "GTK Cyber my_series = df.loc[:,’column1’] Two Ways of Accessing Columns Don't use the dots! series = df.column1"
     },
     {
       "page": 141,
       "kind": "slide",
-      "group": 125,
-      "text": "GTK Cyber Apache Arrow • Apache Arrow is a standardized framework for developing data analytics applications that use columnar data. • Arrow can be used in python (PyArrow), Spark and many other languages. • Arrow is designed as a compliment to parquet format. • Main advantages are interoperability, speed and efficiency."
+      "group": 128,
+      "text": "GTK Cyber my_series = df.loc[:,’column1’] Return a series"
     },
     {
       "page": 142,
       "kind": "slide",
-      "group": 126,
-      "text": "GTK Cyber Pandas 2.0 • Pandas 2.0 was released in early 2023 and now has an integration with Apache Arrow • The Arrow integration can help overcome the limitations of the earlier versions of Pandas. • The Arrow backend is up to 35x faster. • Pandas 2.0 has better support for analytic datatypes via Arrow. pd.read_csv(\"data.csv\", engine='pyarrow', dtype_backend='pyarrow') https://towardsdatascience.com/pandas-2-0-a-game-changer-for-data-scientists-3cd281fcc4b4"
+      "group": 129,
+      "text": "GTK Cyber df = df[['column1','column2','column3']] Return a dataframe"
     },
     {
       "page": 143,
       "kind": "slide",
-      "group": 127,
-      "text": "GTK Cyber Pandas 2.0: Copy on Write Optimization • One of the big challenges of Pandas is that it creates multiple copies of your data frame when you chain methods together. • Pandas 2.0 introduces a new copy on write option which, when set to True, returns views rather than copies, minimizing data duplication. • When enabled, chained assignments will not work. pd.options.mode.copy_on_write = True https://towardsdatascience.com/pandas-2-0-a-game-changer-for-data-scientists-3cd281fcc4b4"
+      "group": 130,
+      "text": "GTK Cyber Filtering a DataFrame df[<boolean condition>] df[['col1','col2']][df['col3'] > 5] Column s Filte r"
     },
     {
       "page": 144,
       "kind": "slide",
-      "group": 128,
-      "text": "GTK Cyber Questions?"
+      "group": 131,
+      "text": "GTK Cyber data.sum(axis=‘index’) OR data.sum(axis=‘columns’) Aggregations can be done over rows or columns"
     },
     {
       "page": 145,
       "kind": "slide",
-      "group": 129,
-      "text": "GTK Cyber In-Class Exercise Please complete Worksheet 1.1: Exploratory Data Analysis"
+      "group": 132,
+      "text": "GTK Cyber DataFrame.drop(labels, axis=‘columns’, level=None, in_place=False, errors='raise') Common options for Pandas Methods"
     },
     {
       "page": 146,
       "kind": "slide",
-      "group": 130,
-      "text": "GTK Cyber"
+      "group": 133,
+      "text": "GTK Cyber Merging Data Sets"
+    },
+    {
+      "page": 147,
+      "kind": "slide",
+      "group": 134,
+      "text": "GTK Cyber combinedSeries = pd.concat( [series1, series2])"
+    },
+    {
+      "page": 148,
+      "kind": "slide",
+      "group": 135,
+      "text": "GTK Cyber pd.merge( leftData, rightData, how=\"<join type>\" )"
+    },
+    {
+      "page": 149,
+      "kind": "slide",
+      "group": 136,
+      "text": "GTK Cyber pd.merge( leftData, rightData, how=\"<join type>\", on=<field list> )"
+    },
+    {
+      "page": 150,
+      "kind": "build",
+      "group": 137,
+      "text": "GTK Cyber Grouping and Aggregating Data"
+    },
+    {
+      "page": 151,
+      "kind": "build",
+      "group": 137,
+      "text": "GTK Cyber Grouping and Aggregating Data df.groupby([‘src_ip’ )"
+    },
+    {
+      "page": 152,
+      "kind": "build",
+      "group": 137,
+      "text": "GTK Cyber Grouping and Aggregating Data df.groupby('src_ip') ['port'].count()"
+    },
+    {
+      "page": 153,
+      "kind": "slide",
+      "group": 137,
+      "text": "GTK Cyber Grouping and Aggregating Data date src_ip 2018-06-21 192.168.20.1 1 192.168.20.2 2 2018-06-22 192.168.20.2 1 Multi- Index df.groupby([‘date’,’src_ip’]) [‘port'].count()"
+    },
+    {
+      "page": 154,
+      "kind": "slide",
+      "group": 138,
+      "text": "GTK Cyber Grouping and Aggregating Data df.groupby([‘date’,’src_ip’], as_index=False)[‘port’].count()"
+    },
+    {
+      "page": 155,
+      "kind": "slide",
+      "group": 139,
+      "text": "GTK Cyber my_series.dropna() my_series.fillna(value=“<value to fill with>\")"
+    },
+    {
+      "page": 156,
+      "kind": "slide",
+      "group": 140,
+      "text": "GTK Cyber Scaling Pandas • Pandas is limited by the amount of memory on your machine. You will need 5-10x as much RAM as the size of your datasets. • Operations on DataFrames creates copies of the data in memory. • Pandas 3.0 is a major improvement in speed!"
+    },
+    {
+      "page": 157,
+      "kind": "slide",
+      "group": 141,
+      "text": "GTK Cyber Scaling Pandas Several drop-in or near drop-in replacements for Pandas exist that run on GPUs or parallelize operations. • Dask: A partial Pandas replacement geared towards running code on compute clusters. • cuDF: A drop in partial replacement for Pandas for use on GPUs. Developed by NVIDIA • Modin: A drop in GPU based replacement for Pandas. • Ray: A unified low level framework for scaling AI and Python applications. • RAPIDS: A set of libraries and APIs that runs on NVIDIA CUDA GPUs. It offers GPU-enabled substitutes for popular Python libraries, such as cuDF for Pandas, cuML for scikit-learn, and cuGraph for NetworkX. • Polars: A fast dataframe library implemented in Rust. (Runs in Python). • PySpark: The Python API for Spark that lets you harness the simplicity of Python and the power of Apache Spark."
+    },
+    {
+      "page": 158,
+      "kind": "slide",
+      "group": 142,
+      "text": "GTK Cyber Apache Arrow • Apache Arrow is a standardized framework for developing data analytics applications that use columnar data. • Arrow can be used in python (PyArrow), Spark and many other languages. • Arrow is designed as a compliment to parquet format. • Main advantages are interoperability, speed and efficiency."
+    },
+    {
+      "page": 159,
+      "kind": "slide",
+      "group": 143,
+      "text": "GTK Cyber Questions?"
+    },
+    {
+      "page": 160,
+      "kind": "slide",
+      "group": 144,
+      "text": "GTK Cyber In-Class Exercise Please complete Worksheet 1.1: Exploratory Data Analysis"
     }
   ]
 }

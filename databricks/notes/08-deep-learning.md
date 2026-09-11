@@ -1,6 +1,6 @@
 ## Page 1
 
-Module 8 covers deep learning: the artificial neuron and the layered networks built from it, the loss function, gradient descent and backpropagation that set a network's weights, and the two architectures used in the worksheets, convolutional networks for images and recurrent networks for sequences.
+TODO NEW SLIDE
 
 ## Page 2
 
@@ -243,19 +243,11 @@ Classification begins with flatten, which unrolls the final block of maps into a
 
 ## Page 41
 
-Worksheet 8.1 trains a convolutional network on fingerprint images. The data is a set of grayscale fingerprint scans from ten people, several scans each, and the task is multi-class: predict which person a scan belongs to.
-
-The steps: split the scans by person into training, validation and test sets in a 70, 15, 15 ratio; resize every image to 160 by 160, normalize it and keep it grayscale; build a CNN in Keras, the high-level Python interface that runs on TensorFlow, from convolution, pooling and dense layers; compile it with Adam, an optimizer that adapts the step size per parameter, and a cross-entropy loss, the standard loss for classification; choose the epochs and batch size; fit with early stopping, which halts training when the validation loss stops improving, and a checkpoint callback that saves the model each epoch; and report accuracy on the test set.
-
-A second exercise reuses VGG16, Oxford's 2014 ImageNet entry, with its pretrained convolutional layers frozen and a new dense classifier trained on top. That is transfer learning: the feature detectors learned on 1.2 million photographs are kept, and only the classifier is fit to the fingerprints. The layers are frozen because a freshly initialized classifier produces large errors at first, and backpropagation would push those errors into the pretrained weights and damage them. The worksheet also asks for a function that takes one raw scan, predicts its owner and checks the prediction, the core of a fingerprint authentication system.
-
-## Page 42
-
 Deep learning became accessible through a three-part stack: hardware, a framework and a wrapper. NVIDIA graphics processors supply the arithmetic; training is millions of weighted sums and their derivatives, which a graphics processor executes in parallel. The worksheets run on a CPU, and a GPU shortens their training. TensorFlow, released by Google in 2015, is the framework: a backend written in C that runs the computational graph, and a frontend in Python for defining it. Keras is the high-level wrapper: a Python API in which a network is a list of layers and training is a single call, so the graph construction and the training loop are handled by the library.
 
 Each layer of the stack has alternatives. The list here names Theano and Torch as other backends, and Lasagne, Caffe, Pylearn2 and Chainer as other high-level APIs. Torch's Python successor, PyTorch, is the library the URL worksheet uses.
 
-## Page 43
+## Page 42
 
 Training processes the data in batches, and three terms count the work.
 
@@ -264,6 +256,10 @@ Training processes the data in batches, and three terms count the work.
 - Epoch: one forward and backward pass over all of the training data, that is, enough iterations to visit every example once.
 
 With 1000 training examples and a batch size of 500, two iterations make one epoch. A batch of one is stochastic gradient descent and a batch of the whole set is batch gradient descent; sizes in between, called mini-batches, keep most of the speed of the stochastic version with less noise per step. Batch size and number of epochs are both hyperparameters that the training call requires, in Keras and PyTorch alike. A batch size of 32 is a common default; the fingerprint worksheet uses 64 for 20 epochs and the URL worksheet uses 512 for 3 epochs.
+
+## Page 43
+
+TODO NEW SLIDE
 
 ## Page 44
 
