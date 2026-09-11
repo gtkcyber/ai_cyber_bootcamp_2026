@@ -20,7 +20,7 @@
       <img class="page" src="pages/p001.webp" alt="Module 1: Exploratory Data Analysis">
     </div>
     <aside class="notes">
-      <p>Module 1 introduces pandas, the Python library for tabular data, from the vectorized data structures it is built on up to the operations used to explore a dataset. Worksheet 1.1 is the lab for this module.</p>
+      <p>Exploratory data analysis, the inspection and summary of a dataset before any model is built, is the first phase of a data science project, which is why the course opens with it. Module 1 introduces pandas, the Python library for tabular data, from the vectorized data structures it is built on up to the operations used to explore a dataset. Worksheet 1.1 is the lab for this module.</p>
     </aside>
   </section>
   <section data-page="2">
@@ -52,7 +52,7 @@
       <img class="page" src="pages/p005.webp" alt="GTK Cyber A Better Approach with AI • Include a description of the data&#x27;s schema and perhaps a sample in your AI prompt. • Have the LLM generate python code to accomplish your task">
     </div>
     <aside class="notes">
-      <p>The working pattern is to have the model write pandas code and to run that code over the data locally. Give the prompt the schema: column names, types, and what each column holds, plus a few sample rows if the values need illustrating. Ask for Python that performs the task. The code runs over the full dataset at pandas speed, its output can be inspected, and the code itself is the audit trail. Module 10, Prompt Engineering, covers how to write such prompts.</p>
+      <p>The working pattern is to have the model write pandas code, or a SQL query when the data sits in a database, and to run that code over the data locally. Give the prompt the schema: column names, types, and what each column holds, plus a few sample rows if the values need illustrating. Ask for Python or SQL that performs the task. The code runs over the full dataset at the speed of pandas or the database, its output can be inspected, and the code itself is the audit trail. Module 10, Prompt Engineering, covers how to write such prompts.</p>
     </aside>
   </section>
   <section data-page="6">
@@ -93,7 +93,7 @@
       <img class="page fragment" src="pages/p011.webp" alt="GTK Cyber for cell in row: half_cell = cell / 2 for x in range(0, len( data )): data[x] = data[x] + 1 odds = evens + 1">
     </div>
     <aside class="notes">
-      <p>The loop increments each element one at a time: Python fetches an element, adds one, stores it back, and advances the position, once per row, with the interpreter's overhead paid on every pass. The vectorized form states the same computation once for the entire column. With <code>evens</code> holding a column of even numbers, <code>odds = evens + 1</code> produces a new column with one added to every element, and the addition runs inside the library.</p>
+      <p>The loop increments each element one at a time: Python fetches an element, adds one, stores it back, and advances the position, once per row, with the interpreter's overhead paid on every pass. The vectorized form states the same computation once for the entire column. With <code>evens</code> holding a column of even numbers, <code>odds = evens + 1</code> produces a new column with one added to every element, and the addition runs inside the library. If you find yourself writing a loop over the rows of a pandas object, stop and look for the vectorized form; one exists for nearly every per-row computation.</p>
     </aside>
   </section>
   <section data-page="12">
@@ -117,7 +117,7 @@
       <img class="page" src="pages/p014.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The pandas name does not refer to the animal. It is drawn from panel data, the econometrics term for a table that follows several variables across several time periods.</p>
     </aside>
   </section>
   <section data-page="15">
@@ -125,7 +125,7 @@
       <img class="page" src="pages/p015.webp" alt="GTK Cyber What is Pandas? • Pandas is the standard OSS data manipulation library for Python • At its core, it is a collection of vectorized data structures. • Pandas is the foundat">
     </div>
     <aside class="notes">
-      <p>The pandas library is the open-source foundation of Python data analysis. Its core is a set of vectorized data structures, the Series and the DataFrame, with a large library of operations over them. The rest of the Python data science stack assumes it: scikit-learn accepts DataFrames as input, and Matplotlib and Seaborn plot from them. Version 2.0.0 was released on April 3, 2023; its headline additions were optional Apache Arrow-backed column types and a copy-on-write mode, and the code in this course assumes 2.0 or later.</p>
+      <p>The pandas library is the open-source foundation of Python data analysis. Its core is a set of vectorized data structures, the Series and the DataFrame, with a large library of operations over them. The rest of the Python data science stack assumes it: scikit-learn accepts DataFrames as input, and Matplotlib and Seaborn plot from them. Version 2.0, released in April 2023, added optional Apache Arrow-backed column types and a copy-on-write mode, a memory model in which an object derived from another shares its storage until one of the two is modified. Version 3.0, released in January 2026, made copy-on-write the only behavior and gave text columns a dedicated string type in place of the general object type. The code in this course runs on 2.0 and later.</p>
     </aside>
   </section>
   <section data-page="16">
@@ -133,7 +133,8 @@
       <img class="page" src="pages/p016.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The components of pandas. Labeled array structures: the Series, one-dimensional, and the DataFrame, two-dimensional, each carrying an index of labels alongside its values; a Series whose index holds timestamps is a time series and needs no class of its own. Index objects: the label axis itself, which supports single-level lookup and hierarchical indexing, several levels of labels on one axis. A group by engine: splitting rows into groups that share a column's value and aggregating or transforming each group. Date range generation: <code>date_range</code> builds sequences of timestamps at a chosen frequency, with custom offsets for business calendars and similar schedules. Input and output: readers for delimited text and Excel, and the binary HDF5 format for saving and reloading pandas objects. Sparse structures: memory-efficient variants for data that is mostly missing or mostly one constant. Moving window statistics: rolling means, rolling standard deviations and the like over a sliding window of rows.</p>
+<p>Timestamps are written in ISO 8601, the international standard that orders a date from year down to second, as in 2026-01-21T14:30:00. The three-dimensional Panel was deprecated in pandas 0.20 and removed in 0.25 in 2019; a third dimension is now represented with a hierarchical index on a DataFrame or with the xarray library.</p>
     </aside>
   </section>
   <section data-page="17">
@@ -149,7 +150,7 @@
       <img class="page" src="pages/p018.webp" alt="GTK Cyber Libraries in Python">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>This section covers Python libraries: what one is, the four forms an import statement takes, and where third-party libraries come from and how they are installed.</p>
     </aside>
   </section>
   <section data-page="19">
@@ -157,7 +158,7 @@
       <img class="page" src="pages/p019.webp" alt="GTK Cyber What is a Python library? • Python libraries are also called modules • Python has large set of built-in libraries • Can contain classes, functions or variables • Imported">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A Python library is a file or package of Python code that defines classes, functions and variables for other code to use. The language documentation calls the same thing a module; this course says library. The standard library ships with the interpreter: its modules are installed wherever Python is, so they are imported with no download or install step, which matters on an air-gapped machine, one kept off every external network, where nothing can be fetched. <code>import ipaddress</code> loads the standard module for inspecting and manipulating IP addresses, and the same statement works in a script or in a notebook cell.</p>
     </aside>
   </section>
   <section data-page="20">
@@ -165,7 +166,8 @@
       <img class="page" src="pages/p020.webp" alt="GTK Cyber Python library: full name Functions defined in a library are called using dot notation when importing the full library. import ipaddress user_address = ipaddress.ip_addre">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The first import form loads the whole library under its own name, and everything inside it is reached through dot notation: the library name, a period, then the function. <code>ipaddress.ip_address(...)</code> builds an address object from a string, here an IPv4 address embedded in IPv6 notation, and the object carries its own methods, so <code>user_address.is_private</code> reports whether the address falls in a range reserved for private networks. A method is a function attached to an object, the same construction as the string methods.</p>
+<p>The answer shown is False, and it depends on the Python release: older releases classified the whole IPv4-mapped range as private and returned True for this address, while current releases delegate the check to the embedded IPv4 address, 185.15.58.226, which is publicly routable. In a Jupyter cell, typing the library name, a period and the first letter of a name, then pressing Tab, lists the library's names that begin with that letter; this is tab completion.</p>
     </aside>
   </section>
   <section data-page="21">
@@ -173,7 +175,7 @@
       <img class="page" src="pages/p021.webp" alt="GTK Cyber Python library: Jupyter shortcuts Tab completion Shift + Tab = documentation">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Two keyboard aids in Jupyter. Tab completion: after a library name and a period, Tab lists the names the library defines, filtered by whatever letters are already typed; Tab after a partly typed variable name lists the variables defined so far in the notebook. Shift and Tab together: with the cursor on a function's name or inside its parentheses, this opens the function's documentation in a floating panel, the same text <code>help()</code> prints into the cell output, without dumping it there.</p>
     </aside>
   </section>
   <section data-page="22">
@@ -181,7 +183,7 @@
       <img class="page" src="pages/p022.webp" alt="GTK Cyber Python library: alias Use an alias to avoid typing the full name of the library each time a function is called. import pandas as pd raw_empty_data_frame = pd.DataFrame() ">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The second form gives the library a shorter name at import time, and every later call uses the alias in the dot notation in place of the full name. <code>import ipaddress as ip</code> makes <code>ip.ip_address("185.15.58.226")</code> the same call as before, this time on a plain dotted-quad address, four decimal numbers separated by periods. <code>import pandas as pd</code> is the convention for pandas across the data science ecosystem, so <code>pd.DataFrame()</code>, which creates an empty DataFrame, is how the call reads in the documentation and in every notebook of this course.</p>
     </aside>
   </section>
   <section data-page="23">
@@ -189,7 +191,7 @@
       <img class="page" src="pages/p023.webp" alt="GTK Cyber Python library: specific functions When importing specific functions from a library, the function name can be called without the dot notation if we import them specifical">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The third form names the functions to bring in, <code>from library import name1, name2</code>, and those names are then called directly, with no library prefix. Here <code>ip_address</code>, <code>ip_network</code> and <code>ip_interface</code> come in from ipaddress, and <code>ip_interface(...)</code> builds an interface object, an address paired with its network, straight from the string. Only the named functions are bound in the namespace; the rest of the library's names stay out of it, which keeps a script's set of names small and states in one line where each imported name came from.</p>
     </aside>
   </section>
   <section data-page="24">
@@ -197,7 +199,7 @@
       <img class="page" src="pages/p024.webp" alt="GTK Cyber Python library: wild card DON’T DO THIS!!! When importing specific functions from a library, all the functions, variables, etc can be imported using the wildcard. from ip">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The fourth form, <code>from ipaddress import *</code>, binds every public name the library defines into the current namespace, so <code>ip_network("192.0.2.0/24")</code> works with no prefix and so does everything else in the module. Do not use it, for three reasons. Naming conflicts: an imported name silently replaces a function or variable of the same name defined earlier, or is replaced by one defined later. Readability: a reader cannot tell which library a bare name came from without searching every wildcard import in the file. Namespace clutter: dozens of names the code never uses are now defined, and they show up in tab completion. The form is common in tutorials and notebooks regardless, so it has to be recognized when read.</p>
     </aside>
   </section>
   <section data-page="25">
@@ -205,7 +207,7 @@
       <img class="page" src="pages/p025.webp" alt="GTK Cyber Third party Python library • Third party library = written by someone other than Python developers • Many useful third party libraries for data science tasks • Not instal">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A third-party library is one written outside the Python project: pandas for tabular data, NumPy for numeric arrays and requests for HTTP calls are all third-party. None ships with the interpreter, so each has to be installed into the Python environment before it can be imported, with pip or conda from a shell, or with pip from a notebook cell. The packages come from the Python Package Index, PyPI, pronounced pie-pee-eye, the public repository at pypi.org; pip installs from it directly, and conda installs from its own channels, which repackage most of the same libraries. Once installed, a third-party library is imported with the same four forms as a standard one.</p>
     </aside>
   </section>
   <section data-page="26">
@@ -213,7 +215,7 @@
       <img class="page" src="pages/p026.webp" alt="GTK Cyber Third party Python library">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>PyPI's search page, queried for security and filtered by the classifier Intended Audience: System Administrators, which returns 1,245 projects. Every project carries classifiers, labels its author chose from a fixed list covering framework, topic, development status, license, Python version, operating system and audience, and the left-hand filters narrow a search by them. Each result shows the package name, its current version, a one-line description and the date of its latest release, which is how a package's maintenance is judged at a glance.</p>
     </aside>
   </section>
   <section data-page="27">
@@ -221,7 +223,8 @@
       <img class="page" src="pages/p027.webp" alt="GTK Cyber Third party Python library">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A project's own page on PyPI, here fastapi-security 0.5.0. The header gives the exact <code>pip install fastapi-security</code> command, the latest version and its release date; the left column links to the homepage, the documentation and the source repository; the body is the project description with its installation options.</p>
+<p>The exact name matters because anyone can publish to PyPI. For a period, attackers uploaded packages whose names were common misspellings of popular ones, so that a mistyped install command fetched malicious code with no error; this is typosquatting. PyPI now scans uploads for it, and the check before any install remains to copy the name from the project page rather than type it from memory.</p>
     </aside>
   </section>
   <section data-page="28">
@@ -295,7 +298,7 @@
       <img class="page" src="pages/p038.webp" alt="GTK Cyber Pandas Series: slicing series1 = pd.Series( [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;,&#x27;e&#x27;] ) print(series1[1:3]) 1 b 2 c dtype: object">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A slice between the brackets returns a run of elements, as it does on a list: <code>series1[1:3]</code> returns the elements at positions one and two, b and c, because the end position is excluded. The result is a new Series that keeps the original labels, 1 and 2, and reports its dtype on the last line.</p>
     </aside>
   </section>
   <section data-page="39">
@@ -303,7 +306,7 @@
       <img class="page" src="pages/p039.webp" alt="GTK Cyber Accessing a Series series1 = pd.Series( [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27; ,&#x27;d&#x27;,&#x27;e&#x27;]) print( series1[1:3] ) 1 b 2 c dtype: object series2 = series1[1:3] series2.reset_index( drop=True )">
     </div>
     <aside class="notes">
-      <p>Slicing a Series by position returns the elements from the start position up to, and excluding, the end position. <code>series1[1:3]</code> returns b and c, and each keeps its original label, one and two, because a slice carries the index entries along with the values. The kept labels matter: the sliced Series <code>series2</code> no longer starts at zero, so <code>series2[0]</code> raises a KeyError. <code>reset_index(drop=True)</code> renumbers the index from zero; <code>drop=True</code> discards the old labels, and without it they would become a new column and the result would be a DataFrame. The method returns a new Series and leaves <code>series2</code> untouched unless the result is assigned back or <code>inplace=True</code> is passed; as written, the last line computes the renumbered Series and discards it.</p>
+      <p>A slice keeps the source labels, and that has a consequence: <code>series2 = series1[1:3]</code> holds b and c under the labels 1 and 2, so <code>series2[0]</code> raises a KeyError because no element is labeled zero. <code>reset_index(drop=True)</code> renumbers the index from zero; <code>drop=True</code> discards the old labels, and without it they would become a new column and the result would be a DataFrame. The method returns a new Series and leaves <code>series2</code> untouched unless the result is assigned back or <code>inplace=True</code> is passed; as written, the last line computes the renumbered Series and discards it.</p>
     </aside>
   </section>
   <section data-page="41">
@@ -360,7 +363,7 @@
       <img class="page" src="pages/p047.webp" alt="GTK Cyber String Functions https://pandas.pydata.org/docs/user_guide/text.html#method-">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The <code>.str</code> accessor's methods for matching and editing text; the link at the foot of the slide is the method summary in the pandas user guide, which lists many more. contains: True where the pattern occurs anywhere in the value; the pattern is a regular expression unless <code>regex=False</code> is passed. count: how many non-overlapping matches of the pattern each value holds. extract: the text captured by the pattern's parenthesized groups, one column per group, so the result is a DataFrame. find: the position of the first occurrence of a literal substring, or minus one if absent; no regular expressions. findall: every match of the pattern in each value, as a list per element. len: the number of characters in each value. replace: each match of the pattern replaced with the replacement string; since pandas 2.0 the pattern is treated as a literal unless <code>regex=True</code> is passed. Two related methods the table omits: match tests the pattern at the start of the value, and fullmatch requires the pattern to cover the whole value.</p>
     </aside>
   </section>
   <section data-page="48">
@@ -376,7 +379,7 @@
       <img class="page" src="pages/p049.webp" alt="GTK Cyber Selected Date/Time Operations https://pandas.pydata.org/docs/user_guide/">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The <code>.dt</code> accessor exposes the parts of a datetime column as vectorized properties; the linked page is the time series chapter of the user guide, which covers the rest. year, month and day: the calendar components as integer Series. weekday: the day of the week as an integer, Monday being zero and Sunday six. is_month_start: True for values that fall on the first day of their month. strftime: the datetimes rendered back into strings according to a format pattern, the inverse of to_datetime; it requires the pattern as an argument. These components are how a timestamp becomes a feature: an hour-of-day or day-of-week column extracted from an event time is what a model or a plot can use.</p>
     </aside>
   </section>
   <section data-page="50">
@@ -384,7 +387,7 @@
       <img class="page" src="pages/p050.webp" alt="GTK Cyber combinedSeries = series1.add( series2 )">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Arithmetic between two Series also has a method form. <code>series1.add(series2)</code> computes the same element-wise sum as <code>series1 + series2</code>: the elements are matched by index label rather than by position, and a label present in only one of the two produces a missing value in the result. The method form exists for its <code>fill_value</code> argument, which substitutes a number for the absent side of such a pair so the result holds a value there instead of NaN. sub, mul, div, floordiv, mod and pow are the method forms of the other operators, with the same arguments.</p>
     </aside>
   </section>
   <section data-page="51">
@@ -416,7 +419,7 @@
       <img class="page" src="pages/p054.webp" alt="GTK Cyber Exploring Your Data">
     </div>
     <aside class="notes">
-      <p>The section that follows introduces the statistics used to summarize a column: measures of center and spread, the quantile-based five-number summary, the pandas methods that compute each, and counting distinct values.</p>
+      <p>The section that follows introduces the statistics used to summarize a column and the vocabulary around them: populations and samples, numerical and categorical variables, the histogram and the distributions it reveals, measures of center and spread, quartiles and the box plot, outliers, rescaling a column to a common range, and the pandas methods that compute each. Counting distinct values and plotting a column close the part.</p>
     </aside>
   </section>
   <section data-page="55">
@@ -424,7 +427,7 @@
       <img class="page" src="pages/p055.webp" alt="GTK Cyber Statistics: objectives This section will cover basic statistical methods commonly used in cleaning, analyzing and visualization of data. The relationship between statisti">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The statistics section covers the descriptive methods used while cleaning, analyzing and visualizing data, and it uses the pandas skills from the Series section to turn each equation into code. Five outcomes are set. Compute and distinguish the mean, median, mode, range, standard deviation and variance of a dataset. Decide when the median is the better measure of center than the mean. Read a histogram and a box plot to understand a column's distribution. Identify outliers and decide what to do with them. Normalize or scale a feature and say when the step is necessary.</p>
     </aside>
   </section>
   <section data-page="56">
@@ -432,7 +435,7 @@
       <img class="page" src="pages/p056.webp" alt="GTK Cyber Statistics: define Probability is a mathematical tool used to study randomness. It deals with the chance (the likelihood) of an event occurring">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Probability is the mathematics of randomness: it assigns a number between zero and one to the chance that an event occurs. Statistics uses it to state predictions, so a forecast of an earthquake, or of a rise in web traffic, takes the form of a probability rather than a yes or a no.</p>
     </aside>
   </section>
   <section data-page="57">
@@ -440,7 +443,7 @@
       <img class="page" src="pages/p057.webp" alt="GTK Cyber Statistics: define Population - a collection of persons, things, or objects under study. To study the population, we select a sample - a portion (or subset) of the larger">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A population is the whole collection under study, every user on the internet, for example. A sample is the portion of it that can be observed, such as the users who visited one website, and it is studied to learn about the population it was drawn from. Data is what sampling produces, so every dataset in this course is a sample, and every statistic computed from it estimates the population figure rather than stating it.</p>
     </aside>
   </section>
   <section data-page="58">
@@ -448,7 +451,7 @@
       <img class="page" src="pages/p058.webp" alt="GTK Cyber Statistics: variables Variables - a characteristic or measurement for each member of a population Numerical - numbers (weight, bytes, time) Categorical - a category that ">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A variable is a characteristic or measurement recorded for each member of a population, which in a table is a column. Numerical: a quantity, such as weight, bytes transferred or connection time, on which arithmetic makes sense. Categorical: a label from a set of categories, such as user or bot, or a location, where the only operations are equality and counting.</p>
     </aside>
   </section>
   <section data-page="59">
@@ -456,7 +459,7 @@
       <img class="page" src="pages/p059.webp" alt="GTK Cyber Statistics: types of data QuaLitative - aka categorical data, non-numeric data (user status, url, gender) QuanTitative - numeric data Discrete - integers, like the result">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The variable types under the names statisticians use. Qualitative: categorical data, the non-numeric labels such as a user's status, a URL or a gender. Quantitative: numeric data, which splits again. Discrete: whole numbers that come from counting, such as the number of site visits or logins. Continuous: values on a continuum, decimals and fractions such as a weight or an amount of time, where any value between two observed ones is possible. The split decides the plots and summaries that fit: counts per category for qualitative data, a bar per value for discrete, and histograms over binned ranges for continuous.</p>
     </aside>
   </section>
   <section data-page="60">
@@ -464,7 +467,7 @@
       <img class="page" src="pages/p060.webp" alt="GTK Cyber Statistics: data example">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The dataset used through the rest of the section: server connection logs joined to a user table, one row per session on a given date. company: the organization the user belongs to. username and name: the account and the person. mail: the address on the account. connected: the length of the session in minutes, a decimal. The discrete and continuous examples, the histograms and the summary statistics that follow all come from this table.</p>
     </aside>
   </section>
   <section data-page="61">
@@ -472,7 +475,7 @@
       <img class="page" src="pages/p061.webp" alt="GTK Cyber Statistics: quantitative discrete Number of users per company">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Number of users per company is a discrete variable: it comes from counting rows, so every value is a whole number. The bar chart puts one bar per company, sorted by count, from three users at Booth Ltd to twenty-seven at Peacemakers, with the count on the vertical axis. A bar chart is the plot for a discrete or categorical variable because each bar stands for one distinct value.</p>
     </aside>
   </section>
   <section data-page="62">
@@ -480,7 +483,7 @@
       <img class="page" src="pages/p062.webp" alt="GTK Cyber Statistics: quantitative continuous Amount of time users were logged into server">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Connection time is a continuous variable: the minutes are decimals on a continuum rather than counts. The plot is a density curve, a smoothed estimate of how the values are distributed, with time in minutes across the bottom and density up the side; density is scaled so that the area under the curve is one, which is why the vertical axis reads in fractions rather than counts. Most sessions last between about five and fifteen minutes, with the peak near ten.</p>
     </aside>
   </section>
   <section data-page="63">
@@ -488,7 +491,7 @@
       <img class="page" src="pages/p063.webp" alt="GTK Cyber Statistics: normal distribution Normal distribution (Gaussian) Ainali, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The distribution of a variable is the frequency of each of its values, and it is the first thing to describe about a column. The normal distribution, also called Gaussian or the bell curve, is the shape many measurements take: symmetric around the mean, densest at the center, thinning toward both tails. Two parameters fix it completely, the mean μ, which locates the center, and the standard deviation σ, which sets the width. The percentages on the figure are areas under the curve: 34.1 percent of the values lie between the mean and one standard deviation above it, so 68.2 percent lie within one standard deviation of the mean, 95.4 percent within two, and about 99.7 percent within three. A normal distribution with mean zero and standard deviation one is the standard normal.</p>
     </aside>
   </section>
   <section data-page="64">
@@ -496,7 +499,7 @@
       <img class="page" src="pages/p064.webp" alt="GTK Cyber Statistics: histogram Amount of time users were logged into server">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A histogram shows a distribution directly and is the starting plot for a new numeric column. The range of the variable is cut into intervals called bins, and the bar over each bin counts the values that fall in it, so the outline of the bars is the shape of the distribution. Here the bins are about three minutes wide; the tallest, with just over forty sessions, runs from about seven to ten minutes, no session falls in the bin around twenty, and a lone bar of fourteen sits between twenty-one and twenty-four. An empty bin followed by an isolated bar is the pattern to notice: it separates a small group of long sessions from the rest.</p>
     </aside>
   </section>
   <section data-page="65">
@@ -504,7 +507,7 @@
       <img class="page" src="pages/p065.webp" alt="GTK Cyber Statistics: mode Mode - value with the most occurrences Unimodal Bimodal Multimodal">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The mode is the value that occurs most often, and on a histogram it is a peak. Unimodal: one peak, as on the left, where the values cluster around a single center. Bimodal: two peaks, as in the middle, which usually means two different groups have been mixed in one column. Multimodal: several peaks. The mean and the median of a bimodal column can land in the trough between the peaks, where few values sit, so the histogram is checked before either is trusted.</p>
     </aside>
   </section>
   <section data-page="66">
@@ -512,7 +515,7 @@
       <img class="page" src="pages/p066.webp" alt="GTK Cyber Statistics: mean Mean - Measure of central tendency. 𝜇= population mean x = sample mean Note: Sensitive to outliers Note: Sensitive to outliers">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The mean is the most common summary statistic and a measure of central tendency, the value the data clusters around. It is the sum of the values divided by their count. In the formula, x̄, read x bar, is the sample mean and μ, the Greek letter mu, is the population mean; n is the number of data points, and the sum runs over every x sub i from one to n. The example computes the mean of 3, 2, 9, 4 and 1 as nineteen divided by five, which is 3.8. Every value contributes to the sum, so one extreme value moves the mean; that is its sensitivity to outliers.</p>
     </aside>
   </section>
   <section data-page="67">
@@ -520,7 +523,7 @@
       <img class="page" src="pages/p067.webp" alt="GTK Cyber Statistics: mean Amount of time users were logged into server Mean = 10.11">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The mean connection time is 10.11 minutes. On the histogram it falls inside the tallest bin, so here the mean sits where the data is densest, but the lone bar of long sessions on the right and the sessions near zero on the left both pull on it: the mean is the balance point of the histogram, not its peak.</p>
     </aside>
   </section>
   <section data-page="68">
@@ -528,7 +531,7 @@
       <img class="page" src="pages/p068.webp" alt="GTK Cyber Statistics: variation Variation - all data has variation (spread of data around the mean) Variance - the mean squared deviation Note: Sensitive to extreme values Note: Se">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Variation is the spread of the data around the mean, and every dataset has some. Two measures quantify it. Variance: the mean squared deviation. The deviation of a value is its distance from the mean, x sub i minus x bar; squaring each deviation makes it positive, so values below and above the mean do not cancel, and the average of the squares is the variance, written s squared. The formula divides by n minus one rather than n because the data is a sample: the sample mean sits closer to the sample's own values than the population mean would, and the smaller denominator corrects for it. pandas uses the same denominator in <code>var</code> and <code>std</code> by default. Standard deviation: the square root of the variance, written s or σ, which puts the measure back in the units of the data. Both square the deviations, so a single extreme value contributes a term that grows with the square of its distance, and both are inflated by it.</p>
     </aside>
   </section>
   <section data-page="69">
@@ -536,7 +539,7 @@
       <img class="page" src="pages/p069.webp" alt="GTK Cyber Statistics: variation Variance = 44.73 Standard Deviation = 6.68">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>For the connection times the variance is 44.73 and the standard deviation is 6.68. The variance is in minutes squared, a unit with no direct reading; the standard deviation is in minutes, the same unit as the data, so it reads against the histogram: a typical session lies within about six and a half minutes of the mean of 10.11. That is why the standard deviation is the measure reported and the variance is the intermediate step.</p>
     </aside>
   </section>
   <section data-page="70">
@@ -544,7 +547,7 @@
       <img class="page" src="pages/p070.webp" alt="GTK Cyber Statistics: mean &amp; variation">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Two distributions described by histogram, mean and standard deviation together: the ages of Best Actress winners and of Best Actor winners, ninety-two of each. The actresses' mean age is 36.2 with a standard deviation of 11.9; the actors' is 43.8 with a standard deviation of 8.83. The histograms show what the numbers say: the actress distribution is centered lower and spreads wider, with a tail reaching past eighty, while the actor distribution is centered in the forties and is tighter. The three together, histogram, mean and standard deviation, are the standard description of any numeric column.</p>
     </aside>
   </section>
   <section data-page="71">
@@ -552,7 +555,7 @@
       <img class="page" src="pages/p071.webp" alt="GTK Cyber Statistics: median Median - Middle value separating the greater and lesser halves of a data set">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The median is the middle value of the sorted data, the point that separates the greater half from the lesser half. All three histograms have a mean of zero and a standard deviation of one, and they differ in shape: two spikes at minus one and one, a bell, and a peak near minus one with a long tail to the right. Mean and standard deviation do not tell them apart, so a second measure of center is needed, and the median is it. For the skewed distribution at the bottom the median sits nearer the peak than the mean does, because the tail values pull the mean and only reorder the median.</p>
     </aside>
   </section>
   <section data-page="72">
@@ -560,7 +563,7 @@
       <img class="page" src="pages/p072.webp" alt="GTK Cyber Statistics: median Median - Middle value separating the greater and lesser halves of a data set s_list = [8,3,1,8,3,9,2,0] s_list = [0,1,2,3,3,8,8,9] Sort the values midd">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The median is computed by sorting. The list 8, 3, 1, 8, 3, 9, 2, 0 sorts to 0, 1, 2, 3, 3, 8, 8, 9; with eight values there is no single middle element, so the two middle values, the fourth and the fifth, are averaged: three plus three over two, which is three. With an odd count the middle element is the median directly. Because the values must be sorted first, the median costs more to compute than the mean on a large column, whose sum needs a single pass.</p>
     </aside>
   </section>
   <section data-page="73">
@@ -584,7 +587,7 @@
       <img class="page" src="pages/p075.webp" alt="GTK Cyber Intro Stats: IQR The interquartile range is a measure of where the “middle fifty” is in a data set. Where a range is a measure of where the beginning and end are in a set">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The interquartile range is the distance between the 75th and 25th percentiles, the span that holds the middle half of the sorted values. Where the range locates the two ends of a dataset, the interquartile range locates where the bulk of the values lie, and unlike the range, which two extreme values determine, it is unchanged by an outlier at either end. In pandas, <code>quantile(q)</code> returns the value below which a fraction q of the data lies, so subtracting the 0.25 quantile from the 0.75 quantile computes it.</p>
     </aside>
   </section>
   <section data-page="76">
@@ -592,7 +595,7 @@
       <img class="page" src="pages/p076.webp" alt="GTK Cyber Statistics: IQR (interquartile range) median 50% first quartile (Q1) 25% third quartile (Q3) (75%) middle 50% of data outliers IQR = Q3-Q1">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A box plot draws the quartiles. The box runs from the first quartile, Q1, to the third quartile, Q3, the cut points of the five-number summary, and the line inside is the median, the second quartile. The box therefore holds the middle fifty percent of the data, and its width is the interquartile range, Q3 minus Q1. The whiskers extend from the box toward the extremes but stop at the last value within one and a half interquartile ranges of the box; any value beyond that is drawn as a separate dot, and those dots are the outliers, two of them here near twenty-four minutes.</p>
     </aside>
   </section>
   <section data-page="77">
@@ -600,7 +603,7 @@
       <img class="page" src="pages/p077.webp" alt="GTK Cyber Statistics: IQR (interquartile range) median 50% first quartile (Q1) 25% third quartile (Q3) (75%) middle 50% of data outliers">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p><code>describe</code> reports the same quantities as numbers. On the connected column: count, 180 sessions; mean, 10.11; std, 6.69; min, minus 1.87; the 25 percent, 50 percent and 75 percent rows, which are Q1 at 5.31, the median at 9.33 and Q3 at 15.35; and max, 24.19. The interquartile range is therefore about ten minutes, and the median falls below the mean, which the long sessions on the right pull upward. A negative minimum is impossible for a session length and is the first figure on this output to investigate.</p>
     </aside>
   </section>
   <section data-page="78">
@@ -608,7 +611,7 @@
       <img class="page" src="pages/p078.webp" alt="GTK Cyber Statistics: IQR">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>One box plot per company on a shared axis shows whether the distribution of connection time differs between groups. The eight boxes have medians between about eight and eleven minutes and interquartile ranges of similar width, and every group's whiskers reach the same extremes near minus two and twenty-four; Savage LLC alone shows an outlier dot, because its box is narrower and its maximum falls past the whisker limit. Grouped box plots are the quickest check of whether a category matters to a numeric variable, and here the groups look alike.</p>
     </aside>
   </section>
   <section data-page="79">
@@ -616,7 +619,8 @@
       <img class="page" src="pages/p079.webp" alt="GTK Cyber Statistics: outliers">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A box plot with values far beyond the whiskers, three above forty minutes and one below zero, and the histogram of the same column, where those values sit as isolated bars away from the mass. Handling outliers is a step of its own in statistics and in machine learning, and it begins with finding out where each came from. The negative session length cannot be real, so it points at a processing error; the place to check first is the datetime conversion, and time zone handling is the common source of such errors in duration arithmetic.</p>
+<p>The high values may be real. If they are, the choice is between removing them and keeping them while using methods that are robust to outliers, such as the median in place of the mean; in a security investigation they are also the first records to examine, since a session many times longer than any other is the kind of record an investigation drills into. When an outlier turns out to be irrelevant to the question, such as a login count beyond what a person could produce in a minute when the question is about human users, it is removed, because one extreme value can dominate every statistic computed on the column.</p>
     </aside>
   </section>
   <section data-page="80">
@@ -624,7 +628,8 @@
       <img class="page" src="pages/p080.webp" alt="GTK Cyber Statistics: Normalize Normalization (min-max scaler) - get data on a common scale Standardization - rescale so that mean = 0, std = 1">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Features on different scales distort methods that combine them. In the sample table, connected is in the tens and number_logins is a small integer; a model that weighs raw magnitudes, such as one built on distances between rows, lets the larger-scaled column dominate for no reason but its units. Two rescalings fix that. Normalization, the min-max scaler: subtract the column's minimum and divide by its range, which maps every value into the interval from zero to one. Standardization: subtract the mean and divide by the standard deviation, which gives the column mean zero and standard deviation one; each result is the value's z-score, its distance from the mean measured in standard deviations.</p>
+<p>Standardization assumes the column is roughly normal, so it is the choice for a bell-shaped column and normalization for one that is not; either applies whether the raw values run in the hundreds or in the thousandths. A column already near the zero-to-one range with a standard deviation near one can be left alone. The describe output on the right gives the figures each formula uses, min, max, mean and std, for both columns.</p>
     </aside>
   </section>
   <section data-page="81">
@@ -632,7 +637,7 @@
       <img class="page" src="pages/p081.webp" alt="GTK Cyber Statistics: hypothesis testing Normal distribution (Gaussian) Ainali, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p class="unresolved">UNRESOLVED</p>
     </aside>
   </section>
   <section data-page="82">
@@ -640,7 +645,7 @@
       <img class="page" src="pages/p082.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The Series methods for these statistics, a selection from a longer list. abs: each value's absolute value, as a new Series. count: the number of non-missing values, which is the denominator the mean uses. max and min: the largest and smallest values. mean and median: the average and the middle value. mode: the most frequent value, returned as a Series because more than one value can tie. quantile: the value at a given fraction, or one value per fraction when given a list. sum: the total. std: the sample standard deviation. Every method skips missing values, so count can be smaller than the length of the Series.</p>
     </aside>
   </section>
   <section data-page="83">
@@ -648,7 +653,7 @@
       <img class="page" src="pages/p083.webp" alt="GTK Cyber Series.describe( )">
     </div>
     <aside class="notes">
-      <p><code>describe</code> computes the statistics of this section together and returns them as a Series, with the set of statistics chosen by the column's data type.</p>
+      <p><code>describe</code> computes the statistics of this section together, as the box plot slide showed for the connected column, and returns them as a Series, with the set of statistics chosen by the column's data type.</p>
     </aside>
   </section>
   <section data-page="84">
@@ -673,7 +678,7 @@
       <img class="page" src="pages/p087.webp" alt="GTK Cyber Finding Unique Values">
     </div>
     <aside class="notes">
-      <p>Finding the distinct values in a column, and how often each occurs, is the subject of this section.</p>
+      <p>Finding the distinct values in a column, and how often each occurs, is the subject of this section. It is among the first steps of any analysis or cleaning pass: the set of distinct values shows what a column holds, its misspellings, its placeholder values and how many categories it has, before anything is computed on it.</p>
     </aside>
   </section>
   <section data-page="88">
@@ -689,7 +694,7 @@
       <img class="page" src="pages/p089.webp" alt="GTK Cyber NO!!!">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Do not write the loop. pandas computes the distinct values of a column with hash-based methods in one pass over the data, with no Python-level iteration.</p>
     </aside>
   </section>
   <section data-page="91">
@@ -698,7 +703,7 @@
       <img class="page fragment" src="pages/p091.webp" alt="GTK Cyber series.drop_duplicates() series.unique() Counting Unique Occurrences">
     </div>
     <aside class="notes">
-      <p>Two methods return the distinct values of a Series. <code>drop_duplicates()</code> returns a Series: the first occurrence of each value is kept with its original index label, and later repeats are dropped. <code>unique()</code> returns a NumPy array of the distinct values in order of first appearance, with no index attached. Both hash the values, so the cost grows linearly with the length of the Series. <code>nunique()</code> returns just the number of distinct values, which is the figure the unique row of describe reports for a string column.</p>
+      <p>Two methods return the distinct values of a Series. <code>drop_duplicates()</code> returns a Series: by default the first occurrence of each value is kept with its original index label and later repeats are dropped; <code>keep='last'</code> keeps the last occurrence instead, and <code>keep=False</code> drops every value that occurs more than once. <code>inplace=True</code> modifies the Series in place and returns None. <code>unique()</code> returns a NumPy array of the distinct values in order of first appearance, with no index attached. Both hash the values, so the cost grows linearly with the length of the Series. <code>nunique()</code> returns just the number of distinct values, which is the figure the unique row of describe reports for a string column.</p>
     </aside>
   </section>
   <section data-page="95">
@@ -709,7 +714,7 @@
       <img class="page fragment" src="pages/p095.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.value_counts(bins=5 , normalize=True, dropna=False)">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p><code>value_counts</code> tallies how many times each distinct value appears and returns the tallies as a Series, indexed by the values and sorted with the largest count first. Three arguments change what is counted. bins: for a numeric Series, the values are split into that many equal-width intervals and the count is per interval, which is a histogram in table form. normalize: each count is divided by the total, so the result is the fraction of rows each value or interval accounts for. dropna: missing values are excluded by default; passing False adds a row that counts them, which is how a column's missing-value rate is checked. Since pandas 2.0 the returned Series is named count, or proportion when normalized.</p>
     </aside>
   </section>
   <section data-page="96">
@@ -717,7 +722,7 @@
       <img class="page" src="pages/p096.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The output of <code>value_counts</code> on a Series of telephone area codes. Each row pairs a distinct value with the number of times it occurs, 833 seven times, 811 and 822 five times each, down to 855 twice, and the rows are ordered by count, largest first. The values have become the index and the counts are the data, with dtype int64. The counts add up to the number of non-missing rows in the source.</p>
     </aside>
   </section>
   <section data-page="97">
@@ -725,7 +730,7 @@
       <img class="page" src="pages/p097.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.hist( )">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p><code>hist</code> draws a histogram of a numeric Series, the plot the statistics section used to show a distribution. pandas delegates the drawing to Matplotlib, which is why the pyplot import at the start of the module is needed, and the bin count defaults to ten.</p>
     </aside>
   </section>
   <section data-page="99">
@@ -734,7 +739,8 @@
       <img class="page fragment" src="pages/p099.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.hist(bins=40 )">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>With the default ten bins over the fifty random integers, each bin is about ten wide and the bar heights run from one to eight. The values were drawn uniformly, so every bin's expected count is five, and the variation between bins is sampling noise from a draw of only fifty values; this is what a uniform distribution looks like at a small sample size.</p>
+<p>With forty bins, each interval is about two and a half units wide and holds zero, one or two values, with one bin reaching six. The bars now record where individual values happened to land, and the spread of the distribution is no longer readable. Too many bins for the number of values turns a histogram into a picture of noise.</p>
     </aside>
   </section>
   <section data-page="100">
@@ -742,7 +748,7 @@
       <img class="page" src="pages/p100.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.hist(bins=5 )">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>With five bins, each twenty units wide, the counts are fourteen, nine, eight, twelve and seven. The bars are smoother than the ten- and forty-bin versions because each one aggregates more values, and the price is resolution: a feature narrower than twenty units cannot show. Bin count is the one choice a histogram forces. Try two or three bin counts on any new column; the same data can look uniform, bumpy or spiky depending on the choice.</p>
     </aside>
   </section>
   <section data-page="101">
@@ -750,7 +756,7 @@
       <img class="page" src="pages/p101.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.plot( )">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p><code>plot</code> with no arguments draws a line chart of the Series through Matplotlib, with the index on the horizontal axis and the values on the vertical axis.</p>
     </aside>
   </section>
   <section data-page="102">
@@ -758,7 +764,7 @@
       <img class="page" src="pages/p102.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.plot( )">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The line plot of the fifty random integers: position zero through forty-nine along the bottom, the value at each position up the side, consecutive points joined by a line. A line implies that the order of the index carries meaning, as it does when the index is time. These values were drawn independently, so the line joins unrelated points and the zigzag conveys nothing. The line plot is the right choice for a Series with a datetime index, where it shows how a quantity changes over time.</p>
     </aside>
   </section>
   <section data-page="103">
@@ -766,7 +772,7 @@
       <img class="page" src="pages/p103.webp" alt="GTK Cyber Reading a Boxplot Maximu m 3rd Quartile Median 1st Quartile Minimum series.plot(kind=‘box’ )">
     </div>
     <aside class="notes">
-      <p><code>plot(kind='box')</code> draws the five-number summary. The box spans the first quartile to the third quartile, so its height is the interquartile range; the line inside is the median; the whiskers reach out toward the extremes. In Matplotlib's default, a whisker extends at most one and a half interquartile ranges beyond its quartile, and any value further out is drawn as a separate point, an outlier. In this plot no value lies that far out, so the whiskers end at the minimum and maximum as labeled. The None under the box is the Series' name, which was not set.</p>
+      <p><code>plot(kind='box')</code> draws the five-number summary as the box plot from the statistics section, vertical this time: the box spans the quartiles, the median is the line across it, and the whiskers run out toward the extremes. No value here lies past the whisker limit, so the whiskers end at the minimum and maximum as labeled. The None under the box is the Series' name, which was not set.</p>
     </aside>
   </section>
   <section data-page="104">
@@ -774,7 +780,7 @@
       <img class="page" src="pages/p104.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A box plot per TCP destination port of the time between scanning attempts observed against exposed services, in hours. Each box is one port: the box holds the central fifty percent of the observed gaps, the bar inside is the median, and the whiskers reach the rest. The ports are sorted by median, so the left side holds services that get probed within minutes of appearing, Remote Desktop on 3389 and SQL Server on 1433 among them, and the right side holds ports probed only every several hours, with MySQL on 3306 at about eight. Read this way, the plot answers a security question directly: how long a newly exposed service on each port goes before an opportunistic scanner finds it. A bar chart of the means would give one number per port; the boxes show the median, the spread of the middle half and the reach of the extremes as well, and the annotated figures are means, as the footnote states.</p>
     </aside>
   </section>
   <section data-page="105">
@@ -790,7 +796,7 @@
       <img class="page" src="pages/p106.webp" alt="GTK Cyber Correlations • Measurement of the relationship between two continuous variables • Output is between -1 and 1, with 1 being perfect correlation, -1 is perfect negative cor">
     </div>
     <aside class="notes">
-      <p>Correlation measures the strength and direction of the linear relationship between two continuous variables. The coefficient, written r, is the covariance scaled by the two standard deviations, which strips the units and confines the result to the interval from minus one to one. An r of 1 means the points lie exactly on a rising line; minus one, exactly on a falling line; zero, no linear relationship. Values in between grade how tightly the points cluster around a line. The coefficient defined this way is Pearson's r, and it is the default that pandas computes.</p>
+      <p>Correlation measures the strength and direction of the linear relationship between two continuous variables. The coefficient, written r, is the covariance scaled by the two standard deviations, which strips the units and confines the result to the interval from minus one to one. An r of 1 means the points lie exactly on a rising line; minus one, exactly on a falling line; zero, no linear relationship. Values in between grade how tightly the points cluster around a line. The coefficient defined this way is Pearson's r, and it is the default that pandas computes. Two highly correlated columns carry nearly the same information, so keeping both in a feature set adds complexity without adding signal, and one of them is a candidate for removal.</p>
     </aside>
   </section>
   <section data-page="107">
@@ -798,7 +804,7 @@
       <img class="page" src="pages/p107.webp" alt="GTK Cyber Correlations • Measurement of the relationship between two continuous variables • Output is between -1 and 1, with 1 being perfect correlation, -1 is perfect negative cor">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Six scatterplots with their correlation coefficients. Across the top row, r rises from 0.25 to 0.48 to 0.94 as the cloud of points narrows toward a rising line; across the bottom, r falls from minus 0.12 to minus 0.37 to minus 0.94 as the cloud narrows toward a falling line. The sign gives the direction of the slope and the magnitude gives how much of the scatter the line accounts for; at 0.25 or minus 0.12 the points fill the square and the trend is barely visible. Pearson's r sees only straight-line relationships: two variables tied by a curve, such as a U shape, can score near zero while being perfectly dependent. A high r establishes that the two variables rise and fall together; which one drives the other, if either does, is a separate question that the coefficient cannot answer.</p>
     </aside>
   </section>
   <section data-page="108">
@@ -806,7 +812,7 @@
       <img class="page" src="pages/p108.webp" alt="GTK Cyber Correlations • Measurement of the relationship between two continuous variables • Output is between -1 and 1, with 1 being perfect correlation, -1 is perfect negative cor">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p><code>series1.corr(series2)</code> returns the Pearson correlation between two Series as a single number. The values are paired by index label, so the two Series must share an index, and any pair with a missing value is left out. <code>method='spearman'</code> or <code>method='kendall'</code> switches to a rank-based coefficient, which measures whether the relationship is monotonic and is less sensitive to outliers. <code>DataFrame.corr()</code> computes the coefficient for every pair of numeric columns at once and returns the results as a square matrix, which is how related features in a dataset are found.</p>
     </aside>
   </section>
   <section data-page="109">
@@ -863,6 +869,7 @@
     </div>
     <aside class="notes">
       <p><code>read_csv</code> builds a DataFrame from comma-separated text. The argument is a path to a local file or a URL; given a URL, pandas fetches the file over HTTP before parsing it. By default the first line is taken as the column names, the separator is a comma, and each column's dtype is inferred from its contents, so a column of digits becomes int64 and a column of text becomes object. Keyword arguments cover the departures: <code>sep</code> for another delimiter, <code>header=None</code> with <code>names</code> when the file has no heading row, <code>parse_dates</code> to convert timestamp columns on load, <code>usecols</code> and <code>nrows</code> to read a subset, and <code>dtype</code> to fix a column's type in place of inference.</p>
+<p>Further arguments cover other shapes of file. <code>delim_whitespace=True</code> splits on runs of spaces and tabs; pandas 2.2 deprecated it in favor of <code>sep=r'\s+'</code>, which the C parser handles as the same fast path, quicker than a general regular-expression separator. A compressed file, .gz, .bz2, .zip or .xz, is decompressed on the fly, with the format inferred from the extension. <code>skip_blank_lines</code>, True by default, ignores empty lines; <code>skiprows</code> skips a count of lines, or a list of line numbers, at the top; <code>index_col</code> names the column to use as the row index instead of the default positions.</p>
     </aside>
   </section>
   <section data-page="116">
@@ -878,7 +885,7 @@
       <img class="page" src="pages/p117.webp" alt="GTK Cyber DataFrames JSO N df = pd.read_json( &lt;file&gt; ) or df = pd.read_json( &lt;url&gt; )">
     </div>
     <aside class="notes">
-      <p><code>read_json</code> builds a DataFrame from JSON in a file or at a URL. A top-level list of objects becomes one row per object; a top-level object of lists becomes one column per key. Two arguments cover the formats that platforms export. <code>lines=True</code> reads JSON Lines, where each line of the file is a separate object, which is how log exports and API dumps are laid out. <code>orient</code> states the layout when it is not the default. Since pandas 2.1, passing a literal JSON string to read_json is deprecated; wrap it in <code>io.StringIO</code> first.</p>
+      <p><code>read_json</code> builds a DataFrame from JSON in a file or at a URL. A top-level list of objects becomes one row per object; a top-level object of lists becomes one column per key. Two arguments cover the formats that platforms export. <code>lines=True</code> reads JSON Lines, where each line of the file is a separate object, which is how log exports and API dumps are laid out. <code>orient</code> states the layout when it is not the default, which is columns for a DataFrame and index for a Series; the allowed values are split, records, index, columns and values, each naming how the document is nested. <code>dtype</code> controls type inference on load: True, the default, infers a type per column, False leaves the values as JSON delivered them, and a dictionary fixes the type of the columns it names. Since pandas 2.1, passing a literal JSON string to read_json is deprecated; wrap it in <code>io.StringIO</code> first.</p>
     </aside>
   </section>
   <section data-page="118">
@@ -911,7 +918,7 @@
       <img class="page fragment" src="pages/p122.webp" alt="GTK Cyber 070823 21:00:32 1 Connect root@localhost on test1 070823 21:00:48 1 Query show tables 070823 21:00:56 1 Query select * from category 070917 16:29:01 21 Query select * fro">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A MySQL general query log has one event per line: a date and time, a connection id, a command such as Connect or Query, and the command's argument. The lines are separated by runs of spaces, with the argument itself containing spaces, so no delimiter splits them into fields cleanly, and the file carries no header naming the fields. <code>read_table</code> defaults to a tab separator, which these lines lack, and <code>names=['raw']</code> supplies the single column name, so each line lands whole in a column called raw with no header row consumed. The result, the table under the call, is a one-column DataFrame of five rows that the string methods can take apart.</p>
     </aside>
   </section>
   <section data-page="124">
@@ -937,7 +944,7 @@
       <img class="page fragment" src="pages/p127.webp" alt="GTK Cyber Web Server Logs 195.154.46.135 - - [25/Oct/2015:04:11:25 +0100] &quot;GET /linux/doing-pxe-without-dhcp-control HTTP/1.1&quot; 200 24323 &quot;http://howto.basjes.nl/&quot; &quot;Mozilla/5.0 (Win">
     </div>
     <aside class="notes">
-      <p>An Apache access log line in the combined format, and the format string that describes it. The fields left to right are the client address, two placeholder dashes for the identd and authenticated user, the timestamp with its zone in brackets, the request line in quotes with method, path and protocol, the status code, the response size in bytes, the referring page, and the browser's user agent string. <code>apache_log_parser</code> is a Python package that takes an Apache LogFormat string and returns a function that parses one line into a dictionary. The directives in the format string are Apache's own: <code>%h</code> the host, <code>%l</code> the logname, <code>%u</code> the user, <code>%t</code> the time, <code>%r</code> the request line, <code>%&gt;s</code> the final status, <code>%b</code> the bytes, and <code>%{Referer}i</code> and <code>%{User-agent}i</code> the named request headers.</p>
+      <p>An Apache access log line in the combined format, and the format string that describes it. The fields left to right are the client address, two placeholder dashes for the identd and authenticated user, the timestamp with its zone in brackets, the request line in quotes with method, path and protocol, the status code, the response size in bytes, the referring page, and the browser's user agent string. <code>apache_log_parser</code> is a Python package that takes an Apache LogFormat string and returns a function that parses one line into a dictionary. The directives in the format string are Apache's own: <code>%h</code> the host, <code>%l</code> the logname, <code>%u</code> the user, <code>%t</code> the time, <code>%r</code> the request line, <code>%&gt;s</code> the final status, <code>%b</code> the bytes, and <code>%{Referer}i</code> and <code>%{User-agent}i</code> the named request headers. The string handed to the parser has to match the LogFormat directive the server was configured with, which lives in the Apache configuration, httpd.conf or a file it includes; a string that does not match the configured format fails on every line or assigns fields to the wrong names.</p>
     </aside>
   </section>
   <section data-page="128">
@@ -1049,7 +1056,7 @@
       <img class="page" src="pages/p141.webp" alt="GTK Cyber my_series = df.loc[:,’column1’] Return a series">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p><code>loc</code> reaches the same column through explicit row and column selection: the colon before the comma selects every row, the label after it selects one column, and the result is that column as a Series with the row index attached, the same object <code>df['column1']</code> returns. The <code>loc</code> form is for selecting rows and columns in one step; for a whole column on its own, the bracket form returns the same Series in fewer characters.</p>
     </aside>
   </section>
   <section data-page="142">
@@ -1073,7 +1080,7 @@
       <img class="page" src="pages/p144.webp" alt="GTK Cyber data.sum(axis=‘index’) OR data.sum(axis=‘columns’) Aggregations can be done over rows or columns">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Aggregations on a DataFrame run along an axis, and the axis argument picks which. <code>axis='index'</code>, the default, also written <code>axis=0</code>, runs down the rows and returns one value per column, so <code>data.sum(axis='index')</code> totals each column. <code>axis='columns'</code>, also written <code>axis=1</code>, runs across the columns and returns one value per row, so <code>data.sum(axis='columns')</code> totals each row. The same argument applies to mean, min, max, count and the rest of the aggregation methods. The names are easier to read than the numbers once the rule is known: the axis named is the one collapsed.</p>
     </aside>
   </section>
   <section data-page="145">
@@ -1124,11 +1131,8 @@
       <img class="page fragment" src="pages/p153.webp" alt="GTK Cyber Grouping and Aggregating Data date src_ip 2018-06-21 192.168.20.1 1 192.168.20.2 2 2018-06-22 192.168.20.2 1 Multi- Index df.groupby([‘date’,’src_ip’]) [‘port&#x27;].count()">
     </div>
     <aside class="notes">
-      <p>This part covers grouping: splitting a DataFrame's rows by the values of one or more columns and computing an aggregate for each group.</p>
-<p>&lt;!-- MERGE: a second old note landed on this page; fold or drop --&gt;</p>
-<p>A MultiIndex result can be reshaped with unstack. The stacked table on the left is a Series with a three-level index, first, second and an innermost level holding A and B. <code>unstack()</code> takes the innermost level and turns its values into columns, so the right-hand table has rows indexed by first and second and one column each for A and B, with the values rearranged into the grid. Applied to the two-key groupby result, counts indexed by date and source address, unstack turns them into a table with one row per date and one column per address. The figure is from Jay Alammar's illustrated guide to pandas pivoting and reshaping.</p>
-<p>&lt;!-- MERGE: a second old note landed on this page; fold or drop --&gt;</p>
-<p><code>unstack</code> takes an argument naming which index level to move into the columns, by position or by name. <code>unstack(1)</code> and <code>unstack('second')</code> both move the second level, so its values one and two become the columns, and the row index keeps the first level together with the A and B level. The default, with no argument, moves the innermost level. <code>stack</code> is the inverse and moves a column level back into the row index.</p>
+      <p>Grouping is the pattern of splitting a table's rows by the values of a column and computing an aggregate for each group, and it is how a log is summarized. The source table holds four connection records with a date, a source address, a destination address and a port. <code>groupby</code> takes a column name, or a list of names, and partitions the rows so that every row sharing a value in that column lands in the same group; the call returns a GroupBy object that has done no computation yet, and an aggregation method applied to it, count, sum or mean, runs once per group and assembles the results into a new object indexed by the group keys. The first form on the build, <code>df.groupby(['src_ip')</code>, has a mismatched bracket; <code>df.groupby('src_ip')</code> is the runnable form.</p>
+<p><code>groupby('src_ip')['port'].count()</code> partitions by source address, selects the port column, and counts the non-missing values in each group: 192.168.20.1 has one row and 192.168.20.2 has three, which answers how many port records each address produced. <code>groupby(['date','src_ip'])['port'].count()</code> partitions by the combination of date and source address, so 192.168.20.2 is counted separately on each day, two rows on the 21st and one on the 22nd; the result is indexed by both keys at once, a two-level MultiIndex, which prints with each date shown once and its addresses beneath it. count counts non-missing values in the selected column; size counts rows regardless; sum, mean, min, max, nunique and agg with a list or dictionary of functions follow the same pattern.</p>
     </aside>
   </section>
   <section data-page="154">
@@ -1136,7 +1140,7 @@
       <img class="page" src="pages/p154.webp" alt="GTK Cyber Grouping and Aggregating Data df.groupby([‘date’,’src_ip’], as_index=False)[‘port’].count()">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p><code>as_index=False</code> keeps the group keys as ordinary columns instead of moving them into the index. The two-key count comes back as a flat table with date, src_ip and the count as columns and rows numbered from zero, where the default produces the two-level MultiIndex of the previous slide. A flat result can be merged, plotted with one column on each axis, or written to a file without an unstack or reset_index step first, and plotting is the case the option is most often set for.</p>
     </aside>
   </section>
   <section data-page="155">
@@ -1144,7 +1148,7 @@
       <img class="page" src="pages/p155.webp" alt="GTK Cyber my_series.dropna() my_series.fillna(value=“&lt;value to fill with&gt;&quot;)">
     </div>
     <aside class="notes">
-      <p>Missing values in a Series are either dropped or filled. <code>dropna()</code> returns the Series with the missing entries removed, labels intact. <code>fillna(value=...)</code> returns it with every missing entry replaced by the given value, a zero for a count column or a placeholder string for a category. Both have DataFrame versions: <code>dropna</code> there drops whole rows by default, with <code>subset</code> limiting which columns are checked, and <code>fillna</code> accepts a dictionary of one fill value per column. Which to use depends on what a missing value means in the data; dropping rows loses whatever else those rows contained, and filling invents a value that later statistics will count.</p>
+      <p>Missing values in a Series are either dropped or filled. <code>dropna()</code> returns the Series with the missing entries removed, labels intact. <code>fillna(value=...)</code> returns it with every missing entry replaced by the given value, a zero for a count column or a placeholder string for a category. The usual fill is the column's most frequent value for a categorical column and its median for a numeric one, since each is a value the column already holds and the median is not moved by outliers. Both methods have DataFrame versions: <code>dropna</code> there drops whole rows by default, with <code>subset</code> limiting which columns are checked, and <code>fillna</code> accepts a dictionary of one fill value per column. Which to use depends on what a missing value means in the data; dropping rows loses whatever else those rows contained, and filling invents a value that later statistics will count.</p>
     </aside>
   </section>
   <section data-page="156">
@@ -1160,7 +1164,7 @@
       <img class="page" src="pages/p157.webp" alt="GTK Cyber Scaling Pandas Several drop-in or near drop-in replacements for Pandas exist that run on GPUs or parallelize operations. • Dask: A partial Pandas replacement geared towar">
     </div>
     <aside class="notes">
-      <p>Libraries that run pandas-style code beyond one machine's memory or on a GPU. Dask: partitions a DataFrame into chunks and runs pandas operations over them in parallel, across cores or a cluster, with a subset of the pandas API. cuDF: NVIDIA's DataFrame library with a pandas-like API that runs on the GPU; its cudf.pandas mode accelerates existing pandas code without changes. Ray: a distributed execution framework for Python and AI workloads; the Modin library uses it to run the pandas API across a cluster. RAPIDS: NVIDIA's suite of GPU libraries, of which cuDF is the DataFrame member, alongside cuML for scikit-learn workloads and cuGraph for NetworkX workloads. Polars: a DataFrame library written in Rust with a Python interface, multithreaded and lazily evaluated, with its own API in place of pandas'. PySpark: the Python interface to Apache Spark, the distributed engine under the Databricks workspace this course runs in, which also offers a pandas API on Spark for familiar syntax.</p>
+      <p>Libraries that run pandas-style code beyond one machine's memory or on a GPU. Dask: partitions a DataFrame into chunks and runs pandas operations over them in parallel, across cores or a cluster, with a subset of the pandas API; its operations are lazy, building a graph of the computation and executing it only when a result is requested, where pandas evaluates each statement as it runs, and the deferred plan is what lets Dask schedule the work within the memory available. cuDF: NVIDIA's DataFrame library with a pandas-like API that runs on the GPU; its cudf.pandas mode accelerates existing pandas code without changes. Ray: a distributed execution framework for Python and AI workloads; the Modin library uses it to run the pandas API across a cluster. RAPIDS: NVIDIA's suite of GPU libraries, of which cuDF is the DataFrame member, alongside cuML for scikit-learn workloads and cuGraph for NetworkX workloads. Polars: a DataFrame library written in Rust with a Python interface, multithreaded and lazily evaluated, with its own API in place of pandas'. PySpark: the Python interface to Apache Spark, the distributed engine under the Databricks workspace this course runs in, which also offers a pandas API on Spark for familiar syntax.</p>
     </aside>
   </section>
   <section data-page="158">

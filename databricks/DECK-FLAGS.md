@@ -227,3 +227,15 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p90, p91: matrix A wraps "[[10 0]" onto two lines.
 - p106: chart titled LinearSVC while the code fits GaussianNB.
 - Aligner note: the old-to-new page map was off by one in three stretches (old 29, 51, 108); the notes were placed by the page images.
+
+## 01-exploratory-data-analysis (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- Conversion loss: native tables render with no cell text on p16, p47, p49, p82, p122, p151 to p154. The Linux importer drops Keynote tables; a Mac export restores them.
+- Conversion loss: an earlier build stage's text shows through behind the code and charts on p95 to p102 and p107 to p108 (the importer renders every build object at once).
+- p68: the variance and standard deviation formula image is placed twice, and its caption line is cropped mid-sentence.
+- p75: the words "middle fifty" and "range" render in a tiny font inside the sentence.
+- p77: describe's quartiles (5.31 and 15.35) do not match the box drawn beside them, which spans about 7.5 to 13.5.
+- p80: the min-max formula image overlaps the Standardization line of text.
+- p81: title reads hypothesis testing but the slide only repeats the normal-distribution figure; no talk track (UNRESOLVED note).
+- p151: the code reads df.groupby(['src_ip') with a mismatched bracket.
+- p153: the multi-index output overflows its box and runs into the footer.
+- p20: the is_private answer depends on the Python release; the note says so.
