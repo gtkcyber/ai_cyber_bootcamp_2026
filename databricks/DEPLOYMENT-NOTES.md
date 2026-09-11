@@ -43,6 +43,16 @@ live in `decks/<slug>/media/` beside the page images and reach the app the same 
 through the volume. To take a deck back to text classification, delete both the
 manifest and its `databricks/pages/` file.
 
+The manifests come from `build_keynote.py`, which builds a deck from its Keynote file
+with no Mac: LibreOffice's Keynote importer (in the project's Docker image) renders the
+slides, and the tool rewrites the intermediate ODP so every build click is its own page,
+matched to Keynote's build data by object geometry, before the PDF export. What the
+importer cannot draw is listed under `losses` in the manifest: native tables (rendered
+separately, see below) and any build object it produced nothing for. Rebuild one deck
+with `.venv/bin/python databricks/tools/build_keynote.py "slides/keynote/<Module>.key"`
+after the Keynote file changes; the notes stay keyed by finished page number, so a
+change that adds or removes pages needs the notes re-keyed too.
+
 Browsers fetch a `<video>` in byte ranges and refuse to play or seek without 206
 replies, so `/decks/<path>` answers `Range` requests (`ranges.py`, also used by
 `local_run.py`). A movie is read from the volume once and served from the byte cache

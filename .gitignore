@@ -252,3 +252,6 @@ __pycache__/
 /data/split_dataset/
 /data/lstm_URL_Classifier.pt
 /data/exported_pipeline.py
+
+# Keynote sources for build_keynote.py: hundreds of MB, not for the repo
+/slides/keynote/
