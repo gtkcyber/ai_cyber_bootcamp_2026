@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run every answer notebook as a one-off job on the bootcamp-labs cluster.
+"""Run every answer notebook as a one-off job on its own job cluster.
 
 Usage (from the course repo root):
     .venv/bin/python databricks/tools/run_notebooks.py                # all, in order
@@ -7,8 +7,10 @@ Usage (from the course repo root):
     .venv/bin/python databricks/tools/run_notebooks.py --import-check # library probe
     .venv/bin/python databricks/tools/run_notebooks.py --sync-only    # push, run nothing
 
-This starts the cluster by submitting work to it and terminates nothing: the cluster
-autoterminates after 20 minutes. A run record lands in databricks/test-runs/.
+The labs cluster is dedicated to the student group and a group cluster refuses API
+jobs from anyone outside the group, so each run gets a job cluster shaped like the labs
+cluster (same node, runtime and libraries, read from the Terraform outputs) that lives
+only for that run. A run record lands in databricks/test-runs/.
 """
 
 import argparse
@@ -22,6 +24,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from databricks.sdk import WorkspaceClient
+from databricks.sdk.service.compute import ClusterSpec, DataSecurityMode, Kind, Library, PythonPyPiLibrary
 from databricks.sdk.service.jobs import NotebookTask, SubmitTask
 from databricks.sdk.service.workspace import ImportFormat
 
@@ -78,12 +81,42 @@ CLUSTER_MODULES = [
 ]
 
 
-def cluster_id() -> str:
+def _tf_output(name: str) -> str:
     out = subprocess.run(
-        [f"{GTK_AWS}/bin/terraform", "-chdir=terraform/bootcamp", "output", "-raw",
-         "cluster_id"],
+        [f"{GTK_AWS}/bin/terraform", "-chdir=terraform/bootcamp", "output", "-raw", name],
         cwd=GTK_AWS, capture_output=True, text=True, check=True)
     return out.stdout.strip()
+
+
+def job_cluster() -> dict:
+    """A single-node job cluster shaped like the labs cluster, dedicated to whoever
+    submits the run (the automation service principal) rather than to the group."""
+    return {"node_type_id": _tf_output("node_type_id"),
+            "spark_version": _tf_output("spark_version"),
+            "use_ml_runtime": True, "is_single_node": True, "kind": "CLASSIC_PREVIEW",
+            "data_security_mode": "DATA_SECURITY_MODE_DEDICATED"}
+
+
+def job_libraries() -> list[dict]:
+    return [{"pypi": {"package": p}} for p in json.loads(_tf_output("cluster_pypi_packages"))]
+
+
+def _task(key: str, path: str, spec: dict, libraries: list[dict]) -> SubmitTask:
+    cluster = ClusterSpec(
+        node_type_id=spec["node_type_id"], spark_version=spec["spark_version"],
+        use_ml_runtime=spec["use_ml_runtime"], is_single_node=spec["is_single_node"],
+        kind=Kind(spec["kind"]), data_security_mode=DataSecurityMode(spec["data_security_mode"]),
+        num_workers=0)
+    return SubmitTask(task_key=key, new_cluster=cluster,
+                      libraries=[Library(pypi=PythonPyPiLibrary(package=l["pypi"]["package"])) for l in libraries],
+                      notebook_task=NotebookTask(notebook_path=path))
+
+
+def select(order: list[str], only: str | None) -> list[str]:
+    """--only names a worksheet number; 1.1 must not also pick 11.1."""
+    if not only:
+        return list(order)
+    return [n for n in order if f"Worksheet_{only}_" in n]
 
 
 def _upload(w, local: Path, remote: str, fmt: ImportFormat) -> None:
@@ -110,14 +143,13 @@ def sync(w) -> None:
     print(f"SYNCED to {SCRATCH}", flush=True)
 
 
-def run_one(w, cid: str, name: str, minutes: int = 90) -> dict:
-    """Submit one notebook, wait, and report state, message and wall time."""
+def run_one(w, spec: dict, name: str, minutes: int = 90, libraries: list[dict] | None = None) -> dict:
+    """Submit one notebook on its own job cluster, wait, and report state, message and wall time."""
     started = time.time()
     path = f"{SCRATCH}/answers/{name[:-6]}" if name.endswith(".ipynb") else name
     waiter = w.jobs.submit(
         run_name=f"bootcamp-test {name}",
-        tasks=[SubmitTask(task_key="lab", existing_cluster_id=cid,
-                          notebook_task=NotebookTask(notebook_path=path))],
+        tasks=[_task("lab", path, spec, libraries or job_libraries())],
     )
     run_id = waiter.run_id
     state, message = "TIMEOUT", f"did not finish inside {minutes} minutes"
@@ -157,7 +189,7 @@ dbutils.notebook.exit(json.dumps(report))
 '''
 
 
-def import_check(w, cid: str) -> dict:
+def import_check(w, spec: dict, libraries: list[dict]) -> dict:
     """Run one generated notebook that imports every module the course needs."""
     import nbformat
 
@@ -170,8 +202,7 @@ def import_check(w, cid: str) -> dict:
     w.workspace.upload(remote, buf, format=ImportFormat.JUPYTER, overwrite=True)
     waiter = w.jobs.submit(
         run_name="bootcamp import-check",
-        tasks=[SubmitTask(task_key="probe", existing_cluster_id=cid,
-                          notebook_task=NotebookTask(notebook_path=remote))],
+        tasks=[_task("probe", remote, spec, libraries)],
     )
     waiter.result(timeout=timedelta(minutes=40))
     run = w.jobs.get_run(waiter.run_id)
@@ -187,15 +218,16 @@ def import_check(w, cid: str) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--only", help="substring of one answer notebook name")
+    ap.add_argument("--only", help="worksheet number of one answer notebook, e.g. 4.1")
     ap.add_argument("--import-check", action="store_true")
     ap.add_argument("--sync-only", action="store_true")
     ap.add_argument("--minutes", type=int, default=90, help="per-notebook timeout")
     args = ap.parse_args()
 
     w = WorkspaceClient(profile=PROFILE)
-    cid = cluster_id()
-    print(f"cluster {cid}", flush=True)
+    spec, libraries = job_cluster(), job_libraries()
+    print(f"job cluster {spec['node_type_id']} {spec['spark_version']} ml, "
+          f"{len(libraries)} libraries", flush=True)
     sync(w)
     if args.sync_only:
         return 0
@@ -205,15 +237,15 @@ def main() -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     if args.import_check:
-        record = {"cluster_id": cid, "started": stamp,
-                  "import_check": import_check(w, cid)}
+        record = {"job_cluster": spec, "started": stamp,
+                  "import_check": import_check(w, spec, libraries)}
         (out_dir / f"{stamp}-import-check.json").write_text(
             json.dumps(record, indent=2))
         return 0
 
-    names = [n for n in ORDER if not args.only or args.only in n]
-    results = [run_one(w, cid, n, args.minutes) for n in names]
-    record = {"cluster_id": cid, "started": stamp, "results": results}
+    names = select(ORDER, args.only)
+    results = [run_one(w, spec, n, args.minutes, libraries) for n in names]
+    record = {"job_cluster": spec, "started": stamp, "results": results}
     (out_dir / f"{stamp}.json").write_text(json.dumps(record, indent=2))
     failed = [r for r in results if r["state"] != "SUCCESS"]
     print(f"\n{len(results) - len(failed)}/{len(results)} succeeded; "

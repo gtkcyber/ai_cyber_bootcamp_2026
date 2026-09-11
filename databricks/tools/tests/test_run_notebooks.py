@@ -12,6 +12,11 @@ sys.path.insert(0, str(TOOLS))
 
 import run_notebooks as rn
 
+JOB_CLUSTER = {"node_type_id": "r5d.large", "spark_version": "18.x-scala2.13",
+               "use_ml_runtime": True, "is_single_node": True, "kind": "CLASSIC_PREVIEW",
+               "data_security_mode": "DATA_SECURITY_MODE_DEDICATED"}
+JOB_LIBRARIES = [{"pypi": {"package": "apachelogs"}}]
+
 
 class FakeWaiter:
     def __init__(self, run_id, raise_on_result=None):
@@ -63,16 +68,26 @@ class FakeWorkspaceClient:
         self.workspace = FakeWorkspaceAPI()
 
 
-def test_cluster_id_reads_terraform_output(monkeypatch):
-    def fake_run(cmd, cwd, capture_output, text, check):
-        assert cmd[0].endswith("bin/terraform")
-        assert cmd[1] == "-chdir=terraform/bootcamp"
-        assert cmd[2:] == ["output", "-raw", "cluster_id"]
-        assert cwd == rn.GTK_AWS
-        return subprocess.CompletedProcess(cmd, 0, stdout="0102-030405-abc123\n", stderr="")
+def test_job_cluster_reads_the_terraform_outputs(monkeypatch):
+    calls = []
+
+    def fake_run(cmd, **kwargs):
+        calls.append(cmd)
+        outputs = {"node_type_id": "r5d.large", "spark_version": "18.x-scala2.13",
+                   "cluster_pypi_packages": '["apachelogs","mcp<2"]'}
+        return SimpleNamespace(stdout=outputs[cmd[-1]] + "\n")
 
     monkeypatch.setattr(rn.subprocess, "run", fake_run)
-    assert rn.cluster_id() == "0102-030405-abc123"
+    spec = rn.job_cluster()
+    assert spec["node_type_id"] == "r5d.large"
+    assert spec["spark_version"] == "18.x-scala2.13"
+    assert spec["use_ml_runtime"] is True
+    assert spec["is_single_node"] is True
+    assert spec["kind"] == "CLASSIC_PREVIEW"
+    assert spec["data_security_mode"] == "DATA_SECURITY_MODE_DEDICATED"
+    assert "single_user_name" not in spec
+    assert rn.job_libraries() == [{"pypi": {"package": "apachelogs"}}, {"pypi": {"package": "mcp<2"}}]
+    assert all(cmd[2:4] == ["output", "-raw"] for cmd in calls)
 
 
 def test_sync_pushes_answers_utils_and_mcp_server(tmp_path, monkeypatch):
@@ -104,12 +119,17 @@ def test_run_one_reports_success():
         state=SimpleNamespace(result_state=SimpleNamespace(value="SUCCESS"),
                               state_message=""))])
     w.jobs.outputs[200] = SimpleNamespace(error=None)
-    result = rn.run_one(w, "cluster-1", "Worksheet_1.1-Answers.ipynb", minutes=5)
+    result = rn.run_one(w, JOB_CLUSTER, "Worksheet_1.1-Answers.ipynb", minutes=5)
     assert result["state"] == "SUCCESS"
     assert result["notebook"] == "Worksheet_1.1-Answers.ipynb"
     submitted = w.jobs.submitted[0]
     assert submitted["tasks"][0].notebook_task.notebook_path == \
         f"{rn.SCRATCH}/answers/Worksheet_1.1-Answers"
+    # A group cluster refuses API jobs, so every run gets its own job cluster.
+    assert submitted["tasks"][0].existing_cluster_id is None
+    assert submitted["tasks"][0].new_cluster.node_type_id == "r5d.large"
+    assert submitted["tasks"][0].new_cluster.data_security_mode.value == "DATA_SECURITY_MODE_DEDICATED"
+    assert submitted["tasks"][0].libraries[0].pypi.package == "apachelogs"
 
 
 def test_run_one_reports_the_failed_state_and_message():
@@ -119,7 +139,7 @@ def test_run_one_reports_the_failed_state_and_message():
         state=SimpleNamespace(result_state=SimpleNamespace(value="FAILED"),
                               state_message="boom"))])
     w.jobs.outputs[200] = SimpleNamespace(error=None)
-    result = rn.run_one(w, "cluster-1", "Worksheet_1.1-Answers.ipynb", minutes=5)
+    result = rn.run_one(w, JOB_CLUSTER, "Worksheet_1.1-Answers.ipynb", minutes=5)
     assert result["state"] == "FAILED"
     assert result["message"] == "boom"
 
@@ -131,7 +151,7 @@ def test_run_one_prefers_the_run_output_error_when_present():
         state=SimpleNamespace(result_state=SimpleNamespace(value="FAILED"),
                               state_message="boom"))])
     w.jobs.outputs[200] = SimpleNamespace(error="a more specific traceback")
-    result = rn.run_one(w, "cluster-1", "Worksheet_1.1-Answers.ipynb", minutes=5)
+    result = rn.run_one(w, JOB_CLUSTER, "Worksheet_1.1-Answers.ipynb", minutes=5)
     assert result["message"] == "a more specific traceback"
 
 
@@ -140,7 +160,7 @@ def test_run_one_times_out_when_the_task_state_is_unresolved():
     w.jobs.raise_on_result = TimeoutError("still running")
     w.jobs.runs[100] = SimpleNamespace(tasks=[SimpleNamespace(run_id=200, state=None)])
     w.jobs.outputs[200] = SimpleNamespace(error=None)
-    result = rn.run_one(w, "cluster-1", "Worksheet_1.1-Answers.ipynb", minutes=5)
+    result = rn.run_one(w, JOB_CLUSTER, "Worksheet_1.1-Answers.ipynb", minutes=5)
     assert result["state"] == "TIMEOUT"
     assert "still running" in result["message"]
 
@@ -151,7 +171,7 @@ def test_import_check_parses_the_notebook_report():
     report = {"python": "3.11.9", "ok": [["numpy", "1.26"]], "missing": [["tpot", "no module"]]}
     w.jobs.outputs[200] = SimpleNamespace(
         notebook_output=SimpleNamespace(result=json.dumps(report)))
-    out = rn.import_check(w, "cluster-1")
+    out = rn.import_check(w, JOB_CLUSTER, JOB_LIBRARIES)
     assert out == report
     assert f"{rn.SCRATCH}/import_check" in w.workspace.uploaded
 
@@ -162,7 +182,8 @@ def test_main_sync_only_stops_after_sync(monkeypatch, tmp_path):
     (tmp_path / "notebooks").mkdir()
     (tmp_path / "notebooks" / "mcp_server.py").write_text("# server")
     monkeypatch.setattr(rn, "ROOT", tmp_path)
-    monkeypatch.setattr(rn, "cluster_id", lambda: "cluster-1")
+    monkeypatch.setattr(rn, "job_cluster", lambda: JOB_CLUSTER)
+    monkeypatch.setattr(rn, "job_libraries", lambda: JOB_LIBRARIES)
     w = FakeWorkspaceClient()
     monkeypatch.setattr(rn, "WorkspaceClient", lambda profile: w)
     monkeypatch.setattr(sys, "argv", ["run_notebooks.py", "--sync-only"])
@@ -177,7 +198,8 @@ def test_main_only_filters_to_one_notebook_and_writes_a_run_record(monkeypatch, 
     (tmp_path / "notebooks" / "mcp_server.py").write_text("# server")
     (tmp_path / "databricks").mkdir()
     monkeypatch.setattr(rn, "ROOT", tmp_path)
-    monkeypatch.setattr(rn, "cluster_id", lambda: "cluster-1")
+    monkeypatch.setattr(rn, "job_cluster", lambda: JOB_CLUSTER)
+    monkeypatch.setattr(rn, "job_libraries", lambda: JOB_LIBRARIES)
     w = FakeWorkspaceClient()
     monkeypatch.setattr(rn, "WorkspaceClient", lambda profile: w)
     w.jobs.runs[100] = SimpleNamespace(tasks=[SimpleNamespace(
@@ -185,15 +207,20 @@ def test_main_only_filters_to_one_notebook_and_writes_a_run_record(monkeypatch, 
         state=SimpleNamespace(result_state=SimpleNamespace(value="SUCCESS"),
                               state_message=""))])
     w.jobs.outputs[200] = SimpleNamespace(error=None)
-    # "9.2" is a substring of exactly one ORDER entry (run_notebooks.py's --only is a
-    # plain substring match, unlike edits.py's exact-boundary _matches_only).
     monkeypatch.setattr(sys, "argv", ["run_notebooks.py", "--only", "9.2"])
     rc = rn.main()
     assert rc == 0
     run_files = list((tmp_path / "databricks" / "test-runs").glob("*.json"))
     assert len(run_files) == 1
     record = json.loads(run_files[0].read_text())
-    assert record["cluster_id"] == "cluster-1"
+    assert record["job_cluster"]["node_type_id"] == "r5d.large"
     assert len(record["results"]) == 1
     assert record["results"][0]["notebook"] == \
         "Worksheet_9.2_Unsupervised_Learning_with_Embeddings-Answers.ipynb"
+
+
+def test_only_matches_a_whole_worksheet_number():
+    assert rn.select(rn.ORDER, "1.1") == ["Worksheet_1.1_Vectorized_Data_Structures-Answers.ipynb"]
+    assert "Worksheet_11.1_AI_RAG_CVEs-Answers.ipynb" not in rn.select(rn.ORDER, "1.1")
+    assert rn.select(rn.ORDER, "11.1") == ["Worksheet_11.1_AI_RAG_CVEs-Answers.ipynb"]
+    assert rn.select(rn.ORDER, None) == rn.ORDER

@@ -65,7 +65,8 @@ def test_probe_source_compiles():
 def test_main_uploads_the_probe_notebook_and_prints_the_answers(monkeypatch, capsys):
     w = FakeWorkspaceClient()
     monkeypatch.setattr(probe, "WorkspaceClient", lambda profile: w)
-    monkeypatch.setattr(probe, "cluster_id", lambda: "cluster-1")
+    monkeypatch.setattr(probe, "job_cluster", lambda: {"node_type_id": "r5d.large", "spark_version": "18.x-scala2.13", "use_ml_runtime": True, "is_single_node": True, "kind": "CLASSIC_PREVIEW", "data_security_mode": "DATA_SECURITY_MODE_DEDICATED"})
+    monkeypatch.setattr(probe, "job_libraries", lambda: [])
 
     answers = {
         "cwd": "/Workspace/Users/curtis@gtkcyber.com/bootcamp-test/probes",
@@ -87,7 +88,8 @@ def test_main_uploads_the_probe_notebook_and_prints_the_answers(monkeypatch, cap
     assert f"{probe.SCRATCH}/probes" in w.workspace.mkdirs_calls
 
     submitted = w.jobs.submitted[0]
-    assert submitted["tasks"][0].existing_cluster_id == "cluster-1"
+    assert submitted["tasks"][0].existing_cluster_id is None
+    assert submitted["tasks"][0].new_cluster.node_type_id == "r5d.large"
     assert submitted["tasks"][0].notebook_task.notebook_path == \
         f"{probe.SCRATCH}/probes/build_facts"
 

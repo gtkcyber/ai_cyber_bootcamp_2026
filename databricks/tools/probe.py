@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Answer the build-time questions the design spec leaves open.
 
-Generates one notebook, runs it on the labs cluster, prints the answers.
+Generates one notebook, runs it on a job cluster shaped like the labs cluster, prints the answers.
 
 Usage (from the course repo root):
     .venv/bin/python databricks/tools/probe.py
@@ -15,11 +15,10 @@ from pathlib import Path
 
 import nbformat
 from databricks.sdk import WorkspaceClient
-from databricks.sdk.service.jobs import NotebookTask, SubmitTask
 from databricks.sdk.service.workspace import ImportFormat
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from run_notebooks import PROFILE, SCRATCH, cluster_id
+from run_notebooks import PROFILE, SCRATCH, _task, job_cluster, job_libraries
 
 PROBE = '''
 import json, os, subprocess, sys
@@ -64,7 +63,6 @@ dbutils.notebook.exit(json.dumps(answers))
 
 def main() -> int:
     w = WorkspaceClient(profile=PROFILE)
-    cid = cluster_id()
     nb = nbformat.v4.new_notebook()
     nb.cells.append(nbformat.v4.new_code_cell(PROBE))
     remote = f"{SCRATCH}/probes/build_facts"
@@ -73,8 +71,7 @@ def main() -> int:
                        format=ImportFormat.JUPYTER, overwrite=True)
     waiter = w.jobs.submit(
         run_name="bootcamp build-facts probe",
-        tasks=[SubmitTask(task_key="probe", existing_cluster_id=cid,
-                          notebook_task=NotebookTask(notebook_path=remote))],
+        tasks=[_task("probe", remote, job_cluster(), job_libraries())],
     )
     waiter.result(timeout=timedelta(minutes=45))
     run = w.jobs.get_run(waiter.run_id)

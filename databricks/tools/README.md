@@ -12,8 +12,8 @@ python3 -m venv .venv && .venv/bin/python -m pip install -r databricks/tools/req
 | `edits.py` | Applies the seam cell and every listed substitution to the worksheets and answers. `--check` reports without writing. |
 | `check_notebook.py` | The gate. Exit code is the number of violations. |
 | `upload_data.py` | Mirrors `data/` plus the extracted fingerprint images to the course volume. |
-| `run_notebooks.py` | Submits each answer notebook as a one-off job on the `bootcamp-labs` cluster and records the result. |
-| `probe.py` | Runs one generated notebook on the cluster to settle the four build-time facts the design spec left open. |
+| `run_notebooks.py` | Submits each answer notebook as a one-off job on its own job cluster, shaped like `bootcamp-labs` from the Terraform outputs, and records the result. The labs cluster itself is dedicated to the student group and refuses API jobs. |
+| `probe.py` | Runs one generated notebook on a job cluster to settle the four build-time facts the design spec left open. |
 
 All Databricks calls go through the `gtk-workspace` profile; the CLI itself lives at
 `/home/curtis/claude_projects/gtk_aws/bin/databricks`. Run `pytest databricks/tools/tests`

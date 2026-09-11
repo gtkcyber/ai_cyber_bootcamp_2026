@@ -31,48 +31,54 @@ non-zero on it rather than silently skipping the cluster half every morning and
 evening of the class week. Both still start and stop the app before they fail,
 so a misdeploy cannot leave the app running overnight.
 
-## Labs cluster: what the live runs established (2026-09-03)
+## Labs cluster: what the live runs established
 
 The cluster is `bootcamp-labs` from `gtk_aws/terraform/bootcamp`: single node,
-standard access mode, Databricks Runtime 18 LTS (not the ML runtime, which
-standard mode does not support), the course stack as cluster PyPI libraries.
-Cold start is about eleven minutes to RUNNING plus eight for the libraries.
+**dedicated to the student group**, Databricks Runtime 18 LTS ML, with only the
+libraries the ML runtime does not ship as cluster PyPI libraries. Cold start
+is about ten minutes to RUNNING plus a few for the libraries.
 
-**Memory.** In single-node standard mode the notebook kernels share one
-4 GB cgroup with two JVMs (2 GB and 1 GB heaps), whatever the node size; the
-same limit was measured on an 8 GB and a 16 GB node. One kernel running a
-heavy lab fits: 7.2 (art, torch, torchvision, CIFAR-10 download) ran in 37
-minutes, 9.2 (sentence-transformers, torch) in 59, 8.2 in under one. A
-kernel that imports the whole course stack at once does not fit, and how
-many student kernels fit at the same time is untested. The error to expect
-is `Execution ran out of memory. Try increasing your compute instance
-memory.`, and a bigger node does not change it in this mode.
+**Why dedicated (2026-09-11).** In single-node standard mode the notebook
+kernels share one 4 GB cgroup with two JVMs (2 GB and 1 GB heaps) whatever
+the node size; the same limit was measured on an 8 GB and a 16 GB node. One
+kernel running a heavy lab fit (7.2 in 37 minutes, 9.2 in 59, 8.2 in under
+one), but the whole course stack in one kernel did not, and standard mode
+supports neither the ML runtime nor GPU nodes. Measured on the same 16 GB
+node in dedicated-group mode: an 11 GB cgroup, a 7.8 GB driver heap, and the
+whole stack imports with the kernel at 1.3 GB.
+
+**What dedicated-group changes.**
+- Every action on the cluster runs with the group's permissions, so student
+  work lives under `/Workspace/Groups/bh_india_2026_students/`, not home
+  folders (the folder exists; per-student subfolders and the lab copies are
+  the roster step).
+- API jobs cannot target the cluster: a submit from the automation service
+  principal fails with `PERMISSION_DENIED: not authorized to use account
+  group`. `run_notebooks.py` and `probe.py` therefore submit each run on its
+  own job cluster shaped like the labs cluster (node, runtime and library list
+  read from the Terraform outputs), which exists only for that run.
+- Students get CAN_ATTACH_TO on every course cluster; only admins start,
+  restart or edit one. The class-hours jobs start and stop the cluster as the
+  service principal, which CAN_MANAGE allows.
+
+**GPU cluster.** `bootcamp-gpu` (g4dn.xlarge, GPU ML runtime, dedicated to
+the same group) is declared in Terraform but cannot be created until the AWS
+account's "Running On-Demand G and VT instances" vCPU quota is raised from
+zero (Service Quotas, code L-DB2E81BA, us-east-1; four vCPUs cover one
+g4dn.xlarge).
 
 **Data.** `databricks/tools/upload_data.py` put 906 files (139 MB) on the
 data volume with no errors in under a minute. `databricks/tools/probe.py`
 confirmed the notebook's working directory is its own folder, `WORK_HOME`
 is writable, subprocesses spawn, and a notebook-scoped `pip install` works.
 
-**Library gaps found by the runs, both fixed in `cluster_pypi_packages`.**
-- `tensorboard`: Keras `fit` needs it and the tensorflow wheel no longer pulls
-  it in (8.1 failed with `TBNotInstalledError`). Added. 8.1 then loaded,
-  imported and trained three epochs at about ninety seconds each on the two
-  CPU cores; the run was cancelled after that, so the full lab's CPU time is
-  unmeasured beyond "long".
-- `langgraph>=1.2` and `langchain>=1.4`: Databricks installs cluster
-  libraries one at a time in list order, and unbounded the pair settled on
-  langgraph 1.0.10 with a langgraph-prebuilt that imports a symbol 1.0
-  lacks, so 13.5's `langgraph-supervisor` failed to import. With the bounds
-  the cluster resolves langgraph 1.2.11, langchain 1.4.0, prebuilt 1.1.0,
-  supervisor 0.0.31; 13.5 ran in 12.5 minutes.
-
-**GPU.** Standard access mode supports neither GPU nodes nor the ML runtime,
-so a GPU cluster for modules 7 to 9 is dedicated mode (user or group) on the
-`18.x-gpu-ml-scala2.13` runtime, which ships TensorFlow and Torch with CUDA
-and needs none of those cluster libraries. Smallest single-GPU nodes the
-workspace offers, on-demand us-east-1 EC2 price before DBUs: g4dn.xlarge
-(T4, 4 vCPU, 16 GB) USD 0.526/h; g6.xlarge (L4) 0.805; g5.xlarge (A10G)
-1.006. Not created; a decision for Curtis.
+**Library gaps found by the runs on the earlier standard-mode cluster.**
+`tensorboard` (Keras fit needs it) and lower bounds on `langgraph` and
+`langchain` (Databricks installs cluster libraries one at a time in list
+order, and unbounded they settled on an inconsistent 1.0-era set that broke
+13.5's `langgraph-supervisor`). The ML runtime ships all three now, so those
+entries are gone from `cluster_pypi_packages`; what remains is only what the
+runtime lacks.
 
 **Workspace notebook paths.** A JUPYTER import names the object exactly as
 the path is given, extension included; upload to the extension-less path
