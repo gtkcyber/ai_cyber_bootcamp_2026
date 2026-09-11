@@ -239,3 +239,11 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p151: the code reads df.groupby(['src_ip') with a mismatched bracket.
 - p153: the multi-index output overflows its box and runs into the footer.
 - p20: the is_private answer depends on the Python release; the note says so.
+
+## 00-introduction (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- p2: title slide carries leftover text boxes ("Presented by Brian Genz", a Miniconda download instruction, a Slack invite line); the Wi-Fi PSK is printed on the slide.
+- p7: slide title says "Aug 2-4, 2025"; the course is 2026.
+- p18: "Aritificial Intelligence".
+- p10 note now says "the instructors": the deck shows three bios; Curtis Lambert's slide is gone from the Keynote.
+- p12: Summer Rankin's slide shows "<undisclosed>" as the employer, not the name.
+- p77: the Keynote text extraction returned an empty body though the slide carries a full paragraph; the page renders complete.
