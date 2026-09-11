@@ -14,9 +14,9 @@ This part lists the security and privacy properties of hosted language models th
 
 ## Page 4
 
-A hosted model belongs to its provider. When an application calls an API from OpenAI, Anthropic, or Google, the weights, the training data, the safety tuning, and the request logging all sit with the provider. The provider can change the model's behavior with an update, retire a version, or alter its retention terms, and the application inherits each change. You cannot audit the weights or freeze them, and every prompt leaves your infrastructure.
+A hosted model belongs to its provider. When an application calls an API from OpenAI, Anthropic, or Google, the weights, the training data, the safety tuning, and the request logging all sit with the provider. The provider can change the model's behavior with an update, change its price, retire a version, or alter its retention terms, and the application inherits each change. You cannot audit the weights or freeze them, and every prompt leaves your infrastructure. Tuning a hosted model on your own data means sending that data to the provider, because the fine-tuning runs on the provider's infrastructure.
 
-An open-weights model run on your own hardware removes the provider from the request path, but the training data and tuning decisions still belong to whoever released it.
+The second delivery option is the same model offered through a cloud platform and reached from inside the organization's virtual private cloud, a network-isolated section of a public cloud: requests never cross the public internet and the cloud platform's data-use terms apply, and the model is still the provider's, with the same update and retirement exposure. The third is an open-weights model run on your own hardware, which removes the provider from the request path; the training data and tuning decisions still belong to whoever released it.
 
 ## Page 5
 
@@ -24,7 +24,7 @@ A language model has no verification step between reading text and acting on it.
 
 ## Page 6
 
-Training corpora for the large commercial models were assembled by scraping the public web, without consent from the authors of the text. Copyrighted books, news articles, source code, and forum posts went in on the theory that training is fair use, a theory now being tested in court; The New York Times sued OpenAI and Microsoft over it in December 2023. For an organization, the consequence is a model whose output can reproduce copyrighted or personal material it was trained on, and whose legal footing is unsettled.
+Training corpora for the large commercial models were assembled by scraping the public web, without consent from the authors of the text. Copyrighted books, news articles, source code, and forum posts went in on the theory that training is fair use, a theory now being tested in court; The New York Times sued OpenAI and Microsoft over it in December 2023. Source code is a second case: in November 2022 developers filed Doe v. GitHub, a class action in the Northern District of California against GitHub, Microsoft, and OpenAI, alleging that GitHub Copilot, the code completion assistant, emitted code copied from public repositories without the attribution and license terms their open-source licenses require; the case was still on appeal in the Ninth Circuit in 2025. For an organization, the consequence is a model whose output can reproduce copyrighted or personal material it was trained on, and whose legal footing is unsettled; code it generates can carry another developer's license terms with it.
 
 ## Page 7
 
@@ -32,7 +32,7 @@ Conversations with a chatbot carry no legal privilege. Attorney-client, doctor-p
 
 ## Page 8
 
-In May 2025 a federal magistrate judge in The New York Times copyright suit against OpenAI ordered the company to preserve all ChatGPT output logs going forward, including conversations users had deleted and conversations OpenAI's own privacy policy would otherwise have purged. OpenAI appealed and the district judge upheld the order in June 2025. The obligation to preserve new chats ended in September 2025, but everything saved under the order stays retained, and the litigation later compelled OpenAI to produce a sample of anonymized logs to the plaintiffs.
+In May 2025 a federal magistrate judge in The New York Times copyright suit against OpenAI ordered the company to preserve all ChatGPT output logs going forward, including conversations users had deleted and conversations OpenAI's own privacy policy would otherwise have purged. OpenAI appealed and the district judge upheld the order in June 2025. The obligation to preserve new chats ended in September 2025, but everything saved under the order stays retained, and the litigation later compelled OpenAI to produce a sample of 20 million de-identified logs to the plaintiffs, an order the district judge affirmed in January 2026. The plaintiffs then asked the court to make OpenAI recover millions more chats deleted under its routine retention practices after the suit was filed and before the preservation order took effect, and to consider sanctions for the deletion. The January 2026 Ars Technica report "News orgs win fight to access 20M ChatGPT logs. Now they want more." follows the case.
 
 Deleting a chat removes it from your view. It does not guarantee the provider has destroyed it, and once a court orders preservation the provider cannot. Treat anything typed into a hosted assistant as retained and discoverable.
 
