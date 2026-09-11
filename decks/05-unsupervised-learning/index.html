@@ -20,7 +20,7 @@
       <img class="page" src="pages/p001.webp" alt="GTK Cyber Module 5: Unsupervised Learning: Clustering">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Module 5 covers unsupervised learning, with clustering as its main subject: grouping observations by the distances between them when no labels say what the groups should be.</p>
     </aside>
   </section>
   <section data-page="2">
@@ -28,7 +28,7 @@
       <img class="page" src="pages/p002.webp" alt="GTK Cyber Agenda for Today • Measuring Distances • Math free overview of clustering techniques">
     </div>
     <aside class="notes">
-      <p>Module 5 covers unsupervised learning: clustering data that carries no labels, the k-means algorithm and its dependence on the number of clusters, the random start and the scale of the features, the silhouette coefficient and the elbow plot for judging a clustering, and principal component analysis for reducing the number of features.</p>
+      <p>The agenda has two parts. Measuring distances: how the similarity of two observations becomes a number, worked through on three departments and their counts of security events. An overview of clustering techniques without the mathematics: the k-means algorithm and its dependence on the number of clusters, on the random start and on the scale of the features; the silhouette coefficient and the elbow plot for judging a clustering; a density based method that needs no cluster count; and principal component analysis for reducing the number of features.</p>
     </aside>
   </section>
   <section data-page="3">
@@ -36,7 +36,8 @@
       <img class="page" src="pages/p003.webp" alt="GTK Cyber \ What Data Science kind of is… 3 Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Categ">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The flowchart sorts a problem into a family of machine learning by asking about labels. Labeled data means each observation carries the value the model is supposed to produce. With labels, the next question is whether that value is a quantity or a category: a quantity calls for regression, which predicts a number and supports inference about which features drive it; a category calls for classification, which predicts the class.</p>
+<p>Without labels, the question is whether labels can be obtained. If they can, labeling the data moves the problem into the supervised branch. If they cannot, the problem is clustering or pattern finding, and the chart's verdict on the output is that nothing is proven: the model groups similar observations and flags anomalous ones, and recommender systems are built this way, but with no labels there is no ground truth to score the result against.</p>
     </aside>
   </section>
   <section data-page="4">
@@ -68,7 +69,7 @@
       <img class="page" src="pages/p007.webp" alt="GTK Cyber Which Departments are Similar?">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The motivating problem is allocating security awareness training across departments: departments with similar histories of security events are candidates for the same training, so the first task is to say which departments are similar. The table lists three departments, and this first version describes each by one number, its count of malware events. With a single number per department, similar means close in that number, and the question is already a question about distance.</p>
     </aside>
   </section>
   <section data-page="8">
@@ -76,7 +77,7 @@
       <img class="page" src="pages/p008.webp" alt="GTK Cyber Which Departments are Similar?">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A second column adds each department's count of phishing events. Two numbers per department can disagree: a pair of departments can be close on malware events and far apart on phishing events, so similar now has to mean close on both at once, and the plain difference of one column no longer settles it.</p>
     </aside>
   </section>
   <section data-page="9">
@@ -84,7 +85,7 @@
       <img class="page" src="pages/p009.webp" alt="GTK Cyber Which Departments are Similar?">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>A third count is added, so each department is a row of three numbers. The question on the title is answered by a distance: a rule that turns two rows into one number, small when the rows are alike and large when they differ. The slides that follow define that rule for one feature, then two, then three, and read the answer off the results.</p>
     </aside>
   </section>
   <section data-page="10">
@@ -92,7 +93,7 @@
       <img class="page" src="pages/p010.webp" alt="GTK Cyber Computing Distance Compare: Dept1 to Dept2: | 6 - 1 | = 5 Dept2 to Dept3: | 1 - 8 | = 7 Dept1 to Dept3: | 6 - 8 | = 2">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>With one feature the distance between two departments is the absolute difference of their counts. On malware events Dept1 has six, Dept2 has one and Dept3 has eight. Dept1 to Dept2 is six minus one, five; Dept2 to Dept3 is eight minus one, seven; Dept1 to Dept3 is eight minus six, two. By this feature alone Dept1 and Dept3 are the most similar pair and Dept2 stands apart from both.</p>
     </aside>
   </section>
   <section data-page="11">
@@ -100,7 +101,7 @@
       <img class="page" src="pages/p011.webp" alt="GTK Cyber Two-Dimensional Distance Euclidean very common and easy to grok Multiple Distance methods • Euclidean • Manhattan • Maximum • Canberra • Binary • Minkowski … (to name a f">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>With two features per department the plain difference no longer gives one number, and a distance method has to be chosen. The list names six. Euclidean: the length of the straight line between the two points. Manhattan: the sum of the differences along each axis. Maximum: the largest single difference on any one feature. Canberra: a sum of differences each divided by the sum of the two values being compared, which weights differences between small values more heavily. Binary: for presence or absence features, the share of features present in only one of the two observations among those present in either. Minkowski: a family with a parameter, where a parameter of one gives Manhattan and two gives Euclidean. Euclidean is the common choice, and it is the distance k-means uses.</p>
     </aside>
   </section>
   <section data-page="13">
@@ -109,7 +110,7 @@
       <img class="page fragment" src="pages/p013.webp" alt="GTK Cyber Two-Dimensional Distance Euclidean very common and easy to understand Dept2 Dept2 Dept2 Dept1 Dept1 Dept1 a b c G G G 0 1 2 3 4 5 6 7 8 0 1 2 3 4 5 6 7 8 Malware Events P">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The two counts place each department as a point in a plane, with malware events on the horizontal axis and phishing events on the vertical. Dept1 is at six malware events and six phishing events, Dept2 at one and two, and the third department at eight and one. The dashed segment joining Dept2 to Dept1 is their Euclidean distance, and the next slide computes its length.</p>
     </aside>
   </section>
   <section data-page="14">
@@ -117,7 +118,7 @@
       <img class="page" src="pages/p014.webp" alt="GTK Cyber Two-Dimensional Distance Euclidean very common and easy to understand: a2 + b2 = c2 Dept2 Dept2 Dept2 Dept1 Dept1 Dept1 a b c G G G 0 1 2 3 4 5 6 7 8 0 1 2 3 4 5 6 7 8 Ma">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The dashed segment is the hypotenuse of a right triangle whose legs are the differences on each feature. Side a runs horizontally from Dept2 and is the difference in malware events, six minus one, five. Side b runs vertically up to Dept1 and is the difference in phishing events, six minus two, four. The Pythagorean theorem gives the hypotenuse: a squared plus b squared equals c squared, so c is the square root of twenty five plus sixteen, the square root of forty one, about 6.4. This is the Euclidean formula. It extends to any number of features by adding one squared difference per feature under the root, which is what the code two slides on does.</p>
     </aside>
   </section>
   <section data-page="15">
@@ -125,7 +126,7 @@
       <img class="page" src="pages/p015.webp" alt="GTK Cyber Two-Dimensional Distance Manhattan also easy to comprehend: a + b Dept2 Dept2 Dept2 Dept1 Dept1 Dept1 a b G G G 0 1 2 3 4 5 6 7 8 0 1 2 3 4 5 6 7 8 Malware Events Phishin">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Manhattan distance is a plus b: the same two legs added rather than squared and rooted, five plus four, nine, against a Euclidean 6.4 for the same pair. The name comes from a street grid, where travel between two corners follows the blocks rather than cutting through them. Manhattan distance is never smaller than the Euclidean distance for the same pair, and it grows in proportion to each feature's difference, so one large difference on a single feature counts less than it does under Euclidean distance, where the differences are squared before they are summed.</p>
     </aside>
   </section>
   <section data-page="16">
@@ -133,7 +134,7 @@
       <img class="page" src="pages/p016.webp" alt="GTK Cyber Computing Distance Compare: Dept1 to Dept2: sqrt((6-1)^2 + (6-2)^2) = 6.4 Dept2 to Dept3: … = 7.1 Dept1 to Dept3: … = 5.4">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The Euclidean formula applied to all three pairs on the two-feature table. Dept1 to Dept2 is the square root of five squared plus four squared, 6.4. Dept2 to Dept3 is the square root of seven squared plus one squared, the square root of fifty, 7.1. Dept1 to Dept3 is the square root of two squared plus five squared, the square root of twenty nine, 5.4. Dept1 and Dept3 remain the closest pair, as they were on malware events alone, but by a smaller margin: on one feature they were two apart against five for the next closest pair, and with phishing events included they are 5.4 apart against 6.4.</p>
     </aside>
   </section>
   <section data-page="17">
@@ -141,7 +142,7 @@
       <img class="page" src="pages/p017.webp" alt="GTK Cyber Euclidean Distance calculations def dist(x,y): return np.sqrt(np.sum((x-y)**2)) &gt; mat = np.array([[ 6,6,3 ], [1,2,1], [8,1,9]]) &gt; dist(mat[0], mat[1]) 6.7082039324993694 ">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The function computes Euclidean distance for any number of features. NumPy, the Python array library, subtracts two rows element by element, squares every difference, sums the squares and takes the square root, which is the two-feature formula with one squared term per feature. The array holds the three departments with three features each: Dept1 is six, six and three, Dept2 is one, two and one, and Dept3 is eight, one and nine. Dept1 to Dept2 is the square root of twenty five plus sixteen plus four, 6.7. Dept2 to Dept3 is the square root of forty nine plus one plus sixty four, 10.7. Dept1 to Dept3 is the square root of four plus twenty five plus thirty six, 8.1. The third feature changed the answer: Dept1 and Dept3, the closest pair on two features, differ by six on the new one, and are now farther apart than Dept1 and Dept2.</p>
     </aside>
   </section>
   <section data-page="18">
@@ -149,7 +150,7 @@
       <img class="page" src="pages/p018.webp" alt="GTK Cyber Which Departments are Similar? 6.7 8.1 10.7">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The three distances drawn on the table: 6.7 between Dept1 and Dept2, 8.1 between Dept1 and Dept3, 10.7 between Dept2 and Dept3. The question on the title has a numeric answer. On these three features Dept1 and Dept2 are the most similar pair and Dept2 and Dept3 the least, so if two departments are to share a training allocation, Dept1 and Dept2 are the pair. The answer depended on which features were included, since on malware events alone, and on malware and phishing events together, Dept1 and Dept3 were the closest pair. That dependence is why feature selection is the first step of the four-step clustering procedure. A clustering algorithm does for thousands of rows what this table does for three: it computes distances between observations and groups the ones that are close.</p>
     </aside>
   </section>
   <section data-page="19">
@@ -190,7 +191,7 @@
       <img class="page" src="pages/p023.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid Step 1: Pick 3 random centroids within data range G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G">
     </div>
     <aside class="notes">
-      <p>Second assignment: with the centroids in their new positions, every point is again colored by the nearest one. The red centroid, now inside the left concentration, takes most of it from blue. The blue centroid, sitting between the left and lower middle concentrations, keeps the lower middle one and a band of points along the boundary. The green centroid keeps the upper right. A point changes color only where a centroid's move changed which centroid is nearest to it.</p>
+      <p>Step 1 on the example data: K is three, and the three starting centroids, drawn as red, green and blue asterisks, are placed at random within the range of the data. None of them sits inside a visible concentration. The red and green markers are near the top of the plot, where there are few points, and the blue marker is at the lower left. These positions and the value of K are the only inputs; everything that follows is determined by them.</p>
     </aside>
   </section>
   <section data-page="24">
@@ -198,7 +199,7 @@
       <img class="page" src="pages/p024.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (1) G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G">
     </div>
     <aside class="notes">
-      <p>Third assignment: the points along the boundary between the red and blue groups switch to red, now that the blue centroid has moved down and away from them. The green and blue memberships are otherwise the same. The three colored groups now coincide with the three concentrations visible in the unlabeled plot.</p>
+      <p>First assignment: each point takes the color of the nearest centroid. The red centroid at the upper left claims only the handful of points near it. The green centroid claims the whole upper right concentration plus a few points in the middle. The blue centroid at the lower left claims the lower middle concentration and most of the left one, since both are closer to it than to the red or green markers. The coloring at this stage reflects where the random centroids landed, not the concentrations in the data.</p>
     </aside>
   </section>
   <section data-page="25">
@@ -206,7 +207,7 @@
       <img class="page" src="pages/p025.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (1) G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G">
     </div>
     <aside class="notes">
-      <p>Third move: the centroids relocate to the means of the updated groups. Each shift is small, because few points changed membership in the assignment before it. All three centroids now sit near the middle of the concentrations they represent.</p>
+      <p>First move: each centroid relocates to the mean position of the points colored with it in the previous step. The red centroid drops from the top of the plot into the middle of its small red group. The green centroid moves right into the center of the upper right concentration. The blue centroid moves up and right from the corner to the mean of the large blue set that spans the left and lower middle concentrations, and so ends up between them. The point colors are unchanged, because reassignment is the next step.</p>
     </aside>
   </section>
   <section data-page="26">
@@ -214,7 +215,7 @@
       <img class="page" src="pages/p026.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (2) G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G">
     </div>
     <aside class="notes">
-      <p>Fourth assignment: the coloring is nearly identical to the previous one. Only a couple of points on the boundary between the red and blue groups change color, from blue to red.</p>
+      <p>Second assignment: with the centroids in their new positions, every point is again colored by the nearest one. The red centroid, now inside the left concentration, takes most of it from blue. The blue centroid, sitting between the left and lower middle concentrations, keeps the lower middle one and a band of points along the boundary. The green centroid keeps the upper right. A point changes color only where a centroid's move changed which centroid is nearest to it.</p>
     </aside>
   </section>
   <section data-page="28">
@@ -223,9 +224,8 @@
       <img class="page fragment" src="pages/p028.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (3) G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G">
     </div>
     <aside class="notes">
-      <p>Fourth move: the centroids relocate by a distance too small to see. The memberships are almost fixed, so the means they are computed from are almost fixed too.</p>
-<p>&lt;!-- MERGE: a second old note landed on this page; fold or drop --&gt;</p>
-<p>Fifth assignment: no point changes color. Every point is already assigned to its nearest centroid, so the partition is stable.</p>
+      <p>Second move: the centroids relocate to the means of their new memberships. The red centroid shifts a short distance to the center of its enlarged group. The blue centroid moves down into the lower middle concentration, since the points on the left that it lost no longer pull its mean leftward. The green centroid barely moves. The moves are smaller than in the first round, because the memberships changed less.</p>
+<p>Third assignment: the points along the boundary between the red and blue groups switch to red, now that the blue centroid has moved down and away from them. The green and blue memberships are otherwise the same. The three colored groups now coincide with the three concentrations visible in the unlabeled plot, apart from a few points along the red and blue boundary.</p>
     </aside>
   </section>
   <section data-page="29">
@@ -233,7 +233,7 @@
       <img class="page" src="pages/p029.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (3) G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G">
     </div>
     <aside class="notes">
-      <p>Fifth move: with no membership changes, each centroid is recomputed from the same points as before and stays where it was. This is the stopping condition of step 4. The result is the final partition, three clusters and three centroids, each centroid the mean of its cluster.</p>
+      <p>Third move: the centroids relocate to the means of the updated groups. Each shift is small, because few points changed membership in the assignment before it. All three centroids now sit near the middle of the concentrations they represent.</p>
     </aside>
   </section>
   <section data-page="30">
@@ -241,7 +241,7 @@
       <img class="page" src="pages/p030.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (4) G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Fourth assignment: the coloring is nearly identical to the previous one. Only a couple of points on the boundary between the red and blue groups change color, from blue to red.</p>
     </aside>
   </section>
   <section data-page="31">
@@ -249,7 +249,7 @@
       <img class="page" src="pages/p031.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (4) G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G">
     </div>
     <aside class="notes">
-      <p>The converged clusters with their boundaries drawn as ellipses: red on the left, green at the upper right, blue at the lower middle, with each centroid at the center of its ellipse. The boundaries do not overlap, because k-means assigns each point to exactly one centroid. That includes the outlying points at the far left of the red group and the stray points between concentrations; k-means has no notion of noise, and a point that is far from every centroid still goes to whichever one is nearest.</p>
+      <p>Fourth move: the centroids relocate by a distance too small to see. The memberships are almost fixed, so the means they are computed from are almost fixed too.</p>
     </aside>
   </section>
   <section data-page="32">
@@ -257,7 +257,7 @@
       <img class="page" src="pages/p032.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid (5) G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Fifth assignment: no point changes color. Every point is already assigned to its nearest centroid, so the partition is stable.</p>
     </aside>
   </section>
   <section data-page="33">
@@ -265,7 +265,7 @@
       <img class="page" src="pages/p033.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (5) G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Fifth move: with no membership changes, each centroid is recomputed from the same points as before and stays where it was. This is the stopping condition of step 4. The result is the final partition, three clusters and three centroids, each centroid the mean of its cluster.</p>
     </aside>
   </section>
   <section data-page="34">
@@ -273,7 +273,7 @@
       <img class="page" src="pages/p034.webp" alt="GTK Cyber Step 3: Move centroid to center of assigned points (5) G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The converged clusters with an ellipse drawn around each: orange around the red cluster on the left, green at the upper right, blue at the lower middle, with each centroid at the center of its cluster. The ellipses are drawn to enclose each cluster's points and overlap slightly where they meet; the partition itself does not, because k-means assigns each point to exactly one centroid, and the true boundary between two clusters is the straight line of points equidistant from their centroids. That includes the outlying points at the far left of the red group and the stray points between concentrations; k-means has no notion of noise, and a point that is far from every centroid still goes to whichever one is nearest.</p>
     </aside>
   </section>
   <section data-page="36">
@@ -349,7 +349,7 @@
       <img class="page" src="pages/p044.webp" alt="GTK Cyber Pain of optimization…Being stuck at sub-optimal local minimum… Initial guess matters! Same outcome cannot be guaranteed">
     </div>
     <aside class="notes">
-      <p>The boundaries of result B are drawn in: a vertical line separating the left cluster from the right, and a line splitting the right group between its two centroids. This is a local minimum of the sum of squared distances, a configuration that no single step of the loop improves, even though a different configuration scores lower overall. The starting positions decide which local minimum the loop lands in, which is what the two lines of text say: the initial guess matters, and two runs with different starts are not guaranteed the same outcome.</p>
+      <p>The boundaries of result B are drawn in: a vertical line separating the left cluster from the right, and a line splitting the right group between its two centroids. This is a local minimum of the sum of squared distances, a configuration that no single step of the loop improves, even though a different configuration scores lower overall. The starting positions decide which local minimum the loop lands in, which is what the two lines of text say: the initial guess matters, and two runs with different starts are not guaranteed the same outcome. K-means converges to whichever nearby fixed point the starting positions lead to rather than searching every possible partition, which places it among the local search, or hill climbing, methods of optimization.</p>
 <p>The remedy built into the library is to run the whole loop several times from different starts and keep the result with the smallest sum of squared distances. In scikit-learn, the number of such runs is the <code>n_init</code> argument of <code>KMeans</code>, and the <code>init</code> argument selects the starting rule; the worksheet's calls set <code>n_init</code> and use the <code>k-means++</code> rule, which places each starting centroid far from the ones already chosen so that the starts are spread across the data instead of bunched together.</p>
     </aside>
   </section>
@@ -386,9 +386,8 @@
     </div>
     <aside class="notes">
       <p>The cluster labels from <code>labels_</code> have been added to the data frame as a column named <code>kmeans_2</code>, and passing that column as <code>hue</code> colors every point by its cluster. Cluster 0, in blue, is the compact group with petal length under two centimeters and petal width under half a centimeter; cluster 1, in orange, is everything else. The diagonal histograms are split by cluster as well, and the split is clean on petal length and petal width and blurred on sepal length and sepal width, where the two clusters overlap. The algorithm used all four features in its distance and found the gap that the petal measurements contain.</p>
-<p>&lt;!-- MERGE: a second old note landed on this page; fold or drop --&gt;</p>
 <p>The scatter plot is sepal width against sepal length, colored by cluster, with the two centroids drawn as black crosses. <code>cluster_centers_</code> has one row per cluster and one column per feature, and the call to <code>scatter</code> takes the two columns that match the plot's axes. The remaining arguments are appearance: <code>marker</code> selects the cross, <code>s</code> sets its size, <code>linewidths</code> its stroke and <code>c</code> its color.</p>
-<p>In these two features the clusters overlap, and each cross sits at the mean of its cluster's points in the plane of the plot. The centroid of the orange cluster is near a sepal width of 2.9 and a sepal length of 6.3; the blue centroid is near 3.4 and 5.0.</p>
+<p>In these two features the clusters overlap, and each cross sits at the mean of its cluster's points in the plane of the plot. The centroid of the orange cluster is near a sepal width of 2.9 and a sepal length of 6.3; the blue centroid is near 3.4 and 5.0. Some points carry the color of the cluster whose cross is the farther of the two in this plot. The assignment used the distance across all four features, so a point's cluster reflects its position in the four-feature space, not its position in this two-feature projection of it, and a flower on the orange side of the sepal measurements can belong to the blue cluster because its petal measurements put it there.</p>
     </aside>
   </section>
   <section data-page="50">
@@ -422,8 +421,7 @@
       <img class="page fragment" src="pages/p054.webp" alt="GTK Cyber Feature Scaling # K-means on scaled data km = KMeans(n_clusters=2,random_state=1234) km.fit(iris_data_scaled) Sca led Fea tur es Unscaled Features">
     </div>
     <aside class="notes">
-      <p>The clustering call is unchanged; only the input differs. <code>KMeans</code> with two clusters is fit to the scaled data frame instead of the raw one, and the distances inside the loop are now measured in standard deviations. Everything the object stores is in the scaled units as well: the rows of <code>cluster_centers_</code> are centroids in scaled coordinates, and the scaler's <code>inverse_transform</code> converts them back to centimeters if they are to be plotted on the original axes.</p>
-<p>&lt;!-- MERGE: a second old note landed on this page; fold or drop --&gt;</p>
+      <p>The clustering call is unchanged; only the input differs. <code>KMeans</code> with two clusters is fit to the scaled data frame instead of the raw one, and the distances inside the loop are now measured in standard deviations. Everything the object stores is in the scaled units as well: the rows of <code>cluster_centers_</code> are centroids in scaled coordinates, and the scaler's <code>inverse_transform</code> converts them back to centimeters if they are to be plotted on the original axes. The <code>random_state</code> argument in the second version of the call fixes the random start, so the run gives the same partition each time.</p>
 <p>The two pair plots are the two-cluster result on the scaled features, on the left, and on the unscaled features, on the right. They are indistinguishable at this resolution: both isolate the small-petal group as cluster 0 and put the rest in cluster 1. Scaling made no visible difference on iris because the four features are all a few centimeters wide and the gap in the petal measurements is large relative to every feature's spread.</p>
 <p>Scaling matters when the features differ in units. The worksheet's domain data describes each name by a character count, a fraction, an entropy and an n-gram score, and there the scaling step precedes the clustering.</p>
     </aside>
@@ -462,6 +460,8 @@
     </div>
     <aside class="notes">
       <p>The loop fits k-means once for every K from two through fifteen, because <code>range(2, 16)</code> stops before sixteen, and records the silhouette score of each fit. <code>random_state=1</code> fixes the random seed, so the initialization is reproducible and rerunning the loop gives the same scores. <code>silhouette_score</code> takes the data and the fitted labels and returns the mean coefficient over all points. The range starts at two because the coefficient needs a nearest other cluster, which a single cluster does not have. The data passed to <code>silhouette_score</code> has to be the same scaled data the model was fit on, so the distances it measures are the ones the clustering used.</p>
+<p>The curve is the silhouette score against the number of clusters, from two to fifteen, on the scaled iris data. It is highest at two clusters, about 0.58, drops steeply through three and four, reaches its lowest value at six, about 0.32, and then wanders between 0.33 and 0.37 for larger K.</p>
+<p>By the definition of the coefficient, a higher score means points sit closer to their own cluster than to the next one, so the curve favors two clusters, the partition that isolates the small-petal group. The arrow marks six, which is the minimum of the curve and by this measure the worst choice in the range, so the annotation contradicts the score it is drawn on.</p>
     </aside>
   </section>
   <section data-page="60">
@@ -479,7 +479,7 @@
     </div>
     <aside class="notes">
       <p>The silhouette plot shows the coefficient of every point, grouped by cluster. The model is <code>MiniBatchKMeans</code> with six clusters on a dataset of a thousand samples. Each colored band is one cluster: the points are sorted by coefficient and drawn as horizontal bars from zero to their value, so the band's height is the cluster's size and its shape is the distribution of its coefficients. The dashed red line is the mean coefficient over all points, about 0.65.</p>
-<p>Clusters 1, 3, 4 and 5 have most of their points above the mean, with values up to about 0.8, which marks them as compact and well separated. Clusters 0 and 2 have lower values, from about 0.5 down to 0.4 and all below the mean, and they are the two tallest bands, about twice the height of the others, so those two clusters are less well separated from their neighbors than the rest. No band extends left of zero, so no point in this fit is closer to another cluster than to its own.</p>
+<p>Clusters 1, 3, 4 and 5 have most of their points above the mean, with values up to about 0.8, which marks them as compact and well separated. Clusters 0 and 2 have lower values, from about 0.5 down to 0.4 and all below the mean, and they are the two tallest bands, about twice the height of the others, so those two clusters are less well separated from their neighbors than the rest. No band extends left of zero, so no point in this fit is closer to another cluster than to its own. The plot is useful for spotting cluster size imbalance, which shows as bands of unequal height, and for choosing K by comparing the output across several candidate values.</p>
     </aside>
   </section>
   <section data-page="62">
@@ -487,7 +487,7 @@
       <img class="page" src="pages/p062.webp" alt="GTK Cyber DBSCAN DBSCAN stands for Density-Based Spatial Clustering of Applications with Noise. Whereas K-means does not care about the density of data, DBSCAN does, under the assu">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>DBSCAN, density-based spatial clustering of applications with noise, defines a cluster as a region where points are packed densely and treats the sparse space between such regions as separation rather than as territory to divide. K-means has no notion of density: it splits the whole feature space among K centroids, and every point, however isolated, goes to the nearest one. DBSCAN starts from the assumption on the slide, that regions of high density are the clusters, and two consequences follow that the next slides spell out. The number of clusters is a result rather than an input, and points that lie outside every dense region are labeled noise instead of being forced into a cluster.</p>
     </aside>
   </section>
   <section data-page="63">
@@ -495,7 +495,7 @@
       <img class="page" src="pages/p063.webp" alt="GTK Cyber DBSCAN DBSCAN does not allow you to specify how many clusters you want. Instead, you specify 2 parameters: • ϵ (epsilon): This is the maximum distance between two points ">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>DBSCAN takes no cluster count. Its two parameters define what dense means. Epsilon is a distance: two points are neighbors when they lie within epsilon of each other. min_samples is a count: a point whose epsilon neighborhood, counting the point itself, holds at least min_samples points is a core point, the kind that can anchor a cluster. Both settings are in the units of the feature space, so on standardized data epsilon is a number of standard deviations, and a value that works on scaled features means something else on the raw ones. A point that is not a core point and is not within epsilon of any core point is noise. All such points receive the label minus one, which is not a cluster but one bin for everything left over, and the slide's quotation marks around cluster mark that distinction.</p>
     </aside>
   </section>
   <section data-page="64">
@@ -503,7 +503,8 @@
       <img class="page" src="pages/p064.webp" alt="GTK Cyber DBSCAN DBSCAN works as follows: 1. Choose an arbitrary starting point in your dataset that has not been seen. 2. Retrieve this point&#x27;s ϵ-neighborhood (all points that are">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The procedure grows each cluster outward from a core point. Pick a point not yet visited and count the points within epsilon of it. If the count reaches min_samples, start a cluster there; if not, label the point noise for now. That label is provisional: a point marked noise can later fall inside the neighborhood of a core point found afterward, in which case it joins that cluster as a border member, a point that belongs to the cluster without being dense enough to extend it. Once a cluster is started, every point in the core point's neighborhood joins it, and each of those that is itself a core point contributes its own neighborhood, so the cluster spreads through chains of core points until none can be reached. Then pick another unvisited point and repeat until every point is visited. A cluster is whatever a chain of core points connects, which is why it can take any shape, where a k-means cluster is always the convex region around a centroid.</p>
+<p>Two differences from k-means follow. The number of clusters comes out of the density settings instead of going in as a parameter, and DBSCAN works with any distance measure, where k-means is tied to Euclidean distance because the mean of a group is the point that minimizes the squared Euclidean distances to its members. The cost is that the outcome depends on the distance measure chosen and on the two settings, and the slides that follow show how far the same data moves as the settings change.</p>
     </aside>
   </section>
   <section data-page="65">
@@ -511,7 +512,7 @@
       <img class="page" src="pages/p065.webp" alt="GTK Cyber DBSCAN db = DBSCAN(eps=1, min_samples=3) db.fit(&lt;scaled_data&gt;)">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The scikit-learn call has the same shape as the k-means one: construct with the parameters, then fit on the feature matrix alone. <code>DBSCAN</code> from <code>sklearn.cluster</code> takes <code>eps</code>, which is epsilon, and <code>min_samples</code>. The values here are an epsilon of one and a minimum of three on the standardized iris features, so two flowers are neighbors when they are within one standard deviation of each other in the four-feature space, and a neighborhood of three flowers makes a core point. After <code>fit</code>, <code>labels_</code> holds one entry per row: a cluster index counted from zero, or minus one for noise. There is no <code>cluster_centers_</code>, because a density cluster has no centroid.</p>
     </aside>
   </section>
   <section data-page="66">
@@ -519,7 +520,7 @@
       <img class="page" src="pages/p066.webp" alt="GTK Cyber DBSCAN data_no_names[&#x27;dbscan_eps1_mpts3&#x27;] = [ &quot;cluster_&quot; + str(label) for label in db.labels_ ] sns.pairplot(data_no_names,hue=&quot;dbscan_eps1_mpts3&quot;)">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The labels are attached as a column and the pair plot is colored by it. The list comprehension prefixes each integer label with the word cluster, so the legend reads cluster_0, cluster_-1 and cluster_1 rather than bare numbers. With an epsilon of one and a minimum of three, DBSCAN found two clusters: cluster 0, in blue, is the small-petal group, and cluster 1, in green, is everything else, the same two groups k-means with K equal to two produced, found here without the number being supplied. One point, in orange, is labeled minus one: the flower at the lower left of the sepal panels, with a sepal width near 2.3 and a sepal length near 4.5. It belongs to the small-petal group by its petals, but in four dimensions it has fewer than two other flowers within one standard deviation and is not within that distance of any core point, so it is noise under these settings.</p>
     </aside>
   </section>
   <section data-page="67">
@@ -527,7 +528,7 @@
       <img class="page" src="pages/p067.webp" alt="GTK Cyber DBSCAN db2 = DBSCAN(eps=1, min_samples=10) db2.fit(data_scaled)">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>The same epsilon with min_samples raised from three to ten. The two clusters are the same in substance: cluster 0, in blue, is still the small-petal group and cluster 1, in red, the rest. The change is at the edges. The green points labeled minus one are more numerous and sit at the fringes of both groups: the flowers with the largest sepal lengths, the longest petals and the lowest and highest sepal widths. Raising min_samples raises the density a point needs to be a core point, so points at the thin edge of a group that had three neighbors within epsilon but not ten stop being core points, and any of them not within epsilon of a surviving core point become noise. The colors are assigned per plot in label order and do not match the previous slide.</p>
     </aside>
   </section>
   <section data-page="68">
@@ -535,8 +536,7 @@
       <img class="page" src="pages/p068.webp" alt="GTK Cyber DBSCAN db2 = DBSCAN(eps=2, min_samples=3) db2.fit(iris_data_scaled)">
     </div>
     <aside class="notes">
-      <p>Worksheet 5.1 applies the module to about six thousand domain names, five thousand generated by botnet domain generation algorithms and one thousand taken from the Alexa list of popular sites, each described by its length, its share of dictionary words, its entropy, its count of digits and an n-gram score. The steps are to standardize the five features, fit k-means with two clusters on the scaled columns, attach the labels as a column, and count the domain sources within each cluster to see whether the clusters separate generated names from legitimate ones; then to plot the sum of squared distances against K for the elbow method.</p>
-<p>The worksheet then uses two other clustering methods. Agglomerative clustering starts with every point as its own cluster and repeatedly merges the two closest clusters; the dendrogram is the tree of those merges, and points that stay unmerged until late in the tree are candidates for anomalies, which the worksheet uses to find twenty generated domains placed among a thousand legitimate ones. DBSCAN, density-based spatial clustering of applications with noise, groups points that have at least a minimum number of neighbors within a radius and leaves points with too few neighbors unassigned as noise; its two settings are that radius and that minimum count.</p>
+      <p>Epsilon raised from one to two, with min_samples back at three. The result is one cluster holding every flower and no noise: the legend has a single entry, cluster 0, and the plot is one color. At two standard deviations a neighborhood is wide enough to bridge the gap between the small-petal group and the rest, so the chain of core points runs through the whole dataset and no flower is far enough from every core point to be left out. Too large an epsilon fails in the opposite direction from too large a K: k-means splits groups that are not there, and DBSCAN with a wide epsilon merges groups that are.</p>
     </aside>
   </section>
   <section data-page="69">
@@ -544,7 +544,8 @@
       <img class="page" src="pages/p069.webp" alt="GTK Cyber DBSCAN db2 = DBSCAN(eps=0.6, min_samples=3) db2.fit(iris_data_scaled)">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Epsilon lowered to 0.6 with min_samples three. Four clusters and a set of noise points appear. Cluster 0, in blue, is still the small-petal group. The large group has broken up: cluster 1, in green, is its dense core; cluster 2, in red, is a pocket of a few flowers with petal lengths near three and a half and sepal widths near two and a half; cluster 3, in purple, is another small pocket with petal lengths between four and a half and five; and the orange points at the edges of both groups are noise. At 0.6 standard deviations a neighborhood no longer spans the thinly populated stretches inside the large group, so the chain breaks where the points thin out, and any three or more mutually close flowers cut off from the core become a cluster of their own.</p>
+<p>The four runs together show what the two settings do. Epsilon sets the reach of a neighborhood and min_samples the density it must hold. Too large an epsilon merges everything; too small an epsilon or too large a min_samples fragments the groups and turns their edges into noise. Neither value is read off the data by the algorithm, so choosing them is the same kind of judgment as choosing K, made with a different pair of numbers.</p>
     </aside>
   </section>
   <section data-page="71">
@@ -571,7 +572,7 @@
     </div>
     <aside class="notes">
       <p>The code is from the dimensionality reduction notebook of Hands-On Unsupervised Learning Using Python, the book by Ankur Patel whose repository the link points to. The 784 features are the pixels of the 28 by 28 images of handwritten digits in the MNIST dataset, which that notebook works on.</p>
-<p><code>PCA</code> from <code>sklearn.decomposition</code> is constructed with <code>n_components</code> equal to 784, as many components as there are features, so this first fit discards nothing. <code>whiten=False</code> leaves each component's scores at their natural variance instead of rescaling them all to a variance of one. <code>fit_transform</code> finds the components from the training features and projects those features onto them, and the result is wrapped in a data frame that keeps the training index. <code>explained_variance_ratio_</code> is an array holding the fraction of the total variance each component captures, in decreasing order. Summed over all 784 components it comes to 1.0, all of the variance, which is the line at the bottom. Fitting with every component is what makes it possible to read off how much variance any smaller number of them would keep.</p>
+<p><code>PCA</code> from <code>sklearn.decomposition</code> is constructed with <code>n_components</code> equal to 784, as many components as there are features, so this first fit discards nothing. <code>whiten=False</code> leaves each component's scores at their natural variance instead of rescaling them all to a variance of one. Setting <code>whiten=True</code> instead rescales every component's scores to unit variance, which discards the relative variance scale between components but can improve a downstream estimator's accuracy when that estimator assumes standardized, uncorrelated input. <code>fit_transform</code> finds the components from the training features and projects those features onto them, and the result is wrapped in a data frame that keeps the training index. <code>explained_variance_ratio_</code> is an array holding the fraction of the total variance each component captures, in decreasing order. Summed over all 784 components it comes to 1.0, all of the variance, which is the line at the bottom. Fitting with every component is what makes it possible to read off how much variance any smaller number of them would keep.</p>
     </aside>
   </section>
   <section data-page="74">
@@ -588,7 +589,7 @@
       <img class="page" src="pages/p075.webp" alt="GTK Cyber Questions?">
     </div>
     <aside class="notes">
-      <p>Questions on the module: clustering without labels, the k-means loop and its dependence on K, on the random start and on the scale of the features, the silhouette coefficient and the elbow plot, and principal component analysis.</p>
+      <p>Questions on the module: measuring distance between observations, clustering without labels, the k-means loop and its dependence on K, on the random start and on the scale of the features, the silhouette coefficient and the elbow plot, DBSCAN and its two density settings, and principal component analysis.</p>
     </aside>
   </section>
   <section data-page="76">
@@ -596,7 +597,8 @@
       <img class="page" src="pages/p076.webp" alt="GTK Cyber In Class Exercise Please complete Worksheet 5.1: Clustering">
     </div>
     <aside class="notes">
-      <p>TODO NEW SLIDE</p>
+      <p>Worksheet 5.1 applies the module to about six thousand domain names, five thousand generated by botnet domain generation algorithms and one thousand taken from the Alexa list of popular sites, each described by its length, its share of dictionary words, its entropy, its count of digits and an n-gram score. The steps are to standardize the five features, fit k-means with two clusters on the scaled columns, attach the labels as a column, and count the domain sources within each cluster to see whether the clusters separate generated names from legitimate ones; then to plot the sum of squared distances against K for the elbow method.</p>
+<p>The worksheet then uses two other clustering methods. Agglomerative clustering starts with every point as its own cluster and repeatedly merges the two closest clusters; the dendrogram is the tree of those merges, and points that stay unmerged until late in the tree are candidates for anomalies, which the worksheet uses to find twenty generated domains placed among a thousand legitimate ones. DBSCAN is applied to the same scaled features with the epsilon and min_samples settings introduced on the preceding slides, and the names it labels minus one are the ones with too few close neighbors to belong to any dense group.</p>
     </aside>
   </section>
 </div>

@@ -247,3 +247,15 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p10 note now says "the instructors": the deck shows three bios; Curtis Lambert's slide is gone from the Keynote.
 - p12: Summer Rankin's slide shows "<undisclosed>" as the employer, not the name.
 - p77: the Keynote text extraction returned an empty body though the slide carries a full paragraph; the page renders complete.
+
+## 05-unsupervised-learning (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- Conversion loss: the department table on p7 to p18 renders with empty cells in every frame; the notes state the values inferred from later slides (the third column's header is unknown). A Mac export restores it; until then those notes assert values the render does not show.
+- p3: stray backslash glyph at the top left.
+- p11, p12: subtitle "Euclidean very common and easy to grok" overprints the table (fixed on p13).
+- p23: yellow "Step 1" title overprints the black "Step 2" title.
+- p48, p49: the iris paragraph body text overprints the pair plot and the code.
+- p54: the code line overprints the pair plots; "Scaled Features" wraps one syllable per line.
+- p59: the silhouette curve overprints the code; the "Best number of clusters" arrow marks K equals six, the minimum of the curve.
+- p64: an empty seventh numbered item at the bottom of the list.
+- p67: cluster colors are assigned per plot and do not match p66.
+- Aligner note: the k-means run p23 to p34 was displaced by three frames; every note there was re-keyed against its image.
