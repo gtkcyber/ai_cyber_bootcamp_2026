@@ -259,3 +259,10 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p64: an empty seventh numbered item at the bottom of the list.
 - p67: cluster colors are assigned per plot and do not match p66.
 - Aligner note: the k-means run p23 to p34 was displaced by three frames; every note there was re-keyed against its image.
+
+## 09-artificial-intelligence-introduction-and-theory (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- p68: Keynote slide 71 is an empty layout slide (placeholders only); renders blank; candidate for skip or deletion (UNRESOLVED note).
+- p87: Keynote slide 92 is a web video (YouTube T_0MjD-UGaE, "Judge DESTROYS Attorney After He Cheats With AI!"); renders as its poster only; the note carries the URL.
+- p34: sin_matrix misnomer and the missing closing parenthesis on the argmax line remain.
+- p39, p55: title typos Transfomers and Tozenization remain.
+- The attention restructure skips Keynote slides 36 to 38 and 79 to 80; the head's softmax-and-weighted-sum description and the generation-loop flowchart left with them.

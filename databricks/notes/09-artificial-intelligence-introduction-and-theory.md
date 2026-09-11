@@ -8,11 +8,11 @@ What is new is the subject of this short section: five properties that separate 
 
 ## Page 3
 
-A large language model can be used by anyone through a chat interface or an API call, with no dataset to assemble and no model to train. Each classifier in Modules 4 through 8 required labeled data and a training run before it could make its first prediction.
+A large language model can be used by anyone through a chat interface or an API call, with no dataset to assemble and no model to train. Each classifier in Modules 4 through 8 required labeled data and a training run before it could make its first prediction. OpenAI is credited with that shift: its hosted API and chat interface put a trained model behind a single call, which made generative AI practical to integrate into an application and to experiment with.
 
 ## Page 4
 
-The input to a language model is plain text. Asking it a question does not require building a feature matrix first, which is the work Module 3 spent on feature engineering.
+The input to a language model is plain text. Asking it a question does not require building a feature matrix first, which is the work Module 3 spent on feature engineering. The GPT models were among the first multi-purpose models, effective across a range of tasks from the same text input, which is why no per-task feature pipeline precedes the question.
 
 ## Page 5
 
@@ -28,7 +28,7 @@ Multimodal means the model handles more than one kind of data. Current large lan
 
 ## Page 8
 
-TODO NEW SLIDE
+The Emperor Palpatine meme closes the list. The five properties are real, and the models are easier to use than they were a few years ago; the hype around them rests on the same five properties and exceeds what they justify.
 
 ## Page 9
 
@@ -36,7 +36,7 @@ Title card for Part 1, Introduction and Theory, the first of six AI parts in the
 
 ## Page 10
 
-TODO NEW SLIDE
+The AI portion of the bootcamp has six parts. Part 1, Introduction and Theory: how generative models work. Part 2, Prompt Engineering: how to get the most out of a large language model. Part 3, AI Architecture: the components of an AI application. Part 4, Agentic AI: building AI tools that do work, meaning models that call tools and take actions. Part 5, Red Teaming: how to attack AI applications. Part 6: defending them.
 
 ## Page 11
 
@@ -54,7 +54,7 @@ The slide spells Gemini as Gemeni, and the address is gemini.google.com.
 
 ## Page 14
 
-The timeline runs from counting words to generating them. Bag of words: representing a document as the counts of its words; the idea is older than the 2000 on the slide and is credited to Zellig Harris in 1954. Word2Vec, 2013: learned word vectors that capture meaning. Attention Is All You Need, 2017: the paper that introduced the transformer. BERT and GPT, 2018: the first transformer models trained on large corpora, one an encoder for representing text and the other a decoder for generating it. GPT-2 in 2019 and GPT-3 in 2020 scaled the same design up. ChatGPT: the chat interface on top of GPT-3.5 that brought the models to the public. The slide dates it to 2023; OpenAI released it in November 2022.
+The timeline runs from counting words to generating them. Bag of words: representing a document as the counts of its words; the idea is older than the 2000 on the slide and is credited to Zellig Harris in 1954. Word2Vec, 2013: learned word vectors that capture meaning. Attention Is All You Need, 2017: the paper that introduced the transformer. BERT and GPT, 2018: the first transformer models trained on large corpora, one an encoder for representing text and the other a decoder for generating it. GPT-2 in 2019 and GPT-3 in 2020 scaled the same design up. ChatGPT: the chat interface on top of GPT-3.5 that brought the models to the public. The slide dates it to 2023; OpenAI released it in November 2022. Bag of words and Word2Vec are no longer the state of the art, and they remain worth knowing: a problem that a word-count model solves runs faster and costs less than the same problem put to a large language model.
 
 ## Page 15
 
@@ -90,13 +90,13 @@ The scikit-learn pipeline turns TF-IDF into a text classifier in four lines. Fiv
 
 ## Page 22
 
-Word2Vec represents each word as a vector whose values are learned from the words around it. Bag of words records only counts, so it has no way to know that cat and kitten are related. Word2Vec, published by Tomas Mikolov and colleagues at Google in 2013 in the arXiv paper linked on the slide, trains a small neural network on a proxy task: given two words, predict whether they appear near each other in the training text. In the diagram, Cat and Cute are looked up as vectors and fed to the network, which outputs 0.74 as its estimate that they are neighbors. The vectors are the parameters the network adjusts during training, so after enough text has passed through, words that occur in similar contexts have ended up with similar vectors.
+Word2Vec represents each word as a vector whose values are learned from the words around it. Bag of words records only counts, so it has no way to know that cat and kitten are related. Word2Vec, published by Tomas Mikolov and colleagues at Google in 2013 in the arXiv paper linked on the slide, trains a small neural network on a proxy task: given two words, predict whether they appear near each other in the training text. In the diagram, Cat and Cute are looked up as vectors and fed to the network, which outputs 0.74 as its estimate that they are neighbors. The vectors are the parameters the network adjusts during training, so after enough text has passed through, words that occur in similar contexts have ended up with similar vectors. Training one is rarely necessary: pretrained Word2Vec vectors, trained on corpora the size of Wikipedia, are published for download.
 
 Two vectors are compared with cosine similarity, the cosine of the angle between them: one when they point the same way, zero when they are unrelated, and negative when they point in opposite directions. A high cosine similarity between two word vectors means the words are used in similar contexts, which is what the method treats as similar meaning.
 
 ## Page 23
 
-Each column is one word's vector and each row is one dimension of it. The dimensions are labeled animal, newborn, human, plural and fruit to make the picture readable; the dimensions a real Word2Vec model learns have no names, and only the pattern of values matters. Read down the columns: cats and puppy both score high on animal, baby scores high on newborn and human, apple alone scores high on fruit, and cats and houses share a high plural value. Read across a row and the words that share a property have similar values, which is what puts their full vectors close together and makes their cosine similarity high.
+Each column is one word's vector and each row is one dimension of it. The dimensions are labeled animal, newborn, human, plural and fruit to make the picture readable; the dimensions a real Word2Vec model learns have no names, and only the pattern of values matters. Read down the columns: cats and puppy both score high on animal, baby scores high on newborn and human, apple alone scores high on fruit, and cats and houses share a high plural value. Read across a row and the words that share a property have similar values, which is what puts their full vectors close together and makes their cosine similarity high. Cosine similarity is the usual measure of that closeness; any distance metric between vectors, Euclidean distance among them, supports the same comparison.
 
 ## Page 24
 
@@ -144,7 +144,7 @@ The comparison is geometric. Each embedding is a vector from the origin, and cos
 
 ## Page 34
 
-TODO NEW SLIDE
+Three lines do the classification. model.encode on the list of two label descriptions returns two label embeddings. cosine_similarity from scikit-learn takes the matrix of document embeddings and the matrix of label embeddings and returns a matrix with one row per document and one column per label, each cell the cosine similarity between that document and that label. np.argmax along axis one returns, for each row, the index of the column with the highest value. The index refers to the order of the label list: zero is A positive review and one is A negative review, the reverse of the diagram's numbering, so the mapping from index to label has to be read off the list that was encoded. The variable is named sin_matrix although it holds cosine similarities, and the argmax line is missing its closing parenthesis.
 
 ## Page 35
 
@@ -164,7 +164,7 @@ The architecture has two stacks. The encoder stack takes the input tokens I love
 
 ## Page 39
 
-One encoder layer has two sublayers. Each input token arrives as an embedding, the grey vectors. Self-attention updates every token's vector with a mix of all the tokens' vectors, weighted by how relevant each other token is to this one, and produces the yellow vectors. A feedforward neural network then transforms each position's vector separately, producing the blue vectors that leave the layer. The output is one vector per input token, the same count as went in, and each now depends on the tokens around it: llamas after I love carries different values than llamas alone. The slide title is missing an r in Transformers.
+One encoder layer has two sublayers. Each input token arrives as an embedding, the grey vectors. Self-attention updates every token's vector with a mix of all the tokens' vectors, weighted by how relevant each other token is to this one, and produces the yellow vectors. The self marks the difference from earlier attention, which let a translation decoder weigh the positions of a separate encoder; self-attention relates the positions of one sequence to each other, so each token's representation can draw on the whole input. A feedforward neural network then transforms each position's vector separately, producing the blue vectors that leave the layer. The output is one vector per input token, the same count as went in, and each now depends on the tokens around it: llamas after I love carries different values than llamas alone. The slide title is missing an r in Transformers.
 
 ## Page 40
 
@@ -180,7 +180,7 @@ BERT is an encoder-only transformer that produces representations of text. The n
 
 BERT is built for transfer learning in two stages. Stage one, pretraining: the model is trained on a large unlabeled corpus, Wikipedia in the diagram, with the objective of masked language modeling, in which some tokens of each input are hidden and the model must predict them from the tokens around them. No labels are needed, because the text supplies its own answers. This stage is the costly one; the BERT paper reports four days on sixteen TPU chips for the base model.
 
-Stage two, fine-tuning: a pretrained checkpoint is downloaded and trained further on a small labeled set for one task, with a task-specific output layer. The downstream tasks named are classification, named entity recognition, which marks which tokens are people, places and organizations, and paraphrase identification, which decides whether two sentences mean the same thing. The BERT paper reports fine-tuning in at most an hour on a single TPU, which is why the shared pretrained checkpoints are the starting point. Worksheet 9.6 repeats the two stages at small scale: pretrain a mini-GPT on general English, then fine-tune it on CVE descriptions.
+Stage two, fine-tuning: a pretrained checkpoint is downloaded and trained further on a small labeled set for one task, with a task-specific output layer. The author's analogy is a broad college education followed by a specialization: fine-tuning is faster and needs less data and less compute than training from scratch because the pretrained weights already encode the language, and the small labeled set only adjusts them. The downstream tasks named are classification, named entity recognition, which marks which tokens are people, places and organizations, and paraphrase identification, which decides whether two sentences mean the same thing. The BERT paper reports fine-tuning in at most an hour on a single TPU, which is why the shared pretrained checkpoints are the starting point. Worksheet 9.6 repeats the two stages at small scale: pretrain a mini-GPT on general English, then fine-tune it on CVE descriptions.
 
 ## Page 43
 
@@ -192,11 +192,11 @@ Decoder-only transformers, introduced in 2018, are the generative branch. GPT st
 
 ## Page 45
 
-The sizes and costs are estimates from outside the labs, since OpenAI has not published them. GPT-3, released in 2020: 175 billion parameters, roughly 800 GB of weights, trained on about 500 billion tokens, a run estimated at 34 days on 1024 GPUs and about five million dollars. GPT-4, released in 2023: 1.8 trillion parameters in 120 layers, trained on 13 trillion tokens over about 55 days at a cost of 63 million dollars, figures from a 2023 report by the analyst firm SemiAnalysis that OpenAI has not confirmed. Pretraining at this scale costs tens of millions of dollars, so applications are built on models that are already trained, reached through an API or downloaded as weights.
+The sizes and costs are estimates from outside the labs, since OpenAI has not published them. GPT-3, released in 2020: 175 billion parameters, roughly 800 GB of weights, trained on about 500 billion tokens, a run estimated at 34 days on 1024 GPUs and about five million dollars. GPT-4, released in 2023: 1.8 trillion parameters in 120 layers, trained on 13 trillion tokens over about 55 days at a cost of 63 million dollars, figures from a 2023 report by the analyst firm SemiAnalysis that OpenAI has not confirmed. Pretraining at this scale costs tens of millions of dollars, so applications are built on models that are already trained, reached through an API or downloaded as weights. Training is the expensive phase. Inference, one forward pass per generated token, costs a fraction of that per request and is billed by the token, so it is cheap rather than free; the token pricing later in this module is that bill.
 
 ## Page 46
 
-The context window is the maximum number of tokens the model can hold at once, and it counts the prompt and the generated output together. The diagram's model has a maximum context length of 512. The prompt Tell me something about llamas. is six tokens; the two tokens already generated, Llamas and are, bring the current length to eight; the model produces one more token, domesticated, from that context. The new token is appended to the input, the length becomes nine, and the next pass begins. Every generated token uses one slot in the window, so a long answer to a long prompt can run out of room, at which point the model stops or the application drops the oldest tokens. The limit exists because attention compares every token with every other token, so the work for a pass grows with the square of the context length.
+The context window is the maximum number of tokens the model can hold at once, and it counts the prompt and the generated output together. The diagram's model has a maximum context length of 512. The prompt Tell me something about llamas. is six tokens; the two tokens already generated, Llamas and are, bring the current length to eight; the model produces one more token, domesticated, from that context. The new token is appended to the input, the length becomes nine, and the next pass begins. Every generated token uses one slot in the window, so a long answer to a long prompt can run out of room, at which point the model stops or the application drops the oldest tokens. The window is a fixed token budget, so techniques that compress what goes into it, summarizing earlier turns of a conversation or trimming retrieved text to the relevant passages, fit more usable memory into the same limit. The limit exists because attention compares every token with every other token, so the work for a pass grows with the square of the context length.
 
 ## Page 47
 
@@ -234,7 +234,7 @@ Providers retire models. Older, cheaper models are deprecated in favor of larger
 
 ## Page 55
 
-Three subword tokenization methods cover the models in use. Byte-Pair Encoding, BPE: builds its vocabulary by repeatedly merging the most frequent adjacent pair of tokens; the GPT series uses it. WordPiece: Google's variant used by BERT, which chooses merges by how much they improve the likelihood of the training text and marks a word-continuing piece with a ## prefix, the notation seen in the vocalization example earlier in this deck. SentencePiece: a Google library that tokenizes raw text without first splitting on spaces, treating the space as a character in its own right, which is what lets one method serve languages that do not use spaces. The slide title reads Tozenization.
+Three subword tokenization methods cover the models in use. Byte-Pair Encoding, BPE: builds its vocabulary by repeatedly merging the most frequent adjacent pair of tokens; GPT-2, the later GPT models and RoBERTa use it. WordPiece: Google's variant used by BERT, which chooses merges by how much they improve the likelihood of the training text and marks a word-continuing piece with a ## prefix, the notation seen in the vocalization example earlier in this deck. SentencePiece: a Google library that tokenizes raw text without first splitting on spaces, treating the space as a character in its own right, which is what lets one method serve languages that do not use spaces; T5 uses it. The slide title reads Tozenization.
 
 ## Page 56
 
@@ -242,7 +242,7 @@ Splitting on spaces is the simplest tokenizer and it leaves punctuation attached
 
 ## Page 57
 
-Splitting off punctuation removes the duplicate entries and creates a new problem. Don't becomes three tokens, Don, the apostrophe and t, and t on its own carries no meaning. A tokenizer that knows English contractions produces Do and n't, where n't is the negation, and rule-based tokenizers such as spaCy do this. Rules of that kind are what a word-level tokenizer needs for every case in every language, and the vocabulary that results is large: the Hugging Face tokenizer summary the slide draws on gives Transformer-XL's space-and-punctuation vocabulary of 267,735 entries as the example. Every entry needs a row in the embedding table, and the rare ones are seen too seldom in training to get a useful vector.
+Splitting off punctuation removes the duplicate entries and creates a new problem. Don't becomes three tokens, Don, the apostrophe and t, and t on its own carries no meaning. A tokenizer that knows English contractions produces Do and n't, where n't is the negation, and rule-based tokenizers such as spaCy do this. Rules of that kind are what a word-level tokenizer needs for every case in every language, and the vocabulary that results is large: the Hugging Face tokenizer summary the slide draws on gives Transformer-XL's space-and-punctuation vocabulary of 267,735 entries as the example. Every entry needs a row in the embedding table, and the rare ones are seen too seldom in training to get a useful vector. Splitting into single characters is the simpler alternative, with a vocabulary of the characters in the corpus; the same Hugging Face summary gives its costs, sequences several times longer and units that carry no meaning of their own, so the model has to learn every word from its letters.
 
 ## Page 58
 
@@ -282,7 +282,7 @@ The scenario is an application that answers product reviews with a language mode
 
 ## Page 66
 
-TODO NEW SLIDE
+The application's instruction to the model is the system message shown: act as an agent that answers Amazon product reviews, thank the customer for a positive review, apologize and give the support address for a negative one. The review is passed as the user message. Nothing in the system message limits the length or the language of the reply, and that gap is what the review exploits.
 
 ## Page 67
 
@@ -290,7 +290,7 @@ The model did what the review asked. The reply thanks the customer in English an
 
 ## Page 68
 
-TODO NEW SLIDE
+UNRESOLVED
 
 ## Page 69
 
@@ -310,13 +310,13 @@ Worksheet 9.4 builds the first two boxes of the workflow by hand: a BPE tokenize
 
 ## Page 73
 
-A language model produces one token per pass. The prompt goes in, the model outputs a single token, that token is appended to the prompt, and the extended prompt goes in again for the next one. In the diagram the prompt asks for an apology email to Sarah, and the first four passes yield Dear, Sarah, a comma and a newline; punctuation and line breaks are tokens like any other. A response of a few hundred tokens is a few hundred passes, which is why output length drives both latency and cost, and why the output-token price is the higher one.
+A language model produces one token per pass. The prompt goes in, the model outputs a single token, that token is appended to the prompt, and the extended prompt goes in again for the next one. In the diagram the prompt asks for an apology email to Sarah, and the first four passes yield Dear, Sarah, a comma and a newline; punctuation and line breaks are tokens like any other. A response of a few hundred tokens is a few hundred passes, which is why output length drives both latency and cost, and why the output-token price is the higher one. Every token it emits is an entry in the tokenizer's vocabulary table, the same table that split the prompt, so each word in the output is assembled from the pieces that table holds.
 
 ## Page 74
 
 Each pass ends with a probability for every token in the vocabulary. The model's last layer produces a score per token, and a softmax turns the scores into probabilities that sum to one; in the diagram, Dear has forty percent, Title thirteen, To eight and Hi two. A decoding strategy then picks one token from that distribution. Greedy decoding takes the highest, Dear here, every time. Sampling picks at random with probability proportional to the values, so Title is chosen about one time in eight.
 
-Temperature is the parameter that controls the sampling. It rescales the scores before the softmax: a temperature near zero sharpens the distribution until sampling behaves like greedy decoding, and a higher temperature flattens it so lower-ranked tokens are chosen more often, which makes the output more varied. The distribution is recomputed after every token, so one different choice early changes every probability that follows it.
+Temperature is the parameter that controls the sampling. It rescales the scores before the softmax: a temperature near zero sharpens the distribution until sampling behaves like greedy decoding, and a higher temperature flattens it so lower-ranked tokens are chosen more often, which makes the output more varied. The distribution is recomputed after every token, so one different choice early changes every probability that follows it. The same selection is where hallucination comes from. The model emits the token that is probable after what precedes it, with no representation of whether the sentence it is building is true, so a fluent falsehood and a fluent fact are produced by the same step.
 
 ## Page 75
 
@@ -326,7 +326,7 @@ Word order reaches the model by a separate route. Positional encodings are added
 
 ## Page 76
 
-Worksheet 9.5 implements the attention head from the preceding slides in PyTorch, with the query, key and value projections, the softmax and the causal mask, stacks heads into transformer blocks, and trains a small GPT that generates text.
+Worksheet 9.5 implements the attention head of the preceding slide in PyTorch, with the query, key and value projections, the softmax and the causal mask, stacks heads into transformer blocks, and trains a small GPT that generates text.
 
 ## Page 77
 
@@ -334,15 +334,15 @@ A question put to a chat model, and its answer, follow.
 
 ## Page 78
 
-TODO NEW SLIDE
+The question is nonsense from end to end. It has the form of a cloud certification exam item: a scenario at a financial services company, a set of requirements, four lettered options naming AWS services. None of the services exists, and neither do the glimglom, the wibblenibbet, frobnication or the Grumbleflux standards. The only true content is the format.
 
 ## Page 79
 
-TODO NEW SLIDE
+The model answered with confidence. It chose option C and gave a reason for each requirement in turn: Zimzam is purpose-built for glimglom scenarios, its Blarglefoo integration provides frobnication shielding, only Zimzam supports quibble-threading. Each reason is assembled from words in the question, which is what completion by probability looks like: the training data includes exam questions of this shape followed by answers of this shape, and the most probable continuation of the question is an answer that picks an option and justifies it. No step in the process checks whether Zimzam exists.
 
 ## Page 80
 
-TODO NEW SLIDE
+The summary repeats the verdict with a check mark: Zimzam is the only option that meets every requirement, final answer C. No part of the reply says that the services are unknown or that the question cannot be answered.
 
 ## Page 81
 
@@ -374,15 +374,15 @@ Damien Charlotin, a legal researcher in Paris, maintains a public database of co
 
 ## Page 87
 
-TODO NEW SLIDE
+The slide embeds a web video: a recording of a court hearing, published on the YouTube channel Audit the Court in May 2026, in which the judge questions a lawyer about having used AI. The database on the preceding slide is built from written decisions; the hearing is where one of them starts. The video is at https://www.youtube.com/watch?v=T_0MjD-UGaE.
 
 ## Page 88
 
-TODO NEW SLIDE
+Three Google AI Overview results from May 2024, the week the feature launched in the United States. Asked how many rocks to eat, it advised at least one small rock per day, citing geologists at UC Berkeley; the source was a satirical article in The Onion. Asked about cheese sliding off pizza, it suggested adding an eighth of a cup of non-toxic glue to the sauce; the source was a joke comment on Reddit. Asked how to pass kidney stones quickly, it advised drinking two quarts of urine every twenty-four hours, a garbling of medical advice to produce that much. The overview system retrieves pages and summarizes them, and the summarizer cannot tell satire from advice or notice that a sentence it rewrote now says the opposite of its source.
 
 ## Page 89
 
-TODO NEW SLIDE
+The query 1000 km to tomatoes is nonsense, and the overview answered it anyway: one thousand tomatoes equal one kilotomato. The cited source is a Reddit post about a mnemonic, five tomatoes for the 5,280 feet in a mile, which the model combined with the kilo prefix into a fluent sentence. This is the Zimzam question again in a search box: a well-formed query gets a well-formed answer regardless of whether one exists.
 
 ## Page 90
 
@@ -404,7 +404,7 @@ A non-deterministic workflow has to be tested across many runs and many inputs. 
 
 ## Page 94
 
-Language models are non-deterministic by construction. Each token is drawn from a distribution, and a temperature of zero narrows the draw without making the output fixed: providers do not guarantee identical output for identical input, because batching and floating-point arithmetic on the GPU can change which of two near-equal tokens ranks first, and the model behind a name is updated over time. Any application that needs the same answer twice has to be designed around that.
+Language models are non-deterministic by construction. Each token is drawn from a distribution, and a temperature of zero narrows the draw without making the output fixed: providers do not guarantee identical output for identical input, because batching and floating-point arithmetic on the GPU can change which of two near-equal tokens ranks first, and the model behind a name is updated over time. Some describe the variation as a feature rather than a defect, since it is what produces a different draft on each request; an application that needs the same answer twice has to be designed around it either way.
 
 ## Page 95
 
