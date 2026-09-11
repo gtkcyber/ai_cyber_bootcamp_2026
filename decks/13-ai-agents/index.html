@@ -72,7 +72,7 @@
       <img class="page" src="pages/p007.webp" alt="GTK Cyber Components of AI Agents • Inputs: The information which the agent receives from the environment. This can be images, media or text. • Goal or Reward Function: The goal is">
     </div>
     <aside class="notes">
-      <p>The three components come from the reinforcement learning definition of an agent. Inputs are whatever the environment supplies; for a security agent that is an alert, an email, a log record, or the result of a tool call. The goal is the end state the agent works toward: in reinforcement learning it is a reward signal the agent maximizes, and for a prompted LLM agent it is the objective stated in the system prompt. Actions are the moves available, which for an LLM agent means its tool list plus the option to answer.</p>
+      <p>The three components come from the reinforcement learning definition of an agent. Inputs are whatever the environment supplies; for a security agent that is an alert, an email, a log record, or the result of a tool call. The goal is the end state the agent works toward: in reinforcement learning it is a reward signal the agent maximizes, and for a prompted LLM agent it is the objective stated in the system prompt. Actions are the moves available, which for an LLM agent means its tool list plus the option to answer. A fourth component is state, a record of what earlier steps produced that later steps can read. In the loop on the previous page it is the accumulating conversation; in the lab it is an explicit state object that every step reads and writes.</p>
     </aside>
   </section>
   <section data-page="8">
@@ -97,6 +97,7 @@
     </div>
     <aside class="notes">
       <p>Level 3 adds cycles. A tool result can send control back to the model, which can pick any tool again, so the number of possible paths grows exponentially with the number of iterations and cannot be enumerated. Testing every path is impossible, so the controls have to bound what any path can do: restricting tools, sandboxing execution, capping iterations, and gating consequential actions on a person. The ReAct agents built in this module's lab are level 3 systems.</p>
+<p>The unpredictability also costs money. Companies that deployed level 3 agents to replace staff paid for every iteration as a model call and still needed people to review the results. The projected savings did not arrive: Gartner forecast in June 2025 that over 40 percent of agentic AI projects would be canceled by the end of 2027, citing escalating costs, unclear business value, and inadequate risk controls.</p>
     </aside>
   </section>
   <section data-page="11">
@@ -104,7 +105,7 @@
       <img class="page" src="pages/p011.webp" alt="GTK Cyber Reason and Act (ReAct)">
     </div>
     <aside class="notes">
-      <p>ReAct interleaves reasoning with action. The name is from the 2022 paper "ReAct: Synergizing Reasoning and Acting in Language Models" by Shunyu Yao and colleagues, and the figure is theirs. The left panel is reason-only prompting such as chain of thought: the model writes reasoning traces and feeds them back to itself with no contact with the outside world, so a wrong intermediate fact goes unchecked. The middle panel is act-only systems such as SayCan and WebGPT: the model emits actions and receives observations from an environment, with no written reasoning between them. ReAct closes both loops around one model: a thought, then an action, then an observation, then the next thought informed by what the action returned.</p>
+      <p>ReAct interleaves reasoning with action. The name is from the 2022 paper "ReAct: Synergizing Reasoning and Acting in Language Models" by Shunyu Yao and colleagues, and the figure is theirs. The left panel is reason-only prompting such as chain of thought: the model writes reasoning traces and feeds them back to itself with no contact with the outside world, so a wrong intermediate fact goes unchecked. The middle panel is act-only systems such as SayCan and WebGPT: the model emits actions and receives observations from an environment, with no written reasoning between them. ReAct closes both loops around one model: a thought, then an action, then an observation, then the next thought informed by what the action returned. The cycle matches the OODA loop, observe, orient, decide, act, the decision cycle the US Air Force colonel John Boyd described for air combat and that security operations later took up for incident response: observation is the same step in both, the thought covers orient and decide, and the action is act.</p>
     </aside>
   </section>
   <section data-page="12">
@@ -153,7 +154,7 @@
       <img class="page" src="pages/p017.webp" alt="GTK Cyber When to Use an Agent • The task is open-ended and the steps are not known in advance. • The number of steps varies from one input to the next. • The work benefits from to">
     </div>
     <aside class="notes">
-      <p>An agent earns its cost when the path cannot be written in advance. Open-ended tasks where the steps depend on what earlier steps reveal, tasks whose length varies from one input to the next, work that improves with tool lookups and repeated reasoning, and cases where a better answer justifies extra tokens and seconds all qualify. An investigation that starts from one alert and branches on what each lookup returns is the shape the lab builds.</p>
+      <p>Define the problem and what a successful result is before choosing any AI for it; without a success criterion there is no way to show that an agent improves on what it replaced. An agent earns its cost when the path cannot be written in advance. Open-ended tasks where the steps depend on what earlier steps reveal, tasks whose length varies from one input to the next, work that improves with tool lookups and repeated reasoning, and cases where a better answer justifies extra tokens and seconds all qualify. An investigation that starts from one alert and branches on what each lookup returns is the shape the lab builds.</p>
     </aside>
   </section>
   <section data-page="18">

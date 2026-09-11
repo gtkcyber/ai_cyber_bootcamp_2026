@@ -33,7 +33,7 @@
   </section>
   <section data-page="3">
     <div class="page-stack">
-      <img class="page" src="pages/p003.webp" alt="GTK Cyber ( S o u r ce : Xav i e r G i r o - o - N i e to) Computer vision took a quantum leap in 2012 with AlexNet • 1000 object classes • Images • 1.2 Million to train • 100K to ">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber ImageNet challenge (Source: Xavier Giro-o-Nieto) Computer vision took a quantum leap in 2012 with AlexNet • 1000 object classes • Images • 1.2 Million to train • 100K to ">
     </div>
     <aside class="notes">
       <p>ImageNet is a labeled image collection, and the ImageNet Large Scale Visual Recognition Challenge is the annual competition that ran on it from 2010 to 2017. Entrants trained a classifier on 1.2 million labeled images spanning 1000 object classes and were scored on 100,000 held-out test images. The classes are fine grained: mite, container ship, motor scooter and leopard are four of them, and the alternatives a classifier has to rule out include black widow and tick for the mite, or jaguar and cheetah for the leopard.</p>
@@ -45,13 +45,13 @@
       <img class="page" src="pages/p004.webp" alt="GTK Cyber Why? https://www.researchgate.net/figure/Winner-results-of-the-ImageNet-large-scale-visual-recognition-challenge-LSVRC-of-the_fig7_324476862">
     </div>
     <aside class="notes">
-      <p>The chart plots the top-5 error of each year's winning entry: the share of test images on which the correct label is missing from the entry's five highest-scored guesses. The 2011 winner, from the Xerox Research Centre Europe, scored 26 percent with hand-designed features feeding a conventional classifier. AlexNet cut that to 16.4 percent in 2012, and every winner after it was a deeper convolutional network: ZF, from Zeiler and Fergus, in 2013; VGG, from Oxford's Visual Geometry Group, and GoogLeNet, from Google, in 2014; ResNet, Microsoft Research's residual network, in 2015; and GoogLeNet-v4 in 2016, at 3.1 percent.</p>
+      <p>The chart plots the top-5 error of each year's winning entry: the share of test images on which the correct label is missing from the entry's five highest-scored guesses. The 2011 winner, from the Xerox Research Centre Europe, scored 26 percent with hand-designed features feeding a conventional classifier. AlexNet cut that to 16.4 percent in 2012 and was the only entry that year built on a deep network. Two years later nearly every entry was, and every winner after 2012 was a deeper convolutional network: ZF, from Zeiler and Fergus, in 2013; VGG, from Oxford's Visual Geometry Group, and GoogLeNet, from Google, in 2014; ResNet, Microsoft Research's residual network, in 2015; and GoogLeNet-v4 in 2016, at 3.1 percent.</p>
 <p>The red bar is an estimate of human top-5 error on the same test set, about 5 percent, measured with a trained annotator. The 2015 winner passed it. That is the answer to the question in the title: within three years of AlexNet, a network with learned features labeled these images more accurately than a person.</p>
     </aside>
   </section>
   <section data-page="5">
     <div class="page-stack">
-      <img class="page" src="pages/p005.webp" alt="GTK Cyber What is Deep Learning? Hand-crafted Features Trainable Classifier Traditional Computer Vision Low-level Features Trainable Classifier Mid-level Features High-level Featur">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber What is Deep Learning? Hand-crafted Features Trainable Classifier Traditional Computer Vision Traditional Computer Vision Low-level Features Trainable Classifier Mid-leve">
     </div>
     <aside class="notes">
       <p>Deep learning replaces engineered feature extraction with feature extraction learned from data. In the traditional computer vision pipeline at the top, a person designs the feature detectors, edge and corner detectors, color histograms and the like, and only the classifier at the end is fit to labeled data. Any pattern the hand-crafted features fail to capture is invisible to the classifier.</p>
@@ -68,7 +68,7 @@
   </section>
   <section data-page="7">
     <div class="page-stack">
-      <img class="page" src="pages/p007.webp" alt="GTK Cyber Recap of learning architectures Category 1: • Here you know what the answer should look like. There is a teacher-signal, a gold standard, labeled-data that you are compar">
+      <img class="page" src="pages/p007.webp" alt="GTK Cyber Recap of learning architectures Category 1: • • Here you know what the answer should look like. There is a teacher-signal, a gold standard, labeled-data that you are comp">
     </div>
     <aside class="notes">
       <p>Learning algorithms fall into two categories by whether the answer is available during training. Supervised learning has a teacher signal: each training observation comes with a label, the gold standard the model's output is compared against, and the support vector machines and regression models of earlier modules are examples. Unsupervised learning has no labels; the algorithm searches for structure in the observations, such as clusters, with nothing to compare against. Neural networks can be trained either way, and this module trains them the supervised way: the labels are the person a fingerprint belongs to and whether a URL is malicious.</p>
@@ -84,7 +84,7 @@
   </section>
   <section data-page="9">
     <div class="page-stack">
-      <img class="page" src="pages/p009.webp" alt="GTK Cyber The Biological Neuron Input (from other neurons) Output (to other neurons) h t t p s : //e n . w i k i p e d i a . o r g / w i k i / N e u r o n">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber The Biological Neuron Input (from other neurons) Output (to other neurons) https://en.wikipedia.org/wiki/Neuron">
     </div>
     <aside class="notes">
       <p>The biological neuron is the template for the artificial one. Dendrites receive signals from other neurons; the cell body sums them; when the sum crosses a threshold the neuron fires, sending a pulse down the axon; the axon terminals pass that pulse to the dendrites of the next neurons. The whole cell reduces to an input side, an integrating body with a threshold, and an output side, and the connections between cells strengthen or weaken with use.</p>
@@ -100,7 +100,7 @@
   </section>
   <section data-page="11">
     <div class="page-stack">
-      <img class="page" src="pages/p011.webp" alt="GTK Cyber The Artificial Neuron Encapsulates three main aspects of a biological neuron • Primarily a threshold element (‘firing’) • Nonlinear response (i.e. thresholding is not a s">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber The Artificial Neuron Encapsulates three main aspects of a biological neuron • • Primarily a threshold element (‘firing’) • Nonlinear response (i.e. thresholding is not a">
     </div>
     <aside class="notes">
       <p>Three properties of the biological neuron survive in the artificial one. Thresholding: the unit fires, meaning its output switches, when the weighted input crosses a level. Nonlinearity: the relationship between input and output bends, since a threshold cannot be expressed as a straight line. Adaptivity: the weights, the artificial synapse strengths, change during training. Together these abstract integrate-and-fire behavior: add up the inputs, fire when the total is large enough.</p>
@@ -109,7 +109,7 @@
   </section>
   <section data-page="12">
     <div class="page-stack">
-      <img class="page" src="pages/p012.webp" alt="GTK Cyber Perceptron Has: 1.Inputs (x1 x2 x3) 2.Weights, w (1,-0,75,0.25) 3.Combination/integration function: Typically summation (sum) 4.Activation function (threshold function, h">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber Perceptron Has: 1. Inputs (x1 x2 x3) 2. Weights, w (1,-0,75,0.25) 3. Combination/integration function: Typically summation (sum) 4. Activation function (threshold functio">
     </div>
     <aside class="notes">
       <p>A perceptron has six parts.</p>
@@ -129,15 +129,15 @@
   </section>
   <section data-page="14">
     <div class="page-stack">
-      <img class="page" src="pages/p014.webp" alt="GTK Cyber Multi-layer Perceptron h t t p s : / / w w w . c c . g a t e c h . e d u / ~ s a n 3 7 / p o s t / d l h c - f n n /">
+      <img class="page" src="pages/p014.webp" alt="GTK Cyber Multi-layer Perceptron https://www.cc.gatech.edu/~san37/post/dlhc-fnn/">
     </div>
     <aside class="notes">
-      <p>A multi-layer perceptron arranges perceptrons in layers. The input layer holds the observation's values x0 through xi and does no computation. Each unit in the hidden layer is a perceptron that receives every input, weights it, sums and applies its activation. Each unit in the output layer is another perceptron whose inputs are the hidden layer's outputs. Every unit in one layer connects to every unit in the next, the arrangement called fully connected or dense, and the number of hidden units and hidden layers is the designer's choice.</p>
+      <p>A multi-layer perceptron arranges perceptrons in layers. The input layer holds the observation's values x0 through xi and does no computation. Each unit in the hidden layer is a perceptron that receives every input, weights it, sums and applies its activation. Each unit in the output layer is another perceptron whose inputs are the hidden layer's outputs. Every unit in one layer connects to every unit in the next, the arrangement called fully connected or dense, and the number of hidden units and hidden layers is the designer's choice. Training sets the weights: an observation is fed through a network whose weights start random, the output is compared with the observation's label, every weight is adjusted by calculus in the direction that reduces the gap, and the next observation is presented.</p>
     </aside>
   </section>
   <section data-page="15">
     <div class="page-stack">
-      <img class="page" src="pages/p015.webp" alt="GTK Cyber Basic operation of a neural network Initialize with random weights Observations 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Present a training pattern">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Basic operation of a neural network Initialize with random weights Present a training pattern Feed through to output 1.4 2.7 1.9 0.8 1.4 2.7 1.9 Compare to target, calcul">
     </div>
     <aside class="notes">
       <p>Training a neural network is a loop of guess, compare and correct. The example network takes three inputs and produces one output, and the training data is four observations with three values each and a target of 0 or 1.</p>
@@ -175,7 +175,7 @@
   </section>
   <section data-page="19">
     <div class="page-stack">
-      <img class="page" src="pages/p019.webp" alt="GTK Cyber Finding the right parameters Observations 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Compare to target, calculate Error 0.8 1.4 2.7 1.9 Error = .8 – ">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber Finding the right parameters Compare to target, calculate Error 0.8 1.4 2.7 1.9 Error = .8 – 0 = 0.8 Modify weights based on Loss function 0.8 1.4 2.7 1.9">
     </div>
     <aside class="notes">
       <p>The toy example and the general diagram describe the same two steps. On the left are the two panels from the training loop: compare the network's output with the target to get the error, then modify the weights according to the loss. On the right are the boxes those panels correspond to: the loss function, which takes the predictions and the targets and produces the error, and the arrow back to the parameters, which is the weight modification. The model box and the data box are the rest of the loop, the forward computation that produced the prediction.</p>
@@ -249,7 +249,7 @@
   </section>
   <section data-page="27">
     <div class="page-stack">
-      <img class="page" src="pages/p027.webp" alt="GTK Cyber Backpropagation: Computational Graphs Perspective. 27 Computation at each graph node in 2 stages: Stage 1: Forward pass Stage 2: Backward pass">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber Backpropagation: Computational Graphs Perspective. Computation at each graph node in 2 stages: Stage 1: Forward pass Stage 2: Backward pass">
     </div>
     <aside class="notes">
       <p>Every node in a computational graph does the same two-stage job, whatever operation it holds. Stage 1, the forward pass: the node receives its inputs x and y, applies its operator f, and emits z equal to f of x and y, keeping the inputs for later. Stage 2, the backward pass: the node receives the derivative of the overall loss J with respect to its output z, multiplies it by the local derivative of z with respect to each input, and passes the results, the derivative of J with respect to x and with respect to y, to the nodes that fed it. The chain rule is applied one node at a time, and a node needs nothing beyond its own operator and the number handed to it from the right. Computing the gradient of an entire network therefore becomes a local computation, and a library can differentiate any model it can assemble from such nodes.</p>
@@ -265,7 +265,7 @@
   </section>
   <section data-page="29">
     <div class="page-stack">
-      <img class="page" src="pages/p029.webp" alt="GTK Cyber Neural Network Architecture: • One input node per pixel. • Two hidden layers • One output layer • Nodes in one layer is only connected to nodes in next layer (feed forwar">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Network Architecture and Features Neural Network Architecture: • One input node per pixel. • Two hidden layers • One output layer • Nodes in one layer is only connected t">
     </div>
     <aside class="notes">
       <p>The running example is handwritten digit recognition. Each digit is a small grayscale image, drawn here as a grid of 7 columns by 9 rows, 63 pixels in all, numbered 1 to 63 across the rows. The input layer has one node per pixel, so 63 input nodes, and the value of each node is whether that pixel is dark.</p>
@@ -274,7 +274,7 @@
   </section>
   <section data-page="30">
     <div class="page-stack">
-      <img class="page" src="pages/p030.webp" alt="GTK Cyber ….. 1 63 1 63 Each hidden unit has pattern of connection/weights that abstracts a certain aspect of the input. They act as self-organized pattern detectors. 7 7 e.g. This">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber ANNs: Network Connection Weights ….. 1 63 1 63 Each hidden unit has pattern of connection/weights that abstracts a certain aspect of the input. They act as self-organized">
     </div>
     <aside class="notes">
       <p>The question is how a network of weighted sums comes to recognize a 9. The answer is in the weights of the hidden units. Each hidden unit connects to all 63 inputs, and after training its 63 weights form a pattern: large weights on some pixels, near-zero weights on others. A unit responds strongly when the dark pixels of the image line up with its large weights, so each unit is a detector for one spatial pattern in the input, and the pattern emerged during training.</p>
@@ -291,7 +291,7 @@
   </section>
   <section data-page="32">
     <div class="page-stack">
-      <img class="page" src="pages/p032.webp" alt="GTK Cyber ANNs: Feature Detection in Layers What type of feature are recognized by the units ? ….. 63 . . . . . . Higher order features detected by subsequent layers Initial layer ">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber ANNs: Feature Detection in Layers What type of feature are recognized by the units ? What type of feature are recognized by the units ? ….. 63 . . . . . . Higher order fe">
     </div>
     <aside class="notes">
       <p>Later layers detect combinations of the strokes found by the first layer. The first-layer units along the top each respond to a line at a specific position: a horizontal bar across the top row, a vertical bar in one column, and so on. A unit in the next layer takes those units as its inputs, and its weights select a combination of them. Several horizontal detections at neighboring rows make a horizontal line detector that tolerates position; several vertical detections make a vertical stroke detector; the ring of small detections on the right makes an upper loop detector. A top stroke, an upper loop and a descending stroke together are a 9, so the layer after that can hold a unit for the digit itself. Feature complexity grows with depth: pixels, then lines at fixed positions, then lines and loops, then digits. This is the low-level, mid-level, high-level hierarchy of the deep learning pipeline.</p>
@@ -299,7 +299,7 @@
   </section>
   <section data-page="33">
     <div class="page-stack">
-      <img class="page" src="pages/p033.webp" alt="GTK Cyber Deep Neural Networks: Two Architectures • We’ll work on two types of networks • Convolutional neural networks (CNNs) • Mostly used for images and static data • Recurrent ">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber Deep Neural Networks: Two Architectures • We’ll work on two types of networks • Convolutional neural networks (CNNs) • Mostly used for images and static data • • Recurren">
     </div>
     <aside class="notes">
       <p>Two architectures are used in the rest of the module. Convolutional neural networks, CNNs, are built for images and other static data, inputs whose structure is spatial and whose size is fixed. Recurrent neural networks, RNNs, are built for sequences and time-stamped data, inputs whose structure is an order in time and whose length varies. Both are modifications of the fully connected feedforward network.</p>
@@ -310,7 +310,7 @@
       <img class="page" src="pages/p034.webp" alt="GTK Cyber Convolutional Neural Networks">
     </div>
     <aside class="notes">
-      <p>This part covers convolutional neural networks: convolution and pooling as spatial filters, and the assignment of subsets of units to parts of the input.</p>
+      <p>This part covers convolutional neural networks: convolution and pooling as spatial filters, and the assignment of subsets of units to parts of the input. The convolutional network is the architecture most often meant by the phrase deep neural network: the ImageNet winners from 2012 on were all convolutional networks.</p>
     </aside>
   </section>
   <section data-page="35">
@@ -325,8 +325,8 @@
   </section>
   <section data-page="37">
     <div class="page-stack">
-      <img class="page" src="pages/p036.webp" alt="GTK Cyber 36 1. Filter the high-dimensional information in space: Convolution + Pooling i. Convolution (feature extraction) + Convolution Example: CNNs Idea 1 : Handling hi-dimensi">
-      <img class="page fragment" src="pages/p037.webp" alt="GTK Cyber 37 1. Filter the high-dimensional information in space: Convolution + Pooling i. Convolution (feature extraction) + Convolution Example: CNNs Idea 1 : Handling hi-dimensi">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber CNNs Idea 1 : Handling hi-dimensional patterns space 1. Filter the high-dimensional information in space: Convolution + Pooling i. Convolution (feature extraction) + Conv">
+      <img class="page fragment" src="pages/p037.webp" alt="GTK Cyber CNNs Idea 1 : Handling hi-dimensional patterns space 1. Filter the high-dimensional information in space: Convolution + Pooling i. Convolution (feature extraction) + Conv">
     </div>
     <aside class="notes">
       <p>Convolution slides a small kernel over the image and records, at each position, how strongly the patch under the kernel matches it. The kernel is a small grid of weights, here three by three, in blue. Placing it over the top-left three by three patch of the image, multiplying each pixel by the weight above it and adding the nine products gives one number, the top-left cell of the convolved feature. Sliding the kernel one pixel to the right and repeating fills the next cell, and so on across and down the image; a six by six image with a three by three kernel yields a four by four convolved feature. The kernel's weights are learned by training, so each kernel becomes a detector for one local pattern, and a convolutional layer has many kernels, each producing its own feature map.</p>
@@ -335,7 +335,7 @@
   </section>
   <section data-page="38">
     <div class="page-stack">
-      <img class="page" src="pages/p038.webp" alt="GTK Cyber ii. Pooling (reduce information further). a) Filter the output of the convolution further. b) Typically uses a spatial kernel that calculates maximum or average 1. Filter">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber CNNs Idea 1 : Handling hi-dimensional patterns space i. i. Pooling (reduce information further). a) Filter the output of the convolution further. b) Typically uses a spat">
     </div>
     <aside class="notes">
       <p>The same two operations with numbers. The image is a five by five grid of ones and zeros. The kernel is three by three, with a weight of one at the four corners and the center and zero elsewhere; the small subscripts on the highlighted patch are those weights. Multiplying the nine pixels of the bottom-right patch by the weights and adding gives four ones and five zeros, so the bottom-right cell of the convolved feature is 4. Repeating at every position produces the three by three feature map, since a five by five image offers a three by three kernel nine positions. The cells holding 4 mark patches whose ones fall where the kernel's ones are, which is what it means for a kernel to detect a pattern.</p>
@@ -353,40 +353,40 @@
   </section>
   <section data-page="40">
     <div class="page-stack">
-      <img class="page" src="pages/p040.webp" alt="GTK Cyber Convolutional Neural Architecture https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural- networks-the-eli5-way-3bd2b1164a53 https://medium.com/@cur">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber Convolutional Neural Architecture https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-netwo rks-the-eli5-way-3bd2b1164a53 https://medium.com/@cur">
     </div>
     <aside class="notes">
-      <p>The diagram is the full pipeline for a classifier that labels an image as a car, truck, van or bicycle. The input is a color image, drawn as stacked planes, one per color channel. Convolution plus ReLU produces a block of feature maps; ReLU, the rectified linear unit, is an activation function that outputs its input when the input is positive and zero otherwise, and it is the activation applied after each convolution here. Pooling shrinks the block, and a second convolution plus ReLU and a second pooling repeat the pair on smaller, more abstract maps. That ends feature learning.</p>
+      <p>The diagram is the full pipeline for a classifier that labels an image as a car, truck, van or bicycle. The input is a color image, drawn as stacked planes, one per color channel. Convolution plus ReLU produces a block of feature maps; ReLU, the rectified linear unit, is an activation function that outputs its input when the input is positive and zero otherwise, and it is the activation applied after each convolution here. Pooling shrinks the block, and a second convolution plus ReLU and a second pooling repeat the pair on smaller, more abstract maps. That ends feature learning. The kernels in both convolution stages are weights, initialized at random and set by the same backpropagation that trains the dense layers, so the features the pipeline extracts are learned from the training images rather than designed by hand. The stack of stages between input and output is what the word deep refers to.</p>
 <p>Classification begins with flatten, which unrolls the final block of maps into a single vector, the same unrolling of a grid into a row used for the digit pixels earlier. A fully connected layer maps that vector to one score per class, and softmax converts the scores into probabilities that add up to one, so the output reads as the probability that the image is each of the classes.</p>
     </aside>
   </section>
   <section data-page="41">
     <div class="page-stack">
-      <img class="page" src="pages/p041.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 8.1: Deep Learning CNN Fingerprints">
-    </div>
-    <aside class="notes">
-      <p>Worksheet 8.1 trains a convolutional network on fingerprint images. The data is a set of grayscale fingerprint scans from ten people, several scans each, and the task is multi-class: predict which person a scan belongs to.</p>
-<p>The steps: split the scans by person into training, validation and test sets in a 70, 15, 15 ratio; resize every image to 160 by 160, normalize it and keep it grayscale; build a CNN in Keras, the high-level Python interface that runs on TensorFlow, from convolution, pooling and dense layers; compile it with Adam, an optimizer that adapts the step size per parameter, and a cross-entropy loss, the standard loss for classification; choose the epochs and batch size; fit with early stopping, which halts training when the validation loss stops improving, and a checkpoint callback that saves the model each epoch; and report accuracy on the test set.</p>
-<p>A second exercise reuses VGG16, Oxford's 2014 ImageNet entry, with its pretrained convolutional layers frozen and a new dense classifier trained on top. That is transfer learning: the feature detectors learned on 1.2 million photographs are kept, and only the classifier is fit to the fingerprints. The layers are frozen because a freshly initialized classifier produces large errors at first, and backpropagation would push those errors into the pretrained weights and damage them. The worksheet also asks for a function that takes one raw scan, predicts its owner and checks the prediction, the core of a fingerprint authentication system.</p>
-    </aside>
-  </section>
-  <section data-page="42">
-    <div class="page-stack">
-      <img class="page" src="pages/p042.webp" alt="GTK Cyber Deep Learning for Everyone!">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Deep Learning for Everyone!">
     </div>
     <aside class="notes">
       <p>Deep learning became accessible through a three-part stack: hardware, a framework and a wrapper. NVIDIA graphics processors supply the arithmetic; training is millions of weighted sums and their derivatives, which a graphics processor executes in parallel. The worksheets run on a CPU, and a GPU shortens their training. TensorFlow, released by Google in 2015, is the framework: a backend written in C that runs the computational graph, and a frontend in Python for defining it. Keras is the high-level wrapper: a Python API in which a network is a list of layers and training is a single call, so the graph construction and the training loop are handled by the library.</p>
 <p>Each layer of the stack has alternatives. The list here names Theano and Torch as other backends, and Lasagne, Caffe, Pylearn2 and Chainer as other high-level APIs. Torch's Python successor, PyTorch, is the library the URL worksheet uses.</p>
     </aside>
   </section>
-  <section data-page="43">
+  <section data-page="42">
     <div class="page-stack">
-      <img class="page" src="pages/p043.webp" alt="GTK Cyber Terminology Deep Learning is performed in an iterative fashion! This means only part of all training data is used at a time. • Batch Size: number of training examples in ">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber Terminology Deep Learning is performed in an iterative fashion! This means only part of all training data is used at a time. • Batch Size: number of training examples in ">
     </div>
     <aside class="notes">
       <p>Training processes the data in batches, and three terms count the work.</p>
 <ul><li>Batch size: the number of training examples pushed through one forward and backward pass together, so one weight update. Memory sets the ceiling, since the whole batch and its activations must fit in RAM at once. In the URL worksheet a batch is a set of URLs.</li><li>Iterations: the number of batches processed, one weight update each.</li><li>Epoch: one forward and backward pass over all of the training data, that is, enough iterations to visit every example once.</li></ul>
 <p>With 1000 training examples and a batch size of 500, two iterations make one epoch. A batch of one is stochastic gradient descent and a batch of the whole set is batch gradient descent; sizes in between, called mini-batches, keep most of the speed of the stochastic version with less noise per step. Batch size and number of epochs are both hyperparameters that the training call requires, in Keras and PyTorch alike. A batch size of 32 is a common default; the fingerprint worksheet uses 64 for 20 epochs and the URL worksheet uses 512 for 3 epochs.</p>
+    </aside>
+  </section>
+  <section data-page="43">
+    <div class="page-stack">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber In Class Exercise Complete Worksheet 8.1: Deep Learning CNN Fingerprints">
+    </div>
+    <aside class="notes">
+      <p>Worksheet 8.1 trains a convolutional network on fingerprint images. The data is a set of grayscale fingerprint scans from ten people, 80 scans each, and the task is multi-class: predict which person a scan belongs to.</p>
+<p>The steps: split the scans by person into training, validation and test sets in a 70, 15, 15 ratio; resize every image to 160 by 160, normalize it and keep it grayscale; build a CNN in Keras, the high-level Python interface that runs on TensorFlow, from convolution, pooling and dense layers; compile it with Adam, an optimizer that adapts the step size per parameter, and a cross-entropy loss, the standard loss for classification; choose the epochs and batch size; fit with early stopping, which halts training when the validation loss stops improving, and a checkpoint callback that saves the model each epoch; and report accuracy on the test set.</p>
+<p>A second exercise reuses VGG16, Oxford's 2014 ImageNet entry, with its pretrained convolutional layers frozen and a new dense classifier trained on top. That is transfer learning: the feature detectors learned on 1.2 million photographs are kept, and only the classifier is fit to the fingerprints. The layers are frozen because a freshly initialized classifier produces large errors at first, and backpropagation would push those errors into the pretrained weights and damage them. The worksheet also asks for a function that takes one raw scan, predicts its owner and checks the prediction, the core of a fingerprint authentication system.</p>
     </aside>
   </section>
   <section data-page="44">
@@ -399,7 +399,7 @@
   </section>
   <section data-page="45">
     <div class="page-stack">
-      <img class="page" src="pages/p045.webp" alt="GTK Cyber 45 Data sequences and data in time So far, we have been dealing with data that is temporally/sequentially invariant. i.e. no specific relationship in time But many data a">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber Data sequences and data in time So far, we have been dealing with data that is temporally/sequentially invariant. i.e. no specific relationship in time But many data are ">
     </div>
     <aside class="notes">
       <p>Everything so far treats the order of the inputs as meaningless. The two digit networks make the point: one reads the pixels row by row and the other column by column, and for classification they are equivalent, because a fully connected layer applies a separate weight to every input and any consistent reordering of the inputs is absorbed by reordering the weights. Nothing in the network records that pixel 2 came after pixel 1.</p>
@@ -408,7 +408,7 @@
   </section>
   <section data-page="46">
     <div class="page-stack">
-      <img class="page" src="pages/p046.webp" alt="GTK Cyber Recurrent neural networks (RNNs) Recurrent neural networks (RNNs) are a class of neural networks that have both feedforward and feedback connections. Feedforward Neural N">
+      <img class="page" src="pages/p046.webp" alt="GTK Cyber Recurrent neural networks (RNNs) Recurrent neural networks (RNNs) are a class of neural networks that have both feedforward and feedback connections. Recurrent neural net">
     </div>
     <aside class="notes">
       <p>A recurrent neural network has feedback connections as well as feedforward ones. In a feedforward network, drawn on the left in its layer form, information moves in one direction, input to hidden to output. Such a network has a fixed number of inputs and no way to relate one input to the one before it, so it cannot take a sequence whose length varies; text is the standard example.</p>
@@ -435,7 +435,7 @@
   </section>
   <section data-page="49">
     <div class="page-stack">
-      <img class="page" src="pages/p049.webp" alt="GTK Cyber 49 Long short-term memory (LSTM) LSTMs utilize for gates: 1. Forget gate: decides what information should be thrown away or kept from previous step. 2. Input gate: decide">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber Long short-term memory (LSTM) LSTMs utilize for gates: 1. Forget gate: decides what information should be thrown away or kept from previous step. 2. Input gate: decides w">
     </div>
     <aside class="notes">
       <p>Two gated cells are in common use. Long short-term memory, LSTM, carries a separate cell state along the top of the diagram, the horizontal line that crosses the cell touched only by one multiplication and one addition, and controls it with four gates.</p>

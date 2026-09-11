@@ -22,7 +22,7 @@ The interlude covers pie charts: what a reader has to judge to extract a value f
 
 ## Page 6
 
-The photograph is a pie chart in the literal sense. Its two categories are the pie eaten and the pie not yet eaten, and the eaten wedge is about a quarter of the whole. A quarter is a share the eye can name because the wedge's two edges meet at a right angle.
+A pie chart suits a rough comparison at a glance and nothing more precise, because it encodes each share as the angle and area of a wedge and comparing the areas of wedges is a weak visual task. The photograph is a pie chart in the literal sense. Its two categories are the pie eaten and the pie not yet eaten, and the eaten wedge is about a quarter of the whole, a share the eye can name because the wedge's two edges meet at a right angle.
 
 ## Page 7
 
@@ -30,7 +30,7 @@ The chart is its own data. The title asks what percentage of the chart resembles
 
 ## Page 8
 
-Six wedges hold 35, 29, 11, 10, 8 and 7 percent. Without the printed labels a reader recovers each share from the angle its wedge subtends at the center, and angle is a weak cue: Cleveland and McGill's experiments ranked angle judgments below position judgments in accuracy. The four small wedges show the cost. They differ by one to three percentage points, their angles differ by a few degrees, and nothing in the drawing lets a reader order them without the labels.
+The plain pie is the chart the rest of the section varies, and it keeps both cues a pie offers: the angle at the center and the arc and area of each wedge. Each variant that follows takes away or distorts one of these cues. Six wedges hold 35, 29, 11, 10, 8 and 7 percent. Without the printed labels a reader recovers each share from the angle its wedge subtends at the center, and angle is a weak cue: Cleveland and McGill's experiments ranked angle judgments below position judgments in accuracy. The four small wedges show the cost. They differ by one to three percentage points, their angles differ by a few degrees, and nothing in the drawing lets a reader order them without the labels.
 
 ## Page 9
 
@@ -64,7 +64,7 @@ This part covers plotting in Python: the libraries available, the pandas plot me
 
 Five libraries cover the plotting in this course, at different levels of abstraction.
 
-- Matplotlib: the base library that pandas and Seaborn draw with. Every element of a figure can be set, at the cost of writing code for each one.
+- Matplotlib: the base library that pandas and Seaborn draw with, and the oldest of the five. John Hunter first released it in 2003 to give Python the plotting commands of MATLAB, and its `pyplot` module, a set of functions that draw on whichever figure is current, still follows that model. Every element of a figure can be set, at the cost of writing code for each one.
 - pandas plotting: the `plot` method on a Series or DataFrame, which calls Matplotlib's pyplot interface with defaults. A line, bar or histogram takes one line of code; a more complex chart requires reshaping the data first.
 - Seaborn: statistical charts such as distributions, regression fits and pairwise plots, built from a DataFrame and column names, with grouping and styling handled by the function.
 - Altair: a declarative library, meaning the code states which columns map to which visual channels and the library decides how to draw them. It is built on the Vega-Lite grammar and renders in the browser.
@@ -94,7 +94,7 @@ Seaborn is a statistical plotting library built on Matplotlib, and `sns` is its 
 
 ## Page 22
 
-The DataFrame is built from random integers so that the chart has no structure to find. `np.random.randint(0, 100, size=(100, 4))` fills a 100 by 4 array with integers from 0 to 99, the columns are named A through D, and a fifth column, `category`, holds the remainder of C divided by three, which is 0, 1 or 2. `sns.scatterplot` draws one dot per row at the position given by columns A and B. Because the columns were drawn independently, the dots spread evenly with no trend, which is the correct picture of independent variables.
+A scatter plot can carry more than two columns at once: two on the axes, and others through the shape, color and size of the marker, which the pages that follow add. The DataFrame is built from random integers so that the chart has no structure to find. `np.random.randint(0, 100, size=(100, 4))` fills a 100 by 4 array with integers from 0 to 99, the columns are named A through D, and a fifth column, `category`, holds the remainder of C divided by three, which is 0, 1 or 2. `sns.scatterplot` draws one dot per row at the position given by columns A and B. Because the columns were drawn independently, the dots spread evenly with no trend, which is the correct picture of independent variables.
 
 ## Page 23
 
@@ -110,7 +110,7 @@ Two more arguments map columns to properties of the marker. `hue` maps column D 
 
 ## Page 27
 
-`pairplot` draws every pairwise combination of the numeric columns in one grid. Each off-diagonal cell is a scatter plot of one column against another, and each diagonal cell is a histogram of a single column. `hue` names a column whose values color the points and split the histograms, so the grid doubles as a check of how well the measurements separate the classes. The example is the iris dataset: 150 flowers of three species with four measurements each. Petal length and petal width separate setosa from the other two species with a clear gap, and the two remaining species overlap on sepal width. A grid of n columns has n squared cells, so the plot suits a handful of columns.
+`pairplot` draws every pairwise combination of the numeric columns in one grid. Each off-diagonal cell is a scatter plot of one column against another, and each diagonal cell is a histogram of a single column. `hue` names a column whose values color the points and split the histograms, so the grid doubles as a check of how well the measurements separate the classes. That check is a first pass at feature selection, choosing which columns to give a model: a column whose classes separate in its cells carries signal a classifier can use, and one whose classes overlap in every cell contributes little on its own. The example is the iris dataset: 150 flowers of three species with four measurements each. Petal length and petal width separate setosa from the other two species with a clear gap, and the two remaining species overlap on sepal width. A grid of n columns has n squared cells, so the plot suits a handful of columns.
 
 ## Page 28
 

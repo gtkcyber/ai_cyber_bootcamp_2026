@@ -12,7 +12,7 @@ The slides, notebooks and anything handed out alongside them are copyright 2026 
 
 ## Page 4
 
-Day 1 lays the foundations. Introduction: this module. Getting Security Data and Vectorized Data Structures: the NumPy arrays and pandas DataFrames that hold a dataset in memory, and where security data comes from (Worksheet 1.1). Exploratory Data Analysis: summarizing and inspecting a dataset before modeling it. Data Visualization: plotting with pandas, Matplotlib and Seaborn, and interactive dashboards in Streamlit (Worksheets 2.1 and 2.2). Feature Engineering: turning raw records into the numeric columns a model consumes (Worksheet 3.1).
+Day 1 lays the foundations, and it comes before the modeling days because data that cannot be accessed cannot be analyzed: getting records into memory, inspecting them and shaping them into features is the prerequisite of every model on the later days. Introduction: this module. Getting Security Data and Vectorized Data Structures: the NumPy arrays and pandas DataFrames that hold a dataset in memory, and where security data comes from (Worksheet 1.1). Exploratory Data Analysis: summarizing and inspecting a dataset before modeling it. Data Visualization: plotting with pandas, Matplotlib and Seaborn, and interactive dashboards in Streamlit (Worksheets 2.1 and 2.2). Feature Engineering: turning raw records into the numeric columns a model consumes (Worksheet 3.1).
 
 Day 2 is machine learning proper. Machine learning classifiers: training, tuning and automating a supervised model, with the detection of algorithmically generated domains as the running example (Worksheets 4.1 to 4.3). Building unsupervised clustering models: grouping records without labels (Worksheet 5.1). Anomaly Detection: finding the records that do not fit (Worksheet 6.1). Red Teaming ML Models: attacking a trained model, including an adversarial-example attack on an image classifier (Worksheets 7.1 and 7.2). Exploratory Data Analysis is listed a second time under Day 2; it is the Day 1 topic.
 
@@ -32,7 +32,7 @@ The remaining three training days, August 2 through August 4, 2026, share one sc
 
 ## Page 8
 
-Ask questions as they come up. Run the examples yourself while they are presented; the labs assume you have. Every exercise's answer is in a slide deck or in the GitHub repository, and the request is that you attempt each exercise before opening it. The course Slack channel is where questions, links and fixes are posted between sessions.
+Ask questions as they come up. Run the examples yourself while they are presented; the labs assume you have. Every exercise's answer is in a slide deck or in the GitHub repository, and the request is that you attempt each exercise before opening it. The course Slack channel is monitored during class, so a question typed there is answered without waiting for a pause, and links and fixes are posted there between sessions.
 
 ## Page 9
 
@@ -40,15 +40,15 @@ Everything for the course is in one GitHub repository, at the address on the sli
 
 ## Page 10
 
-This part introduces the four instructors.
+This part introduces the instructors.
 
 ## Page 11
 
-Summer Rankin holds a PhD in complex systems and brain sciences, worked as a computational neuroscientist on auditory and music perception at Johns Hopkins, was an AI solution architect at Booz Allen Hamilton serving the Department of Defense, the FDA, the CDC, the Office of the National Coordinator for Health IT and the Centers for Medicare and Medicaid Services, and is now a principal solution architect.
+Charles Givre, CISSP, is a principal engineer at Wells Fargo, was lead data scientist at JPMorgan Chase and senior lead data scientist at Booz Allen Hamilton, spent five years at the CIA, chairs the Project Management Committee of Apache Drill and coauthored the O'Reilly book Learning Apache Drill, and holds an undergraduate degree in computer science and music.
 
 ## Page 12
 
-Charles Givre, CISSP, is a principal engineer at Wells Fargo, was lead data scientist at JPMorgan Chase and senior lead data scientist at Booz Allen Hamilton, spent five years at the CIA, chairs the Project Management Committee of Apache Drill and coauthored the O'Reilly book Learning Apache Drill, and holds an undergraduate degree in computer science and music.
+Summer Rankin holds a PhD in complex systems and brain sciences, worked as a computational neuroscientist on auditory and music perception at Johns Hopkins, was an AI solution architect at Booz Allen Hamilton serving the Department of Defense, the FDA, the CDC, the Office of the National Coordinator for Health IT and the Centers for Medicare and Medicaid Services, and is now a principal solution architect at an employer the slide leaves undisclosed.
 
 ## Page 13
 
@@ -56,39 +56,39 @@ Tim Swagger is a consultant and fractional CTO with extensive startup work, has 
 
 ## Page 14
 
-Curtis Lambert, CISSP, is a specialist solutions architect at Databricks, was senior lead data scientist at Booz Allen Hamilton, has twenty years supporting the intelligence community, and restores trucks.
+This part defines artificial intelligence and places large language models within it.
 
 ## Page 15
 
-This part defines artificial intelligence and places large language models within it.
+The image macro is a joke about the hype that surrounds large language models, with the caption welcoming it in a villain's voice.
 
 ## Page 16
 
-The image macro is a joke about the hype that surrounds artificial intelligence.
+The sign is the standard no-bull symbol: the definitions that follow are meant to hold without the hype.
 
 ## Page 17
 
-The sign is the standard no-bull symbol: the definitions that follow are meant to hold without the hype.
+The question is put to the room before any definition is offered. The term is applied to everything from a regular expression that flags a malicious URL to a chat model, and a definition fixes which of those count. Write yours down before reading on.
 
 ## Page 18
 
-The question is put to the room before any definition is offered. The term is applied to everything from a regular expression that flags a malicious URL to a chat model, and a definition fixes which of those count. Write yours down before reading on.
+The working definition is that artificial intelligence is any activity that mimics human behavior. It is deliberately broad: under it a chess program, a spam filter and a chat model all qualify, since each replaces a judgment a person would otherwise make. The definition is taken from a 2017 KDnuggets article by RapidMiner on the distinctions among AI, machine learning and deep learning.
 
 ## Page 19
 
-The working definition is that artificial intelligence is any activity that mimics human behavior. It is deliberately broad: under it a chess program, a spam filter and a chat model all qualify, since each replaces a judgment a person would otherwise make. The definition is taken from a 2017 KDnuggets article by RapidMiner on the distinctions among AI, machine learning and deep learning.
+Artificial intelligence and large language models are not the same thing; the operator on the slide is the programmer's not-equal sign. A large language model, LLM for short, is one kind of AI system: a neural network trained on text to predict the next token, used through prompts. The field it belongs to also holds the classifiers, clustering methods, anomaly detectors, and image and sequence networks that fill the first two days of this course.
 
 ## Page 20
 
-Artificial intelligence and large language models are not the same thing; the operator on the slide is the programmer's not-equal sign. A large language model, LLM for short, is one kind of AI system: a neural network trained on text to predict the next token, used through prompts. The field it belongs to also holds the classifiers, clustering methods, anomaly detectors, and image and sequence networks that fill the first two days of this course.
+The greater-than sign is read as written: the field of artificial intelligence is larger than the language models inside it. Classifiers, regression models, clustering and anomaly detectors are all AI methods that involve no language model, and they remain the methods of choice for structured security data such as flow records, log rows and domain strings.
 
 ## Page 21
 
-The greater-than sign is read as written: the field of artificial intelligence is larger than the language models inside it. Classifiers, regression models, clustering and anomaly detectors are all AI methods that involve no language model, and they remain the methods of choice for structured security data such as flow records, log rows and domain strings.
+Language models did not retire the older methods. A task-specific model is trained on an organization's own labeled data, scores every event at line rate on ordinary CPUs, and is measured with precision and recall on a held-out set. A language model handles free text and open-ended reasoning that a fixed feature set cannot encode, at a cost per call that rules it out for scoring a firehose of events.
 
 ## Page 22
 
-Language models did not retire the older methods. A task-specific model is trained on an organization's own labeled data, scores every event at line rate on ordinary CPUs, and is measured with precision and recall on a held-out set. A language model handles free text and open-ended reasoning that a fixed feature set cannot encode, at a cost per call that rules it out for scoring a firehose of events.
+A multiplier scales whatever it is applied to, and zero scaled is still zero. A language model used by someone who understands the task amplifies that understanding: the person can direct the model, judge its output and correct it. Applied to a task the user does not understand, there is nothing to amplify: wrong output cannot be told from right, so the model's errors pass through unchecked.
 
 ## Page 23
 
@@ -100,7 +100,7 @@ They are expensive. Producing each output token requires a pass through billions
 
 ## Page 24
 
-A deterministic task has an exact procedure: parsing a timestamp, computing a hash, checking whether an address falls inside a CIDR block, matching a pattern. Code that implements the procedure is right every time and costs nothing per call. Handing the same task to a language model routes it through a GPU, returns the answer inside text that still has to be parsed, and can return a different or wrong answer on a repeat.
+A deterministic task has an exact procedure: parsing a timestamp, computing a hash, checking whether an address falls inside a CIDR block, matching a pattern. Code that implements the procedure is right every time and costs nothing per call. Handing the same task to a language model routes it through a GPU, returns the answer inside text that still has to be parsed, and can return a different or wrong answer on a repeat. The better use of a language model on such a task is at development time, helping to write the code that implements the procedure; the code then runs without the model.
 
 ## Page 25
 
@@ -108,7 +108,7 @@ This part defines machine learning through three published definitions and sorts
 
 ## Page 26
 
-The three terms nest. Artificial intelligence is the outer set, any technique that lets a computer mimic human behavior, and it includes hand-written rule systems and search as well as learning. Machine learning is the subset that uses statistical methods so that a program improves with experience, meaning its behavior is fitted to data rather than written out by a programmer. Deep learning is the subset of machine learning built on neural networks with many layers, which became practical once GPUs made the training computation feasible. Every deep learning model is a machine learning model, and every machine learning model is AI; the converse fails at each step.
+The three terms nest. Artificial intelligence is the outer set, any technique that lets a computer mimic human behavior, and it includes hand-written rule systems and search as well as learning. Chess is the example of AI without learning: its rules are fully known and can be programmed directly, so a chess engine is a search over legal moves. Machine learning is the subset for problems whose rules are not known or are hard to define formally; it uses statistical methods so that a program improves with experience, meaning its behavior is fitted to data rather than written out by a programmer. Deep learning is the subset of machine learning built on neural networks with many layers, which became practical once GPUs made the training computation feasible, and a large language model, being a neural network, sits in this innermost set. Every deep learning model is a machine learning model, and every machine learning model is AI; the converse fails at each step.
 
 ## Page 27
 
@@ -124,21 +124,25 @@ The Wikipedia definition names the artifact: a model, built from example inputs,
 
 ## Page 30
 
-The photograph is a can of SPAM, the Hormel canned pork product whose name became the word for unsolicited bulk email by way of a Monty Python sketch in which the word is chanted until it drowns out everything else.
+The photograph is a can of SPAM, the Hormel canned pork product whose name became the word for unsolicited bulk email by way of a Monty Python sketch in which the word is chanted until it drowns out everything else. Email spam is the case followed here, and it starts with rules: the first defense email providers built was a list of keywords, and a message containing one was blocked.
 
 ## Page 31
 
-UNRESOLVED
+The three flavors stand for what happened next: spammers adapted, producing new varieties of message that the keyword lists did not match, and each new variety forced a change in the defense.
 
 ## Page 32
 
 Email spam filtering is the textbook case of the shift from rules to learning, and the four items are its history in order. Blacklists: a list of sender addresses, domains or relays known to send spam, which blocks exactly the senders already on the list and nothing that arrives from a new one. Simple keyword matching: hand-written rules that flag messages containing words associated with spam, which senders defeat by misspelling the words or embedding them in images. Naive Bayesian classifiers: a learned model, popularized for spam by Paul Graham's 2002 essay A Plan for Spam, that estimates the probability a message is spam from how often each of its words appeared in known spam and known legitimate mail, treating the words as independent evidence; it is trained on the recipient's own mail and adapts as senders change their vocabulary. Deep learning: neural networks over the message text and headers that learn their own representation of what spam looks like.
+
+Machine learning has largely defeated spam as a nuisance. Unsolicited mail remains one of the main attack vectors, now as the carrier of phishing and malware.
 
 ## Page 33
 
 Supervised learning fits a model to records that already carry the answer. Each training record is a set of features paired with a label, such as a domain name paired with the verdict malicious or benign, and the model is fitted so that its output on the features reproduces the labels. The labels are what make the problem supervised, and they are also its cost: someone or something, an analyst, a sandbox or a threat feed, had to produce a verdict for every training record.
 
 Unsupervised learning fits a model to records with no labels at all. There is no answer to reproduce, so the model describes structure in the features themselves: which records resemble one another, which are far from all the rest, which features move together. What that structure means is decided afterward by a person looking at the output.
+
+Most security problems fall on the supervised side. The question asked of an observed event is whether it is malicious, and a verdict with two possible values is a classification problem, so the applications surveyed later in this module are mostly classifiers.
 
 ## Page 34
 
@@ -148,15 +152,19 @@ The four problem types differ in what the model outputs, and the slide's colors 
 
 The flowchart routes a problem to a method by two questions. The first is whether the data carries labels. With labels, the second is whether the label is a category or a quantity: a quantity calls for regression, which yields a prediction and also inference, since a fitted regression reports how much each feature moves the target; a category calls for classification, which yields a prediction. Without labels, the second question is whether labels could be produced. If they can, at whatever cost in analyst time or sandbox runs, the problem becomes a supervised one and rejoins the upper path. If they cannot, what remains is clustering and pattern finding: recommenders, similarity search and anomaly scoring.
 
-"Nothing proven" is the caution on that last path. A cluster or an anomaly score has no ground truth to be checked against, so the output is a lead for a person to examine, and a claim that it detects attacks has to be established some other way.
+One way to produce labels is to have people produce them as a side effect of something else. reCAPTCHA is the standing example: the distorted words its early versions asked a website's visitors to type were words that optical character recognition had failed to read in scanned books, and each transcription became a label for that image; later versions asked which photograph tiles contain a storefront or a traffic light, and the answers labeled the photographs.
+
+"Nothing proven" is the caution on the last path. A cluster or an anomaly score has no ground truth to be checked against, so there is no correct answer to compare it with; the output is a lead for a person to examine, and a claim that it detects attacks has to be established some other way.
 
 ## Page 36
 
-This part surveys where machine learning is used in security, with network intrusion detection and malware classification as the worked cases.
+This part surveys where machine learning is used in security, with network intrusion detection and malware classification as the worked cases. Whether a host may join the network, whether a message is spam and whether a flow is allowed through are the shape of the applications, each a yes or no, and the first task in any of them is to check that the problem fits a data science method at all.
 
 ## Page 37
 
 Clustering serves anomaly detection because it defines what normal looks like. The sketch is the one-dimensional case: a value tracked over time, a threshold drawn above its usual range, and a spike that crosses the threshold marked as the anomaly. With one measurement a fixed threshold suffices. With many measurements per record, bytes, packets, duration, port and time of day at once, no single line separates normal from abnormal; clustering finds the dense regions where records concentrate, and a record far from every region is the multidimensional equivalent of the spike. The slide's "anything really" is accurate: the method applies to any stream of records with numeric features, traffic, server load, logins or process launches.
+
+Clustering is chosen here because the two kinds of record are unequally available: normal records are plentiful and labeled anomalies are scarce, too few to train a classifier on. K-means, which partitions the records into a chosen number of groups around their centers, is a common choice for the job.
 
 ## Page 38
 
@@ -182,9 +190,13 @@ The string classifiers take a piece of text as the record. Domain generation alg
 
 The traffic problems take a connection or a window of connections as the record. Beaconing detection: an implant that calls its controller on a schedule leaves a regular timing pattern, found by classifying or clustering inter-arrival times. General anomaly detection and denial-of-service detection: the volume and shape of traffic against its usual range. New malware classes: clustering samples so that a group matching no known family stands out. Log anomaly detection: the same over log records. Authentication: classifying a login as the account's owner or someone else from its time, source and behavior.
 
+The working difficulty across the list is false positives. A detector that fires on benign events buries the real ones in alerts, and an analyst who works a queue of false alarms stops trusting the queue; that is alert fatigue, and it decides whether a deployed model is used. The aim is not to replace the analyst but to extend what one analyst can cover.
+
 ## Page 41
 
 The funnel is Austin Taylor's 2017 picture of where machine learning sits in threat hunting. Everything at the top is network traffic, produced naturally and all of it in scope. Machine learning makes the first cut, separating the anomalous fraction from the normal bulk; the figure puts that fraction at ten percent. Domain knowledge, meaning an analyst who knows the environment, makes the second cut to what is interesting, one to five percent, and the third to what is potentially bad, a thousandth of a percent. At the bottom is the malicious traffic.
+
+Taylor's examples for the machine learning cut are finding periodic communication, the regular timing of an infected host calling its command and control server; scoring user agent strings with a Markov model, which rates a string by how likely each character is given the one before it, and keeping the least likely; and flagging DNS requests for domains with high entropy or flagged as algorithmically generated. The examples for the domain knowledge cut are the questions an analyst asks of what remains: whether the domain is in the Umbrella, Majestic or Alexa top one million, whether the IP address is a known Tor node, whether either carries a blacklist or threat intelligence association, who owns the IP space, and how recently the domain was registered.
 
 The ordering is the lesson. A model does the coarse, high-volume reduction that no analyst could do by hand, and a person does the fine reduction that needs context the model does not have. Neither stage replaces the other.
 
@@ -232,7 +244,7 @@ Five constraints sit outside the data itself and can stop a project that the dat
 
 ## Page 52
 
-Exploring the data before modeling it answers the four questions on the right. The figure is a pair plot of the iris dataset, Ronald Fisher's 1936 set of 150 flowers from three species, with four measurements each. Each off-diagonal panel plots one measurement against another with a point per flower colored by species; each diagonal panel is the histogram of one measurement. The plot shows that setosa, in blue, separates from the other two species on petal length and petal width alone, while versicolor and virginica overlap on every pair. That is an answer to "is the data good enough": good enough to separate one class cleanly, and a warning that the other two will be confused. The same plot on a security dataset shows which features carry signal, which are redundant with one another, and whether the classes are balanced, before any model is fitted.
+Exploring the data before modeling it answers the four questions on the right. The figure is a pair plot of the iris dataset, Ronald Fisher's 1936 set of 150 flowers from three species, with four measurements each. Each off-diagonal panel plots one measurement against another with a point per flower colored by species; each diagonal panel is the histogram of one measurement. The plot shows that setosa, in blue, separates from the other two species on petal length and petal width alone, while versicolor and virginica overlap on every pair. That is an answer to "is the data good enough": good enough to separate one class cleanly, and a warning that the other two will be confused. The same plot on a security dataset shows which features carry signal, which are redundant with one another, and whether the classes are balanced, before any model is fitted. Exploration is not a step done once and left behind. It continues through the project, since every change to the data or the features raises the same four questions again, and most of a project's effort goes here rather than into fitting the model.
 
 ## Page 53
 
@@ -240,31 +252,23 @@ Feature engineering fixes the shape of the table a model will consume. The obser
 
 ## Page 54
 
-One observation, a shark, is represented as three features of three kinds. Color is a categorical feature, one value from a set of names. Fins is a numeric feature, a count. Predator is a boolean feature, true or false. Each kind is encoded differently before modeling: a category becomes one indicator column per possible value, a count is used as is or rescaled, and a boolean becomes zero or one.
-
-## Page 56
-
-The same three features describe a dolphin with the same three values: gray, seven fins, a predator. On those features a shark and a dolphin are the same row, and no model, however good, can tell them apart, because the information that separates them is not in the table. Adding a fourth feature, Mammal, true for the dolphin and false for the shark, separates them with a single column. Whether a feature set is adequate depends on which distinctions the analytic question needs. When the table has no column that differs between two classes, no change of model separates them; the fix is a feature.
-
-## Page 57
-
 Fitting the model is the easy step because it is a library call. Scikit-learn, Spark's MLlib, TensorFlow, Keras and R's caret each expose an algorithm as an object with a fit method and a predict method; the algorithms themselves are implemented, tested and documented already. Tuning, the search over an algorithm's settings for the combination that scores best, is automated by the same libraries, and packages that search over algorithms as well as settings automate the whole step (Worksheet 4.3). Splunk and Elasticsearch ship model fitting inside the log platform, so that a model can be trained and applied to the indexed data without exporting it.
 
-## Page 58
+## Page 55
 
 Evaluation is done with a scoring function, and the score is chosen to match the cost of being wrong. Libraries supply the standard ones, among them F1, the harmonic mean of precision and recall, and the area under the receiver operating characteristic curve, which summarizes the trade between true positives and false positives across every threshold. When the costs are asymmetric, a missed fraud costing more than a false alarm, a custom scorer that weights each error by its cost is a few lines of code and a better guide than any standard metric.
 
 The second bullet is the loop. A disappointing score returns the work to the first step, the analytic question, and from there to the data and the features. The Monopoly reference means that there is no shortcut past those steps to the model.
 
-## Page 59
+## Page 56
 
 The exercise applies the process to credit card fraud detection, which shares the shape of a security detection problem: a stream of transactions, a small fraction of them bad, and a decision required on each one. The six questions follow the steps in order. Features and data sets are the feature engineering and data source steps. Legal and policy challenges are the constraints on cardholder data. Other challenges are the biases, latency and volume questions. Defining success is the choice of a scoring measure. Articulating the value to stakeholders is the translation of that measure into money saved and customers not inconvenienced.
 
-## Page 60
+## Page 57
 
 This part lists the Python libraries the course draws on, grouped by the step of the process they serve, and the books recommended for going further.
 
-## Page 61
+## Page 58
 
 The libraries are grouped by process step. Data gathering: pandas reads CSV, JSON, Excel and SQL results into a DataFrame; Apache Drill runs SQL queries directly over files, NoSQL stores and cloud storage without loading them into a database; BeautifulSoup parses HTML; PyDBAPI refers to Python's standard database interface, which every SQL driver implements; PyDAL is a database abstraction layer; Boto3 is the AWS SDK for Python. Feature extraction: pandas and NumPy for column arithmetic, and Featuretools for generating features automatically from related tables.
 
@@ -272,51 +276,53 @@ Machine learning splits in two. The libraries labeled regular are for models fit
 
 Visualization: Matplotlib is the base plotting library and Seaborn a statistical layer over it; Yellowbrick draws diagnostic plots for scikit-learn models; LIME explains an individual prediction by fitting a simple local model around it; ggplot is a port of R's grammar of graphics; and plot.ly produces interactive charts.
 
-## Page 62
+## Page 59
 
-Aurélien Géron's Hands-On Machine Learning with Scikit-Learn and TensorFlow, from O'Reilly, works through the process taught in this module with code: an end-to-end project in scikit-learn first, then neural networks in TensorFlow.
+Aurélien Géron's Hands-On Machine Learning with Scikit-Learn and TensorFlow, from O'Reilly, works through the process taught in this module with code: an end-to-end project in scikit-learn first, then neural networks in TensorFlow. The instructor who recommends it calls it the best book on machine learning in Python they have read.
 
-## Page 63
+## Page 60
 
 Deep Learning, by Ian Goodfellow, Yoshua Bengio and Aaron Courville, published by MIT Press in 2016, is the standard textbook on neural networks, from the linear algebra and probability they rest on through convolutional and recurrent architectures, and the full text is free to read at the address on the slide.
 
-## Page 64
+## Page 61
 
-Machine Learning and Security, by Clarence Chio and David Freeman, from O'Reilly, covers the application of machine learning to intrusion and malware detection, fraud and abuse, and the ways a deployed model can itself be attacked.
+Machine Learning and Security, by Clarence Chio and David Freeman, from O'Reilly, covers the application of machine learning to intrusion and malware detection, fraud and abuse, and the ways a deployed model can itself be attacked. The instructors' reason for recommending it is its worked examples and use cases of machine learning in security.
 
-## Page 65
+## Page 62
 
-Feature Engineering for Machine Learning, by Alice Zheng and Amanda Casari, from O'Reilly, is a book-length treatment of the step this module gave two slides to: encoding numbers, categories, text and images as features a model can use.
+Feature Engineering for Machine Learning, by Alice Zheng and Amanda Casari, from O'Reilly, is a book-length treatment of the step this module gave a single slide to: encoding numbers, categories, text and images as features a model can use. The instructors single it out because the topic is often passed over in treatments of machine learning.
 
-## Page 66
+## Page 63
 
 Learning Apache Drill, by Charles Givre and Paul Rogers, from O'Reilly, is the guide to the SQL engine listed under data gathering, written by one of this course's instructors.
 
-## Page 67
+## Page 64
 
 This part installs Miniconda, PyCharm Professional, the course repository and the environment defined for modules 1 through 6.
 
-## Page 68
+## Page 65
+
+Conda is open source, runs on Windows, macOS and Linux, and does two jobs: it installs packages with their dependencies, and it creates, saves and switches between environments, each an isolated set of installed packages. It was built for Python and can package software in any language. It is obtained through one of two installers. Anaconda bundles conda with about 7,500 packages already installed, so nothing further has to be downloaded to use them. Miniconda installs conda and its dependencies alone and fetches each package when it is first asked for, so adding a package needs a network connection. Either serves this course; the setup here uses Miniconda.
 
 The Miniconda page lists one installer per platform and CPU architecture, each with its SHA-256 hash. Pick the installer matching your operating system and chip, Apple silicon or Intel on a Mac, and compare the hash of the downloaded file against the listed value before running it. The conda and Python versions bundled with the installer belong to the base environment only; the course environment created later carries its own Python, so the version on the download page does not matter.
 
-## Page 69
+## Page 66
 
 The repository is fetched in one of two ways from the green Code button. Cloning with git gives a working copy that picks up corrections to the labs with a single pull. Downloading the ZIP gives a snapshot that has to be fetched again to get any change. The folders visible in the listing include the data used by the labs and the answers to them.
 
-## Page 70
+## Page 67
 
 This part installs PyCharm and attaches the environment built from the course definition file.
 
-## Page 71
+## Page 68
 
-Setup is four steps in order: install PyCharm, install conda, create the course environment from its definition file, and point PyCharm at that environment so that the project runs inside it.
+Setup is four steps in order: install PyCharm, install conda, create the course environment from its definition file, and point PyCharm at that environment so that the project runs inside it. Nothing on the list starts a Jupyter server: PyCharm manages the notebook server itself, so notebooks run as soon as the environment is attached.
 
-## Page 72
+## Page 69
 
 PyCharm Professional is required rather than the free Community edition because only Professional runs Jupyter notebooks, the form every Python lab takes. Download it from JetBrains and activate the thirty-day trial with a JetBrains account. Miniconda comes from the Anaconda download page. The full written procedure, with per-operating-system steps, is at the course setup page on gtkcyber.com.
 
-## Page 73
+## Page 70
 
 The environment is created from inside PyCharm. Open the downloaded repository as a project, open PyCharm's terminal, which starts in the project root, and run:
 
@@ -326,27 +332,27 @@ conda env create -f environment-1-6.yml
 
 The command reads the file, resolves the packages it lists, downloads them and installs them into a new environment named by the file, gtk-bh-ai-1-6. The 1-6 in the name marks the modules it serves; separate definition files exist for lab 4.3, for modules 7 through 9 and for modules 10 through 13, created the same way when those modules arrive. The prompt in the example begins with (base) because that is conda's default environment, active before any other is chosen.
 
-## Page 74
+## Page 71
 
-The definition file has three keys. The name is what conda calls the environment. The channels are the package repositories conda searches, in order: defaults first, then conda-forge, the community-maintained channel that carries packages the default channel lacks. The dependencies are the packages to install. Python is pinned to 3.13 so that every student gets the same interpreter; the rest are unpinned and resolve to the newest versions compatible with that Python at creation time. Listing pip as a dependency lets the file also name packages that come from PyPI rather than from a conda channel.
+The definition file has three keys. The name is what conda calls the environment. The channels are the package repositories conda searches, in order: defaults first, then conda-forge, the community-maintained channel that carries packages the default channel lacks. The dependencies are the packages to install. Python is pinned to 3.13 so that every student gets the same interpreter; the rest are unpinned and resolve to the newest versions compatible with that Python at creation time. Listing pip as a dependency lets the file also name packages that come from PyPI rather than from a conda channel. The file is also how a team shares one environment: everyone who creates from it gets the same packages. Some data science teams solve the same sharing problem with Docker, which packages an application together with the filesystem it runs on; that is a much larger tool than this course needs, since a file that fixes the package list is enough.
 
-## Page 75
+## Page 72
 
 This part connects PyCharm to the environment's Python interpreter and shows how notebooks are opened and run.
 
-## Page 76
+## Page 73
 
 PyCharm runs and indexes a project with whichever Python interpreter the project is assigned, and a freshly opened project has none, which is the state the screenshot shows. The interpreter is set under Python and then Interpreter in the settings window, reached from the PyCharm menu on macOS and the File menu on Windows and Linux. The Add Interpreter control opens a menu whose first entry, Add Local Interpreter, is the one for an environment on this machine.
 
-## Page 77
+## Page 74
 
 The Add Python Interpreter dialog attaches an environment that already exists, so the choice is Select existing rather than Generate new, which would create an empty environment with none of the course packages. The type is Conda. The path to conda is the conda executable PyCharm will call; the screenshot's machine has a Homebrew install, and a Miniconda install puts it inside the miniconda3 folder under your user profile. The environment dropdown lists what that conda knows about; choose gtk-bh-ai-1-6, and if it is absent, the Reload environments link rescans.
 
-## Page 78
+## Page 75
 
 Two signs confirm the environment is attached. The interpreter field in settings names it with its path on disk, and the status bar in the lower right corner of the PyCharm window shows its name with the Python version it carries. From then on, a terminal opened inside PyCharm starts with the environment active, which conda signals by prefixing the prompt with the environment's name in parentheses.
 
-## Page 79
+## Page 76
 
 The terminal offers the same information as the settings selector. The command lists every environment conda manages, one per line with its directory, and marks the active one with an asterisk. The listing on the slide comes from a different machine and an earlier year of the course, which is why it shows an Anaconda base and an environment named gtk-bh-ai; on a machine set up this year the entry to look for is gtk-bh-ai-1-6 under the Miniconda directory.
 
@@ -354,11 +360,11 @@ The terminal offers the same information as the settings selector. The command l
 conda env list
 ```
 
-## Page 80
+## Page 77
 
 Clicking the environment name in the status bar opens the interpreter menu, which lists every environment added to the project and switches the project to whichever is chosen. The three listed are the course environments, one each for modules 1 through 6, 7 through 9 and 10 through 13, all on the same Python. Notebooks run in whichever is selected, so switching is how a later module's environment is brought into use once it has been created. The menu also reaches the interpreter settings and package management.
 
-## Page 81
+## Page 78
 
 Deactivating returns the terminal to conda's base environment, and the prompt prefix changes accordingly. It affects only that terminal session: the project interpreter chosen in PyCharm is unchanged, and a new terminal starts in the course environment again. The example prompts on the slide date from an earlier year, with the old gtk-bh-ai environment and a project directory named for Black Hat 2025; on a current setup the before prompt reads gtk-bh-ai-1-6 and the directory is ai_cyber_bootcamp_2026.
 
@@ -366,22 +372,22 @@ Deactivating returns the terminal to conda's base environment, and the prompt pr
 conda deactivate
 ```
 
-## Page 82
+## Page 79
 
 This part shows how a notebook is opened in PyCharm and how its cells are run.
 
-## Page 83
+## Page 80
 
 A notebook is a file of cells, some holding Markdown prose and some holding Python, and the course's labs are all notebooks. The notebooks folder in the project tree holds them, named by worksheet number. Double-clicking one opens it in the editor, where PyCharm Professional renders the Markdown cells as formatted text and gives code cells a toolbar for adding, reordering, running and clearing cells. The worksheet numbering visible in the screenshot predates the current repository; the README lists the current set.
 
-## Page 84
+## Page 81
 
 A cell is run either from the run button in the notebook toolbar, which executes the selected cell, or from the green triangle in the cell's own gutter. Shift and Enter together run the current cell and move to the next. Running a cell sends its code to the kernel, a Python process started from the project environment, and the kernel keeps its state between cells: a variable assigned in one cell, like the raw log line in the example, is available to every cell run after it. Output appears beneath the cell. The double-triangle button beside the run button runs every cell in order.
 
-## Page 85
+## Page 82
 
 Questions on the agenda, the material or the environment setup are taken here.
 
-## Page 86
+## Page 83
 
 The introduction ends here. The first lab, Worksheet 1.1 on vectorized data structures, needs the environment installed and selected in PyCharm.

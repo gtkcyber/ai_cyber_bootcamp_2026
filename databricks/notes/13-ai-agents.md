@@ -32,7 +32,7 @@ The loop ends on a stopping condition. Either the model emits a final answer in 
 
 ## Page 7
 
-The three components come from the reinforcement learning definition of an agent. Inputs are whatever the environment supplies; for a security agent that is an alert, an email, a log record, or the result of a tool call. The goal is the end state the agent works toward: in reinforcement learning it is a reward signal the agent maximizes, and for a prompted LLM agent it is the objective stated in the system prompt. Actions are the moves available, which for an LLM agent means its tool list plus the option to answer.
+The three components come from the reinforcement learning definition of an agent. Inputs are whatever the environment supplies; for a security agent that is an alert, an email, a log record, or the result of a tool call. The goal is the end state the agent works toward: in reinforcement learning it is a reward signal the agent maximizes, and for a prompted LLM agent it is the objective stated in the system prompt. Actions are the moves available, which for an LLM agent means its tool list plus the option to answer. A fourth component is state, a record of what earlier steps produced that later steps can read. In the loop on the previous page it is the accumulating conversation; in the lab it is an explicit state object that every step reads and writes.
 
 ## Page 8
 
@@ -46,9 +46,11 @@ Level 2 lets data choose among fixed branches. The model's output determines whi
 
 Level 3 adds cycles. A tool result can send control back to the model, which can pick any tool again, so the number of possible paths grows exponentially with the number of iterations and cannot be enumerated. Testing every path is impossible, so the controls have to bound what any path can do: restricting tools, sandboxing execution, capping iterations, and gating consequential actions on a person. The ReAct agents built in this module's lab are level 3 systems.
 
+The unpredictability also costs money. Companies that deployed level 3 agents to replace staff paid for every iteration as a model call and still needed people to review the results. The projected savings did not arrive: Gartner forecast in June 2025 that over 40 percent of agentic AI projects would be canceled by the end of 2027, citing escalating costs, unclear business value, and inadequate risk controls.
+
 ## Page 11
 
-ReAct interleaves reasoning with action. The name is from the 2022 paper "ReAct: Synergizing Reasoning and Acting in Language Models" by Shunyu Yao and colleagues, and the figure is theirs. The left panel is reason-only prompting such as chain of thought: the model writes reasoning traces and feeds them back to itself with no contact with the outside world, so a wrong intermediate fact goes unchecked. The middle panel is act-only systems such as SayCan and WebGPT: the model emits actions and receives observations from an environment, with no written reasoning between them. ReAct closes both loops around one model: a thought, then an action, then an observation, then the next thought informed by what the action returned.
+ReAct interleaves reasoning with action. The name is from the 2022 paper "ReAct: Synergizing Reasoning and Acting in Language Models" by Shunyu Yao and colleagues, and the figure is theirs. The left panel is reason-only prompting such as chain of thought: the model writes reasoning traces and feeds them back to itself with no contact with the outside world, so a wrong intermediate fact goes unchecked. The middle panel is act-only systems such as SayCan and WebGPT: the model emits actions and receives observations from an environment, with no written reasoning between them. ReAct closes both loops around one model: a thought, then an action, then an observation, then the next thought informed by what the action returned. The cycle matches the OODA loop, observe, orient, decide, act, the decision cycle the US Air Force colonel John Boyd described for air combat and that security operations later took up for incident response: observation is the same step in both, the thought covers orient and decide, and the action is act.
 
 ## Page 12
 
@@ -74,7 +76,7 @@ Four points on the spectrum, ordered by how much control the model has. Single p
 
 ## Page 17
 
-An agent earns its cost when the path cannot be written in advance. Open-ended tasks where the steps depend on what earlier steps reveal, tasks whose length varies from one input to the next, work that improves with tool lookups and repeated reasoning, and cases where a better answer justifies extra tokens and seconds all qualify. An investigation that starts from one alert and branches on what each lookup returns is the shape the lab builds.
+Define the problem and what a successful result is before choosing any AI for it; without a success criterion there is no way to show that an agent improves on what it replaced. An agent earns its cost when the path cannot be written in advance. Open-ended tasks where the steps depend on what earlier steps reveal, tasks whose length varies from one input to the next, work that improves with tool lookups and repeated reasoning, and cases where a better answer justifies extra tokens and seconds all qualify. An investigation that starts from one alert and branches on what each lookup returns is the shape the lab builds.
 
 ## Page 18
 

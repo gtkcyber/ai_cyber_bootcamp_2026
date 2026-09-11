@@ -14,7 +14,7 @@ The grid is from the paper that introduced AlexNet, the convolutional neural net
 
 ## Page 4
 
-The chart plots the top-5 error of each year's winning entry: the share of test images on which the correct label is missing from the entry's five highest-scored guesses. The 2011 winner, from the Xerox Research Centre Europe, scored 26 percent with hand-designed features feeding a conventional classifier. AlexNet cut that to 16.4 percent in 2012, and every winner after it was a deeper convolutional network: ZF, from Zeiler and Fergus, in 2013; VGG, from Oxford's Visual Geometry Group, and GoogLeNet, from Google, in 2014; ResNet, Microsoft Research's residual network, in 2015; and GoogLeNet-v4 in 2016, at 3.1 percent.
+The chart plots the top-5 error of each year's winning entry: the share of test images on which the correct label is missing from the entry's five highest-scored guesses. The 2011 winner, from the Xerox Research Centre Europe, scored 26 percent with hand-designed features feeding a conventional classifier. AlexNet cut that to 16.4 percent in 2012 and was the only entry that year built on a deep network. Two years later nearly every entry was, and every winner after 2012 was a deeper convolutional network: ZF, from Zeiler and Fergus, in 2013; VGG, from Oxford's Visual Geometry Group, and GoogLeNet, from Google, in 2014; ResNet, Microsoft Research's residual network, in 2015; and GoogLeNet-v4 in 2016, at 3.1 percent.
 
 The red bar is an estimate of human top-5 error on the same test set, about 5 percent, measured with a trained annotator. The 2015 winner passed it. That is the answer to the question in the title: within three years of AlexNet, a network with learned features labeled these images more accurately than a person.
 
@@ -73,7 +73,7 @@ Every neuron and every network is a variation on these pieces. The parameters b 
 
 ## Page 14
 
-A multi-layer perceptron arranges perceptrons in layers. The input layer holds the observation's values x0 through xi and does no computation. Each unit in the hidden layer is a perceptron that receives every input, weights it, sums and applies its activation. Each unit in the output layer is another perceptron whose inputs are the hidden layer's outputs. Every unit in one layer connects to every unit in the next, the arrangement called fully connected or dense, and the number of hidden units and hidden layers is the designer's choice.
+A multi-layer perceptron arranges perceptrons in layers. The input layer holds the observation's values x0 through xi and does no computation. Each unit in the hidden layer is a perceptron that receives every input, weights it, sums and applies its activation. Each unit in the output layer is another perceptron whose inputs are the hidden layer's outputs. Every unit in one layer connects to every unit in the next, the arrangement called fully connected or dense, and the number of hidden units and hidden layers is the designer's choice. Training sets the weights: an observation is fed through a network whose weights start random, the output is compared with the observation's label, every weight is adjusted by calculus in the direction that reduces the gap, and the next observation is presented.
 
 ## Page 15
 
@@ -206,7 +206,7 @@ Two architectures are used in the rest of the module. Convolutional neural netwo
 
 ## Page 34
 
-This part covers convolutional neural networks: convolution and pooling as spatial filters, and the assignment of subsets of units to parts of the input.
+This part covers convolutional neural networks: convolution and pooling as spatial filters, and the assignment of subsets of units to parts of the input. The convolutional network is the architecture most often meant by the phrase deep neural network: the ImageNet winners from 2012 on were all convolutional networks.
 
 ## Page 35
 
@@ -237,25 +237,17 @@ The second idea is in the dashed lines: each unit in a convolution layer is conn
 
 ## Page 40
 
-The diagram is the full pipeline for a classifier that labels an image as a car, truck, van or bicycle. The input is a color image, drawn as stacked planes, one per color channel. Convolution plus ReLU produces a block of feature maps; ReLU, the rectified linear unit, is an activation function that outputs its input when the input is positive and zero otherwise, and it is the activation applied after each convolution here. Pooling shrinks the block, and a second convolution plus ReLU and a second pooling repeat the pair on smaller, more abstract maps. That ends feature learning.
+The diagram is the full pipeline for a classifier that labels an image as a car, truck, van or bicycle. The input is a color image, drawn as stacked planes, one per color channel. Convolution plus ReLU produces a block of feature maps; ReLU, the rectified linear unit, is an activation function that outputs its input when the input is positive and zero otherwise, and it is the activation applied after each convolution here. Pooling shrinks the block, and a second convolution plus ReLU and a second pooling repeat the pair on smaller, more abstract maps. That ends feature learning. The kernels in both convolution stages are weights, initialized at random and set by the same backpropagation that trains the dense layers, so the features the pipeline extracts are learned from the training images rather than designed by hand. The stack of stages between input and output is what the word deep refers to.
 
 Classification begins with flatten, which unrolls the final block of maps into a single vector, the same unrolling of a grid into a row used for the digit pixels earlier. A fully connected layer maps that vector to one score per class, and softmax converts the scores into probabilities that add up to one, so the output reads as the probability that the image is each of the classes.
 
 ## Page 41
 
-Worksheet 8.1 trains a convolutional network on fingerprint images. The data is a set of grayscale fingerprint scans from ten people, several scans each, and the task is multi-class: predict which person a scan belongs to.
-
-The steps: split the scans by person into training, validation and test sets in a 70, 15, 15 ratio; resize every image to 160 by 160, normalize it and keep it grayscale; build a CNN in Keras, the high-level Python interface that runs on TensorFlow, from convolution, pooling and dense layers; compile it with Adam, an optimizer that adapts the step size per parameter, and a cross-entropy loss, the standard loss for classification; choose the epochs and batch size; fit with early stopping, which halts training when the validation loss stops improving, and a checkpoint callback that saves the model each epoch; and report accuracy on the test set.
-
-A second exercise reuses VGG16, Oxford's 2014 ImageNet entry, with its pretrained convolutional layers frozen and a new dense classifier trained on top. That is transfer learning: the feature detectors learned on 1.2 million photographs are kept, and only the classifier is fit to the fingerprints. The layers are frozen because a freshly initialized classifier produces large errors at first, and backpropagation would push those errors into the pretrained weights and damage them. The worksheet also asks for a function that takes one raw scan, predicts its owner and checks the prediction, the core of a fingerprint authentication system.
-
-## Page 42
-
 Deep learning became accessible through a three-part stack: hardware, a framework and a wrapper. NVIDIA graphics processors supply the arithmetic; training is millions of weighted sums and their derivatives, which a graphics processor executes in parallel. The worksheets run on a CPU, and a GPU shortens their training. TensorFlow, released by Google in 2015, is the framework: a backend written in C that runs the computational graph, and a frontend in Python for defining it. Keras is the high-level wrapper: a Python API in which a network is a list of layers and training is a single call, so the graph construction and the training loop are handled by the library.
 
 Each layer of the stack has alternatives. The list here names Theano and Torch as other backends, and Lasagne, Caffe, Pylearn2 and Chainer as other high-level APIs. Torch's Python successor, PyTorch, is the library the URL worksheet uses.
 
-## Page 43
+## Page 42
 
 Training processes the data in batches, and three terms count the work.
 
@@ -264,6 +256,14 @@ Training processes the data in batches, and three terms count the work.
 - Epoch: one forward and backward pass over all of the training data, that is, enough iterations to visit every example once.
 
 With 1000 training examples and a batch size of 500, two iterations make one epoch. A batch of one is stochastic gradient descent and a batch of the whole set is batch gradient descent; sizes in between, called mini-batches, keep most of the speed of the stochastic version with less noise per step. Batch size and number of epochs are both hyperparameters that the training call requires, in Keras and PyTorch alike. A batch size of 32 is a common default; the fingerprint worksheet uses 64 for 20 epochs and the URL worksheet uses 512 for 3 epochs.
+
+## Page 43
+
+Worksheet 8.1 trains a convolutional network on fingerprint images. The data is a set of grayscale fingerprint scans from ten people, 80 scans each, and the task is multi-class: predict which person a scan belongs to.
+
+The steps: split the scans by person into training, validation and test sets in a 70, 15, 15 ratio; resize every image to 160 by 160, normalize it and keep it grayscale; build a CNN in Keras, the high-level Python interface that runs on TensorFlow, from convolution, pooling and dense layers; compile it with Adam, an optimizer that adapts the step size per parameter, and a cross-entropy loss, the standard loss for classification; choose the epochs and batch size; fit with early stopping, which halts training when the validation loss stops improving, and a checkpoint callback that saves the model each epoch; and report accuracy on the test set.
+
+A second exercise reuses VGG16, Oxford's 2014 ImageNet entry, with its pretrained convolutional layers frozen and a new dense classifier trained on top. That is transfer learning: the feature detectors learned on 1.2 million photographs are kept, and only the classifier is fit to the fingerprints. The layers are frozen because a freshly initialized classifier produces large errors at first, and backpropagation would push those errors into the pretrained weights and damage them. The worksheet also asks for a function that takes one raw scan, predicts its owner and checks the prediction, the core of a fingerprint authentication system.
 
 ## Page 44
 

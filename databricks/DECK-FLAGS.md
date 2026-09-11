@@ -203,3 +203,74 @@ edits the Keynote sources. Page numbers are PDF pages.
 - p154, p156, p160: feature is called "G-Test Scores", "G-Score Test" and "G-Test Score" on different slides.
 - Unsure pages p36, p62, p72, p75, p79, p87, p145, p148, p160 all ruled own slides (section dividers, quiz pages before their answers, distinct charts).
 - Spot-check: notes carry library renames, removed sklearn modules, the LIME paper authorship and Condorcet 1785 beyond what the slides say.
+
+## 03-feature-engineering (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- p15, p16: stray empty bullet between items.
+- p16: "a observation's", "in discrete class".
+- p18: lone backslash glyph at top left (slide body text is "\").
+- p23: "Legal contraints".
+- p26: "be come".
+- p64: code listing assigns corr_matrix but plots corr_mat.
+- p66: "Veiw"; mismatched quotes in the code ('<target_column' opens curly, closes straight).
+- p43: the Keynote talk track on this slide is the scaling note, misattached.
+- p44 is a bare-table build stage of p45 that the classifier left as its own group.
+
+## 04-supervised-machine-learning (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- p67: renders blank (footer only); Keynote slide 68's body is an image. Conversion loss to check, not a slide defect.
+- p157: the Step 2 n-gram table renders with empty cells. Conversion loss to check.
+- p72, p73, p74, p76, p77, p80, p81: the row-label text box beside the printed matrix renders 1 above 0, the reverse of the matrix's row order and of the slide's own class-0 arithmetic.
+- p50, p51, p52: the charts and the forest diagram sit over the bullet text, which shows through at the edges.
+- p60: the comparison grid is placed over the bullet list; the last two bullets show through under the image.
+- p55: two loop arrows in the process diagram run off the right edge of the slide.
+- p2, p3, p14, p26, p27, p28, p54, p69, p88, p108: narrow text boxes wrap labels one syllable per line (axis labels, "margin", section subtitles, "True target").
+- p89: the precision and recall printout overlaps the true-target label.
+- p90, p91: matrix A wraps "[[10 0]" onto two lines.
+- p106: chart titled LinearSVC while the code fits GaussianNB.
+- Aligner note: the old-to-new page map was off by one in three stretches (old 29, 51, 108); the notes were placed by the page images.
+
+## 01-exploratory-data-analysis (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- Conversion loss: native tables render with no cell text on p16, p47, p49, p82, p122, p151 to p154. The Linux importer drops Keynote tables; a Mac export restores them.
+- Conversion loss: an earlier build stage's text shows through behind the code and charts on p95 to p102 and p107 to p108 (the importer renders every build object at once).
+- p68: the variance and standard deviation formula image is placed twice, and its caption line is cropped mid-sentence.
+- p75: the words "middle fifty" and "range" render in a tiny font inside the sentence.
+- p77: describe's quartiles (5.31 and 15.35) do not match the box drawn beside them, which spans about 7.5 to 13.5.
+- p80: the min-max formula image overlaps the Standardization line of text.
+- p81: title reads hypothesis testing but the slide only repeats the normal-distribution figure; no talk track (UNRESOLVED note).
+- p151: the code reads df.groupby(['src_ip') with a mismatched bracket.
+- p153: the multi-index output overflows its box and runs into the footer.
+- p20: the is_private answer depends on the Python release; the note says so.
+
+## 00-introduction (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- p2: title slide carries leftover text boxes ("Presented by Brian Genz", a Miniconda download instruction, a Slack invite line); the Wi-Fi PSK is printed on the slide.
+- p7: slide title says "Aug 2-4, 2025"; the course is 2026.
+- p18: "Aritificial Intelligence".
+- p10 note now says "the instructors": the deck shows three bios; Curtis Lambert's slide is gone from the Keynote.
+- p12: Summer Rankin's slide shows "<undisclosed>" as the employer, not the name.
+- p77: the Keynote text extraction returned an empty body though the slide carries a full paragraph; the page renders complete.
+
+## 05-unsupervised-learning (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- Conversion loss: the department table on p7 to p18 renders with empty cells in every frame; the notes state the values inferred from later slides (the third column's header is unknown). A Mac export restores it; until then those notes assert values the render does not show.
+- p3: stray backslash glyph at the top left.
+- p11, p12: subtitle "Euclidean very common and easy to grok" overprints the table (fixed on p13).
+- p23: yellow "Step 1" title overprints the black "Step 2" title.
+- p48, p49: the iris paragraph body text overprints the pair plot and the code.
+- p54: the code line overprints the pair plots; "Scaled Features" wraps one syllable per line.
+- p59: the silhouette curve overprints the code; the "Best number of clusters" arrow marks K equals six, the minimum of the curve.
+- p64: an empty seventh numbered item at the bottom of the list.
+- p67: cluster colors are assigned per plot and do not match p66.
+- Aligner note: the k-means run p23 to p34 was displaced by three frames; every note there was re-keyed against its image.
+
+## 09-artificial-intelligence-introduction-and-theory (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- p68: Keynote slide 71 is an empty layout slide (placeholders only); renders blank; candidate for skip or deletion (UNRESOLVED note).
+- p87: Keynote slide 92 is a web video (YouTube T_0MjD-UGaE, "Judge DESTROYS Attorney After He Cheats With AI!"); renders as its poster only; the note carries the URL.
+- p34: sin_matrix misnomer and the missing closing parenthesis on the argmax line remain.
+- p39, p55: title typos Transfomers and Tozenization remain.
+- The attention restructure skips Keynote slides 36 to 38 and 79 to 80; the head's softmax-and-weighted-sum description and the generation-loop flowchart left with them.
+
+## 08-deep-learning (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- Conversion loss: the convolution example graphic on p36 and p37 (image, kernel, convolved feature) renders blank, labels only; the p37 note describes it from the old export.
+- Conversion loss: p38's two grids at left are native tables and render empty.
+
+## 10-prompt-engineering (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
+- p74: the talk track "New Drill Demo. Show SQL query generation." was read as Apache Drill; confirm.
+- p59: section divider classified unsure, never reviewed (its note exists).
