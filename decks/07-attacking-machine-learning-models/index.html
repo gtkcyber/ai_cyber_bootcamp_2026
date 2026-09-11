@@ -151,7 +151,7 @@
       <img class="page" src="pages/p017.webp" alt="GTK Cyber Functional Extraction: So What? • Having a “copy” of a model to play with allows attackers to better attempt other attack methods • Evasion - Attackers can develop tactic">
     </div>
     <aside class="notes">
-      <p>A local copy of the target lets the attacker rehearse other attacks where the defender cannot see them. Evasion: adversarial inputs are developed against the copy with unlimited queries, no rate limit and no logging, then sent to the target. Adversarial examples crafted against one model transfer to other models trained for the same task (Papernot, McDaniel and Goodfellow, 2016), which is why work done on the copy carries over. Poisoning: the attacker practices injecting data into the copy's training set and measures how much data of what kind moves its boundary, which gives a baseline estimate for the target.</p>
+      <p>A local copy of the target lets the attacker rehearse other attacks where the defender cannot see them. Evasion: adversarial inputs are developed against the copy with unlimited queries, no rate limit and no logging, then sent to the target. Adversarial examples crafted against one model transfer to other models trained for the same task (Papernot, McDaniel and Goodfellow, 2016), which is why work done on the copy carries over. Poisoning: the attacker practices injecting data into the copy's training set and measures how much data of what kind moves its boundary, which gives a baseline estimate for the target. An open source or open weight model, one whose trained parameters are published with or without its training code and data, hands the attacker this copy with no extraction at all: the released weights are the model, so a defender who deploys them unchanged is running the exact function the attacker rehearses against, and a defender who fine tunes them first is running a function that differs from the copy only by that fine tuning.</p>
     </aside>
   </section>
   <section data-page="18">
@@ -412,6 +412,7 @@
     </div>
     <aside class="notes">
       <p>Madry et al. (2017) defined PGD with three parameters: the budget epsilon, the step size, and the number of iterations. The valid region depends on the norm chosen for the budget. Under the L infinity norm, the region is a box: after each step, every feature's perturbation is clipped to the range from minus epsilon to plus epsilon. Under the L2 norm, the region is a sphere: the perturbation vector is rescaled to length epsilon whenever it grows longer. PGD also starts from a random point inside the region rather than from the original input, so repeated runs explore different paths and one run's failure does not mean the model is robust at that point. This page repeats the previous one.</p>
+<p>FGSM is one shove toward the boundary and PGD is many checked steps. The shove is a single move of the full budget along the gradient at the original input. Each PGD step moves a fraction of the budget along the gradient at the current point, and the projection after it is the check: any part of the accumulated perturbation that has left the region is pulled back inside, so the input stays within epsilon of the original through every iteration and crosses the decision boundary from inside the budget.</p>
     </aside>
   </section>
   <section data-page="50">
@@ -452,7 +453,7 @@
       <img class="page" src="pages/p054.webp" alt="GTK Cyber Carlini &amp; Wagner (C&amp;W) Attack: Pros &amp; Cons Advantages: • Extremely subtle: Perturbations are often imperceptible to humans, even when magnified. • Highly effective: Bypas">
     </div>
     <aside class="notes">
-      <p>C&amp;W's advantages are precision and reach. Subtlety: its perturbations are the smallest of the three gradient methods at the same success rate, and remain hard to see when magnified. Effectiveness: it bypasses defenses that stop FGSM and basic PGD, defensive distillation among them. Targeting: the penalty term names a target class, so the attack can force a specific wrong answer rather than any wrong answer. Benchmark status: a proposed defense is expected to report its results against C&amp;W. Domain reach: the formulation applies to any differentiable input, and Carlini and Wagner (2018) used it to make speech recognition transcribe chosen phrases from audio.</p>
+      <p>C&amp;W's advantages are precision and reach. Subtlety: its perturbations are the smallest of the three gradient methods at the same success rate, and remain hard to see when magnified. Effectiveness: it bypasses defenses that stop FGSM and basic PGD, defensive distillation among them. Targeting: the penalty term names a target class, so the attack can force a specific wrong answer rather than any wrong answer. Benchmark status: a proposed defense is expected to report its results against C&amp;W, and red team assessments, authorized attacks run against a deployed model to measure its exposure, still include it, because a model that withstands its perturbations has withstood the smallest the gradient methods produce. Domain reach: the formulation applies to any differentiable input, and Carlini and Wagner (2018) used it to make speech recognition transcribe chosen phrases from audio.</p>
 <p>Its disadvantages are cost and access. Computation: iterative optimization with an outer binary search, slower than FGSM or PGD per example. Access: it needs gradients and logits, the model's raw class scores before the softmax, so it is white box. Tuning: the step size, the weighting constant and the confidence margin all affect whether it succeeds. Timing: it is too slow for an attack that must produce an adversarial input as the system runs.</p>
     </aside>
   </section>
@@ -469,7 +470,7 @@
       <img class="page" src="pages/p056.webp" alt="GTK Cyber Score Based Attacks • Score-based attacks apply when an attacker doesn’t have full access to the model’s parameters (no gradients), but does see output probabilities or c">
     </div>
     <aside class="notes">
-      <p>A score based attack replaces the gradient with an estimate built from the model's output scores. The attacker has no parameters and so no gradients, but sees the probability or confidence the model returns for each class. The estimate comes from probing: change the input by a small amount, observe how the scores move, and treat the ratio of score change to input change as the derivative in that direction. Assembled across directions, those ratios approximate the gradient, and the attack then proceeds as a gradient attack would.</p>
+      <p>A score based attack replaces the gradient with an estimate built from the model's output scores. The attacker has no parameters and so no gradients, but sees the probability or confidence the model returns for each class. The estimate comes from probing: change the input by a small amount, observe how the scores move, and treat the ratio of score change to input change as the derivative in that direction. Assembled across directions, those ratios approximate the gradient, and the attack then proceeds as a gradient attack would. A commercial image API is one source of those scores: it returns a score per class, for example 92 percent cat, 7 percent dog and 1 percent raccoon, and a small edit to the image that moves the cat score down and the dog score up is the signal the attacker reads.</p>
     </aside>
   </section>
   <section data-page="57">
@@ -527,7 +528,7 @@
     </div>
     <aside class="notes">
       <p>ZOO's advantages are generality. Access: query access and scores, no internals. Model type: any model that returns scores, since the method uses only score differences. Attack form: once the gradient estimate exists, the update rule is the same as a gradient attack's.</p>
-<p>Its disadvantages are all query count. Volume: probing every feature of a high dimensional input costs millions of queries per adversarial example. Speed: the iterative optimization runs orders of magnitude longer than a white box attack on the same model. Detectability: that query volume, sent as near identical inputs, is what rate limits and monitoring are built to notice. Scale: against a large modern network the attack is impractical without the paper's reductions, which attack a lower resolution version of the input and sample coordinates by importance.</p>
+<p>Its disadvantages are all query count. ZOO probes the way a doctor with no imaging presses each point of the body in turn and notes the reaction: one coordinate, one press, one query, and the map of where the model is sensitive is complete only when every coordinate has been pressed. Volume: probing every feature of a high dimensional input costs millions of queries per adversarial example. Speed: the iterative optimization runs orders of magnitude longer than a white box attack on the same model. Detectability: that query volume, sent as near identical inputs, is what rate limits and monitoring are built to notice. Scale: against a large modern network the attack is impractical without the paper's reductions, which attack a lower resolution version of the input and sample coordinates by importance.</p>
     </aside>
   </section>
   <section data-page="64">
@@ -551,7 +552,7 @@
       <img class="page" src="pages/p066.webp" alt="GTK Cyber Natural Evolution Strategies (NES): How it works 1. Start with a clean input. 2. Sample a batch of random noise vectors from a distribution (like Gaussian noise). 3. Pert">
     </div>
     <aside class="notes">
-      <p>NES runs a batch of queries per update. Start with a clean input. Sample a batch of random noise vectors from a Gaussian. Perturb the input with each vector and query the model. Record how the scores shift for each perturbation. Aggregate: perturbations that push the scores toward the wrong class, weighted by how far, average into the approximate gradient direction. Update the input along that direction, project back inside the budget, and repeat until the model's label changes. The query count per update is the batch size, on the order of fifty to a hundred, where ZOO's is two per coordinate.</p>
+      <p>NES runs a batch of queries per update. Start with a clean input. Sample a batch of random noise vectors from a Gaussian. Perturb the input with each vector and query the model. Record how the scores shift for each perturbation. Aggregate: perturbations that push the scores toward the wrong class, weighted by how far, average into the approximate gradient direction. Update the input along that direction, project back inside the budget, and repeat until the model's label changes. The query count per update is the batch size, on the order of fifty to a hundred, where ZOO's is two per coordinate. NES reads the slope of a hill by tossing marbles in random directions and averaging which way they roll: each noise vector is one marble, the score change along it is how far it rolled, and the score weighted average of the vectors is the downhill direction, obtained without the per coordinate measurement ZOO makes.</p>
     </aside>
   </section>
   <section data-page="67">
@@ -568,7 +569,7 @@
       <img class="page" src="pages/p068.webp" alt="GTK Cyber Decision Based Methods">
     </div>
     <aside class="notes">
-      <p>This part covers decision based methods, the attacks that use nothing but the predicted class label.</p>
+      <p>This part covers decision based methods, the strictest black box case: the attacker can query the model, and the only return is the final class label, with no probabilities and no scores. The label says whether the model made the call the attacker wanted and nothing about how close the call was, so the attacks in this part spend queries to recover the closeness a score reports directly.</p>
     </aside>
   </section>
   <section data-page="69">
@@ -602,6 +603,7 @@
     <aside class="notes">
       <p>Decision based attacks trade information for queries. Access: predicted labels only, the true black box case. Applicability: APIs that reveal no confidence score. Output quality: the adversarial examples they converge to are as subtle as those from methods with more information, because the stopping condition is the same, a minimal perturbation that keeps the wrong label.</p>
 <p>The price is paid in queries and precision. Volume: thousands of queries to converge on one adversarial example. Speed: slower than gradient or score based methods on the same model. Practicality: an attack that needs thousands of queries fails against a rate limit or a deadline. Noise: every estimate of the boundary's shape comes from labels, so each step is less precise than a step guided by a gradient or a score.</p>
+<p>Both costs come from the label being the only signal. The attacker feels for the edge of a cliff blindfolded. The slope underfoot is the gradient and is not felt. An echo of the distance to the edge is the score and is not heard. The only signal is whether the last step went over, which is the label. Mapping the edge means stepping back and forth across it at one query per step, which is why convergence costs thousands of queries and why each estimate of the edge's direction is coarse.</p>
     </aside>
   </section>
   <section data-page="73">
@@ -634,7 +636,7 @@
     </div>
     <aside class="notes">
       <p>The Boundary Attack's advantages are its assumptions. Access: class labels only. Domains: images, audio and tabular data, since the method only needs a distance measure and a label oracle. Output: adversarial examples as subtle as the query budget allows. Simplicity: the algorithm is a rejection sampling loop and takes a page to implement.</p>
-<p>Its disadvantages are the cost of random search. Queries: thousands to millions per adversarial example, because most proposals are rejected and each proposal is a query. Speed: it cannot run inside the time limit of a live attack. Efficiency: a random move along the boundary has a high chance of leaving the adversarial region, and every rejection is a wasted query. Obsolescence: HopSkipJump and later decision based methods reach the same result in a fraction of the queries. The page title reads How it Works; the content is the pros and cons.</p>
+<p>Its disadvantages are the cost of random search. Queries: thousands to millions per adversarial example, because most proposals are rejected and each proposal is a query. Speed: it cannot run inside the time limit of a live attack. Efficiency: a random move along the boundary has a high chance of leaving the adversarial region, and every rejection is a wasted query. Obsolescence: HopSkipJump and later decision based methods reach the same result in a fraction of the queries. The page title reads How it Works and the content is the pros and cons; the mechanism is a retreat from inside enemy territory. The attack starts at an input the model already misclassifies, well inside the wrong class, and steps back toward the original input, the city gate, keeping each step that ends on the wrong side of the boundary and discarding each step the model classifies correctly, until the input stands as near the original as the boundary allows while the model still names the wrong class.</p>
     </aside>
   </section>
   <section data-page="77">
@@ -666,7 +668,7 @@
       <img class="page" src="pages/p080.webp" alt="GTK Cyber HopSkipJump (HSJ): Pros &amp; Cons Pros • True black-box: Needs only predicted class labels. • Much more query-efficient than Boundary Attack. • Produces high-quality adversa">
     </div>
     <aside class="notes">
-      <p>HopSkipJump's advantages make it the default decision based attack. Access: predicted class labels only. Query efficiency: far fewer queries than the Boundary Attack for the same perturbation size. Quality: the examples it converges to are as small as those from gradient methods on the same models in the authors' evaluation. Adoption: it is implemented in ART and in Foolbox and is the decision based baseline in the research literature.</p>
+      <p>HopSkipJump's advantages make it the default decision based attack. Access: predicted class labels only. Query efficiency: far fewer queries than the Boundary Attack for the same perturbation size, because bisection along the line from the adversarial input to the original lands on the boundary in a known number of queries, each halving the interval, where the Boundary Attack's walk back spends a query on every random step and its count grows with the rejection rate. Quality: the examples it converges to are as small as those from gradient methods on the same models in the authors' evaluation. Adoption: it is implemented in ART and in Foolbox and is the decision based baseline in the research literature.</p>
 <p>Its disadvantages remain those of the setting. Speed: slower than white box and score based attacks, which get more information per query. Query cost: still high against a very large model or an API with a strict rate limit. Complexity: the search, estimation and step size logic is harder to implement correctly than the Boundary Attack's loop. Continuity: the binary search and the perturbation sampling assume the input space is continuous, so it fits images and audio and does not apply directly to text, where inputs are discrete tokens. Worksheet 7.1 runs it against the domain generation detector's numeric feature vectors, which are continuous.</p>
     </aside>
   </section>
