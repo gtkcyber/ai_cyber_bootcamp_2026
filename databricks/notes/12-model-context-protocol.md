@@ -112,7 +112,7 @@ This part builds a server in Python with FastMCP, checks it with the MCP Inspect
 
 ## Page 20
 
-UNRESOLVED
+Lab marker. Students work through Worksheet 12.1, Building an MCP Server, the MCP lab the slide links to.
 
 ## Page 21
 

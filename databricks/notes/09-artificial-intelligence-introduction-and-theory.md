@@ -290,7 +290,7 @@ The model did what the review asked. The reply thanks the customer in English an
 
 ## Page 74
 
-UNRESOLVED
+A blank slide in the source deck, between the denial-of-wallet example and its defenses. Use it as the pause: ask the room what they would log to catch the attack, then show the answer on the next slide.
 
 ## Page 75
 

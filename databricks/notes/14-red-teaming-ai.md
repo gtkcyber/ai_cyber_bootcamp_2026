@@ -83,11 +83,11 @@ This is indirect prompt injection. The attacker does not talk to the model; the 
 
 ## Page 15
 
-UNRESOLVED
+The second example is an image: an abstract render of colored streaks with nothing in it that reads as text. Ask the room where the injection is. The honest answer is that a person cannot see it, and that is the point. An image can carry instructions in ways the eye never separates from the picture: text at a contrast too low to notice, a message in the file's metadata, pixel patterns tuned to steer a multimodal model. A model that accepts images as input reads whatever is in there, and the human check, looking at the picture, checks the wrong channel.
 
 ## Page 17
 
-UNRESOLVED
+The third example is audio. The video is Benn Jordan's The Art of Poison-Pilling Music Files: music altered so a listener hears the song as it was while a model that ingests the audio gets something else entirely. Play a minute of it. Text, image, sound: the payload rides in whatever the model is asked to consume, and the channel a human inspects is not the one the model reads. Every input a model takes is an injection surface, and the defenses in the rest of this module have to assume the content cannot be eyeballed clean.
 
 ## Page 18
 

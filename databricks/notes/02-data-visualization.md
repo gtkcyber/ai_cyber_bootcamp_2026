@@ -54,7 +54,7 @@ The two drawings measure the same pie. On the left are the angles as they appear
 
 ## Page 14
 
-UNRESOLVED
+This is an animation from the Data Driven Security blog, built on the honeypot dataset the blog used: source countries run down the middle, UDP ports on the left axis, TCP ports on the right, and every dot is a connection flying from its country to the port it hit while the clock in the title advances through July. Let it run for a minute. Two things to take from it. Animation adds the one dimension a static chart cannot show, time, and the eye picks out the persistent streams, the same countries hitting the same ports hour after hour, which is exactly the pattern a defender wants to see. The cost is that nothing can be read at a glance. A viewer cannot pause on a number, compare two moments, or take the chart away. A time-lapse shows behavior; it does not report it.
 
 ## Page 15
 

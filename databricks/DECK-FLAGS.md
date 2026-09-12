@@ -20,20 +20,20 @@ a little wider in LibreOffice, so a few long titles wrap onto two lines (deck 01
 Functions" is one); the words are all there.
 
 - `00-introduction`: 87 pages, 4 build-stage page(s).
-- `01-exploratory-data-analysis`: 177 pages, 17 build-stage page(s). Slides the text classifier had merged into one build, now their own reveal slides carrying the note written for the group (old page -> new page): 10->11, 29->32, 30->33, 40->51, 85->98, 90->103, 92->105, 93->106, 94->107, 98->111, 121->134, 123->137, 126->140, 150->164, 151->165, 152->167. UNRESOLVED now at page 94.
-- `02-data-visualization`: 61 pages, 1 media. Slides the text classifier had merged into one build, now their own reveal slides carrying the note written for the group (old page -> new page): 24->24, 32->32. UNRESOLVED now at page 14.
+- `01-exploratory-data-analysis`: 177 pages, 17 build-stage page(s). Slides the text classifier had merged into one build, now their own reveal slides carrying the note written for the group (old page -> new page): 10->11, 29->32, 30->33, 40->51, 85->98, 90->103, 92->105, 93->106, 94->107, 98->111, 121->134, 123->137, 126->140, 150->164, 151->165, 152->167. Page 94: first-pass note written 2026-09-12 in place of UNRESOLVED; review it.
+- `02-data-visualization`: 61 pages, 1 media. Slides the text classifier had merged into one build, now their own reveal slides carrying the note written for the group (old page -> new page): 24->24, 32->32. Page 14: first-pass note written 2026-09-12 in place of UNRESOLVED; review it.
 - `03-feature-engineering`: 75 pages.
 - `04-supervised-machine-learning`: 166 pages, 1 build-stage page(s), 1 media. Slides the text classifier had merged into one build, now their own reveal slides carrying the note written for the group (old page -> new page): 4->4, 8->8, 10->10, 12->12, 16->16, 25->25, 39->39, 51->51, 59->59, 82->82, 90->90, 102->102, 105->105, 136->136, 151->152, 160->161.
 - `05-unsupervised-learning`: 77 pages, 1 build-stage page(s). Slides the text classifier had merged into one build, now their own reveal slides carrying the note written for the group (old page -> new page): 12->12, 27->27, 35->35, 48->49, 53->54, 58->59, 70->71.
 - `06-anomaly-detection`: 70 pages. Slides the text classifier had merged into one build, now their own reveal slides carrying the note written for the group (old page -> new page): 25->25, 28->28.
 - `07-attacking-machine-learning-models`: 89 pages, 1 build-stage page(s), 1 media.
 - `08-deep-learning`: 52 pages, 2 media. Slides the text classifier had merged into one build, now their own reveal slides carrying the note written for the group (old page -> new page): 36->36.
-- `09-artificial-intelligence-introduction-and-theory`: 108 pages, 8 build-stage page(s), 1 media. UNRESOLVED now at page 74.
+- `09-artificial-intelligence-introduction-and-theory`: 108 pages, 8 build-stage page(s), 1 media. Page 74: first-pass note written 2026-09-12 in place of UNRESOLVED; review it.
 - `10-prompt-engineering`: 76 pages.
 - `11-ai-components`: 98 pages, 13 build-stage page(s).
-- `12-model-context-protocol`: 48 pages. UNRESOLVED now at page 20.
+- `12-model-context-protocol`: 48 pages. Page 20: first-pass note written 2026-09-12 in place of UNRESOLVED; review it.
 - `13-ai-agents`: 87 pages.
-- `14-red-teaming-ai`: 79 pages, 3 build-stage page(s), 3 media. UNRESOLVED now at page 15, 17.
+- `14-red-teaming-ai`: 79 pages, 3 build-stage page(s), 3 media. Page 15, 17: first-pass note written 2026-09-12 in place of UNRESOLVED; review it.
 - `15-final-project`: 7 pages.
 
 ## 05-unsupervised-learning
