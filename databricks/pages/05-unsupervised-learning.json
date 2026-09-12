@@ -23,7 +23,7 @@
       "kind": "slide",
       "group": 3,
       "slide": 3,
-      "text": "GTK Cyber \\ What Data Science kind of is… 3 Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Category No No Predic9on, Inference Predic9on Nothing proven Recommenders, Similar, anomalous"
+      "text": "GTK Cyber What Data Science kind of is… 3 Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Category No No Predic9on, Inference Predic9on Nothing proven Recommenders, Similar, anomalous"
     },
     {
       "page": 4,
@@ -79,14 +79,14 @@
       "kind": "slide",
       "group": 11,
       "slide": 11,
-      "text": "GTK Cyber Two-Dimensional Distance Euclidean very common and easy to grok Malware events Phishing Dept1 6 6 Dept2 1 2 Dept3 8 1 Multiple Distance methods • Euclidean • Manhattan • Maximum • Canberra • Binary • Minkowski … (to name a few)"
+      "text": "GTK Cyber Two-Dimensional Distance Malware events Phishing Dept1 6 6 Dept2 1 2 Dept3 8 1 Multiple Distance methods • Euclidean • Manhattan • Maximum • Canberra • Binary • Minkowski … (to name a few)"
     },
     {
       "page": 12,
       "kind": "slide",
       "group": 12,
       "slide": 12,
-      "text": "GTK Cyber Two-Dimensional Distance Euclidean very common and easy to grok Dept2 Dept2 Dept2 Dept1 Dept1 Dept1 G G G 0 1 2 3 4 5 6 7 8 0 1 2 3 4 5 6 7 8 Malware Events Phishing Events G G G 0 1 2 3 4 5 6 7 8 0 1 2 3 4 5 6 7 8 Malware Events Phishing Events Malware events Phishing Dept1 6 6 Dept2 1 2 Dept3 8 1"
+      "text": "GTK Cyber Two-Dimensional Distance Dept2 Dept2 Dept2 Dept1 Dept1 Dept1 G G G 0 1 2 3 4 5 6 7 8 0 1 2 3 4 5 6 7 8 Malware Events Phishing Events G G G 0 1 2 3 4 5 6 7 8 0 1 2 3 4 5 6 7 8 Malware Events Phishing Events Malware events Phishing Dept1 6 6 Dept2 1 2 Dept3 8 1"
     },
     {
       "page": 13,
@@ -163,7 +163,7 @@
       "kind": "slide",
       "group": 23,
       "slide": 23,
-      "text": "GTK Cyber Step 2: Assign each data point to the nearest centroid Step 1: Pick 3 random centroids within data range G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G GG G G G G"
+      "text": "GTK Cyber Step 1: Pick 3 random centroids within data range G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G GG G G G G"
     },
     {
       "page": 24,
@@ -331,28 +331,28 @@
       "kind": "slide",
       "group": 46,
       "slide": 46,
-      "text": "GTK Cyber The Dataset The dataset we will be using today is one of the classic datasets used in machine learning, known as the iris dataset. There are 4 features identifying each type of iris: 1. sepal length in cm 2. sepal width in cm 3. petal length in cm 4. petal width in cm sns.pairplot(<data>)"
+      "text": "GTK Cyber The Dataset sns.pairplot(<data>)"
     },
     {
       "page": 48,
       "kind": "slide",
       "group": 47,
       "slide": 47,
-      "text": "GTK Cyber K-Means Clustering The dataset we will be using today is one of the classic datasets used in machine learning, known as the iris dataset. There are 4 features identifying each type of iris: 1. sepal length in cm 2. sepal width in cm 3. petal length in cm 4. petal width in cm kmeans = KMeans( n_clusters=2 ) kmeans.fit( <data> )"
+      "text": "GTK Cyber K-Means Clustering kmeans = KMeans( n_clusters=2 ) kmeans.fit( <data> )"
     },
     {
       "page": 49,
       "kind": "slide",
       "group": 48,
       "slide": 48,
-      "text": "GTK Cyber K-Means Clustering The dataset we will be using today is one of the classic datasets used in machine learning, known as the iris dataset. There are 4 features identifying each type of iris: 1. sepal length in cm 2. sepal width in cm 3. petal length in cm 4. petal width in cm sns.pairplot(<data>,hue=\"kmeans_2\" )"
+      "text": "GTK Cyber K-Means Clustering sns.pairplot(<data>,hue=\"kmeans_2\" )"
     },
     {
       "page": 50,
       "kind": "slide",
       "group": 49,
       "slide": 49,
-      "text": "GTK Cyber K-Means Clustering The dataset we will be using today is one of the classic datasets used in machine learning, known as the iris dataset. There are 4 features identifying each type of iris: 1. sepal length in cm 2. sepal width in cm 3. petal length in cm 4. petal width in cm sns.pairplot(<data>,x_vars=\"col_1\",y_vars=\"col_2\",hue=\"kmeans_2\",size=6) plt.scatter(<cluster_centers>,<col_2>, linewidths=3, marker='x', s=200, c='black')"
+      "text": "GTK Cyber K-Means Clustering sns.pairplot(<data>,x_vars=\"col_1\",y_vars=\"col_2\",hue=\"kmeans_2\",size=6) plt.scatter(<cluster_centers>,<col_2>, linewidths=3, marker='x', s=200, c='black')"
     },
     {
       "page": 51,
@@ -387,14 +387,14 @@
       "kind": "slide",
       "group": 54,
       "slide": 54,
-      "text": "GTK Cyber Feature Scaling # K-means on scaled data km = KMeans(n_clusters=2,random_state=1234) km.fit(iris_data_scaled) Sca led Fea tur es Unscaled Features"
+      "text": "GTK Cyber Feature Scaling Sca led Fea tur es Unscaled Features"
     },
     {
       "page": 56,
       "kind": "slide",
       "group": 55,
       "slide": 55,
-      "text": "GTK Cyber More Clusters # K-means on scaled data km = KMeans(n_clusters=2,random_state=1234) km.fit(iris_data_scaled) km3 = KMeans(n_clusters=3) km3.fit(scaled_data)"
+      "text": "GTK Cyber More Clusters km3 = KMeans(n_clusters=3) km3.fit(scaled_data)"
     },
     {
       "page": 57,
@@ -422,21 +422,21 @@
       "kind": "slide",
       "group": 59,
       "slide": 59,
-      "text": "GTK Cyber Evaluating your Model k_range = range(2,16) scores = [] for k in k_range: km_ss = KMeans(n_clusters=k, random_state=1) km_ss.fit(iris_data_scaled) scores.append(silhouette_score(iris_data_scaled, km_ss.labels_)) Best number of clusters"
+      "text": "GTK Cyber Evaluating your Model Best number of clusters"
     },
     {
       "page": 61,
       "kind": "slide",
       "group": 60,
       "slide": 60,
-      "text": "GTK Cyber Evaluating your Model k_range = range(2,16) scores = [] for k in k_range: km_ss = KMeans(n_clusters=k, random_state=1) km_ss.fit(iris_data_scaled) scores.append(silhouette_score(iris_data_scaled, km_ss.labels_)) from yellowbrick.cluster import KElbowVisualizer visualizer = KElbowVisualizer(KMeans(), k=(4,12)) visualizer.fit(X) visualizer.poof()"
+      "text": "GTK Cyber Evaluating your Model from yellowbrick.cluster import KElbowVisualizer visualizer = KElbowVisualizer(KMeans(), k=(4,12)) visualizer.fit(X) visualizer.poof()"
     },
     {
       "page": 62,
       "kind": "slide",
       "group": 61,
       "slide": 61,
-      "text": "GTK Cyber Evaluating your Model k_range = range(2,16) scores = [] for k in k_range: km_ss = KMeans(n_clusters=k, random_state=1) km_ss.fit(iris_data_scaled) scores.append(silhouette_score(iris_data_scaled, km_ss.labels_)) from yellowbrick.cluster import SilhouetteVisualizer model = MiniBatchKMeans(6) visualizer = SilhouetteVisualizer(model) visualizer.fit(X) visualizer.poof()"
+      "text": "GTK Cyber Evaluating your Model from yellowbrick.cluster import SilhouetteVisualizer model = MiniBatchKMeans(6) visualizer = SilhouetteVisualizer(model) visualizer.fit(X) visualizer.poof()"
     },
     {
       "page": 63,

@@ -89,8 +89,8 @@
   </section>
   <section data-page="11">
     <div class="page-stack">
-      <img class="page" src="pages/p010.webp" alt="GTK Cyber for cell in row: half_cell = cell / 2 for x in range(0, len( data )): data[x] = data[x] + 1">
-      <img class="page fragment" src="pages/p011.webp" alt="GTK Cyber for cell in row: half_cell = cell / 2 for x in range(0, len( data )): data[x] = data[x] + 1">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber for x in range(0, len( data )): data[x] = data[x] + 1">
+      <img class="page fragment" src="pages/p011.webp" alt="GTK Cyber for x in range(0, len( data )): data[x] = data[x] + 1">
     </div>
     <aside class="notes">
       <p>The loop increments each element one at a time: Python fetches an element, adds one, stores it back, and advances the position, once per row, with the interpreter's overhead paid on every pass. The vectorized form states the same computation once for the entire column. With <code>evens</code> holding a column of even numbers, <code>odds = evens + 1</code> produces a new column with one added to every element, and the addition runs inside the library. If you find yourself writing a loop over the rows of a pandas object, stop and look for the vectorized form; one exists for nearly every per-row computation.</p>
@@ -98,7 +98,7 @@
   </section>
   <section data-page="12">
     <div class="page-stack">
-      <img class="page" src="pages/p012.webp" alt="GTK Cyber for cell in row: half_cell = cell / 2 for x in range(0, len( data )): data[x] = data[x] + 1 odds = evens + 1">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber for x in range(0, len( data )): data[x] = data[x] + 1 odds = evens + 1">
     </div>
     <aside class="notes">
       <p>The loop increments each element one at a time: Python fetches an element, adds one, stores it back, and advances the position, once per row, with the interpreter's overhead paid on every pass. The vectorized form states the same computation once for the entire column. With <code>evens</code> holding a column of even numbers, <code>odds = evens + 1</code> produces a new column with one added to every element, and the addition runs inside the library. If you find yourself writing a loop over the rows of a pandas object, stop and look for the vectorized form; one exists for nearly every per-row computation.</p>
@@ -106,7 +106,7 @@
   </section>
   <section data-page="13">
     <div class="page-stack">
-      <img class="page" src="pages/p013.webp" alt="GTK Cyber for cell in row: half_cell = cell / 2">
+      <img class="page" src="pages/p013.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
       <p>Column arithmetic depends on a table layout in which each variable has its own column and each observation has its own row. In that layout, <code>F = M * A</code> multiplies column M by column A one row at a time and writes the products into a new column F, with the expression written once for every row. The layout is what makes the expression meaningful: a column is a vector of one variable's values, so arithmetic between two columns pairs up values that belong to the same observation.</p>
@@ -449,7 +449,7 @@
   </section>
   <section data-page="66">
     <div class="page-stack">
-      <img class="page" src="pages/p066.webp" alt="GTK Cyber שאלותQuestion s?">
+      <img class="page" src="pages/p066.webp" alt="GTK Cyber Question s?">
     </div>
     <aside class="notes">
       <p>The Series section ends here. Summary statistics come next.</p>
@@ -755,7 +755,7 @@
   </section>
   <section data-page="104">
     <div class="page-stack">
-      <img class="page" src="pages/p104.webp" alt="GTK Cyber series.drop_duplicates() series.unique() Counting Unique Occurrences">
+      <img class="page" src="pages/p104.webp" alt="GTK Cyber Counting Unique Occurrences">
     </div>
     <aside class="notes">
       <p>Two methods return the distinct values of a Series. <code>drop_duplicates()</code> returns a Series: by default the first occurrence of each value is kept with its original index label and later repeats are dropped; <code>keep='last'</code> keeps the last occurrence instead, and <code>keep=False</code> drops every value that occurs more than once. <code>inplace=True</code> modifies the Series in place and returns None. <code>unique()</code> returns a NumPy array of the distinct values in order of first appearance, with no index attached. Both hash the values, so the cost grows linearly with the length of the Series. <code>nunique()</code> returns just the number of distinct values, which is the figure the unique row of describe reports for a string column.</p>
@@ -763,7 +763,7 @@
   </section>
   <section data-page="105">
     <div class="page-stack">
-      <img class="page" src="pages/p105.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.value_counts( )">
+      <img class="page" src="pages/p105.webp" alt="GTK Cyber series.value_counts( )">
     </div>
     <aside class="notes">
       <p><code>value_counts</code> tallies how many times each distinct value appears and returns the tallies as a Series, indexed by the values and sorted with the largest count first. Three arguments change what is counted. bins: for a numeric Series, the values are split into that many equal-width intervals and the count is per interval, which is a histogram in table form. normalize: each count is divided by the total, so the result is the fraction of rows each value or interval accounts for. dropna: missing values are excluded by default; passing False adds a row that counts them, which is how a column's missing-value rate is checked. Since pandas 2.0 the returned Series is named count, or proportion when normalized.</p>
@@ -771,7 +771,7 @@
   </section>
   <section data-page="106">
     <div class="page-stack">
-      <img class="page" src="pages/p106.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.value_counts(bins=5 )">
+      <img class="page" src="pages/p106.webp" alt="GTK Cyber series.value_counts(bins=5 )">
     </div>
     <aside class="notes">
       <p><code>value_counts</code> tallies how many times each distinct value appears and returns the tallies as a Series, indexed by the values and sorted with the largest count first. Three arguments change what is counted. bins: for a numeric Series, the values are split into that many equal-width intervals and the count is per interval, which is a histogram in table form. normalize: each count is divided by the total, so the result is the fraction of rows each value or interval accounts for. dropna: missing values are excluded by default; passing False adds a row that counts them, which is how a column's missing-value rate is checked. Since pandas 2.0 the returned Series is named count, or proportion when normalized.</p>
@@ -779,7 +779,7 @@
   </section>
   <section data-page="107">
     <div class="page-stack">
-      <img class="page" src="pages/p107.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.value_counts(bins=5 , normalize=True)">
+      <img class="page" src="pages/p107.webp" alt="GTK Cyber series.value_counts(bins=5 , normalize=True)">
     </div>
     <aside class="notes">
       <p><code>value_counts</code> tallies how many times each distinct value appears and returns the tallies as a Series, indexed by the values and sorted with the largest count first. Three arguments change what is counted. bins: for a numeric Series, the values are split into that many equal-width intervals and the count is per interval, which is a histogram in table form. normalize: each count is divided by the total, so the result is the fraction of rows each value or interval accounts for. dropna: missing values are excluded by default; passing False adds a row that counts them, which is how a column's missing-value rate is checked. Since pandas 2.0 the returned Series is named count, or proportion when normalized.</p>
@@ -787,7 +787,7 @@
   </section>
   <section data-page="108">
     <div class="page-stack">
-      <img class="page" src="pages/p108.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.value_counts(bins=5 , normalize=True, dropna=False)">
+      <img class="page" src="pages/p108.webp" alt="GTK Cyber series.value_counts(bins=5 , normalize=True, dropna=False)">
     </div>
     <aside class="notes">
       <p><code>value_counts</code> tallies how many times each distinct value appears and returns the tallies as a Series, indexed by the values and sorted with the largest count first. Three arguments change what is counted. bins: for a numeric Series, the values are split into that many equal-width intervals and the count is per interval, which is a histogram in table form. normalize: each count is divided by the total, so the result is the fraction of rows each value or interval accounts for. dropna: missing values are excluded by default; passing False adds a row that counts them, which is how a column's missing-value rate is checked. Since pandas 2.0 the returned Series is named count, or proportion when normalized.</p>
@@ -803,7 +803,7 @@
   </section>
   <section data-page="110">
     <div class="page-stack">
-      <img class="page" src="pages/p110.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.hist( )">
+      <img class="page" src="pages/p110.webp" alt="GTK Cyber series.hist( )">
     </div>
     <aside class="notes">
       <p><code>hist</code> draws a histogram of a numeric Series, the plot the statistics section used to show a distribution. pandas delegates the drawing to Matplotlib, which is why the pyplot import at the start of the module is needed, and the bin count defaults to ten.</p>
@@ -811,7 +811,7 @@
   </section>
   <section data-page="111">
     <div class="page-stack">
-      <img class="page" src="pages/p111.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.hist( )">
+      <img class="page" src="pages/p111.webp" alt="GTK Cyber series.hist( )">
     </div>
     <aside class="notes">
       <p>With the default ten bins over the fifty random integers, each bin is about ten wide and the bar heights run from one to eight. The values were drawn uniformly, so every bin's expected count is five, and the variation between bins is sampling noise from a draw of only fifty values; this is what a uniform distribution looks like at a small sample size.</p>
@@ -820,7 +820,7 @@
   </section>
   <section data-page="112">
     <div class="page-stack">
-      <img class="page" src="pages/p112.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.hist(bins=40 )">
+      <img class="page" src="pages/p112.webp" alt="GTK Cyber series.hist(bins=40 )">
     </div>
     <aside class="notes">
       <p>With the default ten bins over the fifty random integers, each bin is about ten wide and the bar heights run from one to eight. The values were drawn uniformly, so every bin's expected count is five, and the variation between bins is sampling noise from a draw of only fifty values; this is what a uniform distribution looks like at a small sample size.</p>
@@ -829,7 +829,7 @@
   </section>
   <section data-page="113">
     <div class="page-stack">
-      <img class="page" src="pages/p113.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.hist(bins=5 )">
+      <img class="page" src="pages/p113.webp" alt="GTK Cyber series.hist(bins=5 )">
     </div>
     <aside class="notes">
       <p>With five bins, each twenty units wide, the counts are fourteen, nine, eight, twelve and seven. The bars are smoother than the ten- and forty-bin versions because each one aggregates more values, and the price is resolution: a feature narrower than twenty units cannot show. Bin count is the one choice a histogram forces. Try two or three bin counts on any new column; the same data can look uniform, bumpy or spiky depending on the choice.</p>
@@ -837,7 +837,7 @@
   </section>
   <section data-page="114">
     <div class="page-stack">
-      <img class="page" src="pages/p114.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.plot( )">
+      <img class="page" src="pages/p114.webp" alt="GTK Cyber series.plot( )">
     </div>
     <aside class="notes">
       <p><code>plot</code> with no arguments draws a line chart of the Series through Matplotlib, with the index on the horizontal axis and the values on the vertical axis.</p>
@@ -845,7 +845,7 @@
   </section>
   <section data-page="115">
     <div class="page-stack">
-      <img class="page" src="pages/p115.webp" alt="GTK Cyber series.drop_duplicates() series.unique() series.plot( )">
+      <img class="page" src="pages/p115.webp" alt="GTK Cyber series.plot( )">
     </div>
     <aside class="notes">
       <p>The line plot of the fifty random integers: position zero through forty-nine along the bottom, the value at each position up the side, consecutive points joined by a line. A line implies that the order of the index carries meaning, as it does when the index is time. These values were drawn independently, so the line joins unrelated points and the zigzag conveys nothing. The line plot is the right choice for a Series with a datetime index, where it shows how a quantity changes over time.</p>
@@ -853,7 +853,7 @@
   </section>
   <section data-page="116">
     <div class="page-stack">
-      <img class="page" src="pages/p116.webp" alt="GTK Cyber Reading a Boxplot Maximu m 3rd Quartile Median 1st Quartile Minimum series.plot(kind=‘box’ )">
+      <img class="page" src="pages/p116.webp" alt="GTK Cyber Maximu m 3rd Quartile Median 1st Quartile Minimum series.plot(kind=‘box’ )">
     </div>
     <aside class="notes">
       <p><code>plot(kind='box')</code> draws the five-number summary as the box plot from the statistics section, vertical this time: the box spans the quartiles, the median is the line across it, and the whiskers run out toward the extremes. No value here lies past the whisker limit, so the whiskers end at the minimum and maximum as labeled. The None under the box is the Series' name, which was not set.</p>
@@ -885,7 +885,7 @@
   </section>
   <section data-page="120">
     <div class="page-stack">
-      <img class="page" src="pages/p120.webp" alt="GTK Cyber Correlations • Measurement of the relationship between two continuous variables • Output is between -1 and 1, with 1 being perfect correlation, -1 is perfect negative cor">
+      <img class="page" src="pages/p120.webp" alt="GTK Cyber Correlations">
     </div>
     <aside class="notes">
       <p>Six scatterplots with their correlation coefficients. Across the top row, r rises from 0.25 to 0.48 to 0.94 as the cloud of points narrows toward a rising line; across the bottom, r falls from minus 0.12 to minus 0.37 to minus 0.94 as the cloud narrows toward a falling line. The sign gives the direction of the slope and the magnitude gives how much of the scatter the line accounts for; at 0.25 or minus 0.12 the points fill the square and the trend is barely visible. Pearson's r sees only straight-line relationships: two variables tied by a curve, such as a U shape, can score near zero while being perfectly dependent. A high r establishes that the two variables rise and fall together; which one drives the other, if either does, is a separate question that the coefficient cannot answer.</p>
@@ -893,7 +893,7 @@
   </section>
   <section data-page="121">
     <div class="page-stack">
-      <img class="page" src="pages/p121.webp" alt="GTK Cyber Correlations • Measurement of the relationship between two continuous variables • Output is between -1 and 1, with 1 being perfect correlation, -1 is perfect negative cor">
+      <img class="page" src="pages/p121.webp" alt="GTK Cyber Correlations series1.corr( series2 )">
     </div>
     <aside class="notes">
       <p><code>series1.corr(series2)</code> returns the Pearson correlation between two Series as a single number. The values are paired by index label, so the two Series must share an index, and any pair with a missing value is left out. <code>method='spearman'</code> or <code>method='kendall'</code> switches to a rank-based coefficient, which measures whether the relationship is monotonic and is less sensitive to outliers. <code>DataFrame.corr()</code> computes the coefficient for every pair of numeric columns at once and returns the results as a square matrix, which is how related features in a dataset are found.</p>
@@ -949,7 +949,7 @@
   </section>
   <section data-page="128">
     <div class="page-stack">
-      <img class="page" src="pages/p128.webp" alt="GTK Cyber DataFrames Read in a CSV df = pd.read_csv(&lt;file&gt;) df = pd.read_csv(&lt;url&gt;)">
+      <img class="page" src="pages/p128.webp" alt="GTK Cyber Read in a CSV df = pd.read_csv(&lt;file&gt;) df = pd.read_csv(&lt;url&gt;)">
     </div>
     <aside class="notes">
       <p><code>read_csv</code> builds a DataFrame from comma-separated text. The argument is a path to a local file or a URL; given a URL, pandas fetches the file over HTTP before parsing it. By default the first line is taken as the column names, the separator is a comma, and each column's dtype is inferred from its contents, so a column of digits becomes int64 and a column of text becomes object. Keyword arguments cover the departures: <code>sep</code> for another delimiter, <code>header=None</code> with <code>names</code> when the file has no heading row, <code>parse_dates</code> to convert timestamp columns on load, <code>usecols</code> and <code>nrows</code> to read a subset, and <code>dtype</code> to fix a column's type in place of inference.</p>
@@ -958,7 +958,7 @@
   </section>
   <section data-page="129">
     <div class="page-stack">
-      <img class="page" src="pages/p129.webp" alt="GTK Cyber DataFrames Exce l df = pd.read_excel(&lt;file&gt;, sheetname=&lt;sheetname&gt;)">
+      <img class="page" src="pages/p129.webp" alt="GTK Cyber Exce l df = pd.read_excel(&lt;file&gt;, sheetname=&lt;sheetname&gt;)">
     </div>
     <aside class="notes">
       <p><code>read_excel</code> loads one worksheet of a spreadsheet into a DataFrame, with the first row as column names by default. The keyword that selects the sheet is <code>sheet_name</code>, by name or by zero-based position; the <code>sheetname</code> spelling was removed from pandas in 2017, so the call as written raises a TypeError. Reading .xlsx files requires the openpyxl package to be installed alongside pandas.</p>
@@ -966,7 +966,7 @@
   </section>
   <section data-page="130">
     <div class="page-stack">
-      <img class="page" src="pages/p130.webp" alt="GTK Cyber DataFrames JSO N df = pd.read_json( &lt;file&gt; ) or df = pd.read_json( &lt;url&gt; )">
+      <img class="page" src="pages/p130.webp" alt="GTK Cyber JSO N df = pd.read_json( &lt;file&gt; ) or df = pd.read_json( &lt;url&gt; )">
     </div>
     <aside class="notes">
       <p><code>read_json</code> builds a DataFrame from JSON in a file or at a URL. A top-level list of objects becomes one row per object; a top-level object of lists becomes one column per key. Two arguments cover the formats that platforms export. <code>lines=True</code> reads JSON Lines, where each line of the file is a separate object, which is how log exports and API dumps are laid out. <code>orient</code> states the layout when it is not the default, which is columns for a DataFrame and index for a Series; the allowed values are split, records, index, columns and values, each naming how the document is nested. <code>dtype</code> controls type inference on load: True, the default, infers a type per column, False leaves the values as JSON delivered them, and a dictionary fixes the type of the columns it names. Since pandas 2.1, passing a literal JSON string to read_json is deprecated; wrap it in <code>io.StringIO</code> first.</p>
@@ -974,7 +974,7 @@
   </section>
   <section data-page="131">
     <div class="page-stack">
-      <img class="page" src="pages/p131.webp" alt="GTK Cyber DataFrames From a Database df = pd.read_sql(&lt;query&gt;, &lt;connection&gt;)">
+      <img class="page" src="pages/p131.webp" alt="GTK Cyber From a Database df = pd.read_sql(&lt;query&gt;, &lt;connection&gt;)">
     </div>
     <aside class="notes">
       <p><code>read_sql</code> runs a query against a database and returns the result set as a DataFrame, with the column names the query produces. The connection is a SQLAlchemy engine or a DBAPI connection object such as one from the sqlite3 module. The filtering and joining in the query execute inside the database, so only the rows needed reach Python; <code>read_sql_table</code> pulls a whole table by name instead of a query.</p>
@@ -982,7 +982,7 @@
   </section>
   <section data-page="132">
     <div class="page-stack">
-      <img class="page" src="pages/p132.webp" alt="GTK Cyber DataFrames Parque t df = pd.read_parquet(&lt;file&gt;)">
+      <img class="page" src="pages/p132.webp" alt="GTK Cyber Parque t df = pd.read_parquet(&lt;file&gt;)">
     </div>
     <aside class="notes">
       <p><code>read_parquet</code> loads an Apache Parquet file into a DataFrame. Parquet is a binary, columnar format from the Hadoop ecosystem: each column is stored and compressed separately with its type recorded, so a read recovers the exact dtypes with no inference, and a reader can pull only the columns it names. It is the storage format of Spark, Databricks and data lake tables, which makes it the interchange format between those systems and pandas. Reading it requires the pyarrow or fastparquet package.</p>
@@ -1111,7 +1111,7 @@
   </section>
   <section data-page="149">
     <div class="page-stack">
-      <img class="page" src="pages/p149.webp" alt="GTK Cyber d df = pd.DataFrame(json_normalize(pcap_data))">
+      <img class="page" src="pages/p149.webp" alt="GTK Cyber df = pd.DataFrame(json_normalize(pcap_data))">
     </div>
     <aside class="notes">
       <p>The flattened DataFrame, with the nested TCP fields now top-level columns: TCP.seq, TCP.sport, TCP.urgptr and TCP.window, each holding a scalar per row and usable by every column operation. The values print as floats, 3372.0 in place of 3372, because rows for packets without a TCP layer have missing values in these columns, and a column that mixes integers with NaN is upcast to float64. Casting to pandas's nullable Int64 type restores integer display while keeping the missing values.</p>

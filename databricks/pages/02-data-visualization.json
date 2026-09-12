@@ -16,14 +16,14 @@
       "kind": "slide",
       "group": 2,
       "slide": 2,
-      "text": "GTK Cyber The power of visualization comes from illustrating relationships, contrasts and comparisons between many different dimensions of data."
+      "text": "GTK Cyber"
     },
     {
       "page": 3,
       "kind": "slide",
       "group": 3,
       "slide": 3,
-      "text": "GTK Cyber The power of visualization comes from illustrating relationships, contrasts and comparisons between many different dimensions of data."
+      "text": "GTK Cyber"
     },
     {
       "page": 4,
@@ -254,7 +254,7 @@
       "kind": "slide",
       "group": 36,
       "slide": 36,
-      "text": "GTK Cyber Customizing your Charts • Axes: Axes represent an individual plot or chart. • Figure: This is the final complete image and may contain 1 or more axes. fig, ax = plt.subplots() df.plot(..., ax=ax) This method gets you access to the figure and axes."
+      "text": "GTK Cyber Customizing your Charts fig, ax = plt.subplots() df.plot(..., ax=ax) This method gets you access to the figure and axes."
     },
     {
       "page": 37,
@@ -289,7 +289,7 @@
       "kind": "slide",
       "group": 41,
       "slide": 41,
-      "text": "GTK Cyber Lab • Please complete Worksheet 3: Data Visualization Please take 30 min to complete Worksheet 2.1: Data Visualization"
+      "text": "GTK Cyber Lab Please take 30 min to complete Worksheet 2.1: Data Visualization"
     },
     {
       "page": 42,
@@ -345,7 +345,7 @@
       "kind": "slide",
       "group": 49,
       "slide": 49,
-      "text": "GTK Cyber Streamlit"
+      "text": "GTK Cyber"
     },
     {
       "page": 50,
@@ -429,7 +429,7 @@
       "kind": "slide",
       "group": 61,
       "slide": 61,
-      "text": "GTK Cyber Lab • Please complete Worksheet 3: Data Visualization Please take 30 min to complete Worksheet 2.2 Interactive Visualizations (Not in Jupyter)"
+      "text": "GTK Cyber Lab Please take 30 min to complete Worksheet 2.2 Interactive Visualizations (Not in Jupyter)"
     }
   ]
 }

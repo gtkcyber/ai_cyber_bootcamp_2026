@@ -281,7 +281,7 @@
   </section>
   <section data-page="34">
     <div class="page-stack">
-      <img class="page" src="pages/p034.webp" alt="GTK Cyber Criterion for best splits: Impurity Information Gain = entropy(parent) - [weighted average]entropy(children) Which feature below gives the best split? entropy(parent)=1. ">
+      <img class="page" src="pages/p034.webp" alt="GTK Cyber Information Gain = entropy(parent) - [weighted average]entropy(children) Which feature below gives the best split? entropy(parent)=1. 0 most impure binary system choosing">
     </div>
     <aside class="notes">
       <p>Information gain is the entropy of the parent minus the weighted average entropy of the children, each child weighted by its share of the parent's observations. The parent here holds two white and two red circles, so its entropy is one bit, the maximum for two classes. Three candidate features are compared. Feature one sends three circles left, two white and one red, and one red circle right; the gain is 0.3112 bits. Feature two sends one white and one red each way; each child is as mixed as the parent, so the gain is zero. Feature three sends both whites left and both reds right; both children are pure, so the gain is the full one bit. Feature three gives the best split. A tree grows by computing this number for every feature and every threshold at a node, taking the largest, and repeating in each child.</p>
@@ -412,7 +412,7 @@
   </section>
   <section data-page="50">
     <div class="page-stack">
-      <img class="page" src="pages/p050.webp" alt="GTK Cyber Tuning a Random Forest 2 important parameters that should be tuned when creating a random forest model are: • The number of trees to grow (called n_estimators in scikit-l">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber Tuning a Random Forest">
     </div>
     <aside class="notes">
       <p>The chart plots the error of a random forest regressor against the number of trees, from twenty to about five hundred. The error measure is the root mean squared error, the square root of the average squared difference between prediction and truth, so lower is better. Error falls steeply over the first hundred trees, then keeps falling with diminishing returns and some noise, from about 3.80 to about 3.55. Adding trees does not cause overfitting, because more trees only reduce the variance of the average, but every added tree costs training time and prediction time, so the setting is chosen where the curve flattens.</p>
@@ -420,7 +420,7 @@
   </section>
   <section data-page="51">
     <div class="page-stack">
-      <img class="page" src="pages/p051.webp" alt="GTK Cyber Tuning a Random Forest 2 important parameters that should be tuned when creating a random forest model are: • The number of trees to grow (called n_estimators in scikit-l">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber Tuning a Random Forest">
     </div>
     <aside class="notes">
       <p>The second tuning chart plots the same error against max_features from one to seven. Error drops from about 4.7 with one feature per split to about 3.5 at six, then rises slightly at seven, so for this data considering six features per split is best. With too few candidates the probability that the best feature for a split is among them is low, and the trees are weak; with all seven the trees are strongly correlated and the average gains less.</p>
@@ -429,7 +429,7 @@
   </section>
   <section data-page="52">
     <div class="page-stack">
-      <img class="page" src="pages/p052.webp" alt="GTK Cyber Tuning a Random Forest 2 important parameters that should be tuned when creating a random forest model are: • The number of trees to grow (called n_estimators in scikit-l">
+      <img class="page" src="pages/p052.webp" alt="GTK Cyber Tuning a Random Forest Class A: p% Class B: 1-p % Majority Win">
     </div>
     <aside class="notes">
       <p>The second tuning chart plots the same error against max_features from one to seven. Error drops from about 4.7 with one feature per split to about 3.5 at six, then rises slightly at seven, so for this data considering six features per split is best. With too few candidates the probability that the best feature for a split is among them is low, and the trees are weak; with all seven the trees are strongly correlated and the average gains less.</p>
@@ -496,7 +496,7 @@
   </section>
   <section data-page="60">
     <div class="page-stack">
-      <img class="page" src="pages/p060.webp" alt="GTK Cyber Classification Algorithms in Scikit-Learn • Generalized Linear Models • Kernel Ridge • Support Vector Machines • Nearest Neighbors • Gaussian Processes • Naive Bayes • Tr">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber Classification Algorithms in Scikit-Learn http://scikit-learn.org/stable/auto_examples/classification/ plot_classifier_comparison.html">
     </div>
     <aside class="notes">
       <p>The supervised learning chapter of the scikit-learn user guide lists these families. Generalized linear models: logistic regression and its relatives, a weighted sum of the features passed through a link function. Kernel ridge: ridge regression combined with the kernel trick. Support vector machines, nearest neighbors and trees: covered above. Gaussian processes: a Bayesian method that returns a probability distribution with each prediction. Naive Bayes: applies Bayes' theorem under the assumption that features are independent given the class; it appears later in this deck as GaussianNB. Neural networks: the multilayer perceptron, the subject of the deep learning module. AdaBoost: boosting, which fits models in sequence with each new model weighting the observations the earlier ones got wrong. Gradient tree boosting: boosting where each new tree fits the remaining errors of the ensemble so far. Ensemble methods: bagging, random forests and voting combinations of any models. The list is broad by design. The module teaches four of the families; the rest are here so that their names are familiar when they appear in the documentation, not to be learned now.</p>
@@ -505,7 +505,7 @@
   </section>
   <section data-page="61">
     <div class="page-stack">
-      <img class="page" src="pages/p061.webp" alt="GTK Cyber Python Sklearn Overview http://scikit-learn.org/stable/">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber http://scikit-learn.org/stable/">
     </div>
     <aside class="notes">
       <p>The scikit-learn home page organizes the library into six areas. Classification: assigning a category, with support vector machines, nearest neighbors and random forests as examples. Regression: predicting a continuous value. Clustering: grouping similar objects without labels. Dimensionality reduction: reducing the number of variables, with principal component analysis as the first example. Model selection: comparing and tuning models, with grid search, cross-validation and metrics as the modules, which is the rest of this deck. Preprocessing: feature extraction and normalization. The library is built on NumPy, SciPy and matplotlib and is released under the BSD license, which permits commercial use.</p>
@@ -683,7 +683,7 @@
   </section>
   <section data-page="83">
     <div class="page-stack">
-      <img class="page" src="pages/p083.webp" alt="GTK Cyber Precision vs. Recall • Precision and Recall are often inversely related--as precision increases, often recall goes down. • Precision is the proportion of positive identif">
+      <img class="page" src="pages/p083.webp" alt="GTK Cyber Precision vs. Recall https://developers.google.com/machine-learning/crash-course/classification/precision-and- recall">
     </div>
     <aside class="notes">
       <p>Precision and recall pull against each other. Precision is the proportion of positive identifications that are correct; recall is the proportion of actual positives that were identified. A model that flags only the observations it is surest of makes few false positives, so its precision is high, and misses the doubtful positives, so its recall is low. A model that flags anything doubtful finds the positives, so its recall is high, and sweeps in negatives, so its precision falls. Which to favor depends on the cost of each kind of error.</p>
@@ -692,7 +692,7 @@
   </section>
   <section data-page="84">
     <div class="page-stack">
-      <img class="page" src="pages/p084.webp" alt="GTK Cyber Precision vs. Recall • Precision and Recall are often inversely related--as precision increases, often recall goes down. • Precision is the proportion of positive identif">
+      <img class="page" src="pages/p084.webp" alt="GTK Cyber Precision vs. Recall https://developers.google.com/machine-learning/crash-course/classification/precision-and- recall">
     </div>
     <aside class="notes">
       <p>The same scores with the threshold lowered to 0.23. Every positive now clears the line, so false negatives are zero and recall is one, but twenty-seven negatives clear it too, so precision falls to 0.64. Nothing about the model changed between the two charts; only the cutoff moved. A classifier with a score output has a whole family of precision and recall pairs, one per threshold, and choosing the threshold is choosing which error to accept.</p>
@@ -700,7 +700,7 @@
   </section>
   <section data-page="85">
     <div class="page-stack">
-      <img class="page" src="pages/p085.webp" alt="GTK Cyber Precision vs. Recall • Precision and Recall are often inversely related--as precision increases, often recall goes down. • Precision is the proportion of positive identif">
+      <img class="page" src="pages/p085.webp" alt="GTK Cyber Precision vs. Recall https://developers.google.com/machine-learning/crash-course/classification/precision-and- recall">
     </div>
     <aside class="notes">
       <p>The threshold set to 0.55, between the two extremes. Forty positives clear it and eight do not; four negatives clear it and forty-seven do not. Precision is 0.91 and recall 0.83, and accuracy, at 0.88, is higher than at either extreme, because both kinds of error are now small. Neither metric is at its maximum, which is the usual result of a threshold chosen to balance them.</p>
@@ -844,7 +844,7 @@
   </section>
   <section data-page="103">
     <div class="page-stack">
-      <img class="page" src="pages/p103.webp" alt="GTK Cyber K-Fold Cross Validation 1. Split the dataset into K equal partitions (or &quot;folds&quot;). 2. Use fold 1 as the testing set and the union of the other folds as the training set. ">
+      <img class="page" src="pages/p103.webp" alt="GTK Cyber K-Fold Cross Validation">
     </div>
     <aside class="notes">
       <p>K-fold cross-validation is the standard way to make those splits. Divide the dataset into K equal partitions, called folds. Use fold one as the testing set and the union of the other folds as the training set, and compute the testing accuracy. Repeat K times, with a different fold as the testing set each time. Take the average of the K testing accuracies as the estimate of out-of-sample accuracy. Each observation is tested once and trained on K minus one times. The diagram is the procedure with K equal to five. The data is stacked in five blocks; in each of the five columns a different block is the test set, in red, and the other four are the training set, in blue. Five models are fitted and five test scores computed, one per column, and their average is the estimate.</p>

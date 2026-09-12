@@ -155,7 +155,7 @@
   </section>
   <section data-page="18">
     <div class="page-stack">
-      <img class="page" src="pages/p018.webp" alt="GTK Cyber \ What Data Science kind of is… 3 Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Categ">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber What Data Science kind of is… 3 Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Categor">
     </div>
     <aside class="notes">
       <p>The first question in any project is whether the data carries labels, because a yes opens the supervised methods and a no closes them until labels can be found. With labels, the type of the value picks the method. A quantity leads to regression, which predicts a number and supports inference about which inputs move it. A category leads to classification, which predicts a class. Without labels, the question is whether they can be obtained, by hand labeling or from an existing source such as a blocklist; if they can, the supervised methods apply. If they cannot, what remains is clustering and pattern finding: recommenders, similarity search and anomaly detection. The chart marks this branch nothing proven because no label exists to check the output against, so the result is a structure found in the data, with no way to score it as right or wrong.</p>
@@ -524,7 +524,7 @@
   </section>
   <section data-page="62">
     <div class="page-stack">
-      <img class="page" src="pages/p062.webp" alt="GTK Cyber How do we know which features to use and which to discard? best_features = SelectKBest(score_func=chi2,k=3).fit_transform(features,target) References: http://scikit-learn">
+      <img class="page" src="pages/p062.webp" alt="GTK Cyber best_features = SelectKBest(score_func=chi2,k=3).fit_transform(features,target) References: http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.Sel">
     </div>
     <aside class="notes">
       <p>SelectKBest scores every feature against the target with a chosen statistic and keeps the k highest; with score_func=chi2 and k=3 it keeps the three features with the largest chi-squared statistic. fit_transform computes the scores and returns the reduced matrix in one call. SelectPercentile keeps a share of the features by score; percentile=3 keeps the top three percent, which for a seven-column table comes to one column. The slide's caption for it, all features above a threshold in the scoring function, is inexact; SelectPercentile ranks the features and keeps a fraction of them, and a score threshold is a different selector.</p>
@@ -594,7 +594,7 @@
   </section>
   <section data-page="70">
     <div class="page-stack">
-      <img class="page" src="pages/p070.webp" alt="GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense...">
+      <img class="page" src="pages/p070.webp" alt="GTK Cyber FG Data Profiling">
     </div>
     <aside class="notes">
       <p>The report's overview tab summarizes the lab's feature table. Number of variables, seven: the six features and isDGA. Number of observations, two thousand: one row per domain. Missing cells, zero: no imputation is needed. Duplicate rows, two: identical rows to drop before selection. Variable types: six numeric columns and one boolean, the target. The Reproduction tab records when and how the report was generated, and the Warnings tab, with four entries, lists the findings the report flags.</p>
@@ -602,7 +602,7 @@
   </section>
   <section data-page="71">
     <div class="page-stack">
-      <img class="page" src="pages/p071.webp" alt="GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense...">
+      <img class="page" src="pages/p071.webp" alt="GTK Cyber FG Data Profiling">
     </div>
     <aside class="notes">
       <p>The per-variable panel for digits. Distinct count, twenty-two, and unique, 1.1 percent: the column takes twenty-two different values across two thousand rows. Zeros, 1670 or 83.5 percent: most domains contain no digit at all. The quantile block makes the same point: minimum, fifth percentile, first quartile, median and third quartile are all zero, the ninety-fifth percentile is nine and the maximum is twenty-seven, so the interquartile range is zero and the whole spread of the column is confined to its top sixth. The descriptive block shows the consequence: a mean of 1.19 pulled up from the zero median by the tail, a standard deviation of 3.23 larger than the mean, and skewness of 3.1 and kurtosis of 10.9, both marking a long right tail. The histogram at the top right is a single bar at zero with a sliver beside it.</p>
@@ -611,7 +611,7 @@
   </section>
   <section data-page="72">
     <div class="page-stack">
-      <img class="page" src="pages/p072.webp" alt="GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense...">
+      <img class="page" src="pages/p072.webp" alt="GTK Cyber FG Data Profiling">
     </div>
     <aside class="notes">
       <p>The warnings tab lists four findings. Two duplicate rows, 0.1 percent of the table: remove them before selection. digits has 1670 zeros and firstDigitIndex has 1670 zeros, the same count, because both are zero on exactly the names that contain no numeral; on 83.5 percent of the rows the two columns are identical, and they differ only on the remaining sixth, so they are close to redundant. vowel-cons has 87 zeros, 4.3 percent: names with no vowel, and names with no consonant, for which the helper function returns zero in place of a division by zero.</p>
@@ -619,7 +619,7 @@
   </section>
   <section data-page="73">
     <div class="page-stack">
-      <img class="page" src="pages/p073.webp" alt="GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense...">
+      <img class="page" src="pages/p073.webp" alt="GTK Cyber FG Data Profiling">
     </div>
     <aside class="notes">
       <p>The correlations tab draws the full correlation matrix, diagonal included, with blue for positive and red for negative values on a scale from negative one to one. It is the same Pearson matrix as the heatmap drawn by hand, so the blue cells linking isDGA with length, digits and entropy and the red cells for ngrams and vowel-cons against the target repeat the earlier reading. The other tabs recompute the matrix with different coefficients. Spearman's rho: the Pearson correlation of the ranks, which measures any monotonic relation, straight-line or not. Kendall's tau: the balance of concordant against discordant pairs, another rank measure. Phik: a coefficient that works across numeric and categorical columns and picks up non-linear dependence, with values from zero to one.</p>

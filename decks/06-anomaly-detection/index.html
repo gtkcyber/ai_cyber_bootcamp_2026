@@ -90,7 +90,7 @@
   </section>
   <section data-page="10">
     <div class="page-stack">
-      <img class="page" src="pages/p010.webp" alt="GTK Cyber What is an outlier? • An out">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber What is an outlier?">
     </div>
     <aside class="notes">
       <p>The word is literal. An outlier is a point that lies outside the region the rest of the observations occupy, so it can only be identified against a particular set of observations.</p>
@@ -98,7 +98,7 @@
   </section>
   <section data-page="11">
     <div class="page-stack">
-      <img class="page" src="pages/p011.webp" alt="GTK Cyber An outlier or anomaly is a data point which differs from the rest of the observations in a dataset. • An out">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber An outlier or anomaly is a data point which differs from the rest of the observations in a dataset.">
     </div>
     <aside class="notes">
       <p>The definition needs two things made concrete before it can be computed. Differs from the rest requires a measure of difference: a distance from the other observations, or from a summary of them such as their mean. A data point which differs requires a threshold: how much distance counts. Each method in the module fixes both.</p>
@@ -141,7 +141,7 @@
   </section>
   <section data-page="16">
     <div class="page-stack">
-      <img class="page" src="pages/p016.webp" alt="GTK Cyber Anomaly Detection Process • Pandas/SciPy/NumPy: Pandas, SciPy and NumPy can be used for some of the simpler statistical calculations • PyOD: A relatively new module for o">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Anomaly Detection Process Use Known Data to Predict value Use Known Data to Predict value Compare prediction to actual values and calculate anomaly score. (Distance) Comp">
     </div>
     <aside class="notes">
       <p>Every method in the module runs the same three stages. Predict: use the known data to produce an expected value for the observation, whether that is the mean of a column, the next value of a series, or a learned region of feature space. Score: compare the prediction with the actual value and express the difference as a distance, the anomaly score. Decide: compare the score with a threshold; a score within the threshold marks the observation as an inlier, and a score beyond it marks an outlier.</p>
@@ -261,7 +261,7 @@
   </section>
   <section data-page="30">
     <div class="page-stack">
-      <img class="page" src="pages/p030.webp" alt="GTK Cyber Z-Score measures how many standard deviations an observation is from the mean. #Use SciPy from scipy.stats import zscore df.apply(zscore) #Use Pandas (Only works for all ">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber #Use SciPy from scipy.stats import zscore df.apply(zscore) #Use Pandas (Only works for all numeric cols) df_zscore = (df - df.mean())/df.std()">
     </div>
     <aside class="notes">
       <p>Two ways to compute z-scores for every column of a DataFrame. SciPy: <code>zscore</code> from <code>scipy.stats</code>, applied column by column with <code>df.apply</code>. pandas: subtract the column means from the frame and divide by the column standard deviations, which pandas broadcasts across the columns in one expression. Both fail on a column of strings, since subtraction is undefined for text; select the numeric columns first with <code>df.select_dtypes('number')</code>.</p>
@@ -372,7 +372,7 @@
   </section>
   <section data-page="43">
     <div class="page-stack">
-      <img class="page" src="pages/p043.webp" alt="GTK Cyber ARIMA import pandas as pd import pyflux as pf # Get data &amp; build model model = pf.ARIMA( data = data_train, ar=11, ma=11, integ=0, target=&lt;target_col&gt;) model.fit(&quot;M-H&quot;) #">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber ARIMA">
     </div>
     <aside class="notes">
       <p>The plot is the model's in-sample fit on the training set: observed CPU utilization in red and the model's predictions in black over about 420 steps. In-sample predictions are one step ahead, each made from the actual values up to the previous step, so the black line follows the red closely and trails it by a step at the sharp turns. The series shows three broad rises and falls with sharper spikes on top, and the model tracks both. The residuals, the small vertical gaps between the lines, are the model's baseline error on normal data and set the scale against which a later gap is judged large. The lab produces this plot with <code>predict_in_sample()</code>.</p>
@@ -380,7 +380,7 @@
   </section>
   <section data-page="44">
     <div class="page-stack">
-      <img class="page" src="pages/p044.webp" alt="GTK Cyber ARIMA import pandas as pd import pyflux as pf # Get data &amp; build model model = pf.ARIMA( data = data_train, ar=11, ma=11, integ=0, target=&lt;target_col&gt;) model.fit(&quot;M-H&quot;) #">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber ARIMA Large delta between data and prediction">
     </div>
     <aside class="notes">
       <p>The plot is the 60-step forecast on the test set of dataset B, the set with an injected anomaly. The blue line is the forecast, made once at the end of the training data and declining smoothly from about 1.6 toward 1.2. The red line is what was observed: it tracks the forecast for the first ten steps, drops to near zero at step 10, stays there through step 30, then jumps above 2 and stays high. The forecast does not react because the test values are not in its input; it is a multi-step projection from training data alone.</p>
@@ -438,7 +438,7 @@
   </section>
   <section data-page="51">
     <div class="page-stack">
-      <img class="page" src="pages/p051.webp" alt="GTK Cyber One Class SVM Implementation from sklearn import svm # fit the model clf = svm.OneClassSVM(nu=0.1, kernel=&quot;rbf&quot;, gamma=0.1) clf.fit(X_train) y_pred_train = clf.predict(X_">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber One Class SVM Implementation https://scikit-learn.org/stable/auto_examples/svm/ plot_oneclass.html">
     </div>
     <aside class="notes">
       <p>The chart is the output of the same example. Training observations, white, form two clusters. The dark red line is the learned frontier around each, and the blue shading is the decision function, darker where a point sits deeper inside the frontier. Purple points are new observations drawn from the same distribution as the training data; yellow points are new observations scattered uniformly across the square.</p>
@@ -480,7 +480,7 @@
   </section>
   <section data-page="56">
     <div class="page-stack">
-      <img class="page" src="pages/p056.webp" alt="GTK Cyber Isolation forest’s basic principle is that outliers are few and far from the rest of the observations. https://towardsdatascience.com/a-brief-overview-of-outlier-detectio">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561">
     </div>
     <aside class="notes">
       <p>The figure, from the source article, shows the structure. An isolation forest is a set of isolation trees, each built on a random subsample of the data by random splits that continue until every point sits alone in its own leaf. A point's path length in a tree is the number of splits it took to isolate it. In each tree drawn, the red point is alone after one split, the dark blue points after two, and the light blue point after five.</p>
@@ -523,7 +523,7 @@
   </section>
   <section data-page="61">
     <div class="page-stack">
-      <img class="page" src="pages/p061.webp" alt="GTK Cyber Isolation Forest Implementation • Scikit Learn Documentation: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html from sklearn.ensembl">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Isolation Forest Implementation https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html">
     </div>
     <aside class="notes">
       <p>The chart is the example's output. White points are the training observations, in two clusters at about (2, 2) and (minus 2, minus 2); green points are new regular observations, drawn from the same clusters; red points are new abnormal observations, scattered across the square. The shading is the decision function: palest where a point is scored as an inlier, darkening as the score moves toward outlier.</p>

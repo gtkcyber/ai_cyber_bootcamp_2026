@@ -149,7 +149,7 @@
       "kind": "slide",
       "group": 20,
       "slide": 20,
-      "text": "GTK Cyber Inversion/Inference Example • A facial recognition model “ W “ is produced using a training procedure “ Y “ and data “ X “. • Given the model and possible output labels can training data be recovered? https://www.cs.toronto.edu/~toni/Courses/Fairness/Lectures/ML-and-DP- v2.pdf"
+      "text": "GTK Cyber Inversion/Inference Example https://www.cs.toronto.edu/~toni/Courses/Fairness/Lectures/ML-and-DP- v2.pdf"
     },
     {
       "page": 22,
@@ -184,49 +184,49 @@
       "kind": "slide",
       "group": 25,
       "slide": 25,
-      "text": "GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining set with the intent of altering the decision boundaries. Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
+      "text": "GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
     },
     {
       "page": 27,
       "kind": "slide",
       "group": 26,
       "slide": 26,
-      "text": "GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining set with the intent of altering the decision boundaries. Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
+      "text": "GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
     },
     {
       "page": 28,
       "kind": "slide",
       "group": 27,
       "slide": 27,
-      "text": "GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining set with the intent of altering the decision boundaries. Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
+      "text": "GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
     },
     {
       "page": 29,
       "kind": "slide",
       "group": 28,
       "slide": 28,
-      "text": "GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining set with the intent of altering the decision boundaries. Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
+      "text": "GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
     },
     {
       "page": 30,
       "kind": "slide",
       "group": 29,
       "slide": 29,
-      "text": "GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining set with the intent of altering the decision boundaries. Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
+      "text": "GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
     },
     {
       "page": 31,
       "kind": "slide",
       "group": 30,
       "slide": 30,
-      "text": "GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining set with the intent of altering the decision boundaries. Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
+      "text": "GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
     },
     {
       "page": 32,
       "kind": "slide",
       "group": 31,
       "slide": 31,
-      "text": "GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining set with the intent of altering the decision boundaries. Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
+      "text": "GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning & Security. Pg. 322 (2018)"
     },
     {
       "page": 33,

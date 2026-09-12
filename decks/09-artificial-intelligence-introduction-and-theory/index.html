@@ -17,7 +17,7 @@
 <div class="slides">
   <section data-page="1">
     <div class="page-stack">
-      <img class="page" src="pages/p001.webp" alt="Artificial Intelligence - LLM flavor: The Part You&#x27;ve All Been Waiting For Charles S. Givre CISSP">
+      <img class="page" src="pages/p001.webp" alt="Artificial Intelligence - LLM flavor: The Part You&#x27;ve All Been Waiting For">
     </div>
     <aside class="notes">
       <p>Module 9 opens the artificial intelligence half of the bootcamp with the theory behind large language models: how text becomes tokens and embeddings, how a transformer produces output one token at a time, and why a generative model is non-deterministic and can return confident, wrong answers.</p>
@@ -130,7 +130,7 @@
   </section>
   <section data-page="15">
     <div class="page-stack">
-      <img class="page" src="pages/p015.webp" alt="GTK Cyber What Can We Do with Language Models? • 1.">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber What Can We Do with Language Models?">
     </div>
     <aside class="notes">
       <p>A language model takes unstructured text as input and can return three kinds of output. Text output: generated text, which is what a chat model returns. Embeddings: a vector of numbers representing the input, used to compare texts with each other. Classification: a label identifying which category the input belongs to.</p>
@@ -279,7 +279,7 @@
   </section>
   <section data-page="33">
     <div class="page-stack">
-      <img class="page" src="pages/p033.webp" alt="GTK Cyber Grouping Unlabeled Data • You can also use embeddings to classify unlabeled data. • To do so: you describe the labels, and then create embeddings for the those descriptio">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber Grouping Unlabeled Data">
     </div>
     <aside class="notes">
       <p>The comparison is geometric. Each embedding is a vector from the origin, and cosine similarity measures the angle between two of them: the smaller the angle, the higher the similarity. In the plot, the angle θ1 between Best movie ever! and A positive movie review is smaller than the angle θ2 between it and A negative movie review, so the document is assigned the positive label. The plot is drawn in two dimensions for legibility; the real vectors have hundreds of dimensions, and the angle is measured across all of them at once.</p>
@@ -818,7 +818,7 @@
   </section>
   <section data-page="106">
     <div class="page-stack">
-      <img class="page" src="pages/p106.webp" alt="GTK Cyber series = df[&#x27;column1&#x27;] series = df.column1 • Models are code and code can be malicious. • Researchers, and others have successfully uploaded malicious models to HuggingFa">
+      <img class="page" src="pages/p106.webp" alt="GTK Cyber • Models are code and code can be malicious. • Researchers, and others have successfully uploaded malicious models to HuggingFace. Warning: Models are Code">
     </div>
     <aside class="notes">
       <p>A model file is code, and code can be malicious. The formats in which models are shared can execute instructions when loaded: PyTorch's default save format is a Python pickle, and unpickling runs whatever Python the file contains, so a model file can carry a payload that executes the moment it is loaded. Researchers have demonstrated this by uploading working malicious models to Hugging Face, and malicious models placed by others have been found there; JFrog's security team reported about a hundred of them in February 2024, including one that opened a reverse shell to a remote host on load. Treat a downloaded model as a downloaded executable: take it from a publisher you trust, prefer the safetensors format, which stores only tensors and cannot execute code, and load pickle files with the weights-only option. Worksheet 9.6 covers the other route to a malicious model, poisoning its training data.</p>

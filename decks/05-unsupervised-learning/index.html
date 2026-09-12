@@ -33,7 +33,7 @@
   </section>
   <section data-page="3">
     <div class="page-stack">
-      <img class="page" src="pages/p003.webp" alt="GTK Cyber \ What Data Science kind of is… 3 Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Categ">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber What Data Science kind of is… 3 Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Categor">
     </div>
     <aside class="notes">
       <p>The flowchart sorts a problem into a family of machine learning by asking about labels. Labeled data means each observation carries the value the model is supposed to produce. With labels, the next question is whether that value is a quantity or a category: a quantity calls for regression, which predicts a number and supports inference about which features drive it; a category calls for classification, which predicts the class.</p>
@@ -98,7 +98,7 @@
   </section>
   <section data-page="11">
     <div class="page-stack">
-      <img class="page" src="pages/p011.webp" alt="GTK Cyber Two-Dimensional Distance Euclidean very common and easy to grok Malware events Phishing Dept1 6 6 Dept2 1 2 Dept3 8 1 Multiple Distance methods • Euclidean • Manhattan • ">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber Two-Dimensional Distance Malware events Phishing Dept1 6 6 Dept2 1 2 Dept3 8 1 Multiple Distance methods • Euclidean • Manhattan • Maximum • Canberra • Binary • Minkowski">
     </div>
     <aside class="notes">
       <p>With two features per department the plain difference no longer gives one number, and a distance method has to be chosen. The list names six. Euclidean: the length of the straight line between the two points. Manhattan: the sum of the differences along each axis. Maximum: the largest single difference on any one feature. Canberra: a sum of differences each divided by the sum of the two values being compared, which weights differences between small values more heavily. Binary: for presence or absence features, the share of features present in only one of the two observations among those present in either. Minkowski: a family with a parameter, where a parameter of one gives Manhattan and two gives Euclidean. Euclidean is the common choice, and it is the distance k-means uses.</p>
@@ -106,7 +106,7 @@
   </section>
   <section data-page="12">
     <div class="page-stack">
-      <img class="page" src="pages/p012.webp" alt="GTK Cyber Two-Dimensional Distance Euclidean very common and easy to grok Dept2 Dept2 Dept2 Dept1 Dept1 Dept1 G G G 0 1 2 3 4 5 6 7 8 0 1 2 3 4 5 6 7 8 Malware Events Phishing Even">
+      <img class="page" src="pages/p012.webp" alt="GTK Cyber Two-Dimensional Distance Dept2 Dept2 Dept2 Dept1 Dept1 Dept1 G G G 0 1 2 3 4 5 6 7 8 0 1 2 3 4 5 6 7 8 Malware Events Phishing Events G G G 0 1 2 3 4 5 6 7 8 0 1 2 3 4 5 ">
     </div>
     <aside class="notes">
       <p>The two counts place each department as a point in a plane, with malware events on the horizontal axis and phishing events on the vertical. Dept1 is at six malware events and six phishing events, Dept2 at one and two, and the third department at eight and one. The dashed segment joining Dept2 to Dept1 is their Euclidean distance, and the next slide computes its length.</p>
@@ -195,7 +195,7 @@
   </section>
   <section data-page="23">
     <div class="page-stack">
-      <img class="page" src="pages/p023.webp" alt="GTK Cyber Step 2: Assign each data point to the nearest centroid Step 1: Pick 3 random centroids within data range G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber Step 1: Pick 3 random centroids within data range G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G ">
     </div>
     <aside class="notes">
       <p>Step 1 on the example data: K is three, and the three starting centroids, drawn as red, green and blue asterisks, are placed at random within the range of the data. None of them sits inside a visible concentration. The red and green markers are near the top of the plot, where there are few points, and the blue marker is at the lower left. These positions and the value of K are the only inputs; everything that follows is determined by them.</p>
@@ -388,7 +388,7 @@
   </section>
   <section data-page="47">
     <div class="page-stack">
-      <img class="page" src="pages/p047.webp" alt="GTK Cyber The Dataset The dataset we will be using today is one of the classic datasets used in machine learning, known as the iris dataset. There are 4 features identifying each t">
+      <img class="page" src="pages/p047.webp" alt="GTK Cyber The Dataset sns.pairplot(&lt;data&gt;)">
     </div>
     <aside class="notes">
       <p>The data is the iris measurements: sepal length, sepal width, petal length and petal width, in centimeters, for 150 flowers. The species column of that dataset is not among the four features, so nothing in the data says which flower is which kind.</p>
@@ -397,7 +397,7 @@
   </section>
   <section data-page="48">
     <div class="page-stack">
-      <img class="page" src="pages/p048.webp" alt="GTK Cyber K-Means Clustering The dataset we will be using today is one of the classic datasets used in machine learning, known as the iris dataset. There are 4 features identifying">
+      <img class="page" src="pages/p048.webp" alt="GTK Cyber K-Means Clustering kmeans = KMeans( n_clusters=2 ) kmeans.fit( &lt;data&gt; )">
     </div>
     <aside class="notes">
       <p>The two lines fit k-means with two clusters to the four iris columns. Constructing the object sets K, and <code>fit</code> runs the assignment and recomputation loop on the rows of <code>data</code> and stores the centroids and labels on the object. The call pattern is the one every scikit-learn estimator uses, construct then fit, with one difference from the supervised estimators: <code>fit</code> receives only the feature matrix, and there is no target argument.</p>
@@ -405,7 +405,7 @@
   </section>
   <section data-page="49">
     <div class="page-stack">
-      <img class="page" src="pages/p049.webp" alt="GTK Cyber K-Means Clustering The dataset we will be using today is one of the classic datasets used in machine learning, known as the iris dataset. There are 4 features identifying">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber K-Means Clustering sns.pairplot(&lt;data&gt;,hue=&quot;kmeans_2&quot; )">
     </div>
     <aside class="notes">
       <p>The cluster labels from <code>labels_</code> have been added to the data frame as a column named <code>kmeans_2</code>, and passing that column as <code>hue</code> colors every point by its cluster. Cluster 0, in blue, is the compact group with petal length under two centimeters and petal width under half a centimeter; cluster 1, in orange, is everything else. The diagonal histograms are split by cluster as well, and the split is clean on petal length and petal width and blurred on sepal length and sepal width, where the two clusters overlap. The algorithm used all four features in its distance and found the gap that the petal measurements contain.</p>
@@ -415,7 +415,7 @@
   </section>
   <section data-page="50">
     <div class="page-stack">
-      <img class="page" src="pages/p050.webp" alt="GTK Cyber K-Means Clustering The dataset we will be using today is one of the classic datasets used in machine learning, known as the iris dataset. There are 4 features identifying">
+      <img class="page" src="pages/p050.webp" alt="GTK Cyber K-Means Clustering sns.pairplot(&lt;data&gt;,x_vars=&quot;col_1&quot;,y_vars=&quot;col_2&quot;,hue=&quot;kmeans_2&quot;,size=6) plt.scatter(&lt;cluster_centers&gt;,&lt;col_2&gt;, linewidths=3, marker=&#x27;x&#x27;, s=200, c=&#x27;bla">
     </div>
     <aside class="notes">
       <p>The cluster labels from <code>labels_</code> have been added to the data frame as a column named <code>kmeans_2</code>, and passing that column as <code>hue</code> colors every point by its cluster. Cluster 0, in blue, is the compact group with petal length under two centimeters and petal width under half a centimeter; cluster 1, in orange, is everything else. The diagonal histograms are split by cluster as well, and the split is clean on petal length and petal width and blurred on sepal length and sepal width, where the two clusters overlap. The algorithm used all four features in its distance and found the gap that the petal measurements contain.</p>
@@ -460,7 +460,7 @@
   </section>
   <section data-page="55">
     <div class="page-stack">
-      <img class="page" src="pages/p055.webp" alt="GTK Cyber Feature Scaling # K-means on scaled data km = KMeans(n_clusters=2,random_state=1234) km.fit(iris_data_scaled) Sca led Fea tur es Unscaled Features">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Feature Scaling Sca led Fea tur es Unscaled Features">
     </div>
     <aside class="notes">
       <p>The clustering call is unchanged; only the input differs. <code>KMeans</code> with two clusters is fit to the scaled data frame instead of the raw one, and the distances inside the loop are now measured in standard deviations. Everything the object stores is in the scaled units as well: the rows of <code>cluster_centers_</code> are centroids in scaled coordinates, and the scaler's <code>inverse_transform</code> converts them back to centimeters if they are to be plotted on the original axes. The <code>random_state</code> argument in the second version of the call fixes the random start, so the run gives the same partition each time.</p>
@@ -470,7 +470,7 @@
   </section>
   <section data-page="56">
     <div class="page-stack">
-      <img class="page" src="pages/p056.webp" alt="GTK Cyber More Clusters # K-means on scaled data km = KMeans(n_clusters=2,random_state=1234) km.fit(iris_data_scaled) km3 = KMeans(n_clusters=3) km3.fit(scaled_data)">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber More Clusters km3 = KMeans(n_clusters=3) km3.fit(scaled_data)">
     </div>
     <aside class="notes">
       <p>The same scaled data fit with three clusters instead of two. Cluster 1, in blue, is again the small-petal group and is unchanged. The third centroid split the large group in two along petal length and petal width: cluster 2, in green, holds the flowers with petal length below about five centimeters and petal width below about one and three quarters, and cluster 0, in orange, holds the larger ones. The two new clusters overlap on every panel, so the split runs through a region of the data with no gap in it.</p>
@@ -507,7 +507,7 @@
   </section>
   <section data-page="60">
     <div class="page-stack">
-      <img class="page" src="pages/p060.webp" alt="GTK Cyber Evaluating your Model k_range = range(2,16) scores = [] for k in k_range: km_ss = KMeans(n_clusters=k, random_state=1) km_ss.fit(iris_data_scaled) scores.append(silhouett">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber Evaluating your Model Best number of clusters">
     </div>
     <aside class="notes">
       <p>The loop fits k-means once for every K from two through fifteen, because <code>range(2, 16)</code> stops before sixteen, and records the silhouette score of each fit. <code>random_state=1</code> fixes the random seed, so the initialization is reproducible and rerunning the loop gives the same scores. <code>silhouette_score</code> takes the data and the fitted labels and returns the mean coefficient over all points. The range starts at two because the coefficient needs a nearest other cluster, which a single cluster does not have. The data passed to <code>silhouette_score</code> has to be the same scaled data the model was fit on, so the distances it measures are the ones the clustering used.</p>
@@ -517,7 +517,7 @@
   </section>
   <section data-page="61">
     <div class="page-stack">
-      <img class="page" src="pages/p061.webp" alt="GTK Cyber Evaluating your Model k_range = range(2,16) scores = [] for k in k_range: km_ss = KMeans(n_clusters=k, random_state=1) km_ss.fit(iris_data_scaled) scores.append(silhouett">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Evaluating your Model from yellowbrick.cluster import KElbowVisualizer visualizer = KElbowVisualizer(KMeans(), k=(4,12)) visualizer.fit(X) visualizer.poof()">
     </div>
     <aside class="notes">
       <p>Yellowbrick is a visualization library that wraps scikit-learn estimators, and its <code>KElbowVisualizer</code> fits the model once for every K in a range and plots a score against K. The range <code>k=(4, 12)</code> covers four through eleven. The score on the left axis is the distortion, the sum of squared distances from every point to its assigned centroid, which <code>KMeans</code> also exposes as <code>inertia_</code>. Adding a centroid can only shorten those distances, so the best possible distortion falls as K grows and there is no minimum to look for. The criterion is instead the elbow: the K past which adding clusters brings little further reduction. The blue line falls steeply from four to eight and then goes flat, so the elbow is at eight.</p>
@@ -526,7 +526,7 @@
   </section>
   <section data-page="62">
     <div class="page-stack">
-      <img class="page" src="pages/p062.webp" alt="GTK Cyber Evaluating your Model k_range = range(2,16) scores = [] for k in k_range: km_ss = KMeans(n_clusters=k, random_state=1) km_ss.fit(iris_data_scaled) scores.append(silhouett">
+      <img class="page" src="pages/p062.webp" alt="GTK Cyber Evaluating your Model from yellowbrick.cluster import SilhouetteVisualizer model = MiniBatchKMeans(6) visualizer = SilhouetteVisualizer(model) visualizer.fit(X) visualize">
     </div>
     <aside class="notes">
       <p>The silhouette plot shows the coefficient of every point, grouped by cluster. The model is <code>MiniBatchKMeans</code> with six clusters on a dataset of a thousand samples. Each colored band is one cluster: the points are sorted by coefficient and drawn as horizontal bars from zero to their value, so the band's height is the cluster's size and its shape is the distribution of its coefficients. The dashed red line is the mean coefficient over all points, about 0.65.</p>

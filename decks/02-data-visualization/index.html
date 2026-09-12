@@ -25,7 +25,7 @@
   </section>
   <section data-page="2">
     <div class="page-stack">
-      <img class="page" src="pages/p002.webp" alt="GTK Cyber The power of visualization comes from illustrating relationships, contrasts and comparisons between many different dimensions of data.">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
       <p>The chart cannot answer either question. It is drawn in perspective, with the blue, red and green series on three rows receding along a depth axis. Each row rests on its own baseline, so the rows do not share the zero line the value axis on the left assumes, and a column in the back row is placed higher on the page than a front-row column of the same value. Read against the gridlines, the green tops sit level with the tallest blue column, and green appears taller than blue in categories B, C and D.</p>
@@ -33,7 +33,7 @@
   </section>
   <section data-page="3">
     <div class="page-stack">
-      <img class="page" src="pages/p003.webp" alt="GTK Cyber The power of visualization comes from illustrating relationships, contrasts and comparisons between many different dimensions of data.">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
       <p>The same data drawn flat answers both questions. Green is 5 in all four categories. Blue is 7, 6.25, 5.75 and 5.25, so blue is taller than green in every category, the opposite of what the perspective view suggested for B, C and D. Red runs from 1.8 to 3.75.</p>
@@ -303,7 +303,7 @@
   </section>
   <section data-page="36">
     <div class="page-stack">
-      <img class="page" src="pages/p036.webp" alt="GTK Cyber Customizing your Charts • Axes: Axes represent an individual plot or chart. • Figure: This is the final complete image and may contain 1 or more axes. fig, ax = plt.subpl">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber Customizing your Charts fig, ax = plt.subplots() df.plot(..., ax=ax) This method gets you access to the figure and axes.">
     </div>
     <aside class="notes">
       <p><code>plt.subplots</code> creates a Figure and one Axes in a single call and returns both. Passing that Axes to the pandas <code>plot</code> method through <code>ax=ax</code> tells pandas to draw into it instead of creating its own, so the code ends up holding <code>fig</code> and <code>ax</code> as explicit handles. The handles are the entry point to the object-oriented interface: every later adjustment is a method call on <code>ax</code> for the plot or on <code>fig</code> for the whole image. Without the <code>ax</code> argument pandas still returns the Axes it drew on, but the figure has to be recovered from it afterward.</p>
@@ -343,7 +343,7 @@
   </section>
   <section data-page="41">
     <div class="page-stack">
-      <img class="page" src="pages/p041.webp" alt="GTK Cyber Lab • Please complete Worksheet 3: Data Visualization Please take 30 min to complete Worksheet 2.1: Data Visualization">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Lab Please take 30 min to complete Worksheet 2.1: Data Visualization">
     </div>
     <aside class="notes">
       <p>Worksheet 2.1 applies the pandas and Matplotlib material to the daily botnet data. The task is a line chart comparing the number of hosts infected by the Bedep and ConfickerAB bot families in the Government/Politics sector: read <code>dailybots.csv</code>, filter it by industry and by bot family, merge the two families into one DataFrame with a date column and a count column per family, and plot it. The second half customizes the result through the axes: convert the date column to datetime so the x axis is a time axis, move the legend, enlarge the figure, add axis labels, and split the two lines into two subplots with <code>plt.subplots</code>.</p>
@@ -407,7 +407,7 @@
   </section>
   <section data-page="49">
     <div class="page-stack">
-      <img class="page" src="pages/p049.webp" alt="GTK Cyber Streamlit">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
       <p>The page as the browser renders it at localhost. The heading and paragraph are the Markdown, the area chart plots one series by date from June through August 2016, and the table beneath is the raw daily botnet records with date, bot family, industry, hosts and orgs columns. The Deploy button and menu at the top right are added by Streamlit and are not part of the script. The table is live: the column headers sort and the scrollbar on the right moves through the rows.</p>
@@ -505,7 +505,7 @@
   </section>
   <section data-page="61">
     <div class="page-stack">
-      <img class="page" src="pages/p061.webp" alt="GTK Cyber Lab • Please complete Worksheet 3: Data Visualization Please take 30 min to complete Worksheet 2.2 Interactive Visualizations (Not in Jupyter)">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Lab Please take 30 min to complete Worksheet 2.2 Interactive Visualizations (Not in Jupyter)">
     </div>
     <aside class="notes">
       <p>Worksheet 2.2 is a Streamlit script. It is written in an editor and started with <code>streamlit run</code>, and it builds a small dashboard on the daily botnet file: a title and description in Markdown, a <code>selectbox</code> listing the industries whose chosen value is kept in a variable, and two tabs. The chart tab holds a bar chart of infected host totals by bot family for the selected industry, which takes a filter on the industry column and a group by bot family before the chart call. The data tab holds the raw records as a table, optionally filtered by the same selection and formatted through the column configuration parameters of <code>st.dataframe</code>.</p>

@@ -128,7 +128,7 @@
       "kind": "slide",
       "group": 18,
       "slide": 18,
-      "text": "GTK Cyber \\ What Data Science kind of is… 3 Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Category No No Predic9on, Inference Predic9on Nothing proven Recommenders, Similar, anomalous"
+      "text": "GTK Cyber What Data Science kind of is… 3 Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Category No No Predic9on, Inference Predic9on Nothing proven Recommenders, Similar, anomalous"
     },
     {
       "page": 19,
@@ -436,7 +436,7 @@
       "kind": "slide",
       "group": 62,
       "slide": 62,
-      "text": "GTK Cyber How do we know which features to use and which to discard? best_features = SelectKBest(score_func=chi2,k=3).fit_transform(features,target) References: http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html http://scikit-learn.org/stable/modules/feature_selection.html#univariate-feature-selection Selects k features according to the highest score Available Scoring Functions: • For regression: f_regression, mutual_info_regression • For classification: chi2, f_classif, mutual_info_classif best_features = SelectPercentile(score_func=chi2,percentile=3).fit_transform(features,target ) Selects all features above a given threshold in the scoring function"
+      "text": "GTK Cyber best_features = SelectKBest(score_func=chi2,k=3).fit_transform(features,target) References: http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html http://scikit-learn.org/stable/modules/feature_selection.html#univariate-feature-selection Selects k features according to the highest score Available Scoring Functions: • For regression: f_regression, mutual_info_regression • For classification: chi2, f_classif, mutual_info_classif best_features = SelectPercentile(score_func=chi2,percentile=3).fit_transform(features,target ) Selects all features above a given threshold in the scoring function"
     },
     {
       "page": 63,
@@ -492,28 +492,28 @@
       "kind": "slide",
       "group": 70,
       "slide": 70,
-      "text": "GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense..."
+      "text": "GTK Cyber FG Data Profiling"
     },
     {
       "page": 71,
       "kind": "slide",
       "group": 71,
       "slide": 71,
-      "text": "GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense..."
+      "text": "GTK Cyber FG Data Profiling"
     },
     {
       "page": 72,
       "kind": "slide",
       "group": 72,
       "slide": 72,
-      "text": "GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense..."
+      "text": "GTK Cyber FG Data Profiling"
     },
     {
       "page": 73,
       "kind": "slide",
       "group": 73,
       "slide": 73,
-      "text": "GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense..."
+      "text": "GTK Cyber FG Data Profiling"
     },
     {
       "page": 74,

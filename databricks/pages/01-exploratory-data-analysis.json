@@ -72,28 +72,28 @@
       "kind": "build",
       "group": 10,
       "slide": 10,
-      "text": "GTK Cyber for cell in row: half_cell = cell / 2 for x in range(0, len( data )): data[x] = data[x] + 1"
+      "text": "GTK Cyber for x in range(0, len( data )): data[x] = data[x] + 1"
     },
     {
       "page": 11,
       "kind": "slide",
       "group": 10,
       "slide": 10,
-      "text": "GTK Cyber for cell in row: half_cell = cell / 2 for x in range(0, len( data )): data[x] = data[x] + 1"
+      "text": "GTK Cyber for x in range(0, len( data )): data[x] = data[x] + 1"
     },
     {
       "page": 12,
       "kind": "slide",
       "group": 11,
       "slide": 11,
-      "text": "GTK Cyber for cell in row: half_cell = cell / 2 for x in range(0, len( data )): data[x] = data[x] + 1 odds = evens + 1"
+      "text": "GTK Cyber for x in range(0, len( data )): data[x] = data[x] + 1 odds = evens + 1"
     },
     {
       "page": 13,
       "kind": "slide",
       "group": 12,
       "slide": 12,
-      "text": "GTK Cyber for cell in row: half_cell = cell / 2"
+      "text": "GTK Cyber"
     },
     {
       "page": 14,
@@ -464,7 +464,7 @@
       "kind": "slide",
       "group": 53,
       "slide": 53,
-      "text": "GTK Cyber שאלותQuestion s?"
+      "text": "GTK Cyber Question s?"
     },
     {
       "page": 67,
@@ -730,35 +730,35 @@
       "kind": "slide",
       "group": 91,
       "slide": 91,
-      "text": "GTK Cyber series.drop_duplicates() series.unique() Counting Unique Occurrences"
+      "text": "GTK Cyber Counting Unique Occurrences"
     },
     {
       "page": 105,
       "kind": "slide",
       "group": 92,
       "slide": 92,
-      "text": "GTK Cyber series.drop_duplicates() series.unique() series.value_counts( )"
+      "text": "GTK Cyber series.value_counts( )"
     },
     {
       "page": 106,
       "kind": "slide",
       "group": 93,
       "slide": 93,
-      "text": "GTK Cyber series.drop_duplicates() series.unique() series.value_counts(bins=5 )"
+      "text": "GTK Cyber series.value_counts(bins=5 )"
     },
     {
       "page": 107,
       "kind": "slide",
       "group": 94,
       "slide": 94,
-      "text": "GTK Cyber series.drop_duplicates() series.unique() series.value_counts(bins=5 , normalize=True)"
+      "text": "GTK Cyber series.value_counts(bins=5 , normalize=True)"
     },
     {
       "page": 108,
       "kind": "slide",
       "group": 95,
       "slide": 95,
-      "text": "GTK Cyber series.drop_duplicates() series.unique() series.value_counts(bins=5 , normalize=True, dropna=False)"
+      "text": "GTK Cyber series.value_counts(bins=5 , normalize=True, dropna=False)"
     },
     {
       "page": 109,
@@ -772,49 +772,49 @@
       "kind": "slide",
       "group": 97,
       "slide": 97,
-      "text": "GTK Cyber series.drop_duplicates() series.unique() series.hist( )"
+      "text": "GTK Cyber series.hist( )"
     },
     {
       "page": 111,
       "kind": "slide",
       "group": 98,
       "slide": 98,
-      "text": "GTK Cyber series.drop_duplicates() series.unique() series.hist( )"
+      "text": "GTK Cyber series.hist( )"
     },
     {
       "page": 112,
       "kind": "slide",
       "group": 99,
       "slide": 99,
-      "text": "GTK Cyber series.drop_duplicates() series.unique() series.hist(bins=40 )"
+      "text": "GTK Cyber series.hist(bins=40 )"
     },
     {
       "page": 113,
       "kind": "slide",
       "group": 100,
       "slide": 100,
-      "text": "GTK Cyber series.drop_duplicates() series.unique() series.hist(bins=5 )"
+      "text": "GTK Cyber series.hist(bins=5 )"
     },
     {
       "page": 114,
       "kind": "slide",
       "group": 101,
       "slide": 101,
-      "text": "GTK Cyber series.drop_duplicates() series.unique() series.plot( )"
+      "text": "GTK Cyber series.plot( )"
     },
     {
       "page": 115,
       "kind": "slide",
       "group": 102,
       "slide": 102,
-      "text": "GTK Cyber series.drop_duplicates() series.unique() series.plot( )"
+      "text": "GTK Cyber series.plot( )"
     },
     {
       "page": 116,
       "kind": "slide",
       "group": 103,
       "slide": 103,
-      "text": "GTK Cyber Reading a Boxplot Maximu m 3rd Quartile Median 1st Quartile Minimum series.plot(kind=‘box’ )"
+      "text": "GTK Cyber Maximu m 3rd Quartile Median 1st Quartile Minimum series.plot(kind=‘box’ )"
     },
     {
       "page": 117,
@@ -842,14 +842,14 @@
       "kind": "slide",
       "group": 107,
       "slide": 107,
-      "text": "GTK Cyber Correlations • Measurement of the relationship between two continuous variables • Output is between -1 and 1, with 1 being perfect correlation, -1 is perfect negative correlation, 0 is no correlation. • Correlation measurement is referred to as r."
+      "text": "GTK Cyber Correlations"
     },
     {
       "page": 121,
       "kind": "slide",
       "group": 108,
       "slide": 108,
-      "text": "GTK Cyber Correlations • Measurement of the relationship between two continuous variables • Output is between -1 and 1, with 1 being perfect correlation, -1 is perfect negative correlation, 0 is no correlation. • Correlation measurement is referred to as r. series1.corr( series2 )"
+      "text": "GTK Cyber Correlations series1.corr( series2 )"
     },
     {
       "page": 122,
@@ -898,35 +898,35 @@
       "kind": "slide",
       "group": 115,
       "slide": 115,
-      "text": "GTK Cyber DataFrames Read in a CSV df = pd.read_csv(<file>) df = pd.read_csv(<url>)"
+      "text": "GTK Cyber Read in a CSV df = pd.read_csv(<file>) df = pd.read_csv(<url>)"
     },
     {
       "page": 129,
       "kind": "slide",
       "group": 116,
       "slide": 116,
-      "text": "GTK Cyber DataFrames Exce l df = pd.read_excel(<file>, sheetname=<sheetname>)"
+      "text": "GTK Cyber Exce l df = pd.read_excel(<file>, sheetname=<sheetname>)"
     },
     {
       "page": 130,
       "kind": "slide",
       "group": 117,
       "slide": 117,
-      "text": "GTK Cyber DataFrames JSO N df = pd.read_json( <file> ) or df = pd.read_json( <url> )"
+      "text": "GTK Cyber JSO N df = pd.read_json( <file> ) or df = pd.read_json( <url> )"
     },
     {
       "page": 131,
       "kind": "slide",
       "group": 118,
       "slide": 118,
-      "text": "GTK Cyber DataFrames From a Database df = pd.read_sql(<query>, <connection>)"
+      "text": "GTK Cyber From a Database df = pd.read_sql(<query>, <connection>)"
     },
     {
       "page": 132,
       "kind": "slide",
       "group": 119,
       "slide": 119,
-      "text": "GTK Cyber DataFrames Parque t df = pd.read_parquet(<file>)"
+      "text": "GTK Cyber Parque t df = pd.read_parquet(<file>)"
     },
     {
       "page": 133,
@@ -1045,7 +1045,7 @@
       "kind": "slide",
       "group": 135,
       "slide": 135,
-      "text": "GTK Cyber d df = pd.DataFrame(json_normalize(pcap_data))"
+      "text": "GTK Cyber df = pd.DataFrame(json_normalize(pcap_data))"
     },
     {
       "page": 150,

@@ -174,7 +174,7 @@
   </section>
   <section data-page="21">
     <div class="page-stack">
-      <img class="page" src="pages/p021.webp" alt="GTK Cyber Inversion/Inference Example • A facial recognition model “ W “ is produced using a training procedure “ Y “ and data “ X “. • Given the model and possible output labels c">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber Inversion/Inference Example https://www.cs.toronto.edu/~toni/Courses/Fairness/Lectures/ML-and-DP- v2.pdf">
     </div>
     <aside class="notes">
       <p>The answer is yes, to the degree the pair of images shows. The left image was reconstructed from the model; the right is a training photograph of the same person. The attacker had only the person's name and query access to a facial recognition system that returns a confidence score for each name. The reconstruction is gradient descent over the input: start from a blank image, and repeatedly adjust the pixels in the direction that raises the confidence for the target name until the image is what the model most associates with that person. Because the score is enough, this version of the attack works without the model's internals, whereas the setup on the previous page assumed a released model.</p>
@@ -214,7 +214,7 @@
   </section>
   <section data-page="26">
     <div class="page-stack">
-      <img class="page" src="pages/p026.webp" alt="GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
     </div>
     <aside class="notes">
       <p>The screenshot is a poisoning channel in a consumer product. Google Translate renders "i love cheese" as "j'aime le fromage", and the suggest an edit feature lets a user strike that out and submit "je déteste le fromage", which means the opposite. The notice states that the contribution will be used to improve translation quality: user corrections feed the retraining data. Enough coordinated false corrections change what the system outputs, and the individual submissions are indistinguishable from good faith fixes. The example is from Chio and Freeman, Machine Learning and Security (2018), page 322.</p>
@@ -222,7 +222,7 @@
   </section>
   <section data-page="27">
     <div class="page-stack">
-      <img class="page" src="pages/p027.webp" alt="GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
     </div>
     <aside class="notes">
       <p>The figure is the starting state of a poisoning sequence from Chio and Freeman, Machine Learning and Security (2018), page 322. Two classes are plotted on two standardized features, open circles above and filled circles below, and the curve is the decision boundary a classifier learned from those points. A handful of points already sit on the wrong side of the curve, which is ordinary for a boundary fit to overlapping data. Everything that follows is the same plot after the attacker adds records and the system retrains.</p>
@@ -230,7 +230,7 @@
   </section>
   <section data-page="28">
     <div class="page-stack">
-      <img class="page" src="pages/p028.webp" alt="GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
     </div>
     <aside class="notes">
       <p>The attacker's first move is five records, drawn as stars, placed just above the boundary on the left at the edge of the open circle class. They carry the open circle label, and they sit where the classifier's margin for the filled class begins. Retraining on the data with the stars included moves the left half of the boundary downward by a small amount: the gray curve is where the boundary was, the black curve is where it is now. Any single retraining looks like the normal adjustment a model makes when new data arrives.</p>
@@ -238,7 +238,7 @@
   </section>
   <section data-page="29">
     <div class="page-stack">
-      <img class="page" src="pages/p029.webp" alt="GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
     </div>
     <aside class="notes">
       <p>A second retraining widens the gap. The stars stay where they were, and the boundary moves down again, so the region between the gray and black curves on the left has grown. Nothing about the new records is anomalous on its own: each has plausible feature values and a label consistent with its neighbors on the open circle side.</p>
@@ -246,7 +246,7 @@
   </section>
   <section data-page="30">
     <div class="page-stack">
-      <img class="page" src="pages/p030.webp" alt="GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
     </div>
     <aside class="notes">
       <p>By the third retraining the stars are well inside the open circle region, and the boundary continues to move away from them. The mechanism is the same one that makes the model learn at all: the training procedure places the boundary to separate the labeled points it is given, and it has no way to distinguish a record the attacker chose from a record that arrived on its own.</p>
@@ -254,7 +254,7 @@
   </section>
   <section data-page="31">
     <div class="page-stack">
-      <img class="page" src="pages/p031.webp" alt="GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
     </div>
     <aside class="notes">
       <p>The fourth retraining leaves the left end of the boundary well below where it started, and the shift now covers a band of feature space that the original model assigned to the filled class. The stars themselves did not move. The attacker gained the shift by inserting five records once and letting the retraining schedule do the rest.</p>
@@ -262,7 +262,7 @@
   </section>
   <section data-page="32">
     <div class="page-stack">
-      <img class="page" src="pages/p032.webp" alt="GTK Cyber Poisoning Attack • Online learning systems automatically adjust model parameters over time based on input • Poisoning attacks, an actor injects new data into a retraining">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber Poisoning Attack Clarence Chio, David Freeman. Machine Learning &amp; Security. Pg. 322 (2018)">
     </div>
     <aside class="notes">
       <p>The end state is a boundary whose left side has dropped by roughly a third of a unit on the feature scale, and the band between the original curve and the current one is now classified as the open circle class. If the filled class is malicious and the open circle class is benign, a malicious record placed in that band passes as benign. The sequence is the boiling frog attack: a series of shifts, each small enough to pass as drift, whose sum is a boundary the attacker chose. The name comes from the folk claim that a frog in slowly heated water does not jump out.</p>

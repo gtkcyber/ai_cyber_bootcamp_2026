@@ -9,7 +9,7 @@
       "kind": "slide",
       "group": 1,
       "slide": 1,
-      "text": "Artificial Intelligence - LLM flavor: The Part You've All Been Waiting For Charles S. Givre CISSP"
+      "text": "Artificial Intelligence - LLM flavor: The Part You've All Been Waiting For"
     },
     {
       "page": 2,
@@ -107,7 +107,7 @@
       "kind": "slide",
       "group": 15,
       "slide": 15,
-      "text": "GTK Cyber What Can We Do with Language Models? • 1."
+      "text": "GTK Cyber What Can We Do with Language Models?"
     },
     {
       "page": 16,
@@ -233,7 +233,7 @@
       "kind": "slide",
       "group": 33,
       "slide": 33,
-      "text": "GTK Cyber Grouping Unlabeled Data • You can also use embeddings to classify unlabeled data. • To do so: you describe the labels, and then create embeddings for the those descriptions. • Then we measure the cosine similarity between the label embeddings and the unknown text."
+      "text": "GTK Cyber Grouping Unlabeled Data"
     },
     {
       "page": 34,
@@ -744,7 +744,7 @@
       "kind": "slide",
       "group": 98,
       "slide": 98,
-      "text": "GTK Cyber series = df['column1'] series = df.column1 • Models are code and code can be malicious. • Researchers, and others have successfully uploaded malicious models to HuggingFace. Warning: Models are Code"
+      "text": "GTK Cyber • Models are code and code can be malicious. • Researchers, and others have successfully uploaded malicious models to HuggingFace. Warning: Models are Code"
     },
     {
       "page": 107,

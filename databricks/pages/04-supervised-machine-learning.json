@@ -240,7 +240,7 @@
       "kind": "slide",
       "group": 34,
       "slide": 34,
-      "text": "GTK Cyber Criterion for best splits: Impurity Information Gain = entropy(parent) - [weighted average]entropy(children) Which feature below gives the best split? entropy(parent)=1. 0 most impure binary system choosing next best feature to split next feature 1 feature 2 feature 3 Information Gain 0.3112 0 1"
+      "text": "GTK Cyber Information Gain = entropy(parent) - [weighted average]entropy(children) Which feature below gives the best split? entropy(parent)=1. 0 most impure binary system choosing next best feature to split next feature 1 feature 2 feature 3 Information Gain 0.3112 0 1"
     },
     {
       "page": 35,
@@ -352,21 +352,21 @@
       "kind": "slide",
       "group": 50,
       "slide": 50,
-      "text": "GTK Cyber Tuning a Random Forest 2 important parameters that should be tuned when creating a random forest model are: • The number of trees to grow (called n_estimators in scikit-learn) • The number of features that should be considered at each split (called max_features in scikit-learn)"
+      "text": "GTK Cyber Tuning a Random Forest"
     },
     {
       "page": 51,
       "kind": "slide",
       "group": 51,
       "slide": 51,
-      "text": "GTK Cyber Tuning a Random Forest 2 important parameters that should be tuned when creating a random forest model are: • The number of trees to grow (called n_estimators in scikit-learn) • The number of features that should be considered at each split (called max_features in scikit-learn)"
+      "text": "GTK Cyber Tuning a Random Forest"
     },
     {
       "page": 52,
       "kind": "slide",
       "group": 52,
       "slide": 52,
-      "text": "GTK Cyber Tuning a Random Forest 2 important parameters that should be tuned when creating a random forest model are: • The number of trees to grow (called n_estimators in scikit-learn) • The number of features that should be considered at each split (called max_features in scikit-learn) Class A: p% Class B: 1-p % Majority Win"
+      "text": "GTK Cyber Tuning a Random Forest Class A: p% Class B: 1-p % Majority Win"
     },
     {
       "page": 53,
@@ -422,14 +422,14 @@
       "kind": "slide",
       "group": 60,
       "slide": 60,
-      "text": "GTK Cyber Classification Algorithms in Scikit-Learn • Generalized Linear Models • Kernel Ridge • Support Vector Machines • Nearest Neighbors • Gaussian Processes • Naive Bayes • Trees • Neural Networks • AdaBoost • Gradient Tree Boosting • Ensemble methods http://scikit-learn.org/stable/auto_examples/classification/ plot_classifier_comparison.html"
+      "text": "GTK Cyber Classification Algorithms in Scikit-Learn http://scikit-learn.org/stable/auto_examples/classification/ plot_classifier_comparison.html"
     },
     {
       "page": 61,
       "kind": "slide",
       "group": 61,
       "slide": 61,
-      "text": "GTK Cyber Python Sklearn Overview http://scikit-learn.org/stable/"
+      "text": "GTK Cyber http://scikit-learn.org/stable/"
     },
     {
       "page": 62,
@@ -583,21 +583,21 @@
       "kind": "slide",
       "group": 83,
       "slide": 83,
-      "text": "GTK Cyber Precision vs. Recall • Precision and Recall are often inversely related--as precision increases, often recall goes down. • Precision is the proportion of positive identifications thet are actually correct • Recall is the proportion of actual positives was identified correctly https://developers.google.com/machine-learning/crash-course/classification/precision-and- recall"
+      "text": "GTK Cyber Precision vs. Recall https://developers.google.com/machine-learning/crash-course/classification/precision-and- recall"
     },
     {
       "page": 84,
       "kind": "slide",
       "group": 84,
       "slide": 84,
-      "text": "GTK Cyber Precision vs. Recall • Precision and Recall are often inversely related--as precision increases, often recall goes down. • Precision is the proportion of positive identifications thet are actually correct • Recall is the proportion of actual positives was identified correctly https://developers.google.com/machine-learning/crash-course/classification/precision-and- recall"
+      "text": "GTK Cyber Precision vs. Recall https://developers.google.com/machine-learning/crash-course/classification/precision-and- recall"
     },
     {
       "page": 85,
       "kind": "slide",
       "group": 85,
       "slide": 85,
-      "text": "GTK Cyber Precision vs. Recall • Precision and Recall are often inversely related--as precision increases, often recall goes down. • Precision is the proportion of positive identifications thet are actually correct • Recall is the proportion of actual positives was identified correctly https://developers.google.com/machine-learning/crash-course/classification/precision-and- recall"
+      "text": "GTK Cyber Precision vs. Recall https://developers.google.com/machine-learning/crash-course/classification/precision-and- recall"
     },
     {
       "page": 86,
@@ -723,7 +723,7 @@
       "kind": "slide",
       "group": 103,
       "slide": 103,
-      "text": "GTK Cyber K-Fold Cross Validation 1. Split the dataset into K equal partitions (or \"folds\"). 2. Use fold 1 as the testing set and the union of the other folds as the training set. 3. Calculate testing accuracy. 4. Repeat steps 2 and 3 K times, using a different fold as the testing set each time. 5. Use the average testing accuracy as the estimate of out-of-sample accuracy."
+      "text": "GTK Cyber K-Fold Cross Validation"
     },
     {
       "page": 104,

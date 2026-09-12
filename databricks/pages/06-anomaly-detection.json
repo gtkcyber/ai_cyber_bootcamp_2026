@@ -72,14 +72,14 @@
       "kind": "slide",
       "group": 10,
       "slide": 10,
-      "text": "GTK Cyber What is an outlier? • An out"
+      "text": "GTK Cyber What is an outlier?"
     },
     {
       "page": 11,
       "kind": "slide",
       "group": 11,
       "slide": 11,
-      "text": "GTK Cyber An outlier or anomaly is a data point which differs from the rest of the observations in a dataset. • An out"
+      "text": "GTK Cyber An outlier or anomaly is a data point which differs from the rest of the observations in a dataset."
     },
     {
       "page": 12,
@@ -114,7 +114,7 @@
       "kind": "slide",
       "group": 16,
       "slide": 16,
-      "text": "GTK Cyber Anomaly Detection Process • Pandas/SciPy/NumPy: Pandas, SciPy and NumPy can be used for some of the simpler statistical calculations • PyOD: A relatively new module for outlier detection that contains many sophisticated techniques. (https://pyod.readthedocs.io/en/latest/) • PyFlux: PyFlux is a module for time series analysis and prediction. ( https://pyflux.readthedocs.io/en/latest/index.html) • Scikit-Learn: Scikit-learn actually has several algorithms include the OneClassSVM and IsolationForest Use Known Data to Predict value Use Known Data to Predict value Compare prediction to actual values and calculate anomaly score. (Distance) Compare prediction to actual values and calculate anomaly score. (Distance) If score is within threshold, observation is not an outlier If score is within threshold, observation is not an outlier If score is not within threshold, observation is an outlier"
+      "text": "GTK Cyber Anomaly Detection Process Use Known Data to Predict value Use Known Data to Predict value Compare prediction to actual values and calculate anomaly score. (Distance) Compare prediction to actual values and calculate anomaly score. (Distance) If score is within threshold, observation is not an outlier If score is within threshold, observation is not an outlier If score is not within threshold, observation is an outlier"
     },
     {
       "page": 17,
@@ -212,7 +212,7 @@
       "kind": "slide",
       "group": 30,
       "slide": 30,
-      "text": "GTK Cyber Z-Score measures how many standard deviations an observation is from the mean. #Use SciPy from scipy.stats import zscore df.apply(zscore) #Use Pandas (Only works for all numeric cols) df_zscore = (df - df.mean())/df.std()"
+      "text": "GTK Cyber #Use SciPy from scipy.stats import zscore df.apply(zscore) #Use Pandas (Only works for all numeric cols) df_zscore = (df - df.mean())/df.std()"
     },
     {
       "page": 31,
@@ -303,14 +303,14 @@
       "kind": "slide",
       "group": 43,
       "slide": 43,
-      "text": "GTK Cyber ARIMA import pandas as pd import pyflux as pf # Get data & build model model = pf.ARIMA( data = data_train, ar=11, ma=11, integ=0, target=<target_col>) model.fit(\"M-H\") #Draws the original data and the projected data model.plot_fit()"
+      "text": "GTK Cyber ARIMA"
     },
     {
       "page": 44,
       "kind": "slide",
       "group": 44,
       "slide": 44,
-      "text": "GTK Cyber ARIMA import pandas as pd import pyflux as pf # Get data & build model model = pf.ARIMA( data = data_train, ar=11, ma=11, integ=0, target=<target_col>) model.fit(\"M-H\") #Draws the original data and the projected data model.plot_fit() Large delta between data and prediction"
+      "text": "GTK Cyber ARIMA Large delta between data and prediction"
     },
     {
       "page": 45,
@@ -359,7 +359,7 @@
       "kind": "slide",
       "group": 51,
       "slide": 51,
-      "text": "GTK Cyber One Class SVM Implementation from sklearn import svm # fit the model clf = svm.OneClassSVM(nu=0.1, kernel=\"rbf\", gamma=0.1) clf.fit(X_train) y_pred_train = clf.predict(X_train) https://scikit-learn.org/stable/auto_examples/svm/ plot_oneclass.html"
+      "text": "GTK Cyber One Class SVM Implementation https://scikit-learn.org/stable/auto_examples/svm/ plot_oneclass.html"
     },
     {
       "page": 52,
@@ -394,7 +394,7 @@
       "kind": "slide",
       "group": 56,
       "slide": 56,
-      "text": "GTK Cyber Isolation forest’s basic principle is that outliers are few and far from the rest of the observations. https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561"
+      "text": "GTK Cyber https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561"
     },
     {
       "page": 57,
@@ -429,7 +429,7 @@
       "kind": "slide",
       "group": 61,
       "slide": 61,
-      "text": "GTK Cyber Isolation Forest Implementation • Scikit Learn Documentation: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html from sklearn.ensemble import IsolationForest # fit the model clf = IsolationForest(behavior='new', max_samples=100, random_state=rng, contamination='auto') clf.fit(X_train) y_pred_train = clf.predict(X_train) y_pred_test = clf.predict(X_test) y_pred_outliers = clf.predict(X_outliers) https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html"
+      "text": "GTK Cyber Isolation Forest Implementation https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html"
     },
     {
       "page": 62,
