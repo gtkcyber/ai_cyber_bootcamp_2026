@@ -17,7 +17,7 @@
 <div class="slides">
   <section data-page="1">
     <div class="page-stack">
-      <img class="page" src="pages/p001.webp" alt="GTK Cyber Module 12: The Model Context Protocol (MCP) Charles S. Givre CISSP">
+      <img class="page" src="pages/p001.webp" alt="GTK Cyber Module 12: Model Context Protocol (MCP) GTK Cyber">
     </div>
     <aside class="notes">
       <p>Module 12 covers the Model Context Protocol, MCP, an open protocol Anthropic published in November 2024 that standardizes how an AI application connects to outside tools and data. The module states the integration problem the protocol removes, defines its host, client, and server roles, describes what a server can offer, builds and tests a server in Python, loads that server's tools into a LangChain agent, and closes with the security cost, the context cost, and the payment protocols through which an agent pays for a call.</p>
@@ -152,7 +152,7 @@
   </section>
   <section data-page="16">
     <div class="page-stack">
-      <img class="page" src="pages/p016.webp" alt="GTK Cyber Resources (Application-Controlled) • Read-only data the host can pull in for context. • Addressed by a URI, for example file:///logs/today.log or db://users/ 42. • The ap">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Resources (Application- Controlled) • Read-only data the host can pull in for context. • Addressed by a URI, for example file:///logs/today.log or db://users/42. • The ap">
     </div>
     <aside class="notes">
       <p>A resource is read-only data addressed by a URI. The server answers resources/list with each resource's URI, name, and MIME type, and resources/read with the contents. Schemes are the server's to define; file:///logs/today.log and db://users/42 are two examples, and a URI containing a placeholder such as db://users/{id} is a template that covers a family of resources.</p>
@@ -204,7 +204,7 @@
   </section>
   <section data-page="22">
     <div class="page-stack">
-      <img class="page" src="pages/p022.webp" alt="GTK Cyber Define a Server and a Tool from mcp.server.fastmcp import FastMCP mcp = FastMCP(&quot;security-tools&quot;) @mcp.tool() def check_url_reputation(url: str) -&gt; str: &quot;&quot;&quot;Look up a URL ">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber Define a Server and a Tool from mcp.server.fastmcp import FastMCP mcp = FastMCP(&quot;security- tools&quot;) @mcp.tool() def check_url_reputation( url: str) -&gt; str: &quot;&quot;&quot;Look up a UR">
     </div>
     <aside class="notes">
       <p>Four lines register a server and one tool. <code>FastMCP("security-tools")</code> creates the server and sets the name it reports during initialization. The <code>@mcp.tool()</code> decorator registers the function beneath it: the function name becomes the tool name, the <code>url: str</code> annotation becomes an input schema with one required string field, and the docstring becomes the description the model reads. The return value, a string here, is sent back as the tool result.</p>
@@ -213,7 +213,7 @@
   </section>
   <section data-page="23">
     <div class="page-stack">
-      <img class="page" src="pages/p023.webp" alt="GTK Cyber Expose a Resource @mcp.resource(&quot;ioc://blocklist&quot;) def get_blocklist() -&gt; str: &quot;&quot;&quot;Return the current IOC blocklist.&quot;&quot;&quot; return &quot; &quot;.join(load_known_bad_domains())">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber Expose a Resource @mcp.resource(&quot;io c://blocklist&quot;) def get_blocklist() - &gt; str: &quot;&quot;&quot;Return the current IOC blocklist.&quot;&quot;&quot; return &quot; &quot;.join(load_known _bad_domains())">
     </div>
     <aside class="notes">
       <p>A resource is registered by decorating a function with the URI that names it. <code>ioc://blocklist</code> uses a scheme the server made up; any scheme is valid as long as the host treats the URI as an opaque identifier. The function takes no arguments, so this is a single fixed resource; a URI with a <code>{placeholder}</code> would turn it into a template and the placeholder into a function parameter. The docstring is the description in resources/list, and the returned string is the content of resources/read.</p>
@@ -284,7 +284,7 @@
   </section>
   <section data-page="31">
     <div class="page-stack">
-      <img class="page" src="pages/p031.webp" alt="GTK Cyber Server Configuration { &quot;mcpServers&quot;: { &quot;security-tools&quot;: { &quot;command&quot;: &quot;python&quot;, &quot;args&quot;: [&quot;mcp_server.py&quot;] } } }">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber Server Configuration { &quot;mcpServers&quot; : { &quot;security- tools&quot;: { &quot;command&quot;: &quot;python&quot;, &quot;args&quot;: [&quot;mcp_server .py&quot;] } } }">
     </div>
     <aside class="notes">
       <p>The entry names a server and tells the host how to start it. The key, security-tools, is the label the host uses for the connection and for prefixing tool names when it needs to keep servers apart; it need not match the name the server reports. <code>command</code> and <code>args</code> are the process to spawn, so the host runs python with mcp_server.py as its argument and speaks stdio to it. No transport field is needed; a command implies stdio, and an HTTP server would give a url instead.</p>

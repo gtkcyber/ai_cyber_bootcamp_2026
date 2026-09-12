@@ -25,7 +25,7 @@
   </section>
   <section data-page="2">
     <div class="page-stack">
-      <img class="page" src="pages/p002.webp" alt="GTK Cyber">
+      <img class="page" src="pages/p002.webp" alt="GTK Cyber The power of visualization comes from illustrating relationships, contrasts and comparisons between many different dimensions of data.">
     </div>
     <aside class="notes">
       <p>The chart cannot answer either question. It is drawn in perspective, with the blue, red and green series on three rows receding along a depth axis. Each row rests on its own baseline, so the rows do not share the zero line the value axis on the left assumes, and a column in the back row is placed higher on the page than a front-row column of the same value. Read against the gridlines, the green tops sit level with the tallest blue column, and green appears taller than blue in categories B, C and D.</p>
@@ -33,7 +33,7 @@
   </section>
   <section data-page="3">
     <div class="page-stack">
-      <img class="page" src="pages/p003.webp" alt="GTK Cyber 0 2 4 6 8 A B C D 5 5 5 5 2.5 1.8 3.75 2 5.25 5.75 6.25 7">
+      <img class="page" src="pages/p003.webp" alt="GTK Cyber The power of visualization comes from illustrating relationships, contrasts and comparisons between many different dimensions of data.">
     </div>
     <aside class="notes">
       <p>The same data drawn flat answers both questions. Green is 5 in all four categories. Blue is 7, 6.25, 5.75 and 5.25, so blue is taller than green in every category, the opposite of what the perspective view suggested for B, C and D. Red runs from 1.8 to 3.75.</p>
@@ -74,7 +74,7 @@
   </section>
   <section data-page="8">
     <div class="page-stack">
-      <img class="page" src="pages/p008.webp" alt="GTK Cyber 7% 8% 10% 11% 29% 35%">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
       <p>The plain pie is the chart the rest of the section varies, and it keeps both cues a pie offers: the angle at the center and the arc and area of each wedge. Each variant that follows takes away or distorts one of these cues. Six wedges hold 35, 29, 11, 10, 8 and 7 percent. Without the printed labels a reader recovers each share from the angle its wedge subtends at the center, and angle is a weak cue: Cleveland and McGill's experiments ranked angle judgments below position judgments in accuracy. The four small wedges show the cost. They differ by one to three percentage points, their angles differ by a few degrees, and nothing in the drawing lets a reader order them without the labels.</p>
@@ -82,7 +82,7 @@
   </section>
   <section data-page="9">
     <div class="page-stack">
-      <img class="page" src="pages/p009.webp" alt="GTK Cyber 7% 8% 10% 11% 29% 35%">
+      <img class="page" src="pages/p009.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
       <p>Exploding the pie removes the shared center. Each wedge is pushed outward along its own bisector, so the tips no longer meet at one vertex and the angles have no common point to be compared from. The gaps between wedges are area that stands for no value. The data is the same six percentages.</p>
@@ -90,7 +90,7 @@
   </section>
   <section data-page="10">
     <div class="page-stack">
-      <img class="page" src="pages/p010.webp" alt="GTK Cyber 7% 8% 10% 11% 29% 35%">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber">
     </div>
     <aside class="notes">
       <p>The donut removes the center and with it the angle cue. What remains is a ring of arcs whose lengths are proportional to the shares, so a reader compares arc lengths. Skau and Kosara's 2016 experiments on pie and donut perception found that readers estimate shares from arc length and area rather than from the center angle, and that a donut is read about as accurately as a pie. The four small arcs remain hard to order: their lengths differ by one to three percent of the circumference.</p>
@@ -123,6 +123,7 @@
   <section data-page="14">
     <div class="page-stack">
       <img class="page" src="pages/p014.webp" alt="GTK Cyber https://datadrivensecurity.info/blog/posts/2014/Jun/marx-ports/">
+      <video class="media" data-src="media/slide-014.mp4" poster="media/slide-014.webp" controls preload="none" playsinline style="left:8.19%;top:3.98%;width:83.62%;height:83.62%"></video>
     </div>
     <aside class="notes">
       <p class="unresolved">UNRESOLVED</p>
@@ -147,7 +148,7 @@
   </section>
   <section data-page="17">
     <div class="page-stack">
-      <img class="page" src="pages/p017.webp" alt="GTK Cyber import pandas as pd import matplotlib.pyplot as plt import numpy as np import seaborn as sns %matplotlib inline">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber Commonly used Alias for Viz Libraries import pandas as pd import matplotlib.pyplot as plt import numpy as np import seaborn as sns">
     </div>
     <aside class="notes">
       <p>These five lines open a plotting notebook. The four imports bind the libraries to their conventional short names: <code>pd</code> for pandas, <code>plt</code> for Matplotlib's pyplot module, <code>np</code> for NumPy and <code>sns</code> for Seaborn. Code found in documentation and answers assumes these aliases.</p>
@@ -164,7 +165,7 @@
   </section>
   <section data-page="19">
     <div class="page-stack">
-      <img class="page" src="pages/p019.webp" alt="GTK Cyber barchart = data.plot( kind=&quot;bar&quot; )">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber data.plot( kind=&quot;bar&quot; )">
     </div>
     <aside class="notes">
       <p>The <code>kind</code> argument selects the chart type, and <code>kind="bar"</code> draws one vertical bar per element, positioned by index. Bars start at zero on the vertical axis, so their heights are directly comparable. pandas accepts <code>line</code>, <code>bar</code>, <code>barh</code>, <code>hist</code>, <code>box</code>, <code>kde</code>, <code>density</code> and <code>area</code> for a Series or a DataFrame, <code>pie</code> for a Series, and <code>scatter</code> and <code>hexbin</code> for a DataFrame.</p>
@@ -172,7 +173,7 @@
   </section>
   <section data-page="20">
     <div class="page-stack">
-      <img class="page" src="pages/p020.webp" alt="GTK Cyber piechart = data.plot( kind=&quot;pie&quot; )">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber data.plot( kind=&quot;pie&quot; )">
     </div>
     <aside class="notes">
       <p><code>kind="pie"</code> draws the Series as wedges, each labeled with its index and sized as that element's fraction of the sum of all elements. A pie assumes the values are parts of one whole. A Series of separate measurements is not, so the chart assigns each value a share of a total that has no meaning. The pie is also an ellipse here because the axes were left at the figure's proportions; current Matplotlib releases set the aspect ratio to equal inside the pie function and draw a circle.</p>
@@ -202,10 +203,17 @@
       <p>The <code>style</code> argument maps a column to marker shape. Each <code>category</code> value gets its own marker, circle for 0, cross for 1 and square for 2, and a legend is added with the column name as its title. Shape is a categorical channel: it distinguishes groups but carries no order, so it suits a column with a few discrete values and would not suit a numeric column with many.</p>
     </aside>
   </section>
-  <section data-page="25">
+  <section data-page="24">
     <div class="page-stack">
       <img class="page" src="pages/p024.webp" alt="GTK Cyber sns.scatterplot(x=df[&#x27;A&#x27;], y=df[&#x27;B&#x27;], hue=df[&#x27;D&#x27;])">
-      <img class="page fragment" src="pages/p025.webp" alt="GTK Cyber sns.scatterplot(x=df[&#x27;A&#x27;], y=df[&#x27;B&#x27;], size=df[&#x27;C&#x27;], hue=df[&#x27;D&#x27;])">
+    </div>
+    <aside class="notes">
+      <p>Two more arguments map columns to properties of the marker. <code>hue</code> maps column D to color; because D is numeric, Seaborn uses a sequential palette from light to dark and labels the legend at 0, 40, 80 and 120 even though the data stops at 99. <code>size</code> maps column C to marker area, with its own legend. The chart now encodes four columns per row: A and B as position, D as color and C as size. Position is read most accurately, color and size less so, so the columns that matter most belong on the axes.</p>
+    </aside>
+  </section>
+  <section data-page="25">
+    <div class="page-stack">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber sns.scatterplot(x=df[&#x27;A&#x27;], y=df[&#x27;B&#x27;], size=df[&#x27;C&#x27;], hue=df[&#x27;D&#x27;])">
     </div>
     <aside class="notes">
       <p>Two more arguments map columns to properties of the marker. <code>hue</code> maps column D to color; because D is numeric, Seaborn uses a sequential palette from light to dark and labels the legend at 0, 40, 80 and 120 even though the data stops at 99. <code>size</code> maps column C to marker area, with its own legend. The chart now encodes four columns per row: A and B as position, D as color and C as size. Position is read most accurately, color and size less so, so the columns that matter most belong on the axes.</p>
@@ -213,7 +221,7 @@
   </section>
   <section data-page="26">
     <div class="page-stack">
-      <img class="page" src="pages/p026.webp" alt="GTK Cyber ax = sns.distplot(&lt;data&gt;)">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber sns.distplot(df[&#x27;A&#x27;])">
     </div>
     <aside class="notes">
       <p><code>distplot</code> draws the distribution of one numeric variable as a histogram with a kernel density estimate overlaid. The bars count observations per bin, scaled so the total area is one, which is why the vertical axis reads as density rather than count. The smooth curve is the kernel density estimate, a continuous estimate of the same distribution made by placing a kernel, a small smooth curve, at every observation and summing them. The example is a sample centered on zero with the bell shape of a normal distribution. Seaborn deprecated <code>distplot</code> in version 0.11; <code>histplot</code> with <code>kde=True</code> produces the same picture in current versions.</p>
@@ -221,7 +229,7 @@
   </section>
   <section data-page="27">
     <div class="page-stack">
-      <img class="page" src="pages/p027.webp" alt="GTK Cyber g = sns.pairplot(&lt;data&gt;, hue=&quot;&lt;target&gt;&quot;)">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber sns.pairplot(df.loc(:,[‘A’,’B’]), hue=df[‘D’])">
     </div>
     <aside class="notes">
       <p><code>pairplot</code> draws every pairwise combination of the numeric columns in one grid. Each off-diagonal cell is a scatter plot of one column against another, and each diagonal cell is a histogram of a single column. <code>hue</code> names a column whose values color the points and split the histograms, so the grid doubles as a check of how well the measurements separate the classes. That check is a first pass at feature selection, choosing which columns to give a model: a column whose classes separate in its cells carries signal a classifier can use, and one whose classes overlap in every cell contributes little on its own. The example is the iris dataset: 150 flowers of three species with four measurements each. Petal length and petal width separate setosa from the other two species with a clear gap, and the two remaining species overlap on sepal width. A grid of n columns has n squared cells, so the plot suits a handful of columns.</p>
@@ -237,7 +245,7 @@
   </section>
   <section data-page="29">
     <div class="page-stack">
-      <img class="page" src="pages/p029.webp" alt="GTK Cyber g = sns.lmplot(x=&quot;total_bill&quot;, y=&quot;tip&quot;, hue=&quot;smoker&quot;, data=tips)">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber sns.lmplot(x=&quot;total_bill&quot;, y=&quot;tip&quot;, hue=&quot;smoker&quot;, data=tips)">
     </div>
     <aside class="notes">
       <p><code>lmplot</code> fits the same kind of line but works at the level of a whole figure, which is what lets it split the data. <code>hue="smoker"</code> divides the rows by that column and fits a separate line to each group, with its own color and its own confidence band, and adds a legend. In the tips data the line for non-smokers is steeper than the line for smokers, so the tip grows faster with the bill among non-smokers. Because <code>lmplot</code> builds a figure, it also accepts <code>col</code> and <code>row</code> to split the data into a grid of panels, and it returns a <code>FacetGrid</code> object rather than an axes, which is why the result is assigned to <code>g</code>.</p>
@@ -245,7 +253,7 @@
   </section>
   <section data-page="30">
     <div class="page-stack">
-      <img class="page" src="pages/p030.webp" alt="GTK Cyber g = sns.FacetGrid(tips, col=&quot;time&quot;, row=&quot;smoker&quot;) &gt;&gt;&gt; g = g.map(plt.hist, &quot;total_bill&quot;)">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber g = sns.FacetGrid(tips, col=&quot;time&quot;, row=&quot;smoker&quot;) g = g.map(plt.hist, &quot;total_bill&quot;)">
     </div>
     <aside class="notes">
       <p><code>FacetGrid</code> builds a grid of panels, one per combination of the values in the <code>row</code> and <code>col</code> columns, and <code>map</code> draws the same chart in each panel. Here <code>col="time"</code> gives one column of panels for lunch and one for dinner, <code>row="smoker"</code> gives one row for smokers and one for non-smokers, and <code>g.map(plt.hist, "total_bill")</code> draws a histogram of the bill in each of the four panels. The panels share axes, so heights are comparable across them: dinner bills are more numerous and spread wider than lunch bills in both rows. The <code>&gt;&gt;&gt;</code> prompt on the second line is copied from an interactive session and is not part of the code.</p>
@@ -259,10 +267,17 @@
       <p>A Seaborn axes-level function returns a Matplotlib axes, and <code>get_figure</code> on that axes returns the figure that contains it. <code>savefig</code> on the figure writes it to disk, with the format chosen from the file extension: PNG here, and PDF or SVG for vector output. The call is needed when a chart has to leave the notebook, for a report or a slide, because the inline rendering exists only in the notebook output. Adding <code>bbox_inches="tight"</code> trims the margin around the figure and keeps long tick labels inside the saved image.</p>
     </aside>
   </section>
-  <section data-page="33">
+  <section data-page="32">
     <div class="page-stack">
       <img class="page" src="pages/p032.webp" alt="GTK Cyber Customizing your Charts">
-      <img class="page fragment" src="pages/p033.webp" alt="GTK Cyber Customizing your Charts https://pbpython.com/effective-matplotlib.html">
+    </div>
+    <aside class="notes">
+      <p>The figure is Matplotlib's own anatomy diagram and it names the parts a customization call can touch. The figure is the whole canvas. The axes is one plot inside it, with its own x axis and y axis; each axis carries major and minor ticks, tick labels and an axis label. Inside the axes are the drawn data, lines for a line plot and markers for a scatter plot, plus the grid, the legend, the title and the spines, which are the four lines that frame the plotting area. Every one of these is an object with setter methods, and customizing a chart means getting hold of the right object and calling them.</p>
+    </aside>
+  </section>
+  <section data-page="33">
+    <div class="page-stack">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber Customizing your Charts https://pbpython.com/effective- matplotlib.html">
     </div>
     <aside class="notes">
       <p>The figure is Matplotlib's own anatomy diagram and it names the parts a customization call can touch. The figure is the whole canvas. The axes is one plot inside it, with its own x axis and y axis; each axis carries major and minor ticks, tick labels and an axis label. Inside the axes are the drawn data, lines for a line plot and markers for a scatter plot, plus the grid, the legend, the title and the spines, which are the four lines that frame the plotting area. Every one of these is an object with setter methods, and customizing a chart means getting hold of the right object and calling them.</p>
@@ -278,7 +293,7 @@
   </section>
   <section data-page="35">
     <div class="page-stack">
-      <img class="page" src="pages/p035.webp" alt="GTK Cyber Customizing your Charts • Matplotlib has both an object-oriented and state- based interface. This can be confusing when you look up answers on Stack Overflow. • Use basic">
+      <img class="page" src="pages/p035.webp" alt="GTK Cyber Customizing your Charts • Matplotlib has both an object-oriented and state- based interface. This can be confusing when you look up answers. • Use basic pandas plotting f">
     </div>
     <aside class="notes">
       <p>Matplotlib has two interfaces to the same objects. The state-based interface is the <code>pyplot</code> module: calls such as <code>plt.plot</code> and <code>plt.xlabel</code> act on whichever figure and axes are current, and the library tracks that state. The object-oriented interface holds explicit Figure and Axes objects and calls methods on them, such as <code>ax.set_xlabel</code>. Both produce the same chart, and answers found online mix them freely, so a snippet that calls <code>plt.title</code> and one that calls <code>ax.set_title</code> are doing the same thing through different handles.</p>
@@ -288,7 +303,7 @@
   </section>
   <section data-page="36">
     <div class="page-stack">
-      <img class="page" src="pages/p036.webp" alt="GTK Cyber Customizing your Charts fig, ax = plt.subplots() df.plot(..., ax=ax) This method gets you access to the figure and axes.">
+      <img class="page" src="pages/p036.webp" alt="GTK Cyber Customizing your Charts • Axes: Axes represent an individual plot or chart. • Figure: This is the final complete image and may contain 1 or more axes. fig, ax = plt.subpl">
     </div>
     <aside class="notes">
       <p><code>plt.subplots</code> creates a Figure and one Axes in a single call and returns both. Passing that Axes to the pandas <code>plot</code> method through <code>ax=ax</code> tells pandas to draw into it instead of creating its own, so the code ends up holding <code>fig</code> and <code>ax</code> as explicit handles. The handles are the entry point to the object-oriented interface: every later adjustment is a method call on <code>ax</code> for the plot or on <code>fig</code> for the whole image. Without the <code>ax</code> argument pandas still returns the Axes it drew on, but the figure has to be recovered from it afterward.</p>
@@ -296,7 +311,7 @@
   </section>
   <section data-page="37">
     <div class="page-stack">
-      <img class="page" src="pages/p037.webp" alt="GTK Cyber Customizing your Charts • Axes: Long list of possible options to configure your chart: https:// matplotlib.org/3.1.0/api/axes_api.html#the-axes-class">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber Customizing your Charts • Axes: Long list of possible options to configure your chart: https://matplotlib.org/3.1.0/api/axes_api.html#the-axes-class">
     </div>
     <aside class="notes">
       <p>The Axes class is where most customization methods live, and the linked page is its reference. The methods fall into groups: setters for the title and axis labels, limits and scale for each axis, tick positions and tick labels, the legend, the grid, and the drawing methods themselves such as <code>plot</code>, <code>bar</code>, <code>scatter</code> and <code>hist</code>. The link points at the documentation for version 3.1.0; the current version's reference is at matplotlib.org/stable/api/axes_api.html.</p>
@@ -304,7 +319,7 @@
   </section>
   <section data-page="38">
     <div class="page-stack">
-      <img class="page" src="pages/p038.webp" alt="GTK Cyber Add Axis Labels https://pbpython.com/effective-matplotlib.html fig, ax = plt.subplots() df.plot(kind=&#x27;barh&#x27;, ax=ax) ax.set_xlim([-10000, 140000]) ax.set_xlabel(&#x27;Total Rev">
+      <img class="page" src="pages/p038.webp" alt="GTK Cyber Add Axis Labels https://pbpython.com/effective- matplotlib.html fig, ax = plt.subplots() df.plot(kind=&#x27;barh&#x27;, ax=ax) ax.set_xlim([-10000, 140000]) ax.set_xlabel(&#x27;Total Re">
     </div>
     <aside class="notes">
       <p>Three method calls on the axes turn a bare chart into a labeled one. <code>set_xlim</code> fixes the horizontal range, here from minus 10,000 to 140,000, which leaves room to the left of the zero line and to the right of the longest bar. <code>set_xlabel</code> and <code>set_ylabel</code> put text on the two axes; without them the y axis would carry the DataFrame's index name, if it has one, and the x axis nothing. <code>kind='barh'</code> draws horizontal bars, which suits long category names such as these customer names, since the labels run horizontally. The semicolon after the last line suppresses the printed return value in a notebook. The example comes from Chris Moffitt's Practical Business Python article on effective Matplotlib.</p>
@@ -312,7 +327,7 @@
   </section>
   <section data-page="39">
     <div class="page-stack">
-      <img class="page" src="pages/p039.webp" alt="GTK Cyber Add Annotations https://pbpython.com/effective-matplotlib.html fig, ax = plt.subplots() df.plot(kind=&#x27;barh&#x27;, ax=ax) avg = df[&#x27;Sales&#x27;].mean() ax.axvline(x=avg, color=&#x27;b&#x27;, ">
+      <img class="page" src="pages/p039.webp" alt="GTK Cyber Add Annotations https://pbpython.com/effective- matplotlib.html fig, ax = plt.subplots() df.plot(kind=&#x27;barh&#x27;, ax=ax) avg = df[&#x27;Sales&#x27;].mean() ax.axvline(x=avg, color=&#x27;b&#x27;,">
     </div>
     <aside class="notes">
       <p>Annotations add reference marks that the data alone does not carry. <code>axvline</code> draws a vertical line across the axes at a given x position, here the mean of the Sales column computed with pandas, and the keyword arguments set its color to blue, its style to dashed, its width to one point and its legend label to Average. <code>ax.text</code> places a string at a data coordinate: the loop writes "New Customer" at x equal to 115,000 beside the bars at positions 3, 5 and 8, which are the fourth, sixth and ninth bars from the bottom because bar positions count from zero. The chart on the right also has a title and dollar-formatted ticks, which come from calls the listing omits.</p>
@@ -320,7 +335,7 @@
   </section>
   <section data-page="40">
     <div class="page-stack">
-      <img class="page" src="pages/p040.webp" alt="GTK Cyber Subplots https://pbpython.com/effective-matplotlib.html fig, (ax0, ax1) = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(7, 4)) df.plot(kind=&#x27;barh&#x27;, ax=ax0) ax0.set">
+      <img class="page" src="pages/p040.webp" alt="GTK Cyber Subplots https://pbpython.com/effective- matplotlib.html fig, (ax0, ax1) = plt.subplots(nrows=1, ncols=2, sharey=True, figsize=(7, 4)) df.plot(kind=&#x27;barh&#x27;, ax=ax0) ax0.se">
     </div>
     <aside class="notes">
       <p><code>plt.subplots</code> with <code>nrows=1</code> and <code>ncols=2</code> creates one figure holding two axes side by side, returned as the pair <code>(ax0, ax1)</code>. <code>sharey=True</code> makes the two panels use one vertical axis, so the customer names appear once on the left and the bars in the two panels line up row for row. <code>figsize=(7, 4)</code> sets the figure's width and height in inches. Each <code>df.plot</code> call is directed to its own panel with <code>ax=ax0</code> or <code>ax=ax1</code>, and each axes is then customized independently: <code>ax1.set</code> sets the title, x label and an empty y label in one call, and <code>axvline</code> draws the average line for units on the second panel as it did for revenue on the first. The title above both panels, 2014 Sales Analysis, belongs to the figure and is set with <code>fig.suptitle</code>.</p>
@@ -328,7 +343,7 @@
   </section>
   <section data-page="41">
     <div class="page-stack">
-      <img class="page" src="pages/p041.webp" alt="GTK Cyber Lab Please take 30 min to complete Worksheet 2.1: Data Visualization">
+      <img class="page" src="pages/p041.webp" alt="GTK Cyber Lab • Please complete Worksheet 3: Data Visualization Please take 30 min to complete Worksheet 2.1: Data Visualization">
     </div>
     <aside class="notes">
       <p>Worksheet 2.1 applies the pandas and Matplotlib material to the daily botnet data. The task is a line chart comparing the number of hosts infected by the Bedep and ConfickerAB bot families in the Government/Politics sector: read <code>dailybots.csv</code>, filter it by industry and by bot family, merge the two families into one DataFrame with a date column and a count column per family, and plot it. The second half customizes the result through the axes: convert the date column to datetime so the x axis is a time axis, move the legend, enlarge the figure, add axis labels, and split the two lines into two subplots with <code>plt.subplots</code>.</p>
@@ -392,7 +407,7 @@
   </section>
   <section data-page="49">
     <div class="page-stack">
-      <img class="page" src="pages/p049.webp" alt="GTK Cyber">
+      <img class="page" src="pages/p049.webp" alt="GTK Cyber Streamlit">
     </div>
     <aside class="notes">
       <p>The page as the browser renders it at localhost. The heading and paragraph are the Markdown, the area chart plots one series by date from June through August 2016, and the table beneath is the raw daily botnet records with date, bot family, industry, hosts and orgs columns. The Deploy button and menu at the top right are added by Streamlit and are not part of the script. The table is live: the column headers sort and the scrollbar on the right moves through the rows.</p>
@@ -440,7 +455,7 @@
   </section>
   <section data-page="55">
     <div class="page-stack">
-      <img class="page" src="pages/p055.webp" alt="GTK Cyber Taking Input from a User • Streamlit has a large collection of input widgets available here: https:// docs.streamlit.io/develop/api-reference/widgets • When the input ele">
+      <img class="page" src="pages/p055.webp" alt="GTK Cyber Taking Input from a User • Streamlit has a large collection of input widgets available here: https://docs.streamlit.io/develop/api-reference/widgets • When the input elem">
     </div>
     <aside class="notes">
       <p>Input widgets are function calls that return the current value of the control. <code>st.text_input("Enter your name")</code> draws a text box with that label and returns whatever the box contains, an empty string until the user types. Every change to a widget triggers a rerun of the whole script from the top, and on that rerun the call returns the new value, so the <code>if</code> test and the <code>st.write</code> line run again with the user's text and the greeting appears. The rerun replaces event handlers: nothing in the script registers a callback. Values that have to survive between reruns, such as a growing list, have to be stored in <code>st.session_state</code>, because local variables are recreated on every run.</p>
@@ -490,7 +505,7 @@
   </section>
   <section data-page="61">
     <div class="page-stack">
-      <img class="page" src="pages/p061.webp" alt="GTK Cyber Lab Please take 30 min to complete Worksheet 2.2 Interactive Visualizations (Not in Jupyter)">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Lab • Please complete Worksheet 3: Data Visualization Please take 30 min to complete Worksheet 2.2 Interactive Visualizations (Not in Jupyter)">
     </div>
     <aside class="notes">
       <p>Worksheet 2.2 is a Streamlit script. It is written in an editor and started with <code>streamlit run</code>, and it builds a small dashboard on the daily botnet file: a title and description in Markdown, a <code>selectbox</code> listing the industries whose chosen value is kept in a variable, and two tabs. The chart tab holds a bar chart of infected host totals by bot family for the selected industry, which takes a filter on the industry column and a group by bot family before the chart call. The data tab holds the raw records as a table, optionally filtered by the same selection and formatted through the column configuration parameters of <code>st.dataframe</code>.</p>

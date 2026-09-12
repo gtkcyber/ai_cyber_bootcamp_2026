@@ -74,7 +74,7 @@
   </section>
   <section data-page="8">
     <div class="page-stack">
-      <img class="page" src="pages/p008.webp" alt="GTK Cyber “Outliers are not necessarily a bad thing. These are just observations that are not following the same pattern as the other ones. But it can be the case that an outlier i">
+      <img class="page" src="pages/p008.webp" alt="GTK Cyber “Type a quote here.” –Johnny Appleseed “Outliers are not necessarily a bad thing. These are just observations that are not following the same pattern as the other ones. B">
     </div>
     <aside class="notes">
       <p>The quote is from Pierre Lafaye de Micheaux (pronounced roughly la-FAY duh mee-SHOW), a statistician and textbook author. His example is a rat that survives an experiment that killed all the others. The survivor is an outlier: it differs from every other observation. It is also the observation with the most to teach, because explaining it could expose a mechanism the other rats cannot. Detecting outliers matters because detection is what surfaces such cases.</p>
@@ -90,7 +90,7 @@
   </section>
   <section data-page="10">
     <div class="page-stack">
-      <img class="page" src="pages/p010.webp" alt="GTK Cyber What is an outlier?">
+      <img class="page" src="pages/p010.webp" alt="GTK Cyber What is an outlier? • An out">
     </div>
     <aside class="notes">
       <p>The word is literal. An outlier is a point that lies outside the region the rest of the observations occupy, so it can only be identified against a particular set of observations.</p>
@@ -98,7 +98,7 @@
   </section>
   <section data-page="11">
     <div class="page-stack">
-      <img class="page" src="pages/p011.webp" alt="GTK Cyber An outlier or anomaly is a data point which differs from the rest of the observations in a dataset.">
+      <img class="page" src="pages/p011.webp" alt="GTK Cyber An outlier or anomaly is a data point which differs from the rest of the observations in a dataset. • An out">
     </div>
     <aside class="notes">
       <p>The definition needs two things made concrete before it can be computed. Differs from the rest requires a measure of difference: a distance from the other observations, or from a summary of them such as their mean. A data point which differs requires a threshold: how much distance counts. Each method in the module fixes both.</p>
@@ -141,7 +141,7 @@
   </section>
   <section data-page="16">
     <div class="page-stack">
-      <img class="page" src="pages/p016.webp" alt="GTK Cyber Anomaly Detection Process Use Known Data to Predict value Compare prediction to actual values and calculate anomaly score. (Distance) If score is within threshold, observ">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber Anomaly Detection Process • Pandas/SciPy/NumPy: Pandas, SciPy and NumPy can be used for some of the simpler statistical calculations • PyOD: A relatively new module for o">
     </div>
     <aside class="notes">
       <p>Every method in the module runs the same three stages. Predict: use the known data to produce an expected value for the observation, whether that is the mean of a column, the next value of a series, or a learned region of feature space. Score: compare the prediction with the actual value and express the difference as a distance, the anomaly score. Decide: compare the score with a threshold; a score within the threshold marks the observation as an inlier, and a score beyond it marks an outlier.</p>
@@ -213,10 +213,18 @@
 <p>A threshold applied to pure noise flags noise. Every point beyond a band here is a random draw from the same distribution as the rest, so a one-deviation rule produces hundreds of false alarms per thousand observations and a two-deviation rule about fifty. The threshold is set by how many false alarms per thousand the consumer of the alerts will tolerate. Shewhart control charts, used to monitor manufacturing processes, place their limits at three standard deviations, which flags about three per thousand.</p>
     </aside>
   </section>
-  <section data-page="26">
+  <section data-page="25">
     <div class="page-stack">
       <img class="page" src="pages/p025.webp" alt="GTK Cyber Simple Statistics What if your data isn&#x27;t distributed normally?">
-      <img class="page fragment" src="pages/p026.webp" alt="GTK Cyber Simple Statistics What if your data isn&#x27;t distributed normally? 123 Outliers">
+    </div>
+    <aside class="notes">
+      <p>The two views are of a second series whose distribution is skewed. The histogram runs from zero upward with the bulk of the values below 0.25 and a tail past 1.25; the red curve is the normal density from the earlier histogram, mean zero and standard deviation one tenth, which reaches zero by 0.3 while the data continues for another unit. No normal curve fits this shape, because the data has a hard floor at zero and a long tail on one side only.</p>
+<p>The series plot shows the consequence for a threshold. The red line is a threshold at about 0.5, and 123 of the 1000 observations lie above it, about one in eight. The tail those points come from is ordinary behavior for a skewed distribution, so a threshold built from the mean and standard deviation flags ordinary values. A mirror line below the mean would sit at or under zero, where there is no data to flag at all. The threshold rule is unchanged from the previous series; what changed is that its assumption about the distribution no longer holds.</p>
+    </aside>
+  </section>
+  <section data-page="26">
+    <div class="page-stack">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber Simple Statistics What if your data isn&#x27;t distri buted norm ally? 123 Outliers">
     </div>
     <aside class="notes">
       <p>The two views are of a second series whose distribution is skewed. The histogram runs from zero upward with the bulk of the values below 0.25 and a tail past 1.25; the red curve is the normal density from the earlier histogram, mean zero and standard deviation one tenth, which reaches zero by 0.3 while the data continues for another unit. No normal curve fits this shape, because the data has a hard floor at zero and a long tail on one side only.</p>
@@ -225,7 +233,7 @@
   </section>
   <section data-page="27">
     <div class="page-stack">
-      <img class="page" src="pages/p027.webp" alt="GTK Cyber Mean Absolute Deviation • Mean Absolution Deviation (MAD) is defined as the average of the absolute deviations from a central point. data = pd.Series(&lt;data&gt;) mad = data.m">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber Mean Absolute Deviation • • • Mean Absolution Deviation (MAD) is defined as the average of the absolute deviations from a central point. data = pd.Series(&lt;data&gt;) mad = da">
     </div>
     <aside class="notes">
       <p>Mean absolute deviation measures spread as the average distance of the values from their mean: subtract the mean from each value, drop the sign, and average the results. It is an alternative to the standard deviation, which squares the deviations before averaging and so weights a single extreme value more heavily. The absolute version moves less when one outlier enters the data. A threshold can be set in mean absolute deviations from the mean the same way standard deviation bands are set.</p>
@@ -233,10 +241,18 @@
 <p>One more term to keep apart: the acronym MAD is also used for the median absolute deviation, the median of the distances from the median, which is a different statistic and the one SciPy's <code>median_abs_deviation</code> computes.</p>
     </aside>
   </section>
-  <section data-page="29">
+  <section data-page="28">
     <div class="page-stack">
       <img class="page" src="pages/p028.webp" alt="GTK Cyber Z-Score measures how many standard deviations an observation is from the mean.">
-      <img class="page fragment" src="pages/p029.webp" alt="GTK Cyber Z-Score measures how many standard deviations an observation is from the mean. z_score = (data_point - column_mean) / standard_deviation">
+    </div>
+    <aside class="notes">
+      <p>A z-score expresses an observation's distance from the mean in standard deviations: subtract the mean from the value and divide by the standard deviation. A z of 2 is two standard deviations above the mean, a z of minus 1.5 is one and a half below, and a z near zero is at the center. The score is dimensionless, so one threshold on the absolute z applies to every column of a table regardless of the units each column is measured in, which is what makes it usable across the many columns of the validation problem. A threshold on absolute z is the standard deviation band from the earlier plots expressed per observation: flagging absolute z above 2 is the same rule as flagging points outside the two-deviation band.</p>
+<p>The mean and standard deviation come from the reference data. For novelty detection that is the clean set. For anomaly detection it is the mixed set, and the outliers in it shift the mean toward themselves and enlarge the standard deviation, which shrinks their own z-scores, an effect called masking.</p>
+    </aside>
+  </section>
+  <section data-page="29">
+    <div class="page-stack">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Z-Score measures how many standard deviations an observation is from the mean. z_score = (data_point - column_mean) / standard_deviation">
     </div>
     <aside class="notes">
       <p>A z-score expresses an observation's distance from the mean in standard deviations: subtract the mean from the value and divide by the standard deviation. A z of 2 is two standard deviations above the mean, a z of minus 1.5 is one and a half below, and a z near zero is at the center. The score is dimensionless, so one threshold on the absolute z applies to every column of a table regardless of the units each column is measured in, which is what makes it usable across the many columns of the validation problem. A threshold on absolute z is the standard deviation band from the earlier plots expressed per observation: flagging absolute z above 2 is the same rule as flagging points outside the two-deviation band.</p>
@@ -245,7 +261,7 @@
   </section>
   <section data-page="30">
     <div class="page-stack">
-      <img class="page" src="pages/p030.webp" alt="GTK Cyber #Use SciPy from scipy.stats import zscore df.apply(zscore) #Use Pandas (Only works for all numeric cols) df_zscore = (df - df.mean())/df.std()">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber Z-Score measures how many standard deviations an observation is from the mean. #Use SciPy from scipy.stats import zscore df.apply(zscore) #Use Pandas (Only works for all ">
     </div>
     <aside class="notes">
       <p>Two ways to compute z-scores for every column of a DataFrame. SciPy: <code>zscore</code> from <code>scipy.stats</code>, applied column by column with <code>df.apply</code>. pandas: subtract the column means from the frame and divide by the column standard deviations, which pandas broadcasts across the columns in one expression. Both fail on a column of strings, since subtraction is undefined for text; select the numeric columns first with <code>df.select_dtypes('number')</code>.</p>
@@ -271,7 +287,7 @@
   </section>
   <section data-page="33">
     <div class="page-stack">
-      <img class="page" src="pages/p033.webp" alt="GTK Cyber What if your data looks like this? https://github.com/oreilly-mlsec/book-resources/blob/master/chapter3/figures/3-01-diurnal-season-trend.png">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber What if your data looks like this? https://github.com/oreilly-mlsec/book-resources/blob/master/chapter3/figures/3-01-diurnal-season- trend.png">
     </div>
     <aside class="notes">
       <p>The series is figure 3-1 from Machine Learning and Security by Clarence Chio and David Freeman (O'Reilly, 2018), the book the lab's CPU data also comes from. It has a repeating cycle, seven peaks in 160 steps, so a period of about 24 steps, consistent with hourly samples and a daily rhythm, and it has a trend: the dotted regression line climbs from about 92,000 to about 128,000 over the window.</p>
@@ -356,7 +372,7 @@
   </section>
   <section data-page="43">
     <div class="page-stack">
-      <img class="page" src="pages/p043.webp" alt="GTK Cyber ARIMA">
+      <img class="page" src="pages/p043.webp" alt="GTK Cyber ARIMA import pandas as pd import pyflux as pf # Get data &amp; build model model = pf.ARIMA( data = data_train, ar=11, ma=11, integ=0, target=&lt;target_col&gt;) model.fit(&quot;M-H&quot;) #">
     </div>
     <aside class="notes">
       <p>The plot is the model's in-sample fit on the training set: observed CPU utilization in red and the model's predictions in black over about 420 steps. In-sample predictions are one step ahead, each made from the actual values up to the previous step, so the black line follows the red closely and trails it by a step at the sharp turns. The series shows three broad rises and falls with sharper spikes on top, and the model tracks both. The residuals, the small vertical gaps between the lines, are the model's baseline error on normal data and set the scale against which a later gap is judged large. The lab produces this plot with <code>predict_in_sample()</code>.</p>
@@ -364,7 +380,7 @@
   </section>
   <section data-page="44">
     <div class="page-stack">
-      <img class="page" src="pages/p044.webp" alt="GTK Cyber ARIMA Large delta between data and prediction">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber ARIMA import pandas as pd import pyflux as pf # Get data &amp; build model model = pf.ARIMA( data = data_train, ar=11, ma=11, integ=0, target=&lt;target_col&gt;) model.fit(&quot;M-H&quot;) #">
     </div>
     <aside class="notes">
       <p>The plot is the 60-step forecast on the test set of dataset B, the set with an injected anomaly. The blue line is the forecast, made once at the end of the training data and declining smoothly from about 1.6 toward 1.2. The red line is what was observed: it tracks the forecast for the first ten steps, drops to near zero at step 10, stays there through step 30, then jumps above 2 and stays high. The forecast does not react because the test values are not in its input; it is a multi-step projection from training data alone.</p>
@@ -422,7 +438,7 @@
   </section>
   <section data-page="51">
     <div class="page-stack">
-      <img class="page" src="pages/p051.webp" alt="GTK Cyber One Class SVM Implementation https://scikit-learn.org/stable/auto_examples/svm/plot_oneclass.html">
+      <img class="page" src="pages/p051.webp" alt="GTK Cyber One Class SVM Implementation from sklearn import svm # fit the model clf = svm.OneClassSVM(nu=0.1, kernel=&quot;rbf&quot;, gamma=0.1) clf.fit(X_train) y_pred_train = clf.predict(X_">
     </div>
     <aside class="notes">
       <p>The chart is the output of the same example. Training observations, white, form two clusters. The dark red line is the learned frontier around each, and the blue shading is the decision function, darker where a point sits deeper inside the frontier. Purple points are new observations drawn from the same distribution as the training data; yellow points are new observations scattered uniformly across the square.</p>
@@ -464,7 +480,7 @@
   </section>
   <section data-page="56">
     <div class="page-stack">
-      <img class="page" src="pages/p056.webp" alt="GTK Cyber https://towardsdatascience.com/a-brief-overview-of-outlier-detection-techniques-1e0b2c19e561">
+      <img class="page" src="pages/p056.webp" alt="GTK Cyber Isolation forest’s basic principle is that outliers are few and far from the rest of the observations. https://towardsdatascience.com/a-brief-overview-of-outlier-detectio">
     </div>
     <aside class="notes">
       <p>The figure, from the source article, shows the structure. An isolation forest is a set of isolation trees, each built on a random subsample of the data by random splits that continue until every point sits alone in its own leaf. A point's path length in a tree is the number of splits it took to isolate it. In each tree drawn, the red point is alone after one split, the dark blue points after two, and the light blue point after five.</p>
@@ -498,7 +514,7 @@
   </section>
   <section data-page="60">
     <div class="page-stack">
-      <img class="page" src="pages/p060.webp" alt="GTK Cyber Isolation Forest Implementation • Scikit Learn Documentation: https://scikit-learn.org/stable/modules/ generated/sklearn.ensemble.IsolationForest.html from sklearn.ensemb">
+      <img class="page" src="pages/p060.webp" alt="GTK Cyber Isolation Forest Implementation • Scikit Learn Documentation: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html from sklearn.ensembl">
     </div>
     <aside class="notes">
       <p>The listing is from scikit-learn's isolation forest example. <code>max_samples=100</code>: each tree is built on a random subsample of 100 training points. <code>random_state=rng</code>: the seed for the random feature and split choices, so a run can be reproduced. <code>contamination='auto'</code>: the score threshold is placed at the paper's natural cutoff, a score of 0.5; passing a float instead sets the fraction of training points to flag. <code>predict</code> returns 1 for inliers and minus 1 for outliers, and the example scores the training data, a held-out set of regular points, and a set of generated outliers.</p>
@@ -507,7 +523,7 @@
   </section>
   <section data-page="61">
     <div class="page-stack">
-      <img class="page" src="pages/p061.webp" alt="GTK Cyber Isolation Forest Implementation https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html">
+      <img class="page" src="pages/p061.webp" alt="GTK Cyber Isolation Forest Implementation • Scikit Learn Documentation: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.IsolationForest.html from sklearn.ensembl">
     </div>
     <aside class="notes">
       <p>The chart is the example's output. White points are the training observations, in two clusters at about (2, 2) and (minus 2, minus 2); green points are new regular observations, drawn from the same clusters; red points are new abnormal observations, scattered across the square. The shading is the decision function: palest where a point is scored as an inlier, darkening as the score moves toward outlier.</p>
@@ -576,7 +592,7 @@
   </section>
   <section data-page="69">
     <div class="page-stack">
-      <img class="page" src="pages/p069.webp" alt="GTK Cyber Group Discussion Goal: Domain spoofing in links is a common tactic to fool unsuspecting users into clicking on links. For instance: faceboook.com or рapajohns.com. (That ">
+      <img class="page" src="pages/p069.webp" alt="GTK Cyber Group Discussion Goal: Domain spoofing in links is a common tactic to fool unsuspecting users into clicking on links. For instance: faceboook.com or apajohns.com. (That р">
     </div>
     <aside class="notes">
       <p>The two examples work by different mechanisms. faceboook.com is a typosquat: one extra character, Levenshtein distance 1 from facebook.com, and a reader skimming the string misses it. The second is a homoglyph: its first letter is the Cyrillic letter er, which is drawn the same as a Latin p, so the string is visually identical to papajohns.com and is a different domain. The slide calls the letter a Russian rho; rho is the Greek letter, and the Cyrillic one is er.</p>

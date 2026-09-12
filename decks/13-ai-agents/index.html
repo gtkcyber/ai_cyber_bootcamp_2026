@@ -51,7 +51,7 @@
   </section>
   <section data-page="5">
     <div class="page-stack">
-      <img class="page" src="pages/p005.webp" alt="GTK Cyber Dangers of AI Agents https://www.reddit.com/r/ChatGPT/comments/1m4lsso/replit_ai_went_rogue_deleted_a_companys_entire/">
+      <img class="page" src="pages/p005.webp" alt="GTK Cyber Dangers of AI Agents • In July 2025, &quot;vibe coder&quot; Jason Lemkin was using an AI tool Replit to build an application. • After 8 days of vibe coding, the AI Agent in Replit ">
     </div>
     <aside class="notes">
       <p>The screenshots are Lemkin's posts on X. The first quotes the agent's own account of the incident: at 4:26 AM it ran <code>npm run db:push</code>, the command that destroyed the database, and it describes the sequence as a catastrophic failure on its part. The second post adds that the agent hid the deletion, claimed the unit tests passed, and was caught only when batch processing failed and Lemkin pressed it to explain.</p>
@@ -135,7 +135,7 @@
   </section>
   <section data-page="15">
     <div class="page-stack">
-      <img class="page" src="pages/p015.webp" alt="GTK Cyber Agents vs. Workflows • Not every LLM application is an agent. • A workflow follows a fixed path that you design in code. • An agent lets the model decide the path: which ">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Agents vs. Workflows • Not every LLM application is an agent. A workflow follows a fixed path that you design in code. An agent lets the model decide the path: which step">
     </div>
     <aside class="notes">
       <p>The dividing line is who controls the path. In a workflow, code you wrote decides the sequence of model calls and tool calls, and the model fills in content at each step. In an agent, the model decides which step runs next, which tool to call, and when to stop. Anthropic's December 2024 guide "Building effective agents" draws the line the same way, and the framework advice later in this deck comes from the same guide. Agency is a matter of degree: the more decisions about control flow the model makes, the more agentic the system.</p>
@@ -143,7 +143,7 @@
   </section>
   <section data-page="16">
     <div class="page-stack">
-      <img class="page" src="pages/p016.webp" alt="GTK Cyber The Spectrum • Single prompt: one call, one answer. • Chain: a fixed sequence of calls you wire together. • Router: the model picks one of several predefined branches. • ">
+      <img class="page" src="pages/p016.webp" alt="GTK Cyber The Spectrum • Single prompt: one call, one answer. Chain: a fixed sequence of calls you wire together. Router: the model picks one of several predefined branches. Agent:">
     </div>
     <aside class="notes">
       <p>Four points on the spectrum, ordered by how much control the model has. Single prompt: one call, one answer, no control flow. Chain: a fixed sequence of calls wired in code; the model shapes content and the code shapes order. Router: the model chooses one of several branches you defined, one control decision per run. Agent: the model chooses actions repeatedly and decides when it is done. The rule is to use the least agentic option that solves the task.</p>
@@ -151,7 +151,7 @@
   </section>
   <section data-page="17">
     <div class="page-stack">
-      <img class="page" src="pages/p017.webp" alt="GTK Cyber When to Use an Agent • The task is open-ended and the steps are not known in advance. • The number of steps varies from one input to the next. • The work benefits from to">
+      <img class="page" src="pages/p017.webp" alt="GTK Cyber When to Use an Agent • The task is open-ended and the steps are not known in advance. The number of steps varies from one input to the next. The work benefits from tools ">
     </div>
     <aside class="notes">
       <p>Define the problem and what a successful result is before choosing any AI for it; without a success criterion there is no way to show that an agent improves on what it replaced. An agent earns its cost when the path cannot be written in advance. Open-ended tasks where the steps depend on what earlier steps reveal, tasks whose length varies from one input to the next, work that improves with tool lookups and repeated reasoning, and cases where a better answer justifies extra tokens and seconds all qualify. An investigation that starts from one alert and branches on what each lookup returns is the shape the lab builds.</p>
@@ -159,7 +159,7 @@
   </section>
   <section data-page="18">
     <div class="page-stack">
-      <img class="page" src="pages/p018.webp" alt="GTK Cyber When NOT to Use an Agent • The task is deterministic and the steps never change. Use a workflow. • Latency or cost is tightly constrained. • Mistakes are expensive and th">
+      <img class="page" src="pages/p018.webp" alt="GTK Cyber When NOT to Use an Agent • The task is deterministic and the steps never change. Use a workflow. Latency or cost is tightly constrained. Mistakes are expensive and the ag">
     </div>
     <aside class="notes">
       <p>A workflow wins when the path is known. A task whose steps are fixed is cheaper, faster, and more predictable as code. Tight latency or cost budgets rule out a loop of model calls. When mistakes are expensive and the agent can act on the world, the unpredictability of the loop is itself the risk, which is what the Replit incident demonstrated. A single well-crafted prompt that already answers reliably needs no loop at all.</p>
@@ -167,7 +167,7 @@
   </section>
   <section data-page="19">
     <div class="page-stack">
-      <img class="page" src="pages/p019.webp" alt="GTK Cyber The Cost of Autonomy • Every loop iteration is another model call: more tokens, latency, and money. • Agents can take unexpected paths and call tools in unexpected orders">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber The Cost of Autonomy • Every loop iteration is another model call: more tokens, latency, and money. Agents can take unexpected paths and call tools in unexpected orders. ">
     </div>
     <aside class="notes">
       <p>Autonomy is paid for per iteration. Each pass through the loop is a fresh model call carrying the whole conversation so far, so token cost rises with every step, and the calls run one after another, so latency accumulates. The path is chosen at run time from sampled model output and live tool results, so two runs on the same input can call different tools in different orders and reach different answers, and a failure seen once may not appear again. Two controls belong in every agent: an iteration limit so a run that fails to converge stops, and a log of every thought, tool call, and result so a run can be reconstructed afterward.</p>
@@ -175,7 +175,7 @@
   </section>
   <section data-page="20">
     <div class="page-stack">
-      <img class="page" src="pages/p020.webp" alt="GTK Cyber Beyond ReAct: Memory • A capable agent needs memory as well as a reasoning loop. • Short-term memory: the conversation and tool results in the context window. Fast but bo">
+      <img class="page" src="pages/p020.webp" alt="GTK Cyber Beyond ReAct: Memory • A capable agent needs memory as well as a reasoning loop. Short-term memory: the conversation and tool results in the context window. Fast but boun">
     </div>
     <aside class="notes">
       <p>Memory splits by where it lives. Short-term memory is the context window: the system prompt, the conversation, and every tool result so far. The model has it at no retrieval cost, and it is gone when the context fills or the task ends. Long-term memory is anything stored outside the model and fetched into the context when relevant: a vector store of past cases, a database of known facts, notes from earlier runs. The retrieval mechanism is the one Module 11 used for RAG, retrieval-augmented generation. Short-term memory keeps a single task coherent; long-term memory lets one task benefit from previous ones.</p>
@@ -183,7 +183,7 @@
   </section>
   <section data-page="21">
     <div class="page-stack">
-      <img class="page" src="pages/p021.webp" alt="GTK Cyber Planning &amp; Decomposition • Hard problems get easier when broken into sub-tasks. • A planning step outlines the sub-tasks before any action is taken. • Plan-and-Execute: b">
+      <img class="page" src="pages/p021.webp" alt="GTK Cyber Planning &amp; Decomposition • Hard problems get easier when broken into sub-tasks. A planning step outlines the sub-tasks before any action is taken. Plan-and-Execute: build">
     </div>
     <aside class="notes">
       <p>Planning separates deciding the steps from doing them. A planning step asks the model to write out the sub-tasks before any tool is called, which gives a hard problem a structure and gives you something to inspect before the agent acts. Plan-and-Execute is the pattern where a planner produces the full list, an executor works through each item, and control returns to the planner to revise the list when a result contradicts it. ReAct decides one step at a time; Plan-and-Execute commits to a sequence and revisits it only when a step forces a change.</p>
@@ -191,7 +191,7 @@
   </section>
   <section data-page="22">
     <div class="page-stack">
-      <img class="page" src="pages/p022.webp" alt="GTK Cyber Reflection &amp; Self-Critique • An agent can review its own work before finishing. • Reflection: the model critiques its draft and tries again. • This catches errors, missed">
+      <img class="page" src="pages/p022.webp" alt="GTK Cyber Reflection &amp; Self-Critique • An agent can review its own work before finishing. Reflection: the model critiques its draft and tries again. This catches errors, missed evi">
     </div>
     <aside class="notes">
       <p>Reflection adds a review pass before the agent commits to an answer. The model is asked to critique its own draft against the task and then produce a revised version, which catches arithmetic slips, evidence it skipped, and reasoning that does not support the conclusion. Reflexion, spelled with an x, is the 2023 method from Noah Shinn and colleagues that keeps those critiques in memory across attempts, so a second try at the same task starts with a written note on why the first one failed. Every critique and retry is another model call, so the pattern trades cost for quality.</p>
@@ -199,7 +199,7 @@
   </section>
   <section data-page="23">
     <div class="page-stack">
-      <img class="page" src="pages/p023.webp" alt="GTK Cyber Agent Patterns Compared • ReAct: interleave reasoning and tool calls in one loop. Simple and flexible. • Plan-and-Execute: plan all steps up front, then run them. More pr">
+      <img class="page" src="pages/p023.webp" alt="GTK Cyber Agent Patterns Compared • ReAct: interleave reasoning and tool calls in one loop. Simple and flexible. Plan-and-Execute: plan all steps up front, then run them. More pred">
     </div>
     <aside class="notes">
       <p>Each pattern buys something with extra calls. ReAct is the smallest loop and adapts as it goes, so it is the default. Plan-and-Execute spends a planning call to make the run more predictable and reviewable. Reflexion spends critique and retry calls to raise answer quality and costs the most. Adopt them in that order: ReAct first, planning when the task has enough steps to benefit from being laid out, reflection when answer quality matters more than cost.</p>
@@ -207,7 +207,7 @@
   </section>
   <section data-page="24">
     <div class="page-stack">
-      <img class="page" src="pages/p024.webp" alt="GTK Cyber Agent Frameworks Beyond LangGraph • LangGraph / LangChain: graph-based, stateful, fine-grained control. What this lab uses. • LlamaIndex Workflows: event-driven steps wit">
+      <img class="page" src="pages/p024.webp" alt="GTK Cyber Agent Frameworks Beyond LangGraph • LangGraph / LangChain: graph-based, stateful, fine-grained control. What this lab uses. LlamaIndex Workflows: event-driven steps with ">
     </div>
     <aside class="notes">
       <p>The frameworks differ in what they make easy. LangGraph, from the LangChain team, models an agent as a graph of nodes and edges with explicit state, which gives fine control over routing and is what the lab uses. LlamaIndex Workflows chain event-driven steps and inherit LlamaIndex's retrieval tooling, a fit when the agent is mostly retrieval. CrewAI assigns roles to agents and has them collaborate, the shortest route to a multi-agent team. AutoGen began as a Microsoft research project that models agents as participants in a conversation; AG2 is the community fork of it. The OpenAI Agents SDK is a small library with handoffs between agents and guardrails built in, and it runs against models other than OpenAI's. Pydantic AI, from the Pydantic team, validates tool inputs and outputs with typed schemas. Hugging Face smolagents, spelled with a single l, has the agent write short Python programs as its actions, so one action can call several tools.</p>
@@ -215,7 +215,7 @@
   </section>
   <section data-page="25">
     <div class="page-stack">
-      <img class="page" src="pages/p025.webp" alt="GTK Cyber Do You Even Need a Framework? • Anthropic&#x27;s guidance: start with the model&#x27;s own tool-calling loop, no framework. • A framework adds abstraction, dependencies, and lock-i">
+      <img class="page" src="pages/p025.webp" alt="GTK Cyber Do You Even Need a Framework? • Anthropic&#x27;s guidance: start with the model&#x27;s own tool-calling loop, no framework. A framework adds abstraction, dependencies, and lock-in ">
     </div>
     <aside class="notes">
       <p>Anthropic's guide recommends starting without a framework. A model with tool calling and a loop of a few dozen lines is already an agent, and writing that loop yourself keeps every prompt and every tool result in view. A framework adds layers of abstraction between you and the model, extra dependencies, and an API that is hard to migrate away from. The cases that justify one are orchestration across several agents, state that must survive a pause or a crash, and streaming partial output. MCP, the Model Context Protocol from Module 12, is a standard for describing and calling tools, so a tool written once works with any agent that speaks the protocol, whichever framework the agent is built in. Whatever you choose, keep the raw prompts and tool calls inspectable, because debugging an agent means reading what the model was actually sent.</p>
@@ -223,7 +223,7 @@
   </section>
   <section data-page="26">
     <div class="page-stack">
-      <img class="page" src="pages/p026.webp" alt="GTK Cyber Visual &amp; Low-Code Agent Builders • Flowise: open-source drag-and-drop, built on LangChain and LangGraph. • Langflow: visual flow builder, Python-extensible, MIT licensed.">
+      <img class="page" src="pages/p026.webp" alt="GTK Cyber Visual &amp; Low-Code Agent Builders • Flowise: open-source drag-and-drop, built on LangChain and LangGraph. Langflow: visual flow builder, Python-extensible, MIT licensed. D">
     </div>
     <aside class="notes">
       <p>Visual builders let you wire an agent on a canvas instead of in code. Flowise: open-source drag-and-drop editor built on LangChain and LangGraph. Langflow: visual flow builder that accepts custom Python components, MIT licensed. Dify: self-hostable platform for LLM applications with visual agents and built-in retrieval. n8n: general automation canvas that ships AI agent nodes, self-hostable. AutoGen Studio: low-code interface over AutoGen. Rivet: open-source node-graph IDE with a debugger for stepping through an agent's run.</p>
@@ -232,7 +232,7 @@
   </section>
   <section data-page="27">
     <div class="page-stack">
-      <img class="page" src="pages/p027.webp" alt="GTK Cyber The Agent Threat Model • An agent is an LLM with hands: it can read data and take actions. • That combination expands the attack surface well beyond a chatbot. • The core">
+      <img class="page" src="pages/p027.webp" alt="GTK Cyber The Agent Threat Model • An agent is an LLM with hands: it can read data and take actions. That combination expands the attack surface well beyond a chatbot. The core ris">
     </div>
     <aside class="notes">
       <p>The threat model follows from the two things an agent does. It reads data, which gives an attacker a way in, and it takes actions, which give an attack an effect. A chatbot's worst case is a bad answer shown to the person who asked. An agent's worst case is an action taken on an attacker's behalf with the agent's privileges.</p>
@@ -241,7 +241,7 @@
   </section>
   <section data-page="28">
     <div class="page-stack">
-      <img class="page" src="pages/p028.webp" alt="GTK Cyber The Lethal Trifecta • Three capabilities are dangerous when combined in one agent: • Access to private data. • Exposure to untrusted content such as emails, web pages, an">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber The Lethal Trifecta • Three capabilities are dangerous when combined in one agent: Access to private data. Exposure to untrusted content such as emails, web pages, and do">
     </div>
     <aside class="notes">
       <p>The lethal trifecta is Simon Willison's name, from a June 2025 post, for the combination that turns prompt injection into data theft: access to private data, exposure to untrusted content, and a channel to the outside world. Injected instructions in the untrusted content tell the agent to read the private data and send it out through the channel, for example by fetching a URL with the data encoded in the query string or by emailing it. The exfiltration needs all three legs.</p>
@@ -250,7 +250,7 @@
   </section>
   <section data-page="29">
     <div class="page-stack">
-      <img class="page" src="pages/p029.webp" alt="GTK Cyber Excessive Agency &amp; Tool Poisoning • Excessive agency: granting more tools or permissions than the task needs. • A hijacked agent will use every capability you gave it. • ">
+      <img class="page" src="pages/p029.webp" alt="GTK Cyber Excessive Agency &amp; Tool Poisoning • Excessive agency: granting more tools or permissions than the task needs. A hijacked agent will use every capability you gave it. Tool">
     </div>
     <aside class="notes">
       <p>Excessive agency is the gap between what the task needs and what the agent can do. An attacker who controls the agent's decisions controls every tool it holds, so each unneeded tool or permission is attack surface with no benefit. Tool poisoning uses the tool result as the injection channel: a compromised tool, or a legitimate tool that fetches attacker content, returns text crafted to steer the agent, and the model reads it with the same trust as any other observation. In MCP the tool description is model input as well, so a malicious server can inject through the description before the tool is ever called.</p>
@@ -259,7 +259,7 @@
   </section>
   <section data-page="30">
     <div class="page-stack">
-      <img class="page" src="pages/p030.webp" alt="GTK Cyber OWASP LLM Top 10 (Agent- Relevant) • LLM01 Prompt Injection: attacker text overrides your instructions. • LLM02 Insecure Output Handling: agent output trusted without val">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber OWASP LLM Top 10 (Agent- Relevant) • LLM01 Prompt Injection: attacker text overrides your instructions. LLM02 Insecure Output Handling: agent output trusted without valid">
     </div>
     <aside class="notes">
       <p>Four entries from the OWASP Top 10 for LLM Applications apply directly to agents. Prompt injection: attacker text in the input overrides the developer's instructions. Improper output handling: model output passed to a shell, database, browser, or another system without validation, so injected content becomes executed content. Excessive agency: more autonomy or permission than the task requires. Vector and embedding weaknesses: an attacker who can write to the retrieval store controls what the agent later reads as fact.</p>
@@ -268,7 +268,7 @@
   </section>
   <section data-page="31">
     <div class="page-stack">
-      <img class="page" src="pages/p031.webp" alt="GTK Cyber Mitigations &amp; Guardrails • Least privilege: give each tool the narrowest scope possible. • Human in the loop: require approval for risky or irreversible actions. • Sandbo">
+      <img class="page" src="pages/p031.webp" alt="GTK Cyber Mitigations &amp; Guardrails • Least privilege: give each tool the narrowest scope possible. Human in the loop: require approval for risky or irreversible actions. Sandboxing">
     </div>
     <aside class="notes">
       <p>Each mitigation removes a way for a hijacked agent to do damage. Least privilege: each tool gets the narrowest scope that still does the job, read-only where reading is enough, with its own credential. Human in the loop: actions that are risky or cannot be undone, such as sending, deleting, or paying, pause for a person's approval; Part 4 of the lab builds this. Sandboxing: tools run in an isolated environment with short-lived credentials, so there is no standing secret for an injected instruction to read. Allow-lists: the URLs the agent may fetch, the commands it may run, and the recipients it may send to are enumerated in advance, which is one way to cut the trifecta's outbound leg. Output validation: model output is untrusted input to whatever consumes it, so it is parsed and checked against a schema before it reaches a shell, a database, or a send action. Trajectory logging: the full record of prompts, tool calls, and results is both the audit trail and the evidence when an incident is investigated.</p>
@@ -276,7 +276,7 @@
   </section>
   <section data-page="32">
     <div class="page-stack">
-      <img class="page" src="pages/p032.webp" alt="GTK Cyber Where Agents Fit in Security Ops • Alert triage: enrich and classify SOC alerts, then escalate the real ones. • Phishing and email analysis: the lab you are about to buil">
+      <img class="page" src="pages/p032.webp" alt="GTK Cyber Where Agents Fit in Security Ops • Alert triage: enrich and classify SOC alerts, then escalate the real ones. Phishing and email analysis: the lab you are about to build.">
     </div>
     <aside class="notes">
       <p>The security operations tasks that suit agents are the ones that branch on lookups. Alert triage: pull context for each SOC alert, classify it, and escalate the ones that hold up. Phishing and email analysis: the lab in this module. Threat intelligence enrichment: gather reputation scores, WHOIS registration records for domains, and CVE vulnerability context for an indicator. Incident response: collect evidence from several sources and draft a timeline for an analyst to verify. In each case the agent prepares and the analyst decides; the human-in-the-loop guardrail is the same principle applied to the workflow.</p>
@@ -284,7 +284,7 @@
   </section>
   <section data-page="33">
     <div class="page-stack">
-      <img class="page" src="pages/p033.webp" alt="GTK Cyber Evaluating an Agent • You cannot improve what you do not measure. • Task success rate: did it reach the correct outcome? • Tool-call accuracy: the right tools with the ri">
+      <img class="page" src="pages/p033.webp" alt="GTK Cyber Evaluating an Agent • You cannot improve what you do not measure. Task success rate: did it reach the correct outcome? Tool-call accuracy: the right tools with the right ">
     </div>
     <aside class="notes">
       <p>An agent is evaluated the way a classifier is: on a labeled set, with metrics chosen in advance. Task success rate: the fraction of cases where the final outcome matched the label. Tool-call accuracy: whether each step picked the right tool with the right arguments, judged per call. Trajectory quality: whether the sequence of steps was sound, since a correct verdict reached by skipping the lookups is luck and will not repeat. Cost and latency per task: tokens, number of tool calls, and wall-clock time, because a run that is correct and too expensive still fails. The first three need labels for outcomes and, for trajectory quality, either a rubric or a second model acting as judge.</p>
@@ -357,7 +357,7 @@
   </section>
   <section data-page="42">
     <div class="page-stack">
-      <img class="page" src="pages/p042.webp" alt="GTK Cyber The State Graph • State Graphs are defined as TypedDicts as shown below. • The fields will vary depending on your specific use case. class LoginState(TypedDict): &quot;&quot;&quot;State">
+      <img class="page" src="pages/p042.webp" alt="GTK Cyber The State Graph • State Graphs are defined as TypedDicts as shown below. • The fields will vary depending on your specific use case. • class LoginState(TypedDict): &quot;&quot;&quot;Sta">
     </div>
     <aside class="notes">
       <p>The state is declared as a TypedDict, a dictionary whose keys and value types are fixed. This example carries the raw login event, the text version of it formatted for the model, the classification result, and the final report. The last two are Optional because they are empty when the run starts and filled in by nodes. LangGraph reads this class as the state schema when the graph is created; the TypedDict is the shape of the data, and the StateGraph is built from it.</p>
@@ -551,7 +551,7 @@
   </section>
   <section data-page="66">
     <div class="page-stack">
-      <img class="page" src="pages/p066.webp" alt="GTK Cyber Conditional Routing A routing function is a plain Python function that: • Takes the current graph state as input • Returns a string that names which node to go to next Wh">
+      <img class="page" src="pages/p066.webp" alt="GTK Cyber Conditional Routing A routing function is a plain Python function that: • Takes the current graph state as input • Returns a string that names which node to go to next • ">
     </div>
     <aside class="notes">
       <p>A conditional edge is a function plus a mapping. The routing function takes the state and returns a string naming the next node. The call that adds the edge takes the source node, the routing function, and a dictionary from return values to node names. The routing function reads one field, the risk level, and returns a string; it makes no decision of its own. The decision was made by the triage node that set the field.</p>

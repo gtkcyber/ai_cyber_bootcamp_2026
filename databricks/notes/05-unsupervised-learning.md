@@ -44,6 +44,10 @@ With one feature the distance between two departments is the absolute difference
 
 With two features per department the plain difference no longer gives one number, and a distance method has to be chosen. The list names six. Euclidean: the length of the straight line between the two points. Manhattan: the sum of the differences along each axis. Maximum: the largest single difference on any one feature. Canberra: a sum of differences each divided by the sum of the two values being compared, which weights differences between small values more heavily. Binary: for presence or absence features, the share of features present in only one of the two observations among those present in either. Minkowski: a family with a parameter, where a parameter of one gives Manhattan and two gives Euclidean. Euclidean is the common choice, and it is the distance k-means uses.
 
+## Page 12
+
+The two counts place each department as a point in a plane, with malware events on the horizontal axis and phishing events on the vertical. Dept1 is at six malware events and six phishing events, Dept2 at one and two, and the third department at eight and one. The dashed segment joining Dept2 to Dept1 is their Euclidean distance, and the next slide computes its length.
+
 ## Page 13
 
 The two counts place each department as a point in a plane, with malware events on the horizontal axis and phishing events on the vertical. Dept1 is at six malware events and six phishing events, Dept2 at one and two, and the third department at eight and one. The dashed segment joining Dept2 to Dept1 is their Euclidean distance, and the next slide computes its length.
@@ -102,6 +106,12 @@ First move: each centroid relocates to the mean position of the points colored w
 
 Second assignment: with the centroids in their new positions, every point is again colored by the nearest one. The red centroid, now inside the left concentration, takes most of it from blue. The blue centroid, sitting between the left and lower middle concentrations, keeps the lower middle one and a band of points along the boundary. The green centroid keeps the upper right. A point changes color only where a centroid's move changed which centroid is nearest to it.
 
+## Page 27
+
+Second move: the centroids relocate to the means of their new memberships. The red centroid shifts a short distance to the center of its enlarged group. The blue centroid moves down into the lower middle concentration, since the points on the left that it lost no longer pull its mean leftward. The green centroid barely moves. The moves are smaller than in the first round, because the memberships changed less.
+
+Third assignment: the points along the boundary between the red and blue groups switch to red, now that the blue centroid has moved down and away from them. The green and blue memberships are otherwise the same. The three colored groups now coincide with the three concentrations visible in the unlabeled plot, apart from a few points along the red and blue boundary.
+
 ## Page 28
 
 Second move: the centroids relocate to the means of their new memberships. The red centroid shifts a short distance to the center of its enlarged group. The blue centroid moves down into the lower middle concentration, since the points on the left that it lost no longer pull its mean leftward. The green centroid barely moves. The moves are smaller than in the first round, because the memberships changed less.
@@ -131,6 +141,12 @@ Fifth move: with no membership changes, each centroid is recomputed from the sam
 ## Page 34
 
 The converged clusters with an ellipse drawn around each: orange around the red cluster on the left, green at the upper right, blue at the lower middle, with each centroid at the center of its cluster. The ellipses are drawn to enclose each cluster's points and overlap slightly where they meet; the partition itself does not, because k-means assigns each point to exactly one centroid, and the true boundary between two clusters is the straight line of points equidistant from their centroids. That includes the outlying points at the far left of the red group and the stray points between concentrations; k-means has no notion of noise, and a point that is far from every centroid still goes to whichever one is nearest.
+
+## Page 35
+
+The annotations mark two weaknesses of the algorithm. The choice of K is subjective: the number of clusters is an input, and k-means returns exactly K clusters whether or not the data contains that many. The random placement of the starting centroids is underlined because different starting positions can converge to different partitions of the same data.
+
+The third annotation, sensitive to scale, applies to the arithmetic of the loop. The nearest-centroid assignment and the centroid mean are both computed from raw feature values, so a feature with a large numeric range contributes more to the distance between two points than a feature with a small range. Groups then form along the large-range feature and the others barely influence the result.
 
 ## Page 36
 
@@ -166,29 +182,29 @@ Two results of k-means with K equal to three on the same points, which form thre
 
 Result B is a converged solution, the same as A. Every point on the left is nearer to the middle-left centroid than to either centroid on the right, so all of them are assigned to it, and that centroid is the mean of the two left groups combined. The two centroids on the right each hold half of the right group, and each is the mean of its half. A further pass of assignment and recomputation changes nothing in either result.
 
-## Page 43
+## Page 44
 
 Both are correct in the only sense the algorithm has. Each result is a fixed point of the loop, a configuration in which every point is assigned to its nearest centroid and every centroid is the mean of its points, so the loop stops. The sum of squared distances from points to centroids is smaller in A, where the three groups are tight, than in B, where the left cluster spans two groups. K-means does not compare the fixed point it reached with any other, so it reports B with the same confidence as A. Only a person looking at the plot, or a separate score computed on the result, ranks A above B.
 
-## Page 44
+## Page 45
 
 The boundaries of result B are drawn in: a vertical line separating the left cluster from the right, and a line splitting the right group between its two centroids. This is a local minimum of the sum of squared distances, a configuration that no single step of the loop improves, even though a different configuration scores lower overall. The starting positions decide which local minimum the loop lands in, which is what the two lines of text say: the initial guess matters, and two runs with different starts are not guaranteed the same outcome. K-means converges to whichever nearby fixed point the starting positions lead to rather than searching every possible partition, which places it among the local search, or hill climbing, methods of optimization.
 
 The remedy built into the library is to run the whole loop several times from different starts and keep the result with the smallest sum of squared distances. In scikit-learn, the number of such runs is the `n_init` argument of `KMeans`, and the `init` argument selects the starting rule; the worksheet's calls set `n_init` and use the `k-means++` rule, which places each starting centroid far from the ones already chosen so that the starts are spread across the data instead of bunched together.
 
-## Page 45
+## Page 46
 
 Scikit-learn's `KMeans` class runs the whole algorithm in two calls. The constructor takes `n_clusters`, which is K. The `fit` method takes the feature matrix and runs the loop to convergence. Two attributes hold the result: `cluster_centers_` is an array with one row per cluster giving the centroid's coordinates, and `labels_` is an array with one entry per row of the input giving the index of the cluster it was assigned to. The trailing letter on the slide's last line is a typo; the attribute is `labels_`.
 
 The plot is a fit with K equal to two on six points. The three green points at the lower left form one cluster and the three red points at the upper right form the other, and the two blue crosses are the rows of `cluster_centers_`.
 
-## Page 46
+## Page 47
 
 The data is the iris measurements: sepal length, sepal width, petal length and petal width, in centimeters, for 150 flowers. The species column of that dataset is not among the four features, so nothing in the data says which flower is which kind.
 
 Seaborn's `pairplot` draws every feature against every other as a scatter plot, with the histogram of each feature on the diagonal. The petal length histogram has two separate humps, a narrow one below two centimeters and a broad one from three to seven, and every scatter panel that involves petal length or petal width shows a compact group in the lower left separated from the rest by a gap. Sepal width, by contrast, has a single hump and separates nothing on its own. Those panels are what a clustering of this data has to find.
 
-## Page 47
+## Page 48
 
 The two lines fit k-means with two clusters to the four iris columns. Constructing the object sets K, and `fit` runs the assignment and recomputation loop on the rows of `data` and stores the centroids and labels on the object. The call pattern is the one every scikit-learn estimator uses, construct then fit, with one difference from the supervised estimators: `fit` receives only the feature matrix, and there is no target argument.
 
@@ -202,15 +218,23 @@ In these two features the clusters overlap, and each cross sits at the mean of i
 
 ## Page 50
 
-Euclidean distance adds up the squared difference of every feature, so a feature whose values spread over a wide range produces larger differences than one that spreads over a narrow range, and dominates the sum. In the iris data, petal length runs from about one to seven centimeters and petal width from near zero to two and a half, so two flowers that differ by a typical amount in petal length are farther apart, as k-means measures it, than two that differ by a typical amount in petal width. The weighting comes from the units the features happen to be measured in, and a feature recorded in millimeters would count ten times as much as the same feature recorded in centimeters.
+The cluster labels from `labels_` have been added to the data frame as a column named `kmeans_2`, and passing that column as `hue` colors every point by its cluster. Cluster 0, in blue, is the compact group with petal length under two centimeters and petal width under half a centimeter; cluster 1, in orange, is everything else. The diagonal histograms are split by cluster as well, and the split is clean on petal length and petal width and blurred on sepal length and sepal width, where the two clusters overlap. The algorithm used all four features in its distance and found the gap that the petal measurements contain.
+
+The scatter plot is sepal width against sepal length, colored by cluster, with the two centroids drawn as black crosses. `cluster_centers_` has one row per cluster and one column per feature, and the call to `scatter` takes the two columns that match the plot's axes. The remaining arguments are appearance: `marker` selects the cross, `s` sets its size, `linewidths` its stroke and `c` its color.
+
+In these two features the clusters overlap, and each cross sits at the mean of its cluster's points in the plane of the plot. The centroid of the orange cluster is near a sepal width of 2.9 and a sepal length of 6.3; the blue centroid is near 3.4 and 5.0. Some points carry the color of the cluster whose cross is the farther of the two in this plot. The assignment used the distance across all four features, so a point's cluster reflects its position in the four-feature space, not its position in this two-feature projection of it, and a flower on the orange side of the sepal measurements can belong to the blue cluster because its petal measurements put it there.
 
 ## Page 51
+
+Euclidean distance adds up the squared difference of every feature, so a feature whose values spread over a wide range produces larger differences than one that spreads over a narrow range, and dominates the sum. In the iris data, petal length runs from about one to seven centimeters and petal width from near zero to two and a half, so two flowers that differ by a typical amount in petal length are farther apart, as k-means measures it, than two that differ by a typical amount in petal width. The weighting comes from the units the features happen to be measured in, and a feature recorded in millimeters would count ten times as much as the same feature recorded in centimeters.
+
+## Page 52
 
 Standardization puts every feature on the same scale. For each column, subtract the column's mean from every value, then divide by the column's standard deviation. Afterward every column has a mean of zero and a standard deviation of one, and a difference of one unit in any column means one standard deviation of that feature.
 
 The quotation marks around equally are apt. Standardization equalizes the spread of the features, and after it a feature that carries no information about the groups weighs as much in the distance as one that carries a lot. Scaling is a choice about weights, made before the algorithm runs, and the choice here is equal weight for every feature.
 
-## Page 52
+## Page 53
 
 `StandardScaler` from `sklearn.preprocessing` performs the standardization. The `fit_transform` call does two things: it computes the mean and standard deviation of every column, which the scaler stores, and then it applies the subtraction and division to the data it was given. The scaler's `transform` method can later apply the same stored means and standard deviations to new rows. The result is a NumPy array without column names, which is why the last line wraps it in a `DataFrame` with `columns=features`. The worksheet does the same to the five domain features and keeps the scaled columns beside the raw ones.
 
@@ -224,11 +248,19 @@ Scaling matters when the features differ in units. The worksheet's domain data d
 
 ## Page 55
 
+The clustering call is unchanged; only the input differs. `KMeans` with two clusters is fit to the scaled data frame instead of the raw one, and the distances inside the loop are now measured in standard deviations. Everything the object stores is in the scaled units as well: the rows of `cluster_centers_` are centroids in scaled coordinates, and the scaler's `inverse_transform` converts them back to centimeters if they are to be plotted on the original axes. The `random_state` argument in the second version of the call fixes the random start, so the run gives the same partition each time.
+
+The two pair plots are the two-cluster result on the scaled features, on the left, and on the unscaled features, on the right. They are indistinguishable at this resolution: both isolate the small-petal group as cluster 0 and put the rest in cluster 1. Scaling made no visible difference on iris because the four features are all a few centimeters wide and the gap in the petal measurements is large relative to every feature's spread.
+
+Scaling matters when the features differ in units. The worksheet's domain data describes each name by a character count, a fraction, an entropy and an n-gram score, and there the scaling step precedes the clustering.
+
+## Page 56
+
 The same scaled data fit with three clusters instead of two. Cluster 1, in blue, is again the small-petal group and is unchanged. The third centroid split the large group in two along petal length and petal width: cluster 2, in green, holds the flowers with petal length below about five centimeters and petal width below about one and three quarters, and cluster 0, in orange, holds the larger ones. The two new clusters overlap on every panel, so the split runs through a region of the data with no gap in it.
 
 The cluster indices are assigned by the run and carry no meaning: which group is called 0, 1 or 2 changes from one fit to another.
 
-## Page 56
+## Page 57
 
 A one-class support vector machine draws a boundary around the bulk of the data and treats what falls outside it as outliers. `OneClassSVM` from `sklearn.svm` is fit on the feature matrix alone, with no labels; `nu` is an upper bound on the fraction of training points allowed to fall outside the boundary, so a value of one tenth asks for a boundary that leaves out about ten percent of the data, and `tol` is the tolerance at which the optimizer stops. `predict` returns one for a point inside the boundary and minus one for a point outside it.
 
@@ -236,7 +268,7 @@ In the figure, the red contour is the learned frontier, the green points inside 
 
 The text on the left gives the use in this module: remove roughly the outlying tenth of the data before clustering it. A centroid is a mean, and a mean is pulled toward extreme values, so a few distant points can drag a centroid away from the group it should represent.
 
-## Page 57
+## Page 58
 
 The silhouette coefficient scores a clustering from the distances alone, with no labels. For one point, a is the mean distance to the other points in its own cluster and b is the mean distance to the points of the nearest other cluster. The coefficient is b minus a, divided by the larger of the two. It ranges from minus one to one: a value near one means the point is much closer to its own cluster than to the neighboring one, a value near zero means it sits on the boundary between the two, and a negative value means it is on average closer to the neighboring cluster than to its own and is probably assigned to the wrong one. The score for a whole clustering is the mean coefficient over all its points.
 
@@ -250,47 +282,55 @@ By the definition of the coefficient, a higher score means points sit closer to 
 
 ## Page 60
 
+The loop fits k-means once for every K from two through fifteen, because `range(2, 16)` stops before sixteen, and records the silhouette score of each fit. `random_state=1` fixes the random seed, so the initialization is reproducible and rerunning the loop gives the same scores. `silhouette_score` takes the data and the fitted labels and returns the mean coefficient over all points. The range starts at two because the coefficient needs a nearest other cluster, which a single cluster does not have. The data passed to `silhouette_score` has to be the same scaled data the model was fit on, so the distances it measures are the ones the clustering used.
+
+The curve is the silhouette score against the number of clusters, from two to fifteen, on the scaled iris data. It is highest at two clusters, about 0.58, drops steeply through three and four, reaches its lowest value at six, about 0.32, and then wanders between 0.33 and 0.37 for larger K.
+
+By the definition of the coefficient, a higher score means points sit closer to their own cluster than to the next one, so the curve favors two clusters, the partition that isolates the small-petal group. The arrow marks six, which is the minimum of the curve and by this measure the worst choice in the range, so the annotation contradicts the score it is drawn on.
+
+## Page 61
+
 Yellowbrick is a visualization library that wraps scikit-learn estimators, and its `KElbowVisualizer` fits the model once for every K in a range and plots a score against K. The range `k=(4, 12)` covers four through eleven. The score on the left axis is the distortion, the sum of squared distances from every point to its assigned centroid, which `KMeans` also exposes as `inertia_`. Adding a centroid can only shorten those distances, so the best possible distortion falls as K grows and there is no minimum to look for. The criterion is instead the elbow: the K past which adding clusters brings little further reduction. The blue line falls steeply from four to eight and then goes flat, so the elbow is at eight.
 
 The dashed green line, on the right axis, is the time each fit took in seconds. The small rise in distortion after eight is a sign of the runs at larger K stopping at worse local solutions, since the best partition for a larger K has a distortion no higher than the best partition for a smaller one. The figure's title names `MiniBatchKMeans`, a variant that updates the centroids from random subsets of the data to run faster on large sets, while the code on the slide passes plain `KMeans`; the reading of the elbow is the same for either. The `poof` method renders the plot, and newer Yellowbrick versions call this method `show`.
 
-## Page 61
+## Page 62
 
 The silhouette plot shows the coefficient of every point, grouped by cluster. The model is `MiniBatchKMeans` with six clusters on a dataset of a thousand samples. Each colored band is one cluster: the points are sorted by coefficient and drawn as horizontal bars from zero to their value, so the band's height is the cluster's size and its shape is the distribution of its coefficients. The dashed red line is the mean coefficient over all points, about 0.65.
 
 Clusters 1, 3, 4 and 5 have most of their points above the mean, with values up to about 0.8, which marks them as compact and well separated. Clusters 0 and 2 have lower values, from about 0.5 down to 0.4 and all below the mean, and they are the two tallest bands, about twice the height of the others, so those two clusters are less well separated from their neighbors than the rest. No band extends left of zero, so no point in this fit is closer to another cluster than to its own. The plot is useful for spotting cluster size imbalance, which shows as bands of unequal height, and for choosing K by comparing the output across several candidate values.
 
-## Page 62
+## Page 63
 
 DBSCAN, density-based spatial clustering of applications with noise, defines a cluster as a region where points are packed densely and treats the sparse space between such regions as separation rather than as territory to divide. K-means has no notion of density: it splits the whole feature space among K centroids, and every point, however isolated, goes to the nearest one. DBSCAN starts from the assumption on the slide, that regions of high density are the clusters, and two consequences follow that the next slides spell out. The number of clusters is a result rather than an input, and points that lie outside every dense region are labeled noise instead of being forced into a cluster.
 
-## Page 63
+## Page 64
 
 DBSCAN takes no cluster count. Its two parameters define what dense means. Epsilon is a distance: two points are neighbors when they lie within epsilon of each other. min_samples is a count: a point whose epsilon neighborhood, counting the point itself, holds at least min_samples points is a core point, the kind that can anchor a cluster. Both settings are in the units of the feature space, so on standardized data epsilon is a number of standard deviations, and a value that works on scaled features means something else on the raw ones. A point that is not a core point and is not within epsilon of any core point is noise. All such points receive the label minus one, which is not a cluster but one bin for everything left over, and the slide's quotation marks around cluster mark that distinction.
 
-## Page 64
+## Page 65
 
 The procedure grows each cluster outward from a core point. Pick a point not yet visited and count the points within epsilon of it. If the count reaches min_samples, start a cluster there; if not, label the point noise for now. That label is provisional: a point marked noise can later fall inside the neighborhood of a core point found afterward, in which case it joins that cluster as a border member, a point that belongs to the cluster without being dense enough to extend it. Once a cluster is started, every point in the core point's neighborhood joins it, and each of those that is itself a core point contributes its own neighborhood, so the cluster spreads through chains of core points until none can be reached. Then pick another unvisited point and repeat until every point is visited. A cluster is whatever a chain of core points connects, which is why it can take any shape, where a k-means cluster is always the convex region around a centroid.
 
 Two differences from k-means follow. The number of clusters comes out of the density settings instead of going in as a parameter, and DBSCAN works with any distance measure, where k-means is tied to Euclidean distance because the mean of a group is the point that minimizes the squared Euclidean distances to its members. The cost is that the outcome depends on the distance measure chosen and on the two settings, and the slides that follow show how far the same data moves as the settings change.
 
-## Page 65
+## Page 66
 
 The scikit-learn call has the same shape as the k-means one: construct with the parameters, then fit on the feature matrix alone. `DBSCAN` from `sklearn.cluster` takes `eps`, which is epsilon, and `min_samples`. The values here are an epsilon of one and a minimum of three on the standardized iris features, so two flowers are neighbors when they are within one standard deviation of each other in the four-feature space, and a neighborhood of three flowers makes a core point. After `fit`, `labels_` holds one entry per row: a cluster index counted from zero, or minus one for noise. There is no `cluster_centers_`, because a density cluster has no centroid.
 
-## Page 66
+## Page 67
 
 The labels are attached as a column and the pair plot is colored by it. The list comprehension prefixes each integer label with the word cluster, so the legend reads cluster_0, cluster_-1 and cluster_1 rather than bare numbers. With an epsilon of one and a minimum of three, DBSCAN found two clusters: cluster 0, in blue, is the small-petal group, and cluster 1, in green, is everything else, the same two groups k-means with K equal to two produced, found here without the number being supplied. One point, in orange, is labeled minus one: the flower at the lower left of the sepal panels, with a sepal width near 2.3 and a sepal length near 4.5. It belongs to the small-petal group by its petals, but in four dimensions it has fewer than two other flowers within one standard deviation and is not within that distance of any core point, so it is noise under these settings.
 
-## Page 67
+## Page 68
 
 The same epsilon with min_samples raised from three to ten. The two clusters are the same in substance: cluster 0, in blue, is still the small-petal group and cluster 1, in red, the rest. The change is at the edges. The green points labeled minus one are more numerous and sit at the fringes of both groups: the flowers with the largest sepal lengths, the longest petals and the lowest and highest sepal widths. Raising min_samples raises the density a point needs to be a core point, so points at the thin edge of a group that had three neighbors within epsilon but not ten stop being core points, and any of them not within epsilon of a surviving core point become noise. The colors are assigned per plot in label order and do not match the previous slide.
 
-## Page 68
+## Page 69
 
 Epsilon raised from one to two, with min_samples back at three. The result is one cluster holding every flower and no noise: the legend has a single entry, cluster 0, and the plot is one color. At two standard deviations a neighborhood is wide enough to bridge the gap between the small-petal group and the rest, so the chain of core points runs through the whole dataset and no flower is far enough from every core point to be left out. Too large an epsilon fails in the opposite direction from too large a K: k-means splits groups that are not there, and DBSCAN with a wide epsilon merges groups that are.
 
-## Page 69
+## Page 70
 
 Epsilon lowered to 0.6 with min_samples three. Four clusters and a set of noise points appear. Cluster 0, in blue, is still the small-petal group. The large group has broken up: cluster 1, in green, is its dense core; cluster 2, in red, is a pocket of a few flowers with petal lengths near three and a half and sepal widths near two and a half; cluster 3, in purple, is another small pocket with petal lengths between four and a half and five; and the orange points at the edges of both groups are noise. At 0.6 standard deviations a neighborhood no longer spans the thinly populated stretches inside the large group, so the chain breaks where the points thin out, and any three or more mutually close flowers cut off from the core become a cluster of their own.
 
@@ -302,27 +342,31 @@ Dimensionality reduction replaces the columns of a dataset with fewer columns wh
 
 ## Page 72
 
+Dimensionality reduction replaces the columns of a dataset with fewer columns while keeping as much of the variation in the data as it can. The reduction is possible when features are correlated: if two columns rise and fall together, one derived column carries most of what both contain, and the data occupies fewer effective directions than it has columns. Fewer columns means less input for a downstream model, a way to plot high-dimensional data in two dimensions, and less room for noise. The method is unsupervised because it uses no labels; it looks only at how the features vary. Principal component analysis is the common technique.
+
+## Page 73
+
 Principal component analysis finds the directions in which the data varies most. The first principal component is the direction, a weighted combination of all the original features, along which the data has the greatest variance. The second is the direction of greatest remaining variance at right angles to the first, which makes it uncorrelated with the first; the third is at right angles to both, and so on until there are as many components as original features. Highly correlated features carry overlapping information, and a single component captures what they share.
 
 The components are ordered by the variance they capture, so projecting the data onto the first few keeps most of the total variance in far fewer columns. Each new column is a principal component score, a linear combination of every original feature, and the components are linearly uncorrelated with one another.
 
-## Page 73
+## Page 74
 
 The code is from the dimensionality reduction notebook of Hands-On Unsupervised Learning Using Python, the book by Ankur Patel whose repository the link points to. The 784 features are the pixels of the 28 by 28 images of handwritten digits in the MNIST dataset, which that notebook works on.
 
 `PCA` from `sklearn.decomposition` is constructed with `n_components` equal to 784, as many components as there are features, so this first fit discards nothing. `whiten=False` leaves each component's scores at their natural variance instead of rescaling them all to a variance of one. Setting `whiten=True` instead rescales every component's scores to unit variance, which discards the relative variance scale between components but can improve a downstream estimator's accuracy when that estimator assumes standardized, uncorrelated input. `fit_transform` finds the components from the training features and projects those features onto them, and the result is wrapped in a data frame that keeps the training index. `explained_variance_ratio_` is an array holding the fraction of the total variance each component captures, in decreasing order. Summed over all 784 components it comes to 1.0, all of the variance, which is the line at the bottom. Fitting with every component is what makes it possible to read off how much variance any smaller number of them would keep.
 
-## Page 74
+## Page 75
 
 Each line is the sum of `explained_variance_ratio_` over the first N components, that is, the share of the total variance kept if only those N are retained. Ten components keep about 49 percent of the variance of 784 pixel columns, twenty keep 64 percent, fifty keep 82 percent, one hundred keep 91 percent, two hundred keep 97 percent and three hundred keep 98.6 percent. The gain per component falls steeply: the first hundred add 91 points, the second hundred add five, the third hundred add two.
 
 The bottom line on the slide follows: three hundred of the 784 columns hold about 98 percent of the variance, so the dataset can be cut to well under half its width while losing about one and a half percent. The word theoretically carries a caveat. Variance is the quantity PCA preserves, and it is a proxy for the information a model needs; whether the dropped one and a half percent matters to a classifier trained on the 300 component scores is a question the classifier's accuracy answers, and the variance figure does not.
 
-## Page 75
+## Page 76
 
 Questions on the module: measuring distance between observations, clustering without labels, the k-means loop and its dependence on K, on the random start and on the scale of the features, the silhouette coefficient and the elbow plot, DBSCAN and its two density settings, and principal component analysis.
 
-## Page 76
+## Page 77
 
 Worksheet 5.1 applies the module to about six thousand domain names, five thousand generated by botnet domain generation algorithms and one thousand taken from the Alexa list of popular sites, each described by its length, its share of dictionary words, its entropy, its count of digits and an n-gram score. The steps are to standardize the five features, fit k-means with two clusters on the scaled columns, attach the labels as a column, and count the domain sources within each cluster to see whether the clusters separate generated names from legitimate ones; then to plot the sum of squared distances against K for the elbow method.
 

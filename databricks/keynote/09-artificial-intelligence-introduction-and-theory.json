@@ -1,0 +1,670 @@
+{
+  "slug": "09-artificial-intelligence-introduction-and-theory",
+  "source": "Module 9 - Artificial Intelligence Introduction and Theory.key",
+  "pdf": "Module 9 - Artificial Intelligence Introduction and Theory.pdf",
+  "page_count": 108,
+  "pages": [
+    {
+      "page": 1,
+      "slide": 1,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 2,
+      "slide": 2,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 3,
+      "slide": 3,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 4,
+      "slide": 4,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 5,
+      "slide": 5,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 6,
+      "slide": 6,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 7,
+      "slide": 7,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 8,
+      "slide": 8,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 9,
+      "slide": 9,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 10,
+      "slide": 10,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 11,
+      "slide": 11,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 12,
+      "slide": 12,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 13,
+      "slide": 13,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 14,
+      "slide": 14,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 15,
+      "slide": 15,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 16,
+      "slide": 16,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 17,
+      "slide": 17,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 18,
+      "slide": 18,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 19,
+      "slide": 19,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 20,
+      "slide": 20,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 21,
+      "slide": 21,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 22,
+      "slide": 22,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 23,
+      "slide": 23,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 24,
+      "slide": 24,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 25,
+      "slide": 25,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 26,
+      "slide": 26,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 27,
+      "slide": 27,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 28,
+      "slide": 28,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 29,
+      "slide": 29,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 30,
+      "slide": 30,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 31,
+      "slide": 31,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 32,
+      "slide": 32,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 33,
+      "slide": 33,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 34,
+      "slide": 34,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 35,
+      "slide": 35,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 36,
+      "slide": 36,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 37,
+      "slide": 37,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 38,
+      "slide": 38,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 39,
+      "slide": 39,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 40,
+      "slide": 40,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 41,
+      "slide": 41,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 42,
+      "slide": 42,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 43,
+      "slide": 43,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 44,
+      "slide": 44,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 45,
+      "slide": 45,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 46,
+      "slide": 46,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 47,
+      "slide": 47,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 48,
+      "slide": 48,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 49,
+      "slide": 49,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 50,
+      "slide": 50,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 51,
+      "slide": 51,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 52,
+      "slide": 52,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 53,
+      "slide": 53,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 54,
+      "slide": 54,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 55,
+      "slide": 55,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 56,
+      "slide": 56,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 57,
+      "slide": 57,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 58,
+      "slide": 58,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 59,
+      "slide": 59,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 60,
+      "slide": 60,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 61,
+      "slide": 61,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 62,
+      "slide": 62,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 63,
+      "slide": 63,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 64,
+      "slide": 64,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 65,
+      "slide": 65,
+      "stage": 0,
+      "stages": 7
+    },
+    {
+      "page": 66,
+      "slide": 65,
+      "stage": 1,
+      "stages": 7
+    },
+    {
+      "page": 67,
+      "slide": 65,
+      "stage": 2,
+      "stages": 7
+    },
+    {
+      "page": 68,
+      "slide": 65,
+      "stage": 3,
+      "stages": 7
+    },
+    {
+      "page": 69,
+      "slide": 65,
+      "stage": 4,
+      "stages": 7
+    },
+    {
+      "page": 70,
+      "slide": 65,
+      "stage": 5,
+      "stages": 7
+    },
+    {
+      "page": 71,
+      "slide": 65,
+      "stage": 6,
+      "stages": 7
+    },
+    {
+      "page": 72,
+      "slide": 66,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 73,
+      "slide": 67,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 74,
+      "slide": 68,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 75,
+      "slide": 69,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 76,
+      "slide": 70,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 77,
+      "slide": 71,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 78,
+      "slide": 72,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 79,
+      "slide": 73,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 80,
+      "slide": 74,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 81,
+      "slide": 75,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 82,
+      "slide": 76,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 83,
+      "slide": 77,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 84,
+      "slide": 78,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 85,
+      "slide": 79,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 86,
+      "slide": 80,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 87,
+      "slide": 81,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 88,
+      "slide": 82,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 89,
+      "slide": 83,
+      "stage": 0,
+      "stages": 2
+    },
+    {
+      "page": 90,
+      "slide": 83,
+      "stage": 1,
+      "stages": 2
+    },
+    {
+      "page": 91,
+      "slide": 84,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 92,
+      "slide": 85,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 93,
+      "slide": 86,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 94,
+      "slide": 87,
+      "stage": 0,
+      "stages": 2
+    },
+    {
+      "page": 95,
+      "slide": 87,
+      "stage": 1,
+      "stages": 2
+    },
+    {
+      "page": 96,
+      "slide": 88,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 97,
+      "slide": 89,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 98,
+      "slide": 90,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 99,
+      "slide": 91,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 100,
+      "slide": 92,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 101,
+      "slide": 93,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 102,
+      "slide": 94,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 103,
+      "slide": 95,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 104,
+      "slide": 96,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 105,
+      "slide": 97,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 106,
+      "slide": 98,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 107,
+      "slide": 99,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 108,
+      "slide": 100,
+      "stage": 0,
+      "stages": 1
+    }
+  ],
+  "media": [
+    {
+      "slide": 87,
+      "kind": "youtube",
+      "id": "T_0MjD-UGaE",
+      "box": [
+        0.0008,
+        0.0008,
+        1.0,
+        1.0
+      ]
+    }
+  ],
+  "losses": []
+}

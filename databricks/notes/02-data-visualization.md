@@ -100,6 +100,10 @@ A scatter plot can carry more than two columns at once: two on the axes, and oth
 
 The `style` argument maps a column to marker shape. Each `category` value gets its own marker, circle for 0, cross for 1 and square for 2, and a legend is added with the column name as its title. Shape is a categorical channel: it distinguishes groups but carries no order, so it suits a column with a few discrete values and would not suit a numeric column with many.
 
+## Page 24
+
+Two more arguments map columns to properties of the marker. `hue` maps column D to color; because D is numeric, Seaborn uses a sequential palette from light to dark and labels the legend at 0, 40, 80 and 120 even though the data stops at 99. `size` maps column C to marker area, with its own legend. The chart now encodes four columns per row: A and B as position, D as color and C as size. Position is read most accurately, color and size less so, so the columns that matter most belong on the axes.
+
 ## Page 25
 
 Two more arguments map columns to properties of the marker. `hue` maps column D to color; because D is numeric, Seaborn uses a sequential palette from light to dark and labels the legend at 0, 40, 80 and 120 even though the data stops at 99. `size` maps column C to marker area, with its own legend. The chart now encodes four columns per row: A and B as position, D as color and C as size. Position is read most accurately, color and size less so, so the columns that matter most belong on the axes.
@@ -127,6 +131,10 @@ Two more arguments map columns to properties of the marker. `hue` maps column D 
 ## Page 31
 
 A Seaborn axes-level function returns a Matplotlib axes, and `get_figure` on that axes returns the figure that contains it. `savefig` on the figure writes it to disk, with the format chosen from the file extension: PNG here, and PDF or SVG for vector output. The call is needed when a chart has to leave the notebook, for a report or a slide, because the inline rendering exists only in the notebook output. Adding `bbox_inches="tight"` trims the margin around the figure and keeps long tick labels inside the saved image.
+
+## Page 32
+
+The figure is Matplotlib's own anatomy diagram and it names the parts a customization call can touch. The figure is the whole canvas. The axes is one plot inside it, with its own x axis and y axis; each axis carries major and minor ticks, tick labels and an axis label. Inside the axes are the drawn data, lines for a line plot and markers for a scatter plot, plus the grid, the legend, the title and the spines, which are the four lines that frame the plotting area. Every one of these is an object with setter methods, and customizing a chart means getting hold of the right object and calling them.
 
 ## Page 33
 

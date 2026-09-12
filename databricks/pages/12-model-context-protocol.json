@@ -1,294 +1,343 @@
 {
   "slug": "12-model-context-protocol",
-  "pdf": "Module 12 -  Model Context Protocol.pdf",
+  "pdf": "Module 12 - Model Context Protocol.pdf",
   "page_count": 48,
+  "manifest": true,
   "pages": [
     {
       "page": 1,
       "kind": "slide",
       "group": 1,
-      "text": "GTK Cyber Module 12: The Model Context Protocol (MCP) Charles S. Givre CISSP"
+      "slide": 1,
+      "text": "GTK Cyber Module 12: Model Context Protocol (MCP) GTK Cyber"
     },
     {
       "page": 2,
       "kind": "slide",
       "group": 2,
+      "slide": 2,
       "text": "GTK Cyber Why MCP?"
     },
     {
       "page": 3,
       "kind": "slide",
       "group": 3,
+      "slide": 3,
       "text": "GTK Cyber Where We Left Off • In Module 11 we will built tools by hand-writing functions with the @tool decorator and binding them to a single LLM client. • Every tool lived inside our own application code. • What happens when we want those same tools across many apps, or want to use tools that other people built?"
     },
     {
       "page": 4,
       "kind": "slide",
       "group": 4,
+      "slide": 4,
       "text": "GTK Cyber The M x N Problem • AI applications need to connect to many external systems: files, databases, APIs, ticketing systems. • Without a standard, each application builds custom glue for each system. • M applications times N systems means M x N integrations to build and maintain."
     },
     {
       "page": 5,
       "kind": "slide",
       "group": 5,
+      "slide": 5,
       "text": "GTK Cyber The MCP Idea • MCP defines one standard protocol for connecting AI applications to external systems. • Build a system once as an MCP server and any MCP-aware application can use it. • M x N custom integrations becomes M + N. • Think of it as a USB-C port for AI applications."
     },
     {
       "page": 6,
       "kind": "slide",
       "group": 6,
+      "slide": 6,
       "text": "GTK Cyber What is MCP? • An open protocol introduced by Anthropic in late 2024 and now broadly adopted across the industry. • Built on JSON-RPC 2.0 messages. • Standardizes how applications provide context and capabilities to LLMs. • Language agnostic, with official SDKs for Python, TypeScript, and more."
     },
     {
       "page": 7,
       "kind": "slide",
       "group": 7,
+      "slide": 7,
       "text": "GTK Cyber MCP Architecture"
     },
     {
       "page": 8,
       "kind": "slide",
       "group": 8,
+      "slide": 8,
       "text": "GTK Cyber Three Roles • Host: the AI application the user interacts with, such as Claude Desktop, an IDE, or your agent. • Client: lives inside the host and maintains a one-to-one connection to a server. • Server: a program that exposes tools, data, and prompts over MCP. • One host can run many clients, each talking to one server."
     },
     {
       "page": 9,
       "kind": "slide",
       "group": 9,
+      "slide": 9,
       "text": "GTK Cyber How the Pieces Fit"
     },
     {
       "page": 10,
       "kind": "slide",
       "group": 10,
+      "slide": 10,
       "text": "GTK Cyber How They Connect • The host creates one client for every server it wants to use. • Each client speaks MCP to exactly one server. • Servers can run locally on the same machine or remotely over the network. • Servers expose capabilities and the host decides how to use them."
     },
     {
       "page": 11,
       "kind": "slide",
       "group": 11,
+      "slide": 11,
       "text": "GTK Cyber Transports • MCP messages travel over a transport layer. • stdio: the server runs as a local subprocess and communicates over standard input and output. Best for local tools. • Streamable HTTP: the server runs remotely and communicates over HTTP. Best for shared or hosted servers. • The protocol is identical regardless of transport."
     },
     {
       "page": 12,
       "kind": "slide",
       "group": 12,
+      "slide": 12,
       "text": "GTK Cyber Connection Lifecycle • Initialize: client and server exchange protocol versions. • Capability negotiation: each side declares what it supports. • Operate: the client lists and calls tools, reads resources, and fetches prompts. • Shutdown: the connection closes cleanly."
     },
     {
       "page": 13,
       "kind": "slide",
       "group": 13,
+      "slide": 13,
       "text": "GTK Cyber What a Server Exposes"
     },
     {
       "page": 14,
       "kind": "slide",
       "group": 14,
+      "slide": 14,
       "text": "GTK Cyber Three Primitives • An MCP server can expose three kinds of capability. • Tools: actions the model can invoke. • Resources: data the application can read for context. • Prompts: reusable templates the user can invoke. • The key difference is who is in control of each one."
     },
     {
       "page": 15,
       "kind": "slide",
       "group": 15,
+      "slide": 15,
       "text": "GTK Cyber Tools (Model-Controlled) • Functions the LLM can choose to call, just like the tools from Module 11. • Each tool has a name, a description, and an input schema. • The model reads the description to decide when to call the tool. • Examples: query a database, check a URL, send a message."
     },
     {
       "page": 16,
       "kind": "slide",
       "group": 16,
-      "text": "GTK Cyber Resources (Application-Controlled) • Read-only data the host can pull in for context. • Addressed by a URI, for example file:///logs/today.log or db://users/ 42. • The application decides when to load a resource, so the model does not pull it on its own. • Examples: file contents, database records, configuration."
+      "slide": 16,
+      "text": "GTK Cyber Resources (Application- Controlled) • Read-only data the host can pull in for context. • Addressed by a URI, for example file:///logs/today.log or db://users/42. • The application decides when to load a resource, so the model does not pull it on its own. • Examples: file contents, database records, configuration."
     },
     {
       "page": 17,
       "kind": "slide",
       "group": 17,
+      "slide": 17,
       "text": "GTK Cyber Prompts (User-Controlled) • Reusable prompt templates the server offers to the user. • Often surfaced as slash commands or menu items in the host. • The user chooses when to invoke them. • Examples: summarize this incident, draft a phishing report."
     },
     {
       "page": 18,
       "kind": "slide",
       "group": 18,
+      "slide": 18,
       "text": "GTK Cyber Client Capabilities (Briefly) • Servers can also ask the client for things. • Sampling: the server asks the host's LLM to generate text for it. • Roots: the host tells the server which files or folders it may access. • Elicitation: the server asks the user for more input. • These let a server stay flexible without embedding its own model."
     },
     {
       "page": 19,
       "kind": "slide",
       "group": 19,
+      "slide": 19,
       "text": "GTK Cyber Building an MCP Server"
     },
     {
       "page": 20,
       "kind": "slide",
       "group": 20,
+      "slide": 20,
       "text": "GTK Cyber Lab Please complete MCP Lab: https://ai.gtkcyber.com/mcp-lab"
     },
     {
       "page": 21,
       "kind": "slide",
       "group": 21,
+      "slide": 21,
       "text": "GTK Cyber The Python SDK • The official MCP package provides FastMCP, a high-level way to build servers. • Decorators turn plain Python functions into MCP tools, resources, and prompts. • FastMCP handles the JSON-RPC protocol for you. • You focus on the logic."
     },
     {
       "page": 22,
       "kind": "slide",
       "group": 22,
-      "text": "GTK Cyber Define a Server and a Tool from mcp.server.fastmcp import FastMCP mcp = FastMCP(\"security-tools\") @mcp.tool() def check_url_reputation(url: str) -> str: \"\"\"Look up a URL and return a risk summary.\"\"\" # your logic here return f\"{url}: malicious (score 87/100)\""
+      "slide": 22,
+      "text": "GTK Cyber Define a Server and a Tool from mcp.server.fastmcp import FastMCP mcp = FastMCP(\"security- tools\") @mcp.tool() def check_url_reputation( url: str) -> str: \"\"\"Look up a URL and return a risk summary.\"\"\" # your logic here return f\"{url}: malicious (score 87/100)\""
     },
     {
       "page": 23,
       "kind": "slide",
       "group": 23,
-      "text": "GTK Cyber Expose a Resource @mcp.resource(\"ioc://blocklist\") def get_blocklist() -> str: \"\"\"Return the current IOC blocklist.\"\"\" return \" \".join(load_known_bad_domains())"
+      "slide": 23,
+      "text": "GTK Cyber Expose a Resource @mcp.resource(\"io c://blocklist\") def get_blocklist() - > str: \"\"\"Return the current IOC blocklist.\"\"\" return \" \".join(load_known _bad_domains())"
     },
     {
       "page": 24,
       "kind": "slide",
       "group": 24,
+      "slide": 24,
       "text": "GTK Cyber Offer a Prompt @mcp.prompt() def phishing_report(sender: str) -> str: \"\"\"Template for a phishing incident report.\"\"\" return f\"Draft an incident report for a phishing email from {sender}.\""
     },
     {
       "page": 25,
       "kind": "slide",
       "group": 25,
+      "slide": 25,
       "text": "GTK Cyber Run the Server if __name__ == \"__main__\": mcp.run() # stdio transport by default"
     },
     {
       "page": 26,
       "kind": "slide",
       "group": 26,
+      "slide": 26,
       "text": "GTK Cyber The MCP Inspector • A browser-based tool for testing a server without an agent. • Lists the server's tools, resources, and prompts. • Lets you call each one by hand and see the raw responses. • Launch it with the mcp dev command pointed at your server file. • Always inspect a server before wiring it to an agent."
     },
     {
       "page": 27,
       "kind": "slide",
       "group": 27,
+      "slide": 27,
       "text": "GTK Cyber MCP Inspector"
     },
     {
       "page": 28,
       "kind": "slide",
       "group": 28,
+      "slide": 28,
       "text": "GTK Cyber Lab Try out the MCP Inspector on the server notebooks/mcp_server.py. mcp dev <filename>"
     },
     {
       "page": 29,
       "kind": "slide",
       "group": 29,
+      "slide": 29,
       "text": "GTK Cyber Connecting a Server"
     },
     {
       "page": 30,
       "kind": "slide",
       "group": 30,
+      "slide": 30,
       "text": "GTK Cyber How Hosts Connect • A host is configured with a list of servers to launch. • Configuration is usually a small JSON block naming the command to run. • The host starts each server and opens a client to it. • Claude Desktop, IDEs, and custom agents all follow this same pattern."
     },
     {
       "page": 31,
       "kind": "slide",
       "group": 31,
-      "text": "GTK Cyber Server Configuration { \"mcpServers\": { \"security-tools\": { \"command\": \"python\", \"args\": [\"mcp_server.py\"] } } }"
+      "slide": 31,
+      "text": "GTK Cyber Server Configuration { \"mcpServers\" : { \"security- tools\": { \"command\": \"python\", \"args\": [\"mcp_server .py\"] } } }"
     },
     {
       "page": 32,
       "kind": "slide",
       "group": 32,
+      "slide": 32,
       "text": "GTK Cyber Using MCP From Your Agent • The langchain-mcp-adapters package loads an MCP server's tools as LangChain tools. • You hand those tools to create_agent exactly like before. • Your agent no longer cares whether a tool is local code or a remote MCP server."
     },
     {
       "page": 33,
       "kind": "slide",
       "group": 33,
-      "text": "GTK Cyber Load MCP Tools Into an Agent from langchain_mcp_adapters.client import MultiServerMCPClient from langchain.agents import create_agent from langchain_anthropic import ChatAnthropic client = MultiServerMCPClient({ \"security-tools\": { \"command\": \"python\", \"args\": [\"mcp_server.py\"], \"transport\": \"stdio\", } }) tools = await client.get_tools() llm = ChatAnthropic(model=\"claude-opus-4-8\") agent = create_agent(llm, tools)"
+      "slide": 33,
+      "text": "GTK Cyber Load MCP Tools Into an Agent from langchain_mcp_adapters.client import MultiServerMCPClient from langchain.agents import create_agent from langchain_anthropic import ChatAnthropic client = MultiServerMCPClient({ \"security-tools\": { \"command\": \"python\", \"args\": [\"mcp_server.py\"], \"transport\": \"stdio\", } }) tools = await client.get_tools() llm = ChatAnthropic(model=\"claude-opus- 4-8\") agent = create_agent(llm, tools)"
     },
     {
       "page": 34,
       "kind": "slide",
       "group": 34,
+      "slide": 34,
       "text": "GTK Cyber MCP and Security"
     },
     {
       "page": 35,
       "kind": "slide",
       "group": 35,
+      "slide": 35,
       "text": "GTK Cyber A Bigger Attack Surface • MCP makes it easy to plug external code into your agent. • That convenience is also a risk. • Every server you connect is code you are trusting with your agent's context and actions. • A malicious or compromised server can do real damage. Recall the Replit example from Module 11."
     },
     {
       "page": 36,
       "kind": "slide",
       "group": 36,
+      "slide": 36,
       "text": "GTK Cyber Key Risks • Untrusted servers: installing a server means running someone else's code. • Tool poisoning: a tool description crafted to manipulate the model. • Prompt injection: malicious text in a tool's output that steers the agent. • Over-permissioning: giving a server more access than it needs."
     },
     {
       "page": 37,
       "kind": "slide",
       "group": 37,
+      "slide": 37,
       "text": "GTK Cyber Basic Defenses • Vet and pin the servers you use, and prefer official or open-source ones. • Give each server the least access it needs to do its job. • Keep a human in the loop for destructive actions. • Never expose secrets or credentials through a server you do not control."
     },
     {
       "page": 38,
       "kind": "slide",
       "group": 38,
+      "slide": 38,
       "text": "GTK Cyber The MCP Tax • MCP is convenient, but that convenience has a running cost often called the \"MCP tax\". • Every connected server's tool definitions (names, descriptions, and argument schemas) load into the model's context on every request. • You pay for them in tokens and latency whether or not the model actually uses them. • Connect many servers and the context fills with tool descriptions, raising cost and slowing every turn. • Too many tools also degrade the model's choices, since it has more options to sift through."
     },
     {
       "page": 39,
       "kind": "slide",
       "group": 39,
+      "slide": 39,
       "text": "GTK Cyber Paying Less Tax • Connect only the servers a task actually needs rather than everything at once. • Expose a small set of high-value tools instead of dozens of narrow ones. • Load or enable tools on demand where your framework supports it. • Keep tool descriptions short, since they are re-sent on every request. • Treat every tool you add as a recurring cost on each turn."
     },
     {
       "page": 40,
       "kind": "slide",
       "group": 40,
+      "slide": 40,
       "text": "GTK Cyber MCP or Hand-Rolled Tools? • Hand-rolled tools from Module 11 are simplest when tools live in one app and you own them. • MCP shines when you want to reuse tools across apps, share them, or use ones others built. • Both give the model the same thing: callable tools. • Start simple and reach for MCP when integration pressure appears."
     },
     {
       "page": 41,
       "kind": "slide",
       "group": 41,
+      "slide": 41,
       "text": "GTK Cyber The MCP Ecosystem • A growing catalog of ready-made servers already exists. • Filesystem, GitHub, Slack, databases, and many security tools. • You can often connect an existing server instead of building one. • Check the official servers repository before writing your own."
     },
     {
       "page": 42,
       "kind": "slide",
       "group": 42,
+      "slide": 42,
       "text": "GTK Cyber Bleeding Edge: AI Enabled Payments"
     },
     {
       "page": 43,
       "kind": "slide",
       "group": 43,
+      "slide": 43,
       "text": "GTK Cyber Paying for It: Agent Payments • As agents call more tools and APIs, they increasingly need to pay for them without a human in the loop. • x402 (Coinbase, now Linux Foundation governed) revives the HTTP 402 \"Payment Required\" status: a server replies with a price, the agent attaches a signed stablecoin payment, and the server delivers once it settles onchain. • MPP, the Machine Payments Protocol (Stripe and Tempo), meets the same need with a sessions model, where an agent pre-authorizes a limit once and then streams many micropayments. It is backwards-compatible with x402. • Together they enable pay-per-call access to APIs, data, and compute in seconds, with no accounts or subscriptions. • This pairs naturally with MCP, where a paid server or tool can charge per call."
     },
     {
       "page": 44,
       "kind": "slide",
       "group": 44,
+      "slide": 44,
       "text": "GTK Cyber Agent Payments: Security Implications • Giving an agent a wallet turns a prompt injection into a way to spend real money, so treat payment as a high-risk action. • x402 relies on off-chain \"facilitators\" to verify and settle payments, and the protocol does not enforce their correctness, so one faulty facilitator can affect many services. • Researchers have demonstrated real attacks: replaying one payment for several grants, intercepting an authorization to charge without delivering, and steering agents to malicious endpoints with fake discovery listings. • Basic defenses: hard spending limits, human approval for larger amounts, replay and idempotency protection, confirming settlement before delivery, and vetting who you pay. • These standards are new and moving fast, so pilot carefully before trusting an agent to pay on its own."
     },
     {
       "page": 45,
       "kind": "slide",
       "group": 45,
+      "slide": 45,
       "text": "GTK Cyber Key Takeaways • MCP is one standard protocol for connecting agents to tools, turning M x N custom integrations into M + N. • A host runs one client per server, and each server exposes tools, resources, and prompts. • Building a server is a few FastMCP decorators; connecting one to an agent is a few lines of code. • MCP is not free: every connected server's tools cost context tokens and latency on every request. • Every server you connect is code you trust, so vet servers, grant least privilege, and keep a human in the loop for risky actions. • Agent payment protocols (x402, MPP) let agents pay per call, so only give an agent a wallet with strict limits."
     },
     {
       "page": 46,
       "kind": "slide",
       "group": 46,
+      "slide": 46,
       "text": "GTK Cyber Questions?"
     },
     {
       "page": 47,
       "kind": "slide",
       "group": 47,
+      "slide": 47,
       "text": "GTK Cyber Lab Please complete Lab 12.1: Building an MCP Server"
     },
     {
       "page": 48,
       "kind": "slide",
       "group": 48,
+      "slide": 48,
       "text": "GTK Cyber The Lab: Build an MCP Server"
     }
   ]

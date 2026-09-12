@@ -106,6 +106,12 @@ Counting the points outside each band shows how much the threshold matters. Unde
 
 A threshold applied to pure noise flags noise. Every point beyond a band here is a random draw from the same distribution as the rest, so a one-deviation rule produces hundreds of false alarms per thousand observations and a two-deviation rule about fifty. The threshold is set by how many false alarms per thousand the consumer of the alerts will tolerate. Shewhart control charts, used to monitor manufacturing processes, place their limits at three standard deviations, which flags about three per thousand.
 
+## Page 25
+
+The two views are of a second series whose distribution is skewed. The histogram runs from zero upward with the bulk of the values below 0.25 and a tail past 1.25; the red curve is the normal density from the earlier histogram, mean zero and standard deviation one tenth, which reaches zero by 0.3 while the data continues for another unit. No normal curve fits this shape, because the data has a hard floor at zero and a long tail on one side only.
+
+The series plot shows the consequence for a threshold. The red line is a threshold at about 0.5, and 123 of the 1000 observations lie above it, about one in eight. The tail those points come from is ordinary behavior for a skewed distribution, so a threshold built from the mean and standard deviation flags ordinary values. A mirror line below the mean would sit at or under zero, where there is no data to flag at all. The threshold rule is unchanged from the previous series; what changed is that its assumption about the distribution no longer holds.
+
 ## Page 26
 
 The two views are of a second series whose distribution is skewed. The histogram runs from zero upward with the bulk of the values below 0.25 and a tail past 1.25; the red curve is the normal density from the earlier histogram, mean zero and standard deviation one tenth, which reaches zero by 0.3 while the data continues for another unit. No normal curve fits this shape, because the data has a hard floor at zero and a long tail on one side only.
@@ -119,6 +125,12 @@ Mean absolute deviation measures spread as the average distance of the values fr
 Three corrections to the slide. The title's "Absolution" is a typo for absolute. The pseudocode line drops the absolute value that the formula above it shows; without it the deviations from the mean sum to zero by the definition of the mean, and the result is zero for any data. The `data.mad()` call was removed in pandas 2.0; compute it as `(data - data.mean()).abs().mean()`.
 
 One more term to keep apart: the acronym MAD is also used for the median absolute deviation, the median of the distances from the median, which is a different statistic and the one SciPy's `median_abs_deviation` computes.
+
+## Page 28
+
+A z-score expresses an observation's distance from the mean in standard deviations: subtract the mean from the value and divide by the standard deviation. A z of 2 is two standard deviations above the mean, a z of minus 1.5 is one and a half below, and a z near zero is at the center. The score is dimensionless, so one threshold on the absolute z applies to every column of a table regardless of the units each column is measured in, which is what makes it usable across the many columns of the validation problem. A threshold on absolute z is the standard deviation band from the earlier plots expressed per observation: flagging absolute z above 2 is the same rule as flagging points outside the two-deviation band.
+
+The mean and standard deviation come from the reference data. For novelty detection that is the clean set. For anomaly detection it is the mixed set, and the outliers in it shift the mean toward themselves and enlarge the standard deviation, which shrinks their own z-scores, an effect called masking.
 
 ## Page 29
 

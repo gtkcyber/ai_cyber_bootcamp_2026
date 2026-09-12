@@ -2,455 +2,531 @@
   "slug": "03-feature-engineering",
   "pdf": "Module 3 - Feature Engineering.pdf",
   "page_count": 75,
+  "manifest": true,
   "pages": [
     {
       "page": 1,
       "kind": "slide",
       "group": 1,
+      "slide": 1,
       "text": "Module 3: Machine Learning Feature Engineering"
     },
     {
       "page": 2,
       "kind": "slide",
       "group": 2,
+      "slide": 2,
       "text": "GTK Cyber Agenda • Feature Selection & Engineering • Math free overview of classification models • Evaluating Model Performance • Improving model performance"
     },
     {
       "page": 3,
       "kind": "slide",
       "group": 3,
+      "slide": 3,
       "text": "GTK Cyber Isn't Machine Learning Obsolete?"
     },
     {
       "page": 4,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 4,
+      "slide": 4,
       "text": "GTK Cyber Can't We Just Use AI for Analysis?"
     },
     {
       "page": 5,
       "kind": "slide",
       "group": 5,
+      "slide": 5,
       "text": "GTK Cyber Can't We Just Use AI to Build ML Models?"
     },
     {
       "page": 6,
       "kind": "slide",
       "group": 6,
+      "slide": 6,
       "text": "GTK Cyber NO!"
     },
     {
       "page": 7,
       "kind": "slide",
       "group": 7,
+      "slide": 7,
       "text": "GTK Cyber Determinism vs. Non- Determinism • Deterministic functions will always produce the same output for the same input. • Non-Deterministic functions will not. • LLMs/AI by their nature are non-deterministic and cannot be guaranteed to produce the same output given the consistent input."
     },
     {
       "page": 8,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 8,
+      "slide": 8,
       "text": "GTK Cyber If you require guaranteed consistency, you can't use AI."
     },
     {
       "page": 9,
       "kind": "slide",
       "group": 9,
+      "slide": 9,
       "text": "GTK Cyber If you need to audit your results, you can't use AI."
     },
     {
       "page": 10,
       "kind": "slide",
       "group": 10,
+      "slide": 10,
       "text": "GTK Cyber Better Approach: Use AI to generate intermediate analytic code."
     },
     {
       "page": 11,
       "kind": "slide",
       "group": 11,
+      "slide": 11,
       "text": "GTK Cyber AI can code a ML model, but it can't tune one."
     },
     {
       "page": 12,
       "kind": "slide",
       "group": 12,
+      "slide": 12,
       "text": "GTK Cyber AI is very expensive and slow."
     },
     {
       "page": 13,
       "kind": "slide",
       "group": 13,
+      "slide": 13,
       "text": "GTK Cyber"
     },
     {
       "page": 14,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 14,
+      "slide": 14,
       "text": "GTK Cyber The Machine Learning Process"
     },
     {
       "page": 15,
       "kind": "slide",
       "group": 15,
+      "slide": 15,
       "text": "GTK Cyber Machine Learning • Supervised Learning: Supervised Learning is a class of Machine Learning in which a model is \"trained\" using a set of pre-existing labeled data. • • Unsupervised Learning: A class of Machine Learning algorithms in which a model is built without the use of labeled data."
     },
     {
       "page": 16,
       "kind": "slide",
       "group": 16,
+      "slide": 16,
       "text": "GTK Cyber Machine Learning Problem Types • Classification: Assigning or predicting a observation's membership in discrete class • Regression: Predicting a continuous value based on the observations' features • • Clustering: Identifying groupings within a dataset • Dimensionality Reduction: Reducing the number of variables in a feature set"
     },
     {
       "page": 17,
       "kind": "slide",
       "group": 17,
+      "slide": 17,
       "text": "GTK Cyber Machine Learning Terms • Features: The mathematical representation of the original data. The features are the columns in your data set. Since the features will be a matrix, the are often written as X. • Observations: The rows of your feature set. • Target: The variable that you are trying to predict. Often represented as y."
     },
     {
       "page": 18,
       "kind": "slide",
       "group": 18,
+      "slide": 18,
       "text": "GTK Cyber \\ What Data Science kind of is… 3 Do you have labeled data? Categorical or Quantity? Can you label it? Regression Classiﬁcation Clustering/ Patterns Yes Yes Quan9ty Category No No Predic9on, Inference Predic9on Nothing proven Recommenders, Similar, anomalous"
     },
     {
       "page": 19,
       "kind": "slide",
       "group": 19,
+      "slide": 19,
       "text": "GTK Cyber Supervised Machine Learning Process Getting / Cleaning Data Getting / Cleaning Data Preprocessing/ Feature Engineering Preprocessing/ Feature Engineering Training Data Training Data Build Model Build Model Evaluate Model Evaluate Model pandas ... pandas/sklearn ... sklearn Advanced Feature Selection Advanced Feature Selection Testing Data Testing Data DATA DATA"
     },
     {
       "page": 20,
       "kind": "slide",
       "group": 20,
+      "slide": 20,
       "text": "GTK Cyber Unsupervised Machine Learning Process Getting / Cleaning Data Getting / Cleaning Data Preprocessing/ Feature Engineering Preprocessing/ Feature Engineering Build Model Build Model Evaluate Model Evaluate Model pandas ... pandas/sklearn ... sklearn Advanced Feature Selection Advanced Feature Selection DATA DATA"
     },
     {
       "page": 21,
       "kind": "slide",
       "group": 21,
+      "slide": 21,
       "text": "GTK Cyber How do you define success? What are you measuring?"
     },
     {
       "page": 22,
       "kind": "slide",
       "group": 22,
+      "slide": 22,
       "text": "GTK Cyber Choose data sources • What is available? • Is it enough? • Is the data reliable/clean/consistent? • What other data could you use?"
     },
     {
       "page": 23,
       "kind": "slide",
       "group": 23,
+      "slide": 23,
       "text": "GTK Cyber Other Considerations • Policies • Legal contraints • Biases in Data • Latency • Data size"
     },
     {
       "page": 24,
       "kind": "slide",
       "group": 24,
+      "slide": 24,
       "text": "GTK Cyber Gather and Explore Your Data Is the data good enough? What are the rules governing its use? Do I have enough? Do problems or biases exist in the data that could cause problems?"
     },
     {
       "page": 25,
       "kind": "slide",
       "group": 25,
+      "slide": 25,
       "text": "GTK Cyber Feature Engineering"
     },
     {
       "page": 26,
       "kind": "slide",
       "group": 26,
+      "slide": 26,
       "text": "GTK Cyber Feature Engineering • Define what you are trying to measure. These will become the observations or rows of your final dataset • Define how you will mathematically represent your data. This will be come the features or columns of your final dataset."
     },
     {
       "page": 27,
       "kind": "slide",
       "group": 27,
+      "slide": 27,
       "text": "GTK Cyber Features http://www.google.com"
     },
     {
       "page": 28,
       "kind": "slide",
       "group": 28,
-      "text": "GTK Cyber Features http://www.google.com"
+      "slide": 28,
+      "text": "GTK Cyber Features domain_length vowel_count digit_count 6 3 0 http://www.google.com"
     },
     {
       "page": 29,
       "kind": "slide",
       "group": 29,
+      "slide": 29,
       "text": "GTK Cyber Representation of URL Knowledge • Come up with a representation/set of knowledge that has enough complexity to accurately describe the problem for the computer • Knowledge here does not mean hard-coded knowledge or formal set of rules • The computer rather uses the knowledge we provide to extract patterns and acquire own knowledge • We should provide knowledge about reality that has high variance about the problem it describes (e.g. a feature that is high when it rains and low when it’s sunshine)"
     },
     {
       "page": 30,
       "kind": "slide",
       "group": 30,
-      "text": "GTK Cyber URL Definition https://www.google.com/search? q=URL&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjcl6ut -IDUAhVEPCYKHdJGDsYQ_AUIDCgD&biw=1215&bih=652"
+      "slide": 30,
+      "text": "GTK Cyber URL Definition https://www.google.com/search? q=URL&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjcl6ut -IDUAhVEPCYKHdJGDsYQ_AUIDCgD&biw=1215&bih=652 https:// protocol www subdomain google.com zone apex google domain .com top-level-domain (tld) /search?q=URL… path"
     },
     {
       "page": 31,
       "kind": "slide",
       "group": 31,
+      "slide": 31,
       "text": "GTK Cyber DNS 101 • Domain Name Service (DNS) resolves domain names to IP addresses (like a phone book) • Domain Registrars: authority that signs unique domain names (GoDaddy, BlueGator) • State of Authority (SOA): Contains for example name of server for zone, administrator of zone, default time-to-live (ttl = time a DNS record is cached), seconds of secondary name server should wait before checking for updates • Root Zone controlled by Internet Assigned Numbers Authority (IANA) • Name Servers (NS Records): used by tld servers to direct traffic to DNS server (which contains authoritative DNS records) • A records (part of DNS record): “A” stands for IP Address • CNAME (part of DNS record): resolves one domain name to another • Autonomous System (AS) and Border gateway Protocol (BGP) info Python libraries: python-whois, dnspython, tldextract, ipaddress"
     },
     {
       "page": 32,
       "kind": "slide",
       "group": 32,
+      "slide": 32,
       "text": "GTK Cyber DNS Flow"
     },
     {
       "page": 33,
       "kind": "slide",
       "group": 33,
+      "slide": 33,
       "text": "GTK Cyber What makes them different? URL BlockList URL AllowList amazon-sicherheit.kunden-ueberpruefung.xyz eclipsehotels.com/language/en-GB/eng.exe bohicacapital.com/page summerweb.net ad.getfond.info vdula.czystykod.pl/rxdjna2.html svision-online.de/mgfi/administrator/ components/com_babackup/classes/fx29id1.txt gurufocus.com/stock/PNC dvdtalk.ru/review 333cn.com/zx/zhxw.html made-in-china.com/special/led-lighting google.com/u/0/112261544981697332354/posts youtube.com/watch?v=Qp8MQ4shN6U unesco.org/themes/education-sustainable- developm thisisthefirst.com/page/5"
     },
     {
       "page": 34,
       "kind": "slide",
       "group": 34,
+      "slide": 34,
       "text": "GTK Cyber Malicious URL Detection Features (Literature) 1. BlackList Features: BlackLists suffer from a high false negative rate, but can still be useful as machine learning feature. 2. Lexical Features: Capture the property that malicious URLs tend to \"look different\" from benign URLs. Contextual information such as the length of the URL, number of digits, lengths of different parts, entropy of domain name. 3. Host-based Features: Properties of web site host. \"Where\" the site is hosted, \"who\" owns it and \"how\" it is managed. API queries are needed (WHOIS, DNS records). Examples: Date of registration, the geolocations, autonomous system (AS) number, connection speed or time-to-live (TTL). 4. Content-based Features: Less commonly used feature as it requires execution of web-page. Can be not only be not safe, but also increases the computational cost. Examples: HTML or JavaScript based. Sahoo et al. 2017: Malicious URL Detection using Machine Learning: A Survey"
     },
     {
       "page": 35,
       "kind": "slide",
       "group": 35,
+      "slide": 35,
       "text": "GTK Cyber Domain Generating Algorithm (DGA) Detection"
     },
     {
       "page": 36,
       "kind": "slide",
       "group": 36,
+      "slide": 36,
       "text": "GTK Cyber What is DGA? • Domain Generating Algorithms (DGA) are algorithms which generate pseudo-random domains that are used for infected machines to communicate with the controller. • The seeds on both the victim and command server are synchronized • First seen with the Conficker worm. • \"Hello world\" of cyber machine learning."
     },
     {
       "page": 37,
       "kind": "slide",
       "group": 37,
+      "slide": 37,
       "text": "GTK Cyber"
     },
     {
       "page": 38,
       "kind": "slide",
       "group": 38,
+      "slide": 38,
       "text": "GTK Cyber Preparation In Class Exercise ML Feature Engineering Lexical Features 1. Length of URL 2. Length of domain 3. Count of digits 4. Entropy of domain 5. Position (or index) of the first digit 6. Bag-of-words for tld, domain and path parts of the URL"
     },
     {
       "page": 39,
       "kind": "slide",
       "group": 39,
+      "slide": 39,
       "text": "GTK Cyber Data Set (Features and Target) Features or X Target or y"
     },
     {
       "page": 40,
       "kind": "slide",
       "group": 40,
-      "text": "GTK Cyber Bag-of-Words • Bag-of-words model: (Frequency of) occurrence of each word is used as a feature • Sklearn's CountVectorizer: Convert a collection of text documents to a matrix of token counts http://scikit-learn.org/stable/modules/generated/sklearn.f Simple Example: Imposing a vocabulary of top_tlds=[‘.com’, ‘.de’, ‘.uk’] CountVectorizer_tlds = CountVectorizer(analyzer='word', vocabulary=top_tlds) CountVectorizer_tlds = CountVectorizer_tlds.fit(tlds) matrix_tlds = CountVectorizer_tlds.transform(tlds) Bag-of-words model fitting"
+      "slide": 40,
+      "text": "GTK Cyber Bag-of-Words • Bag-of-words model: (Frequency of) occurrence of each word is used as a feature • Sklearn's CountVectorizer: Convert a collection of text documents to a matrix of token counts http://scikit-learn.org/stable/modules/generated/sklearn.f Simple Example: Imposing a vocabulary of top_tlds=[‘.com’, ‘.de’, ‘.uk’] CountVectorizer_tlds = CountVectorizer(analyzer='word', vocabulary=top_tlds) CountVectorizer_tlds = CountVectorizer_tlds.fit(tlds) matrix_tlds = CountVectorizer_tlds.transform(tlds) ‘.com’ ‘.de’ ‘.uk’ 0 0 0 1 0 0 0 1 0 URL string …google.ru… …facebook.com… …google.de… Bag-of-words model fitting"
     },
     {
       "page": 41,
       "kind": "slide",
       "group": 41,
+      "slide": 41,
       "text": "GTK Cyber Preprocessing - an Art Work! • Imputing missing values • Scaling/Normalization • One-Hot Encoding (Encoding categorical features) • Embedding (e.g. word2vec) • Binarizing (e.g. needed for Deep Learning multi-class target vector encoding) • Encoding strings as int • Dimensionality Reduction (e.g. PCA) • Augmentation (e.g. tild/zoom images) • Feature selection based on classifier • Variance threshold Data Types http://scikit-learn.org/stable/modu Primary Python libraries: pandas, sklearn, scipy"
     },
     {
       "page": 42,
       "kind": "slide",
       "group": 42,
+      "slide": 42,
       "text": "GTK Cyber Missing Values # using the most_frequent value df['src_bytes'] = df['src_bytes'].fillna # print the results df['src_bytes'].value_counts().index[0]) # using the mean value df['dst_bytes'] = df['dst_bytes'].fillna(df['dst_bytes'].mean())"
     },
     {
       "page": 43,
       "kind": "slide",
       "group": 43,
+      "slide": 43,
       "text": "GTK Cyber Categorical Variables One-Hot Encoding"
     },
     {
       "page": 44,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 44,
-      "text": "GTK Cyber One Hot Encoding"
+      "slide": 44,
+      "text": "GTK Cyber One Hot Encoding Color Red Red Blue Green Yellow Red"
     },
     {
       "page": 45,
       "kind": "slide",
       "group": 45,
-      "text": "GTK Cyber One Hot Encoding 4 Categories 4 Columns with 1 when Category is True and delete original column!"
+      "slide": 45,
+      "text": "GTK Cyber One Hot Encoding Color Red Red Blue Green Yellow Red Color_Red Color_Blue Color_Yellow Color_Green 1 0 0 0 1 0 0 0 0 1 0 0 0 0 0 1 0 0 1 0 1 0 0 0 4 Categories 4 Columns with 1 when Category is True and delete original column!"
     },
     {
       "page": 46,
       "kind": "slide",
       "group": 46,
+      "slide": 46,
       "text": "GTK Cyber One Hot Encoding colors = ['Red', 'Red', 'Blue', 'Green', 'Yellow', ‘Red'] series_data = pd.Series( colors ) pd.get_dummies(series_data) df = pd.get_dummies(df, prefix=None, prefix_sep=‘_’, dummy_na=False, columns=['protocol_type','flag'], sparse=False )"
     },
     {
       "page": 47,
       "kind": "slide",
       "group": 47,
+      "slide": 47,
       "text": "GTK Cyber Better way: Feature Engine • Feature Engine is a module which helps automate the complexities of feature engineering. • Missing Value Imputation • One Hot Encoding • Outlier Capping • More... • Docs here: https://feature-engine.readthedocs.io/en/latest/ • Blog post: https://thedataist.com/when-categorical-data-goes-wrong/"
     },
     {
       "page": 48,
       "kind": "slide",
       "group": 48,
+      "slide": 48,
       "text": "GTK Cyber Feature Scaling"
     },
     {
       "page": 49,
       "kind": "slide",
       "group": 49,
+      "slide": 49,
       "text": "GTK Cyber Standard Scaling scaled_feature = (feature - column_mean) / standard_deviation Standardization - rescale so that mean = 0, std = 1"
     },
     {
       "page": 50,
       "kind": "slide",
       "group": 50,
+      "slide": 50,
       "text": "GTK Cyber Standard Scaling from sklearn.preprocessing import StandardScaler scaler = StandardScaler() scaler.fit(features) features_scaled = scaler.transform(features)"
     },
     {
       "page": 51,
       "kind": "slide",
       "group": 51,
+      "slide": 51,
       "text": "GTK Cyber Standard Scaling original values: [[ 0.9 0.1 40. ] [ 0.3 0.2 50. ] [ 0.6 0.8 60. ]] Mean of each column: [ 0.6 0.3667 50.] SD of each column: [ 0.2449 0.3091 8.165 ] scaled values: [[ 1.2247 -0.8627 -1.2247] [-1.2247 -0.5392 0. ] [ 0. 1.4018 1.2247]] Means of scaled data, per column: [ 0. -0. 0.] SD's of scaled data, per column: [ 1. 1. 1.] Notice that the mean of standard scaled data is zero and the StdDev is 1."
     },
     {
       "page": 52,
       "kind": "slide",
       "group": 52,
+      "slide": 52,
       "text": "GTK Cyber Min/Max Scaling normed_feature = (feature - col_min) / (col_max - col_min)"
     },
     {
       "page": 53,
       "kind": "slide",
       "group": 53,
+      "slide": 53,
       "text": "GTK Cyber Min/Max Scaling from sklearn.preprocessing import MinMaxScaler minmax = MinMaxScaler() minmax.fit(features) features_scaled_minmax = minmax.transform(features)"
     },
     {
       "page": 54,
       "kind": "slide",
       "group": 54,
+      "slide": 54,
       "text": "GTK Cyber Min/Max Scaling original values: [[ 0.9 0.1 40. ] [ 0.3 0.2 50. ] [ 0.6 0.8 60. ]] Mean of each column: [ 0.6 0.3667 50.] SD of each column: [ 0.2449 0.3091 8.165 ] scaled values: [[ 1. 0. 0. ] [ 0. 0.1429 0.5 ] [ 0.5 1. 1. ]] Means of scaled data, per column: [ 0.5 0.381 0.5 ] SD's of scaled data, per column: [ 0.4082 0.4416 0.4082]"
     },
     {
       "page": 55,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 55,
+      "slide": 55,
       "text": "GTK Cyber Dealing with Imbalanced Classes"
     },
     {
       "page": 56,
       "kind": "slide",
       "group": 56,
+      "slide": 56,
       "text": "GTK Cyber Dealing with Imbalanced Classes • A lot of real-world security data will have very imbalanced targets. • Fortunately, there is a library called imbalanced-learn which can assist. • Imbalanced-learn provides a series of options to resample the data so that you have more balanced classes • Docs available here: http://imbalanced-learn.org/"
     },
     {
       "page": 57,
       "kind": "slide",
       "group": 57,
+      "slide": 57,
       "text": "GTK Cyber Dealing with Imbalanced Classes from imblearn.over_sampling import RandomOverSampler ros = RandomOverSampler(random_state=0) X_resampled, y_resampled = ros.fit_resample(X, y)"
     },
     {
       "page": 58,
       "kind": "slide",
       "group": 58,
+      "slide": 58,
       "text": "GTK Cyber Selecting Features"
     },
     {
       "page": 59,
       "kind": "slide",
       "group": 59,
+      "slide": 59,
       "text": "GTK Cyber Should we use all of them?"
     },
     {
       "page": 60,
       "kind": "slide",
       "group": 60,
+      "slide": 60,
       "text": "GTK Cyber How do we know which features to use and which to discard?"
     },
     {
       "page": 61,
       "kind": "slide",
       "group": 61,
+      "slide": 61,
       "text": "GTK Cyber Before using automation, you should remove: • Unnecessary features that are uninformative or repetitive • Irrelevant features • Duplicate observations"
     },
     {
       "page": 62,
       "kind": "slide",
       "group": 62,
+      "slide": 62,
       "text": "GTK Cyber How do we know which features to use and which to discard? best_features = SelectKBest(score_func=chi2,k=3).fit_transform(features,target) References: http://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html http://scikit-learn.org/stable/modules/feature_selection.html#univariate-feature-selection Selects k features according to the highest score Available Scoring Functions: • For regression: f_regression, mutual_info_regression • For classification: chi2, f_classif, mutual_info_classif best_features = SelectPercentile(score_func=chi2,percentile=3).fit_transform(features,target ) Selects all features above a given threshold in the scoring function"
     },
     {
       "page": 63,
       "kind": "slide",
       "group": 63,
+      "slide": 63,
       "text": "GTK Cyber How do we know which features to use and which to discard? Visualize Them!!"
     },
     {
       "page": 64,
       "kind": "slide",
       "group": 64,
+      "slide": 64,
       "text": "GTK Cyber Heatmap import seaborn as sns import pandas as pd #Calculate correlations between features corr_matrix = df_final.corr() #Generate a mask for the upper mask = np.triu(np.ones_like(corr_matrix, dtype=bool)) #Plot the matrix as a heatmap sns.heatmap(corr_mat, mask=mask, cmap='viridis') Look at the correlations, covariance, etc between features by calculating the stats and plotting a heatmap of the matrix strong correlation -> could mean similar information"
     },
     {
       "page": 65,
       "kind": "slide",
       "group": 65,
+      "slide": 65,
       "text": "GTK Cyber Pairplot import seaborn as sns sns.pairplot(<features>, hue='<target>') http://seaborn.pydata.org/generated/seaborn.pairplot.html Look at the correlations between features with scatterplots of the targets, colored by the target class."
     },
     {
       "page": 66,
       "kind": "slide",
       "group": 66,
+      "slide": 66,
       "text": "GTK Cyber Radviz import pandas as pd pd.plotting.radviz(df, ‘<target_column’) Veiw the contributions that each feature is making to the target via Pandas Radviz"
     },
     {
       "page": 67,
       "kind": "slide",
       "group": 67,
+      "slide": 67,
       "text": "GTK Cyber Mutual Information • Captures non-linear relationships between the features and the target. • Will help you identify features which are highly predictive that are not correlated at all."
     },
     {
       "page": 68,
       "kind": "slide",
       "group": 68,
+      "slide": 68,
       "text": "GTK Cyber Mutual Information Plot from sklearn.feature_selection import mutual_info_classif features = df_final_int.drop(columns=\"isDGA\") target = df_final_int[\"isDGA\"].astype(int) mi = mutual_info_classif(features, target) mi = pd.Series(mi, index=features.columns).sort_values() mi.plot.barh(figsize=(8, 6)) plt.xlabel(\"mutual information with target\") plt.tight_layout()"
     },
     {
       "page": 69,
       "kind": "slide",
       "group": 69,
+      "slide": 69,
       "text": "GTK Cyber Do it all at once! • FG-Data-Profiling (Formerly YData and Pandas-Profiling) is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense... from data_profiling import ProfileReport profile = ProfileReport(df, title='DGA Feature Profiling Report')"
     },
     {
       "page": 70,
       "kind": "slide",
       "group": 70,
+      "slide": 70,
       "text": "GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense..."
     },
     {
       "page": 71,
       "kind": "slide",
       "group": 71,
+      "slide": 71,
       "text": "GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense..."
     },
     {
       "page": 72,
       "kind": "slide",
       "group": 72,
+      "slide": 72,
       "text": "GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense..."
     },
     {
       "page": 73,
       "kind": "slide",
       "group": 73,
+      "slide": 73,
       "text": "GTK Cyber FG Data Profiling • Pandas-Profiling is a module which can generate very thorough summaries of your datasets. • Simple to use, but computationally intense..."
     },
     {
       "page": 74,
       "kind": "slide",
       "group": 74,
+      "slide": 74,
       "text": "GTK Cyber In Class Exercise Please take 45 minutes and complete Worksheet 3.1 - Feature Engineering"
     },
     {
       "page": 75,
       "kind": "slide",
       "group": 75,
+      "slide": 75,
       "text": "GTK Cyber Questions?"
     }
   ]

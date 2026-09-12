@@ -217,6 +217,12 @@ A convolutional neural network takes a high-dimensional image and produces a low
 
 CNNs were developed for image processing, where both ideas match the data: features such as edges are local, and the same feature matters wherever in the image it appears.
 
+## Page 36
+
+Convolution slides a small kernel over the image and records, at each position, how strongly the patch under the kernel matches it. The kernel is a small grid of weights, here three by three, in blue. Placing it over the top-left three by three patch of the image, multiplying each pixel by the weight above it and adding the nine products gives one number, the top-left cell of the convolved feature. Sliding the kernel one pixel to the right and repeating fills the next cell, and so on across and down the image; a six by six image with a three by three kernel yields a four by four convolved feature. The kernel's weights are learned by training, so each kernel becomes a detector for one local pattern, and a convolutional layer has many kernels, each producing its own feature map.
+
+Pooling reduces the convolved feature further. A pooling kernel, also a small window, slides over the feature map and replaces each window with a single summary value: the mean of the window for average pooling, the largest value for max pooling. The result is a smaller map that keeps the presence of a feature in each region and drops its exact position, which shrinks the data handed to the next layer and makes the detection tolerant of small shifts.
+
 ## Page 37
 
 Convolution slides a small kernel over the image and records, at each position, how strongly the patch under the kernel matches it. The kernel is a small grid of weights, here three by three, in blue. Placing it over the top-left three by three patch of the image, multiplying each pixel by the weight above it and adding the nine products gives one number, the top-left cell of the convolved feature. Sliding the kernel one pixel to the right and repeating fills the next cell, and so on across and down the image; a six by six image with a three by three kernel yields a four by four convolved feature. The kernel's weights are learned by training, so each kernel becomes a detector for one local pattern, and a convolutional layer has many kernels, each producing its own feature map.

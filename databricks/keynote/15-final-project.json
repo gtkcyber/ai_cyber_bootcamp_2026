@@ -1,0 +1,52 @@
+{
+  "slug": "15-final-project",
+  "source": "Final Project.key",
+  "pdf": "Final Project.pdf",
+  "page_count": 7,
+  "pages": [
+    {
+      "page": 1,
+      "slide": 1,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 2,
+      "slide": 2,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 3,
+      "slide": 3,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 4,
+      "slide": 4,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 5,
+      "slide": 5,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 6,
+      "slide": 6,
+      "stage": 0,
+      "stages": 1
+    },
+    {
+      "page": 7,
+      "slide": 7,
+      "stage": 0,
+      "stages": 1
+    }
+  ],
+  "media": [],
+  "losses": []
+}

@@ -46,294 +46,294 @@ The third option, retrieval augmented generation, leaves the model unchanged and
 
 Retrieval augmented generation, RAG, pairs a static model with a live document store. The analogy is the Dewey decimal system, the numbered subject classification libraries use to shelve and locate books: the system does not memorize the collection, a subject index locates the right book on demand, and in RAG the vector database is that index and the document store is the shelving. For each request the system retrieves the documents relevant to the question and adds them to the prompt, so the model answers from text it was handed. The model's weights do not change, so updating the store is the only step needed to add or correct knowledge.
 
-## Page 13
+## Page 17
 
 The pipeline has four stages between the user prompt and the response. Retrieve: the prompt is embedded and the vector database returns the stored passages nearest to it. Augment: those passages are inserted into a prompt template alongside the user's question. Generate: the model receives the augmented prompt and writes the answer. Respond: the answer, optionally with the sources it was drawn from, goes back to the user. The vector database is loaded ahead of time from the document corpus and is queried once per request.
 
-## Page 14
+## Page 18
 
 A RAG workflow has three components. Embedding model: a model that turns text into a vector, a fixed-length list of numbers, such that texts with similar meaning produce vectors that lie close together; it embeds every document at load time and the user prompt when a question arrives. Vector database: a store for the document vectors, indexed so that the vectors nearest a query vector can be found quickly; it is loaded from current documents, so it holds information the language model did not see in training. Large language model: the generative model that reads the augmented prompt and produces the response. The embedding model and the language model are separate models with separate jobs. Worksheet 11.1 uses a local sentence-transformer for embeddings; for generation it uses the chat model its setup cell builds, which points at the course's serving endpoint, so the model is whatever that cell names.
 
-## Page 15
+## Page 19
 
 The same embedding model must embed the stored documents and the incoming query. Each embedding model defines its own vector space: a different model produces vectors of a different length, and even at the same length the axes mean different things, so the distance between a vector from one model and a vector from another carries no information about the texts. Changing the embedding model means re-embedding the entire corpus. Worksheet 11.1 embeds the query with the same object that embedded the documents for this reason.
 
-## Page 16
+## Page 20
 
 RAG fits security applications whose data is proprietary or changes faster than a model can be retrained. Compliance: a store of the organization's own policies, control mappings and regulatory text lets the model answer questions against the current versions. MITRE ATT&CK: a knowledge base, maintained by the MITRE Corporation, of adversary tactics and techniques drawn from observed intrusions; with the technique descriptions in the store, the model can explain a technique and compare its description to a set of log entries the analyst supplies.
 
-## Page 17
+## Page 21
 
 A vector database is a database built for one query: given a vector, return the stored vectors nearest to it. It implements nearest neighbor search over an index built for high-dimensional vectors. Examples: Chroma, an open-source database used in this module's code; Pinecone, a hosted service. TurboVec: a Rust library with Python bindings built on Google Research's TurboQuant quantization, which compresses stored vectors to two or four bits per dimension and searches the compressed form; it is a local index library with no server component. General-purpose databases with a vector column type, among them MySQL, MongoDB, Oracle and Postgres, can also serve as the store, which keeps the vectors next to the metadata and keyword indexes already in that database.
 
-## Page 18
+## Page 22
 
 Chroma is the vector database in this module's code examples. It is open source, installs as a Python package, and in its simplest form runs inside the Python process with no server, which is how the examples use it. A production deployment runs Chroma as a server that clients reach over HTTP, with storage on disk. The documentation is at docs.trychroma.com. Worksheet 11.1 does not use Chroma; it keeps the embeddings in LangChain's in-memory vector store, which exposes the same search methods.
 
-## Page 19
+## Page 23
 
 Chroma's unit of storage is a collection: a named set of documents, each kept under an id along with its embedding and optional metadata. The three lines create an in-process client and then a collection named collection1. The client made by the Client constructor holds everything in memory and discards it when the process ends; a persistent client that writes to a directory on disk and an HTTP client that talks to a Chroma server offer the same collection interface. The first line is wrong as printed: the package is imported as chromadb, and the next line already uses that name.
 
-## Page 20
+## Page 24
 
 Adding documents to a collection takes a list of ids and a parallel list of document strings. Chroma embeds each string on the way in using the collection's embedding function. If none was given at creation, it uses its default, a small sentence-transformer model (all-MiniLM-L6-v2) downloaded on first use and run locally. Passing your own embedding function at collection creation is how you use a different model. The embedding function is fixed per collection, which is what enforces the consistency rule: whichever function embedded the documents also embeds every later query against them.
 
-## Page 21
+## Page 25
 
 A query embeds the query text with the collection's embedding function and returns the n_results nearest documents. The query "I really like citrus" returns the oranges document even though the two texts share no word, because the embedding places citrus and oranges close together. The result is a dictionary of parallel lists with one inner list per query text: ids, documents and distances hold the matches; metadatas is None for the hit because none was stored; embeddings, uris and data are None because they were not requested, and included names the fields that were. The distance is a squared Euclidean distance under Chroma's default metric. A smaller number is a closer match, and the value only means something relative to other hits in the same collection.
 
-## Page 22
+## Page 26
 
 Retrieval produces passages; the application still has to write the prompt that carries them to the model. The template has four parts. Instruction: use the context to answer, and if the answer is not in it, say so. This line is what keeps a RAG application from inventing an answer when retrieval returns nothing useful. Length limit: three sentences maximum, kept concise. Context: the placeholder where the retrieved passages are substituted. Question and answer cue: the user's question, then "Helpful Answer:" as the point where the model begins writing. As printed the template is an f-string, so Python would try to substitute context and question at the moment the line runs; a template meant to be filled later is a plain string.
 
-## Page 23
+## Page 27
 
 Four properties of RAG follow from putting retrieved text in the prompt. Sourcing: the application knows which passages it retrieved, so it can cite them with the answer, and a chatbot that shows sources is running some form of retrieval. Poisoning: whatever gets into the document store gets into the prompt, so an attacker who can plant a document in the corpus can steer the model's answers; Module 14 covers RAG poisoning. Chunking: the stored unit is the retrieved unit, so documents have to be split. One larger than the embedding model's input cannot be embedded at all, and a forty-page document returned whole for a question that one paragraph answers puts all forty pages into the prompt, so the split strategy decides retrieval quality. Cost: every retrieved passage is added to the input, and input tokens are billed and bounded by the model's context window, so wide retrieval makes each request larger and more expensive.
 
-## Page 24
+## Page 28
 
 Chunking splits a document into pieces that are embedded and retrieved separately. Two limits force it. The embedding model accepts a bounded number of tokens, so a long document has to be cut to fit. A single vector for a long document averages over everything in it, so a specific question matches it weakly, while a chunk about one topic matches a question on that topic closely. The strategy is the chunk size, where the boundaries fall, and how much neighboring chunks overlap so that a sentence split across a boundary still appears whole in one of them. Worksheet 11.1 skips chunking because each CVE record is already short enough to be one document, and names LangChain's recursive character splitter as the tool for longer documents.
 
-## Page 25
+## Page 29
 
 This part is the hosted RAG lab and a privacy note on what a RAG pipeline sends to the model vendor.
 
-## Page 26
+## Page 30
 
 The RAG lab is hosted at ai.gtkcyber.com/rag-lab and needs the account from the setup slide. The course repository's ai_examples folder holds tesla_aurora.txt, a short fictional product description of an invented Tesla vehicle. Because the vehicle does not exist, nothing about it is in any model's training data, so a question about it can only be answered from retrieved text, which makes the difference between a grounded answer and an unaided one visible. The same folder's rag_demo.py is a Streamlit application with a toggle that turns retrieval on and off for direct comparison.
 
-## Page 27
+## Page 31
 
 Retrieval does not keep documents private. The retrieved passages are pasted into the prompt, and the prompt is what gets sent to the model. With a hosted model, every passage that retrieval selects leaves the organization and reaches the vendor's servers, where the vendor's data-handling terms decide what happens to it. Putting a document in a local vector store keeps it private only until a query retrieves it. A model run inside the organization is the way to keep retrieved documents inside it.
 
-## Page 28
+## Page 32
 
 An AI application is a pipeline, and the pipeline is the hard part. Each model vendor ships its own SDK with its own request and response shapes, so code written against one does not run against another. Every added capability, retrieval, parsing, a second model call, tool use, adds a stage, and each stage has to pass its output to the next in the shape the next expects. An agentic application, in which the model decides what to do next, needs the model to read data, call code, and hand results back into the loop. LangChain is the answer this module uses.
 
-## Page 29
+## Page 33
 
 LangChain is a Python framework that defines one interface for each component of an AI application, models, prompts, retrievers, parsers and tools, and ships many implementations behind each interface. Swapping one vendor's chat model for another's is a change to one line, since both implement the same chat model interface. It is one option among several. n8n: a workflow automation tool with a visual editor and AI nodes, which can be self-hosted. Make.com and Zapier: commercial automation services that connect applications through hosted workflows and can include a model call as a step. String.com: an agent builder from Pipedream that turns a natural-language description into a deployed agent running on Pipedream's integrations. The area changes quickly enough that LangChain's own API has moved under the code in this deck; several listings use import paths and methods that current versions deprecate, and the notes on those slides name the replacements.
 
-## Page 30
+## Page 34
 
 LangChain organizes its API into top-level abstractions. The figure, from Phoenix and Taylor's Prompt Engineering for Generative AI, places the framework at the center with retrieval, document loaders and utilities, prompts, memory, chains, agents and model wrappers around it. Three of the six abstractions. Model I/O: the prompt going in and the message coming back, including prompt templates and output parsers. Retrieval: document loaders, text splitters, embeddings and vector stores, everything that gets relevant text out of a document source. Chains: sequences of calls in which each step's output feeds the next, so that a prompt template, a model and a parser become one callable unit. The bullet says contraction where construction is meant.
 
-## Page 31
+## Page 35
 
 The other three abstractions. Agents: a chain in which the model chooses the next step at run time, picking a tool from those it was given according to the instructions and the results so far. Memory: state carried between model calls, at its simplest the conversation so far, since the model itself retains nothing between requests. Callbacks: hooks that run your code when an event occurs inside a chain, such as a model call starting or a token arriving, used for logging, tracing and streaming. Models: a wrapper class per vendor that presents the same call interface, which is what lets the rest of the application ignore which vendor is behind it.
 
-## Page 32
+## Page 36
 
 LangChain represents a conversation as a list of typed message objects. SystemMessage: the instructions that set the model's role, constraints and output format; a vendor's API carries it in a separate system field. HumanMessage: a turn from the user, the text the model responds to. AIMessage: a turn the model produced, which is what a model call returns and what gets appended to the history to continue a conversation. A fourth type, ToolMessage, carries a tool's result back to the model and appears in Worksheet 11.2.
 
-## Page 33
+## Page 37
 
 The first example sends two messages to a chat model and prints the reply. The chat model object is constructed with a temperature, a model name and an API key read from the environment. The message list holds a system message that restricts the model to a greeting plus ASCII art and a human message to respond to. The invoke method sends the list and returns an AIMessage. LangChain is unnecessary for a call this simple, which the vendor's own SDK makes in as many lines. Its overhead is justified once the call is one stage among several, with a template ahead of it and a parser or a retriever behind it. The version in the repository, ascii_art_generator.py in the ai_examples folder, differs in two ways: it builds the model with ChatAnthropic from the langchain_anthropic package against Claude, reading the key from ANTHROPIC_API_KEY in a .env file, and it imports the message classes from langchain_core.messages, since the langchain.schema path in the listing is deprecated. The listing also calls os.getenv without importing os.
 
-## Page 34
+## Page 38
 
 The printed response is an AIMessage. Its content field holds the model's text: a greeting, a fenced block of ASCII art, and a closing line, with the newlines shown as escape sequences because the whole object was printed; printing the content attribute alone renders them. Its usage_metadata field reports input tokens, output tokens and their total, which are the quantities a vendor bills. additional_kwargs carries vendor-specific extras, here a refusal field that is None.
 
-## Page 35
+## Page 39
 
 A model produces its output one token at a time, so if the application waits for the whole completion, a long reply means a long pause before any of it appears. Streaming returns tokens as they are generated, so the user sees text as soon as the first tokens exist. Every LangChain runnable has a stream method alongside invoke; the call returns an iterator of chunks in place of one message, and the loop that consumes it is the added code. Worksheet 11.1 ends by swapping invoke for stream on the same chain, so the technique is within reach of this class. Batching: the batch method takes a list of inputs and runs them concurrently, which is how to generate many responses without waiting on each one in turn. The inputs to a batch come from a prompt template, written once and filled per item from a dictionary. An f-string is evaluated on the line that defines it, so reusing one for many prompts means wrapping it in a function of your own and checking its variables yourself.
 
-## Page 36
+## Page 40
 
 A prompt template is a string with named placeholders plus the code that fills them. from_template turns a string with brace placeholders into a message template; ChatPromptTemplate.from_messages assembles one or more message templates into a chat prompt; and invoking the resulting chain with a dictionary fills the placeholders by name. Templates validate inputs (a missing variable raises an error when the chain is invoked), compose (a chat prompt can be built from a system template plus a human template), and can generate few-shot examples from data by filling a per-example template. Three defects in the listing as printed: the class is SystemMessagePromptTemplate; the variable passed to it should be system_template; and the dictionary key must be the string "ai_name" in quotes. The file named in the comment is risky_sql_query_generator.py in the ai_examples folder, which uses this pattern to prompt Claude for SQL injection test queries against a named table and columns.
 
-## Page 37
+## Page 41
 
 LCEL, the LangChain Expression Language, is the syntax for composing runnables into a chain. A runnable is any LangChain object with the standard invoke, stream and batch methods: prompt templates, models, parsers, retrievers, and plain functions wrapped as runnables. Declarative means you state what the pipeline is and the framework decides how to execute it: steps that do not depend on each other run in parallel, every chain has an asynchronous variant without extra code, streaming passes through any step that can stream, and each run is traced so that intermediate inputs and outputs can be inspected. Pass-through streaming shortens the time to first token, the interval between sending a request and the first chunk of output arriving, because a downstream step starts on partial output instead of waiting for the whole upstream result. The standard interface is what makes a chain of three steps callable in the same way as a single model.
 
-## Page 38
+## Page 42
 
 LCEL pays off when there are steps to connect. A single call to a model, as in the ASCII art example, is a message list passed to invoke; wrapping it in a chain adds syntax without benefit.
 
-## Page 39
+## Page 43
 
 LCEL builds chains from two composition primitives. RunnableSequence: steps run in order and each step's output is the next step's input. RunnableParallel: several runnables receive the same input and their outputs are collected into a dictionary keyed by name. Each has a synchronous invoke and an asynchronous ainvoke. The pipe operator is overloaded on runnables, so writing step1 | step2 | step3 builds a RunnableSequence, and a dictionary of runnables placed in a chain becomes a RunnableParallel. The model is one step among others, so a chain of prompt template, model and parser is invoked once with the template's variables and returns the parser's output.
 
-## Page 40
+## Page 44
 
 An output parser is the last step of a chain: it takes the model's text and returns a Python value. List parser: a comma-separated reply becomes a list. Datetime parser: a date string becomes a datetime object. Pydantic parser: JSON in the reply is validated against a Pydantic model and returned as an instance of it. Structured output parser: a set of named fields becomes a dictionary. XML parser: tagged output becomes nested dictionaries. Auto-fixing and retry parsers wrap another parser; when its parse fails, they send the malformed output back to a model together with the error and parse the corrected reply. A parser is deterministic code, so what it returns either conforms to the declared shape or is an error, which no prompt wording can promise. A parser also supplies format instructions, generated text that tells the model what shape to produce, which you insert into the prompt in place of formatting rules written by hand, so that the prompt and the parser agree on the format.
 
-## Page 41
+## Page 45
 
 Pydantic is a Python library for defining data schemas as classes and validating data against them. A class that subclasses BaseModel declares fields with type annotations; constructing an instance from a dictionary or from JSON checks each field's type, converts where a conversion is safe, and raises an error listing every field that failed. The same class definition produces a JSON Schema, which is what the Pydantic output parser hands to the model as format instructions. Writing the class by hand is short for three fields; for a large nested JSON document, jsontopydantic.com generates the class definitions from a pasted JSON sample.
 
-## Page 42
+## Page 46
 
 The output parser example defines the shape of the answer before asking the question. SQL_Query is a Pydantic model with three fields: the query as a string, a boolean for whether it is malicious, and an integer count of the tables it touches. PydanticOutputParser wraps that class, and its get_format_instructions method returns the instruction text the prompt will carry. In the repository the same code is output_parsers.ipynb in the ai_examples folder, built on ChatAnthropic in place of the ChatOpenAI import in the listing.
 
-## Page 43
+## Page 47
 
 The format instructions are generated text, and the model receives them as part of the prompt. They open by telling the model to answer with a JSON instance conforming to a schema, give a conforming object and a non-conforming one as examples, and end with the schema itself: Pydantic's JSON Schema for SQL_Query, with a title and type per field and all three fields required. The example with a field named foo is boilerplate that every Pydantic parser emits; only the final schema block is specific to the class.
 
-## Page 44
+## Page 48
 
 The chain is the prompt template, the model and the parser. Invoking it passes the template's variables: the table, the columns, and the format instructions under the key the template expects. The template in the repository's notebook asks for a SQL injection test query against the named table and columns and ends with the format instructions placeholder. The model replies with JSON, the parser validates it against SQL_Query, and the result is an instance whose fields are typed attributes: query holds the SQL, is_malicious is a boolean, table_count is an integer. Downstream code can branch on the boolean with no text parsing of its own. The listing names the last step json_output_formatter while the parser object was created as json_output_parser; the notebook uses json_output_parser for both.
 
-## Page 45
+## Page 49
 
 This part rebuilds the RAG pipeline from LangChain components: a retriever over a Chroma store, a prompt assembled from the retrieved context, and a model call, followed by Worksheet 11.1.
 
-## Page 46
+## Page 54
 
 The diagram is the pipeline from the RAG part, now to be written in code. The retriever covers the retrieve stage, string formatting covers the augment stage, and the chat model covers the generate stage.
 
-## Page 47
+## Page 55
 
 Six steps. One: create a retriever by loading the documents, embedding them into a vector store, and wrapping the store as a retriever object; this happens once at startup. Two: get the user prompt. Three: query the retriever, which embeds the prompt and returns the nearest documents. Four: format those documents into the prompt template. Five: send the augmented prompt to the model. Six: return the result. Steps two through six repeat for every request; step one is the only step that touches the whole corpus.
 
-## Page 48
+## Page 56
 
 Chroma.from_documents builds the store in one call: it takes the loaded documents, an embeddings object and a directory to persist to, embeds every document, and writes the index to disk so that a later run can open it in place of rebuilding it. The docs variable is a list of LangChain Document objects produced by a document loader and, for long files, a text splitter; embeddings is an embeddings object such as HuggingFaceEmbeddings. as_retriever wraps the store in the retriever interface. The similarity search type selects nearest neighbor search by embedding distance, and k of four caps the number of documents returned per query. That k is the main lever on prompt size, since four passages go into every prompt whether or not four are relevant.
 
-## Page 49
+## Page 57
 
 The generation half. A chat model at temperature zero picks the most probable token at each step, which makes answers repeatable for a given prompt. get_relevant_documents sends the user's request through the retriever and returns the k Document objects; the join concatenates their page_content fields with a blank line between them into one context string. Retrievers are runnables in current LangChain, so the call is retriever.invoke and get_relevant_documents is deprecated. The repository's rag_demo.py builds the same context string but labels each passage with its source file, so the answer can be checked against what was retrieved.
 
-## Page 50
+## Page 58
 
 This prompt is an f-string assembled per request, so the braces are filled at once with the context string and the user request already in hand, which is correct here. Its instructions differ from the earlier template in one respect: they tell the model to use the context as needed and to fall back on its own reasoning when the context does not fully answer the request. That yields an answer even when retrieval is weak, at the cost that the model may then answer from training data or invention and nothing marks which parts came from the context. The stricter form, answer only from the context and say so when it is missing, is the one Worksheet 11.1 asks you to write.
 
-## Page 51
+## Page 59
 
 The loop reads a request from the terminal, stops on the word exit, builds the prompt through the rag_prompt function, which runs the retrieval and formatting from the previous two slides, sends the prompt to the model, and prints the reply. Each pass runs a fresh retrieval on the new request alone; nothing from earlier turns is carried, because the prompt is rebuilt from the retrieved passages and the current request with no history. The predict method is deprecated in current LangChain; the call is invoke, which returns an AIMessage whose content attribute holds the text. The listing is the body of a while loop with the enclosing while line omitted, and its indentation as printed is inconsistent.
 
-## Page 52
+## Page 60
 
 Questions on retrieval and its LangChain implementation before the worksheet.
 
-## Page 53
+## Page 61
 
 Worksheet 11.1 builds retrieval over vulnerability records. The data is a set of 2024 CVE records from the National Vulnerability Database, the United States government's repository of published vulnerabilities; CVE, Common Vulnerabilities and Exposures, is the catalog that assigns each disclosed vulnerability an identifier, and each record carries a CVSS score, the Common Vulnerability Scoring System's severity rating from zero to ten, plus the affected operating system. The notebook loads the CSV with LangChain's CSV loader, using the CVE ID as each document's source and promoting the score and operating system into metadata; embeds the records with a local sentence-transformer; stores them in the in-memory vector store; and runs similarity search three ways: with relevance scores, by a pre-embedded query vector, and with a metadata filter that keeps only records scored eight or above so that semantic similarity and a structured criterion combine. It then chains a prompt template to the chat model, with a system instruction to answer only from the retrieved records, prints the sources the answer rests on, and streams the same chain.
 
-## Page 54
+## Page 62
 
 This part defines tools and skills, the two things an agent is given, and shows how a skill is written, loaded and used. Tools are the older of the two and the layer agent frameworks expose; skills are a newer layer, defined by Anthropic in 2025, that packages a procedure for the agent to follow.
 
-## Page 55
+## Page 63
 
 An agent's output is bounded by two things: the actions it can take, and the knowledge of how to carry a task through. Tools supply the first; each is a function the model can call to reach an API, a file system or a shell. Skills supply the second: a written procedure, the judgment calls it encodes, and the house format for the result. Mixing them up has a concrete cost. Expertise written as tools becomes a long tool list whose schemas are all sent with every request, filling the context with definitions the task does not need, while access written as a skill is a set of instructions with nothing to act through, so the agent's behavior stays generic. With both in place, the agent acts through the tools and follows the procedure a specialist wrote.
 
-## Page 56
+## Page 64
 
 A tool is a verb the agent can execute: one function exposed to the model. It has a name, a description, typed inputs and an output, and those are published to the model as a schema attached to every request. The model does not run the function. It emits a structured call, the name and the arguments, and the application runs the function and returns the result to the model as a message. The model decides whether to call and with what arguments, and the application performs the call. Examples: read_file, run_sql_query, send_email, http_get. A tool is deterministic in shape, since the same call produces the same kind of result, which is what makes its output safe to parse. Because every tool schema is sent on every turn, each tool has a standing cost in context whether or not it is used, which bounds how many tools an agent can carry.
 
-## Page 57
+## Page 65
 
 A skill is a written procedure the agent reads when a task matches it. Its form is a folder holding a SKILL.md file, with optional scripts, templates and reference files beside it. Its content is how to do one job well: the steps in order, the standards the result must meet, and the mistakes to avoid. A skill has no capability of its own; it directs the tools the agent already has, and can sequence several of them toward one outcome. It is loaded on demand: until a task matches, only its name and description are in context, so an installed skill costs its one-line description per request and no more.
 
-## Page 58
+## Page 66
 
 The comparison, property by property. Purpose: a tool grants access to a system, a skill grants expertise in a task. Form: a tool is a typed function with a schema, a skill is a folder of prose. Loading: a tool's schema is in context on every request, a skill's body loads only when triggered. Authoring: a tool needs code and a schema, a skill needs clear writing. Composition: a skill can direct many tools, and a tool contains no procedure. The analogy on the last line puts the drill on the tool side and knowing how to frame a wall on the skill side.
 
-## Page 59
+## Page 67
 
 A skill folder is named for the skill and holds SKILL.md. The file opens with frontmatter, a YAML block with two fields, name and description. The description is the trigger: it is the text the agent matches tasks against, so it has to say when the skill applies. The body holds the instructions: when to use the skill, the steps, the rules, and the red flags that signal the agent is going wrong. Bundled files sit beside it: scripts the steps can run, templates for output, reference documents, worked examples. Progressive disclosure is the loading rule. The frontmatter is always in context, the body loads when the description matches, and a bundled file loads only when a step opens it. The design consequence is to keep the always-loaded part to the two frontmatter lines and to push tables and edge cases into files.
 
-## Page 60
+## Page 68
 
 commit-hygiene is a small skill in the course repository under ai_examples/skills. Its folder holds SKILL.md and one reference file, conventional-commits.md. The frontmatter names it and states its trigger: writing a git commit message. The steps: inspect the staged diff and group the changes by intent; if two intents are staged together, stop and propose splitting them; write a subject line of at most fifty characters in the imperative mood and a body that explains why the change was made; take the type prefix from the reference file. The skill adds no capability, since the agent already has git. It adds the team's standard. The reference file holds the table of type prefixes, feat, fix, docs and the rest, which is the kind of detail kept out of context until the step that needs it.
 
-## Page 61
+## Page 69
 
 triage-suspicious-url is the security example, also under ai_examples/skills. Its trigger is a link reported by a user or flagged in an email, alert or log. The rules in the file come before the steps: do not open the URL in a live browser or any tool that fetches it; defang every network indicator before echoing it, replacing http with hxxp and each dot with a bracketed dot so that no client can turn it into a live link; and treat the reported value as untrusted input that is not pasted into a shell command unquoted. The steps: defang; detonate in the sandbox tool and capture redirects, the landing page and any dropped files; pull the whois registration age, the TLS certificate issuer and the hosting ASN, the autonomous system number that identifies the network operator, since a freshly registered domain or a mismatched certificate raises suspicion; check the domain and any hashes against threat intelligence; classify as benign, suspicious or malicious with reasons; emit indicators of compromise in the team format from the reference file and, when malicious, propose a block-list entry. Worksheet 11.2 pairs this skill with the domain-reputation tool you build there, so the same tool runs inside a repeatable analyst workflow.
 
-## Page 62
+## Page 70
 
 The reference file is opened only at the report step, which is progressive disclosure at its third level: description, then body, then this file. It fixes the indicator format as one object per indicator with seven fields. type: url, domain, ipv4, sha256 or sender. value: the indicator itself, defanged. verdict: benign, suspicious or malicious. confidence: low, medium or high. tlp: the Traffic Light Protocol label, a sharing marking defined by FIRST, the Forum of Incident Response and Security Teams, with CLEAR, GREEN, AMBER and RED stating how widely the report may be passed on. first_seen: an ISO 8601 timestamp in UTC. source: where the indicator was observed. Two rules follow: no clickable links anywhere in the report, and SHA-256 as the preferred hash, with a block-list line appended when the verdict is malicious. Fixing the format in a file means every triage the agent produces parses the same way downstream.
 
-## Page 63
+## Page 71
 
 Five stages. At rest: the agent's context holds each installed skill's name and description and nothing else of it. Match: a task arrives whose wording fits a description. Load: the full SKILL.md body is read into context. Follow: the agent works through the steps, opening a reference file when a step names one. Act: the steps call the underlying tools, sandbox, whois, threat intelligence, and the job is done through them. Progressive disclosure is why a library of many skills stays affordable: the per-request cost is the sum of the descriptions, and a body is paid for only on the requests where it applies. Tools have no such staging. A bound tool's whole schema is sent with every request, so a hundred tools cost a hundred schemas per turn while a hundred installed skills cost a hundred descriptions plus the one body that fires.
 
-## Page 64
+## Page 72
 
 Sources of skills, by origin. Anthropic: the Agent Skills documentation and the anthropics/skills repository on GitHub, which hold the format's definition and reference examples. Claude Code plugins and marketplaces: plugins bundle skills, so installing a plugin installs its skills. The Superpowers collection: a published set of workflow skills, among them brainstorming, systematic debugging and test-driven development. Your own repository: a .claude/skills folder committed alongside the code, so the skills version with the project they serve. Team libraries: a shared set that encodes the house standard once for every agent and every engineer; the skills with the most value are the ones written for your own team, since no published skill knows the team's own procedures, formats and systems. A GitHub search for SKILL.md turns up working skills from other projects to study for structure.
 
-## Page 65
+## Page 73
 
 Seven practices. Description: it is the trigger, so state the situations the skill applies to in specific terms; a vague description means the skill fails to fire, or fires on the wrong task. Audience: write for a competent new hire, with steps concrete enough to follow without asking. Size: keep SKILL.md to the procedure and move tables and edge cases into reference files, since the body is loaded whole. Form: imperative checklists, which the agent can turn into a task list and work through. Failure modes: add red flags and negative examples that name the mistakes the skill exists to prevent. Scope: one skill, one job; when a second job creeps in, split the skill so that each description stays precise. Testing: give the agent a task of the kind the skill is written for and confirm the skill loads and is followed, since a skill that does not trigger is invisible in ordinary use.
 
-## Page 66
+## Page 74
 
 The part's four points: an agent needs both access, from tools, and expertise, from skills; a skill is plain-language know-how loaded on demand; progressive disclosure limits an idle skill's cost to its description; and the description decides whether the skill ever runs. Pick one procedure your team already repeats and write it as a skill.
 
-## Page 67
+## Page 75
 
 This part covers tool calling: the risk of letting a model run code, the request-and-response loop a tool call goes through, and LangChain's pre-built tools.
 
-## Page 68
+## Page 76
 
 Letting a model call functions is where an AI application gains the ability to change something outside the conversation. Three facts drive the risk. The model's decision to call a tool is made from text, and if any of that text came from an untrusted user, or from a document an untrusted user could influence, that text is now choosing which functions run and with what arguments; this is the mechanism by which prompt injection reaches a tool. The model is not deterministic, so a test over a few prompts proves nothing about whether the tool gets called with a harmful argument on another. Deterministic safeguards, code that runs regardless of what the model decided, are what bound the damage: allow-lists of what a tool may touch, read-only credentials, argument validation, confirmation before destructive actions, rate limits. The question to ask of every tool is what happens if the model calls it wrongly: with the wrong argument, at the wrong time, or under an attacker's instruction. A bot whose tools reach internal data can be turned into an exfiltration channel, since the attacker's text asks for the data and the tool fetches it.
 
-## Page 69
+## Page 82
 
 The user prompt goes to the model together with the tool schemas. The model's output is one of two things: a plain answer, which goes straight back as the response along the lower arrow, or a tool call, a structured request naming a tool and its arguments. On a tool call the application runs the function, parses its output, and produces the response from it; in an agent loop the parsed output goes back to the model as a tool message so that the model can write the final answer or call another tool. The model alone decides whether a call happens, and a prompt that needs no tool gets a direct answer. Tool calling therefore has two code paths on every request, and both have to be handled.
 
-## Page 70
+## Page 83
 
 LangChain's tool calling passes a set of tools to a chat model; when the model decides one applies, it returns a structured call, and LangChain runs the function or hands the call to an agent loop. The mechanism needs a model trained to emit structured calls and a vendor API that exposes them. A model without it can only be prompted to write a call as text, which then has to be parsed out of prose. LangChain ships pre-built tools, wrappers around existing services with the schema already written, and lets you define your own from a Python function. The linked integrations page lists the pre-built tools.
 
-## Page 71
+## Page 84
 
 Vocabulary. OpenAI's API calls the mechanism function calling and Anthropic's calls it tool use; LangChain's term for the same thing is tool calling, and the function itself, once wrapped with a schema, is a tool.
 
-## Page 72
+## Page 85
 
 Pre-built tools by category. Search: Google, Bing, DuckDuckGo and other web search APIs. Code execution: Azure Container Apps dynamic sessions, a sandbox in which code the model writes is run. Productivity: GitHub, Gmail, Office 365, Jira, Slack. Databases: SQL databases, Spark SQL, Cassandra. Miscellaneous: a Bash shell, Google Finance, Google Drive, a pandas DataFrame, Salesforce. The categories that matter for a security review are the ones that act. A shell tool or a file tool gives the model the same reach as the account the application runs under, and a database tool gives it whatever the connection's credentials allow.
 
-## Page 73
+## Page 86
 
 The GitHub toolkit needs credentials before it can be built. The loop checks three environment variables, a GitHub App ID, that App's private key, and the target repository, and prompts for any that are missing with getpass, which reads input without echoing so that the key appears neither on screen nor in a notebook's saved output. The credentials belong to a GitHub App, so the tool's permissions are whatever that App was granted on that repository. Granting the App the least the agent needs is a deterministic safeguard applied at the source.
 
-## Page 74
+## Page 87
 
 GitHubAPIWrapper reads the three variables from the environment and holds an authenticated client. GitHubToolkit.from_github_api_wrapper builds the toolkit, a collection of tools that share that client. Both classes live in langchain_community, the package that holds LangChain's third-party integrations.
 
-## Page 75
+## Page 88
 
 get_tools returns the toolkit's tools as a list, and printing each name shows what the model would be able to do. The list spans reading, with get issues, get an issue, get a pull request, read a file, and overviews of the files on the main and working branches, and writing, with comment on an issue, create a pull request, and create, update and delete a file. Handing the whole list to an agent gives it write and delete access to the repository. A tool grant is an access decision and gets the discipline applied to a user account: least privilege, granting only the permissions the job needs, and role-based access control, attaching those permissions to the role the agent fills so that every agent in that role gets the same grant. The model chooses calls from text an attacker may have influenced, so the grant is the bound on a wrong choice. The example filters the list down to a single read-only tool before binding it to a model, which is the least-privilege step. Compartmentalize agents on the same principle: one agent per job, its tools scoped to that job's one repository or folder, so an agent steered off task has nothing further to reach. Put a check that does not depend on the model, code or a person, between one agent's output and the next agent's input, so a bad step stops where it happened.
 
-## Page 76
+## Page 89
 
 Building the agent takes three steps. The chat model comes from init_chat_model, a factory that takes a model name and a provider string and returns the matching chat model class; the repository's examples build ChatAnthropic against Claude here. The tool list is filtered from the toolkit to the single Get Issue tool, so the agent can read issues and do nothing else to the repository, and the tool is renamed get_issue because the model APIs require tool names without spaces. create_react_agent, from LangGraph, wires the model and the tools into a loop: the model is called with the tools bound, any tool call it emits is executed, the result is appended as a tool message, and the model is called again until it answers without a call. The name refers to ReAct, for reasoning and acting, the pattern in which the model alternates a reasoning step with a tool action. Worksheet 11.2 builds the same loop with create_agent from langchain.agents; the repository's tool_example.py uses create_react_agent as printed.
 
-## Page 77
+## Page 90
 
 The discussion applies the module to one system: a model with a tool that reaches a database. The risks follow from the tool-calling mechanism. The model turns text into queries, so any text it reads, the user's prompt or a record already in the database, can steer what it asks the database to do. The connection's credential sets the reach: a credential that can write lets a steered model modify or delete rows, and one that can read every table lets it pull data the user was not authorized to see and return it in an answer. Unbounded queries can tie up the database. The recommendations are the deterministic safeguards from the tool-calling part, applied to this tool: a read-only credential scoped to the tables the application needs; query templates or an allow-list in place of free-form SQL from the model; validation and logging of every query before it runs; row limits and timeouts; sensitive columns kept out of the model's reach; confirmation by a person before anything that writes; and treatment of database content returned to the model as untrusted input, since it can carry injected instructions.
 
-## Page 78
+## Page 91
 
 The tool usage lab is hosted at ai.gtkcyber.com/tool-usage-lab and uses the account created at setup. It is one of the module's non-code labs.
 
-## Page 79
+## Page 92
 
 This part writes a tool from a plain Python function: the decorator that creates it, binding it to a model, and the call in which the model decides whether to use it.
 
-## Page 80
+## Page 93
 
 Four stages, from LangChain's tool-calling concept page. Creation: the @tool decorator turns a function into a tool; the function's name becomes the tool name, its type hints become the argument schema, and its docstring becomes the description the model reads. A tool is the association of a function with that schema. Binding: the tool is attached to a chat model that supports tool calling, which puts the schema into every request so that the model knows the tool exists and what arguments it takes. Calling: when the model judges that a tool applies, it returns a call whose arguments follow the schema. Execution: the application runs the function with the arguments the model supplied and returns the result. Worksheet 11.2 walks these four stages with a domain-scoring function, and its docstring is the part you write, because the docstring is the whole of what the model knows about the tool.
 
-## Page 81
+## Page 94
 
 The decorator does the work. my_tool takes a string and returns a string; the type hints define the schema, one required string argument named input, and the body reverses the string as a stand-in for the function's work. Two things are wrong as printed. The decorator is imported from langchain_core.tools under the name tool, while the listing imports the Tool class from langchain.tools and does not import the decorator, so the decorated definition fails with a NameError. And the function has no docstring; the decorator requires one, since the docstring is the description the model uses to decide when to call the tool, and it raises an error when the docstring is absent. Worksheet 11.2 makes writing that docstring the first exercise for this reason.
 
-## Page 82
+## Page 95
 
 Binding in the older agent API. The model is constructed as before. The custom function is wrapped in the Tool class with a name, the function and a description; this is the pre-decorator way of attaching a schema and a description, and wrapping a function the decorator already turned into a tool is redundant. initialize_agent builds an agent of type zero-shot ReAct description: zero-shot because the model gets no worked examples, ReAct for the reason-then-act loop, description because the model picks a tool from the tools' descriptions alone. verbose prints each reasoning step and tool call as it happens. Three defects in the listing: the tools list names phone_tool, which is defined nowhere here, though the repository's tool_example.py, from which this was adapted, defines a get_phone_location tool that geolocates a phone number; rebinding my_tool to the Tool wrapper discards the decorated tool of the same name; and initialize_agent and AgentType are deprecated in favor of LangGraph agents, which is what the repository's version uses, with create_react_agent and ChatAnthropic.
 
-## Page 83
+## Page 96
 
 agent.run sends the prompt into the loop. The model reads the prompt with the tool's description in view and either answers directly or emits a call; on a call, the agent executes the function, feeds the result back, and the model writes the final answer from it. The tool runs only when the model decides the prompt needs it, so the description governs the decision: a prompt that matches the description gets the tool, and one that does not gets a plain answer. run is deprecated along with the agent type that produced it. The repository's tool_example.py in the ai_examples folder runs the same loop as a Streamlit chat application: each prompt typed into the chat box goes to the agent's invoke, and a prompt naming a phone number is the one that triggers its geolocation tool. Run it with streamlit run tool_example.py. A LangGraph agent is invoked with a messages dictionary and returns the full message history, in which the tool call and the tool result appear as separate messages; Worksheet 11.2 walks that history to show them.
 
-## Page 84
+## Page 97
 
 Questions on tools and agents before Worksheet 11.2.
 
-## Page 85
+## Page 98
 
 Worksheet 11.2 builds and uses an agent tool. The starting point is a given function that scores how suspicious a domain looks from a few string heuristics, among them the Shannon entropy of the name, the same idea as the domain generation algorithm detection in Worksheet 4.1. Four steps follow: decorate the function with @tool and write the docstring that tells the agent when to call it and what to pass; build an agent with create_agent from the chat model the setup cell builds and the tool list; invoke the agent with a user question about a suspicious domain, passing a message without calling the tool yourself; and walk the returned message history to see the AIMessage that carries the tool call with the argument the agent chose and the ToolMessage that carries the result. The closing section reads the triage-suspicious-url skill from the skills folder the setup cell names to show the layer above the tool: the skill adds no capability, only the rules for when to check reputation, how to defang, and what verdict format to emit. The title here reads Lab 11.2: Tool Usage; the notebook is titled Worksheet 11.2: Building and Using an Agent Tool.

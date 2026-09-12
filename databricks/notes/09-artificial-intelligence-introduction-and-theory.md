@@ -276,156 +276,156 @@ A denial of wallet attack runs up the victim's bill. A denial of service attack 
 
 Applications built on a language model API are exposed on every count. Each request is expensive to serve, the provider scales without limit, the endpoint is reachable by anyone the application accepts input from, and the price is a function of both the input tokens and the output tokens of every request. The attacker controls the input directly and can steer the length of the output through what the input asks for.
 
-## Page 65
+## Page 71
 
 The scenario is an application that answers product reviews with a language model: a negative review gets an apology and an offer to fix things, a positive one gets thanks. The review on the slide is positive, so it gets thanks, and it also asks for shoe recommendations and for the reply to reach family members who speak French, Dutch, Italian, German, Hebrew, Arabic, Farsi and Chinese. Posting a review costs the reviewer nothing, and the reply is billed to the application's owner by the token.
 
-## Page 66
+## Page 72
 
 The application's instruction to the model is the system message shown: act as an agent that answers Amazon product reviews, thank the customer for a positive review, apologize and give the support address for a negative one. The review is passed as the user message. Nothing in the system message limits the length or the language of the reply, and that gap is what the review exploits.
 
-## Page 67
+## Page 73
 
 The model did what the review asked. The reply thanks the customer in English and then repeats the thanks in French, Dutch, Italian, German, Hebrew, Arabic, Farsi and Chinese, for a total of 634 output tokens. The review as posted here ends with an explicit request to include responses in those languages. The languages were chosen to inflate the count: Hebrew, Arabic, Farsi and Chinese each take more tokens per word than English in GPT tokenizers. At the output prices on the token pricing slide one such reply costs between about four tenths of a cent and three cents, and a script posting reviews at volume bills every reply to the application's owner.
 
-## Page 68
+## Page 74
 
 UNRESOLVED
 
-## Page 69
+## Page 75
 
 Log the token count of every input and output. The code tokenizes a prompt with the model's own tokenizer and prints its length, which is the number the provider will bill for input. The API response also reports the input and output tokens it charged, and that is the figure to log for the output side. With both counts recorded per request, an alert can fire on a jump in output tokens per request, on a single user whose totals stand out, or on a daily total above budget. Denial of wallet is invisible in availability metrics because the service keeps working; it shows only in the token log and the bill.
 
-## Page 70
+## Page 76
 
 Cap the output. Every model API takes a parameter that limits the number of tokens generated for one response, max_tokens in Anthropic's API and max_completion_tokens in OpenAI's, and the model stops when it reaches the cap. Set it to the largest response the use case needs, a few hundred tokens for a review reply, and the eight-language answer is cut off at that length. The cap bounds the cost of any one response; the number of requests an attacker can make is bounded separately by rate limiting and authentication.
 
-## Page 71
+## Page 77
 
 The whole path from text to text. Input text is tokenized into token ids. Each id is looked up in the embedding table to give a token embedding. The transformer processes the embeddings and produces output token ids, one per pass. The output ids are decoded back into text. The tokenizer and the embedding table belong to the model and are fixed, so the same text produces the same ids each time; billing counts the ids at the two ends of the diagram.
 
-## Page 72
+## Page 78
 
 Worksheet 9.4 builds the first two boxes of the workflow by hand: a BPE tokenizer trained on a text corpus, an embedding table that turns token ids into learnable vectors, and a bigram model that predicts the next token from the one before it, trained with cross-entropy loss. Worksheet 9.3 is a twenty-minute PyTorch primer, tensors, automatic differentiation and a training loop, for anyone who has not used the library; 9.4 assumes it.
 
-## Page 73
+## Page 79
 
 A language model produces one token per pass. The prompt goes in, the model outputs a single token, that token is appended to the prompt, and the extended prompt goes in again for the next one. In the diagram the prompt asks for an apology email to Sarah, and the first four passes yield Dear, Sarah, a comma and a newline; punctuation and line breaks are tokens like any other. A response of a few hundred tokens is a few hundred passes, which is why output length drives both latency and cost, and why the output-token price is the higher one. Every token it emits is an entry in the tokenizer's vocabulary table, the same table that split the prompt, so each word in the output is assembled from the pieces that table holds.
 
-## Page 74
+## Page 80
 
 Each pass ends with a probability for every token in the vocabulary. The model's last layer produces a score per token, and a softmax turns the scores into probabilities that sum to one; in the diagram, Dear has forty percent, Title thirteen, To eight and Hi two. A decoding strategy then picks one token from that distribution. Greedy decoding takes the highest, Dear here, every time. Sampling picks at random with probability proportional to the values, so Title is chosen about one time in eight.
 
 Temperature is the parameter that controls the sampling. It rescales the scores before the softmax: a temperature near zero sharpens the distribution until sampling behaves like greedy decoding, and a higher temperature flattens it so lower-ranked tokens are chosen more often, which makes the output more varied. The distribution is recomputed after every token, so one different choice early changes every probability that follows it. The same selection is where hallucination comes from. The model emits the token that is probable after what precedes it, with no representation of whether the sentence it is building is true, so a fluent falsehood and a fluent fact are produced by the same step.
 
-## Page 75
+## Page 81
 
 Attention enriches each token's vector with information from the other tokens in the sequence. In I gave the book back to the library because it, the vector for it has to carry whether it means the book or the library, and the model resolves that by attending to those earlier positions when it processes it; the sentence on the slide stops at it, and the word that follows is what settles the reference. The diagram is one attention head: the position currently being processed is compared with the other positions in the sequence through three learned projection matrices, query, key and value, and the result is the current position's vector enriched with context from the others.
 
 Word order reaches the model by a separate route. Positional encodings are added to the token embeddings before the first layer, so that attention, which on its own treats the input as an unordered set, can tell the first token from the fifth. The slide's first bullet attributes the positional information to the attention layer; the attention layer contributes the contextual information.
 
-## Page 76
+## Page 82
 
 Worksheet 9.5 implements the attention head of the preceding slide in PyTorch, with the query, key and value projections, the softmax and the causal mask, stacks heads into transformer blocks, and trains a small GPT that generates text.
 
-## Page 77
+## Page 83
 
 A question put to a chat model, and its answer, follow.
 
-## Page 78
+## Page 84
 
 The question is nonsense from end to end. It has the form of a cloud certification exam item: a scenario at a financial services company, a set of requirements, four lettered options naming AWS services. None of the services exists, and neither do the glimglom, the wibblenibbet, frobnication or the Grumbleflux standards. The only true content is the format.
 
-## Page 79
+## Page 85
 
 The model answered with confidence. It chose option C and gave a reason for each requirement in turn: Zimzam is purpose-built for glimglom scenarios, its Blarglefoo integration provides frobnication shielding, only Zimzam supports quibble-threading. Each reason is assembled from words in the question, which is what completion by probability looks like: the training data includes exam questions of this shape followed by answers of this shape, and the most probable continuation of the question is an answer that picks an option and justifies it. No step in the process checks whether Zimzam exists.
 
-## Page 80
+## Page 86
 
 The summary repeats the verdict with a check mark: Zimzam is the only option that meets every requirement, final answer C. No part of the reply says that the services are unknown or that the question cannot be answered.
 
-## Page 81
+## Page 87
 
 A hallucination is a confident, wrong response. Fluent, assured text is what the model is trained to produce, and nothing in the training objective rewards truth over plausibility, so the confidence of an answer carries no information about its accuracy.
 
-## Page 82
+## Page 88
 
 A transformer predicts the token sequence most likely to follow the prompt, given its training data. A hallucination is a prediction that reads as correct and is false. The mechanism is the same in both cases: the training corpus has been compressed into the model's weights, and a statement appears in the output because token sequences like it were frequent in the corpus after prompts like this one. A fact that was common in the corpus tends to be reproduced; a rare subject or a fictional one gets the most plausible sequence available, which is a fabrication with the right shape.
 
 The model has no database of facts to consult. The asterisk on the slide marks the exception: retrieval-augmented generation puts retrieved documents into the prompt so the model can draw on them, which Worksheet 11.1 builds. Models do not understand facts or think in any recognizable way; they compute a distribution over the next token.
 
-## Page 83
+## Page 90
 
 The article does not exist. The user asked ChatGPT to summarize a New York Times piece at a URL, and the model returned a coherent summary about ChatGPT being used to evade content filters. The model at the time could not fetch web pages, and the URL's path, chatgpt-prompts-to-avoid-content-filters, was enough for it to compose what a summary of an article with that title would say. It did not report that it had no access to the page. The example comes from the Wikipedia article on hallucination in artificial intelligence, linked at the foot of the slide.
 
-## Page 84
+## Page 91
 
 The case is Mata v. Avianca, decided in the Southern District of New York in June 2023. Two lawyers filed a brief whose case citations and quotations had been produced by ChatGPT, and six of the cited decisions did not exist. Judge P. Kevin Castel fined the lawyers and their firm five thousand dollars; the slide spells the judge's name Casten. Attorney Steven Schwartz told the court he had not known that ChatGPT could produce false information. He had also asked ChatGPT whether the cases were real, and it had answered that they were: the same failure a second time, since the most plausible reply to a question about whether a citation is real is yes.
 
-## Page 85
+## Page 92
 
 The sanctions continued through 2025. In July 2025 two attorneys representing the MyPillow chief executive in a Colorado defamation case were each ordered to pay three thousand dollars after filing a brief with about thirty defective citations. In California, attorneys from Ellis George LLP and K&L Gates LLP filed a brief with invented citations in a case against State Farm; the motion was denied, the briefs were struck from the record, and the attorneys paid thirty-one thousand dollars of the other side's legal fees. In Chicago, attorneys for the Chicago Housing Authority were found to have cited nonexistent cases in an appeal.
 
 Citations are the worst case for a language model. A citation has a rigid form, party names, a reporter volume, a page number and a year, and the model produces that form whether or not a case behind it exists, so a fabricated citation is indistinguishable from a real one until someone looks it up.
 
-## Page 86
+## Page 93
 
 Damien Charlotin, a legal researcher in Paris, maintains a public database of court decisions in which a party or a lawyer relied on hallucinated content. It records the court, the tool if known, the nature of the fabrication and the sanction, and it covers courts worldwide. At the time the slide was written it held over 1,785 cases, and the count rises as decisions are published.
 
-## Page 87
+## Page 95
 
 The slide embeds a web video: a recording of a court hearing, published on the YouTube channel Audit the Court in May 2026, in which the judge questions a lawyer about having used AI. The database on the preceding slide is built from written decisions; the hearing is where one of them starts. The video is at https://www.youtube.com/watch?v=T_0MjD-UGaE.
 
-## Page 88
+## Page 96
 
 Three Google AI Overview results from May 2024, the week the feature launched in the United States. Asked how many rocks to eat, it advised at least one small rock per day, citing geologists at UC Berkeley; the source was a satirical article in The Onion. Asked about cheese sliding off pizza, it suggested adding an eighth of a cup of non-toxic glue to the sauce; the source was a joke comment on Reddit. Asked how to pass kidney stones quickly, it advised drinking two quarts of urine every twenty-four hours, a garbling of medical advice to produce that much. The overview system retrieves pages and summarizes them, and the summarizer cannot tell satire from advice or notice that a sentence it rewrote now says the opposite of its source.
 
-## Page 89
+## Page 97
 
 The query 1000 km to tomatoes is nonsense, and the overview answered it anyway: one thousand tomatoes equal one kilotomato. The cited source is a Reddit post about a mnemonic, five tomatoes for the 5,280 feet in a mile, which the model combined with the kilo prefix into a fluent sentence. This is the Zimzam question again in a search box: a well-formed query gets a well-formed answer regardless of whether one exists.
 
-## Page 90
+## Page 98
 
 The examples are jokes until the outputs are used as reference answers. Search overviews and chat assistants are consulted for medical, legal and technical facts, and the lawyers on the preceding slides filed the results in court.
 
-## Page 91
+## Page 99
 
 A person rejects eat one rock a day on sight. A model has no such check: it scores a sentence by how probable it is given its context, and a sentence copied from a satirical article that ranked highly in retrieval is probable. Sense is not a quantity the model computes.
 
-## Page 92
+## Page 100
 
 A deterministic system returns the same result every time it is given the same input; a non-deterministic system is not guaranteed to. A vending machine is the slide's example: the same button returns the same product, and the machine on the right returned an onion. Code that parses a log line, a database query, a hash function and a fitted classifier are deterministic. A system that draws from a probability distribution is not, and a language model draws once per token. The slide's second bullet reads systems is; the subject and verb disagree.
 
-## Page 93
+## Page 101
 
 If a rule can compute the answer, code should compute it. Parsing a timestamp, looking up an IP address, matching a signature or computing a hash runs in microseconds, costs nothing per call and gives the same answer every time. A language model call for the same task takes seconds, is billed per token and can answer differently on the next call, so for a deterministic workflow it is the slowest and most expensive option available.
 
 A non-deterministic workflow has to be tested across many runs and many inputs. One passing run says nothing about the next, so evaluation means a held-out set of inputs with known correct outputs, scored over repeated runs, and re-scored whenever the prompt or the model changes.
 
-## Page 94
+## Page 102
 
 Language models are non-deterministic by construction. Each token is drawn from a distribution, and a temperature of zero narrows the draw without making the output fixed: providers do not guarantee identical output for identical input, because batching and floating-point arithmetic on the GPU can change which of two near-equal tokens ranks first, and the model behind a name is updated over time. Some describe the variation as a feature rather than a defect, since it is what produces a different draft on each request; an application that needs the same answer twice has to be designed around it either way.
 
-## Page 95
+## Page 103
 
 A generative model can classify by prompting. A prompt that presents the text and asks for one of a fixed set of labels returns a label, and Worksheet 10.2 does this. The cost is the non-determinism just described: the same input can get a different label on a rerun, the model can return a label outside the set or add an explanation that the calling code has to parse away, and every call takes seconds and tokens. The embedding-plus-classifier approach of Worksheet 9.1 is deterministic, free per call after training, and gives a probability that can be thresholded, so prompting is the choice when there is no labeled data and no time to build one.
 
-## Page 96
+## Page 104
 
 The demo is an AI-enabled calculator that gets sums wrong on purpose. Its settings panel sets an error frequency, thirty percent by default, and an error magnitude from off by one or two up to off by ten to fifty, and the page states that it intentionally produces subtly incorrect results to demonstrate the risks of trusting AI outputs without verification. Arithmetic is the deterministic workflow of the preceding slides. A calculator that is right seven times in ten and wrong by a little the rest of the time is worse than a plain one, because every result now has to be checked, and checking a sum costs as much as computing it.
 
-## Page 97
+## Page 105
 
 There is no single model to choose. Hugging Face hosts models by the hundred thousand, and the slide's figure of nearly a hundred thousand is dated; the hub passed one million in 2024. Some are general, trained to handle any text task; some are task-specific, trained or fine-tuned for one job such as sentiment or named entity recognition. The options are to use a task-specific model as is, to prompt a foundation model, or to fine-tune an existing model on your own data. The considerations: cost, per token for an API or per GPU hour for a self-hosted model; speed, the latency of a call, which grows with model size; size, which decides what hardware can run it; and license, which decides whether commercial use, modification and redistribution are allowed.
 
-## Page 98
+## Page 106
 
 A model file is code, and code can be malicious. The formats in which models are shared can execute instructions when loaded: PyTorch's default save format is a Python pickle, and unpickling runs whatever Python the file contains, so a model file can carry a payload that executes the moment it is loaded. Researchers have demonstrated this by uploading working malicious models to Hugging Face, and malicious models placed by others have been found there; JFrog's security team reported about a hundred of them in February 2024, including one that opened a reverse shell to a remote host on load. Treat a downloaded model as a downloaded executable: take it from a publisher you trust, prefer the safetensors format, which stores only tensors and cannot execute code, and load pickle files with the weights-only option. Worksheet 9.6 covers the other route to a malicious model, poisoning its training data.
 
-## Page 99
+## Page 107
 
 Close of Part 1.
 
-## Page 100
+## Page 108
 
 Worksheet 9.6 finishes the build-your-own-LLM sequence in two halves. First, fine-tuning: the mini-GPT from 9.5 is pretrained on general English and then fine-tuned on real CVE descriptions until it produces vulnerability text. Second, poisoning: the same training step is fed tampered data, and the model's output changes to match, which is the lesson of the worksheet: whoever controls the training data controls the model.

@@ -1,516 +1,693 @@
 {
   "slug": "11-ai-components",
   "pdf": "Module 11 - AI Components.pdf",
-  "page_count": 85,
+  "page_count": 98,
+  "manifest": true,
   "pages": [
     {
       "page": 1,
       "kind": "slide",
       "group": 1,
+      "slide": 1,
       "text": "Module 11: AI Architecture - RAG, Chains and Agents Charles S. Givre CISSP"
     },
     {
       "page": 2,
       "kind": "slide",
       "group": 2,
+      "slide": 2,
       "text": "GTK Cyber Outline • Part 1: Introduction and Theory: How Generative Models Work • Part 2: Prompt Engineering: How to get the most out of Generative Models • Part 3: Architecture: How to build AI driven applications • Part 4: Red Teaming: How to Attack & Defend AI Applications"
     },
     {
       "page": 3,
       "kind": "slide",
       "group": 3,
+      "slide": 3,
       "text": "GTK Cyber Module Outline • AI Components • Retrieval Augmented Generation (RAG) • Tools & Skills • LangChain • Building AI Agents"
     },
     {
       "page": 4,
       "kind": "slide",
       "group": 4,
+      "slide": 4,
       "text": "GTK Cyber Setup • This section has a series of non-code based labs. • The labs are available at https://ai.gtkcyber.com. • Please take 5 minutes and create an account there."
     },
     {
       "page": 5,
       "kind": "slide",
       "group": 5,
+      "slide": 5,
       "text": "GTK Cyber Retrieval Augmented Generation (RAG)"
     },
     {
       "page": 6,
       "kind": "slide",
       "group": 6,
+      "slide": 6,
       "text": "GTK Cyber Big Problem with LLMs: Building an LLM to work with proprietary data."
     },
     {
       "page": 7,
       "kind": "slide",
       "group": 7,
+      "slide": 7,
       "text": "GTK Cyber Problems with LLMs • Training takes a long time and is expensive. • It is a practical impossibility to keep models up to date with the latest information, especially for areas with fast moving data. • If you are using public models, you cannot use proprietary data in queries."
     },
     {
       "page": 8,
       "kind": "slide",
       "group": 8,
+      "slide": 8,
       "text": "GTK Cyber 1. Train a custom model"
     },
     {
       "page": 9,
       "kind": "slide",
       "group": 9,
+      "slide": 9,
       "text": "GTK Cyber 2. Fine Tune a Foundational Model"
     },
     {
       "page": 10,
       "kind": "slide",
       "group": 10,
+      "slide": 10,
       "text": "GTK Cyber Fine Tuning • Fine tuning allows you to tune an existing model for your specific use cases. • Drawbacks are that it can be time consuming and expensive. • You will need a decent amount of data for fine tuning."
     },
     {
       "page": 11,
-      "kind": "unsure",
+      "kind": "slide",
       "group": 11,
+      "slide": 11,
       "text": "GTK Cyber RAG to the Rescue!"
     },
     {
       "page": 12,
       "kind": "slide",
       "group": 12,
+      "slide": 12,
       "text": "GTK Cyber What is RAG? • RAG stands for Retrieval Augmented Generation and bridges the gap between static models and dynamic systems. • RAG allows an organization to use AI to generate responses based on either proprietary or current information without having to retrain a model or fine tune it."
     },
     {
       "page": 13,
-      "kind": "slide",
+      "kind": "build",
       "group": 13,
-      "text": "GTK Cyber How RAG works User Prompt Retrieve supporting data Vector Database Augment prompt with supporting data. Generate a response with the augmented prompt. Response"
+      "slide": 13,
+      "text": "GTK Cyber How RAG works User Prompt Vector Database"
     },
     {
       "page": 14,
-      "kind": "slide",
-      "group": 14,
-      "text": "GTK Cyber Components of a RAG workflow • Embedding Model: Converts the prompt into embeddings • Vector Database: A live repository which contains live, up to date information for the model to retrieve. Vector databases are specialty databases for this purpose and quickly match your query vector to the most similar vectors in the database. • LLM: A generative large language model generates the actual response."
+      "kind": "build",
+      "group": 13,
+      "slide": 13,
+      "text": "GTK Cyber How RAG works User Prompt Retrieve supporting data Vector Database"
     },
     {
       "page": 15,
-      "kind": "slide",
-      "group": 15,
-      "text": "GTK Cyber Be consistent with your embeddings"
+      "kind": "build",
+      "group": 13,
+      "slide": 13,
+      "text": "GTK Cyber How RAG works User Prompt Retrieve supporting data Vector Database Augment prompt with supporting data."
     },
     {
       "page": 16,
-      "kind": "slide",
-      "group": 16,
-      "text": "GTK Cyber RAG in Cyber • RAG is a great tool for any AI driven applications which involve proprietary or changing information. • Compliance is an excellent use case. • Explaining MITRE ATT&CK techniques and comparing them to log info."
+      "kind": "build",
+      "group": 13,
+      "slide": 13,
+      "text": "GTK Cyber How RAG works User Prompt Retrieve supporting data Vector Database Augment prompt with supporting data. Generate a response with the augmented prompt."
     },
     {
       "page": 17,
       "kind": "slide",
-      "group": 17,
-      "text": "GTK Cyber Vector Databases • Vector databases are purpose built databases for retrieval of semantically similar vectors. They implement nearest neighbor algorithms. • Popular examples now are ChromaDB and Pinecone. • TurboVec is an interesting new project which is significantly faster than other vector DBs. • Many databases can be used as a Vector store including MySQL, MongoDB, Oracle, Postgres and others."
+      "group": 13,
+      "slide": 13,
+      "text": "GTK Cyber How RAG works User Prompt Retrieve supporting data Vector Database Augment prompt with supporting data. Generate a response with the augmented prompt. Response"
     },
     {
       "page": 18,
       "kind": "slide",
-      "group": 18,
-      "text": "GTK Cyber Vector Databases • We will be using Chroma for our examples and labs. • Chroma is an OSS vector database which has become quite popular for AI use cases. • Docs available here: https://docs.trychroma.com/docs/overview/ introduction. • For production use cases, you will need to set up Chroma in the traditional manner, but for our labs, that is not necessary."
+      "group": 14,
+      "slide": 14,
+      "text": "GTK Cyber Components of a RAG workflow • Embedding Model: Converts the prompt into embeddings • Vector Database: A live repository which contains live, up to date information for the model to retrieve. Vector databases are specialty databases for this purpose and quickly match your query vector to the most similar vectors in the database. • LLM: A generative large language model generates the actual response."
     },
     {
       "page": 19,
       "kind": "slide",
-      "group": 19,
-      "text": "GTK Cyber Chroma Basic Usage Chroma organizes data into key/values and is capable of rapid retrieval and efficient storage. import chroma # Create the client chroma_client = chromadb.Client() # Create a document collection if necessary collection = chroma_client.create_collection(name=\"collection1\") https://docs.trychroma.com/docs/overview/getting-started"
+      "group": 15,
+      "slide": 15,
+      "text": "GTK Cyber Be consistent with your embeddings"
     },
     {
       "page": 20,
       "kind": "slide",
-      "group": 20,
-      "text": "GTK Cyber Chroma Basic Usage # You can provide an embedding function or have chroma do it. collection.add( ids=[\"id1\", \"id2\"], documents=[ \"This is a document about pineapple\", \"This is a document about oranges\" ] ) https://docs.trychroma.com/docs/overview/getting-started"
+      "group": 16,
+      "slide": 16,
+      "text": "GTK Cyber RAG in Cyber • RAG is a great tool for any AI driven applications which involve proprietary or changing information. • Compliance is an excellent use case. • Explaining MITRE ATT&CK techniques and comparing them to log info."
     },
     {
       "page": 21,
       "kind": "slide",
-      "group": 21,
-      "text": "GTK Cyber Chroma Basic Usage # Here's where the magic happens... results = collection.query( # Chroma will embed this for you query_texts=[\"I really like citrus\"], n_results=1 # how many results to return ) {'ids': [['id2']], 'embeddings': None, 'documents': [['This is a document about oranges']], 'uris': None, 'included': ['metadatas', 'documents', 'distances'], 'data': None, 'metadatas': [[None]], 'distances': [[1.0216939449310303]] } https://docs.trychroma.com/docs/overview/getting-started"
+      "group": 17,
+      "slide": 17,
+      "text": "GTK Cyber Vector Databases • Vector databases are purpose built databases for retrieval of semantically similar vectors. They implement nearest neighbor algorithms. • Popular examples now are ChromaDB and Pinecone. • TurboVec is an interesting new project which is significantly faster than other vector DBs. • Many databases can be used as a Vector store including MySQL, MongoDB, Oracle, Postgres and others."
     },
     {
       "page": 22,
       "kind": "slide",
-      "group": 22,
-      "text": "GTK Cyber Building The Prompt for RAG • Once you have relevant documents from the vector database, you still have to craft a prompt that includes the contextual documents from the vector database. • The prompt might look something like this: template = f\"\"\"Use the following pieces of context to answer the question at the end. If you don't know the answer, just say that you don't know. Use three sentences maximum. Keep the answer as concise as possible. {context} Question: {question} Helpful Answer:\"\"\" Remember to keep your prompts short and to the point."
+      "group": 18,
+      "slide": 18,
+      "text": "GTK Cyber Vector Databases • We will be using Chroma for our examples and labs. • Chroma is an OSS vector database which has become quite popular for AI use cases. • Docs available here: https://docs.trychroma.com/docs/overview/introduction. • For production use cases, you will need to set up Chroma in the traditional manner, but for our labs, that is not necessary."
     },
     {
       "page": 23,
       "kind": "slide",
-      "group": 23,
-      "text": "GTK Cyber RAG Tips • RAG queries can have the advantage of providing sourcing information. Seeing sourcing is a good indicator that an AI application is using a RAG pipeline. • Inputs to RAG pipelines can be poisoned. (More on this later) • You will have to develop a strategy for chunking documents if you are using large documents. • RAG can be expensive because it can blow up the input prompt size."
+      "group": 19,
+      "slide": 19,
+      "text": "GTK Cyber Chroma Basic Usage Chroma organizes data into key/values and is capable of rapid retrieval and efficient storage. import chroma # Create the client chroma_client = chromadb.Client() # Create a document collection if necessary collection = chroma_client.create_collection(name=\"collection1\") https://docs.trychroma.com/docs/overview/getting- started"
     },
     {
       "page": 24,
       "kind": "slide",
-      "group": 24,
-      "text": "GTK Cyber Chunking • If you have large documents, you will have to divide them up into chunks. • A good chunking strategy can mean the difference between success and failure for a RAG application."
+      "group": 20,
+      "slide": 20,
+      "text": "GTK Cyber Chroma Basic Usage # You can provide an embedding function or have chroma do it. collection.add( ids=[\"id1\", \"id2\"], documents=[ \"This is a document about pineapple\", \"This is a document about oranges\" ] ) https://docs.trychroma.com/docs/overview/getting- started"
     },
     {
       "page": 25,
       "kind": "slide",
-      "group": 25,
-      "text": "GTK Cyber Implementing a RAG Pipeline"
+      "group": 21,
+      "slide": 21,
+      "text": "GTK Cyber Chroma Basic Usage # Here's where the magic happens... results = collection.query( # Chroma will embed this for you query_texts=[\"I really like citrus\"], n_results=1 # how many results to return ) {'ids': [['id2']], 'embeddings': None, 'documents': [['This is a document about oranges']], 'uris': None, 'included': ['metadatas', 'documents', 'distances'], 'data': None, 'metadatas': [[None]], 'distances': [[1.0216939449310303]] } https://docs.trychroma.com/docs/overview/getting- started"
     },
     {
       "page": 26,
       "kind": "slide",
-      "group": 26,
-      "text": "GTK Cyber Lab Please complete RAG Lab: https://ai.gtkcyber.com/rag-lab For experimentation purposes in the ai_examples folder there is a tesla_aurora.txt file you can use for the RAG lab."
+      "group": 22,
+      "slide": 22,
+      "text": "GTK Cyber Building The Prompt for RAG • Once you have relevant documents from the vector database, you still have to craft a prompt that includes the contextual documents from the vector database. • The prompt might look something like this: template = f\"\"\"Use the following pieces of context to answer the question at the end. If you don't know the answer, just say that you don't know. Use three sentences maximum. Keep the answer as concise as possible. {context} Question: {question} Helpful Answer:\"\"\" Remember to keep your prompts short and to the point."
     },
     {
       "page": 27,
       "kind": "slide",
-      "group": 27,
-      "text": "GTK Cyber Privacy Still Matters with RAG • RAG pipelines put the similar documents in the prompt. • If you are using a public model, those documents are being sent to the model owner in the prompt."
+      "group": 23,
+      "slide": 23,
+      "text": "GTK Cyber RAG Tips • RAG queries can have the advantage of providing sourcing information. Seeing sourcing is a good indicator that an AI application is using a RAG pipeline. • Inputs to RAG pipelines can be poisoned. (More on this later) • You will have to develop a strategy for chunking documents if you are using large documents. • RAG can be expensive because it can blow up the input prompt size."
     },
     {
       "page": 28,
       "kind": "slide",
-      "group": 28,
-      "text": "GTK Cyber Challenges Building AI Applications • Models have different SDKs and constructing pipelines. • As you build out more complex applications, there are an increasing number of steps in that pipeline. • To build agentic applications, your LLM needs to be able to interact with data and other downstream steps. • How do we do this?"
+      "group": 24,
+      "slide": 24,
+      "text": "GTK Cyber Chunking • If you have large documents, you will have to divide them up into chunks. • A good chunking strategy can mean the difference between success and failure for a RAG application."
     },
     {
       "page": 29,
       "kind": "slide",
-      "group": 29,
-      "text": "GTK Cyber Introducing LangChain • LangChain is a framework designed to facilitate building AI applications by abstracting the common components, and having a lot of different implementations of these components. • This is a VERY fast moving area and there are some other new frameworks such as n8n which are also designed to facilitate building AI driven applications. • There are commercial products such as Make.com, String.com, Zapier and others."
+      "group": 25,
+      "slide": 25,
+      "text": "GTK Cyber Implementing a RAG Pipeline"
     },
     {
       "page": 30,
       "kind": "slide",
-      "group": 30,
-      "text": "GTK Cyber LangChain Modules • LangChain features 6 top-level abstractions: • Model I/O: Facilitates inputs/outputs to the model • Retrieval: Retrieving relevant text from a vector database. • Chains: Enable the contraction of sequences of LLM operations. Image from Prompt Engineering for Generative AI by James Phoenix and Mike Taylor"
+      "group": 26,
+      "slide": 26,
+      "text": "GTK Cyber Lab Please complete RAG Lab: https://ai.gtkcyber.com/rag-lab For experimentation purposes in the ai_examples folder there is a tesla_aurora.txt file you can use for the RAG lab."
     },
     {
       "page": 31,
       "kind": "slide",
-      "group": 31,
-      "text": "GTK Cyber LangChain Modules • Agents: Allow chains to make decisions on which tools to use based on high level instructions. • Memory: Saves the state of the application between LLM interactions. • Callbacks: Used to run additional code on an event happening • Models: Abstracts a LLM Image from Prompt Engineering for Generative AI by James Phoenix and Mike Taylor"
+      "group": 27,
+      "slide": 27,
+      "text": "GTK Cyber Privacy Still Matters with RAG • RAG pipelines put the similar documents in the prompt. • If you are using a public model, those documents are being sent to the model owner in the prompt."
     },
     {
       "page": 32,
       "kind": "slide",
-      "group": 32,
-      "text": "GTK Cyber LangChain Messages • There are three message abstractions in LangChain: • SystemMessage: This is the message which tells the model how it should behave • HumanMessage: This is information coming from the user that the AI responds to • AIMessage: The responses from the AI."
+      "group": 28,
+      "slide": 28,
+      "text": "GTK Cyber Challenges Building AI Applications • Models have different SDKs and constructing pipelines. • As you build out more complex applications, there are an increasing number of steps in that pipeline. • To build agentic applications, your LLM needs to be able to interact with data and other downstream steps. • How do we do this?"
     },
     {
       "page": 33,
       "kind": "slide",
-      "group": 33,
-      "text": "GTK Cyber LangChain Example 1 Note: All the LangChain examples can be found in the ai_examples folder in the class repo. from langchain_openai.chat_models import ChatOpenAI from langchain.schema import HumanMessage, SystemMessage chat = ChatOpenAI(temperature=0.75, model=\"gpt-3.5-turbo\", api_key=os.getenv(\"OPENAI_KEY\")) messages = [ SystemMessage(content=\"You are a helpful assistant that generates ASCII art. You must only respond with a witty greeting and a cheerful ASCII art based on the user's input.\"), HumanMessage(content=\"Hello, how are you? It sure is beautiful outside!\"), ] response = chat.invoke(messages) print(response)"
+      "group": 29,
+      "slide": 29,
+      "text": "GTK Cyber Introducing LangChain • LangChain is a framework designed to facilitate building AI applications by abstracting the common components, and having a lot of different implementations of these components. • This is a VERY fast moving area and there are some other new frameworks such as n8n which are also designed to facilitate building AI driven applications. • There are commercial products such as Make.com, String.com, Zapier and others."
     },
     {
       "page": 34,
       "kind": "slide",
-      "group": 34,
-      "text": "GTK Cyber LangChain Example 1 {'additional_kwargs': {'refusal': None}, 'content': 'Hello there! 🌞\\n' '```\\n' ' / \\\\ \\n' ' / _ \\\\\\n' ' | / \\\\ |\\n' ' || || _______\\n' ' || || |\\\\ \\\\\\n' ' || || ||\\\\ \\\\\\n' ' || || || \\\\ |\\n' ' || || || \\\\__/\\n' ' || || || ||\\n' ' \\\\\\\\_/ \\\\_/ \\\\_//\\n' ' / _ _ \\\\\\n' ' / \\\\\\n' ' | O O |\\n' ' | \\\\ ___ / | \\n' ' / \\\\ \\\\_/ / \\\\\\n' '/ ----- | --\\\\ \\\\\\n' '| \\\\__/|\\\\__/ \\\\ |\\n' '\\\\ |_|_| /\\n' ' \\\\_____ _____/\\n' ' \\\\ /\\n' ' | |\\n' '```\\n' 'Enjoy the beautiful day!', 'usage_metadata': {'input_token_details': {'audio': 0, 'cache_read': 0}, 'input_tokens': 55, 'output_token_details': {'audio': 0, 'reasoning': 0}, 'output_tokens': 159, 'total_tokens': 214}}"
+      "group": 30,
+      "slide": 30,
+      "text": "GTK Cyber LangChain Modules • LangChain features 6 top-level abstractions: • Model I/O: Facilitates inputs/outputs to the model • Retrieval: Retrieving relevant text from a vector database. • Chains: Enable the contraction of sequences of LLM operations. Im ag e fro"
     },
     {
       "page": 35,
       "kind": "slide",
-      "group": 35,
-      "text": "GTK Cyber LangChain and Streaming • Generative models generate one token at a a time. To reduce latency, you can stream the results from the model instead of waiting for the entire completion. • LangChain supports this, but it adds some complexity to your code and is beyond the scope of this class. • You can also send batches (in parallel) to LangChain if you want to generate multiple responses."
+      "group": 31,
+      "slide": 31,
+      "text": "GTK Cyber LangChain Modules • Agents: Allow chains to make decisions on which tools to use based on high level instructions. • Memory: Saves the state of the application between LLM interactions. • Callbacks: Used to run additional code on an event happening • Models: Abstracts a LLM Im ag e fro"
     },
     {
       "page": 36,
       "kind": "slide",
-      "group": 36,
-      "text": "GTK Cyber LangChain Prompt Templates • LangChain has a prompt template object which are templates that accept parameters and construct a prompt for the LLM. • LangChain prompt templates allow you to easily validate user inputs, combine prompts together and easily create few-shot examples from data. system_template = \"Your name is {ai_name}\" system_prompt = SystemMessageTemplate.from_template(template) chat_prompt = ChatPromptTemplate.from_messages([system_prompt]) chain = chat_prompt | model result = chain.invoke({ai_name: \"Jill\"}) # Take a look at risky_sql_queries.py"
+      "group": 32,
+      "slide": 32,
+      "text": "GTK Cyber LangChain Messages • There are three message abstractions in LangChain: • SystemMessage: This is the message which tells the model how it should behave • HumanMessage: This is information coming from the user that the AI responds to • AIMessage: The responses from the AI."
     },
     {
       "page": 37,
       "kind": "slide",
-      "group": 37,
-      "text": "GTK Cyber LangChain Expression Language (LCEL) • LCEL is a declarative language for building complex runnable AI applications • It's the glue that puts all the pieces together. • LCEL offers benefits such as optimized parallel execution, asynchronous support, and simplified streaming. • LCEL runnables are logged automatically and feature a standard API for ease of development. https://python.langchain.com/docs/concepts/lcel/"
+      "group": 33,
+      "slide": 33,
+      "text": "GTK Cyber LangChain Example 1 Note: All the LangChain examples can be found in the ai_examples folder in the class repo. from langchain_openai.chat_models import ChatOpenAI from langchain.schema import HumanMessage, SystemMessage chat = ChatOpenAI(temperature=0.75, model=\"gpt-3.5-turbo\", api_key=os.getenv(\"OPENAI_KEY\")) messages = [ SystemMessage(content=\"You are a helpful assistant that generates ASCII art. You must only respond with a witty greeting and a cheerful ASCII art based on the user's input.\"), HumanMessage(content=\"Hello, how are you? It sure is beautiful outside!\"), ] response = chat.invoke(messages) print(response)"
     },
     {
       "page": 38,
       "kind": "slide",
-      "group": 38,
-      "text": "GTK Cyber Single LLM Calls do not need LCEL"
+      "group": 34,
+      "slide": 34,
+      "text": "GTK Cyber LangChain Example 1 {'additional_kwargs': {'refusal': None}, 'content': 'Hello there! 🌞\\n' '```\\n' ' / \\\\ \\n' ' / _ \\\\\\n' ' | / \\\\ |\\n' ' || || _______\\n' ' || || |\\\\ \\\\\\n' ' || || ||\\\\ \\\\\\n' ' || || || \\\\ |\\n' ' || || || \\\\__/\\n' ' || || || ||\\n' ' \\\\\\\\_/ \\\\_/ \\\\_//\\n' ' / _ _ \\\\\\n' ' / \\\\\\n' ' | O O |\\n' ' | \\\\ ___ / | \\n' ' / \\\\ \\\\_/ / \\\\\\n' '/ ----- | --\\\\ \\\\\\n' '| \\\\__/|\\\\__/ \\\\ |\\n' '\\\\ |_|_| /\\n' ' \\\\_____ _____/\\n' ' \\\\ /\\n' ' | |\\n' '```\\n' 'Enjoy the beautiful day!', 'example': False, 'id': 'run--b34ed13b-632c-4fe9-a2f1-d9a50ce8f6b5-0', 'invalid_tool_calls': [], 'name': None, 'response_metadata': {'finish_reason': 'stop', 'id': 'chatcmpl-Bx22zJjyCJoj3jV6saD20yPqU0kxn', 'logprobs': None, 'model_name': 'gpt-3.5-turbo-0125', 'service_tier': 'default', 'system_fingerprint': None, 'token_usage': {'completion_tokens': 159, 'completion_tokens_details': {'accepted_prediction_tokens': 0, 'audio_tokens': 0, 'reasoning_tokens': 0, 'rejected_prediction_tokens': 0}, 'prompt_tokens': 55, 'prompt_tokens_details': {'audio_tokens': 0, 'cached_tokens': 0}, 'usage_metadata': {'input_token_details': {'audio': 0, 'cache_read': 0}, 'input_tokens': 55, 'output_token_details': {'audio': 0, 'reasoning': 0}, 'output_tokens': 159, 'total_tokens': 214}}"
     },
     {
       "page": 39,
       "kind": "slide",
-      "group": 39,
-      "text": "GTK Cyber LCEL Runnable Sequences • LCEL has two types of runnable objects: RunnableSequence and RunnableParallel • Both can be run synchronously or asynchronously. • You can call a chain using the invoke() method. • LCEL overloaded the | operator so any runnable objects can be chained together with the | as shown below: chain = step1 | step2 | step3"
+      "group": 35,
+      "slide": 35,
+      "text": "GTK Cyber LangChain and Streaming • Generative models generate one token at a a time. To reduce latency, you can stream the results from the model instead of waiting for the entire completion. • LangChain supports this, but it adds some complexity to your code and is beyond the scope of this class. • You can also send batches (in parallel) to LangChain if you want to generate multiple responses."
     },
     {
       "page": 40,
       "kind": "slide",
-      "group": 40,
-      "text": "GTK Cyber LangChain Output Parsers • LangChain has a collection of Output Parsers which can extract structured data from LLM responses. Currently available parsers are: • List Parser • Datetime Parser • Auto-fixing Parser • Pydantic Parser (Predefined JSON Objects) • Retry Parser • Structured Output Parser • XML Parser • More... • LangChain Parsers can generate output instructions for the LLM!"
+      "group": 36,
+      "slide": 36,
+      "text": "GTK Cyber LangChain Prompt Templates • LangChain has a prompt template object which are templates that accept parameters and construct a prompt for the LLM. • LangChain prompt templates allow you to easily validate user inputs, combine prompts together and easily create few-shot examples from data. system_template = \"Your name is {ai_name}\" system_prompt = SystemMessageTemplate.from_template(template) chat_prompt = ChatPromptTemplate.from_messages([system_prompt]) chain = chat_prompt | model result = chain.invoke({ai_name: \"Jill\"}) # Take a look at risky_sql_queries.py"
     },
     {
       "page": 41,
       "kind": "slide",
-      "group": 41,
-      "text": "GTK Cyber Tangent: Pydantic • Pydantic is a data validation library which you can use to define schemata for complex JSON objects. • The easy way to create Pydantic objects are tools like https:// jsontopydantic.com/"
+      "group": 37,
+      "slide": 37,
+      "text": "GTK Cyber LangChain Expression Language (LCEL) • LCEL is a declarative language for building complex runnable AI applications • It's the glue that puts all the pieces together. • LCEL offers benefits such as optimized parallel execution, asynchronous support, and simplified streaming. • LCEL runnables are logged automatically and feature a standard API for ease of development. https://python.langchain.com/docs/concepts/ lcel/"
     },
     {
       "page": 42,
       "kind": "slide",
-      "group": 42,
-      "text": "GTK Cyber Using an Output Formatter from langchain_openai.chat_models import ChatOpenAI from langchain_core.prompts import SystemMessagePromptTemplate, ChatPromptTemplate from langchain_core.output_parsers import PydanticOutputParser from pydantic import BaseModel class SQL_Query(BaseModel): query: str is_malicious: bool table_count: int json_output_parser = PydanticOutputParser(pydantic_object=SQL_Query) json_output_parser.get_format_instructions()"
+      "group": 38,
+      "slide": 38,
+      "text": "GTK Cyber Single LLM Calls do not need LCEL"
     },
     {
       "page": 43,
       "kind": "slide",
-      "group": 43,
-      "text": "GTK Cyber Using an Output Formatter The output should be formatted as a JSON instance that conforms to the JSON schema below. As an example, for the schema {\"properties\": {\"foo\": {\"title\": \"Foo\", \"description\": \"a list of strings\", \"type\": \"array\", \"items\": {\"type\": \"string\"}}}, \"required\": [\"foo\"]} the object {\"foo\": [\"bar\", \"baz\"]} is a well-formatted instance of the schema. The object {\"properties\": {\"foo\": [\"bar\", \"baz\"]}} is not well-formatted. Here is the output schema: ``` {\"properties\": {\"query\": {\"title\": \"Query\", \"type\": \"string\"}, \"is_malicious\": {\"title\": \"Is Malicious\", \"type\": \"boolean\"}, \"table_count\": {\"title\": \"Table Count\", \"type\": \"integer\"}}, \"required\": [\"query\", \"is_malicious\", \"table_count\"]} ```"
+      "group": 39,
+      "slide": 39,
+      "text": "GTK Cyber LCEL Runnable Sequences • LCEL has two types of runnable objects: RunnableSequence and RunnableParallel • Both can be run synchronously or asynchronously. • You can call a chain using the invoke() method. • LCEL overloaded the | operator so any runnable objects can be chained together with the | as shown below: chain = step1 | step2 | step3"
     },
     {
       "page": 44,
       "kind": "slide",
-      "group": 44,
-      "text": "GTK Cyber Using an Output Formatter chain = chat_prompt | model | json_output_formatter result = chain.invoke({\"table\": \"users\", \"columns\": [...], \"format_instructions\": json_output_parser.get_format_instructions() }, ) query='SELECT * FROM users WHERE id = 1' is_malicious=True table_count=1 The output is parsed into a useable object!"
+      "group": 40,
+      "slide": 40,
+      "text": "GTK Cyber LangChain Output Parsers • LangChain has a collection of Output Parsers which can extract structured data from LLM responses. Currently available parsers are: • List Parser • Datetime Parser • Auto-fixing Parser • Pydantic Parser (Predefined JSON Objects) • Retry Parser • Structured Output Parser • XML Parser • More... • LangChain Parsers can generate output instructions for the LLM!"
     },
     {
       "page": 45,
       "kind": "slide",
-      "group": 45,
-      "text": "GTK Cyber Implementing RAG with LangChain"
+      "group": 41,
+      "slide": 41,
+      "text": "GTK Cyber Tangent: Pydantic • Pydantic is a data validation library which you can use to define schemata for complex JSON objects. • The easy way to create Pydantic objects are tools like https://jsontopydantic.com/"
     },
     {
       "page": 46,
       "kind": "slide",
-      "group": 46,
-      "text": "GTK Cyber RAG Workflow User Prompt Retrieve supporting data Vector Database Augment prompt with supporting data. Generate a response with the augmented prompt. Response"
+      "group": 42,
+      "slide": 42,
+      "text": "GTK Cyber Using an Output Formatter from langchain_openai.chat_models import ChatOpenAI from langchain_core.prompts import SystemMessagePromptTemplate, ChatPromptTemplate from langchain_core.output_parsers import PydanticOutputParser from pydantic import BaseModel class SQL_Query(BaseModel): query: str is_malicious: bool table_count: int json_output_parser = PydanticOutputParser(pydantic_object=SQL_Query) json_output_parser.get_format_instructions()"
     },
     {
       "page": 47,
       "kind": "slide",
-      "group": 47,
-      "text": "GTK Cyber RAG Steps 1. Create \"retriever\" connection with document source. 2. Get user prompt 3. Send user prompt to vector database to retrieve context 4. Add context to prompt 5. Send augmented prompt to LLM 6. Get results"
+      "group": 43,
+      "slide": 43,
+      "text": "GTK Cyber Using an Output Formatter The output should be formatted as a JSON instance that conforms to the JSON schema below. As an example, for the schema {\"properties\": {\"foo\": {\"title\": \"Foo\", \"description\": \"a list of strings\", \"type\": \"array\", \"items\": {\"type\": \"string\"}}}, \"required\": [\"foo\"]} the object {\"foo\": [\"bar\", \"baz\"]} is a well-formatted instance of the schema. The object {\"properties\": {\"foo\": [\"bar\", \"baz\"]}} is not well-formatted. Here is the output schema: ``` {\"properties\": {\"query\": {\"title\": \"Query\", \"type\": \"string\"}, \"is_malicious\": {\"title\": \"Is Malicious\", \"type\": \"boolean\"}, \"table_count\": {\"title\": \"Table Count\", \"type\": \"integer\"}}, \"required\": [\"query\", \"is_malicious\", \"table_count\"]} ```"
     },
     {
       "page": 48,
       "kind": "slide",
-      "group": 48,
-      "text": "GTK Cyber RAG: Creating the Retriever # Connect to the Vector DB db = Chroma.from_documents(docs, embeddings, persist_directory=\"chroma_flex_store\") # Create retriever retriever = db.as_retriever(search_type=\"similarity\", search_kwargs={\"k\":4})"
+      "group": 44,
+      "slide": 44,
+      "text": "GTK Cyber Using an Output Formatter chain = chat_prompt | model | json_output_formatter result = chain.invoke({\"table\": \"users\", \"columns\": [...], \"format_instructions\": json_output_parser.get_format_instructions() }, ) query='SELECT * FROM users WHERE id = 1' is_malicious=True table_count=1 The output is parsed into a useable object!"
     },
     {
       "page": 49,
       "kind": "slide",
-      "group": 49,
-      "text": "GTK Cyber RAG: LLM & User Prompt llm = ChatOpenAI(model=\"gpt-4o\", temperature=0) # Retrieve context from Chroma context_docs = retriever.get_relevant_documents(user_request) context_text = \"\\n\\n\".join([d.page_content for d in context_docs])"
+      "group": 45,
+      "slide": 45,
+      "text": "GTK Cyber Implementing RAG with LangChain"
     },
     {
       "page": 50,
-      "kind": "slide",
-      "group": 50,
-      "text": "GTK Cyber RAG: LLM & User Prompt prompt = f\"\"\" You are an AI assistant with access to the following context: {context_text} User request: {user_request} Write a thoughtful, well-structured response that uses the context as needed, but do not just copy it. If the context doesn't fully answer the request, provide your best reasoning. \"\"\""
+      "kind": "build",
+      "group": 46,
+      "slide": 46,
+      "text": "GTK Cyber RAG Workflow User Prompt Vector Database"
     },
     {
       "page": 51,
-      "kind": "slide",
-      "group": 51,
-      "text": "GTK Cyber RAG: LLM Response user_request = input(\"\\nEnter your request (or 'exit'): \") if user_request.lower() == \"exit\": break prompt = rag_prompt(user_request) response = llm.predict(prompt) print(\"\\nAI Response:\\n\", response)"
+      "kind": "build",
+      "group": 46,
+      "slide": 46,
+      "text": "GTK Cyber RAG Workflow User Prompt Retrieve supporting data Vector Database"
     },
     {
       "page": 52,
-      "kind": "slide",
-      "group": 52,
-      "text": "GTK Cyber Questions?"
+      "kind": "build",
+      "group": 46,
+      "slide": 46,
+      "text": "GTK Cyber RAG Workflow User Prompt Retrieve supporting data Vector Database Augment prompt with supporting data."
     },
     {
       "page": 53,
-      "kind": "slide",
-      "group": 53,
-      "text": "GTK Cyber Lab Please complete Worksheet 11.1: AI and RAG CVEs"
+      "kind": "build",
+      "group": 46,
+      "slide": 46,
+      "text": "GTK Cyber RAG Workflow User Prompt Retrieve supporting data Vector Database Augment prompt with supporting data. Generate a response with the augmented prompt."
     },
     {
       "page": 54,
       "kind": "slide",
-      "group": 54,
-      "text": "GTK Cyber AI Skills vs. Tools"
+      "group": 46,
+      "slide": 46,
+      "text": "GTK Cyber RAG Workflow User Prompt Retrieve supporting data Vector Database Augment prompt with supporting data. Generate a response with the augmented prompt. Response"
     },
     {
       "page": 55,
       "kind": "slide",
-      "group": 55,
-      "text": "GTK Cyber Why This Distinction Matters • Agents are only as good as what they can DO and what they KNOW how to do • Tools give an agent access to systems: APIs, files, shells • Skills give an agent expertise: procedures, judgment, house style • Confusing the two produces bloated tool lists and thin, generic behavior • Get it right and your agent behaves like a trained specialist"
+      "group": 47,
+      "slide": 47,
+      "text": "GTK Cyber RAG Steps 1. Create \"retriever\" connection with document source. 2. Get user prompt 3. Send user prompt to vector database to retrieve context 4. Add context to prompt 5. Send augmented prompt to LLM 6. Get results"
     },
     {
       "page": 56,
       "kind": "slide",
-      "group": 56,
-      "text": "GTK Cyber What Is a Tool? • A single capability the model can invoke: a function with a name, inputs, and outputs • Examples: read_file, run_sql_query, send_email, http_get • Defined by a schema the model sees on every request • The model decides when to call it and with which arguments • A deterministic surface: the same call returns the same kind of result • Every tool schema occupies context on every turn"
+      "group": 48,
+      "slide": 48,
+      "text": "GTK Cyber RAG: Creating the Retriever # Connect to the Vector DB db = Chroma.from_documents(docs, embeddings, persist_directory=\"chroma_flex_store\") # Create retriever retriever = db.as_retriever(search_type=\"similarity\", search_kwargs={\"k\":4})"
     },
     {
       "page": 57,
       "kind": "slide",
-      "group": 57,
-      "text": "GTK Cyber What Is a Skill? • A packaged unit of know-how the agent loads when a task calls for it • Usually a folder: a SKILL.md plus optional scripts, templates, references • Tells the agent how to do something well: the procedure, standards, gotchas • Can bundle and orchestrate several tools toward an outcome • Loaded on demand, so it stays cheap until a task needs it • Think of a checklist and playbook a specialist wrote for the agent"
+      "group": 49,
+      "slide": 49,
+      "text": "GTK Cyber RAG: LLM & User Prompt llm = ChatOpenAI(model=\"gpt-4o\", temperature=0) # Retrieve context from Chroma context_docs = retriever.get_relevant_documents(user_request) context_text = \"\\n\\n\".join([d.page_content for d in context_docs])"
     },
     {
       "page": 58,
       "kind": "slide",
-      "group": 58,
-      "text": "GTK Cyber Skills vs. Tools, Side by Side • Purpose: a tool grants access; a skill grants expertise • Form: a tool is a typed function; a skill is a folder of instructions • Loading: a tool schema stays in context; a skill loads on demand • Authoring: a tool needs code and schema; a skill needs clear prose • Composition: a skill can call many tools; a tool holds no skill • Analogy: a tool is the drill; a skill is knowing how to frame the wall"
+      "group": 50,
+      "slide": 50,
+      "text": "GTK Cyber RAG: LLM & User Prompt prompt = f\"\"\" You are an AI assistant with access to the following context: {context_text} User request: {user_request} Write a thoughtful, well-structured response that uses the context as needed, but do not just copy it. If the context doesn't fully answer the request, provide your best reasoning. \"\"\""
     },
     {
       "page": 59,
       "kind": "slide",
-      "group": 59,
-      "text": "GTK Cyber Anatomy of a Skill • A folder named for the skill, containing a SKILL.md • Frontmatter: a name and a description, where the description is the trigger • Body: the instructions, covering when to use it, steps, rules, red flags • Optional bundled files: scripts, templates, references, examples • Progressive disclosure: the description stays visible, the body loads when triggered • Keep the always-on part tiny and push detail into files opened as needed"
+      "group": 51,
+      "slide": 51,
+      "text": "GTK Cyber RAG: LLM Response user_request = input(\"\\nEnter your request (or 'exit'): \") if user_request.lower() == \"exit\": break prompt = rag_prompt(user_request) response = llm.predict(prompt) print(\"\\nAI Response:\\n\", response)"
     },
     {
       "page": 60,
       "kind": "slide",
-      "group": 60,
-      "text": "GTK Cyber Example Skill: 'commit-hygiene' • commit-hygiene/ • SKILL.md • references/conventional-commits.md • --- SKILL.md --- • name: commit-hygiene • description: Use when writing a git commit message. • Enforces the team format and splits unrelated changes. • Steps: • 1. Run git diff --staged; group changes by intent. • 2. If two intents are staged, stop and suggest splitting. • 3. Subject 50 chars max, imperative mood. Body explains the WHY. • 4. See references/conventional-commits.md for type prefixes."
+      "group": 52,
+      "slide": 52,
+      "text": "GTK Cyber Questions?"
     },
     {
       "page": 61,
       "kind": "slide",
-      "group": 61,
-      "text": "GTK Cyber Cyber Example: 'triage-suspicious- url' • triage-suspicious-url/ • SKILL.md • references/ioc-format.md • --- SKILL.md --- • name: triage-suspicious-url • description: Use when a link is reported by a user • or flagged in an email or log. • Steps: • 1. Defang the URL before echoing it (hxxp, [.]). • 2. Detonate in the sandbox tool; never open it live. • 3. Pull whois age, TLS issuer, and hosting ASN. • 4. Check the domain against the threat-intel lookups. • 5. Classify benign, suspicious, or malicious, with reasons. • 6. Emit IOCs per references/ioc-format.md and suggest a block."
+      "group": 53,
+      "slide": 53,
+      "text": "GTK Cyber Lab Please complete Worksheet 11.1: AI and RAG CVEs"
     },
     {
       "page": 62,
       "kind": "slide",
-      "group": 62,
-      "text": "GTK Cyber Progressive Disclosure: the Reference File • references/ioc-format.md (opened only at the report step) • # IOC Output Format • One object per indicator. Network values defanged. • type: url | domain | ipv4 | sha256 | sender • value: defanged string (hxxp, [.]) • verdict: benign | suspicious | malicious • confidence: low | medium | high • tlp: CLEAR | GREEN | AMBER | RED • first_seen: ISO-8601 UTC • source: email | proxy log | user report • Rules: • - No clickable links anywhere in the report. • - SHA-256 preferred; add a block line when malicious."
+      "group": 54,
+      "slide": 54,
+      "text": "GTK Cyber AI Skills vs. Tools • What agent skills are, how they differ from tools, and how to write your own"
     },
     {
       "page": 63,
       "kind": "slide",
-      "group": 63,
-      "text": "GTK Cyber How a Skill Gets Used • 1. At rest: only the name and description sit in context • 2. Match: the agent sees a task that fits the description • 3. Load: the full SKILL.md body is read into context • 4. Follow: the agent works the steps, opening reference files as needed • 5. Act: the skill drives the underlying tools to finish the job • Progressive disclosure means you pay for detail only when it applies"
+      "group": 55,
+      "slide": 55,
+      "text": "GTK Cyber Why This Distinction Matters • Agents are only as good as what they can DO and what they KNOW how to do • Tools give an agent access to systems: APIs, files, shells • Skills give an agent expertise: procedures, judgment, house style • Confusing the two produces bloated tool lists and thin, generic behavior • Get it right and your agent behaves like a trained specialist"
     },
     {
       "page": 64,
       "kind": "slide",
-      "group": 64,
-      "text": "GTK Cyber Where to Find Skills • Anthropic Agent Skills docs and the anthropics/skills repo on GitHub • Claude Code plugins and marketplaces, where skills ship inside plugins • The Superpowers collection: brainstorming, debugging, TDD, and more • Your own repo: a .claude/skills/ folder versioned with the project • Team libraries that encode your house standards once for everyone • Search GitHub for 'SKILL.md' to study how others structure real skills"
+      "group": 56,
+      "slide": 56,
+      "text": "GTK Cyber What Is a Tool? • A single capability the model can invoke: a function with a name, inputs, and outputs • Examples: read_file, run_sql_query, send_email, http_get • Defined by a schema the model sees on every request • The model decides when to call it and with which arguments • A deterministic surface: the same call returns the same kind of result • Every tool schema occupies context on every turn"
     },
     {
       "page": 65,
       "kind": "slide",
-      "group": 65,
-      "text": "GTK Cyber Skill-Writing Tips • Nail the description, since it is the trigger. Say exactly when to use it • Write it for a competent new hire, with concrete, followable steps • Keep SKILL.md lean and push tables and edge cases into reference files • Prefer imperative checklists the agent can turn into todos • Add red flags and negative examples to head off common failures • Keep one skill to one job, and split it when it grows a second job • Test it: give the agent a real task and watch the skill fire"
+      "group": 57,
+      "slide": 57,
+      "text": "GTK Cyber What Is a Skill? • A packaged unit of know-how the agent loads when a task calls for it • Usually a folder: a SKILL.md plus optional scripts, templates, references • Tells the agent how to do something well: the procedure, standards, gotchas • Can bundle and orchestrate several tools toward an outcome • Loaded on demand, so it stays cheap until a task needs it • Think of a checklist and playbook a specialist wrote for the agent"
     },
     {
       "page": 66,
       "kind": "slide",
-      "group": 66,
-      "text": "GTK Cyber Takeaways • Tools give access and skills give expertise, so you want both • A skill is packaged know-how, loaded on demand, in plain language • Progressive disclosure keeps skills cheap until they become relevant • The description is the trigger, so write it like you mean it"
+      "group": 58,
+      "slide": 58,
+      "text": "GTK Cyber Skills vs. Tools, Side by Side • Purpose: a tool grants access; a skill grants expertise • Form: a tool is a typed function; a skill is a folder of instructions • Loading: a tool schema stays in context; a skill loads on demand • Authoring: a tool needs code and schema; a skill needs clear prose • Composition: a skill can call many tools; a tool holds no skill • Analogy: a tool is the drill; a skill is knowing how to frame the wall"
     },
     {
       "page": 67,
       "kind": "slide",
-      "group": 67,
-      "text": "GTK Cyber Using AI to Execute Code (Tools)"
+      "group": 59,
+      "slide": 59,
+      "text": "GTK Cyber Anatomy of a Skill • A folder named for the skill, containing a SKILL.md • Frontmatter: a name and a description, where the description is the trigger • Body: the instructions, covering when to use it, steps, rules, red flags • Optional bundled files: scripts, templates, references, examples • Progressive disclosure: the description stays visible, the body loads when triggered • Keep the always-on part tiny and push detail into files opened as needed"
     },
     {
       "page": 68,
       "kind": "slide",
-      "group": 68,
-      "text": "GTK Cyber • Calling functions from AI is inherently risky, especially if the AI accepts input from untrusted users. • When implementing features that call functions, always ask yourself what could happen if this \"goes rogue\"? • Remember that the AI can be somewhat unpredictable, so be sure to include deterministic safeguards. • This is especially true if your AI bot is connected to internal data sources. DANGER"
+      "group": 60,
+      "slide": 60,
+      "text": "GTK Cyber Example Skill: 'commit-hygiene' • commit-hygiene/ • SKILL.md • references/conventional-commits.md • • --- SKILL.md --- • name: commit-hygiene • description: Use when writing a git commit message. • Enforces the team format and splits unrelated changes. • • Steps: • 1. Run git diff --staged; group changes by intent. • 2. If two intents are staged, stop and suggest splitting. • 3. Subject 50 chars max, imperative mood. Body explains the WHY. • 4. See references/conventional-commits.md for type prefixes."
     },
     {
       "page": 69,
       "kind": "slide",
-      "group": 69,
-      "text": "GTK Cyber Function Calling Workflow User Prompt LLM LLM Output Call Function Response Parse Output The tool will only be called if the model determines it needs to."
+      "group": 61,
+      "slide": 61,
+      "text": "GTK Cyber Cyber Example: 'triage- suspicious-url' • triage-suspicious-url/ • SKILL.md • references/ioc-format.md • • --- SKILL.md --- • name: triage-suspicious-url • description: Use when a link is reported by a user • or flagged in an email or log. • • Steps: • 1. Defang the URL before echoing it (hxxp, [.]). • 2. Detonate in the sandbox tool; never open it live. • 3. Pull whois age, TLS issuer, and hosting ASN. • 4. Check the domain against the threat-intel lookups. • 5. Classify benign, suspicious, or malicious, with reasons. • 6. Emit IOCs per references/ioc-format.md and suggest a block."
     },
     {
       "page": 70,
       "kind": "slide",
-      "group": 70,
-      "text": "GTK Cyber LangChain Function Calling • With LangChain, you can call functions (tool) to get additional information or perform actions when appropriate. • Not every LLM supports tool calling. • LangChain has pre-built tools, but you can also define your own. • A complete list of pre-built tools is available here: https:// python.langchain.com/docs/integrations/tools/"
+      "group": 62,
+      "slide": 62,
+      "text": "GTK Cyber Progressive Disclosure: the Reference File • references/ioc-format.md (opened only at the report step) • • # IOC Output Format • One object per indicator. Network values defanged. • • type: url | domain | ipv4 | sha256 | sender • value: defanged string (hxxp, [.]) • verdict: benign | suspicious | malicious • confidence: low | medium | high • tlp: CLEAR | GREEN | AMBER | RED • first_seen: ISO-8601 UTC • source: email | proxy log | user report • • Rules: • - No clickable links anywhere in the report. • - SHA-256 preferred; add a block line when malicious."
     },
     {
       "page": 71,
       "kind": "slide",
-      "group": 71,
-      "text": "GTK Cyber LangChain calls functions tools."
+      "group": 63,
+      "slide": 63,
+      "text": "GTK Cyber How a Skill Gets Used • 1. At rest: only the name and description sit in context • 2. Match: the agent sees a task that fits the description • 3. Load: the full SKILL.md body is read into context • 4. Follow: the agent works the steps, opening reference files as needed • 5. Act: the skill drives the underlying tools to finish the job • Progressive disclosure means you pay for detail only when it applies"
     },
     {
       "page": 72,
       "kind": "slide",
-      "group": 72,
-      "text": "GTK Cyber LangChain Tool Calling • Examples include: • Search: (Google, Bing, DuckDuckGo, Others) • Interpreting code: (Azure container apps) • Productivity Tools: (Github, Gmail, O365, JIRA, Slack, More... ) • Database Connectivity: (SQL Databases, Spark SQL, Cassandra SQL) • Others: (Bash shell, Google Finance, Google Drive, Pandas Dataframe, Salesforce, )"
+      "group": 64,
+      "slide": 64,
+      "text": "GTK Cyber Where to Find Skills • Anthropic Agent Skills docs and the anthropics/skills repo on GitHub • Claude Code plugins and marketplaces, where skills ship inside plugins • The Superpowers collection: brainstorming, debugging, TDD, and more • Your own repo: a .claude/skills/ folder versioned with the project • Team libraries that encode your house standards once for everyone • Search GitHub for 'SKILL.md' to study how others structure real skills"
     },
     {
       "page": 73,
       "kind": "slide",
-      "group": 73,
-      "text": "GTK Cyber LangChain Pre-built Tool Example # You'll need API tokens from GitHub import getpass import os for env_var in [ \"GITHUB_APP_ID\", \"GITHUB_APP_PRIVATE_KEY\", \"GITHUB_REPOSITORY\", ]: if not os.getenv(env_var): os.environ[env_var] = getpass.getpass()"
+      "group": 65,
+      "slide": 65,
+      "text": "GTK Cyber Skill-Writing Tips • Nail the description, since it is the trigger. Say exactly when to use it • Write it for a competent new hire, with concrete, followable steps • Keep SKILL.md lean and push tables and edge cases into reference files • Prefer imperative checklists the agent can turn into todos • Add red flags and negative examples to head off common failures • Keep one skill to one job, and split it when it grows a second job • Test it: give the agent a real task and watch the skill fire"
     },
     {
       "page": 74,
       "kind": "slide",
-      "group": 74,
-      "text": "GTK Cyber LangChain Tool Example from langchain_community.agent_toolkits.github.toolkit import GitHubToolkit from langchain_community.utilities.github import GitHubAPIWrapper # Instantiate the GitHub tool github = GitHubAPIWrapper() toolkit = GitHubToolkit.from_github_api_wrapper(github)"
+      "group": 66,
+      "slide": 66,
+      "text": "GTK Cyber Takeaways • Tools give access and skills give expertise, so you want both • A skill is packaged know-how, loaded on demand, in plain language • Progressive disclosure keeps skills cheap until they become relevant • The description is the trigger, so write it like you mean it"
     },
     {
       "page": 75,
       "kind": "slide",
-      "group": 75,
-      "text": "GTK Cyber LangChain Tool Example tools = toolkit.get_tools() for tool in tools: print(tool.name) • Get Issues • Get Issue • Comment on Issue • List open pull requests (PRs) • Get Pull Request • Overview of files included in PR • Create Pull Request • List Pull Requests' Files • Create File • Read File • Update File • Delete File • Overview of existing files in Main branch • Overview of files in current working branch • More..."
+      "group": 67,
+      "slide": 67,
+      "text": "GTK Cyber Using AI to Execute Code (Tools)"
     },
     {
       "page": 76,
       "kind": "slide",
-      "group": 76,
-      "text": "GTK Cyber LangChain Tool Example # Create the chat model llm = init_chat_model(\"gpt-4o-mini\", model_provider=\"openai\") # Create a list of tools tools = [tool for tool in toolkit.get_tools() if tool.name == \"Get Issue\"] tools[0].name = \"get_issue\" # Bind the tools to the agent agent_executor = create_react_agent(llm, tools)"
+      "group": 68,
+      "slide": 68,
+      "text": "GTK Cyber • Calling functions from AI is inherently risky, especially if the AI accepts input from untrusted users. • When implementing features that call functions, always ask yourself what could happen if this \"goes rogue\"? • Remember that the AI can be somewhat unpredictable, so be sure to include deterministic safeguards. • This is especially true if your AI bot is connected to internal data sources. DANGER"
     },
     {
       "page": 77,
-      "kind": "slide",
-      "group": 77,
-      "text": "GTK Cyber Discussion: • You are a cybersecurity consultant and a client have an AI model which is connected to a database. • Your task is to advise your client of the risks associated with their model. • How would you recommend securing such a system?"
+      "kind": "build",
+      "group": 69,
+      "slide": 69,
+      "text": "GTK Cyber Function Calling Workflow User Prompt The tool will only be called if the model determines it needs to."
     },
     {
       "page": 78,
-      "kind": "slide",
-      "group": 78,
-      "text": "GTK Cyber Lab Please complete Tool Usage Lab: https://ai.gtkcyber.com/tool-usage-lab"
+      "kind": "build",
+      "group": 69,
+      "slide": 69,
+      "text": "GTK Cyber Function Calling Workflow User Prompt LLM The tool will only be called if the model determines it needs to."
     },
     {
       "page": 79,
-      "kind": "slide",
-      "group": 79,
-      "text": "GTK Cyber Implementing Tools"
+      "kind": "build",
+      "group": 69,
+      "slide": 69,
+      "text": "GTK Cyber Function Calling Workflow User Prompt LLM LLM Output The tool will only be called if the model determines it needs to."
     },
     {
       "page": 80,
-      "kind": "slide",
-      "group": 80,
-      "text": "GTK Cyber LangChain Custom Tool Example • You can also create AI tools with your own custom functions. • Tool Creation: Use the @tool decorator to create a tool. A tool is an association between a function and its schema. • Tool Binding: The tool needs to be connected to a model that supports tool calling. This gives the model awareness of the tool and the associated input schema required by the tool. • Tool Calling: When appropriate, the model can decide to call a tool and ensure its response conforms to the tool's input schema. • Tool Execution: The tool can be executed using the arguments provided by the model. https://python.langchain.com/docs/concepts/tool_calling/"
+      "kind": "build",
+      "group": 69,
+      "slide": 69,
+      "text": "GTK Cyber Function Calling Workflow User Prompt LLM LLM Output Call Function The tool will only be called if the model determines it needs to."
     },
     {
       "page": 81,
-      "kind": "slide",
-      "group": 81,
-      "text": "GTK Cyber LangChain Tool Creation from langchain.tools import Tool @tool def my_tool(input: str) -> str: # Do something... return input[::-1]"
+      "kind": "build",
+      "group": 69,
+      "slide": 69,
+      "text": "GTK Cyber Function Calling Workflow User Prompt LLM LLM Output Call Function Response The tool will only be called if the model determines it needs to."
     },
     {
       "page": 82,
       "kind": "slide",
-      "group": 82,
-      "text": "GTK Cyber LangChain Tool Binding # Create the ChatGPT model llm = ChatOpenAI(model=\"gpt-4\", temperature=0, api_key=os.getenv(\"OPENAI_KEY\")) # Wrap your custom tool in LangChain's Tool class my_tool = Tool( name=\"MyTool\", func=my_tool, description=\"My really awesome tool.\", ) # Initialize the agent with the tool agent = initialize_agent( tools=[phone_tool], llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True )"
+      "group": 69,
+      "slide": 69,
+      "text": "GTK Cyber Function Calling Workflow User Prompt LLM LLM Output Call Function Response Parse Output The tool will only be called if the model determines it needs to."
     },
     {
       "page": 83,
       "kind": "slide",
-      "group": 83,
-      "text": "GTK Cyber Tool Calling / Execution response = agent.run(prompt) # The model will decide whether to call the tool or not based on the user input."
+      "group": 70,
+      "slide": 70,
+      "text": "GTK Cyber LangChain Function Calling • With LangChain, you can call functions (tool) to get additional information or perform actions when appropriate. • Not every LLM supports tool calling. • LangChain has pre-built tools, but you can also define your own. • A complete list of pre-built tools is available here: https://python.langchain.com/docs/integrations/tools/"
     },
     {
       "page": 84,
       "kind": "slide",
-      "group": 84,
-      "text": "GTK Cyber Questions?"
+      "group": 71,
+      "slide": 71,
+      "text": "GTK Cyber LangChain calls functions tools."
     },
     {
       "page": 85,
       "kind": "slide",
+      "group": 72,
+      "slide": 72,
+      "text": "GTK Cyber LangChain Tool Calling • Examples include: • Search: (Google, Bing, DuckDuckGo, Others) • Interpreting code: (Azure container apps) • Productivity Tools: (Github, Gmail, O365, JIRA, Slack, More... ) • Database Connectivity: (SQL Databases, Spark SQL, Cassandra SQL) • Others: (Bash shell, Google Finance, Google Drive, Pandas Dataframe, Salesforce, )"
+    },
+    {
+      "page": 86,
+      "kind": "slide",
+      "group": 73,
+      "slide": 73,
+      "text": "GTK Cyber LangChain Pre-built Tool Example # You'll need API tokens from GitHub import getpass import os for env_var in [ \"GITHUB_APP_ID\", \"GITHUB_APP_PRIVATE_KEY\", \"GITHUB_REPOSITORY\", ]: if not os.getenv(env_var): os.environ[env_var] = getpass.getpass()"
+    },
+    {
+      "page": 87,
+      "kind": "slide",
+      "group": 74,
+      "slide": 74,
+      "text": "GTK Cyber LangChain Tool Example from langchain_community.agent_toolkits.github.toolkit import GitHubToolkit from langchain_community.utilities.github import GitHubAPIWrapper # Instantiate the GitHub tool github = GitHubAPIWrapper() toolkit = GitHubToolkit.from_github_api_wrapper(github)"
+    },
+    {
+      "page": 88,
+      "kind": "slide",
+      "group": 75,
+      "slide": 75,
+      "text": "GTK Cyber LangChain Tool Example tools = toolkit.get_tools() for tool in tools: print(tool.name) • Get Issues • Get Issue • Comment on Issue • List open pull requests (PRs) • Get Pull Request • Overview of files included in PR • Create Pull Request • List Pull Requests' Files • Create File • Read File • Update File • Delete File • Overview of existing files in Main branch • Overview of files in current working branch • More..."
+    },
+    {
+      "page": 89,
+      "kind": "slide",
+      "group": 76,
+      "slide": 76,
+      "text": "GTK Cyber LangChain Tool Example # Create the chat model llm = init_chat_model(\"gpt-4o-mini\", model_provider=\"openai\") # Create a list of tools tools = [tool for tool in toolkit.get_tools() if tool.name == \"Get Issue\"] tools[0].name = \"get_issue\" # Bind the tools to the agent agent_executor = create_react_agent(llm, tools)"
+    },
+    {
+      "page": 90,
+      "kind": "slide",
+      "group": 77,
+      "slide": 77,
+      "text": "GTK Cyber Discussion: • You are a cybersecurity consultant and a client have an AI model which is connected to a database. • Your task is to advise your client of the risks associated with their model. • How would you recommend securing such a system?"
+    },
+    {
+      "page": 91,
+      "kind": "slide",
+      "group": 78,
+      "slide": 78,
+      "text": "GTK Cyber Lab Please complete Tool Usage Lab: https://ai.gtkcyber.com/tool-usage-lab"
+    },
+    {
+      "page": 92,
+      "kind": "slide",
+      "group": 79,
+      "slide": 79,
+      "text": "GTK Cyber Implementing Tools"
+    },
+    {
+      "page": 93,
+      "kind": "slide",
+      "group": 80,
+      "slide": 80,
+      "text": "GTK Cyber LangChain Custom Tool Example • You can also create AI tools with your own custom functions. • Tool Creation: Use the @tool decorator to create a tool. A tool is an association between a function and its schema. • Tool Binding: The tool needs to be connected to a model that supports tool calling. This gives the model awareness of the tool and the associated input schema required by the tool. • Tool Calling: When appropriate, the model can decide to call a tool and ensure its response conforms to the tool's input schema. • Tool Execution: The tool can be executed using the arguments provided by the model. https://python.langchain.com/docs/concepts/ tool_calling/"
+    },
+    {
+      "page": 94,
+      "kind": "slide",
+      "group": 81,
+      "slide": 81,
+      "text": "GTK Cyber LangChain Tool Creation from langchain.tools import Tool @tool def my_tool(input: str) -> str: # Do something... return input[::-1]"
+    },
+    {
+      "page": 95,
+      "kind": "slide",
+      "group": 82,
+      "slide": 82,
+      "text": "GTK Cyber LangChain Tool Binding # Create the ChatGPT model llm = ChatOpenAI(model=\"gpt-4\", temperature=0, api_key=os.getenv(\"OPENAI_KEY\")) # Wrap your custom tool in LangChain's Tool class my_tool = Tool( name=\"MyTool\", func=my_tool, description=\"My really awesome tool.\", ) # Initialize the agent with the tool agent = initialize_agent( tools=[phone_tool], llm=llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, verbose=True )"
+    },
+    {
+      "page": 96,
+      "kind": "slide",
+      "group": 83,
+      "slide": 83,
+      "text": "GTK Cyber Tool Calling / Execution response = agent.run(prompt) # The model will decide whether to call the tool or not based on the user input."
+    },
+    {
+      "page": 97,
+      "kind": "slide",
+      "group": 84,
+      "slide": 84,
+      "text": "GTK Cyber Questions?"
+    },
+    {
+      "page": 98,
+      "kind": "slide",
       "group": 85,
+      "slide": 85,
       "text": "GTK Cyber Lab Please complete Lab 11.2: Tool Usage"
     }
   ]

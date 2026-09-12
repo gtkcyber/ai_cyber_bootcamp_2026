@@ -10,6 +10,10 @@ A supervised classifier learns from examples that carry labels. Each URL in the 
 
 The toy dataset used for the concept slides scores each observation on two features, alcohol and secrecy, from zero to ten, and labels it beer or cyber. Beer observations sit at high alcohol and low secrecy; cyber observations, drawn as spies, sit at low alcohol and high secrecy. The features mean nothing beyond the joke. The purpose is a two-dimensional dataset whose classes can be drawn on a page and separated by eye, because the same reasoning applies to URLs or domain names with dozens of features, where no picture can be drawn.
 
+## Page 4
+
+A new observation arrives at alcohol about four and secrecy about four, with no label. It lies in the gap between the two clusters: its alcohol is below every beer observation and its secrecy is below every cyber observation. Reading the label off the chart works for a point that lands inside a cluster and gives no answer here. A classifier is a rule that assigns a label to every point in the feature space, including points that no training example is near.
+
 ## Page 5
 
 A new observation arrives at alcohol about four and secrecy about four, with no label. It lies in the gap between the two clusters: its alcohol is below every beer observation and its secrecy is below every cyber observation. Reading the label off the chart works for a point that lands inside a cluster and gives no answer here. A classifier is a rule that assigns a label to every point in the feature space, including points that no training example is near.
@@ -22,13 +26,25 @@ A decision surface is the boundary in feature space where the classifier's predi
 
 This part covers support vector machines, a classifier that separates classes with the straight line, or in more than two dimensions the flat plane, that leaves the widest gap between them. The treatment is conceptual, without the optimization mathematics behind the fit.
 
+## Page 8
+
+A straight line drawn through the gap separates the two classes: every cyber observation lies above it and every beer observation below. Data that a single straight line can split this way is linearly separable. With two features the separator is a line; with three it is a plane, and with more it is a hyperplane, a flat surface of one dimension less than the feature space. A linear support vector machine fits this kind of boundary.
+
 ## Page 9
 
 A straight line drawn through the gap separates the two classes: every cyber observation lies above it and every beer observation below. Data that a single straight line can split this way is linearly separable. With two features the separator is a line; with three it is a plane, and with more it is a hyperplane, a flat surface of one dimension less than the feature space. A linear support vector machine fits this kind of boundary.
 
+## Page 10
+
+Three lines separate the training data equally well: one tilted left, one vertical, one tilted right, all crossing at the center of the gap. The vertical line, number two, is the best one. The tilted lines pass close to individual observations at the inner edge of each cluster, so an observation that lands a little past those points would be labeled by which side of a tilted line it falls on rather than by which cluster it is nearest. The vertical line keeps the greatest distance from the nearest observation of either class, which leaves the most room for new observations to land on the correct side.
+
 ## Page 11
 
 Three lines separate the training data equally well: one tilted left, one vertical, one tilted right, all crossing at the center of the gap. The vertical line, number two, is the best one. The tilted lines pass close to individual observations at the inner edge of each cluster, so an observation that lands a little past those points would be labeled by which side of a tilted line it falls on rather than by which cluster it is nearest. The vertical line keeps the greatest distance from the nearest observation of either class, which leaves the most room for new observations to land on the correct side.
+
+## Page 12
+
+Three vertical lines all separate the data: one just right of the beer cluster, one just left of the cyber cluster, and one midway between them. The middle line, number two, is again the best. The measure is the margin, the distance from the boundary to the nearest training observation on each side. The left line has almost no margin on the beer side and the right line almost none on the cyber side, so a beer observation slightly farther right than any seen so far would cross the left line and be called cyber. The middle line maximizes the smaller of the two distances, and a support vector machine chooses its boundary by this criterion.
 
 ## Page 13
 
@@ -41,6 +57,10 @@ The fitted support vector machine has three named parts. Decision boundary: the 
 ## Page 15
 
 A second dataset: beer observations at low alcohol and high secrecy, cyber observations at high alcohol and low secrecy, and one beer observation at alcohol eight and secrecy four and a half, sitting beside the cyber cluster. The question is the same as before, which straight line separates the classes best, and the stray beer observation is what makes it harder.
+
+## Page 16
+
+Two candidate lines. Line one rises from lower left to upper right through the middle of the wide gap between the two main clusters, but it leaves the stray beer observation at alcohol eight on the cyber side. Line two falls gently from left to right, passing just above the cyber cluster and just below the stray beer observation, so every training observation is on its correct side. Line two is the answer. A support vector machine first requires the boundary to separate the training classes and only then maximizes the margin, and line one is not a separating line for this data. The price is a narrow margin, set by the stray observation and the cyber points beside it.
 
 ## Page 17
 
@@ -73,6 +93,10 @@ A decision tree is a chain of questions. Each box is a node that tests one featu
 ## Page 24
 
 The same decision with the approval question removed, so that only the two numeric features remain: price, tested at the root against two hundred dollars, and length, tested against six inches for the gadgets that cost more. The chart at the right is the data behind the tree, one point per gadget, placed by length on the horizontal axis and price on the vertical, with the marker giving the label. Every gadget bought sits at or below two hundred dollars; the gadgets passed over are the expensive ones and one cheap gadget twelve inches long. The tree's two tests are two cuts through this chart: a horizontal cut at two hundred dollars, and above it a vertical cut at six inches. The cheap long gadget lands on the yes side of the first cut, a training error that a third test on length would remove. A decision tree with numeric features works this way in general: it carves the feature space into rectangles, one threshold at a time, and labels each rectangle with a class. The next slides do the same for the beer and cyber data.
+
+## Page 25
+
+A two-split tree separates the toy data. The root tests alcohol: below four, the observation is beer. At four or above, the next node tests secrecy: below five, beer; five or above, cyber. The two tests draw the red cyber region as the rectangle with alcohol at least four and secrecy at least five, and everything else is gray, the beer region. Every test compares a single feature with a threshold, so each boundary a tree draws is a horizontal or vertical line segment and the regions it produces are rectangles. This is the geometric difference from a support vector machine, whose boundary can run at any angle.
 
 ## Page 26
 
@@ -126,6 +150,10 @@ This part covers the k-nearest neighbors classifier, which predicts the class of
 
 The k-nearest neighbors algorithm has one setting, k, the number of neighbors consulted. For each observation to be classified: find the k training observations nearest to it by distance; assign the class held by the majority of those neighbors; optionally give each neighbor a weight that decreases with its distance, so nearer neighbors count more in the vote. There is no fitting step in the usual sense. The model is the stored training data, and every prediction is computed from it at prediction time. The distance is Euclidean, the straight-line distance in feature space, unless another measure is chosen.
 
+## Page 39
+
+The example plots training observations from a host by two features, proc and mem, colored by state, infected or normal. The star is the observation to classify. With k equal to one, the single nearest training observation decides: it is normal, so the star is assigned normal, even though infected observations lie a short distance beyond it.
+
 ## Page 40
 
 The example plots training observations from a host by two features, proc and mem, colored by state, infected or normal. The star is the observation to classify. With k equal to one, the single nearest training observation decides: it is normal, so the star is assigned normal, even though infected observations lie a short distance beyond it.
@@ -176,6 +204,12 @@ Two parameters of a random forest need tuning. The number of trees, n_estimators
 
 The chart plots the error of a random forest regressor against the number of trees, from twenty to about five hundred. The error measure is the root mean squared error, the square root of the average squared difference between prediction and truth, so lower is better. Error falls steeply over the first hundred trees, then keeps falling with diminishing returns and some noise, from about 3.80 to about 3.55. Adding trees does not cause overfitting, because more trees only reduce the variance of the average, but every added tree costs training time and prediction time, so the setting is chosen where the curve flattens.
 
+## Page 51
+
+The second tuning chart plots the same error against max_features from one to seven. Error drops from about 4.7 with one feature per split to about 3.5 at six, then rises slightly at seven, so for this data considering six features per split is best. With too few candidates the probability that the best feature for a split is among them is low, and the trees are weak; with all seven the trees are strongly correlated and the average gains less.
+
+The diagram is how a fitted forest classifies one instance. The instance is passed down every tree; each tree follows its own path of tests to a leaf and returns a class. Tree one returns class A, trees two and n return class B. The votes are tallied as a proportion, class A with p percent and class B with the rest, and the majority wins. The proportion is also the forest's predicted probability for each class.
+
 ## Page 52
 
 The second tuning chart plots the same error against max_features from one to seven. Error drops from about 4.7 with one feature per split to about 3.5 at six, then rises slightly at seven, so for this data considering six features per split is best. With too few candidates the probability that the best feature for a split is among them is low, and the trees are weak; with all seven the trees are strongly correlated and the average gains less.
@@ -207,6 +241,12 @@ The three lines fit and apply a support vector machine. The variable clf is shor
 ## Page 58
 
 The same three lines with a decision tree in place of the support vector machine. The only change is the class named on the first line. Everything the deck does from here on with fit, predict and the evaluation functions works for any model class in the library.
+
+## Page 59
+
+The supervised learning chapter of the scikit-learn user guide lists these families. Generalized linear models: logistic regression and its relatives, a weighted sum of the features passed through a link function. Kernel ridge: ridge regression combined with the kernel trick. Support vector machines, nearest neighbors and trees: covered above. Gaussian processes: a Bayesian method that returns a probability distribution with each prediction. Naive Bayes: applies Bayes' theorem under the assumption that features are independent given the class; it appears later in this deck as GaussianNB. Neural networks: the multilayer perceptron, the subject of the deep learning module. AdaBoost: boosting, which fits models in sequence with each new model weighting the observations the earlier ones got wrong. Gradient tree boosting: boosting where each new tree fits the remaining errors of the ensemble so far. Ensemble methods: bagging, random forests and voting combinations of any models. The list is broad by design. The module teaches four of the families; the rest are here so that their names are familiar when they appear in the documentation, not to be learned now.
+
+The grid is the classifier comparison example from the scikit-learn documentation. Each row is one synthetic two-class dataset: two interleaved crescents, a ring around a central cluster, and two clusters that a straight line nearly separates. Each column is one classifier fitted to that data, with the colored background as its decision regions and its accuracy on held-out points in the corner. The shapes of the regions are the point. The linear support vector machine can only draw a straight line, so it scores 0.40 on the ring, no better than chance. The decision tree and random forest draw rectangles. The radial basis function support vector machine, the Gaussian process and nearest neighbors draw smooth curves that follow the crescents and the ring. Naive Bayes and quadratic discriminant analysis draw ellipses. No classifier wins every row, which is why the model is chosen by measuring it on the data at hand.
 
 ## Page 60
 
@@ -298,6 +338,12 @@ Recall for a class divides the same numerator, the observations correctly predic
 
 Class zero: the row for true zero holds seven found and two missed, so recall is seven over nine, 0.777. Class one: the row for true one holds four found and three missed, so recall is four over seven, 0.571. Each is a row total in the denominator. The model finds the zeros more reliably than the ones.
 
+## Page 82
+
+Precision and recall pull against each other. Precision is the proportion of positive identifications that are correct; recall is the proportion of actual positives that were identified. A model that flags only the observations it is surest of makes few false positives, so its precision is high, and misses the doubtful positives, so its recall is low. A model that flags anything doubtful finds the positives, so its recall is high, and sweeps in negatives, so its precision falls. Which to favor depends on the cost of each kind of error.
+
+The chart, from Google's machine learning crash course, is the mechanism behind the trade-off. Each dot is an observation placed by the score the classifier gave it, from zero to one; circles are the observations that are actually negative and crossed squares the ones that are actually positive. The classification threshold, here 0.67, converts a score into a label: everything to its right is called positive. At this threshold no negative crosses the line, so the false positive count is zero and precision is one, but twenty-one positives fall short of it and are called negative, so recall is 0.56.
+
 ## Page 83
 
 Precision and recall pull against each other. Precision is the proportion of positive identifications that are correct; recall is the proportion of actual positives that were identified. A model that flags only the observations it is surest of makes few false positives, so its precision is high, and misses the doubtful positives, so its recall is low. A model that flags anything doubtful finds the positives, so its recall is high, and sweeps in negatives, so its precision falls. Which to favor depends on the cost of each kind of error.
@@ -327,6 +373,10 @@ A confusion matrix for three classes has three rows and three columns, and the p
 ## Page 89
 
 The diagonal holds seven, four and four, so accuracy is fifteen over twenty-eight, 0.5357. For class two, the column for predicted two holds four correct, five true zeros and two true ones, so precision is four over eleven, 0.3636; the row for true two holds four found, one called class one and none called class zero, so recall is four over five, 0.8. The full vectors from precision_score and recall_score with average set to None are precision 0.7, 0.571 and 0.364 and recall 0.5, 0.444 and 0.8 for classes zero, one and two. Class two is found reliably and overpredicted; class zero is predicted carefully and missed half the time.
+
+## Page 90
+
+Three confusion matrices, each with sixteen observations and eleven correct, so each has an accuracy of 0.6875. Precision and recall separate them. Matrix A: all ten class-zero observations found, but only one of the six class-one observations, so recall for class one is 0.2 and precision for class one is one because the single prediction was right. Matrix B: the earlier example, with precision 0.7 for both classes and recall 0.8 and 0.6. Matrix C: none of the four class-zero observations found, so precision and recall for class zero are both zero, while eleven of twelve class-one observations are found. Which is the worst depends on which class matters. If class one is malicious, A passes five of six attacks through; C flags nearly everything, catching the attacks and burying the four benign records under alerts. Accuracy alone cannot tell these apart.
 
 ## Page 91
 
@@ -372,6 +422,10 @@ The holdout workflow in code. The classifier is fitted on the training features 
 
 A single holdout split gives a score that depends on which rows happened to land in the test portion. The better approach is to make several different train and test splits, compute the test score for each, and average them. The average is a more stable estimate, and every observation gets used for testing once and for training the rest of the time.
 
+## Page 102
+
+K-fold cross-validation is the standard way to make those splits. Divide the dataset into K equal partitions, called folds. Use fold one as the testing set and the union of the other folds as the training set, and compute the testing accuracy. Repeat K times, with a different fold as the testing set each time. Take the average of the K testing accuracies as the estimate of out-of-sample accuracy. Each observation is tested once and trained on K minus one times. The diagram is the procedure with K equal to five. The data is stacked in five blocks; in each of the five columns a different block is the test set, in red, and the other four are the training set, in blue. Five models are fitted and five test scores computed, one per column, and their average is the estimate.
+
 ## Page 103
 
 K-fold cross-validation is the standard way to make those splits. Divide the dataset into K equal partitions, called folds. Use fold one as the testing set and the union of the other folds as the training set, and compute the testing accuracy. Repeat K times, with a different fold as the testing set each time. Take the average of the K testing accuracies as the estimate of out-of-sample accuracy. Each observation is tested once and trained on K minus one times. The diagram is the procedure with K equal to five. The data is stacked in five blocks; in each of the five columns a different block is the test set, in red, and the other four are the training set, in blue. Five models are fitted and five test scores computed, one per column, and their average is the estimate.
@@ -379,6 +433,10 @@ K-fold cross-validation is the standard way to make those splits. Divide the dat
 ## Page 104
 
 In scikit-learn the whole procedure is one call. cross_val_score takes the classifier, the features, the target and the number of folds as cv, and returns an array of one score per fold; the mean of that array is the estimate. The function fits a fresh copy of the classifier for each fold, so the classifier object passed in is left unfitted. The default score for a classifier is accuracy, and a scoring argument selects another metric such as F1 or the area under the receiver operating characteristic curve.
+
+## Page 105
+
+A learning curve plots the training score and the cross-validation score against the number of training examples, and the two charts are the same model at two data sizes. The first chart stops at one hundred sixty examples: the training score, in red, sits at one and barely moves, while the cross-validation score, in green, stays near 0.87 and is nearly flat. The wide gap between the curves is overfitting: the model reproduces the examples it was fitted to and does much worse on the ones it was not, and since the cross-validation curve has not begun to climb, more data is the first thing to try. The second chart carries the same model to eight hundred examples. The training score falls from one toward 0.95 as the model can no longer fit every example, the cross-validation score rises from 0.875 to meet it near 0.94, and the two converge. Converging curves at a high score are a good fit. Two curves that converge at a low score mean the model is too simple for the data, and a cross-validation curve still rising at the right edge means more data would still help. In scikit-learn, LearningCurveDisplay.from_estimator draws the chart from a model, the data and a scoring choice; the code uses Gaussian naive Bayes with weighted F1, though both charts are titled with a linear support vector classifier from a different run.
 
 ## Page 106
 
@@ -500,59 +558,63 @@ A search optimizes whatever score it is given, and the score can be custom. The 
 
 Topics in scikit-learn for further study. Feature selection using classifiers: SelectFromModel keeps the features a fitted model rates as important. Ranking features: recursive feature elimination refits a model while dropping the weakest feature each round and records the order. Comparing classifiers: fit several and choose by cross-validated score. Stacking and voting: a stacking ensemble trains a second model on the predictions of several base models, and a voting classifier combines them by majority or by averaged probabilities. Plotting: the receiver operating characteristic curve at the left, with its area of 0.79, and manifold learning at the right, a family of nonlinear methods including Isomap, locally linear embedding and t-SNE that flatten high-dimensional data into two dimensions for visualization, here unrolling an S-shaped surface.
 
-## Page 137
+## Page 136
 
 Everything in this part of the deck, the choice of preprocessing, the choice of model and the hyperparameter search, can itself be automated. TPOT, the tree-based pipeline optimization tool from the Epistasis Lab at the University of Pennsylvania, searches over whole scikit-learn pipelines. The teapot is its logo.
 
 ## Page 138
 
-TPOT searches the space of pipelines by genetic programming. It starts with a population of random pipelines, each a chain of preprocessing steps and a model with hyperparameters, and scores each by cross-validation. The best pipelines are kept, mutated by changing a step or a setting, and crossed by combining parts of two, to form the next generation, and the process repeats for a set number of generations or a time budget. The result is the best pipeline found, which it can export as scikit-learn code. Thousands of candidate pipelines are evaluated along the way, which is the tedious part it removes from the person and the reason a run takes minutes to hours.
+Everything in this part of the deck, the choice of preprocessing, the choice of model and the hyperparameter search, can itself be automated. TPOT, the tree-based pipeline optimization tool from the Epistasis Lab at the University of Pennsylvania, searches over whole scikit-learn pipelines. The teapot is its logo.
 
 ## Page 139
 
-The diagram, from the TPOT repository, marks which stages of a project the tool takes over. Raw data and data cleaning at the left stay with the person, and model validation at the right does too. Everything in the shaded box is automated: feature selection, feature preprocessing and feature construction, which feed one another in any order; model selection; and parameter optimization. The tool searches over the whole shaded region at once, so a candidate pipeline is a particular choice at every one of those stages together.
+TPOT searches the space of pipelines by genetic programming. It starts with a population of random pipelines, each a chain of preprocessing steps and a model with hyperparameters, and scores each by cross-validation. The best pipelines are kept, mutated by changing a step or a setting, and crossed by combining parts of two, to form the next generation, and the process repeats for a set number of generations or a time budget. The result is the best pipeline found, which it can export as scikit-learn code. Thousands of candidate pipelines are evaluated along the way, which is the tedious part it removes from the person and the reason a run takes minutes to hours.
 
 ## Page 140
 
-An example of a pipeline TPOT can produce, and the reason for the word tree in its name. Two copies of the whole dataset enter separately. One passes through polynomial features, which adds products and powers of the original columns; the other through principal component analysis, which replaces the columns with a smaller set of uncorrelated combinations. The two results are combined into one feature set, recursive feature elimination drops the weakest columns, and a random forest classifies the rest. Each operator modifies the features and passes them on, branches can merge, and the final model sees only the final feature set. A search that can build shapes like this covers far more than a list of models with their settings.
+The diagram, from the TPOT repository, marks which stages of a project the tool takes over. Raw data and data cleaning at the left stay with the person, and model validation at the right does too. Everything in the shaded box is automated: feature selection, feature preprocessing and feature construction, which feed one another in any order; model selection; and parameter optimization. The tool searches over the whole shaded region at once, so a candidate pipeline is a particular choice at every one of those stages together.
 
 ## Page 141
 
-The TPOT classifier is set up like any scikit-learn model and then fitted. The search_space argument, here linear-light, restricts the search to unbranched pipelines built from a small set of fast operators, which keeps a short run productive. The scorers list and its weights define what the search maximizes, here the area under the receiver operating characteristic curve alone. The cv argument sets the folds used to score each candidate, population_size the number of candidates alive in each generation, max_time_mins the budget in minutes, n_jobs the parallel workers, and verbose how much progress is printed. The fit call runs the whole search on the training data. Afterward the object predicts like any classifier, and its fitted_pipeline_ attribute holds the winning pipeline.
+An example of a pipeline TPOT can produce, and the reason for the word tree in its name. Two copies of the whole dataset enter separately. One passes through polynomial features, which adds products and powers of the original columns; the other through principal component analysis, which replaces the columns with a smaller set of uncorrelated combinations. The two results are combined into one feature set, recursive feature elimination drops the weakest columns, and a random forest classifies the rest. Each operator modifies the features and passes them on, branches can merge, and the final model sees only the final feature set. A search that can build shapes like this covers far more than a list of models with their settings.
 
 ## Page 142
 
-The TPOT documentation, at epistasislab.github.io/tpot, covers the search spaces, the scorers, and how to export a finished pipeline.
+The TPOT classifier is set up like any scikit-learn model and then fitted. The search_space argument, here linear-light, restricts the search to unbranched pipelines built from a small set of fast operators, which keeps a short run productive. The scorers list and its weights define what the search maximizes, here the area under the receiver operating characteristic curve alone. The cv argument sets the folds used to score each candidate, population_size the number of candidates alive in each generation, max_time_mins the budget in minutes, n_jobs the parallel workers, and verbose how much progress is printed. The fit call runs the whole search on the training data. Afterward the object predicts like any classifier, and its fitted_pipeline_ attribute holds the winning pipeline.
 
 ## Page 143
 
-The main body of the module ends here. A case study on detecting SQL injection follows the last worksheet.
+The TPOT documentation, at epistasislab.github.io/tpot, covers the search spaces, the scorers, and how to export a finished pipeline.
 
 ## Page 144
 
-Worksheet 4.3 takes thirty minutes. It loads the same domain feature table, converts the dga and legit labels to one and zero, and splits the data. A TPOT classifier is created with a time budget under five minutes and a number of parallel jobs, and fitted on the training portion, which is the step that takes the time. The fitted model is scored on the test portion with a classification report and a confusion matrix display, for comparison with the models built by hand in the earlier worksheets. The last step exports the winning pipeline, either as a joblib file to load later or as scikit-learn source code.
+The main body of the module ends here. A case study on detecting SQL injection follows the last worksheet.
 
 ## Page 145
 
-This part is a case study: a supervised classifier applied to a security problem end to end.
+Worksheet 4.3 takes thirty minutes. It loads the same domain feature table, converts the dga and legit labels to one and zero, and splits the data. A TPOT classifier is created with a time budget under five minutes and a number of parallel jobs, and fitted on the training portion, which is the step that takes the time. The fitted model is scored on the test portion with a classification report and a confusion matrix display, for comparison with the models built by hand in the earlier worksheets. The last step exports the winning pipeline, either as a joblib file to load later or as scikit-learn source code.
 
 ## Page 146
 
-The case study is finding SQL injection attempts. It follows the SQL injection notebook in the data_hacking repository published by Click Security, a collection of notebooks applying data analysis to security data, and runs through five steps: tokenizing the statements, building n-grams of the tokens, turning those into a feature vector, training a classifier, and evaluating it.
+This part is a case study: a supervised classifier applied to a security problem end to end.
 
 ## Page 147
 
-SQL, the structured query language, is the language applications use to read and write relational databases. SQL injection is the attack in which a user's input is made to become part of a query.
+The case study is finding SQL injection attempts. It follows the SQL injection notebook in the data_hacking repository published by Click Security, a collection of notebooks applying data analysis to security data, and runs through five steps: tokenizing the statements, building n-grams of the tokens, turning those into a feature vector, training a classifier, and evaluating it.
 
 ## Page 148
 
-SQL injection is a vulnerability, found most often in web applications, in which an attacker gets the application to execute queries of the attacker's choosing on the application's own database server. The mechanism is string building: the application assembles a query by pasting user-supplied text into SQL, so text that contains SQL syntax changes what the query does.
+SQL, the structured query language, is the language applications use to read and write relational databases. SQL injection is the attack in which a user's input is made to become part of a query.
 
 ## Page 149
 
-A normal login query selects every column from the users table where the username is charles and the password is pass1234. The application expects one row back when the pair is correct and none when it is not, and grants access on the row count.
+SQL injection is a vulnerability, found most often in web applications, in which an attacker gets the application to execute queries of the attacker's choosing on the application's own database server. The mechanism is string building: the application assembles a query by pasting user-supplied text into SQL, so text that contains SQL syntax changes what the query does.
 
 ## Page 150
+
+A normal login query selects every column from the users table where the username is charles and the password is pass1234. The application expects one row back when the pair is correct and none when it is not, and grants access on the row count.
+
+## Page 151
 
 The pseudocode for the login check. The username and password come from the user. The query is a string with the two values inserted into it. The string is executed against the database, and if the result contains any rows the user is authenticated; otherwise they are refused. Nothing in the code checks what the two values contain before they become part of the query.
 
@@ -562,29 +624,33 @@ With the username charles and the password 12345 the query is the normal one, an
 
 ## Page 153
 
-Three legitimate queries from the dataset. One counts products above a price. One selects the system columns ctid and xmin along with every other column from a table, which is PostgreSQL syntax. One selects the current date from dual, the one-row table Oracle provides for expressions that need no table. Each is a complete statement that begins with a keyword and names a table.
+With the username charles and the password 12345 the query is the normal one, and the comment quotes the film Spaceballs on the quality of the combination. With the password changed to 12345 OR 1=1, the WHERE clause becomes username equals charles and password equals 12345, or one equals one. AND binds more tightly than OR, so the condition is true whenever one equals one, which is always. Every row in the table comes back, the row count is above zero, and the attacker is authenticated without knowing any password. The standard defense is a parameterized query, in which the database receives the query text and the values separately and does not parse the values as SQL. The case study takes the other side: recognizing injection attempts in traffic.
 
 ## Page 154
 
-Four malicious fragments from the dataset. Each begins with a single quote, which closes the string the application was building, and then adds an OR with a condition that is always true, so the WHERE clause matches every row. The four conditions are variations on the same idea: a string compared with itself, a string compared with a concatenation that produces it, a string compared with its national-character form, and a LIKE with a wildcard. The variations exist to defeat filters that look for the literal pattern of one equals one. None of the four is a complete statement; each is meant to be spliced into someone else's.
+Three legitimate queries from the dataset. One counts products above a price. One selects the system columns ctid and xmin along with every other column from a table, which is PostgreSQL syntax. One selects the current date from dual, the one-row table Oracle provides for expressions that need no table. Each is a complete statement that begins with a keyword and names a table.
 
 ## Page 155
 
-Step one turns each statement into a sequence of token types with sqlparse, a Python SQL parser. The parse_it function parses the text and returns the type name of every token except whitespace. The table has the raw statement, its label, and the token list: a stored-procedure call to xp_cmdshell that pings an address becomes Single for the quoted string, Identifier, three Floats for the pieces of the address, and Error for what the parser could not place; a create user statement becomes DDL, Keyword, Identifier, Keyword, Single. The classifier will see these type sequences rather than the literal text, so a new statement with different names and values but the same shape is treated the same. The unicode call is Python 2 syntax, as is the print statement later in the case study.
+Four malicious fragments from the dataset. Each begins with a single quote, which closes the string the application was building, and then adds an OR with a condition that is always true, so the WHERE clause matches every row. The four conditions are variations on the same idea: a string compared with itself, a string compared with a concatenation that produces it, a string compared with its national-character form, and a LIKE with a wildcard. The variations exist to defeat filters that look for the literal pattern of one equals one. None of the four is a complete statement; each is meant to be spliced into someone else's.
 
 ## Page 156
 
-Step two counts n-grams of token types, sequences of one, two or three consecutive tokens, and scores each by how strongly it is tied to one class. The score is a G-test, a likelihood-ratio test of whether an n-gram occurs independently of the label; the chart signs it so that positive means more common in malicious statements. The n-grams most tied to injections are a single-quoted string alone, a string followed by an identifier, punctuation, and alternations of identifier and string, which is the shape of a fragment that closes a quote and adds a condition. The n-grams most tied to legitimate statements are a keyword alone, keyword followed by identifier, and DML, the data manipulation statements select, insert, update and delete, which is the shape of a statement that begins properly. Parentheses and function calls score near zero and tell the two apart hardly at all.
+Step one turns each statement into a sequence of token types with sqlparse, a Python SQL parser. The parse_it function parses the text and returns the type name of every token except whitespace. The table has the raw statement, its label, and the token list: a stored-procedure call to xp_cmdshell that pings an address becomes Single for the quoted string, Identifier, three Floats for the pieces of the address, and Error for what the parser could not place; a create user statement becomes DDL, Keyword, Identifier, Keyword, Single. The classifier will see these type sequences rather than the literal text, so a new statement with different names and values but the same shape is treated the same. The unicode call is Python 2 syntax, as is the print statement later in the case study.
 
 ## Page 157
 
-The sequences column holds each statement's n-grams as tuples, ready to be scored. The fragment anything' or 'x'='x becomes identifier, string, identifier, string, and so on, the alternation the previous chart marked as malicious. The other rows are SQL Server probes: calls to xp_cmdshell, and statements that test whether the current login is sa or a member of the sysadmin role and then call waitfor, which delays the response, so the attacker learns the answer from how long the server takes to reply.
+Step two counts n-grams of token types, sequences of one, two or three consecutive tokens, and scores each by how strongly it is tied to one class. The score is a G-test, a likelihood-ratio test of whether an n-gram occurs independently of the label; the chart signs it so that positive means more common in malicious statements. The n-grams most tied to injections are a single-quoted string alone, a string followed by an identifier, punctuation, and alternations of identifier and string, which is the shape of a fragment that closes a quote and adds a condition. The n-grams most tied to legitimate statements are a keyword alone, keyword followed by identifier, and DML, the data manipulation statements select, insert, update and delete, which is the shape of a statement that begins properly. Parentheses and function calls score near zero and tell the two apart hardly at all.
 
 ## Page 158
 
-Step three builds the feature vector for each statement. Entropy: the character-level entropy of the statement text. Length: the number of tokens. G-test scores: the sum of the n-gram scores from step two over the statement's own n-grams, computed separately for the malicious-associated and the legitimate-associated n-grams, giving two numbers per statement.
+The sequences column holds each statement's n-grams as tuples, ready to be scored. The fragment anything' or 'x'='x becomes identifier, string, identifier, string, and so on, the alternation the previous chart marked as malicious. The other rows are SQL Server probes: calls to xp_cmdshell, and statements that test whether the current login is sa or a member of the sysadmin role and then call waitfor, which delays the response, so the attacker learns the answer from how long the server takes to reply.
 
 ## Page 159
+
+Step three builds the feature vector for each statement. Entropy: the character-level entropy of the statement text. Length: the number of tokens. G-test scores: the sum of the n-gram scores from step two over the statement's own n-grams, computed separately for the malicious-associated and the legitimate-associated n-grams, giving two numbers per statement.
+
+## Page 160
 
 The box plot compares statement length by class. Legitimate statements have a median of about five tokens with a long tail of outliers up to thirty-four; malicious statements have a median of about four with outliers up to seventeen. The two boxes span nearly the same range, so length on its own separates little.
 
@@ -594,16 +660,20 @@ The scatter of entropy against length gives the same result with two features. L
 
 ## Page 162
 
-The two G-test features separate the classes where entropy and length could not. Each statement is placed by its legitimate score on the vertical axis and its malicious score on the horizontal. Legitimate statements cluster at the upper left, with a high legitimate score and a negative malicious score; injections cluster at the lower right, with a high malicious score and a legitimate score near zero. The two groups still touch along the diagonal in the middle, and a few points of each class sit inside the other's cluster, but a boundary drawn across the diagonal would get most statements right.
+The scatter of entropy against length gives the same result with two features. Legitimate statements in blue and injections in red overlap across the whole range from one to seventeen tokens and from entropy two to five; only the longest statements, all legitimate, and a few very low-entropy fragments, all injections, sit apart. These two features alone would leave most of the data in a mixed region.
 
 ## Page 163
 
-Step four fits a random forest of twenty trees and scores it by ten-fold cross-validation with four parallel jobs, which returns ten accuracies. The cross_validation module used on the slide was removed from scikit-learn in 2018; the function now lives in model_selection.
+The two G-test features separate the classes where entropy and length could not. Each statement is placed by its legitimate score on the vertical axis and its malicious score on the horizontal. Legitimate statements cluster at the upper left, with a high legitimate score and a negative malicious score; injections cluster at the lower right, with a high malicious score and a legitimate score near zero. The two groups still touch along the diagonal in the middle, and a few points of each class sit inside the other's cluster, but a boundary drawn across the diagonal would get most statements right.
 
 ## Page 164
 
-The ten fold accuracies all fall between 0.9964 and one, for a mean of about 0.998. The number on its own is less informative than it looks: the dataset is about ninety-four percent malicious, so a classifier that called everything malicious would score about 0.94, and the accuracy says little about how the legitimate minority is handled.
+Step four fits a random forest of twenty trees and scores it by ten-fold cross-validation with four parallel jobs, which returns ten accuracies. The cross_validation module used on the slide was removed from scikit-learn in 2018; the function now lives in model_selection.
 
 ## Page 165
+
+The ten fold accuracies all fall between 0.9964 and one, for a mean of about 0.998. The number on its own is less informative than it looks: the dataset is about ninety-four percent malicious, so a classifier that called everything malicious would score about 0.94, and the accuracy says little about how the legitimate minority is handled.
+
+## Page 166
 
 Step five reads the confusion matrix, here normalized by true class so each cell is a percentage of its row. Of one hundred seventy-six legitimate statements, one hundred seventy were called legitimate and six were called malicious, a recall for the legitimate class of 96.59 percent. Of two thousand six hundred three malicious statements, two thousand six hundred one were caught and two were missed, a recall for the malicious class of 99.92 percent. The six false alarms are the number to watch: three and a half percent of legitimate statements are flagged, and in live traffic, where legitimate statements outnumber injections by far more than they do in this dataset, that rate is multiplied by a much larger count.

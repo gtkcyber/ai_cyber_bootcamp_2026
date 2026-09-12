@@ -137,7 +137,7 @@
   </section>
   <section data-page="15">
     <div class="page-stack">
-      <img class="page" src="pages/p015.webp" alt="GTK Cyber Basic operation of a neural network Initialize with random weights Present a training pattern Feed through to output 1.4 2.7 1.9 0.8 1.4 2.7 1.9 Compare to target, calcul">
+      <img class="page" src="pages/p015.webp" alt="GTK Cyber Basic operation of a neural network Initialize with random weights Obs erva tion s 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Present a training patt">
     </div>
     <aside class="notes">
       <p>Training a neural network is a loop of guess, compare and correct. The example network takes three inputs and produces one output, and the training data is four observations with three values each and a target of 0 or 1.</p>
@@ -175,7 +175,7 @@
   </section>
   <section data-page="19">
     <div class="page-stack">
-      <img class="page" src="pages/p019.webp" alt="GTK Cyber Finding the right parameters Compare to target, calculate Error 0.8 1.4 2.7 1.9 Error = .8 – 0 = 0.8 Modify weights based on Loss function 0.8 1.4 2.7 1.9">
+      <img class="page" src="pages/p019.webp" alt="GTK Cyber Finding the right parameters Obs erva tion s 1.4 2.7 1.9 3.8 3.4 3.2 6.4 2.8 1.7 4.1 0.1 0.2 Targets 0 0 1 0 Compare to target, calculate Error 0.8 1.4 2.7 1.9 Error = .8">
     </div>
     <aside class="notes">
       <p>The toy example and the general diagram describe the same two steps. On the left are the two panels from the training loop: compare the network's output with the target to get the error, then modify the weights according to the loss. On the right are the boxes those panels correspond to: the loss function, which takes the predictions and the targets and produces the error, and the arrow back to the parameters, which is the weight modification. The model box and the data box are the rest of the loop, the forward computation that produced the prediction.</p>
@@ -323,10 +323,20 @@
 <p>CNNs were developed for image processing, where both ideas match the data: features such as edges are local, and the same feature matters wherever in the image it appears.</p>
     </aside>
   </section>
-  <section data-page="37">
+  <section data-page="36">
     <div class="page-stack">
       <img class="page" src="pages/p036.webp" alt="GTK Cyber CNNs Idea 1 : Handling hi-dimensional patterns space 1. Filter the high-dimensional information in space: Convolution + Pooling i. Convolution (feature extraction) + Conv">
-      <img class="page fragment" src="pages/p037.webp" alt="GTK Cyber CNNs Idea 1 : Handling hi-dimensional patterns space 1. Filter the high-dimensional information in space: Convolution + Pooling i. Convolution (feature extraction) + Conv">
+    </div>
+    <aside class="notes">
+      <p>Convolution slides a small kernel over the image and records, at each position, how strongly the patch under the kernel matches it. The kernel is a small grid of weights, here three by three, in blue. Placing it over the top-left three by three patch of the image, multiplying each pixel by the weight above it and adding the nine products gives one number, the top-left cell of the convolved feature. Sliding the kernel one pixel to the right and repeating fills the next cell, and so on across and down the image; a six by six image with a three by three kernel yields a four by four convolved feature. The kernel's weights are learned by training, so each kernel becomes a detector for one local pattern, and a convolutional layer has many kernels, each producing its own feature map.</p>
+<p>Pooling reduces the convolved feature further. A pooling kernel, also a small window, slides over the feature map and replaces each window with a single summary value: the mean of the window for average pooling, the largest value for max pooling. The result is a smaller map that keeps the presence of a feature in each region and drops its exact position, which shrinks the data handed to the next layer and makes the detection tolerant of small shifts.</p>
+    </aside>
+  </section>
+  <section data-page="37">
+    <div class="page-stack">
+      <img class="page" src="pages/p037.webp" alt="GTK Cyber CNNs Idea 1 : Handling hi-dimensional patterns space 1. Filter the high-dimensional information in space: Convolution + Pooling i. Convolution (feature extraction) + Conv">
+      <video class="media" data-src="media/slide-037.mp4" poster="media/slide-037.webp" controls preload="none" playsinline style="left:64.69%;top:25.73%;width:28.80%;height:35.44%"></video>
+      <video class="media" data-src="media/slide-037-2.mp4" poster="media/slide-037-2.webp" controls preload="none" playsinline style="left:65.43%;top:55.48%;width:27.22%;height:33.50%"></video>
     </div>
     <aside class="notes">
       <p>Convolution slides a small kernel over the image and records, at each position, how strongly the patch under the kernel matches it. The kernel is a small grid of weights, here three by three, in blue. Placing it over the top-left three by three patch of the image, multiplying each pixel by the weight above it and adding the nine products gives one number, the top-left cell of the convolved feature. Sliding the kernel one pixel to the right and repeating fills the next cell, and so on across and down the image; a six by six image with a three by three kernel yields a four by four convolved feature. The kernel's weights are learned by training, so each kernel becomes a detector for one local pattern, and a convolutional layer has many kernels, each producing its own feature map.</p>

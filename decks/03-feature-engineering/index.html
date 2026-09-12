@@ -237,7 +237,7 @@
   </section>
   <section data-page="28">
     <div class="page-stack">
-      <img class="page" src="pages/p028.webp" alt="GTK Cyber Features http://www.google.com">
+      <img class="page" src="pages/p028.webp" alt="GTK Cyber Features domain_length vowel_count digit_count 6 3 0 http://www.google.com">
     </div>
     <aside class="notes">
       <p>The string becomes one row of a table with one column per feature, and the model receives the table. The deck's running example is detecting malicious URLs, where the raw record is the URL string and nothing else. The features are computed from the part highlighted on the slide, google.com, not from the protocol or the www prefix, which say nothing about the site behind them; which part of a record to measure is itself a feature engineering decision. Finding features that represent the record in a way a model can use is often the hardest part of a project.</p>
@@ -254,7 +254,7 @@
   </section>
   <section data-page="30">
     <div class="page-stack">
-      <img class="page" src="pages/p030.webp" alt="GTK Cyber URL Definition https://www.google.com/search? q=URL&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ved=0ahUKEwjcl6ut -IDUAhVEPCYKHdJGDsYQ_AUIDCgD&amp;biw=1215&amp;bih=652">
+      <img class="page" src="pages/p030.webp" alt="GTK Cyber URL Definition https://www.google.com/search? q=URL&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ved=0ahUKEwjcl6ut -IDUAhVEPCYKHdJGDsYQ_AUIDCgD&amp;biw=1215&amp;bih=652 https:// protocol www subdom">
     </div>
     <aside class="notes">
       <p>A URL is made of parts, and each part is measured separately. Protocol: the scheme before the double slash, https here. Subdomain: the label in front of the registered domain, www. Zone apex: the registered domain together with its top-level domain, google.com, which is the name at which the owner's DNS zone begins. Domain: the registered name on its own, google. Top-level domain: the suffix administered by a registry, .com. Path: everything after the host, here /search followed by a query string of parameter and value pairs. Top-level domains fall into three families: generic ones such as .com or the newer .guru and .cloud, country-code ones such as .uk, .de or .ru, and sponsored ones restricted to a community, such as .mil, .gov and .edu.</p>
@@ -375,7 +375,7 @@
   </section>
   <section data-page="44">
     <div class="page-stack">
-      <img class="page" src="pages/p044.webp" alt="GTK Cyber One Hot Encoding">
+      <img class="page" src="pages/p044.webp" alt="GTK Cyber One Hot Encoding Color Red Red Blue Green Yellow Red">
     </div>
     <aside class="notes">
       <p>A single categorical column, one row per record and a category name in each cell, is the input to one-hot encoding.</p>
@@ -383,7 +383,7 @@
   </section>
   <section data-page="45">
     <div class="page-stack">
-      <img class="page" src="pages/p045.webp" alt="GTK Cyber One Hot Encoding 4 Categories 4 Columns with 1 when Category is True and delete original column!">
+      <img class="page" src="pages/p045.webp" alt="GTK Cyber One Hot Encoding Color Red Red Blue Green Yellow Red Color_Red Color_Blue Color_Yellow Color_Green 1 0 0 0 1 0 0 0 0 1 0 0 0 0 0 1 0 0 1 0 1 0 0 0 4 Categories 4 Columns ">
     </div>
     <aside class="notes">
       <p>One-hot encoding replaces a categorical column with a binary column for each of its categories. The Color column has four categories, so it becomes four columns, Color_Red, Color_Blue, Color_Yellow and Color_Green; each row has a one in the column of its own color and zeros elsewhere, and the original column is deleted. The name comes from digital circuits, where a one-hot signal has exactly one line high.</p>
