@@ -253,5 +253,5 @@ __pycache__/
 /data/lstm_URL_Classifier.pt
 /data/exported_pipeline.py
 
-# Keynote sources for build_keynote.py: hundreds of MB, not for the repo
+# Keynote sources the keynote skill builds the decks from: hundreds of MB, not for the repo
 /slides/keynote/
