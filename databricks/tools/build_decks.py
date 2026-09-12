@@ -83,6 +83,8 @@ def render_pages(pdf_path, out_dir, width=PAGE_WIDTH, height=PAGE_HEIGHT,
     """
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
+    for stale in out_dir.glob("p*.webp"):
+        stale.unlink()
     written = []
     with pymupdf.open(pdf_path) as doc:
         for number, page in enumerate(doc, start=1):

@@ -2,7 +2,7 @@
   "slug": "00-introduction",
   "source": "Module 0 - Introduction.key",
   "pdf": "Module 0 - Introduction.pdf",
-  "page_count": 87,
+  "page_count": 64,
   "pages": [
     {
       "page": 1,
@@ -164,61 +164,61 @@
       "page": 27,
       "slide": 27,
       "stage": 0,
-      "stages": 1
+      "stages": 5
     },
     {
       "page": 28,
+      "slide": 27,
+      "stage": 1,
+      "stages": 5
+    },
+    {
+      "page": 29,
+      "slide": 27,
+      "stage": 2,
+      "stages": 5
+    },
+    {
+      "page": 30,
+      "slide": 27,
+      "stage": 3,
+      "stages": 5
+    },
+    {
+      "page": 31,
+      "slide": 27,
+      "stage": 4,
+      "stages": 5
+    },
+    {
+      "page": 32,
       "slide": 28,
       "stage": 0,
       "stages": 1
     },
     {
-      "page": 29,
+      "page": 33,
       "slide": 29,
       "stage": 0,
       "stages": 1
     },
     {
-      "page": 30,
+      "page": 34,
       "slide": 30,
       "stage": 0,
       "stages": 1
     },
     {
-      "page": 31,
+      "page": 35,
       "slide": 31,
       "stage": 0,
       "stages": 1
     },
     {
-      "page": 32,
-      "slide": 32,
-      "stage": 0,
-      "stages": 5
-    },
-    {
-      "page": 33,
-      "slide": 32,
-      "stage": 1,
-      "stages": 5
-    },
-    {
-      "page": 34,
-      "slide": 32,
-      "stage": 2,
-      "stages": 5
-    },
-    {
-      "page": 35,
-      "slide": 32,
-      "stage": 3,
-      "stages": 5
-    },
-    {
       "page": 36,
       "slide": 32,
-      "stage": 4,
-      "stages": 5
+      "stage": 0,
+      "stages": 1
     },
     {
       "page": 37,
@@ -385,144 +385,6 @@
     {
       "page": 64,
       "slide": 60,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 65,
-      "slide": 61,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 66,
-      "slide": 62,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 67,
-      "slide": 63,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 68,
-      "slide": 64,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 69,
-      "slide": 65,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 70,
-      "slide": 66,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 71,
-      "slide": 67,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 72,
-      "slide": 68,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 73,
-      "slide": 69,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 74,
-      "slide": 70,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 75,
-      "slide": 71,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 76,
-      "slide": 72,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 77,
-      "slide": 73,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 78,
-      "slide": 74,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 79,
-      "slide": 75,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 80,
-      "slide": 76,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 81,
-      "slide": 77,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 82,
-      "slide": 78,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 83,
-      "slide": 79,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 84,
-      "slide": 80,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 85,
-      "slide": 81,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 86,
-      "slide": 82,
-      "stage": 0,
-      "stages": 1
-    },
-    {
-      "page": 87,
-      "slide": 83,
       "stage": 0,
       "stages": 1
     }

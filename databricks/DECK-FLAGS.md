@@ -19,7 +19,7 @@ human pass to split the talk track. Known cosmetic difference from Keynote: Orbi
 a little wider in LibreOffice, so a few long titles wrap onto two lines (deck 01 "String
 Functions" is one); the words are all there.
 
-- `00-introduction`: 87 pages, 4 build-stage page(s).
+- `00-introduction`: 64 pages, 4 build-stage page(s). Rebuilt 2026-09-13 into a class-agnostic deck: the venue Wi-Fi slide, the "Presented by"/instructor-bio slides, and the PyCharm/Miniconda/conda setup section are gone (Databricks replaces local setup), the title and schedule slides no longer name a specific date or room, and the course-materials slide no longer points at the separate AI Dojo site.
 - `01-exploratory-data-analysis`: 177 pages, 17 build-stage page(s). Slides the text classifier had merged into one build, now their own reveal slides carrying the note written for the group (old page -> new page): 10->11, 29->32, 30->33, 40->51, 85->98, 90->103, 92->105, 93->106, 94->107, 98->111, 121->134, 123->137, 126->140, 150->164, 151->165, 152->167. Page 94: first-pass note written 2026-09-12 in place of UNRESOLVED; review it.
 - `02-data-visualization`: 61 pages, 1 media. Slides the text classifier had merged into one build, now their own reveal slides carrying the note written for the group (old page -> new page): 24->24, 32->32. Page 14: first-pass note written 2026-09-12 in place of UNRESOLVED; review it.
 - `03-feature-engineering`: 75 pages.
@@ -92,14 +92,10 @@ Functions" is one); the words are all there.
 - p9, p56: "Programatically". p28: "doesn't'".
 
 ## 00-introduction
-- p31: photo of SPAM varieties with no caption; point not stated anywhere in the deck (UNRESOLVED note).
-- p7: title says "Aug 2-4, 2025"; the course is Aug 2-4, 2026 (p6 says 2026).
-- p4: "Exploratory Data Analysis" listed under both Day 1 and Day 2.
-- p19: "Aritificial". p34: "a observation's". p78: "the the". p14: trailing empty bullet.
-- p38: "src and dat bytes" for dst bytes; "bro" is now Zeek.
-- p79, p81: terminal examples from a prior year (env "gtk-bh-ai", directory "ads_blackhat_2025").
-- p83: screenshot's worksheet numbering (7.1 CNN, 8.1 Attacking AI) predates the current README.
-- p2: extracted text carries an email and Slack invitation not visible in the render (hidden behind the Miniconda banner).
+- p26: photo of SPAM varieties with no caption; point not stated anywhere in the deck (UNRESOLVED note).
+- p3: "Exploratory Data Analysis" listed under both Day 1 and Day 2.
+- p14: "Aritificial". p29: "a observation's". p9: trailing empty bullet.
+- p33: "src and dat bytes" for dst bytes; "bro" is now Zeek.
 
 ## 14-red-teaming-ai
 - p15, p16: "Can you spot the prompt injection?" image slides (neon banner, "AI MUSIC MALWARE" thumbnail); the hidden injection is not inferable (UNRESOLVED notes).
@@ -273,12 +269,12 @@ Functions" is one); the words are all there.
 - p20: the is_private answer depends on the Python release; the note says so.
 
 ## 00-introduction (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
-- p2: title slide carries leftover text boxes ("Presented by Brian Genz", a Miniconda download instruction, a Slack invite line); the Wi-Fi PSK is printed on the slide.
-- p7: slide title says "Aug 2-4, 2025"; the course is 2026.
-- p18: "Aritificial Intelligence".
-- p10 note now says "the instructors": the deck shows three bios; Curtis Lambert's slide is gone from the Keynote.
-- p12: Summer Rankin's slide shows "<undisclosed>" as the employer, not the name.
-- p77: the Keynote text extraction returned an empty body though the slide carries a full paragraph; the page renders complete.
+- p13: "Aritificial Intelligence".
+
+The venue Wi-Fi/"Presented by" slide, the three instructor-bio slides and the stale-year
+schedule title this section used to flag are gone as of the 2026-09-13 generic-deck edit
+(see the entry above, under "Rebuilt from Keynote with build stages"), along with the
+PyCharm/Miniconda/conda setup section.
 
 ## 05-unsupervised-learning (rebuilt from Keynote, 2026-09-11; page numbers are the new deck's)
 - Conversion loss: the department table on p7 to p18 renders with empty cells in every frame; the notes state the values inferred from later slides (the third column's header is unknown). A Mac export restores it; until then those notes assert values the render does not show.

@@ -47,3 +47,25 @@ def test_the_output_directory_is_created(two_page_pdf, tmp_path):
     target = tmp_path / "deep" / "nested" / "pages"
     render_pages(two_page_pdf, target)
     assert target.is_dir()
+
+
+def test_a_shrinking_deck_drops_its_stale_trailing_pages(two_page_pdf, tmp_path):
+    """A slide deleted from the source must not leave its old page image
+    behind -- decks are committed, and an orphaned pNNN.webp would sit in
+    the repo forever, unreferenced but indistinguishable from a real page."""
+    out_dir = tmp_path / "pages"
+    out_dir.mkdir()
+    (out_dir / "p001.webp").write_bytes(b"stale")
+    (out_dir / "p002.webp").write_bytes(b"stale")
+    (out_dir / "p003.webp").write_bytes(b"stale")
+
+    doc = pymupdf.open()
+    page = doc.new_page(width=1920, height=1080)
+    page.insert_text((100, 200), "only page", fontsize=96)
+    one_page_pdf = tmp_path / "one.pdf"
+    doc.save(one_page_pdf)
+    doc.close()
+
+    written = render_pages(one_page_pdf, out_dir)
+    assert [p.name for p in written] == ["p001.webp"]
+    assert sorted(p.name for p in out_dir.glob("*.webp")) == ["p001.webp"]
