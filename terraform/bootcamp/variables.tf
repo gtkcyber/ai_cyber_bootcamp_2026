@@ -9,7 +9,7 @@ variable "databricks_account_id" {
 }
 
 variable "workspace_id" {
-  description = "Numeric id of the gtk-cyber workspace, for the group's workspace assignment."
+  description = "Numeric id of the workspace, for the group's workspace assignment."
   type        = number
 }
 
@@ -88,4 +88,24 @@ variable "cluster_pypi_packages" {
 variable "tags" {
   type    = map(string)
   default = {}
+}
+
+variable "aws_profile" {
+  description = "AWS CLI profile for the state bucket and course bucket"
+  type        = string
+}
+
+variable "workspace_profile" {
+  description = "Databricks CLI profile for the workspace (service principal)"
+  type        = string
+}
+
+variable "account_profile" {
+  description = "Databricks CLI profile for the account (service principal)"
+  type        = string
+}
+
+variable "prefix" {
+  description = "Name prefix for AWS resources, e.g. your-course-bootcamp"
+  type        = string
 }

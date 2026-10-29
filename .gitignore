@@ -255,3 +255,8 @@ __pycache__/
 
 # Keynote sources the keynote skill builds the decks from: hundreds of MB, not for the repo
 /slides/keynote/
+
+# Deployment: your values and generated files (never commit)
+deploy.config
+terraform/**/terraform.tfvars
+setup/job.rendered.json

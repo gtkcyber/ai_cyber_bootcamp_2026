@@ -1,6 +1,6 @@
 provider "aws" {
   region  = var.aws_region
-  profile = "gtk-cyber"
+  profile = var.aws_profile
 
   default_tags {
     tags = var.tags
@@ -10,12 +10,12 @@ provider "aws" {
 # Workspace-level provider: Unity Catalog objects, cluster, permissions.
 # Auth is the automation service principal via the gtk-workspace profile.
 provider "databricks" {
-  profile = "gtk-workspace"
+  profile = var.workspace_profile
 }
 
 # Account-level provider, only for the student group (identity-federated workspaces
 # take account groups, not workspace-local ones).
 provider "databricks" {
   alias   = "mws"
-  profile = "gtk-account"
+  profile = var.account_profile
 }

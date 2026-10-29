@@ -1,6 +1,6 @@
 provider "aws" {
   region  = var.aws_region
-  profile = "gtk-cyber"
+  profile = var.aws_profile
 
   default_tags {
     tags = var.tags
@@ -11,5 +11,5 @@ provider "aws" {
 # account host, account id, and the OAuth M2M credentials of the automation service principal.
 provider "databricks" {
   alias   = "mws"
-  profile = "gtk-account"
+  profile = var.account_profile
 }

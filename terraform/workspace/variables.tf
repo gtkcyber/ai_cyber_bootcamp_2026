@@ -50,3 +50,13 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "aws_profile" {
+  description = "AWS CLI profile for the workspace resources"
+  type        = string
+}
+
+variable "account_profile" {
+  description = "Databricks CLI profile for the account (service principal)"
+  type        = string
+}

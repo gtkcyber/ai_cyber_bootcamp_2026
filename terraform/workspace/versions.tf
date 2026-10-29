@@ -17,10 +17,8 @@ terraform {
   }
 
   backend "s3" {
-    bucket       = "<YOUR-TFSTATE-BUCKET>"
+    # bucket, region and profile are passed at init: see scripts/setup-deployment.sh
     key          = "databricks/workspace.tfstate"
-    region       = "us-east-1"
-    profile      = "gtk-cyber"
     encrypt      = true
     use_lockfile = true
   }

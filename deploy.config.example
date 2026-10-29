@@ -1,0 +1,28 @@
+# Copy to deploy.config (gitignored) and fill in. Nothing here is a secret: credentials live
+# in ~/.databrickscfg and the AWS CLI profile, never in this file.
+
+# AWS: profile for the state bucket and course bucket
+AWS_PROFILE=my-aws
+AWS_REGION=us-east-1
+TFSTATE_BUCKET=<YOUR-TFSTATE-BUCKET>
+
+# Databricks CLI profiles (defined in ~/.databrickscfg)
+ACCOUNT_PROFILE=my-account
+WORKSPACE_PROFILE=my-workspace
+DATABRICKS_ACCOUNT_ID=<YOUR_DATABRICKS_ACCOUNT_ID>
+WORKSPACE_ID=<YOUR_WORKSPACE_ID>
+
+# Naming
+PREFIX=my-bootcamp
+WORKSPACE_NAME=my-bootcamp
+CATALOG=ai_cyber_bootcamp
+SCHEMA=course
+
+# People (comma-separated emails). Admins can manage clusters and the course; students get CAN_ATTACH_TO.
+ADMIN_EMAILS=admin1@example.com,admin2@example.com
+STUDENT_GROUP=<YOUR_STUDENT_GROUP>
+AUTOMATION_SP=<YOUR_AUTOMATION_SERVICE_PRINCIPAL>
+
+# Setup job
+WORKSPACE_SETUP_PATH=/Workspace/Shared/bootcamp-setup
+JOB_CLUSTER_USER_ID=<YOUR_SERVICE_PRINCIPAL_OR_USER_ID>
