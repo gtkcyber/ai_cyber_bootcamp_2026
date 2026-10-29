@@ -1,0 +1,41 @@
+{
+  "name": "bootcamp-setup (do not run without a decision on compute)",
+  "description": "One-time setup for the course: wheelhouse, then model training and registration (not yet included), then endpoints. Creates no endpoint until its model is registered. Run manually when you decide to spend the compute.",
+  "max_concurrent_runs": 1,
+  "job_clusters": [
+    {
+      "job_cluster_key": "setup",
+      "new_cluster": {
+        "spark_version": "18.x-scala2.13",
+        "node_type_id": "r5d.2xlarge",
+        "driver_node_type_id": "r5d.2xlarge",
+        "num_workers": 0,
+        "kind": "CLASSIC_PREVIEW",
+        "is_single_node": true,
+        "use_ml_runtime": true,
+        "data_security_mode": "SINGLE_USER",
+        "single_user_name": "<YOUR_SERVICE_PRINCIPAL_OR_USER_ID>",
+        "spark_conf": {"spark.master": "local[*, 4]"}
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "task_key": "wheelhouse",
+      "job_cluster_key": "setup",
+      "notebook_task": {
+        "notebook_path": "/Workspace/<YOUR_SETUP_FOLDER>/01_wheelhouse",
+        "base_parameters": {"catalog": "ai_cyber_bootcamp", "schema": "course"}
+      }
+    },
+    {
+      "task_key": "endpoints",
+      "depends_on": [{"task_key": "wheelhouse"}],
+      "job_cluster_key": "setup",
+      "notebook_task": {
+        "notebook_path": "/Workspace/<YOUR_SETUP_FOLDER>/03_endpoints",
+        "base_parameters": {"catalog": "ai_cyber_bootcamp", "schema": "models", "student_group": "<YOUR_STUDENT_GROUP>"}
+      }
+    }
+  ]
+}
