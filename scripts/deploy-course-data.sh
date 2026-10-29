@@ -35,6 +35,9 @@ DBX=(databricks -p "$PROFILE")
 # Data volume: everything under data/, including bpe_merges.json, datasets and the pickles.
 $DRY "${DBX[@]}" fs cp -r "$ROOT/data" "$VOL/data" --overwrite
 
+# Wheelhouse pins: the job in setup/01_wheelhouse.py reads this file from the volume.
+$DRY "${DBX[@]}" fs cp "$ROOT/setup/wheelhouse-pins.txt" "$VOL/data/wheelhouse/wheelhouse-pins.txt" --overwrite
+
 # Slides: one shared copy, per the add-students runbook.
 $DRY "${DBX[@]}" fs cp -r "$ROOT/slides" "$VOL/data/slides" --overwrite
 
