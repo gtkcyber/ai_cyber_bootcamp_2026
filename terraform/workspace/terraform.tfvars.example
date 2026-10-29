@@ -1,0 +1,18 @@
+databricks_account_id = "<YOUR_DATABRICKS_ACCOUNT_ID>"
+aws_region            = "us-east-1"
+vpc_cidr              = "10.20.0.0/16"
+workspace_name        = "gtk-cyber"
+# deployment_name = "training"   # target URL gtkcyber-training; needs the account prefix, which is not set yet. Setting it later replaces the workspace.
+metastore_id                 = "6c9e2750-16c1-4748-90ac-7367c1386c69"
+automation_service_principal = "<YOUR_AUTOMATION_SERVICE_PRINCIPAL>"
+
+account_admins = [
+  "admin1@example.com",
+  "admin2@example.com",
+  "admin3@example.com",
+]
+
+tags = {
+  project    = "gtk-cyber"
+  managed_by = "terraform"
+}

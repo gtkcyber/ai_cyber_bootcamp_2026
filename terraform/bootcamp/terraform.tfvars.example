@@ -1,0 +1,29 @@
+aws_region            = "us-east-1"
+databricks_account_id = "<YOUR_DATABRICKS_ACCOUNT_ID>"
+workspace_id          = <YOUR_WORKSPACE_ID>
+
+cluster_pypi_packages = [
+  "apachelogs",
+  "user-agents",
+  "ua-parser",
+  "fg-data-profiling",
+  "lime",
+  "pmdarima",
+  "adversarial-robustness-toolbox",
+  "langchain-community",
+  "langchain-huggingface",
+  "langchain-openai",
+  "langchain-mcp-adapters",
+  "langgraph-supervisor",
+  "databricks-langchain",
+  "mcp<2",
+  "fastmcp",
+  "pypdf",
+  "phonenumbers",
+]
+
+tags = {
+  project    = "gtk-cyber"
+  course     = "ai-cyber-bootcamp-2026"
+  managed_by = "terraform"
+}

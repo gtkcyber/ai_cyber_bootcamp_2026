@@ -20,6 +20,8 @@ GTK Cyber [www.gtkcyber.com](https://www.gtkcyber.com) was founded to bridge the
 
 Course setup can be found [here](SETUP.md).
 
+To deploy your own copy on Databricks, see [DEPLOYMENT.md](DEPLOYMENT.md). Agents working in this repo should read [agents/CLAUDE.md](agents/CLAUDE.md) first.
+
 ## Labs
 * [Worksheet 1.1 - Vectorized Data Structures](notebooks/Worksheet_1.1_Vectorized_Data_Structures.ipynb)
 * [Worksheet 2.1 - Data Visualization](notebooks/Worksheet_2.1_Data_Visualization.ipynb) 
